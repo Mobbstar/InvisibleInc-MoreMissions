@@ -1,0 +1,4 @@
+name = More Missions
+author = Mobbstar
+version = 0.1
+icon = gui/icons/modicon_moremissions.png
