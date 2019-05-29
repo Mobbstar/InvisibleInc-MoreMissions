@@ -1,0 +1,12 @@
+Distress Call
+Reward: New agent or money reward for rescuing contact.
+Fluff: Beam in to extract a live asset who got free on their own (agent or civilian type NPC carrying random valuable gear, corporate intel, or similar).
+Design: Mission starts at or shortly before alarm level 4. On turn 2, you "establish uplink" with an new agent who you now control, freshly spawned in in a safe location far from the exit. Objective is to get everyone to the exit (+ the usual, safes etc.). Guaranteed 'agent location detected' event one turn later. To compensate, agent starts with some basic gear.
+
+
+Sabotage
+Reward: Partial reward: Money. Full completion reward: Global decline by 1 of target security level? Can we do that?
+Fluff: Something about using a massive EMP detonation to scramble the data on some very important servers which is used for security algorithms... Monst3r has arranged for an EMP device to be on site.
+Design: First you have to locate the custom EMP pack (can we make it a prop with EMP qualities so it's not sellable?) from a locker (or random safe?), hack the database/server to disable its failsafes, then plant the device. The EMP effect is map-wide and causes Short-Circuit V.2.0 (or something analogous) to install.
+Partial completion reward: You can steal corporate intel.
+
