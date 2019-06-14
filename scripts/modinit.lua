@@ -10,6 +10,11 @@ local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 
 local function init( modApi )
 	modApi.requirements = { "Contingency Plan", "Sim Constructor" }
+
+	-- Adding custom prefabs
+    	local scriptPath = modApi:getScriptPath()   
+	rawset(_G,"SCRIPT_PATHS",rawget(_G,"SCRIPT_PATHS") or {})
+    	SCRIPT_PATHS.more_missions_prefabs = scriptPath
 	
 	local dataPath = modApi:getDataPath()
 	KLEIResourceMgr.MountPackage( dataPath .. "/gui.kwad", "data" )
@@ -133,6 +138,23 @@ local function load( modApi, options, params )
 	if STORY_SCRIPTS.CAMPAIGN_MAP and STORY_SCRIPTS.CAMPAIGN_MAP.MISSIONS then
 		modApi:addMapScripts( STORY_SCRIPTS.CAMPAIGN_MAP.MISSIONS, "CAMPAIGN_MAP")  
 	end
+
+	--add prefabs:
+
+	local sharedPrefabs = include( scriptPath .. "/prefabs/shared/prefabt" )
+    	modApi:addPrefabt(sharedPrefabs)
+
+	--local koPrefabs = include( scriptPath .. "/prefabs/ko/prefabt" )
+ 	--modApi:addWorldPrefabt(scriptPath, "ko", koPrefabs)
+
+	--local ftmPrefabs = include( scriptPath .. "/prefabs/ftm/prefabt" )
+  	-- modApi:addWorldPrefabt(scriptPath, "ftm", ftmPrefabs)
+
+	--local skPrefabs = include( scriptPath .. "/prefabs/sankaku/prefabt" )
+  	--modApi:addWorldPrefabt(scriptPath, "sankaku", skPrefabs)
+
+	--local plastechPrefabs = include( scriptPath .. "/prefabs/plastech/prefabt" )
+    	--modApi:addWorldPrefabt(scriptPath, "plastech", plastechPrefabs)
 	
 end
 
