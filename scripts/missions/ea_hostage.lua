@@ -350,12 +350,12 @@ end
 ---------------------------------------------------------------------------------------------
 -- Begin!
 
---local hostage_mission = class( mission_util.campaign_mission )
-local hostage_mission = class( escape_mission )
+local hostage_mission = class( mission_util.campaign_mission )
+--local hostage_mission = class( escape_mission )
 
 function hostage_mission:init( scriptMgr, sim )
-   -- mission_util.campaign_mission.init( self, scriptMgr, sim )
-	escape_mission.init( self, scriptMgr, sim )
+    mission_util.campaign_mission.init( self, scriptMgr, sim )
+--	escape_mission.init( self, scriptMgr, sim )
 
 	scriptMgr:addHook( "HOSTAGE", startPhase )
 end
