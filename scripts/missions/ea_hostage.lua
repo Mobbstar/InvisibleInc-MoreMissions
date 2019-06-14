@@ -9,6 +9,7 @@ local win_conditions = include( "sim/win_conditions" )
 local strings = include( "strings" )
 local astar = include( "modules/astar" )
 local astar_handlers = include("sim/astar_handlers")
+local escape_mission = include( "sim/missions/escape_mission" )
 
 ---------------------------------------------------------------------------------------------
 -- Local helpers
@@ -349,16 +350,20 @@ end
 ---------------------------------------------------------------------------------------------
 -- Begin!
 
-local hostage_mission = class( mission_util.campaign_mission )
+--local hostage_mission = class( mission_util.campaign_mission )
+local hostage_mission = class( escape_mission )
 
 function hostage_mission:init( scriptMgr, sim )
-    mission_util.campaign_mission.init( self, scriptMgr, sim )
+   -- mission_util.campaign_mission.init( self, scriptMgr, sim )
+	escape_mission.init( self, scriptMgr, sim )
 
 	scriptMgr:addHook( "HOSTAGE", startPhase )
 end
 
-function hostage_mission.pregeneratePrefabs( cxt, tags )
-	table.insert( tags, "hostage" )
+function hostage_mission.pregeneratePrefabs( cxt, tagSet ) -- was tags instead of tagSet
+	escape_mission.pregeneratePrefabs( cxt, tagSet ) -- added
+	table.insert( tagSet[1], "hostage" )
+	--table.insert( tags, "hostage" )
 end
 
 function hostage_mission.finalizeProcgen( cxt )
