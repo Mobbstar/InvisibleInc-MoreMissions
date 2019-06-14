@@ -606,25 +606,48 @@ local walls =
 }
 local units =
 {
+
+    hostage =
     {
-        x = 2,
-        y = 4,
-        template = [[hostage_capture]],
-        spawnWeight = 1,
-        unitData =
+        spawnChance = 1,
+        maxCount = 5,
         {
-            facing = 0,
+            {
+                x = 2,
+                y = 4,
+                template = [[hostage_capture]],
+                unitData =
+                {
+                    facing = 0,
+                    tags =
+                    {
+                      "hostage",
+                 --       "hostageSituation",
+                    },
+                },
+            },
+            1,
         },
-    },
-    {
-        x = 4,
-        y = 4,
-        template = [[npc_guard]],
-        spawnWeight = 1,
-        unitData =
         {
-            facing = 4,
-            team = 2,
+            {
+                x = 4,
+                y = 4,
+                template = [[important_guard]],
+                unitData =
+                {
+                    facing = 4,
+		    traits={nopatrol=true},
+                   -- tags =
+                   -- {
+                      --  "hostageSituation",
+                   -- },
+                  --  patrolPath =
+                  --  {
+                  --      {5,6},{4,2}
+                  --  },
+                },
+            },
+            1,
         },
     },
 }
