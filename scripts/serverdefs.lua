@@ -35,8 +35,8 @@ local SITUATIONS =
 	ea_hostage =
 	{
         ui = {
-			insetImg = "gui/mission_debrief/unknown.png",
-			icon = "gui/mission_previews/unknown.png",
+			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			icon = "gui/mission_previews/ea_hostage.png",
 			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_HOSTAGE ),
 		},
 	},
