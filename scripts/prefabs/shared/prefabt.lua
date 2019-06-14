@@ -6,7 +6,7 @@
 local PREFABT0 =
 {   
     {
-	filename = SCRIPT_PATHS.more_missions_prefabs .. "/prefabs/shared/hostage_1",        
+	filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared/hostage_1",        
         tags =
         {
             "hostage",
@@ -675,7 +675,7 @@ local PREFABT0 =
         weight = 42,
     },
     {
-    filename = SCRIPT_PATHS.more_missions_prefabs .. "/prefabs/shared/hostage_1",
+    filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared/hostage_1",
         tags =
         {
             "hostage",
@@ -1344,7 +1344,7 @@ local PREFABT0 =
         weight = 42,
     },
     {
-    filename = SCRIPT_PATHS.more_missions_prefabs .. "/prefabs/shared/hostage_1",
+    filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared/hostage_1",
         tags =
         {
             "hostage",
@@ -2013,7 +2013,7 @@ local PREFABT0 =
         weight = 42,
     },
     {
-    filename = SCRIPT_PATHS.more_missions_prefabs .. "/prefabs/shared/hostage_1",
+    filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared/hostage_1",
         tags =
         {
             "hostage",

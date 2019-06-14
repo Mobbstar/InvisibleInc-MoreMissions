@@ -32,6 +32,14 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_NANO_FAB ),
 		},
 	},
+	ea_hostage =
+	{
+        ui = {
+			insetImg = "gui/mission_debrief/unknown.png",
+			icon = "gui/mission_previews/unknown.png",
+			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_HOSTAGE ),
+		},
+	},
 }
 
 --automated processing

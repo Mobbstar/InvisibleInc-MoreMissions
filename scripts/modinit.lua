@@ -11,11 +11,11 @@ local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 local function init( modApi )
 	modApi.requirements = { "Contingency Plan", "Sim Constructor" }
 
-	-- Adding custom prefabs
-    	local scriptPath = modApi:getScriptPath()   
+	-- Path for custom prefabs   
+	local scriptPath = modApi:getScriptPath()  	
 	rawset(_G,"SCRIPT_PATHS",rawget(_G,"SCRIPT_PATHS") or {})
-    	SCRIPT_PATHS.more_missions_prefabs = scriptPath
-	
+    	SCRIPT_PATHS.more_missions = scriptPath
+
 	local dataPath = modApi:getDataPath()
 	KLEIResourceMgr.MountPackage( dataPath .. "/gui.kwad", "data" )
     -- KLEIResourceMgr.MountPackage( dataPath .. "/images.kwad", "data" )
@@ -37,6 +37,8 @@ local function init( modApi )
 	modApi:addGenerationOption("holostudio",  STRINGS.MOREMISSIONS.OPTIONS.HOLOSTUDIO , STRINGS.MOREMISSIONS.OPTIONS.HOLOSTUDIO_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("assassination",  STRINGS.MOREMISSIONS.OPTIONS.ASSASSINATION , STRINGS.MOREMISSIONS.OPTIONS.ASSASSINATION_TIP, {noUpdate=true, enabled = false} )
 	modApi:addGenerationOption("landfill",  STRINGS.MOREMISSIONS.OPTIONS.LANDFILL , STRINGS.MOREMISSIONS.OPTIONS.LANDFILL_TIP, {noUpdate=true, enabled = false} )
+
+	modApi:addGenerationOption("ea_hostage",  STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.MISSION_TITLE , STRINGS.MOREMISSIONS.LOCATIONS.EA_HOSTAGE.DESCRIPTION, {noUpdate=true, enabled = false} )
 	
 end
 
@@ -165,8 +167,13 @@ end
 local function initStrings(modApi)
 	local dataPath = modApi:getDataPath()
 	local scriptPath = modApi:getScriptPath()
-	local MOD_STRINGS = include( scriptPath .. "/strings" )
+	local MOD_STRINGS = include( scriptPath .. "/strings" )	
+
 	modApi:addStrings( dataPath, "MOREMISSIONS", MOD_STRINGS)
+
+	--separate mission strings
+	local HOSTAGE = include(scriptPath .. "/mission_strings/hostage_strings" )	
+	modApi:addStrings( dataPath, "MOREMISSIONS_HOSTAGE", HOSTAGE)
 end
 
 return {
