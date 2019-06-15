@@ -135,15 +135,8 @@ return {
 			DESCRIPTION = "Find and access the repair workstation.",
 			REWARD = "A range of heavily discounted items.",
 		},
-		EA_HOSTAGE = {			
-			NAME= "Secure Holding Facility",
-			MORE_INFO = "Corporation has intercepted one of our client's couriers.\nHe's got important intel stored in a cerebral implant.\nYour task is to break in, locate the courier, and recover the information.\n\nOne final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",
-			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
-			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
-			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
-			DESCRIPTION = "Rescue missing courier, and escape with him in time limited from the moment you free him.\nTelapad locked, courier possesses the key.",
-			REWARD = "1200 Credits.",
-		},
+		EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
+
 	},
 	
 	UI = {
@@ -232,6 +225,7 @@ return {
 					-- "We can make do with nanofabs, but the cheap items you missed at this facility would have saved much money for other improvements.",
 				-- },				
 			-- },
+			EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.INGAME,
 		},
 		-- CAMPAIGN_MAP = {
 			-- MISSIONS = {

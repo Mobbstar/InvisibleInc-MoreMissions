@@ -167,13 +167,15 @@ end
 local function initStrings(modApi)
 	local dataPath = modApi:getDataPath()
 	local scriptPath = modApi:getScriptPath()
-	local MOD_STRINGS = include( scriptPath .. "/strings" )	
 
-	modApi:addStrings( dataPath, "MOREMISSIONS", MOD_STRINGS)
-
-	--separate mission strings
+--separate mission strings
 	local HOSTAGE = include(scriptPath .. "/mission_strings/hostage_strings" )	
 	modApi:addStrings( dataPath, "MOREMISSIONS_HOSTAGE", HOSTAGE)
+
+	local MOD_STRINGS = include( scriptPath .. "/strings" )	
+	modApi:addStrings( dataPath, "MOREMISSIONS", MOD_STRINGS)
+
+	
 end
 
 return {

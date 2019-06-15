@@ -9,18 +9,16 @@ local win_conditions = include( "sim/win_conditions" )
 local strings = include( "strings" )
 local astar = include( "modules/astar" )
 local astar_handlers = include("sim/astar_handlers")
-local escape_mission = include( "sim/missions/escape_mission" )
+
+local SCRIPTS = include('client/story_scripts')
+local escape_mission = include( "sim/missions/escape_mission" ) -- in case if  we initiate mission as escape_mission class
+								-- instead of mission_util.campaign_mission class
 
 ---------------------------------------------------------------------------------------------
 -- Local helpers
 
-local MISSION_REWARD = 1200 -- raised from vanilla 800
+local MISSION_REWARD = 1200 -- to think about, we can apply difficulty or day multiplier later, or just raise paidment, vanilla = 800
 local VITAL_SIGN_START = 10
-
-local HOSTAGE_RESCUE =
-{
-	trigger = "hostage_rescued", 
-}
 
 local HOSTAGE_DEAD =
 {
@@ -66,7 +64,7 @@ local function checkNoHostageGameOver( script, sim )
 
 	script:clearQueue()
 	script:queue( { type="clearEnemyMessage" } )
-	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.CENTRAL_COMPLETE_MISSION_NO_COURIER, type="operatorMessage", profileAnim="portraits/central_face", profileBuild="portraits/central_face" } )
+	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_COMPLETE_MISSION_NO_COURIER[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_COMPLETE_MISSION_NO_COURIER)], type="newOperatorMessage" })
 	script:waitFrames( 240 )
 	script:queue( { type="clearOperatorMessage" } )
 
@@ -100,9 +98,9 @@ local function checkHostageDeath( script, sim )
 		--hostage:killUnit( sim )]]
 
 		script:waitFrames( 2*cdefs.SECONDS )
-		script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.CENTRAL_HOSTAGE_DEATH, type="operatorMessage", profileAnim="portraits/central_face", profileBuild="portraits/central_face" } )
+		script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH)], type="newOperatorMessage" })
 		sim:setMissionReward( 0 )
-
+		sim:removeObjective( "hostage_3" )
 		script:waitFor( mission_util.PC_ANY )	
 		script:queue( { type="clearOperatorMessage" } )
 
@@ -158,7 +156,11 @@ local function hostageBanter( script, sim )
 			if hostage:getTraits().vitalSigns <= 0 then
 
 				script:removeHook( checkHostageDeath )
-				script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_PASS_OUT, header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage" } )
+				script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_PASS_OUT, 
+					header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage", 
+					profileAnim="portraits/portrait_animation_template",
+					profileBuild="portraits/courier_face",
+				} )
 				script:waitFrames( 2*cdefs.SECONDS )
 
 				script:queue( { soundPath="SpySociety/Agents/Agent_1/Regular/die", type="operatorVO" } )
@@ -168,12 +170,12 @@ local function hostageBanter( script, sim )
 				script:waitFrames( 1*cdefs.SECONDS )
 				script:queue( { type="clearEnemyMessage" } )
 
-				script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.CENTRAL_PASS_OUT, type="operatorMessage", profileAnim="portraits/central_face", profileBuild="portraits/central_face" } )
-				script:queue( 3*cdefs.SECONDS )
+				script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_PASS_OUT[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_PASS_OUT)], type="newOperatorMessage" })	
+				script:queue( 1*cdefs.SECONDS )
 				script:queue( { type="clearOperatorMessage" } )
 
-				hostage:killUnit( sim )
-
+				--hostage:killUnit( sim )
+				sim:removeObjective( "hostage_3" )
 				gameOver = true
 
 				--add the no hostage gameover check
@@ -185,8 +187,12 @@ local function hostageBanter( script, sim )
 
 				script:queue( 1*cdefs.SECONDS )
 				i = i + 1
-				if i < #STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_BANTER then
-					script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_BANTER[i], header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage" } )
+				if i < #STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_BANTER then					
+					script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_BANTER[i], 
+					header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage", 
+					profileAnim="portraits/portrait_animation_template",
+					profileBuild="portraits/courier_face",
+				} )
 					script:queue( 4*cdefs.SECONDS )		
 					script:queue( { type="clearEnemyMessage" } )
 				end
@@ -202,6 +208,14 @@ local function clearHostageStatusAfterMove( script, sim )
 	while true do
 		script:waitFor( PC_HOSTAGE_STARTED_MOVE )
 		script:queue( { type="hideHUDInstruction" } )
+	end
+end
+
+local function updateHostageStatusAfterMove( script, sim )
+
+	while true do
+		script:waitFor( PC_HOSTAGE_MOVED )
+		updateVitalStatus(script, sim, false)
 	end
 end
 
@@ -265,67 +279,82 @@ end
 
 local function startPhase( script, sim )
 
-	script:waitFor( mission_util.UI_INITIALIZED )
-
-	mission_util.makeAgentConnection( script, sim )
-
-	sim:setMissionReward( MISSION_REWARD )
-
-	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OPERATOR_OPEN, type="operatorMessage", profileAnim="portraits/central_face", profileBuild="portraits/central_face" } )
-	script:waitFrames( 0.5*cdefs.SECONDS )
-
-	script:waitFor( mission_util.PC_ANY )	
-	script:queue( { type="clearOperatorMessage" } )
+--	script:waitFor( mission_util.UI_INITIALIZED )	
+--	script:queue( { type = "hideInterface" })
+--   	sim:dispatchEvent( simdefs.EV_TELEPORT, { units = sim:getPC():getAgents(), warpOut = false } )
+	-- mission_util.makeAgentConnection( script, sim )
+--	script:queue( 1*cdefs.SECONDS )	
+--	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_OPEN[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_OPEN)], type="newOperatorMessage" } )
+--	script:queue( { type = "showInterface" })
+--	script:queue( 0.5*cdefs.SECONDS )
+--	script:queue( { type = "showMissionObjectives" })
 
 	sim:addObjective( STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OBJECTIVE_FIND_HOSTAGE, "hostage_1" )
-
 	sim:getTags().no_escape = true
 
-	--See the hostage
-	script:waitFor( mission_util.PC_SAW_UNIT("hostage") )
+--	script:waitFor( mission_util.PC_ANY )
+--	script:queue( { type="clearOperatorMessage" } )
+
+
+	sim:setMissionReward( MISSION_REWARD )
+	
+	--See the hostage	
+	 local _, hostage = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "hostage", STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, STRINGS.MISSIONS.UTIL.RAPID_PULSE_READING ) )
 	sim:forEachUnit(
 		function(unit)
 			if unit:getTraits().hostage then 
-				local x, y = unit:getLocation()
-				script:queue( { type="displayHUDInstruction", text="RAPID PULSE READING", x=x, y=y } )
+				local x, y = unit:getLocation()			
 				script:queue( { type="pan", x=x, y=y } )
 				--unit:getTraits().vitalSigns = VITAL_SIGN_START
 				--print( "vital signs: "..unit:getTraits().vitalSigns )
 			end
 		end)
 	script:queue( 0.5*cdefs.SECONDS )
-	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_SIGHTED, type="operatorMessage", profileAnim="portraits/central_face", profileBuild="portraits/central_face" } )
 
+	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.HOSTAGE_SIGHTED[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.HOSTAGE_SIGHTED)], type="newOperatorMessage" } )
+	
 	script:waitFor( mission_util.PC_ANY )	
 	script:queue( { type="clearOperatorMessage" } )
 
 	sim:removeObjective( "hostage_1" )
 	sim:addObjective( STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OBJECTIVE_RESCUE_HOSTAGE, "hostage_2" )
 
-	script:waitFor( HOSTAGE_RESCUE )
-
+	
+	script:waitFor( mission_util.PC_USED_ABILITY( "hostage_rescuable" ))
+	sim:setClimax(true)
+	hostage:destroyTab()
+	script:queue( { type="hideHUDInstruction" } )	
 	sim:openElevator()
 	calculateHostageVitalSigns(sim)
-
-	script:queue( { type="hideHUDInstruction" } )
-	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_CONVO1, header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage" } )
-	script:queue( 160 )	
-	script:queue( { type="clearEnemyMessage" } )
-	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OPERATOR_CONVO1, type="operatorMessage", profileAnim="portraits/central_face", profileBuild="portraits/central_face" } )
-	script:queue( 160 )	
-	script:queue( { type="clearOperatorMessage" } )
-	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_CONVO2, header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage" } )
-	script:queue( 160 )	
-	script:queue( { type="clearEnemyMessage" } )
-	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OPERATOR_CONVO2, type="operatorMessage", profileAnim="portraits/central_face", profileBuild="portraits/central_face" } )
-	script:queue( 5*cdefs.SECONDS )	
-
 	updateVitalStatus(script, sim, true)
+	script:queue( { type="clearOperatorMessage" } )
+	script:queue( { type="clearEnemyMessage" } )
+--	script:queue( { type="hideHUDInstruction" } )
+	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_CONVO1, 
+					header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage", 
+					profileAnim="portraits/portrait_animation_template",
+					profileBuild="portraits/courier_face",
+				} )
+	script:queue( 160 )	
+	script:queue( { type="clearEnemyMessage" } )
+	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_CONVO1[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_CONVO1)], type="newOperatorMessage" } )	
+	--script:queue( 160 )	
+	script:queue( { type="clearOperatorMessage" } )
+	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_CONVO2, 
+					header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage", 
+					profileAnim="portraits/portrait_animation_template",
+					profileBuild="portraits/courier_face",
+				} )
+	script:queue( 160 )	
+	script:queue( { type="clearEnemyMessage" } )
+	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_CONVO2[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_CONVO2)], type="newOperatorMessage" } )	
+	--script:queue( 5*cdefs.SECONDS )	
 
 	local player = sim:getCurrentPlayer()
 
 	script:addHook( clearHostageStatusAfterMove )
 	script:addHook( clearStatusAfterEndTurn )
+	script:addHook( updateHostageStatusAfterMove )
 	script:addHook( checkHostageDeath )
 
 	script:waitFor( mission_util.PC_START_TURN )	
@@ -340,11 +369,24 @@ local function startPhase( script, sim )
 
 	script:waitFor( HOSTAGE_ESCAPED )
 	sim:getTags().delayPostGame = true
-	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OPERATOR_ESCAPE, type="operatorMessage", profileAnim="portraits/central_face", profileBuild="portraits/central_face" } )
+	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_ESCAPE[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_ESCAPE)], type="newOperatorMessage" } )
 	script:waitFrames( 200 )
 
 	script:queue( { type="clearOperatorMessage" } )
 	sim:getTags().delayPostGame = false
+end
+
+local HISEC_EXIT_DAY = 5
+
+local function isEndlessMode( params, day )
+    if params.newHiSecExitDay then
+        day = params.newHiSecExitDay
+    end
+    if params.difficultyOptions.maxHours == math.huge then
+        return params.campaignHours >= 24 * (day - 1 )
+    end
+
+    return false
 end
 
 ---------------------------------------------------------------------------------------------
@@ -354,17 +396,33 @@ local hostage_mission = class( mission_util.campaign_mission )
 --local hostage_mission = class( escape_mission )
 
 function hostage_mission:init( scriptMgr, sim )
+	-- escape_mission.init contains sim:openElevator, here same code but without opening exit doors
     mission_util.campaign_mission.init( self, scriptMgr, sim )
---	escape_mission.init( self, scriptMgr, sim )
 
+    if isEndlessMode( sim:getParams(), HISEC_EXIT_DAY ) then
+    	sim:addObjective( STRINGS.MISSIONS.ESCAPE.OBJ_EXIT_PASSCARD, "elevator_1" )
+    else
+        sim:addObjective( STRINGS.MISSIONS.ESCAPE.OBJECTIVE, "elevator_1" )
+    end
+	
+    	scriptMgr:addHook( "CONNECT", mission_util.makeAgentConnection )
+	scriptMgr:addHook( "FTM-SCANNER", mission_util.checkFtmScanner )	
+
+    for i, mod in pairs(mod_manager.modMissionScripts)do
+        if mod.init then
+            mod.init(scriptMgr, sim )
+        end
+    end
 	scriptMgr:addHook( "HOSTAGE", startPhase )
 end
 
-function hostage_mission.pregeneratePrefabs( cxt, tagSet ) -- was tags instead of tagSet
-	escape_mission.pregeneratePrefabs( cxt, tagSet ) -- added
+function hostage_mission.pregeneratePrefabs( cxt, tagSet ) 	-- was tags instead of tagSet
+	escape_mission.pregeneratePrefabs( cxt, tagSet ) 	-- added
 	table.insert( tagSet[1], "hostage" )
-	--table.insert( tags, "hostage" )
+	--table.insert( tags, "hostage" ) -- ea way
 end
+
+
 
 function hostage_mission.finalizeProcgen( cxt )
 	local hostageUnit = cxt:pickUnit( function(u) return u.template == "hostage_capture" end )
