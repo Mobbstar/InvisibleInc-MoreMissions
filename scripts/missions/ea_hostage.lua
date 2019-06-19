@@ -343,7 +343,7 @@ local function getExit(sim)
 			end
 		end)
 		sim:forEachCell(function(cell)
-			if cell.procgenRoom.roomIndex == exitroom and not cell.tags  then
+			if cell.procgenRoom.roomIndex == exitroom and not cell.tags and not cell.exitID then
 			   exitcell = cell 
 			end
 		end)	
