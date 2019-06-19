@@ -20,6 +20,7 @@ local escape_mission = include( "sim/missions/escape_mission" ) -- in case if  w
 local MISSION_REWARD = 800 -- base reward, getting through "sim:setMissionReward ( simquery.scaleCredits( sim, MISSION_REWARD ))" 
 				-- With 1x multiplier it's: 800 at 1st security level, 1000 at second, 1200 at third, 1400 at fourth and later
 				-- With 0.75x it's: 600, 750, 900, 1050
+local HISEC_EXIT_DAY = 5    
 
 local HOSTAGE_DEAD =
 {
@@ -55,6 +56,18 @@ local PC_HOSTAGE_STARTED_MOVE =
 		return unitID and sim:getUnit( unitID ):isPC() and sim:getUnit( unitID ):getTraits().hostage 
 	end,
 }
+
+local function isEndlessMode( params, day )
+    if params.newHiSecExitDay then
+        day = params.newHiSecExitDay
+    end
+    if params.difficultyOptions.maxHours == math.huge then
+        return params.campaignHours >= 24 * (day - 1 )
+    end
+
+    return false
+end
+
 
 local function checkForAgents ( sim )
 	local agents = false
@@ -321,20 +334,40 @@ end
 local function getExit(sim)
 
 	local exitcell = nil
-	sim:forEachCell(
-		function( c )
-			for i, exit in pairs( c.exits ) do
-				local cell = exit.cell
-				if cell and ((cell.exitID ~= nil and cell.exitID ~= simdefs.EXITID_VENT) or cell.ventID ~= nil) then
-					exitcell = cell
-				end
+	local isEndless = isEndlessMode(sim:getParams(), HISEC_EXIT_DAY)
+	if isEndless then
+		local exitroom = nil
+		sim:forEachCell(function(cell)
+			if cell.exitID then 
+				exitroom = cell.procgenRoom.roomIndex
 			end
-		end )
-
+		end)
+		sim:forEachCell(function(cell)
+			if cell.procgenRoom.roomIndex == exitroom and not cell.tags  then
+			   exitcell = cell 
+			end
+		end)	
+	else
+		sim:forEachCell(
+			function( c )
+				for i, exit in pairs( c.exits ) do
+					local cell = exit.cell
+					if cell and ((cell.exitID ~= nil and cell.exitID ~= simdefs.EXITID_VENT) or cell.ventID ~= nil) then
+						exitcell = cell
+					end
+				end
+			end )
+	end
 	return exitcell
 end
 
 local function calculateHostageVitalSigns( sim )
+
+	local extraSigns = 1
+	local isEndless = isEndlessMode(sim:getParams(), HISEC_EXIT_DAY)
+	if isEndless then
+		extraSigns = 2
+	end
 
 	local hostage = nil
 	sim:forEachUnit(
@@ -361,10 +394,10 @@ local function calculateHostageVitalSigns( sim )
 
 	local maxTurns = math.floor(distToExit*2 / hostage:getMPMax())
 	local minTurns = math.floor(distToExit*1.5 / hostage:getMPMax())
-	local newSigns = sim:nextRand(minTurns, maxTurns) + 1
+	local newSigns = sim:nextRand(minTurns, maxTurns) + extraSigns	
 	--print( "vital signs should be: "..newSigns )	
 	hostage:getTraits().vitalSigns = newSigns
-	--print( "vital signs: "..hostage:getTraits().vitalSigns )
+	print( "vital signs: "..hostage:getTraits().vitalSigns )
 end
 
 local function startPhase( script, sim )
@@ -459,19 +492,6 @@ local function startPhase( script, sim )
 
 	script:queue( { type="clearOperatorMessage" } )
 	sim:getTags().delayPostGame = false
-end
-
-local HISEC_EXIT_DAY = 5
-
-local function isEndlessMode( params, day )
-    if params.newHiSecExitDay then
-        day = params.newHiSecExitDay
-    end
-    if params.difficultyOptions.maxHours == math.huge then
-        return params.campaignHours >= 24 * (day - 1 )
-    end
-
-    return false
 end
 
 -- DLC compatibility stuff
