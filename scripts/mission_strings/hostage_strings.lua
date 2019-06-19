@@ -6,7 +6,7 @@ return {
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
 			DESCRIPTION = "Rescue missing courier, and escape with him in time limited from the moment you free him.\nTelapad locked, courier possesses the key.",
-			REWARD = "1200 Credits.",
+			REWARD = "Courier rescue reward.",
 		},
 
 	INGAME = {
@@ -30,7 +30,7 @@ return {
 					"Central" }},},		
 		
 		OPERATOR_ESCAPE = {{{
-					"Good job, team. We should be able to stabilize him in the helicopter.",
+					"Good job, team. We should be able to stabilize him in the jet.", -- here was helicopter originally
 
 					 nil, 
 					"Central" }},},
@@ -40,6 +40,10 @@ return {
 					"Central" }},},	
 		CENTRAL_HOSTAGE_DEATH = {{{
 					"Blast! There goes our bonus. Proceed to the extraction point.",
+					 nil, 
+					"Central" }},},	
+		CENTRAL_HOSTAGE_LONE_DEATH = {{{
+					"Blast! There goes our bonus. You shouldn't have left him alone.",
 					 nil, 
 					"Central" }},},		
 		CENTRAL_COMPLETE_MISSION_NO_COURIER = {{{
