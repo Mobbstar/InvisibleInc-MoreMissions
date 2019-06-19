@@ -71,29 +71,77 @@ local function checkNoHostageGameOver( script, sim )
 	sim:getTags().delayPostGame = false
 end
 
-local function checkHostageDeath( script, sim )
+local function checkHostageKO( script, sim )
 
 	while true do
-		script:waitFor( HOSTAGE_DEAD, HOSTAGE_KO )
+		script:waitFor( HOSTAGE_KO )
         print( "HOSTAGE DEATH!" )
 		local hostage = nil
+		local hostageID = nil
 		sim:forEachUnit(
 			function(unit)
 				if unit:getTraits().hostage then 
 					hostage = unit
+					hostageID = hostage:getID()
 				end
 			end
 		)
 
 		--local hostage = getHostage(sim)
 		local x, y = hostage:getLocation()
+		local text=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS
 		local subtext = STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS_SUBTEXT_DEATH
 		script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_flatline", type="operatorVO" } )
-		script:queue( { 
-			type="displayHUDInstruction", 
-			text=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS, 
-			subtext=subtext,
-			x=x, y=y } )
+		if hostage:isKO() then
+				hostage:killUnit( hostage._sim )	
+			end
+		--script:waitFor( PC_ANY )
+		--script:waitFrames( 1*cdefs.SECONDS )
+		--sim:forEachUnit(
+		--	function(unit)
+		--		if unit:getTraits().iscorpse and unit:getID()== hostageID then 
+		--			hostage = unit
+		--		end
+		--	end
+		--)
+		
+		--hostage:createTab( text, subtext )  
+		script:waitFrames( 2*cdefs.SECONDS )
+		script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH)], type="newOperatorMessage" })
+		sim:setMissionReward( 0 )
+		sim:removeObjective( "hostage_3" )
+		script:waitFor( mission_util.PC_ANY )	
+		script:queue( { type="clearOperatorMessage" } )
+		script:waitFrames( 2*cdefs.SECONDS )
+		--hostage:destroyTab()
+		script:addHook( checkNoHostageGameOver )
+	end
+
+end
+
+local function checkHostageDeath( script, sim )
+
+	while true do
+		script:waitFor( HOSTAGE_DEAD )
+        print( "HOSTAGE DEATH!" )
+	--	local hostage = nil
+	--	sim:forEachUnit(
+	--		function(unit)
+	--			if unit:getTraits().hostage then 
+	--				hostage = unit
+	--			end
+	--		end
+	--	)
+
+		--local hostage = getHostage(sim)
+	--	local x, y = hostage:getLocation()
+	--	local subtext = STRINGS.MISSIONS.HOSTAGE.HOSTAGE_VITALS_SUBTEXT_DEATH
+		script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_flatline", type="operatorVO" } )
+	--	script:queue( { 
+	--		type="displayHUDInstruction", 
+	--		text=STRINGS.MISSIONS.HOSTAGE.HOSTAGE_VITALS, 
+	--		subtext=subtext,
+	--		x=x, y=y } )
 
 		--hostage:killUnit( sim )]]
 
@@ -113,7 +161,9 @@ local function updateVitalStatus( script, sim, playSound )
 	sim:forEachUnit(
 		function(unit)
 			if unit:getTraits().hostage then 
+				--unit:destroyTab()
 				local x, y = unit:getLocation()
+				local text = STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS 
 				local subtext = ""
 				if unit:getTraits().vitalSigns > 0 then
 					if playSound then 
@@ -126,11 +176,7 @@ local function updateVitalStatus( script, sim, playSound )
 					end
 					subtext = STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS_SUBTEXT_DEATH
 				end
-				script:queue( { 
-					type="displayHUDInstruction", 
-					text=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS, 
-					subtext=subtext,
-					x=x, y=y } )
+				unit:createTab( text, subtext )  			
 			end
 		end)
 end
@@ -153,8 +199,8 @@ local function hostageBanter( script, sim )
 
 		if hostage and not hostage:isKO() and not hostage:isDead() then
 			hostage:getTraits().vitalSigns = hostage:getTraits().vitalSigns - 1
-			if hostage:getTraits().vitalSigns <= 0 then
 
+			if hostage:getTraits().vitalSigns <= 0 then
 				script:removeHook( checkHostageDeath )
 				script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_PASS_OUT, 
 					header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage", 
@@ -204,17 +250,21 @@ local function hostageBanter( script, sim )
 end
 
 local function clearHostageStatusAfterMove( script, sim )
-
-	while true do
-		script:waitFor( PC_HOSTAGE_STARTED_MOVE )
-		script:queue( { type="hideHUDInstruction" } )
+	while true do		
+		local _, hostage = script:waitFor( PC_HOSTAGE_STARTED_MOVE )
+		sim:forEachUnit(
+		function(unit)
+			if unit:getTraits().hostage then 
+				unit:destroyTab()				
+			end
+		end)	
 	end
 end
 
 local function updateHostageStatusAfterMove( script, sim )
 
 	while true do
-		script:waitFor( PC_HOSTAGE_MOVED )
+		local _, hostage = script:waitFor( PC_HOSTAGE_MOVED )		
 		updateVitalStatus(script, sim, false)
 	end
 end
@@ -224,8 +274,15 @@ local function clearStatusAfterEndTurn( script, sim )
 	while true do
 		--updateVitalStatus(script, sim)
 		script:waitFor( mission_util.PC_END_TURN )
-		script:queue( { type="hideHUDInstruction" } )
-		--script:queue( 1*cdefs.SECONDS )
+		local hostage = nil
+		sim:forEachUnit(
+			function(unit)
+				if unit:getTraits().hostage then 
+					hostage = unit
+					hostage:destroyTab()
+				end
+			end
+		)		
 	end
 
 end
@@ -273,42 +330,29 @@ local function calculateHostageVitalSigns( sim )
 
 	local maxTurns = math.floor(distToExit*2 / hostage:getMPMax())
 	local minTurns = math.floor(distToExit*1.5 / hostage:getMPMax())
-
-	hostage:getTraits().vitalSigns = sim:nextRand(minTurns, maxTurns)
+	local newSigns = sim:nextRand(minTurns, maxTurns)
+	 print( "vital signs should be: "..newSigns )	
+	hostage:getTraits().vitalSigns = newSigns
+	 print( "vital signs: "..hostage:getTraits().vitalSigns )
 end
 
 local function startPhase( script, sim )
 
---	script:waitFor( mission_util.UI_INITIALIZED )	
---	script:queue( { type = "hideInterface" })
---   	sim:dispatchEvent( simdefs.EV_TELEPORT, { units = sim:getPC():getAgents(), warpOut = false } )
-	-- mission_util.makeAgentConnection( script, sim )
---	script:queue( 1*cdefs.SECONDS )	
---	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_OPEN[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_OPEN)], type="newOperatorMessage" } )
---	script:queue( { type = "showInterface" })
---	script:queue( 0.5*cdefs.SECONDS )
---	script:queue( { type = "showMissionObjectives" })
-
 	sim:addObjective( STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OBJECTIVE_FIND_HOSTAGE, "hostage_1" )
 	sim:getTags().no_escape = true
-
---	script:waitFor( mission_util.PC_ANY )
---	script:queue( { type="clearOperatorMessage" } )
-
 
 	sim:setMissionReward( MISSION_REWARD )
 	
 	--See the hostage	
-	 local _, hostage = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "hostage", STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, STRINGS.MISSIONS.UTIL.RAPID_PULSE_READING ) )
+	local _, hostage = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "hostage", STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, STRINGS.MISSIONS.UTIL.RAPID_PULSE_READING ) )
 	sim:forEachUnit(
 		function(unit)
 			if unit:getTraits().hostage then 
 				local x, y = unit:getLocation()			
-				script:queue( { type="pan", x=x, y=y } )
-				--unit:getTraits().vitalSigns = VITAL_SIGN_START
-				--print( "vital signs: "..unit:getTraits().vitalSigns )
+				script:queue( { type="pan", x=x, y=y } )				
 			end
 		end)
+
 	script:queue( 0.5*cdefs.SECONDS )
 
 	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.HOSTAGE_SIGHTED[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.HOSTAGE_SIGHTED)], type="newOperatorMessage" } )
@@ -322,14 +366,28 @@ local function startPhase( script, sim )
 	
 	script:waitFor( mission_util.PC_USED_ABILITY( "hostage_rescuable" ))
 	sim:setClimax(true)
-	hostage:destroyTab()
-	script:queue( { type="hideHUDInstruction" } )	
-	sim:openElevator()
-	calculateHostageVitalSigns(sim)
-	updateVitalStatus(script, sim, true)
+	sim:forEachUnit(
+		function(unit)
+			if unit:getTraits().hostage then 
+				unit:destroyTab()				
+			end
+		end)	
+	
+	sim:openElevator()	
+	script:addHook( clearHostageStatusAfterMove )
+	script:addHook( clearStatusAfterEndTurn )
+	script:addHook( updateHostageStatusAfterMove )
+	script:addHook( checkHostageKO )
+	script:addHook( checkHostageDeath )
+	script:addHook( hostageBanter )	
+
 	script:queue( { type="clearOperatorMessage" } )
 	script:queue( { type="clearEnemyMessage" } )
---	script:queue( { type="hideHUDInstruction" } )
+
+	script:queue( 0.5*cdefs.SECONDS )
+	--calculateHostageVitalSigns(sim)	
+	--updateVitalStatus(script, sim, true)
+
 	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_CONVO1, 
 					header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage", 
 					profileAnim="portraits/portrait_animation_template",
@@ -350,22 +408,16 @@ local function startPhase( script, sim )
 	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_CONVO2[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_CONVO2)], type="newOperatorMessage" } )	
 	--script:queue( 5*cdefs.SECONDS )	
 
-	local player = sim:getCurrentPlayer()
-
-	script:addHook( clearHostageStatusAfterMove )
-	script:addHook( clearStatusAfterEndTurn )
-	script:addHook( updateHostageStatusAfterMove )
-	script:addHook( checkHostageDeath )
-
-	script:waitFor( mission_util.PC_START_TURN )	
-	script:clearQueue()
-	script:queue( { type="clearOperatorMessage" } )
-
-	script:addHook( hostageBanter )
+	--local player = sim:getCurrentPlayer()	
 
 	sim:removeObjective( "hostage_2" )
 	sim:addObjective( STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OBJECTIVE_ESCAPE, "hostage_3" )
 	sim:getTags().no_escape = nil
+
+	script:waitFor( mission_util.PC_ANY )		
+	calculateHostageVitalSigns(sim)	
+	updateVitalStatus(script, sim, true)
+
 
 	script:waitFor( HOSTAGE_ESCAPED )
 	sim:getTags().delayPostGame = true
@@ -396,7 +448,7 @@ local hostage_mission = class( mission_util.campaign_mission )
 --local hostage_mission = class( escape_mission )
 
 function hostage_mission:init( scriptMgr, sim )
-	-- escape_mission.init contains sim:openElevator, here same code but without opening exit doors
+	-- escape_mission.init contains sim:openElevator, here same code but without opening exit doors:
     mission_util.campaign_mission.init( self, scriptMgr, sim )
 
     if isEndlessMode( sim:getParams(), HISEC_EXIT_DAY ) then
@@ -419,7 +471,7 @@ end
 function hostage_mission.pregeneratePrefabs( cxt, tagSet ) 	-- was tags instead of tagSet
 	escape_mission.pregeneratePrefabs( cxt, tagSet ) 	-- added
 	table.insert( tagSet[1], "hostage" )
-	--table.insert( tags, "hostage" ) -- ea way
+	--table.insert( tags, "hostage" ) 			-- ea way, here just for a history, mb clear later
 end
 
 

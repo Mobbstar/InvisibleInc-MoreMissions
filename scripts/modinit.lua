@@ -40,6 +40,8 @@ local function init( modApi )
 
 	modApi:addGenerationOption("ea_hostage",  STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.MISSION_TITLE , STRINGS.MOREMISSIONS.LOCATIONS.EA_HOSTAGE.DESCRIPTION, {noUpdate=true, enabled = true} )
 	
+	-- abilities, for now simple override (I'm not smart enough to...) 
+	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
 end
 
 -- local function lateInit( modApi ) 
@@ -168,7 +170,7 @@ local function initStrings(modApi)
 	local dataPath = modApi:getDataPath()
 	local scriptPath = modApi:getScriptPath()
 
---separate mission strings
+-- to have separate mission strings
 	local HOSTAGE = include(scriptPath .. "/mission_strings/hostage_strings" )	
 	modApi:addStrings( dataPath, "MOREMISSIONS_HOSTAGE", HOSTAGE)
 
