@@ -57,6 +57,26 @@ local PC_HOSTAGE_STARTED_MOVE =
 	end,
 }
 
+local PC_HOSTAGE_HIT_END =
+{
+	trigger = simdefs.TRG_UNIT_HIT,
+	fn = function( sim, evData )
+		return evData.targetUnit:getTraits().hostage
+	end,	
+}
+
+NPC_END_TURN =
+{
+	trigger = simdefs.TRG_END_TURN,
+	fn = function( sim, evData )
+		if evData:isPC() then 
+			return false 
+		else
+			return true 
+		end  
+	end,
+}
+
 local function isEndlessMode( params, day )
     if params.newHiSecExitDay then
         day = params.newHiSecExitDay
@@ -119,9 +139,7 @@ local function checkHostageKO( script, sim )
 		local text=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS
 		local subtext = STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS_SUBTEXT_DEATH
 		script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_flatline", type="operatorVO" } )
-		if hostage:isKO() then
-				hostage:killUnit( hostage._sim )	
-			end
+		
 		sim:setMissionReward( 0 )
 		local missionReward = sim:getMissionReward()
 		print( "Mission reward: "..missionReward )
@@ -145,12 +163,18 @@ local function checkHostageKO( script, sim )
  		end
 
 		sim:removeObjective( "hostage_3" )
-		script:waitFor( mission_util.PC_ANY )	
+		script:addHook( checkNoHostageGameOver )
+
+		script:waitFor( PC_HOSTAGE_HIT_END, mission_util.NPC_WARP, NPC_END_TURN, mission_util.PC_ANY )	
+		if hostage:isKO() then
+				local hostageID = hostage:getID()
+				hostage:killUnit( hostage._sim )
+				sim:getPC():glimpseUnit( sim, hostageID ) -- KO icon likes to stuck until an agents see corpse so...
+			end
 		script:queue( { type="clearOperatorMessage" } )
 		script:waitFrames( 2*cdefs.SECONDS )
-		--hostage:destroyTab()
-			
-		script:addHook( checkNoHostageGameOver )
+		--hostage:destroyTab()		
+		
 		
 	end
 
