@@ -9,7 +9,7 @@ local array = include( "modules/array" )
 local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 
 local function init( modApi )
-	modApi.requirements = { "Contingency Plan", "Sim Constructor" }
+	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library" }
 
 	-- Path for custom prefabs   
 	local scriptPath = modApi:getScriptPath()  	
