@@ -47,12 +47,27 @@ local function init( modApi )
 	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
 end
 
+--The implementation of array.removeAllElements is not optimal for our purposes, and we also need something to remove dupes, so might as well combine it all. -M
+local function removeAllElementsAndDupes(t0, t1)
+	local t2 = {}
+	for i = 1, #t1, 1 do
+		t2[t1[i]] = true
+	end
+	for i = #t0, 1, -1 do
+		if t2[t0[i]] then
+			table.remove(t0, i)
+		else
+			t2[t0[i]] = true
+		end
+	end
+end
+
 local function unloadCommon( modApi, options )
     local scriptPath = modApi:getScriptPath()
 
 	local serverdefs_mod = include( scriptPath .. "/serverdefs" )
-	array.removeAllElements(serverdefs.ESCAPE_MISSION_TAGS, serverdefs_mod.ESCAPE_MISSION_TAGS)
-	array.removeAllElements(simdefs.DEFAULT_MISSION_TAGS, serverdefs_mod.ESCAPE_MISSION_TAGS)
+	removeAllElementsAndDupes(serverdefs.ESCAPE_MISSION_TAGS, serverdefs_mod.ESCAPE_MISSION_TAGS)
+	removeAllElementsAndDupes(simdefs.DEFAULT_MISSION_TAGS, serverdefs_mod.ESCAPE_MISSION_TAGS)
 
 	for i, tag in pairs(default_missiontags) do
 		if not array.find(serverdefs.ESCAPE_MISSION_TAGS, tag) then
@@ -135,6 +150,17 @@ local function load( modApi, options, params )
 			-- log:write("adding mission tag: ".. tag)
 			table.insert(serverdefs.ESCAPE_MISSION_TAGS, tag)
 			table.insert(simdefs.DEFAULT_MISSION_TAGS, tag)
+		end
+	end
+	--The following fixes a crash where the exec terminal expects at least 4 possible mission types. -M
+	while #serverdefs.ESCAPE_MISSION_TAGS < 4 do
+		for i = 1, #serverdefs.ESCAPE_MISSION_TAGS, 1 do
+			table.insert(serverdefs.ESCAPE_MISSION_TAGS, serverdefs.ESCAPE_MISSION_TAGS[i])
+		end
+	end
+	while #simdefs.DEFAULT_MISSION_TAGS < 4 do
+		for i = 1, #simdefs.DEFAULT_MISSION_TAGS, 1 do
+			table.insert(simdefs.DEFAULT_MISSION_TAGS, simdefs.DEFAULT_MISSION_TAGS[i])
 		end
 	end
 
