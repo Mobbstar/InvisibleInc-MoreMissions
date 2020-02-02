@@ -2,17 +2,20 @@ local util = include( "modules/util" )
 local serverdefs = include( "modules/serverdefs" )
 local simdefs = include( "sim/simdefs" )
 local array = include( "modules/array" )
+local abilitydefs = include( "sim/abilitydefs" )
 -- local simquery = include ( "sim/simquery" )
 -- local itemdefs = include ("sim/unitdefs/itemdefs")
 
 --for unloading
 local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 
-local function init( modApi )
-	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library" }
+local function earlyInit( modApi )
+	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Items Evacuation" }
+end
 
-	-- Path for custom prefabs   
-	local scriptPath = modApi:getScriptPath()  	
+local function init( modApi )
+	-- Path for custom prefabs
+	local scriptPath = modApi:getScriptPath()
 	rawset(_G,"SCRIPT_PATHS",rawget(_G,"SCRIPT_PATHS") or {})
     	SCRIPT_PATHS.more_missions = scriptPath
 
@@ -23,7 +26,7 @@ local function init( modApi )
     -- MOAIFmodDesigner.loadFEV("moremissions.fev")
     -- KLEIResourceMgr.MountPackage( dataPath .. "/characters.kwad", "data/anims" )
     -- KLEIResourceMgr.MountPackage( dataPath .. "/anims.kwad", "data" )
-	
+
 	modApi:addGenerationOption("executive_terminals",  STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL , STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("ceo_office",  STRINGS.MOREMISSIONS.OPTIONS.CFO_OFFICE , STRINGS.MOREMISSIONS.OPTIONS.CFO_OFFICE_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("cyberlab",  STRINGS.MOREMISSIONS.OPTIONS.CYBERLAB , STRINGS.MOREMISSIONS.OPTIONS.CYBERLAB_TIP, {noUpdate=true} )
@@ -39,45 +42,43 @@ local function init( modApi )
 	modApi:addGenerationOption("landfill",  STRINGS.MOREMISSIONS.OPTIONS.LANDFILL , STRINGS.MOREMISSIONS.OPTIONS.LANDFILL_TIP, {noUpdate=true, enabled = false} )
 
 	modApi:addGenerationOption("ea_hostage",  STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.MISSION_TITLE , STRINGS.MOREMISSIONS.LOCATIONS.EA_HOSTAGE.DESCRIPTION, {noUpdate=true, enabled = true} )
-	
-	-- abilities, for now simple override (I'm not smart enough to...) 
+
+	-- abilities, for now simple override (I'm not smart enough to...)
 	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
 end
 
--- local function lateInit( modApi ) 
--- end
-
 local function unloadCommon( modApi, options )
     local scriptPath = modApi:getScriptPath()
-	
+
 	local serverdefs_mod = include( scriptPath .. "/serverdefs" )
 	array.removeAllElements(serverdefs.ESCAPE_MISSION_TAGS, serverdefs_mod.ESCAPE_MISSION_TAGS)
 	array.removeAllElements(simdefs.DEFAULT_MISSION_TAGS, serverdefs_mod.ESCAPE_MISSION_TAGS)
 
 	for i, tag in pairs(default_missiontags) do
 		if not array.find(serverdefs.ESCAPE_MISSION_TAGS, tag) then
+			-- log:write("restoring mission tag: ".. tag)
 			table.insert(serverdefs.ESCAPE_MISSION_TAGS, tag)
 		end
 		if not array.find(simdefs.DEFAULT_MISSION_TAGS, tag) then
 			table.insert(simdefs.DEFAULT_MISSION_TAGS, tag)
 		end
 	end
-	
+
 end
 
 local function load( modApi, options, params )
 	--before doing anything, clean up
-	unloadCommon( modApi, options ) 
-	
+	unloadCommon( modApi, options )
+
     local scriptPath = modApi:getScriptPath()
-	
-	
+
+
 	local itemdefs = include( scriptPath .. "/itemdefs" )
 	for name, itemDef in pairs(itemdefs) do
 		modApi:addItemDef( name, itemDef )
 	end
 	local propdefs = include( scriptPath .. "/propdefs" )
-	for i,item in pairs(propdefs) do  
+	for i,item in pairs(propdefs) do
 		modApi:addPropDef( i, item, true )
 	end
 	local animdefs = include( scriptPath .. "/animdefs" )
@@ -96,21 +97,21 @@ local function load( modApi, options, params )
 	-- for name, ability in pairs(npc_abilities) do
 		-- modApi:addDaemonAbility( name, ability )
 	-- end
-	
+
 	-- modApi:addAbilityDef( "inject_lethal", scriptPath .."/abilities/inject_lethal" )
-	
+
 	-- include( scriptPath .. "/simunits" )
-	
+
 	-- local corpworldPrefabs = include( scriptPath .. "/prefabs/corpworld/prefabt" )
 	-- modApi:addWorldPrefabt(scriptPath, "corpworld", corpworldPrefabs)
-	
+
 	-- local escape_mission = include( scriptPath .. "/escape_mission" )
 	-- modApi:addEscapeScripts(escape_mission)
-	
+
 	-- modApi:setCampaignEvent_setCampaignParam(nil,"contingency_plan",true)
-	
+
 	--mod_api:addTooltipDef( commondef ) --Lets us append all onTooltip functions
-	
+
 	local serverdefs_mod = include( scriptPath .. "/serverdefs" )
 	-- Add the new custom situations
 	for id,situation in pairs(serverdefs_mod.SITUATIONS) do
@@ -119,6 +120,7 @@ local function load( modApi, options, params )
 	--remove vanilla tags if disabled
 	for i = #serverdefs.ESCAPE_MISSION_TAGS, 1, -1 do
 		if options[serverdefs.ESCAPE_MISSION_TAGS[i]] and not options[serverdefs.ESCAPE_MISSION_TAGS[i]].enabled then
+			-- log:write("removing mission tag: ".. serverdefs.ESCAPE_MISSION_TAGS[i])
 			table.remove(serverdefs.ESCAPE_MISSION_TAGS, i)
 		end
 	end
@@ -130,17 +132,18 @@ local function load( modApi, options, params )
 	--add new tags if enabled
 	for i, tag in pairs(serverdefs_mod.ESCAPE_MISSION_TAGS) do
 		if not options[tag] or options[tag].enabled then
+			-- log:write("adding mission tag: ".. tag)
 			table.insert(serverdefs.ESCAPE_MISSION_TAGS, tag)
 			table.insert(simdefs.DEFAULT_MISSION_TAGS, tag)
 		end
 	end
-	
+
 	local STORY_SCRIPTS = include( scriptPath .. "/story_scripts" )
 	if STORY_SCRIPTS.INGAME then
 		modApi:addMissionScripts( STORY_SCRIPTS.INGAME )
 	end
 	if STORY_SCRIPTS.CAMPAIGN_MAP and STORY_SCRIPTS.CAMPAIGN_MAP.MISSIONS then
-		modApi:addMapScripts( STORY_SCRIPTS.CAMPAIGN_MAP.MISSIONS, "CAMPAIGN_MAP")  
+		modApi:addMapScripts( STORY_SCRIPTS.CAMPAIGN_MAP.MISSIONS, "CAMPAIGN_MAP")
 	end
 
 	--add prefabs:
@@ -159,7 +162,38 @@ local function load( modApi, options, params )
 
 	--local plastechPrefabs = include( scriptPath .. "/prefabs/plastech/prefabt" )
     	--modApi:addWorldPrefabt(scriptPath, "plastech", plastechPrefabs)
-	
+
+	--and here comes the massive hacks! -M
+	do --This one has to be in load() because the item evac mod overrides the ability each load. (as of 20-2-2, -M)
+		local escape_ability = abilitydefs.lookupAbility("escape")
+		local executeAbility = escape_ability.executeAbility
+		escape_ability.executeAbility = function( self, sim, abilityOwner, ... )
+			local bounties = {}
+			local cell = sim:getCell( abilityOwner:getLocation() )
+			if cell.exitID then
+				for _, unit in pairs( sim:getAllUnits() ) do
+					local c = sim:getCell( unit:getLocation() )
+					if c and c.exitID and unit:getTraits().bounty and not unit:getTraits().bountyCollected then
+						table.insert(bounties,unit)
+						unit:getTraits().bountyCollected = true --flag to prevent double-counting (because we have to wrap the function on every load in case Item Evac is installed)
+						if unit:getTraits().isObjective and sim:getPC() then
+							sim:getPC():setEscapedWithObjective(true)
+						end
+					end
+				end
+			end
+
+			executeAbility( self, sim, abilityOwner, ... )
+
+			for i,unit in ipairs(bounties) do
+				unit:returnItemsToStash(sim)
+				sim:addMissionReward(simquery.scaleCredits( sim, unit:getTraits().bounty or 0 ))
+				sim:warpUnit( unit, nil )
+				sim:despawnUnit( unit )
+			end
+		end
+	end
+
 end
 
 local function unload( modApi, options )
@@ -171,18 +205,18 @@ local function initStrings(modApi)
 	local scriptPath = modApi:getScriptPath()
 
 -- to have separate mission strings
-	local HOSTAGE = include(scriptPath .. "/mission_strings/hostage_strings" )	
+	local HOSTAGE = include(scriptPath .. "/mission_strings/hostage_strings" )
 	modApi:addStrings( dataPath, "MOREMISSIONS_HOSTAGE", HOSTAGE)
 
-	local MOD_STRINGS = include( scriptPath .. "/strings" )	
+	local MOD_STRINGS = include( scriptPath .. "/strings" )
 	modApi:addStrings( dataPath, "MOREMISSIONS", MOD_STRINGS)
 
-	
+
 end
 
 return {
     init = init,
-    -- lateInit = lateInit,
+    earlyInit = earlyInit,
     load = load,
     unload = unload,
     initStrings = initStrings,
