@@ -3,7 +3,7 @@ local serverdefs = include( "modules/serverdefs" )
 local simdefs = include( "sim/simdefs" )
 local array = include( "modules/array" )
 local abilitydefs = include( "sim/abilitydefs" )
--- local simquery = include ( "sim/simquery" )
+local simquery = include ( "sim/simquery" )
 -- local itemdefs = include ("sim/unitdefs/itemdefs")
 
 --for unloading
@@ -175,7 +175,9 @@ local function load( modApi, options, params )
 	--add prefabs:
 
 	local sharedPrefabs = include( scriptPath .. "/prefabs/shared/prefabt" )
-    	modApi:addPrefabt(sharedPrefabs)
+	modApi:addPrefabt(sharedPrefabs)
+	sharedPrefabs = include( scriptPath .. "/prefabs/shared_assassination/prefabt" )
+	modApi:addPrefabt(sharedPrefabs)
 
 	--local koPrefabs = include( scriptPath .. "/prefabs/ko/prefabt" )
  	--modApi:addWorldPrefabt(scriptPath, "ko", koPrefabs)

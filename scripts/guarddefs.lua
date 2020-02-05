@@ -21,7 +21,7 @@ local DEFAULT_DRONE = commondefs.DEFAULT_DRONE
 local npc_templates =
 {
 
-	civilian =
+	npc_bounty_target =
 	{
 		type = "simunit",
 		name = STRINGS.MOREMISSIONS.GUARDS.BOUNTY_TARGET,
@@ -33,16 +33,21 @@ local npc_templates =
 		traits = util.extend( commondefs.basic_guard_traits )   
 		{
 			walk=true,
-			-- heartMonitor="enabled",
+			heartMonitor = "enabled",
 			enforcer = false,
 			dashSoundRange = 8,
 			-- cashOnHand = 0, 
 			ko_trigger = "intimidate_guard",
 			kill_trigger = "guard_dead",
-			vip = true, --TODO what do these flags mean?
+			vip = true, --This flag is important for the panic behaviour
             pacifist = true,
-            scientist = true,
             recap_icon = "lab_tech",
+			bounty = 1200,
+			corpseTemplate = { --reward for dead currently needs to be set explicitly -M
+				traits = {
+					bounty = 1200,
+				},
+			}
 		},
 		dropTable =
 		{
@@ -58,7 +63,7 @@ local npc_templates =
 		speech = speechdefs.NPC,
 		voices = {"Executive"},
 		skills = {},
-		abilities = {},
+		abilities = {"consciousness_monitor_passive"},
 		children = {},
 		idles = DEFAULT_IDLES,
 		sounds = SOUNDS.GUARD,

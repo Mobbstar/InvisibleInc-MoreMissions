@@ -99,9 +99,10 @@ return {
 	
 	MISSIONS = {
 		ASSASSINATION = {
-		    OBJECTIVE_1 = "Kill them! Kill them all!",
-			-- "So far, so good. Now make sure not to bump into any rival assassins on your way out.",
-		},		
+		    OBJ_FIND = "Locate the target",
+		    OBJ_KILL = "Disable the target",
+		    OBJ_DRAG = "Extract the target",
+		},
 	},
 	
 	LOCATIONS = {
@@ -141,6 +142,7 @@ return {
 	
 	UI = {
 		HUD_WARN_EXIT_MISSION_HOLOSTUDIO = "Are you sure you want to leave? You don't have the holographic tool yet.",
+		HUD_WARN_EXIT_MISSION_ASSASSINATION = "Are you sure you want to leave? You don't have the target body.",
 		-- REASON = {
 			-- HYPERUNLOCKED = "Busted open by a blue keycard",
 		-- },
@@ -190,24 +192,49 @@ return {
 				},
 			},
 			
-			-- ASSASSINATION = {
-				-- GOTBODY = {
-					-- -- "Tonight, we drink on X, who kindly pays in blood.",
-					-- "This bounty will make for a crucial donation to our cause. Excellent!",
-					-- "We'll need to scrub the jet floor after this, but it is worthwile.",
-				-- },
-				-- NOTDEAD = {
-					-- "Target seems alive, but we can fix that. Good job.",
-				-- },
-				-- GOTLOOT = {
-					-- "No body, no bounty. At least we got a nice souvenir.",
-					-- "Make good use of that equipment, it's the only thing we got from all this.",
-				-- },
-				-- GOTNOTHING = {
-					-- "You didn't get what we came for. Perhaps you would like to offer your own head to our client?",
-					-- "Now somebody else is going to get the bounty. Quit wasting precious time, operator!",
-				-- },
-			-- },
+			ASSASSINATION = {
+				OBJECTIVE_SIGHTED = {
+					{{"That's the target. Get them.",
+						"moremissions/VoiceOver/Central/assassination/seen0",
+						"Central"}},
+					{{"You found him. Don't let him get away.",
+						"moremissions/VoiceOver/Central/assassination/seen1",
+						"Central"}},
+				},
+				AFTERMATH = {
+					{{"So far, so good. Now make sure not to bump into any rival assassins on your way out.",
+						"moremissions/VoiceOver/Central/assassination/aftermath0",
+						"Central"}},
+				},
+				CENTRAL_JUDGEMENT = {
+					GOTBODY = {
+						-- "Tonight, we drink on X, who kindly pays in blood.",
+						{{"This bounty will make for a crucial donation to our cause. Excellent!",
+							"moremissions/VoiceOver/Central/assassination/judge/gotloot0",
+							"Central"}},
+						{{"We'll need to scrub the jet floor after this, but it is worthwile.",
+							"moremissions/VoiceOver/Central/assassination/judge/gotloot1",
+							"Central"}},
+					},
+					NOTDEAD = {
+						{{"Target seems alive, but we can fix that. Good job.",
+							"moremissions/VoiceOver/Central/assassination/judge/gotalive0",
+							"Central"}},
+					},
+					-- GOTLOOT = {
+						-- "No body, no bounty. At least we got a nice souvenir.",
+						-- "Make good use of that equipment, it's the only thing we got from all this.",
+					-- },
+					GOTNOTHING = {
+						{{"You didn't get what we came for. Perhaps you would like to offer your own head to our client?",
+							"moremissions/VoiceOver/Central/assassination/judge/noloot0",
+							"Central"}},
+						{{"Now somebody else is going to get the bounty. Quit wasting precious time, operator!",
+							"moremissions/VoiceOver/Central/assassination/judge/noloot1",
+							"Central"}},
+					},
+				},
+			},
 			-- LANDFILL = {
 				-- BOUGHT ={
 					-- --stole all the generic Nanofab lines
