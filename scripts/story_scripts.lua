@@ -1,5 +1,5 @@
 -- local SCRIPTS = include('client/story_scripts')
--- local util = include( "modules/util" )
+local util = include( "modules/util" )
 
 local MakeLine = {
 	Central = function(t, text, voice)
@@ -27,6 +27,9 @@ local MakeLine = {
 local function GenerateScript(strings, scripts)
 	if strings[1] and type(strings[1]) == "string" then
 		-- currently in the data table for a specific line
+		if not MakeLine[strings[3]] then
+			log:write("Warning: The following Story Script had no valid actor (" .. util.stringize(strings[3], 1) .. "):\n" .. strings[1])
+		end
 		MakeLine[strings[3]](scripts, strings[1], strings[2])
 	else
 		for i, data in pairs(strings) do
@@ -34,7 +37,8 @@ local function GenerateScript(strings, scripts)
 				scripts[i] = {}
 				GenerateScript(data, scripts[i])
 			else
-				scripts[i] = data --plain string, shouldn't be the case but whatever
+				log:write("Warning: The following Story Script is not valid: " .. util.stringize(data, 1))
+				scripts[i] = data
 			end
 		end
 	end
