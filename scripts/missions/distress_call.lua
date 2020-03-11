@@ -399,6 +399,7 @@ local function got_operative(script, sim, mission)
 		mission.agent_extracted = true
 	else
 		mission.operative_extracted = true
+		sim:setMissionReward( simquery.scaleCredits( sim, 800 )) --keep this money reward unless we can think of something more exciting/original
 	end
 	sim:removeObjective( "rescue_agent" )
 
