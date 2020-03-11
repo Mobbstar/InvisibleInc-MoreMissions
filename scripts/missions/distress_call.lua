@@ -261,7 +261,7 @@ local function startAgentEscape( script, sim, mission )
 		local newUnit = simfactory.createUnit(new_template, sim)
 		-- newUnit._traits.template = new_template.template
 		-- newUnit._unitData.kanim = new_template.kanim
-		newUnit:setFacing( unit:getFacing() )
+		local facing = unit:getFacing()
 		newUnit:getTraits().rescued = true
         newUnit:getTraits().detention = true
 		newUnit:addTag("escapedAgent")
