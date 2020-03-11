@@ -364,12 +364,17 @@ local function startAgentEscape( script, sim, mission )
 		end
 		-- script:queue( { type="hideHUDInstruction" } )
 		if STRINGS.MOREMISSIONS.AGENT_LINES.DISTRESS_CALL[agent_id] ~= nil then
+			local anim = newOperative:getUnitData().profile_anim
+			local build = newOperative:getUnitData().profile_anim
+			if newOperative:getUnitData().profile_build then
+				build = newOperative:getUnitData().profile_build
+			end
 			script:queue( {
 				body=STRINGS.MOREMISSIONS.AGENT_LINES.DISTRESS_CALL[agent_id],
 				header=tostring(newOperative:getUnitData().name),
 				type="enemyMessage",
-				profileAnim= newOperative:getUnitData().profile_anim,
-				profileBuild= newOperative:getUnitData().profile_build,
+				profileAnim= anim,
+				profileBuild= build,
 				} )
 			script:queue( 4*cdefs.SECONDS )
 
