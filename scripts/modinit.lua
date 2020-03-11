@@ -45,7 +45,7 @@ local function init( modApi )
 
 	--modApi:addGenerationOption("ea_hostage",  STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.MISSION_TITLE , STRINGS.MOREMISSIONS.LOCATIONS.EA_HOSTAGE.DESCRIPTION, {noUpdate=true, enabled = true} )
 	--forgot to make an option for Distress Call... will do later
-	
+
 	-- abilities, for now simple override (I'm not smart enough to...)
 	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
 end
@@ -89,7 +89,7 @@ local function load( modApi, options, params )
 	unloadCommon( modApi, options )
 
     local scriptPath = modApi:getScriptPath()
-	
+
 	local itemdefs = include( scriptPath .. "/itemdefs" )
 	for name, itemDef in pairs(itemdefs) do
 		modApi:addItemDef( name, itemDef )
@@ -109,10 +109,10 @@ local function load( modApi, options, params )
 	local agentdefs = include( scriptPath .. "/agentdefs" )
 	for name, agentDef in pairs(agentdefs) do
 	modApi:addAgentDef( name, agentDef )
-	end	
-	
+	end
+
 	include( scriptPath .. "/missions/distress_call" )
-	
+
 	-- local mainframe_abilities = include( scriptPath .. "/mainframe_abilities" )
 	-- for name, ability in pairs(mainframe_abilities) do
 		-- modApi:addMainframeAbility( name, ability )
@@ -187,8 +187,8 @@ local function load( modApi, options, params )
 	modApi:addPrefabt(sharedPrefabs)
 	sharedPrefabs = include( scriptPath .. "/prefabs/shared_assassination/prefabt" )
 	modApi:addPrefabt(sharedPrefabs)
-	local distressPrefabs = include( scriptPath .. "/prefabs/shared/distress_call/prefabt" )
-    	modApi:addPrefabt(distressPrefabs)			
+	local distressPrefabs = include( scriptPath .. "/prefabs/shared_distress_call/prefabt" )
+    modApi:addPrefabt(distressPrefabs)
 
 	--local koPrefabs = include( scriptPath .. "/prefabs/ko/prefabt" )
  	--modApi:addWorldPrefabt(scriptPath, "ko", koPrefabs)
@@ -232,7 +232,7 @@ local function load( modApi, options, params )
 			end
 		end
 	end
-	
+
 	----- Distress Call mission hackz - Hek. They need to be in Load too
 	local mission_util = include("sim/missions/mission_util") --for Distress Call
 	local doAgentBanter_old = mission_util.doAgentBanter
@@ -242,14 +242,14 @@ local function load( modApi, options, params )
 			return
 		end
 		doAgentBanter_old(script,sim,cross_script,odds,returnIfFailed, ...)
-	end	
-	
+	end
+
 	local old_mission_util_makeAgentConnection = mission_util.makeAgentConnection
 	mission_util.makeAgentConnection = function( script, sim, ... )
 			old_mission_util_makeAgentConnection( script, sim, ... )
 			sim:triggerEvent(simdefs.TRG_UNIT_DROPPED, {item=nil, unit=nil})
 	end
-	-----	
+	-----
 
 end
 

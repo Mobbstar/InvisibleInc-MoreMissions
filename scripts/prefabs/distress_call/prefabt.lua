@@ -6,7 +6,7 @@
 local PREFABT0 =
 {	--start of distress1
     {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom",
         tags =
         {
             "MM_distresscall_interrogation",
@@ -1318,7 +1318,7 @@ local PREFABT0 =
         weight = 120,
     },
     {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom",
         tags =
         {
             "MM_distresscall_interrogation",
@@ -2630,7 +2630,7 @@ local PREFABT0 =
         weight = 120,
     },
     {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom",
         tags =
         {
             "MM_distresscall_interrogation",
@@ -3942,7 +3942,7 @@ local PREFABT0 =
         weight = 120,
     },
     {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom",
         tags =
         {
             "MM_distresscall_interrogation",
@@ -5256,7 +5256,7 @@ local PREFABT0 =
 	--end of distress1
 	-- start of distress2
 {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom2",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom2",
         tags =
         {
             "MM_distresscall_interrogation",
@@ -6088,7 +6088,7 @@ local PREFABT0 =
         weight = 56,
     },
     {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom2",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom2",
         tags =
         {
             "MM_distresscall_interrogation",
@@ -6920,7 +6920,7 @@ local PREFABT0 =
         weight = 56,
     },
     {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom2",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom2",
         tags =
         {
             "MM_distresscall_interrogation",
@@ -7752,7 +7752,7 @@ local PREFABT0 =
         weight = 56,
     },
     {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom2",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom2",
         tags =
         {
             "MM_distresscall_interrogation",
@@ -8586,7 +8586,7 @@ local PREFABT0 =
 -- end of distress2
 --start of distress3
 {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom3",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom3",
         tags =
         {
             "MM_distresscall_interrogation",
@@ -9781,7 +9781,7 @@ local PREFABT0 =
         weight = 84,
     },
     {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom3",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom3",
         tags =
         {
             "MM_distresscall_interrogation",
@@ -10976,7 +10976,7 @@ local PREFABT0 =
         weight = 84,
     },
     {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom3",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom3",
         tags =
         {
             "MM_distresscall_interrogation",
@@ -12171,7 +12171,7 @@ local PREFABT0 =
         weight = 84,
     },
     {
-        filename = SPYFACE_TEST_SCRIPTPATH.Hek_prefabs .. "/prefabs/shared/hek_detention_sideroom3",
+        filename = SCRIPT_PATHS.more_missions .. "/prefabs/shared_distress_call/hek_detention_sideroom3",
         tags =
         {
             "MM_distresscall_interrogation",

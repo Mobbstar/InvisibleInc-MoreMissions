@@ -3,17 +3,17 @@ local _M =
 -- agentIDs list:
 
 -- 	NAME = agentID	-- just for convenience: agentID is a number or string, name is easier to use
---	DECK = 0, -- tutorial	
+--	DECK = 0, -- tutorial
 
 	DECKER = 1,		-- Decker
 	SHALEM = 2,		-- Shalem
-	TONY = 3,		-- Xu	
+	TONY = 3,		-- Xu
 	BANKS = 4,		-- Banks
 	INTERNATIONALE = 5,	-- Internationale
 	NIKA = 6,		-- Nika
 	SHARP = 7,		-- Sharp
 	PRISM = 8,		-- Prism
-	
+
 	MONSTER = 100,		-- starting
 	CENTRAL = 108,		-- starting
 
@@ -21,7 +21,7 @@ local _M =
 	DEREK = 1001,
 	RUSH = 1002,
 	DRACO = 1003,
-	
+
 	AGENT009 = "agent009", --fake ID
 }
 
@@ -29,63 +29,63 @@ return {
 	OPTIONS =
 	{
 		EXEC_TERMINAL = "EXECUTIVE TERMINALS",
-		EXEC_TERMINAL_TIP = "<c:FF8411>EXECUTIVE TERMINALS</c>\nThis kind of mission is available in the base game. Feel free to disable it.\nThe first mission will be unaffected.",  
+		EXEC_TERMINAL_TIP = "<c:FF8411>EXECUTIVE TERMINALS</c>\nThis kind of mission is available in the base game. Feel free to disable it.\nThe first mission will be unaffected.",
 		CFO_OFFICE = "CHIEF FINANCIAL SUITE",
-		CFO_OFFICE_TIP = "<c:FF8411>CHIEF FINANCIAL SUITE</c>\nThis kind of mission is available in the base game. Feel free to disable it.",  
+		CFO_OFFICE_TIP = "<c:FF8411>CHIEF FINANCIAL SUITE</c>\nThis kind of mission is available in the base game. Feel free to disable it.",
 		CYBERLAB = "CYBERNETICS LAB",
-		CYBERLAB_TIP = "<c:FF8411>CYBERNETICS LAB</c>\nThis kind of mission is available in the base game. Feel free to disable it.",  
+		CYBERLAB_TIP = "<c:FF8411>CYBERNETICS LAB</c>\nThis kind of mission is available in the base game. Feel free to disable it.",
 		DETENTION = "DETENTION CENTER",
-		DETENTION_TIP = "<c:FF8411>DETENTION CENTER</c>\nThis kind of mission is available in the base game. Feel free to disable it.",  
+		DETENTION_TIP = "<c:FF8411>DETENTION CENTER</c>\nThis kind of mission is available in the base game. Feel free to disable it.",
 		NANOFAB = "NANOFAB VESTIBULE",
-		NANOFAB_TIP = "<c:FF8411>NANOFAB VESTIBULE</c>\nThis kind of mission is available in the base game. Feel free to disable it.",  
+		NANOFAB_TIP = "<c:FF8411>NANOFAB VESTIBULE</c>\nThis kind of mission is available in the base game. Feel free to disable it.",
 		SECURITY = "SECURITY DISPATCH",
-		SECURITY_TIP = "<c:FF8411>SECURITY DISPATCH</c>\nThis kind of mission is available in the base game. Feel free to disable it.",  
+		SECURITY_TIP = "<c:FF8411>SECURITY DISPATCH</c>\nThis kind of mission is available in the base game. Feel free to disable it.",
 		SERVER_FARM = "SERVER FARM",
-		SERVER_FARM_TIP = "<c:FF8411>SERVER FARM</c>\nThis kind of mission is available in the base game. Feel free to disable it.",  
+		SERVER_FARM_TIP = "<c:FF8411>SERVER FARM</c>\nThis kind of mission is available in the base game. Feel free to disable it.",
 		VAULT = "VAULT",
-		VAULT_TIP = "<c:FF8411>VAULT</c>\nThis kind of mission is available in the base game. Feel free to disable it.",  
+		VAULT_TIP = "<c:FF8411>VAULT</c>\nThis kind of mission is available in the base game. Feel free to disable it.",
 
 		ASSASSINATION = "ASSASSINATION",
-		ASSASSINATION_TIP = "<c:FF8411>ASSASSINATION</c>\nProvides credits. Similiar to research experiments in Vaults, except the object is heavier, and bleeding.",  
+		ASSASSINATION_TIP = "<c:FF8411>ASSASSINATION</c>\nProvides credits. Similiar to research experiments in Vaults, except the object is heavier, and bleeding.",
 		HOLOSTUDIO = "HOLOSTUDIO",
-		HOLOSTUDIO_TIP = "<c:FF8411>HOLOSTUDIO</c>\nProvides advanced Holo-Projectors. Similiar to Security Dispatch.",  
+		HOLOSTUDIO_TIP = "<c:FF8411>HOLOSTUDIO</c>\nProvides advanced Holo-Projectors. Similiar to Security Dispatch.",
 		LANDFILL = "SALVAGING PLANT",
-		LANDFILL_TIP = "<c:FF8411>SALVAGING PLANT</c>\nProvides disliked items at heavy discounts. Similiar to Nanofab Vestibule.",  
+		LANDFILL_TIP = "<c:FF8411>SALVAGING PLANT</c>\nProvides disliked items at heavy discounts. Similiar to Nanofab Vestibule.",
 
 		ITEMS_IN_STORE = "ITEMS IN STORES",
-		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",  
+		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",
 	},
-	
+
 	PROPS =
 	{
 		-- RECHARGE_STATION = "Phone Recharge Socket",
 	},
-	
-	GUARDS = 
+
+	GUARDS =
 	{
 		BOUNTY_TARGET = "Bounty Target",
 	},
-	
-		
+
+
 	AGENTS =
 	{
 		AGENT_009 =
-		{	
+		{
 			NAME = "Agent-OO9",
-			BANTER = 
+			BANTER =
 			{
 				START = {
 					"",
 				},
 				FINAL_WORDS =
 				{
-					"...",	
+					"...",
 				},
 			},
-		},	
+		},
 	},
-	
-	ITEMS = 
+
+	ITEMS =
 	{
 		-- KEYCARD_BLUE = "Blue Keycard",
 		-- KEYCARD_BLUE_TIP = "Unlocks blue doors.",
@@ -94,59 +94,59 @@ return {
 		HOLOGRENADE_HD = "HD Projector",
 		HOLOGRENADE_HD_TIP = "Throw to place a tall fake cover item. Activate in mainframe. Uses charge every turn. Can be recovered.",
 		HOLOGRENADE_HD_FLAVOR = "Circus acts and theatre make up for the lack of postproduction by using convincing High-Density Holograms.",
-		
+
 		LAPTOP_HOLO = "VFX Laptop",
 		LAPTOP_HOLO_TIP = "Deploy to place a fake cover item. Generates 1 PWR per turn while deployed. The projector can be heard 1 tile away.",
 		LAPTOP_HOLO_FLAVOR = "The more complex scenes in Holowood are created using highly programmable hologram projectors to compute realtime interaction with actors. This one lacks scripts, but the processors are still useful.",
-		
+
 		DISGUISE_CHARGED = "Subsidiary Holo Mesh",
 		DISGUISE_CHARGED_TIP = "Generates a disguise while active.\nSprinting and attacking disables the effect.\nDisguise will fail if an enemy observes from 1 tile away.\nUses charge every turn.",
 		DISGUISE_CHARGED_FLAVOR = "An expensive piece of hardware commonly used in the Holovid industry. Often disdained like lip-syncing on a stage.",
-	
+
 		ITEM_TAZER_OLD = "Worn Neural Disrupter",
 		-- ITEM_TAZER_OLD_TIP = "",
-		ITEM_TAZER_OLD_FLAVOR = "This disrupter is worn out, but still finds use as a \"persuasion\" tool.",	
+		ITEM_TAZER_OLD_FLAVOR = "This disrupter is worn out, but still finds use as a \"persuasion\" tool.",
 	},
-	
-	-- ACTIONS = 
+
+	-- ACTIONS =
 	-- {
 		-- UNLOCK_BLUE = "Hyper-Unlock",
 		-- UNLOCK_BLUE_TIP = "Unlock this door so hard, it stays open forever.",
 	-- },
-	
-	-- DAEMONS = 
+
+	-- DAEMONS =
 	-- {
-		-- CHITON = 
+		-- CHITON =
 		-- {
 			-- NAME = "CHITON",
 			-- DESC = "All guards get +1 ARMOR.",
 			-- SHORT_DESC = "Boost Guard ARMOR",
 			-- ACTIVE_DESC = "Guards have +1 ARMOR",
-		-- },	
+		-- },
 	-- },
-	
+
 	-- PROGRAMS =
 	-- {
-		-- MANHACK = 
+		-- MANHACK =
 		-- {
 			-- NAME = "MANHACK",
 			-- DESC = "Breaks X FIREWALL for 2 PWR. X is how many consoles are currently being used.",
 			-- SHORT_DESC = "Uses consoles to break Firewalls",
 			-- HUD_DESC = "BREAKS ONE FIREWALL FOR EVERY CONSOLE USED",
 			-- TIP_DESC = "BREAKS <c:FF8411>{1} FIREWALLS</c>, COSTS 2 PWR",
-		-- },	
-		-- CYCLE = 
+		-- },
+		-- CYCLE =
 		-- {
 			-- NAME = "CYCLE",
 			-- DESC = "All PWR is cleared at the beginning of each turn, then Gain 3 PWR.\nPASSIVE",
 			-- SHORT_DESC = "All PWR is cleared each turn. Auto generate large PWR.",
 			-- HUD_DESC = "ALL PWR IS CLEARED AT THE BEGINNING OF EACH TURN.\nTHEN GAIN 3 PWR PER TURN.",
-			-- TIP_DESC = "All PWR is cleared at the beginning of each turn, then gain 3 PWR.",		
+			-- TIP_DESC = "All PWR is cleared at the beginning of each turn, then gain 3 PWR.",
 			-- WARNING = "POWER CYCLED\n3 PWR",
-		-- },	
+		-- },
 	-- },
-	
-	
+
+
 	MISSIONS = {
 		ASSASSINATION = {
 		    OBJ_FIND = "Locate the target",
@@ -154,7 +154,7 @@ return {
 		    OBJ_DRAG = "Extract the target",
 		},
 	},
-	
+
 	LOCATIONS = {
 		--used by serverdefs.lua
 		HOLOSTUDIO = {
@@ -187,7 +187,7 @@ return {
 			REWARD = "A range of heavily discounted items.",
 		},
 		EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
-		
+
 		DISTRESS_CALL = {
 			NAME= "Distress Call",
 			MORE_INFO = "We've intercepted a signal suggesting an operative in need of extraction at this facility. It may be one of our missing agents, and if not, we can still negotiate a suitable compensation from them once we get them out safely. \n\nBe careful, Operator; our telemetry suggests the facility is already on high alert, and the alarm level will advance more quickly as a result.", --This can be quite lengthy.
@@ -196,7 +196,7 @@ return {
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
 			DESCRIPTION = "Get the escaped operative safely to extraction and grab their confiscated gear on the way out. Alarm level will increase more quickly here.",
 			REWARD = "Agent or prisoner rescue with valuable items.",
-		},	
+		},
 
 		WEAPONS_EXPO = {
 			NAME= "Tech Expo",
@@ -206,10 +206,10 @@ return {
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
 			DESCRIPTION = "Locate the main expo center and steal at least one prototype.",
 			REWARD = "Advanced melee or ranged weapons",
-		},		
+		},
 
 	},
-	
+
 	UI = {
 		HUD_WARN_EXIT_MISSION_HOLOSTUDIO = "Are you sure you want to leave? You don't have the holographic tool yet.",
 		HUD_WARN_EXIT_MISSION_ASSASSINATION = "Are you sure you want to leave? You don't have the target body.",
@@ -224,7 +224,7 @@ return {
 
 	AGENT_LINES =
 	{
-		DISTRESS_CALL = 
+		DISTRESS_CALL =
 		{
 			[_M.AGENT009] = "The name's Lien. Jimmy Lien. \n\nI reckon we can help each other.",
 			[_M.DECKER] = "Could use a lift.",
@@ -242,8 +242,8 @@ return {
 			[_M.CENTRAL] = "There you are. Good timing. Now get me out of here.",
 			[_M.OLIVIA] = "Good. I cannot spend another second in this place.",
 		},
-	},	
-	
+	},
+
 	BANTER = {
 		--automatically compiled by story_scripts.lua
 		INGAME = {
@@ -287,7 +287,7 @@ return {
 					},
 				},
 			},
-			
+
 			ASSASSINATION = {
 				OBJECTIVE_SIGHTED = {
 					{{"That's the target. Get them.",
@@ -346,10 +346,10 @@ return {
 				-- MISSED ={
 					-- "Operator, get your head on straight. You didn't even check the workstation. We don't have the luxury of time to waste!",
 					-- "We can make do with nanofabs, but the cheap items you missed at this facility would have saved much money for other improvements.",
-				-- },				
+				-- },
 			-- },
 			EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.INGAME,
-			
+
 			DISTRESS_CALL = {
 				SAW_AGENT = {
 				{{"There's our missing asset. Your objective is simple, Operator: Get that agent to the extraction point.",	nil,"Central"}},
@@ -362,8 +362,8 @@ return {
 				{{"But be careful - that little stunt won't have gone unnoticed. Their security level should start rising rapidly now.",nil,		"Central"}},
 				},
 				SAW_GEAR_CONTAINER = {
-				{{"Hold it. Incognita's heuristic model suggests they might have stashed our rescuee's equipment here. Let's take a look.",	nil,"Central"}},
-				},				
+				{{"Incognita's heuristic model suggests they might have stashed our rescuee's equipment here. Let's take a look.",	nil,"Central"}},
+				},
 				CENTRAL_JUDGEMENT = {
 					GOT_AGENT = {
 					{{"That's one more pair of hands on the team. Excellent work, Operator.", nil, "Central"}},
@@ -389,7 +389,7 @@ return {
 				},
 			},
 			WEAPONS_EXPO = {
-				FOUND_EXPO = {{{"Our scans show this room has advanced security measures. The system will boost nearby firewalls if even one exhibit is compromised.",nil,"Central"}}, 
+				FOUND_EXPO = {{{"Our scans show this room has advanced security measures. The system will boost nearby firewalls if even one exhibit is compromised.",nil,"Central"}},
 				{{"See if you can find a way to disable them.",nil,"Central"}}},
 				SAW_SWITCH = {{{"This security switch controls the failsafes protecting the exhibit. Find the other switch and activate both at the same time.",nil,"Central"}}},
 				DISABLED_SWITCH = {{{"You've deactivated the firewall boost, but don't let your guard down. There may still be security measures in place we don't know about.", nil, "Central"}}},
@@ -404,12 +404,13 @@ return {
 					GOT_FULL = {{{"I hope you dusted the shelves on your way out, Operator. We wouldn't want their cleaners to think we've missed a spot. Excellent work.",nil,"Central"}},
 					{{"That should do quite nicely. It won't put us on par with the corps, but we're no longer as catastrophically outgunned as we were before.",nil,"Central"}},
 					{{"Commendable work, Operator. We've expanded our arsenal and put a dent in their research all at once.",nil,"Central"}}},
-				},			
+				},
+			},
 		},
 		-- CAMPAIGN_MAP = {
 			-- MISSIONS = {
 			-- },
 		-- },
 	},
-	
+
 }
