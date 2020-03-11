@@ -170,6 +170,7 @@ local function makeGuardInvestigate( script, sim )
 				if agent and guard and guard:getBrain() then
 					guard:getBrain():getSenses():addInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_HUNTING, agent)
 					-- sim:processReactions()
+					sim:setClimax(true)
 				end
 			end
 		end
@@ -338,7 +339,6 @@ local function startAgentEscape( script, sim, mission )
 	
 		script:queue(1*cdefs.SECONDS)	
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )	
-		sim:setClimax(true)	
 		script:queue(2*cdefs.SECONDS) --without this Central's message gets "skipped" for some reason because of the agent stating oneliner still playing	
 		
 		local scripts = SCRIPTS.INGAME.DISTRESS_CALL.SAW_AGENT
