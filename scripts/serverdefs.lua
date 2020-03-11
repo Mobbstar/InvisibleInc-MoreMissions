@@ -4,6 +4,10 @@ local function createGeneralMissionObj( txt, txt2 )
 	return string.format("> %s\n> %s", txt, txt2 or STRINGS.MISSIONS.ESCAPE.OBJECTIVE)
 end
 
+local function createGeneralSecondaryMissionObj()
+	return string.format("<c:777777>> %s</>", STRINGS.MISSIONS.ESCAPE.SECONDARY_OBJECTIVE)
+end
+
 local ESCAPE_MISSION_TAGS = {}
 
 local SITUATIONS =
@@ -40,6 +44,26 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_HOSTAGE ),
 		},
 	},
+	-- weapon_expo =
+	-- {
+        -- ui = {
+			-- insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			-- icon = "gui/mission_previews/ea_hostage.png", --gun icon
+			-- objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_HOSTAGE ),
+		-- },
+		-- scripts = { "weapon_expo" },
+		-- tags = { "weapon_expo" },
+	-- },	
+	
+	distress_call =
+	{
+        ui = {
+			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			icon = "gui/mission_previews/ea_hostage.png", --gun icon
+			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE ),
+			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY),
+		},
+	},		
 }
 
 --automated processing
