@@ -1,3 +1,30 @@
+local _M =
+{
+-- agentIDs list:
+
+-- 	NAME = agentID	-- just for convenience: agentID is a number or string, name is easier to use
+--	DECK = 0, -- tutorial	
+
+	DECKER = 1,		-- Decker
+	SHALEM = 2,		-- Shalem
+	TONY = 3,		-- Xu	
+	BANKS = 4,		-- Banks
+	INTERNATIONALE = 5,	-- Internationale
+	NIKA = 6,		-- Nika
+	SHARP = 7,		-- Sharp
+	PRISM = 8,		-- Prism
+	
+	MONSTER = 100,		-- starting
+	CENTRAL = 108,		-- starting
+
+	OLIVIA = 1000,
+	DEREK = 1001,
+	RUSH = 1002,
+	DRACO = 1003,
+	
+	AGENT009 = "agent009", --fake ID
+}
+
 return {
 	OPTIONS =
 	{
@@ -39,6 +66,24 @@ return {
 		BOUNTY_TARGET = "Bounty Target",
 	},
 	
+	AGENTS =
+	{
+		AGENT_009 =
+		{	
+			NAME = "Agent-OO9",
+			BANTER = 
+			{
+				START = {
+					"",
+				},
+				FINAL_WORDS =
+				{
+					"...",	
+				},
+			},
+		},	
+	},
+	
 	ITEMS = 
 	{
 		-- KEYCARD_BLUE = "Blue Keycard",
@@ -56,6 +101,10 @@ return {
 		DISGUISE_CHARGED = "Subsidiary Holo Mesh",
 		DISGUISE_CHARGED_TIP = "Generates a disguise while active.\nSprinting and attacking disables the effect.\nDisguise will fail if an enemy observes from 1 tile away.\nUses charge every turn.",
 		DISGUISE_CHARGED_FLAVOR = "An expensive piece of hardware commonly used in the Holovid industry. Often disdained like lip-syncing on a stage.",
+		
+		ITEM_TAZER_OLD = "Worn Neural Disrupter",
+		-- ITEM_TAZER_OLD_TIP = "",
+		ITEM_TAZER_OLD_FLAVOR = "This disrupter is worn out, but still finds use as a \"persuasion\" tool.",
 	},
 	
 	-- ACTIONS = 
@@ -99,10 +148,9 @@ return {
 	
 	MISSIONS = {
 		ASSASSINATION = {
-		    OBJ_FIND = "Locate the target",
-		    OBJ_KILL = "Disable the target",
-		    OBJ_DRAG = "Extract the target",
-		},
+		    OBJECTIVE_1 = "Kill them! Kill them all!",
+			-- "So far, so good. Now make sure not to bump into any rival assassins on your way out.",
+		},		
 	},
 	
 	LOCATIONS = {
@@ -137,18 +185,63 @@ return {
 			REWARD = "A range of heavily discounted items.",
 		},
 		EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
+		
+		DISTRESS_CALL = {
+			NAME= "Distress Call",
+			MORE_INFO = "We've intercepted a signal suggesting an operative in need of extraction at this facility. It may be one of our missing agents, and if not, we can still negotiate a suitable compensation from them once we get them out safely. \n\nBe careful, Operator; our telemetry suggests the facility is already on high alert, and the alarm level will advance more quickly as a result.", --This can be quite lengthy.
+			INSET_TITLE = "OPERATIVE EXTRACTION", --unused
+			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
+			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			DESCRIPTION = "Get the escaped operative safely to extraction and grab their confiscated gear on the way out. Alarm level will increase more quickly here.",
+			REWARD = "Agent or prisoner rescue with valuable items.",
+		},	
+
+		WEAPONS_EXPO = {
+			NAME= "Weapons Expo", -- "Tech Expo"?
+			MORE_INFO = "This facility is hosting a world class tier tech exposition. The corporations and their industry finest will be showing off their newest weapon prototypes. We should be able to nab us some prize gear, provided we visit after hours.", --This can be quite lengthy.
+			INSET_TITLE = "WEAPONS EXPO", --unused
+			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
+			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			DESCRIPTION = "Locate the main expo center and steal at least one prototype.",
+			REWARD = "Advanced melee or ranged weapons",
+		},		
 
 	},
 	
 	UI = {
+		DISTRESS_OBJECTIVE = "Rescue the operative",
+		DISTRESS_OBJECTIVE_SECONDARY = "Find the operative's gear",
+		DISTRESS_AGENT_GEAR_CONTAINER = "SIGNAL DETECTED",
+		DISTRESS_AGENT_GEAR_CONTAINER_DESC = "VALUABLE EQUIPMENT",
 		HUD_WARN_EXIT_MISSION_HOLOSTUDIO = "Are you sure you want to leave? You don't have the holographic tool yet.",
-		HUD_WARN_EXIT_MISSION_ASSASSINATION = "Are you sure you want to leave? You don't have the target body.",
 		-- REASON = {
 			-- HYPERUNLOCKED = "Busted open by a blue keycard",
 		-- },
 	},
 	
-	BANTER = {
+	AGENT_LINES =
+	{
+		DISTRESS_CALL = 
+		{
+			[_M.AGENT009] = "The name's Lien. Jimmy Lien. \n\nI reckon we can help each other.",
+			[_M.DECKER] = "Could use a lift.",
+			[_M.INTERNATIONALE] = "Let's get out of here.",
+			[_M.BANKS] = "You're a sight for sore eyes. Or ears, anyway.",
+			[_M.NIKA] = "...\n\nHello again.",
+			[_M.SHARP] = "I have things under control.\n\n...But you may assist me anyway.",
+			[_M.SHALEM] = "Saves me the trouble of an exfiltration plan.",
+			[_M.TONY] = "Excellent timing, Operator. I was just leaving.",
+			[_M.PRISM] = "Good. It's about time we got things under control.",
+			[_M.MONSTER] = "Have I mentioned I hate getting my hands dirty? Well, here I am, mentioning it again.",
+			[_M.RUSH] = "Oh, good. I'm sick of sitting around, anyway.",
+			[_M.DRACO] = "Your assistance is superfluous, but not unwelcome.",
+			[_M.DEREK] = "I had a feeling you'd be here, nick of time and everything.",
+			[_M.CENTRAL] = "There you are. Good timing. Now get me out of here.",
+			[_M.OLIVIA] = "Good. I cannot spend another second in this place.",
+		},
+	},
+	
+	BANTER = { --it bugs me that you call this 'banter', jsyk - Hek
 		--automatically compiled by story_scripts.lua
 		INGAME = {
 			--Central's one-liners are technically speaking scripts with only one line, thus the nesting.
@@ -163,13 +256,13 @@ return {
 						"Central"}},
 				},
 				AFTERMATH = {
-					{{"The item was resting on a pressure plate. Except a gamma blast to briefly disrupt all our holograms soon.",
+					{{"The item was resting on a pressure plate. Expect a gamma blast to briefly disrupt all our holograms soon.",
 						"moremissions/VoiceOver/Central/holostudio/aftermath0",
 						"Central"}},
 				},
 				CENTRAL_JUDGEMENT = {
 					HASLOOT = {
-						{{"Well done. Use this new toy to prevent dangerous situations from forming in the first place.",
+						{{"Well done. Use this new toy to prevent dangerous situations from arising in the first place.",
 							"moremissions/VoiceOver/Central/holostudio/judge/hasloot0",
 							"Central"}},
 						--also stole a generic Security Dispatch line
@@ -192,49 +285,24 @@ return {
 				},
 			},
 			
-			ASSASSINATION = {
-				OBJECTIVE_SIGHTED = {
-					{{"That's the target. Get them.",
-						"moremissions/VoiceOver/Central/assassination/seen0",
-						"Central"}},
-					{{"You found him. Don't let him get away.",
-						"moremissions/VoiceOver/Central/assassination/seen1",
-						"Central"}},
-				},
-				AFTERMATH = {
-					{{"So far, so good. Now make sure not to bump into any rival assassins on your way out.",
-						"moremissions/VoiceOver/Central/assassination/aftermath0",
-						"Central"}},
-				},
-				CENTRAL_JUDGEMENT = {
-					GOTBODY = {
-						-- "Tonight, we drink on X, who kindly pays in blood.",
-						{{"This bounty will make for a crucial donation to our cause. Excellent!",
-							"moremissions/VoiceOver/Central/assassination/judge/gotloot0",
-							"Central"}},
-						{{"We'll need to scrub the jet floor after this, but it is worthwile.",
-							"moremissions/VoiceOver/Central/assassination/judge/gotloot1",
-							"Central"}},
-					},
-					NOTDEAD = {
-						{{"Target seems alive, but we can fix that. Good job.",
-							"moremissions/VoiceOver/Central/assassination/judge/gotalive0",
-							"Central"}},
-					},
-					-- GOTLOOT = {
-						-- "No body, no bounty. At least we got a nice souvenir.",
-						-- "Make good use of that equipment, it's the only thing we got from all this.",
-					-- },
-					GOTNOTHING = {
-						{{"You didn't get what we came for. Perhaps you would like to offer your own head to our client?",
-							"moremissions/VoiceOver/Central/assassination/judge/noloot0",
-							"Central"}},
-						{{"Now somebody else is going to get the bounty. Quit wasting precious time, operator!",
-							"moremissions/VoiceOver/Central/assassination/judge/noloot1",
-							"Central"}},
-					},
-				},
-			},
+			-- ASSASSINATION = {
+				-- GOTBODY = {
+					-- -- "Tonight, we drink on X, who kindly pays in blood.",
+					-- "This bounty will make for a crucial donation to our cause. Excellent!",
+					-- "We'll need to scrub the jet floor after this, but it is worthwile.",
+				-- },
+				-- NOTDEAD = {
+					-- "Target seems alive, but we can fix that. Good job.",
+				-- },
+				-- GOTLOOT = {
+					-- "No body, no bounty. At least we got a nice souvenir.",
+					-- "Make good use of that equipment, it's the only thing we got from all this.",
+				-- },
+				-- GOTNOTHING = {
+					-- "You didn't get what we came for. Perhaps you would like to offer your own head to our client?",
+					-- "Now somebody else is going to get the bounty. Quit wasting precious time, operator!",
+				-- },
+			-- },
 			-- LANDFILL = {
 				-- BOUGHT ={
 					-- --stole all the generic Nanofab lines
@@ -253,6 +321,66 @@ return {
 				-- },				
 			-- },
 			EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.INGAME,
+			
+			DISTRESS_CALL = {
+				SAW_AGENT = {
+				{{"There's our missing asset. Your objective is simple, Operator: Get that agent to the extraction point.",	nil,"Central"}},
+				{{"But be careful - that little stunt won't have gone unnoticed. Their security level should start rising rapidly now.",nil,		"Central"}},
+				},
+				SAW_OTHER = {
+				{{"We've made contact with the operative. He's not one of ours, but that doesn't mean he can't be useful. See if you can get him out; we can talk shop back on the jet.",
+						nil,
+						"Central"}},
+				{{"But be careful - that little stunt won't have gone unnoticed. Their security level should start rising rapidly now.",nil,		"Central"}},
+				},
+				SAW_GEAR_CONTAINER = {
+				{{"Hold it. Incognita's heuristic model suggests they might have stashed our rescuee's equipment here. Let's take a look.",	nil,"Central"}},
+				},				
+				CENTRAL_JUDGEMENT = {
+					GOT_AGENT = {
+					{{"That's one more pair of hands on the team. Excellent work, Operator.", nil, "Central"}},
+					{{"We've shown them they cannot keep our people locked up. Prepare that agent for the next mission, Operator. You've earned your pay today.", nil, "Central"}},
+					{{"It's a good thing we were there to provide extraction. Now there's one more pair of hands on our side, and we're stronger for it.", nil, "Central"}},
+					{{"That agent certainly made the rescue easy for us. I suppose a moment of professional pride is in order. Good work, everyone.",nil,"Central"}},
+					},
+					LOST_AGENT = {
+					{{"Damn it, Operator! That agent had alerady sprung themselves free, all you had to do was walk in there and get them!", nil, "Central"}},
+					{{"One day you'll find yourself in the same shoes as the agent you just abandoned. You better hope that day doesn't come soon.", nil, "Central"}},
+					{{"This one is going on your permanent record.", nil, "Central"}}
+					},
+					GOT_OTHER = {
+					{{"Extraction complete. We can find out on the jet who he works for and just how much he's worth to his employer.",nil, "Central"}},
+					{{"That's everyone out. With any luck, we can negotiate a reward for the rescue.",nil,"Central"}},
+					{{"That's everyone out. A pity the operative wasn't one of ours, but we'll keep looking. Excellent work, Operator.",nil,"Central"}},
+					},
+					LOST_OTHER = {
+					{{"Another opportunity squandered. You had better step up your game, Operator. You're lucky that wasn't one of our people you just abandoned.",nil,"Central"}},
+					{{"We went in there for nothing. You better have a good explanation for this, Operator.",nil,"Central"}},
+					{{"A fruitless endeavour. That operative could have been of use to us in some manner. Too late for that now.",nil,"Central"}},
+					},
+				},
+			},
+			WEAPONS_EXPO = {
+				FOUND_EXPO = {{{"Our scans show this room has advanced security measures. The system will boost nearby firewalls if even one exhibit is compromised.",nil,"Central"}}, 
+				{{"See if you can find a way to disable them.",nil,"Central"}}},
+				SAW_SWITCH = {{{"This security switch controls the failsafes protecting the exhibit. Find the other switch and activate both at the same time.",nil,"Central"}}},
+				DISABLED_SWITCH = {{{"You've deactivated the firewall boost, but don't let your guard down. There may still be security measures in place we don't know about.", nil, "Central"}}},
+				LOOTED_CASE_DROIDS_BOOTING = {{{"The combat droid prototypes are coming online. Looks like the expo is providing its own security. Get out while you still can, Operator.",nil,"Central"}}},
+				CENTRAL_JUDGEMENT = {
+					NO_LOOT = {{{"That was a waste of time, Operator. If you cannot pull off a simple museum heist, then what good are you?",nil,"Central"}},
+					{{" I expected better results from you, Operator. We've lost all our previous firepower, and opportuinties like this don't come knocking every day.",nil,"Central"}},
+					{{"Outstanding work, Operator. I trust you'll remember this moment the next time our agents enter the field armed with toothpicks and nerf guns.",nil,"Central"}}},
+					GOT_PARTIAL = {{{"I trust you made the right call, Operator. I would have preferred we clean them out completely, but the reward is not always worth the risk.",nil,"Central"}},
+					{{"Acceptable work. You didn't clean out their entire arsenal, but this should tide us over for now.",nil,"Central"}},
+					{{"This should give our people an edge in the field. Let's just hope the enemy won't be armed with those prototypes you chose to leave behind.",nil,"Central"}}},
+					GOT_FULL = {{{"I hope you dusted the shelves on your way out, Operator. We wouldn't want their cleaners to think we've missed a spot. Excellent work.",nil,"Central"}},
+					{{"That should do quite nicely. It won't put us on par with the corps, but we're no longer as catastrophically outgunned as we were before.",nil,"Central"}},
+					{{"Commendable work, Operator. We've expanded our arsenal and put a dent in their research all at once.",nil,"Central"}}},
+				},
+							
+				
+			
+			},
 		},
 		-- CAMPAIGN_MAP = {
 			-- MISSIONS = {
