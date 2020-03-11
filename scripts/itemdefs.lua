@@ -90,6 +90,37 @@ local tool_templates =
 		},	
     	value = 1000,
 	},	
+
+	item_tazer_old = util.extend(commondefs.melee_template)
+	{
+		name =  STRINGS.MOREMISSIONS.ITEMS.ITEM_TAZER_OLD,
+		desc = STRINGS.ITEMS.TAZER_1_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.ITEM_TAZER_OLD_FLAVOR,
+		icon = "itemrigs/FloorProp_AmmoClip.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_tazer_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_tazer.png",		
+		--profile_icon = "gui/items/icon-tazer-ftm.png",
+		requirements = {  },
+		traits = { damage = 1,  cooldown = 0, cooldownMax = 4, melee = true, level = 1 },
+		value = 100,
+		floorWeight = 1,
+	},	
+	
+	item_tazer_old_armour = util.extend(commondefs.melee_template)
+	{
+		name =  STRINGS.MOREMISSIONS.ITEMS.ITEM_TAZER_OLD,
+		desc = STRINGS.ITEMS.TAZER_1_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.ITEM_TAZER_OLD_FLAVOR,
+		icon = "itemrigs/FloorProp_AmmoClip.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_tazer_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_tazer.png",		
+		--profile_icon = "gui/items/icon-tazer-ftm.png",
+		requirements = {  },
+		traits = { damage = 1,  cooldown = 0, cooldownMax = 4, armorPiercing = 1, melee = true, level = 1 },
+		value = 150,
+		floorWeight = 1,
+	},		
+	
 }
 
 return tool_templates
