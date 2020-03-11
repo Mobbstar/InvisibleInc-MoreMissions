@@ -48,6 +48,25 @@ local function init( modApi )
 
 	-- abilities, for now simple override (I'm not smart enough to...)
 	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
+
+	do -- patch automatic tracker
+		local trackerBoost = 0
+		local aiplayer = include( "sim/aiplayer" )
+		local _onEndTurn = aiplayer.onEndTurn
+		function aiplayer:onEndTurn(sim)
+			trackerBoost = sim.missionTrackerBoost
+			_onEndTurn(self, sim)
+			trackerBoost = 0
+		end
+
+		local simengine = include( "sim/engine" )
+		local _trackerAdvance = simengine.trackerAdvance
+		function simengine:trackerAdvance(delta, ...)
+			delta = delta + trackerBoost
+			return _trackerAdvance(self, delta, ...)
+		end
+	end
+
 end
 
 --The implementation of array.removeAllElements is not optimal for our purposes, and we also need something to remove dupes, so might as well combine it all. -M
