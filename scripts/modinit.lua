@@ -187,7 +187,7 @@ local function load( modApi, options, params )
 	modApi:addPrefabt(sharedPrefabs)
 	sharedPrefabs = include( scriptPath .. "/prefabs/shared_assassination/prefabt" )
 	modApi:addPrefabt(sharedPrefabs)
-	local distressPrefabs = include( scriptPath .. "/prefabs/shared_distress_call/prefabt" )
+	local distressPrefabs = include( scriptPath .. "/prefabs/distress_call/prefabt" )
     modApi:addPrefabt(distressPrefabs)
 
 	--local koPrefabs = include( scriptPath .. "/prefabs/ko/prefabt" )
