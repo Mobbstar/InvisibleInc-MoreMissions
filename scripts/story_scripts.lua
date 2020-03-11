@@ -29,6 +29,7 @@ local function GenerateScript(strings, scripts)
 		-- currently in the data table for a specific line
 		if not MakeLine[strings[3]] then
 			log:write("Warning: The following Story Script had no valid actor (" .. util.stringize(strings[3], 1) .. "):\n" .. strings[1])
+			strings[3] = "Central"
 		end
 		MakeLine[strings[3]](scripts, strings[1], strings[2])
 	else
