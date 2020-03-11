@@ -15,15 +15,18 @@ local level = include( "sim/level" )
 -- Local helpers
 
 -- Design summary:
--- Agent/operative escape begins on turn 1. Alarm level rises at the usual+1 rate for this entire level! Turn 2: Investigation point on operative's original spawn point from nearby guard. Agent's non-augment inventory is emptied and deposited into a random safe on the map, but they start with a custom disrupter. If no safe available, their stuff stays on them.
-
+-- Agent/operative escape begins on turn 1. Alarm level rises at the usual+1 rate for this entire level! 
+--Turn 2: Investigation point on operative's original spawn point from nearby guard. 
+--Agent's non-augment inventory is emptied and deposited into a random safe on the map, but they start with a custom disrupter.
+--If no safe available, their stuff stays on them.
+-- -Hek
 
 local OPERATIVE_ESCAPED =
 {
 	trigger = simdefs.TRG_UNIT_ESCAPED,
 	fn = function( sim, triggerUnit )
 		if triggerUnit and triggerUnit:hasTag("escapedAgent") then
-		log:write("LOG trg unit escaped")
+		--log:write("LOG trg unit escaped")
 			return triggerUnit
 		end
 	end,
@@ -33,10 +36,8 @@ local OPERATIVE_DESPAWNED =
 {
 	trigger = simdefs.TRG_UNIT_WARP,
 	fn = function( sim, triggerData )
-	log:write("LOG unit warp")
-	log:write(util.stringize(triggerData,3))
 		if triggerData.unit and triggerData.unit:hasTag("escapedAgent") and not triggerData.to_cell then --on despawn (and not just escaping). Permadeath or NCT or...
-			log:write("LOG escapedAgent despawned")
+			--log:write("LOG escapedAgent despawned")
 			return triggerData
 		end
 	end
@@ -44,7 +45,7 @@ local OPERATIVE_DESPAWNED =
 
 -- This is the chance that an agent will load in the detention centre.  If not, a hostage
 -- will be placed there.
-local CHANCE_OF_AGENT_IN_DETENTION = 0.2 --0.5 --make customisable param?
+local CHANCE_OF_AGENT_IN_DETENTION = 0.5 --make customisable param?
 
 
 local ALARM_INCREASE = 
@@ -53,7 +54,6 @@ local ALARM_INCREASE =
 	fn = function( sim, evData )
 		return true
 	end,
-	
 }
 
 local AGENT_CONNECTION = 
@@ -61,8 +61,7 @@ local AGENT_CONNECTION =
 	trigger = simdefs.TRG_UNIT_DROPPED, --custom 'hook' in makeAgentConnection append in modinit
 	fn = function( sim, evData )
 		return true
-	end,
-	
+	end,	
 }
 
 local GEAR_SAFE_LOOTED = 
@@ -148,7 +147,7 @@ end
 local function increaseAlarm(script, sim, mission)
 	script:waitFor( ALARM_INCREASE )
 	sim:trackerAdvance(1)
-	script:addHook( increaseAlarm, true )
+	script:addHook( increaseAlarm, true ) --this may be too harsh. may need generation option
 
 end
 
@@ -202,7 +201,7 @@ local function startAgentEscape( script, sim, mission )
 
     unit:getTraits().detention = true
 
-	local agency = sim:getParams().agency
+    local agency = sim:getParams().agency
     local agentDef = getLostAgent( agency )
     
     -- If there aren't any lost agents, pick one of the remaining potentials at random.
@@ -292,7 +291,7 @@ local function startAgentEscape( script, sim, mission )
 	
 		local safeUnit
 		local safes = {}
-		log:write("searching for safe")
+		--log:write("searching for safe")
 		for k,unit in pairs(sim:getAllUnits()) do
 			if unit:getTraits().safeUnit and not (unit:getUnitData().id == "guard_locker") then
 				table.insert(safes,unit)
@@ -300,13 +299,13 @@ local function startAgentEscape( script, sim, mission )
 		end
 		if #safes > 0 then
 			safeUnit = safes[sim:nextRand(1,#safes)]
-			log:write("found safe")
+			--log:write("found safe")
 		end
 		
 		local gear = make_gear( sim, newOperative, agentTemplate ) --handles inventory wrangling
 		
 		if safeUnit then 
-			log:write("putting stuff in safe")
+			--log:write("putting stuff in safe")
 			safeUnit:addTag("agent_gear_storage")
 			
 			if #gear > 0 then
@@ -316,9 +315,9 @@ local function startAgentEscape( script, sim, mission )
 			end	
 			
 			local tazer_template = "item_tazer_old"
-			-- if sim:getParams().difficulty >=10 then --will probably need tuning
+			if sim:getParams().difficulty >=10 then --will probably need tuning
 				tazer_template = "item_tazer_old_armour"
-			-- end
+			end
 	
 			local newItem = simfactory.createUnit( unitdefs.lookupTemplate( tazer_template ), sim )
 		
@@ -384,30 +383,19 @@ local function startAgentEscape( script, sim, mission )
 end
 
 local function got_operative(script, sim, mission)
-	script:waitFor( OPERATIVE_ESCAPED ) --"borrowed" from assassination mission :) - Hek
-
-	-- for unitID, unit in pairs(sim:getAllUnits()) do
-		-- if unit:hasTag("escapedAgent") then
-			-- local cell = sim:getCell( unit:getLocation() )
-			-- if cell and cell.exitID == simdefs.DEFAULT_EXITID then
-			
-				if mission.agent_distressed then
-					mission.agent_extracted = true
-				else
-					mission.operative_extracted = true
-				end
-				sim:removeObjective( "rescue_agent" )
+	script:waitFor( OPERATIVE_ESCAPED )
+		
+	if mission.agent_distressed then
+		mission.agent_extracted = true
+	else
+		mission.operative_extracted = true
+	end
+	sim:removeObjective( "rescue_agent" )
 				
-			-- end
-		-- end
-	-- end
-
 end 
 
 local function gearSafeReaction( script, sim, mission )
 
-	-- local _, prisoner = script:waitFor( mission_util.PC_SAW_UNIT("escapedAgent"))		
-	
 	local _, agent_gear_safe = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "agent_gear_storage", STRINGS.MOREMISSIONS.UI.DISTRESS_AGENT_GEAR_CONTAINER, STRINGS.MOREMISSIONS.UI.DISTRESS_AGENT_GEAR_CONTAINER_DESC ) )	
 	local x0, y0 = agent_gear_safe:getLocation()
 	script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
@@ -415,52 +403,13 @@ local function gearSafeReaction( script, sim, mission )
 	script:queue( { script=SCRIPTS.INGAME.DISTRESS_CALL.SAW_GEAR_CONTAINER[1], type="newOperatorMessage" } )
 	
 	script:waitFor(GEAR_SAFE_LOOTED)
-	log:write("LOG safe looted!")
+	--log:write("LOG safe looted!")
 	sim:removeObjective( "find_agent_gear" )
 	
-    agent_gear_safe:destroyTab()	
+    	agent_gear_safe:destroyTab()	
 	
 
 end
-
-local function checkForOperative( script, sim, mission )
-	-- if sim:getParams().difficultyOptions.disableDialogue or sim:getParams().difficultyOptions.disableDialogue_redux then
-		-- script:waitFor( mission_util.UI_INITIALIZED ) --can't wait for talking head, that's how mid_1 got softlocked. it's uglier than the other trigger but that's what you get. - Hek
-	-- else
-		-- script:waitFor( mission_util.EV_TALKING_HEAD_CLOSED )	
-		-- script:waitFor( mission_util.PC_START_TURN )
-		-- script:waitFor( AGENT_CONNECTION )
-		-- script:queue( 2*cdefs.SECONDS )
-	-- end
-	log:write("LOG about to start agent escape")
-	-- startAgentEscape( script, sim, mission )
-
-	-- script:waitFor( mission_util.PC_USED_ABILITY( "open_detention_cells" ))
-
-
-
-	-- if prisoner:getUnitData().agentID then
-		-- -- custom script with agent reaction
-	-- else
-		-- script:queue( { type="hideHUDInstruction" } )
-		-- script:queue( { body=STRINGS.MISSIONS.ESCAPE.PRISONER_CONVO1, header=STRINGS.MISSIONS.ESCAPE.PRISONER_NAME, type="enemyMessage", 
-				-- profileAnim="portraits/portrait_animation_template",
-				-- profileBuild="portraits/portrait_prisoner_build",
-			-- } )
-		-- script:queue( 160 )	--update this script! not prisoner, different NPC
-	-- end
-
-	-- script:queue( { type="clearEnemyMessage" } )
-	-- script:queue( { type="clearOperatorMessage" } )
-
-	script:waitFor( OPERATIVE_ESCAPED )
-    -- if mission.operative_distressed then
-		-- sim:setMissionReward( simquery.scaleCredits( sim, 800 ))
-			--some kind of custom reward might go here...
-	-- end
-
-end
-
 
 local function detentionFitness( cxt, prefab, x, y )
     local tileCount = cxt:calculatePrefabLinkage( prefab, x, y )
@@ -486,8 +435,6 @@ function mission:init( scriptMgr, sim )
     sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE, "rescue_agent" )		
 	
 	sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY, "find_agent_gear" )	--get gear	
-	
-	scriptMgr:addHook( "DISTRESSED_OPERATIVE", checkForOperative, nil, self )
 	scriptMgr:addHook( "MAKE_GUARD_INVESTIGATE", makeGuardInvestigate, nil, self )	
 	scriptMgr:addHook( "GEAR SAFE REACTION", gearSafeReaction, nil, self)
 	scriptMgr:addHook( "GOT_OPERATIVE", got_operative, nil, self )
