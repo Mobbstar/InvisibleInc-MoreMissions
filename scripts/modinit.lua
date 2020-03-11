@@ -62,6 +62,7 @@ local function init( modApi )
 		local simengine = include( "sim/engine" )
 		local _trackerAdvance = simengine.trackerAdvance
 		function simengine:trackerAdvance(delta, ...)
+			trackerBoost = self.missionTrackerBoost or 0
 			delta = delta + trackerBoost
 			return _trackerAdvance(self, delta, ...)
 		end
