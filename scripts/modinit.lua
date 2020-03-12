@@ -54,7 +54,7 @@ local function init( modApi )
 		local aiplayer = include( "sim/aiplayer" )
 		local _onEndTurn = aiplayer.onEndTurn
 		function aiplayer:onEndTurn(sim)
-			trackerBoost = sim.missionTrackerBoost
+			trackerBoost = sim.missionTrackerBoost or 0
 			_onEndTurn(self, sim)
 			trackerBoost = 0
 		end
@@ -62,7 +62,6 @@ local function init( modApi )
 		local simengine = include( "sim/engine" )
 		local _trackerAdvance = simengine.trackerAdvance
 		function simengine:trackerAdvance(delta, ...)
-			trackerBoost = self.missionTrackerBoost or 0
 			delta = delta + trackerBoost
 			return _trackerAdvance(self, delta, ...)
 		end
