@@ -31,7 +31,7 @@ local HOSTAGE_KO =
 {
 	trigger = simdefs.TRG_UNIT_KO,
 	fn = function( sim, evData )
-		return evData.unit:getTraits().hostage
+		return evData.unit:getTraits().MM_hostage
 	end,	
 }
 
@@ -44,7 +44,7 @@ local PC_HOSTAGE_MOVED =
 {
 	action = "moveAction",
 	fn = function( sim, unitID, moveTable )
-		return unitID and sim:getUnit( unitID ):isPC() and sim:getUnit( unitID ):getTraits().hostage 
+		return unitID and sim:getUnit( unitID ):isPC() and sim:getUnit( unitID ):getTraits().MM_hostage 
 	end,
 }
 
@@ -53,7 +53,7 @@ local PC_HOSTAGE_STARTED_MOVE =
 	pre=true,
 	action = "moveAction",
 	fn = function( sim, unitID, moveTable )
-		return unitID and sim:getUnit( unitID ):isPC() and sim:getUnit( unitID ):getTraits().hostage 
+		return unitID and sim:getUnit( unitID ):isPC() and sim:getUnit( unitID ):getTraits().MM_hostage 
 	end,
 }
 
@@ -61,7 +61,7 @@ local PC_HOSTAGE_HIT_END =
 {
 	trigger = simdefs.TRG_UNIT_HIT,
 	fn = function( sim, evData )
-		return evData.targetUnit:getTraits().hostage
+		return evData.targetUnit:getTraits().MM_hostage
 	end,	
 }
 
@@ -127,7 +127,7 @@ local function checkHostageKO( script, sim )
 		local hostageID = nil
 		sim:forEachUnit(
 			function(unit)
-				if unit:getTraits().hostage then 
+				if unit:getTraits().MM_hostage then 
 					hostage = unit
 					hostageID = hostage:getID()
 				end
@@ -228,7 +228,7 @@ end
 local function updateVitalStatus( script, sim, playSound )
 	sim:forEachUnit(
 		function(unit)
-			if unit:getTraits().hostage then 
+			if unit:getTraits().MM_hostage then 
 				--unit:destroyTab()
 				local x, y = unit:getLocation()
 				local text = STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS 
@@ -259,7 +259,7 @@ local function hostageBanter( script, sim )
 		local hostage = nil
 		sim:forEachUnit(
 			function(unit)
-				if unit:getTraits().hostage then 
+				if unit:getTraits().MM_hostage then 
 					hostage = unit
 				end
 			end
@@ -322,7 +322,7 @@ local function clearHostageStatusAfterMove( script, sim )
 		local _, hostage = script:waitFor( PC_HOSTAGE_STARTED_MOVE )
 		sim:forEachUnit(
 		function(unit)
-			if unit:getTraits().hostage then 
+			if unit:getTraits().MM_hostage then 
 				unit:destroyTab()				
 			end
 		end)	
@@ -345,7 +345,7 @@ local function clearStatusAfterEndTurn( script, sim )
 		local hostage = nil
 		sim:forEachUnit(
 			function(unit)
-				if unit:getTraits().hostage then 
+				if unit:getTraits().MM_hostage then 
 					hostage = unit
 					hostage:destroyTab()
 				end
@@ -397,7 +397,7 @@ local function calculateHostageVitalSigns( sim )
 	local hostage = nil
 	sim:forEachUnit(
 		function(unit)
-			if unit:getTraits().hostage then 
+			if unit:getTraits().MM_hostage then 
 				hostage = unit
 			end
 		end)
@@ -431,10 +431,10 @@ local function startPhase( script, sim )
 	sim:getTags().no_escape = true
 	
 	--See the hostage	
-	local _, hostage = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "hostage", STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, STRINGS.MISSIONS.UTIL.RAPID_PULSE_READING ) )
+	local _, hostage = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "MM_hostage", STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, STRINGS.MISSIONS.UTIL.RAPID_PULSE_READING ) )
 	sim:forEachUnit(
 		function(unit)
-			if unit:getTraits().hostage then 
+			if unit:getTraits().MM_hostage then 
 				local x, y = unit:getLocation()			
 				script:queue( { type="pan", x=x, y=y } )				
 			end
@@ -455,7 +455,7 @@ local function startPhase( script, sim )
 	sim:setClimax(true)
 	sim:forEachUnit(
 		function(unit)
-			if unit:getTraits().hostage then 
+			if unit:getTraits().MM_hostage then 
 				unit:destroyTab()				
 			end
 		end)	
