@@ -35,9 +35,14 @@ local HOSTAGE_KO =
 	end,	
 }
 
-local HOSTAGE_ESCAPED = 
+local HOSTAGE_ESCAPED =
 {
-	trigger = "hostage_escaped",
+	trigger = simdefs.TRG_UNIT_ESCAPED,
+	fn = function( sim, triggerUnit )
+		if triggerUnit and triggerUnit:hasTag("MM_hostage") then
+			return triggerUnit
+		end
+	end,
 }
 
 local PC_HOSTAGE_MOVED =
