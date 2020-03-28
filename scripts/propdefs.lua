@@ -70,6 +70,24 @@ local prop_templates =
 
 }
 
+--custom one so no overlap
+MM_hostage_capture_ea = 
+{ 
+	type = "simunit", 
+	name = STRINGS.PROPS.HOSTAGE,
+	rig = "hostagerig",	
+	onWorldTooltip = function( tooltip, unit )
+		tooltip:addLine( unit:getName() )
+		tooltip:addAbility( STRINGS.ABILITIES.RESCUE, STRINGS.ABILITIES.RESCUE_HOSTAGE_DESC, "gui/items/icon-action_open-safe.png",nil,true )
+	end,
+	tags = { "MM_hostage" },
+	kanim = "kanim_hostage", --this will be custom
+
+	traits = { impass = {0,0}, rescue_incident = "hostage_rescued", template="MM_hostage",  mp=5, mpMax =5, sightable = true, MM_hostage = true, untie_anim = true,  vitalSigns = 2, agent_filter= true }, 
+	abilities = { "hostage_rescuable" },
+	sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", }
+},	
+
 -- Reassign key name to value table.
 for id, template in pairs(prop_templates) do
 	template.id = id
