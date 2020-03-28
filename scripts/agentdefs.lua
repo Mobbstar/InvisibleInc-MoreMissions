@@ -51,6 +51,46 @@ local agent_templates =
 		speech = STRINGS.MOREMISSIONS.AGENTS.AGENT_009.BANTER,
 		blurb = "",
 	},
+	
+	MM_hostage =
+	{
+		type = "simunit",
+		name = STRINGS.AGENTS.HOSTAGE.NAME,
+		fullname = STRINGS.AGENTS.HOSTAGE.ALT_1.FULLNAME,
+		yearsOfService = STRINGS.AGENTS.HOSTAGE.YEARS_OF_SERVICE,
+		age = STRINGS.AGENTS.HOSTAGE.AGE,
+		homeTown = STRINGS.AGENTS.HOSTAGE.HOMETOWN,
+		toolTip = STRINGS.AGENTS.HOSTAGE.ALT_1.TOOLTIP,
+		onWorldTooltip = commondefs.onAgentTooltip,
+		profile_icon_36x36= "gui/profile_icons/courrier_36.png",
+		splash_image = "gui/agents/agentDeckard_768.png",
+		profile_anim = "portraits/courier_face",
+		kanim = "kanim_courier_male", --will be custom
+		gender = "male",
+		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { inventoryMaxSize = 1, mp=5, mpMax =5, noUpgrade = true, MM_hostage = true, kill_trigger = "hostage_dead", vitalSigns=10, rescued=true, canBeCritical=false,leavesAtEndOfMission=true },	
+		children = {}, -- Dont add items here, add them to the upgrades table in createDefaultAgency()
+		abilities =  commondefs.DEFAULT_AGENT_ABILITIES ,
+		sounds = { 
+					speech="SpySociety/Agents/dialogue_player",  
+					step = simdefs.SOUNDPATH_FOOTSTEP_MALE_HARDWOOD_NORMAL, 
+					stealthStep = simdefs.SOUNDPATH_FOOTSTEP_MALE_HARDWOOD_SOFT,
+					
+					wallcover = "SpySociety/Movement/foley_suit/wallcover",
+					crouchcover = "SpySociety/Movement/foleyfoley_suit_trench/crouchcover",
+					fall = "SpySociety/Movement/foley_suit/fall",	
+					land = "SpySociety/Movement/deathfall_agent_hardwood",
+					land_frame = 35,						
+					getup = "SpySociety/Movement/foley_suit/getup",
+					grab = "SpySociety/Movement/foley_suit/grab_guard",
+					pin = "SpySociety/Movement/foley_suit/pin_guard",
+					pinned = "SpySociety/Movement/foley_suit/pinned",	
+					peek_fwd = "SpySociety/Movement/foley_suit/peek_forward",	
+					peek_bwd = "SpySociety/Movement/foley_suit/peek_back",				
+					move = "SpySociety/Movement/foley_suit/move",
+				},--
+		speech = speechdefs.stealth_1,
+		blurb = "",
+	},			
 }
 
 return agent_templates
