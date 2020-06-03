@@ -1,3 +1,14 @@
+NEW STUFF: (see Discord channel)
+- "Trap" mission disguised as another mission type on the map. Exit is vault-locked, need to find exit keys and escape. Map filled with Enforcers? Agents split up? Advanced alarm level when you enter? Needs more thought.
+
+- Mole insertion: Escort an NPC to a certain location, knock out/kidnap an executive, have them be replaced by informant. Reward: Informant will supply you with with random intel (facility layout, camera/console locations/daemons/guard tags, etc.) for subsequent missions for the rest of the campaign. This means you could build a 'network' of informants by doing several of these missions and having the benefits stack for the rest of the campaign. (on Endless mode, should be limited to say... 3 days)
+
+- Luxury Nanofab: mission that lets you have access to all (or almost all) items of a specific type, or all three types (augs/weapons/misc). expanded repertoire, 16 slots all dedicated to one item type. However, can only buy 1 from each. Need to think of a security response.
+
+- Frame job or eavesdrop: take out corporate exec and plant evidence pinning it on another corp. Reward: Lowered mission difficulty level across the map. However, must not leave winesses! Any guards/cameras/drones that directly see your agents must be destroyed or dead by the time you leave (or just don't be spotted > hence, two ways to play this). Could be  merged with existing WIP assassination mission seeing as we haven't figured out a "gimmick" for that yet. (Note to self: "witness" units will need a custom tooltip for ease of tracking)
+
+OLD STUFF:
+
 Distress Call
 Reward: New agent or money reward for rescuing contact.
 Fluff: Beam in to extract a live asset who got free on their own (agent or civilian type NPC carrying random valuable gear, corporate intel, or similar).
