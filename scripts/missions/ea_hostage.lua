@@ -431,6 +431,33 @@ local function calculateHostageVitalSigns( sim )
 	print( "vital signs: "..hostage:getTraits().vitalSigns )
 end
 
+local function courier_guard_banter(script, sim)
+	script:waitFor( mission_util.PC_START_TURN )
+	
+	local hostage, captain = mission_util.findUnitByTag(sim, "MM_hostage"),mission_util.findUnitByTag(sim, "MM_captain")
+	if hostage and captain and not hostage:isKO() and not captain:isKO() and sim:canPlayerSeeUnit(sim:getPC(), hostage) and	sim:canPlayerSeeUnit(sim:getPC(), captain) then		
+		script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.GUARD_INTERROGATE1, 
+						header=captain:getUnitData().name, type="enemyMessage", 
+						profileAnim="portraits/portrait_animation_template",
+						profileBuild = captain:getUnitData().profile_build or captain:getUnitData().profile_anim,
+					} )
+		script:queue( 5*cdefs.SECONDS )
+		script:queue( { type="clearEnemyMessage" } )		
+
+		local text =  {{							
+			text = STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.COURIER_INTERROGATE1,
+			anim = "portraits/portrait_animation_template",
+			build = "portraits/courier_face",
+			name = hostage:getUnitData().name,
+			timing = 5,
+			voice = nil,
+		}}			
+		
+		script:queue( { script=text, type="newOperatorMessage", doNotQueue=true } )
+	
+	end
+end
+
 local function startPhase( script, sim )
 
 	sim:addObjective( STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OBJECTIVE_FIND_HOSTAGE, "hostage_1" )
@@ -449,6 +476,7 @@ local function startPhase( script, sim )
 	script:queue( 0.5*cdefs.SECONDS )
 
 	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.HOSTAGE_SIGHTED[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.HOSTAGE_SIGHTED)], type="newOperatorMessage" } )
+	script:addHook(courier_guard_banter)
 	
 	script:waitFor( mission_util.PC_ANY )	
 	script:queue( { type="clearOperatorMessage" } )
@@ -526,94 +554,6 @@ local function startPhase( script, sim )
 	sim:getTags().delayPostGame = false
 end
 
--- DLC compatibility stuff
-
-local checkFtmRouter = function( script, sim )
-    local _, scanner = script:waitFor( mission_util.PC_SAW_UNIT("ftmrouter") ) 
-    
-    if not scanner:getTraits().scannerTabAdded then
-        script:queue( { type="clearOperatorMessage" } )
-        scanner:createTab( STRINGS.PROPS.ADVANCED_CORP_EQUIP, STRINGS.DLC1.PROPS.FTM_ROUTER_TAB )
-        scanner:getTraits().scannerTabAdded = true
-    end
-end
-
-local function routerDetected( script, sim )
-    script:waitFor( mission_util.PC_START_TURN )
-    -- Verify it hasn't been immediately hacked.
-    local routerUnit = simquery.findUnit( sim:getAllUnits(), function( u ) return u:getTraits().router and u:getPlayerOwner() == nil end )
-
-    local routers = 0
-    
-    for i,unit in pairs(sim:getAllUnits())do
-        if unit:getTraits().router and unit:getPlayerOwner() ~= sim:getPC() and unit:getTraits().mainframe_status == "active" then
-            routers = routers + 1
-        end
-    end
-
-    if routerUnit then
-        script:queue( { type="clearOperatorMessage" } )
-        script:queue( { script=SCRIPTS.INGAME.CENTRAL_ROUTER_DETECTED, type="newOperatorMessage" } )   
-
-        local num = routers
-        if routers < 2 then
-            num = nil    
-        end
-
-        if routers == 1 then
-            sim:addObjective( STRINGS.DLC1.MISSIONS.OBJ_ROUTER, "router", num )
-        else
-            sim:addObjective( STRINGS.DLC1.MISSIONS.OBJ_ROUTERS, "router", num )    
-        end
-      
-        if routers > 1 then
-            while routers > 0 do                
-                script:waitFor( mission_util.TRG_UNIT_DEACTIVATED( ))
-
-                local newRouters = 0
-                for i,unit in pairs(sim:getAllUnits())do
-                    if unit:getTraits().router and unit:getPlayerOwner() ~= sim:getPC() and unit:getTraits().mainframe_status == "active" then                                
-                        newRouters = newRouters + 1
-                    end
-                end
-
-                if newRouters < routers then
-                    sim:incrementTimedObjective( "router" )
-                    routers = routers -1
-                end
-            end
-            sim:removeObjective( "router" )
-        else
-            script:waitFor( mission_util.UNIT_DEACTIVATED( routerUnit ))        
-            sim:removeObjective( "router" )
-        end
-        script:queue( 2*cdefs.SECONDS )
-        script:queue( { script=SCRIPTS.INGAME.CENTRAL_ROUTER_DETECTED_2, type="newOperatorMessage" } )         
-    end
-end
-
-local function powerCell( script, sim )
-
-    sim:addObjective( STRINGS.DLC1.MISSIONS.OBJ_FIND_CELL, "findCell" ) 
-
-    local _, powerNode = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "power_cell", STRINGS.DLC1.MISSIONS.POWER_CELL_DETECTED, STRINGS.DLC1.MISSIONS.POWER_CELL_DETECTED_DESC ) )  
-    sim:removeObjective("findCell")    
-    sim:addObjective( STRINGS.DLC1.MISSIONS.OBJ_GET_CELL, "getCell" ) 
-    local x1, y1 = powerNode:getLocation()
-    script:queue( { type="pan", x=x1, y=y1 } )
-
-    script:waitFor( PC_LOOTED_POWER_CELL )
-    powerNode:destroyTab()
-    script:queue( 1*cdefs.SECONDS )
-    script:queue( { script=SCRIPTS.INGAME.CENTRAL_GOT_POWER_CELL[sim:nextRand(1, #SCRIPTS.INGAME.CENTRAL_GOT_POWER_CELL)], type="newOperatorMessage" } )    
-    
-    sim:removeObjective("getCell") 
-    sim:addObjective( STRINGS.DLC1.MISSIONS.OBJ_ESCAPE_CELL, "escapeWithCell" )
-
-    sim:removeObjective("find_case")    
-
-end
-
 ---------------------------------------------------------------------------------------------
 -- Begin!
 
@@ -621,66 +561,32 @@ local hostage_mission = class( mission_util.campaign_mission )
 --local hostage_mission = class( escape_mission )
 
 function hostage_mission:init( scriptMgr, sim )
-	-- escape_mission.init contains sim:openElevator, here same code but without opening exit doors:
-    mission_util.campaign_mission.init( self, scriptMgr, sim )
+	escape_mission.init( self, scriptMgr, sim ) --let vanilla escape_mission.init run but follow it up with custom version of the sim:closeElevator code which doesn't set a 2 turn timer
 
-    if isEndlessMode( sim:getParams(), HISEC_EXIT_DAY ) then
-    	sim:addObjective( STRINGS.MISSIONS.ESCAPE.OBJ_EXIT_PASSCARD, "elevator_1" )
-    else
-        sim:addObjective( STRINGS.MISSIONS.ESCAPE.OBJECTIVE, "elevator_1" )
-    end
-	
-    	scriptMgr:addHook( "CONNECT", mission_util.makeAgentConnection )
-	scriptMgr:addHook( "FTM-SCANNER", mission_util.checkFtmScanner )	
-
-    for i, mod in pairs(mod_manager.modMissionScripts)do
-        if mod.init then
-            mod.init(scriptMgr, sim )
-        end
-    end
+	sim:forEachCell(
+			function( c )
+				for i, exit in pairs( c.exits ) do
+					if exit.door and not exit.closed and (exit.keybits == simdefs.DOOR_KEYS.ELEVATOR or exit.keybits == simdefs.DOOR_KEYS.ELEVATOR_INUSE)  then
+						
+						local reverseExit = exit.cell.exits[ simquery.getReverseDirection( i ) ]
+						exit.keybits = simdefs.DOOR_KEYS.ELEVATOR_INUSE						
+						reverseExit.keybits = simdefs.DOOR_KEYS.ELEVATOR_INUSE
+						
+						-- self._elevator_inuse = 2 --commented out so no timer is set!!!
+						sim:modifyExit( c, i, simdefs.EXITOP_CLOSE )
+						sim:modifyExit( c, i, simdefs.EXITOP_LOCK )
+						sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED, {cell=c, dir=i} )
+					elseif exit.door and not exit.closed and exit.keybits == simdefs.DOOR_KEYS.FINAL_LEVEL then 
+						sim:modifyExit( c, i, simdefs.EXITOP_CLOSE )
+						sim:modifyExit( c, i, simdefs.EXITOP_LOCK )
+						sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED, {cell=c, dir=i} )
+					end
+				end
+			end )
+			
 	scriptMgr:addHook( "HOSTAGE", startPhase )
 
-	    -- DLC missions stuff.
-    for k,unit in pairs(sim:getAllUnits()) do
-        if unit:getTraits().router then
-            scriptMgr:addHook( "ROUTER-DETECT", routerDetected )
-            scriptMgr:addHook( "FTM-ROUTER", checkFtmRouter )  
-            break
-        end
-    end
 
-    if sim:getParams().missionEvents and sim:getParams().missionEvents.needPowerCells then
-        sim:getTags().needPowerCells = true
-        scriptMgr:addHook( "POWER_CELL", powerCell )  
-        sim:getTags().exit_reqiuired_item = "item_power_cell"
-        local win_conditions = include( "sim/win_conditions" )
-        sim:addWinCondition( win_conditions.escapedWithObjective )
-        sim:getTags().failMessage = SCRIPTS.INGAME.FAIL_TO_GET_POWER_CELL      
-    end
-    
-    local params = sim:getParams()    
-
-    -- adjusted enldess 
-    if params.difficultyOptions.maxHours == math.huge and params.extended_endless then          
-        if params.difficulty >= 20 then       
-            sim:getNPC():addMainframeAbility( sim, "chitonAlarm_3", nil, 0 )
-            sim:getNPC():addMainframeAbility( sim, "shockAlarm_3", nil, 0 )     
-        elseif params.difficulty >= 18 then       
-            sim:getNPC():addMainframeAbility( sim, "chitonAlarm_3", nil, 0 )
-            sim:getNPC():addMainframeAbility( sim, "shockAlarm_2", nil, 0 )     
-        elseif params.difficulty >= 16 then             
-            sim:getNPC():addMainframeAbility( sim, "chitonAlarm_2", nil, 0 )
-            sim:getNPC():addMainframeAbility( sim, "shockAlarm_2", nil, 0 )            
-        elseif params.difficulty >= 14 then            
-            sim:getNPC():addMainframeAbility( sim, "chitonAlarm_2", nil, 0 )
-            sim:getNPC():addMainframeAbility( sim, "shockAlarm", nil, 0 )            
-        elseif params.difficulty >= 12 then
-            sim:getNPC():addMainframeAbility( sim, "chitonAlarm", nil, 0 )
-            sim:getNPC():addMainframeAbility( sim, "shockAlarm", nil, 0 )
-        elseif params.difficulty >= 10 then
-            sim:getNPC():addMainframeAbility( sim, "chitonAlarm", nil, 0 )
-        end
-    end
 end
 
 function hostage_mission.pregeneratePrefabs( cxt, tagSet ) 	-- was tags instead of tagSet
