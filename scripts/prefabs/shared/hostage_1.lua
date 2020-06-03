@@ -615,13 +615,13 @@ local units =
             {
                 x = 2,
                 y = 4,
-                template = [[hostage_capture]],
+                template = [[MM_hostage]],
                 unitData =
                 {
                     facing = 0,
                     tags =
                     {
-                      "hostage",
+                      "MM_hostage",
                  --       "hostageSituation",
                     },
                 },
