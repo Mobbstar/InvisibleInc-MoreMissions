@@ -82,7 +82,7 @@ local prop_templates =
 		tags = { "MM_hostage" },
 		kanim = "kanim_hostage", --this will be custom
 
-		traits = { impass = {0,0}, rescue_incident = "hostage_rescued", template="hostage",  mp=5, mpMax =5, sightable = true, MM_hostage = true, untie_anim = true,  vitalSigns = 2, agent_filter= true }, 
+		traits = { impass = {0,0}, rescue_incident = "hostage_rescued", template="MM_hostage",  mp=5, mpMax =5, sightable = true, MM_hostage = true, untie_anim = true,  vitalSigns = 2, agent_filter= true }, 
 		abilities = { "hostage_rescuable" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", }
 	},	
