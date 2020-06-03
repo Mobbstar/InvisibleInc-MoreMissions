@@ -35,6 +35,7 @@ local HOSTAGE_KO =
 	end,	
 }
 
+
 local HOSTAGE_ESCAPED =
 {
 	trigger = simdefs.TRG_UNIT_ESCAPED,
@@ -512,6 +513,7 @@ local function startPhase( script, sim )
 
 
 	script:waitFor( HOSTAGE_ESCAPED )
+	sim.TA_mission_success = true -- flag for Talkative Agents
 	--sim:setMissionReward( MISSION_REWARD )
 	sim:setMissionReward ( simquery.scaleCredits( sim, MISSION_REWARD ))		
 	sim:removeObjective( "hostage_3" )
@@ -707,7 +709,7 @@ end
 
 
 function hostage_mission.finalizeProcgen( cxt )
-	local hostageUnit = cxt:pickUnit( function(u) return u.template == "hostage_capture" end )
+	local hostageUnit = cxt:pickUnit( function(u) return u.template == "MM_hostage_capture_ea" end )
 	local startX, startY = cxt:pickCell( cxt.IS_DEPLOY_CELL )
 	local exitX, exitY = cxt:pickCell( cxt.IS_EXIT_CELL )
 	log:write( "FINALIZE: hostage@ <%d, %d>, start<%d, %d>, end<%d, %d>", hostageUnit.x, hostageUnit.y, startX, startY, exitX, exitY )
