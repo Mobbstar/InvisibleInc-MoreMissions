@@ -89,9 +89,9 @@ local agent_templates =
 					peek_bwd = "SpySociety/Movement/foley_suit/peek_back",				
 					move = "SpySociety/Movement/foley_suit/move",
 				},--
-		speech = speechdefs.stealth_1,
+		speech = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE.BANTER,
 		blurb = "",
-	},		
+	},			
 }
 
 return agent_templates
