@@ -3530,6 +3530,116 @@
         <Tags />
         <BStates />
       </MapUnit>
+      <MapUnit>
+        <X>2</X>
+        <Y>9</Y>
+        <UnitKey>Important Guard</UnitKey>
+        <Template>important_guard</Template>
+        <UnitData>facing = 0</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>9</X>
+        <Y>14</Y>
+        <UnitKey>Business man</UnitKey>
+        <Template>npc_business_man</Template>
+        <UnitData>facing = 2</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>2</X>
+        <Y>12</Y>
+        <UnitKey>cell door</UnitKey>
+        <Template>cell_door</Template>
+        <UnitData>facing = 2</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>4</X>
+        <Y>12</Y>
+        <UnitKey>cell door</UnitKey>
+        <Template>cell_door</Template>
+        <UnitData>facing = 2</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>6</X>
+        <Y>12</Y>
+        <UnitKey>cell door</UnitKey>
+        <Template>cell_door</Template>
+        <UnitData>facing = 2</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>6</X>
+        <Y>12</Y>
+        <UnitKey>cell door</UnitKey>
+        <Template>cell_door</Template>
+        <UnitData>facing = 4</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>6</X>
+        <Y>6</Y>
+        <UnitKey>cell door</UnitKey>
+        <Template>cell_door</Template>
+        <UnitData>facing = 6</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>6</X>
+        <Y>6</Y>
+        <UnitKey>cell door</UnitKey>
+        <Template>cell_door</Template>
+        <UnitData>facing = 4</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>4</X>
+        <Y>6</Y>
+        <UnitKey>cell door</UnitKey>
+        <Template>cell_door</Template>
+        <UnitData>facing = 6</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>2</X>
+        <Y>6</Y>
+        <UnitKey>cell door</UnitKey>
+        <Template>cell_door</Template>
+        <UnitData>facing = 6</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
     </Units>
     <Decos>
       <MapDeco>
@@ -3545,48 +3655,6 @@
         <Anim>decor_ceooffice_object_ceooffice_vaultlockside1</Anim>
         <DecoKey>Unique ceooffice object vaultlockside1</DecoKey>
         <Facing>4</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>6</X>
-        <Y>6</Y>
-        <Anim>holdingcell_1x1_celldoor1</Anim>
-        <DecoKey>Unique holdingcell 1x1 celldoor1</DecoKey>
-        <Facing>4</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>6</X>
-        <Y>6</Y>
-        <Anim>holdingcell_1x1_celldoor1</Anim>
-        <DecoKey>Unique holdingcell 1x1 celldoor1</DecoKey>
-        <Facing>6</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>4</X>
-        <Y>6</Y>
-        <Anim>holdingcell_1x1_celldoor1</Anim>
-        <DecoKey>Unique holdingcell 1x1 celldoor1</DecoKey>
-        <Facing>6</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>6</X>
-        <Y>12</Y>
-        <Anim>holdingcell_1x1_celldoor1</Anim>
-        <DecoKey>Unique holdingcell 1x1 celldoor1</DecoKey>
-        <Facing>2</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>6</X>
-        <Y>12</Y>
-        <Anim>holdingcell_1x1_celldoor1</Anim>
-        <DecoKey>Unique holdingcell 1x1 celldoor1</DecoKey>
-        <Facing>4</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>4</X>
-        <Y>12</Y>
-        <Anim>holdingcell_1x1_celldoor1</Anim>
-        <DecoKey>Unique holdingcell 1x1 celldoor1</DecoKey>
-        <Facing>2</Facing>
       </MapDeco>
       <MapDeco>
         <X>8</X>
@@ -4226,18 +4294,46 @@
         <Facing>0</Facing>
       </MapDeco>
       <MapDeco>
-        <X>2</X>
-        <Y>12</Y>
-        <Anim>holdingcell_1x1_celldoor1</Anim>
-        <DecoKey>Unique holdingcell 1x1 celldoor1</DecoKey>
-        <Facing>2</Facing>
+        <X>6</X>
+        <Y>6</Y>
+        <Anim>decor_cybernetics_flooring_1x1glassfloorpanel1</Anim>
+        <DecoKey>Unique cybernetics floor glassfloorpanel1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>4</X>
+        <Y>6</Y>
+        <Anim>decor_cybernetics_flooring_1x1glassfloorpanel1</Anim>
+        <DecoKey>Unique cybernetics floor glassfloorpanel1</DecoKey>
+        <Facing>0</Facing>
       </MapDeco>
       <MapDeco>
         <X>2</X>
         <Y>6</Y>
-        <Anim>holdingcell_1x1_celldoor1</Anim>
-        <DecoKey>Unique holdingcell 1x1 celldoor1</DecoKey>
-        <Facing>6</Facing>
+        <Anim>decor_cybernetics_flooring_1x1glassfloorpanel1</Anim>
+        <DecoKey>Unique cybernetics floor glassfloorpanel1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>2</X>
+        <Y>12</Y>
+        <Anim>decor_cybernetics_flooring_1x1glassfloorpanel1</Anim>
+        <DecoKey>Unique cybernetics floor glassfloorpanel1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>4</X>
+        <Y>12</Y>
+        <Anim>decor_cybernetics_flooring_1x1glassfloorpanel1</Anim>
+        <DecoKey>Unique cybernetics floor glassfloorpanel1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>6</X>
+        <Y>12</Y>
+        <Anim>decor_cybernetics_flooring_1x1glassfloorpanel1</Anim>
+        <DecoKey>Unique cybernetics floor glassfloorpanel1</DecoKey>
+        <Facing>0</Facing>
       </MapDeco>
     </Decos>
     <Lights />
