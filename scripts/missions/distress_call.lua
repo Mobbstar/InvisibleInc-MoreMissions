@@ -130,7 +130,8 @@ local function make_gear( sim, newUnit, agentTemplate )
 			end
 
 	else --random useful junk if it's not an agent
-		table.insert(new_items,"item_corpIntel")
+		-- table.insert(new_items,"item_corpIntel")
+		table.insert(new_items,"vault_passcard")
 		table.insert(new_items, template_list[sim:nextRand(1,#template_list)])
 	end
 
@@ -319,9 +320,9 @@ local function startAgentEscape( script, sim, mission )
 				end
 			end
 
-			local tazer_template = "item_tazer_old"
+			local tazer_template = "MM_item_tazer_old"
 			if sim:getParams().difficulty >=10 then --will probably need tuning
-				tazer_template = "item_tazer_old_armour"
+				tazer_template = "MM_item_tazer_old_armour"
 			end
 
 			local newItem = simfactory.createUnit( unitdefs.lookupTemplate( tazer_template ), sim )
@@ -397,9 +398,11 @@ local function got_operative(script, sim, mission)
 
 	if mission.agent_distressed then
 		mission.agent_extracted = true
+		sim.TA_mission_success = true -- flag for Talkative Agents
 	else
 		mission.operative_extracted = true
 		sim:setMissionReward( simquery.scaleCredits( sim, 800 )) --keep this money reward unless we can think of something more exciting/original
+		sim.TA_mission_success = true
 	end
 	sim:removeObjective( "rescue_agent" )
 
@@ -442,7 +445,6 @@ function mission:init( scriptMgr, sim )
     escape_mission.init( self, scriptMgr, sim )
 
 	scriptMgr:addHook( "START_AGENT_ESCAPE", startAgentEscape, nil, self )
-
     sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE, "rescue_agent" )
 
 	sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY, "find_agent_gear" )	--get gear
