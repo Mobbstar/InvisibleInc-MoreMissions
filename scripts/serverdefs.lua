@@ -44,16 +44,14 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_HOSTAGE ),
 		},
 	},
-	-- weapon_expo =
-	-- {
-        -- ui = {
-			-- insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
-			-- icon = "gui/mission_previews/ea_hostage.png", --gun icon
-			-- objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_HOSTAGE ),
-		-- },
-		-- scripts = { "weapon_expo" },
-		-- tags = { "weapon_expo" },
-	-- },	
+	weapons_expo =
+	{
+        ui = {
+			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			icon = "gui/mission_previews/ea_hostage.png", --gun icon
+			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_OBJECTIVE ),
+		},
+	},	
 	
 	distress_call =
 	{
@@ -63,7 +61,7 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY),
 		},
-	},		
+	},				
 }
 
 --automated processing
