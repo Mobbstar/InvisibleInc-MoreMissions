@@ -64,6 +64,8 @@ return {
 	GUARDS =
 	{
 		BOUNTY_TARGET = "Bounty Target",
+		PROTOTYPE_DROID = "Prototype Android",
+		PROTOTYPE_DROID_SPEC = "Prototype SpecDroid",
 	},
 
 
@@ -106,6 +108,8 @@ return {
 		ITEM_TAZER_OLD = "Worn Neural Disrupter",
 		-- ITEM_TAZER_OLD_TIP = "",
 		ITEM_TAZER_OLD_FLAVOR = "This disrupter is worn out, but still finds use as a \"persuasion\" tool.",
+		
+		
 	},
 
 	-- ACTIONS =
@@ -190,7 +194,7 @@ return {
 
 		DISTRESS_CALL = {
 			NAME= "Distress Call",
-			MORE_INFO = "We've intercepted a signal suggesting an operative in need of extraction at this facility. It may be one of our missing agents, and if not, we can still negotiate a suitable compensation from them once we get them out safely. \n\nBe careful, Operator; our telemetry suggests the facility is already on high alert, and the alarm level will advance more quickly as a result.", --This can be quite lengthy.
+			MORE_INFO = "We've intercepted a signal suggesting an operative in need of extraction at this facility. It may be one of our missing agents, and if not, we can still negotiate a suitable compensation from them once we get them out safely. \n\nBe careful, Operator - our telemetry suggests the facility is already on high alert, and the alarm level will advance more quickly as a result.", --This can be quite lengthy.
 			INSET_TITLE = "OPERATIVE EXTRACTION", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
@@ -200,12 +204,12 @@ return {
 
 		WEAPONS_EXPO = {
 			NAME= "Tech Expo",
-			MORE_INFO = "This facility is hosting a world class tier tech exposition. The corporations and their industry finest will be showing off their newest weapon prototypes. We should be able to nab us some prize gear, provided we visit after hours.", --This can be quite lengthy.
+			MORE_INFO = "This facility is hosting a world class tier tech exposition. The corporations and their industry finest will be showing off their newest weapon prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nKeep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
 			INSET_TITLE = "WEAPONS EXPO", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
-			DESCRIPTION = "Locate the main expo center and steal at least one prototype.",
-			REWARD = "Advanced melee or ranged weapons",
+			DESCRIPTION = "Locate the main exhibition center and steal at least one prototype.",
+			REWARD = "Advanced melee or ranged weapons you can sell or use as equipment.",
 		},
 
 	},
@@ -220,6 +224,21 @@ return {
 		DISTRESS_OBJECTIVE_SECONDARY = "Find the operative's gear",
 		DISTRESS_AGENT_GEAR_CONTAINER = "SIGNAL DETECTED",
 		DISTRESS_AGENT_GEAR_CONTAINER_DESC = "VALUABLE EQUIPMENT", --should probably go under MISSIONS above but we can tidy things later...
+		WEAPONS_EXPO_OBJECTIVE = "Locate and steal weapon prototypes",
+		WEAPONS_EXPO_EMP_SAFE = "Cannot loot while device is disabled",
+		WEAPONS_EXPO_WARN_EXIT = "Are you sure you want to leave? You haven't stolen any of the weapon prototypes yet.",
+		WEAPONS_EXPO_FIREWALLS = "SECURITY FAILSAFE: FIREWALL BOOST",
+		WEAPONS_EXPO_DROIDS_WARNING = "NEW THREAT",
+		WEAPONS_EXPO_DROIDS_WARNING_SUB = "BOOTING...",
+		WEAPONS_EXPO_SWITCHES_OBJECTIVE = "Activate relay switches to disable the firewall boost",
+		WEAPONS_EXPO_FIND_SWITCHES = "Find a way to disable the firewall boost",
+		
+		TOOLTIPS = {
+			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
+			WEAPONS_EXPO_RESALE_DESC = "This prototype is not market-ready and can only be sold at half price.",
+		},
+		
+		
 	},
 
 	AGENT_LINES =
@@ -362,46 +381,50 @@ return {
 				{{"But be careful - that little stunt won't have gone unnoticed. Their security level should start rising rapidly now.",nil,		"Central"}},
 				},
 				SAW_GEAR_CONTAINER = {
-				{{"Incognita's heuristic model suggests they might have stashed our rescuee's equipment here. Let's take a look.",	nil,"Central"}},
+				{{"Incognita's heuristic model suggests they might have stashed our rescuee's equipment here. Let's have a look.",	nil,"Central"}},
 				},
 				CENTRAL_JUDGEMENT = {
 					GOT_AGENT = {
 					{{"That's one more pair of hands on the team. Excellent work, Operator.", nil, "Central"}},
-					{{"We've shown them they cannot keep our people locked up. Prepare that agent for the next mission, Operator. You've earned your pay today.", nil, "Central"}},
+					{{"We've shown them they can't keep our people locked up. Prepare that agent for the next mission, Operator. You've earned your keep today.", nil, "Central"}},
 					{{"It's a good thing we were there to provide extraction. Now there's one more pair of hands on our side, and we're stronger for it.", nil, "Central"}},
 					{{"That agent certainly made the rescue easy for us. I suppose a moment of professional pride is in order. Good work, everyone.",nil,"Central"}},
 					},
 					LOST_AGENT = {
-					{{"Damn it, Operator! That agent had alerady sprung themselves free, all you had to do was walk in there and get them!", nil, "Central"}},
-					{{"One day you'll find yourself in the same shoes as the agent you just abandoned. You better hope that day doesn't come soon.", nil, "Central"}},
+					{{"Damn it, Operator! That agent had already sprung themselves free, all you had to do was walk in there and get them!", nil, "Central"}},
+					{{"One day you'll find yourself in the same shoes as the agent you just abandoned. You should hope that day doesn't come soon.", nil, "Central"}},
 					{{"This one is going on your permanent record.", nil, "Central"}}
 					},
 					GOT_OTHER = {
 					{{"Extraction complete. We can find out on the jet who he works for and just how much he's worth to his employer.",nil, "Central"}},
-					{{"That's everyone out. With any luck, we can negotiate a reward for the rescue.",nil,"Central"}},
-					{{"That's everyone out. A pity the operative wasn't one of ours, but we'll keep looking. Excellent work, Operator.",nil,"Central"}},
+					{{"Our mystery man is out. With any luck, we can negotiate a reward for the rescue.",nil,"Central"}},
+					{{"A pity the operative wasn't one of ours, but we'll keep looking. Good work, Operator.",nil,"Central"}},
 					},
 					LOST_OTHER = {
 					{{"Another opportunity squandered. You had better step up your game, Operator. You're lucky that wasn't one of our people you just abandoned.",nil,"Central"}},
-					{{"We went in there for nothing. You better have a good explanation for this, Operator.",nil,"Central"}},
+					{{"We went in there for nothing. You better have a good explanation for this in debriefing.",nil,"Central"}},
 					{{"A fruitless endeavour. That operative could have been of use to us in some manner. Too late for that now.",nil,"Central"}},
 					},
 				},
 			},
 			WEAPONS_EXPO = {
-				FOUND_EXPO = {{{"Our scans show this room has advanced security measures. The system will boost nearby firewalls if even one exhibit is compromised.",nil,"Central"}},
-				{{"See if you can find a way to disable them.",nil,"Central"}}},
+				FOUND_EXPO = {{{"Not so fast, Operator. Our scans show this room has advanced security failsafes.",nil,"Central"}},
+				{{"The system will boost nearby firewalls if even one exhibit is compromised. See if you can find a way to disable it.",nil,"Central"}}},
+				FOUND_EXPO_DISABLED_SEC = {{{"There's the exhibit. Their main failsafe should be offline now. Now get to work.",nil,"Central"}}},				
 				SAW_SWITCH = {{{"This security switch controls the failsafes protecting the exhibit. Find the other switch and activate both at the same time.",nil,"Central"}}},
-				DISABLED_SWITCH = {{{"You've deactivated the firewall boost, but don't let your guard down. There may still be security measures in place we don't know about.", nil, "Central"}}},
-				LOOTED_CASE_DROIDS_BOOTING = {{{"The combat droid prototypes are coming online. Looks like the expo is providing its own security. Get out while you still can, Operator.",nil,"Central"}}},
+				DISABLED_SWITCH = {{{"You've deactivated the firewall boost, but don't let your guard down. There may still be failsafes in place we don't know about.", nil, "Central"}}},
+				LOOTED_CASE_DROIDS_BOOTING = {
+				{{"Heads up, Operator. Those droid prototypes are coming online.",nil,"Central"}},
+				{{"Looks like the expo is providing its own security. Get out while you still can.",nil,"Central"}},				
+				},
 				CENTRAL_JUDGEMENT = {
-					NO_LOOT = {{{"That was a waste of time, Operator. If you cannot pull off a simple museum heist, then what good are you?",nil,"Central"}},
-					{{" I expected better results from you, Operator. We've lost all our previous firepower, and opportuinties like this don't come knocking every day.",nil,"Central"}},
+					NO_LOOT = {{{"This was a waste of time, Operator. If you cannot pull off a simple museum heist, then what good are you?",nil,"Central"}},
+					{{"I expected better results from you, Operator. We've lost our previous firepower, and opportunities like this don't come knocking every day.",nil,"Central"}},
 					{{"Outstanding work, Operator. I trust you'll remember this moment the next time our agents enter the field armed with toothpicks and nerf guns.",nil,"Central"}}},
-					GOT_PARTIAL = {{{"I trust you made the right call, Operator. I would have preferred we clean them out completely, but the reward is not always worth the risk.",nil,"Central"}},
-					{{"Acceptable work. You didn't clean out their entire arsenal, but this should tide us over for now.",nil,"Central"}},
+					GOT_PARTIAL = {{{"I trust you've made the right call, Operator. Pity we couldn't clean them out completely, but the reward is not always worth the risk.",nil,"Central"}},
+					{{"Acceptable work. You didn't get the entire arsenal, but this should tide us over for now.",nil,"Central"}},
 					{{"This should give our people an edge in the field. Let's just hope the enemy won't be armed with those prototypes you chose to leave behind.",nil,"Central"}}},
-					GOT_FULL = {{{"I hope you dusted the shelves on your way out, Operator. We wouldn't want their cleaners to think we've missed a spot. Excellent work.",nil,"Central"}},
+					GOT_FULL = {{{"I hope you dusted the shelves on your way out. We wouldn't want their cleaners to think we've missed a spot. Excellent work.",nil,"Central"}},
 					{{"That should do quite nicely. It won't put us on par with the corps, but we're no longer as catastrophically outgunned as we were before.",nil,"Central"}},
 					{{"Commendable work, Operator. We've expanded our arsenal and put a dent in their research all at once.",nil,"Central"}}},
 				},
