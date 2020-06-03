@@ -615,7 +615,7 @@ local units =
             {
                 x = 2,
                 y = 4,
-                template = [[MM_hostage]],
+                template = [[MM_hostage_capture_ea]],
                 unitData =
                 {
                     facing = 0,
