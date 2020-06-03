@@ -7,6 +7,17 @@ return {
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
 			DESCRIPTION = "Rescue missing courier, and escape with him in time limited from the moment you free him.\nTelepad locked, courier possesses the key.",
 			REWARD = "Courier rescue reward.",
+			BANTER = {
+				START = {
+				"",
+				},
+				FINAL_WORDS = {
+					"I knew I shouldn't have taken that job...",
+					"I can't go back in there. I can't.",
+					"I just want to lie down...",
+					"Don't shoot! I don't even know these people!",
+				},			
+			},
 		},
 
 	INGAME = {
@@ -69,7 +80,7 @@ return {
 	--	HOSTAGE_SIGHTED = "There's the courier. It looks like they've been thorough. He won't last much longer.",
 		HOSTAGE_CONVO1 = "You. You're not one of them. Who are you?",
 	--	OPERATOR_CONVO1 = "We're here to help. Keep quiet and keep your head down, and you might get out alive.",
-		HOSTAGE_CONVO2 = "We better hurry... I can't hold up much longer.",
+		HOSTAGE_CONVO2 = "We better hurry... I can't hold up much longer...",
 	--	OPERATOR_CONVO2 = "Hmmmm. It looks like the drive was damaged. If we're going to get him out in one piece we had best do it quickly.",
 	--	OPERATOR_ESCAPE = "Good job, team. We should be able to stabilize him in the helicopter.",
 	
@@ -103,3 +114,4 @@ return {
 	}
 	}
 }
+
