@@ -67,6 +67,7 @@ local agent_templates =
 		profile_anim = "portraits/courier_face",
 		kanim = "kanim_courier_male",
 		gender = "male",
+		tags = {"MM_hostage"},
 		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { inventoryMaxSize = 1, mp=5, mpMax =5, noUpgrade = true, MM_hostage = true, kill_trigger = "hostage_dead", vitalSigns=10, rescued=true, canBeCritical=false,leavesAtEndOfMission=true },	
 		children = {}, -- Dont add items here, add them to the upgrades table in createDefaultAgency()
 		abilities =  commondefs.DEFAULT_AGENT_ABILITIES ,
