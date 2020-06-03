@@ -10,7 +10,7 @@ local simquery = include ( "sim/simquery" )
 local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 
 local function earlyInit( modApi )
-	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Items Evacuation" }
+	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Items Evacuation", "New Items And Augments" }
 end
 
 local function init( modApi )
@@ -26,6 +26,8 @@ local function init( modApi )
     -- MOAIFmodDesigner.loadFEV("moremissions.fev")
     -- KLEIResourceMgr.MountPackage( dataPath .. "/characters.kwad", "data/anims" )
     -- KLEIResourceMgr.MountPackage( dataPath .. "/anims.kwad", "data" )
+   	KLEIResourceMgr.MountPackage( dataPath .. "/moremissions_anims.kwad", "data" )
+	KLEIResourceMgr.MountPackage( dataPath .. "/pedler_oil.kwad", "data" ) --taken from Shirsh's mod combo	
 
 	modApi:addGenerationOption("executive_terminals",  STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL , STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("ceo_office",  STRINGS.MOREMISSIONS.OPTIONS.CFO_OFFICE , STRINGS.MOREMISSIONS.OPTIONS.CFO_OFFICE_TIP, {noUpdate=true} )
@@ -42,8 +44,10 @@ local function init( modApi )
 	modApi:addGenerationOption("landfill",  STRINGS.MOREMISSIONS.OPTIONS.LANDFILL , STRINGS.MOREMISSIONS.OPTIONS.LANDFILL_TIP, {noUpdate=true, enabled = false} )
 
 	modApi:addGenerationOption("ea_hostage",  STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.MISSION_TITLE , STRINGS.MOREMISSIONS.LOCATIONS.EA_HOSTAGE.DESCRIPTION, {noUpdate=true, enabled = true} )
+	
+	-- modApi:addGenerationOption("distress_call",  STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.MISSION_TITLE , STRINGS.MOREMISSIONS.LOCATIONS.EA_HOSTAGE.DESCRIPTION, {noUpdate=true, enabled = true} )	--placeholder
 
-	--modApi:addGenerationOption("ea_hostage",  STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.MISSION_TITLE , STRINGS.MOREMISSIONS.LOCATIONS.EA_HOSTAGE.DESCRIPTION, {noUpdate=true, enabled = true} )
+	--modApi:addGenerationOption("tech_expo",  STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.MISSION_TITLE , STRINGS.MOREMISSIONS.LOCATIONS.EA_HOSTAGE.DESCRIPTION, {noUpdate=true, enabled = true} ) --placeholder
 	--forgot to make an option for Distress Call... will do later
 
 	-- abilities, for now simple override (I'm not smart enough to...)
@@ -66,6 +70,8 @@ local function init( modApi )
 			return _trackerAdvance(self, delta, ...)
 		end
 	end
+	
+	include( scriptPath .. "/unitrig" )
 
 end
 
@@ -109,10 +115,11 @@ local function load( modApi, options, params )
 
     local scriptPath = modApi:getScriptPath()
 
-	local itemdefs = include( scriptPath .. "/itemdefs" )
-	for name, itemDef in pairs(itemdefs) do
-		modApi:addItemDef( name, itemDef )
-	end
+	-- itemdefs moved to lateLoad to allow other mods to populate itemdefs for Tech Expo automatic template generation
+	--local itemdefs = include( scriptPath .. "/itemdefs" )
+	--for name, itemDef in pairs(itemdefs) do
+		--modApi:addItemDef( name, itemDef )
+	--end
 	local propdefs = include( scriptPath .. "/propdefs" )
 	for i,item in pairs(propdefs) do
 		modApi:addPropDef( i, item, true )
@@ -129,8 +136,14 @@ local function load( modApi, options, params )
 	for name, agentDef in pairs(agentdefs) do
 	modApi:addAgentDef( name, agentDef )
 	end
-
+	
+	local commondefs = include( scriptPath .. "/commondefs" )
+	modApi:addTooltipDef( commondefs )
+	
 	include( scriptPath .. "/missions/distress_call" )
+	include( scriptPath .. "/missions/weapons_expo" )
+	include( scriptPath .. "/missions/assassination" )
+	include( scriptPath .. "/missions/ea_hostage" )	
 
 	-- local mainframe_abilities = include( scriptPath .. "/mainframe_abilities" )
 	-- for name, ability in pairs(mainframe_abilities) do
@@ -208,6 +221,8 @@ local function load( modApi, options, params )
 	modApi:addPrefabt(sharedPrefabs)
 	local distressPrefabs = include( scriptPath .. "/prefabs/distress_call/prefabt" )
     modApi:addPrefabt(distressPrefabs)
+	local weaponsExpoPrefabs = include( scriptPath .. "/prefabs/weaponsexpo/prefabt" )
+    modApi:addPrefabt(weaponsExpoPrefabs)	
 
 	--local koPrefabs = include( scriptPath .. "/prefabs/ko/prefabt" )
  	--modApi:addWorldPrefabt(scriptPath, "ko", koPrefabs)
@@ -269,6 +284,26 @@ local function load( modApi, options, params )
 			sim:triggerEvent(simdefs.TRG_UNIT_DROPPED, {item=nil, unit=nil})
 	end
 	-----
+	--Tech Expo hack0rz -Hek
+	local stealCreditsAbility = abilitydefs.lookupAbility("stealCredits")
+	local stealCredits_canUse_old = stealCreditsAbility.canUseAbility	
+	--need custom hack here because the vanilla emp_safe trait does nothing for vault boxes
+	abilitydefs._abilities.stealCredits.canUseAbility = function(self, sim, unit, userUnit, ...)
+		local result = stealCredits_canUse_old (self,sim,unit,userUnit,...)
+		if unit:getTraits().MM_emp_safe and (unit:getTraits().mainframe_status ~= "active") then
+			return false, STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_EMP_SAFE
+		end
+		return result
+	end		
+
+end
+
+local function lateLoad( modApi, options, params )
+	local scriptPath = modApi:getScriptPath()
+	local itemdefs = include( scriptPath .. "/itemdefs" )
+	for name, itemDef in pairs(itemdefs) do
+		modApi:addItemDef( name, itemDef )
+	end
 
 end
 
@@ -294,6 +329,7 @@ return {
     init = init,
     earlyInit = earlyInit,
     load = load,
+    lateLoad = lateLoad,
     unload = unload,
     initStrings = initStrings,
 }
