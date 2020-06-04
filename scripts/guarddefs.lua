@@ -130,6 +130,7 @@ local npc_templates =
 			mainframe_status = "active",
 			mainframe_no_recapture = true,
 			canKO = false,
+			isDrone = true,
 
 			
 		},
@@ -197,7 +198,8 @@ local npc_templates =
 			armor = 1,
 			pulse_sound = "SpySociety_DLC001/Actions/scandrone_scan",
 			-- relayInterest = true,
-			-- recap_icon = "sankaku_drone_null2",				
+			-- recap_icon = "sankaku_drone_null2",	
+			isDrone = true,
 		},
 		speech = speechdefs.NPC,
 		voices = {"Drone"},--nil, --{"KO_Heavy"},
