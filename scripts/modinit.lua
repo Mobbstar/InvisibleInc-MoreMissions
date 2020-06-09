@@ -25,10 +25,9 @@ local function init( modApi )
     -- KLEIResourceMgr.MountPackage( dataPath .. "/sound.kwad", "data" )
     -- MOAIFmodDesigner.loadFEV("moremissions.fev")
     -- KLEIResourceMgr.MountPackage( dataPath .. "/characters.kwad", "data/anims" )
-    -- KLEIResourceMgr.MountPackage( dataPath .. "/anims.kwad", "data" )
-   	KLEIResourceMgr.MountPackage( dataPath .. "/moremissions_anims.kwad", "data" )
-	KLEIResourceMgr.MountPackage( dataPath .. "/pedler_oil.kwad", "data" ) --taken from Shirsh's mod combo	
-
+    KLEIResourceMgr.MountPackage( dataPath .. "/moremissions_anims.kwad", "data" )
+	KLEIResourceMgr.MountPackage( dataPath .. "/pedler_oil.kwad", "data" ) --taken from Shirsh's mod combo
+	
 	modApi:addGenerationOption("executive_terminals",  STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL , STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("ceo_office",  STRINGS.MOREMISSIONS.OPTIONS.CFO_OFFICE , STRINGS.MOREMISSIONS.OPTIONS.CFO_OFFICE_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("cyberlab",  STRINGS.MOREMISSIONS.OPTIONS.CYBERLAB , STRINGS.MOREMISSIONS.OPTIONS.CYBERLAB_TIP, {noUpdate=true} )
@@ -58,7 +57,7 @@ local function init( modApi )
 		local aiplayer = include( "sim/aiplayer" )
 		local _onEndTurn = aiplayer.onEndTurn
 		function aiplayer:onEndTurn(sim)
-			trackerBoost = sim.missionTrackerBoost or 0
+			trackerBoost = sim.missionTrackerBoost
 			_onEndTurn(self, sim)
 			trackerBoost = 0
 		end
@@ -66,12 +65,15 @@ local function init( modApi )
 		local simengine = include( "sim/engine" )
 		local _trackerAdvance = simengine.trackerAdvance
 		function simengine:trackerAdvance(delta, ...)
+			trackerBoost = self.missionTrackerBoost or 0
 			delta = delta + trackerBoost
 			return _trackerAdvance(self, delta, ...)
 		end
 	end
-	
+
 	include( scriptPath .. "/unitrig" )
+	
+	
 
 end
 
@@ -112,14 +114,14 @@ end
 local function load( modApi, options, params )
 	--before doing anything, clean up
 	unloadCommon( modApi, options )
-
+	
     local scriptPath = modApi:getScriptPath()
-
-	-- itemdefs moved to lateLoad to allow other mods to populate itemdefs for Tech Expo automatic template generation
-	--local itemdefs = include( scriptPath .. "/itemdefs" )
-	--for name, itemDef in pairs(itemdefs) do
-		--modApi:addItemDef( name, itemDef )
-	--end
+	
+	--moved to lateLoad
+	-- local itemdefs = include( scriptPath .. "/itemdefs" )
+	-- for name, itemDef in pairs(itemdefs) do
+		-- modApi:addItemDef( name, itemDef )
+	-- end
 	local propdefs = include( scriptPath .. "/propdefs" )
 	for i,item in pairs(propdefs) do
 		modApi:addPropDef( i, item, true )
@@ -139,12 +141,16 @@ local function load( modApi, options, params )
 	
 	local commondefs = include( scriptPath .. "/commondefs" )
 	modApi:addTooltipDef( commondefs )
+
+	-- local escape_mission = include( scriptPath .. "/escape_mission" )
+	-- include( scriptPath .. "/worldgen" )
+	-- modApi:addEscapeScripts(escape_mission)
 	
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
 	include( scriptPath .. "/missions/assassination" )
-	include( scriptPath .. "/missions/ea_hostage" )	
-
+	include( scriptPath .. "/missions/ea_hostage" )
+	
 	-- local mainframe_abilities = include( scriptPath .. "/mainframe_abilities" )
 	-- for name, ability in pairs(mainframe_abilities) do
 		-- modApi:addMainframeAbility( name, ability )
@@ -294,7 +300,95 @@ local function load( modApi, options, params )
 			return false, STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_EMP_SAFE
 		end
 		return result
-	end		
+	end	
+	
+	------ These four appends are necessary because vanilla weapons never have skill requirements or anything that checks for them before use
+	local shootSingle = abilitydefs.lookupAbility("shootSingle")
+	local shootSingle_canUse_old = shootSingle.canUseAbility
+	shootSingle.canUseAbility = function( self, sim, ownerUnit, unit, targetUnitID, ... )
+		local result, reason = shootSingle_canUse_old( self, sim, ownerUnit, unit, targetUnitID, ... )
+		local weaponUnit = simquery.getEquippedGun( unit )
+		if weaponUnit and weaponUnit:getRequirements() and (result == true) then
+			for skill,level in pairs( weaponUnit:getRequirements() ) do
+				if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+
+					local skilldefs = include( "sim/skilldefs" )
+					local skillDef = skilldefs.lookupSkill( skill )            	
+
+					return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
+				end
+			end
+		end
+		return result, reason
+	end
+			
+	local overwatch = abilitydefs.lookupAbility("overwatch")
+	local overwatch_canUse_old = overwatch.canUseAbility
+	overwatch.canUseAbility = function(self, sim, unit, ... )
+		local result, reason = overwatch_canUse_old(self, sim, unit, ... )
+		local weaponUnit = simquery.getEquippedGun(unit)
+		if (result == true) and weaponUnit and weaponUnit:getRequirements()then		
+			for skill,level in pairs( weaponUnit:getRequirements() ) do
+				if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+
+					local skilldefs = include( "sim/skilldefs" )
+					local skillDef = skilldefs.lookupSkill( skill )            	
+
+					return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
+				end
+			end	
+		end
+		return result, reason
+	end
+	
+	local overwatchMelee = abilitydefs.lookupAbility("overwatchMelee")
+	local overwatchMelee_canUse_old = overwatchMelee.canUseAbility
+	overwatchMelee.canUseAbility = function( self, sim, unit, ... )
+
+		local result, reason = overwatchMelee_canUse_old(self, sim, unit, ... )
+		local tazerUnit = simquery.getEquippedMelee( unit )
+		if result == true then
+			if not unit:getPlayerOwner():isNPC() and tazerUnit then
+				if tazerUnit:getRequirements() then
+					for skill,level in pairs( tazerUnit:getRequirements() ) do
+						if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+
+							local skilldefs = include( "sim/skilldefs" )
+							local skillDef = skilldefs.lookupSkill( skill )            	
+
+							return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
+						end
+					end
+				end			
+			
+			end
+		end
+		return result, reason
+	end
+
+	local melee = abilitydefs.lookupAbility("melee")
+	local melee_canUse_old = melee.canUseAbility
+	melee.canUseAbility = function(self, sim, unit, userUnit, targetID, ...)
+		local result, reason = melee_canUse_old(self, sim, unit, userUnit, targetID, ...)
+		local tazerUnit = simquery.getEquippedMelee( unit )
+		if (result == true) and targetID and tazerUnit then
+			local targetUnit = sim:getUnit(targetID)
+
+			if tazerUnit:getRequirements() then
+				for skill,level in pairs( tazerUnit:getRequirements() ) do
+					if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+
+						local skilldefs = include( "sim/skilldefs" )
+						local skillDef = skilldefs.lookupSkill( skill )            	
+
+						return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
+					end
+				end
+			end					
+		end
+		return result, reason
+	end	
+	--------
 
 end
 
@@ -329,7 +423,7 @@ return {
     init = init,
     earlyInit = earlyInit,
     load = load,
-    lateLoad = lateLoad,
+	lateLoad = lateLoad,
     unload = unload,
     initStrings = initStrings,
 }
