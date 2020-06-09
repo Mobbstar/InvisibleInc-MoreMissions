@@ -294,7 +294,95 @@ local function load( modApi, options, params )
 			return false, STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_EMP_SAFE
 		end
 		return result
-	end		
+	end	
+
+	------ These four appends are necessary because vanilla weapons never have skill requirements or anything that checks for them before use
+	local shootSingle = abilitydefs.lookupAbility("shootSingle")
+	local shootSingle_canUse_old = shootSingle.canUseAbility
+	shootSingle.canUseAbility = function( self, sim, ownerUnit, unit, targetUnitID, ... )
+		local result, reason = shootSingle_canUse_old( self, sim, ownerUnit, unit, targetUnitID, ... )
+		local weaponUnit = simquery.getEquippedGun( unit )
+		if weaponUnit and weaponUnit:getRequirements() and (result == true) then
+			for skill,level in pairs( weaponUnit:getRequirements() ) do
+				if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+
+					local skilldefs = include( "sim/skilldefs" )
+					local skillDef = skilldefs.lookupSkill( skill )            	
+
+					return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
+				end
+			end
+		end
+		return result, reason
+	end
+			
+	local overwatch = abilitydefs.lookupAbility("overwatch")
+	local overwatch_canUse_old = overwatch.canUseAbility
+	overwatch.canUseAbility = function(self, sim, unit, ... )
+		local result, reason = overwatch_canUse_old(self, sim, unit, ... )
+		local weaponUnit = simquery.getEquippedGun(unit)
+		if (result == true) and weaponUnit and weaponUnit:getRequirements()then		
+			for skill,level in pairs( weaponUnit:getRequirements() ) do
+				if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+
+					local skilldefs = include( "sim/skilldefs" )
+					local skillDef = skilldefs.lookupSkill( skill )            	
+
+					return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
+				end
+			end	
+		end
+		return result, reason
+	end
+	
+	local overwatchMelee = abilitydefs.lookupAbility("overwatchMelee")
+	local overwatchMelee_canUse_old = overwatchMelee.canUseAbility
+	overwatchMelee.canUseAbility = function( self, sim, unit, ... )
+
+		local result, reason = overwatchMelee_canUse_old(self, sim, unit, ... )
+		local tazerUnit = simquery.getEquippedMelee( unit )
+		if result == true then
+			if not unit:getPlayerOwner():isNPC() and tazerUnit then
+				if tazerUnit:getRequirements() then
+					for skill,level in pairs( tazerUnit:getRequirements() ) do
+						if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+
+							local skilldefs = include( "sim/skilldefs" )
+							local skillDef = skilldefs.lookupSkill( skill )            	
+
+							return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
+						end
+					end
+				end			
+			
+			end
+		end
+		return result, reason
+	end
+
+	local melee = abilitydefs.lookupAbility("melee")
+	local melee_canUse_old = melee.canUseAbility
+	melee.canUseAbility = function(self, sim, unit, userUnit, targetID, ...)
+		local result, reason = melee_canUse_old(self, sim, unit, userUnit, targetID, ...)
+		local tazerUnit = simquery.getEquippedMelee( unit )
+		if (result == true) and targetID and tazerUnit then
+			local targetUnit = sim:getUnit(targetID)
+
+			if tazerUnit:getRequirements() then
+				for skill,level in pairs( tazerUnit:getRequirements() ) do
+					if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+
+						local skilldefs = include( "sim/skilldefs" )
+						local skillDef = skilldefs.lookupSkill( skill )            	
+
+						return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
+					end
+				end
+			end					
+		end
+		return result, reason
+	end	
+	--------	
 
 end
 
