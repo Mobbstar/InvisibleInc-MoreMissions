@@ -124,7 +124,6 @@ local tool_templates =
 	
 }
 
-
 -- TECH EXPO block which autogenerates items from existing templates
 local tech_expo_templates = {}
 
@@ -183,8 +182,11 @@ function generateTechExpoGear()
 		if itemdef.value then
 			itemdef.value = itemdef.value/2
 		end
-	
-		--now do the automatic custom itemdef stuff
+		
+		itemdef.notSoldAfter = 0
+		if itemdef.floorWeight then
+			itemdef.floorWeight = nil
+		end
 
 		traits.MM_tech_expo_item = true
 		
@@ -195,7 +197,7 @@ function generateTechExpoGear()
 			itemdef.desc = new_desc			
 		end
 		
-		itemdef.name = "Advanced " .. itemdef.name
+		itemdef.name = "Improved " .. itemdef.name
 		itemdef.flavor = itemdef.flavor .. "\n\nThis model is an advanced prototype."
 	end
 
@@ -215,3 +217,4 @@ ResetItemdefs()
 -- log:write(util.stringize(final_templates,3))
 
 return final_templates
+
