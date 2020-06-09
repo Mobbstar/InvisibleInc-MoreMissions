@@ -83,6 +83,24 @@ NPC_END_TURN =
 	end,
 }
 
+CAPTAIN_SAW_DISCARDED_MANACLES =
+{
+	-- Based on mission_util.PC_SAW_UNIT_WITH_TRAIT, but for the Captain.
+	trigger = simdefs.TRG_UNIT_APPEARED,
+	fn = function( sim, evData )
+		local seer = sim:getUnit( evData.seerID )
+		if not seer or not seer:getTraits().mmCaptain then
+			return false
+		end
+
+		if evData.unit:getTraits().mmDiscardedManacles then
+			return evData.unit, seer
+		else
+			return false
+		end
+	end,
+}
+
 local function isEndlessMode( params, day )
     if params.newHiSecExitDay then
         day = params.newHiSecExitDay
@@ -343,6 +361,14 @@ local function updateHostageStatusAfterMove( script, sim )
 	end
 end
 
+local function updateCaptainForHostageMissing( script, sim )
+	local _, unit, seer = script:waitFor( CAPTAIN_SAW_DISCARDED_MANACLES )
+	local x, y = unit:getLocation()
+	local interest seer:getBrain():spawnInterest(x, y, simdefs.SENSE_SIGHT, simdefs.REASON_LOSTTARGET, unit)
+	-- REASON_LOSTTARGET doesn't normally cause the guard to become alerted.
+	interest.alerts = true
+end
+
 local function clearStatusAfterEndTurn( script, sim )
 
 	while true do
@@ -498,6 +524,7 @@ local function startPhase( script, sim )
 	script:addHook( clearHostageStatusAfterMove )
 	script:addHook( clearStatusAfterEndTurn )
 	script:addHook( updateHostageStatusAfterMove )
+	script:addHook( updateCaptainForHostageMissing )
 	script:addHook( checkHostageKO )
 	script:addHook( checkHostageDeath )
 	script:addHook( hostageBanter )	

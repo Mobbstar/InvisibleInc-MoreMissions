@@ -636,7 +636,7 @@ local units =
                 unitData =
                 {
                     facing = 4,
-		    traits={nopatrol=true},
+		    traits={nopatrol=true, mmCaptain=true},
                    -- tags =
                    -- {
                       --  "hostageSituation",
