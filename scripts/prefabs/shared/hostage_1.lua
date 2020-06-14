@@ -637,10 +637,10 @@ local units =
                 {
                     facing = 4,
 		    traits={nopatrol=true, mmCaptain=true},
-                   -- tags =
-                   -- {
-                      --  "hostageSituation",
-                   -- },
+                   tags =
+                   {
+                       "MM_captain",
+                   },
                   --  patrolPath =
                   --  {
                   --      {5,6},{4,2}

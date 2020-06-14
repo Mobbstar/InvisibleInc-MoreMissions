@@ -131,6 +131,7 @@ local npc_templates =
 			mainframe_no_recapture = true,
 			canKO = false,
 			isDrone = true,
+			closedoors = false,
 
 			
 		},
@@ -155,7 +156,7 @@ local npc_templates =
 		type = "simdrone",--"simunit", 
 		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_DROID_SPEC or "Prototype Android",
 		profile_anim = "portraits/portrait_animation_template",
-		profile_build = "portraits/mm_bodyguard_face", --placeholder/test	
+		profile_build = "portraits/mm_bodyguard_face", --placeholder	
 		profile_image = "enforcer_2.png",
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
@@ -196,10 +197,11 @@ local npc_templates =
 			pulseScan = true,
 			range =5,	
 			armor = 1,
+			isDrone = true,
 			pulse_sound = "SpySociety_DLC001/Actions/scandrone_scan",
 			-- relayInterest = true,
 			-- recap_icon = "sankaku_drone_null2",	
-			isDrone = true,
+			closedoors = false,			
 		},
 		speech = speechdefs.NPC,
 		voices = {"Drone"},--nil, --{"KO_Heavy"},
@@ -215,7 +217,7 @@ local npc_templates =
 			{ "item_icebreaker_3", 3 },
 			{nil, 67}
 		},		
-	},	
+	},		
 	
 }
 

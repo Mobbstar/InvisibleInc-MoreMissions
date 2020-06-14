@@ -210,15 +210,22 @@ local SAFE_HACKED =
 	--boost firewalls on all other lootcases except the one just hacked
 local function boost_firewalls(script, sim)
 	local _, vaultcase = script:waitFor( SAFE_HACKED )
+	local units_left = false
 	if not sim.MM_security_disabled then
 		sim:dispatchEvent( simdefs.EV_SHOW_WARNING, {txt=STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_FIREWALLS, color=cdefs.COLOR_CORP_WARNING, sound = "SpySociety/Actions/mainframe_deterrent_action" } )
 		for i, unit in pairs(sim:getAllUnits()) do
 			if unit:hasTag("MM_topGear") and (vaultcase ~= unit) and unit:getTraits().mainframe_ice and (unit:getTraits().mainframe_ice > 0) and (unit:getTraits().mainframe_status == "active") then
 				unit:increaseIce( sim, ice_boost )
+				units_left = true
 			end
 		end
 	end
-	script:addHook( boost_firewalls )
+	if units_left then
+		script:addHook( boost_firewalls )
+	else --update objectives and don't re-add the hook if we've hacked everything
+		sim:removeObjective("find_switches")
+		sim:removeObjective("MM_transformer_switches")
+	end
 end
 
 local function MM_checkTopGearSafes( sim )
@@ -230,20 +237,23 @@ local function MM_checkTopGearSafes( sim )
 		end
 	end
 	
-	log:write(util.stringize(itemList,2))
-
+	-- log:write(util.stringize(itemList,2))
+	local safes = {}
 	for i,unit in pairs(sim:getAllUnits()) do
 		if unit:hasTag("MM_topGear") then
-            -- Add a random item to unit (presumably a safe)
-			local item = itemList[ sim:nextRand( 1, #itemList ) ]
-			local newItem = simfactory.createUnit( item, sim )						
-            newItem:addTag("MM_topGearItem") -- For the UI loot hook
-			sim:spawnUnit( newItem )
-			newItem:getTraits().artifact = true --for safe to display the loot symbol
-			unit:addChild( newItem )	
-			sim.totalTopGear = sim.totalTopGear or 0 
-			sim.totalTopGear = sim.totalTopGear + 1 
+			table.insert(safes,unit)
 		end
+	end
+	for i, unit in pairs(safes) do
+		-- Add a random item to unit (presumably a safe)
+		local item = itemList[ sim:nextRand( 1, #itemList ) ]
+		local newItem = simfactory.createUnit( item, sim )						
+		newItem:addTag("MM_topGearItem") -- For the UI loot hook
+		sim:spawnUnit( newItem )
+		newItem:getTraits().artifact = true --for safe to display the loot symbol
+		unit:addChild( newItem )	
+		sim.totalTopGear = sim.totalTopGear or 0 
+		sim.totalTopGear = sim.totalTopGear + 1 
 	end
 	-- log:write("LOG sim.totalTopGear " ..tostring(sim.totalTopGear))
 end
@@ -252,7 +262,7 @@ local function MM_checkTopGearItem( script, sim )
 	local _, topGearSafe = script:waitFor( mission_util.PC_SAW_UNIT("MM_topGear") )
 	-- topGearSafe:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB) 
 	local scripts = SCRIPTS.INGAME.WEAPONS_EXPO.FOUND_EXPO_DISABLED_SEC
-	if not sim.MM_security_disabled then
+	if not sim.MM_security_disabled and not sim:getTags().MM_transformer_start then --only add objective if we have not yet disabled the security or even SEEN the switches... I suppose only the latter check is actually necessary, it would be hard to disable them without seeing them, eh...
 		scripts = SCRIPTS.INGAME.WEAPONS_EXPO.FOUND_EXPO
 		sim:addObjective( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_FIND_SWITCHES, "find_switches" )
 	end
@@ -334,6 +344,20 @@ end
 local mission = class( escape_mission )
 
 function mission:init( scriptMgr, sim )
+    local params = sim:getParams()
+    if params.side_mission then
+		if params.side_mission == "transformer" then
+			-- local worldgen = include("sim/worldgen")
+			-- local side_missions = worldgen.SIDEMISSIONS
+			-- array.removeElement( side_missions, "transformer" )
+			-- if #side_missions > 0 then
+				-- params.side_mission = side_missions[sim:nextRand(1,#side_missions)]
+			-- else
+				-- params.side_mission = nil
+				params.side_mission = "data scrub"
+			-- end
+		end
+	end
     escape_mission.init( self, scriptMgr, sim )
 	
     -- local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
@@ -353,12 +377,18 @@ function mission:init( scriptMgr, sim )
         local scr = scripts[sim:nextRand(1, #scripts)]
         return scr
     end
-    scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))
+    scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))	
 		
 end
 
 
 function mission.pregeneratePrefabs( cxt, tagSet )
+
+    if cxt.params.side_mission and (cxt.params.side_mission == "transformer") then
+		-- log:write("LOG params transformer1")
+		cxt.params.side_mission = "data scrub"--nil
+	end
+
     escape_mission.pregeneratePrefabs( cxt, tagSet )
     -- table.insert( tagSet[1], "weapons_expo1" )
 	-- table.insert( tagSet[1], "weapons_expo2" )
@@ -368,8 +398,12 @@ end
 
 function mission.generatePrefabs( cxt, candidates )
     local prefabs = include( "sim/prefabs" )   
+	if cxt.params.side_mission and (cxt.params.side_mission == "transformer") then
+		-- log:write("LOG params transformer2")
+		cxt.params.side_mission = "data scrub"--nil
+	end
+	escape_mission.generatePrefabs( cxt, candidates )
     prefabs.generatePrefabs( cxt, candidates, "MM_lock_switch", 2 )
-
 end
 
 return mission
