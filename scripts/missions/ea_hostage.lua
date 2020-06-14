@@ -3,8 +3,10 @@ local util = include( "modules/util" )
 local mathutil = include( "modules/mathutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
+local simfactory = include( "sim/simfactory" )
 local simquery = include( "sim/simquery" )
 local mission_util = include( "sim/missions/mission_util" )
+local unitdefs = include( "sim/unitdefs" )
 local win_conditions = include( "sim/win_conditions" )
 local strings = include( "strings" )
 local astar = include( "modules/astar" )
@@ -86,7 +88,7 @@ NPC_END_TURN =
 
 CAPTAIN_SAW_DISCARDED_MANACLES =
 {
-	-- Based on mission_util.PC_SAW_UNIT_WITH_TRAIT, but for the Captain.
+	-- Based on mission_util.PC_SAW_UNIT, but for the Captain.
 	trigger = simdefs.TRG_UNIT_APPEARED,
 	fn = function( sim, evData )
 		local seer = sim:getUnit( evData.seerID )
@@ -94,7 +96,7 @@ CAPTAIN_SAW_DISCARDED_MANACLES =
 			return false
 		end
 
-		if evData.unit:getTraits().mmDiscardedManacles then
+		if evData.unit:hasTag("MM_discarded_manacles") then
 			return evData.unit, seer
 		else
 			return false
@@ -509,6 +511,16 @@ local function captain_alert(script, sim)
 	end
 end
 
+local function createManacles( script, sim )
+	local hostage = mission_util.findUnitByTag(sim, "MM_hostage")
+	local cell = sim:getCell(hostage:getLocation())
+	local manacles = simfactory.createUnit(unitdefs.lookupTemplate("MM_item_discarded_manacles"), sim)
+	sim:spawnUnit(manacles)
+	manacles:addTag("MM_discarded_manacles")
+	sim:warpUnit(manacles, cell)
+	sim:emitSound(simdefs.SOUND_ITEM_PUTDOWN, cell.x, cell.y)
+end
+
 local function startPhase( script, sim )
 
 	sim:addObjective( STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OBJECTIVE_FIND_HOSTAGE, "hostage_1" )
@@ -554,6 +566,8 @@ local function startPhase( script, sim )
 	script:addHook( checkHostageKO )
 	script:addHook( checkHostageDeath )
 	script:addHook( hostageBanter )	
+
+	createManacles(script, sim)
 
 	script:queue( { type="clearOperatorMessage" } )
 	script:queue( { type="clearEnemyMessage" } )

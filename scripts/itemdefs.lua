@@ -131,7 +131,7 @@ local tool_templates =
 		icon = "itemrigs/FloorProp_AmmoClip.png",
 		profile_icon = "gui/items/item_quest.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_exit_key.png",
-		traits = { sightable = true, mmDiscardedManacles = true }
+		traits = { sightable = true }
 	},
 	
 }
