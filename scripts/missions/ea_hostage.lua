@@ -90,7 +90,7 @@ CAPTAIN_SAW_DISCARDED_MANACLES =
 	trigger = simdefs.TRG_UNIT_APPEARED,
 	fn = function( sim, evData )
 		local seer = sim:getUnit( evData.seerID )
-		if not seer or not seer:getTraits().mmCaptain then
+		if not seer or not seer:hasTag("MM_captain") then
 			return false
 		end
 
@@ -362,12 +362,11 @@ local function updateHostageStatusAfterMove( script, sim )
 	end
 end
 
-local function updateCaptainForHostageMissing( script, sim )
-	local _, unit, seer = script:waitFor( CAPTAIN_SAW_DISCARDED_MANACLES )
-	local x, y = unit:getLocation()
-	local interest seer:getBrain():spawnInterest(x, y, simdefs.SENSE_SIGHT, simdefs.REASON_LOSTTARGET, unit)
-	-- REASON_LOSTTARGET doesn't normally cause the guard to become alerted.
-	interest.alerts = true
+local function alertCaptainForMissingHostage( script, sim )
+	local _, manacles, captain = script:waitFor( CAPTAIN_SAW_DISCARDED_MANACLES )
+	local x, y = manacles:getLocation()
+	captain:setAlerted(true)
+	captain:getBrain():getSenses():addInterest(x, y, simdefs.SENSE_SIGHT, simdefs.REASON_LOSTTARGET, manacles)
 end
 
 local function clearStatusAfterEndTurn( script, sim )
@@ -551,7 +550,7 @@ local function startPhase( script, sim )
 	script:addHook( clearHostageStatusAfterMove )
 	script:addHook( clearStatusAfterEndTurn )
 	script:addHook( updateHostageStatusAfterMove )
-	script:addHook( updateCaptainForHostageMissing )
+	script:addHook( alertCaptainForMissingHostage )
 	script:addHook( checkHostageKO )
 	script:addHook( checkHostageDeath )
 	script:addHook( hostageBanter )	
