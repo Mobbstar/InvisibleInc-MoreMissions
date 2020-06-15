@@ -498,7 +498,7 @@ local function courier_guard_banter(script, sim)
 	local hostage = mission_util.findUnitByTag(sim, "MM_hostage")
 	local captain = simquery.findUnit(sim:getNPC():getUnits(), isCaptain )
 	
-	if hostage and captain and captain:getBrain() and captain:getBrain():getSituation().ClassType == simdefs.SITUATION_IDLE and not hostage:isKO() and not captain:isKO() and sim:canPlayerSeeUnit(sim:getPC(), hostage) and	sim:canPlayerSeeUnit(sim:getPC(), captain) then		
+	if hostage and captain and captain:getBrain() and not captain:isAlerted() and captain:getBrain():getSituation().ClassType == simdefs.SITUATION_IDLE and not hostage:isKO() and not captain:isKO() and sim:canPlayerSeeUnit(sim:getPC(), hostage) and	sim:canPlayerSeeUnit(sim:getPC(), captain) then		
 		script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.GUARD_INTERROGATE1, 
 						header=captain:getUnitData().name, type="enemyMessage", 
 						profileAnim="portraits/portrait_animation_template",
