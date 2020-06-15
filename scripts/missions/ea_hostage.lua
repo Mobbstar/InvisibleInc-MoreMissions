@@ -481,17 +481,23 @@ local function alertCaptainForMissingHostage(script, sim)
 	local _, manacles, captain = script:waitFor( CAPTAIN_SAW_DISCARDED_MANACLES )
 
 	-- Don't investigate if the captain already knows the hostage is free.
-	if not captain:isAlerted() or not captain:getTraits().mmCaptainSawFreeHostage then
+	if captain:getBrain() and (not captain:isAlerted() or not captain:getTraits().mmCaptainSawFreeHostage) then
 		local x, y = manacles:getLocation()
 		captain:setAlerted(true)
 		captain:getBrain():getSenses():addInterest(x, y, simdefs.SENSE_SIGHT, simdefs.REASON_LOSTTARGET, manacles)
 	end
 end
 
+local function isCaptain(unit)
+	return unit:hasTag("MM_captain")
+end
+
 local function courier_guard_banter(script, sim)
 	script:waitFor( mission_util.PC_START_TURN )
 	
-	local hostage, captain = mission_util.findUnitByTag(sim, "MM_hostage"),mission_util.findUnitByTag(sim, "MM_captain")
+	local hostage = mission_util.findUnitByTag(sim, "MM_hostage")
+	local captain = simquery.findUnit(sim:getNPC():getUnits(), isCaptain )
+	
 	if hostage and captain and captain:getBrain() and captain:getBrain():getSituation().ClassType == simdefs.SITUATION_IDLE and not hostage:isKO() and not captain:isKO() and sim:canPlayerSeeUnit(sim:getPC(), hostage) and	sim:canPlayerSeeUnit(sim:getPC(), captain) then		
 		script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.GUARD_INTERROGATE1, 
 						header=captain:getUnitData().name, type="enemyMessage", 
@@ -670,11 +676,6 @@ end
 function hostage_mission.pregeneratePrefabs( cxt, tagSet ) 	-- was tags instead of tagSet
 	escape_mission.pregeneratePrefabs( cxt, tagSet ) 	-- added
 	table.insert( tagSet[1], "hostage" )
-	
-	 if cxt.params.missionEvents and cxt.params.missionEvents.needPowerCells then  
-        	table.insert( tagSet, { { "powerCell", exitFitnessFn } })
-   	 end
-
 end
 
 function hostage_mission.generatePrefabs( cxt, candidates )
