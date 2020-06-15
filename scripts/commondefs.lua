@@ -12,8 +12,16 @@ local function onItemTooltip(tooltip, unit)
 	end
 end
 
+local function onAgentTooltip(tooltip, unit)
+	if unit:getTraits().MM_hostage and unit:getTraits().vitalSigns then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.EA_HOSTAGE_FRAIL, STRINGS.MOREMISSIONS.UI.TOOLTIPS.EA_HOSTAGE_FRAIL_DESC, "gui/icons/item_icons/items_icon_small/icon-item_heart_monitor_small.png" )
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.EA_HOSTAGE_VITAL_STATUS, util.sformat(STRINGS.MOREMISSIONS.UI.TOOLTIPS.EA_HOSTAGE_VITAL_STATUS_DESC, unit:getTraits().vitalSigns), "gui/icons/item_icons/items_icon_small/icon-item_heart_monitor_small.png" )
+	end
+end
+
 return 
 {
 	onMainframeTooltip = onMainframeTooltip,
 	onItemTooltip = onItemTooltip,
+	onAgentTooltip = onAgentTooltip,
 }
