@@ -128,11 +128,11 @@ local tool_templates =
 		name = STRINGS.MOREMISSIONS.ITEMS.DISCARDED_MANACLES,
 		desc = STRINGS.MOREMISSIONS.ITEMS.DISCARDED_MANACLES_TOOLTIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.DISCARDED_MANACLES_FLAVOR,
-		icon = "itemrigs/FloorProp_AmmoClip.png",
+		icon = "itemrigs/FloorProp_Mag_braces.png",
 		profile_icon = "gui/items/item_quest.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_exit_key.png",
 		traits = { sightable = true }
-	},
+	},	
 	
 }
 
