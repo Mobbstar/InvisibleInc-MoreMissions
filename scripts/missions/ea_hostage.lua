@@ -550,6 +550,12 @@ local function createManacles( script, sim )
 	sim:emitSound(simdefs.SOUND_ITEM_PUTDOWN, cell.x, cell.y)
 end
 
+local function fixCaptainPath(sim)
+  -- SimEngine:init doesn't save initial facing when it generates the patrolPath for nopatrol=true.
+  local captain = mission_util.findUnitByTag(sim, "MM_captain")
+  captain:getTraits().patrolPath[1].facing = captain:getFacing()
+end
+
 local function startPhase( script, sim )
 
 	sim:addObjective( STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OBJECTIVE_FIND_HOSTAGE, "hostage_1" )
@@ -681,6 +687,7 @@ function hostage_mission:init( scriptMgr, sim )
 				end
 			end )
 			
+  fixCaptainPath(sim)
 	scriptMgr:addHook( "HOSTAGE", startPhase )
 
 
