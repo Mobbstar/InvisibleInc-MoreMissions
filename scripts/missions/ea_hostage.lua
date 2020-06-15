@@ -86,6 +86,26 @@ NPC_END_TURN =
 	end,
 }
 
+CAPTAIN_SAW_FREE_HOSTAGE =
+{
+	-- Based on mission_util.PC_SAW_UNIT, but for the Captain.
+	trigger = simdefs.TRG_UNIT_APPEARED,
+	fn = function( sim, evData )
+		local seer = sim:getUnit( evData.seerID )
+		if not seer or not seer:hasTag("MM_captain") then
+			return false
+		end
+
+	 -- Hostage "agent" and prop both have MM_hostage but untie_anim is prop-specific.
+		if evData.unit:hasTag("MM_hostage") and not evData.unit:getTraits().untie_anim then
+			return evData.unit, seer
+		else
+			return false
+		end
+	end,
+}
+
+
 CAPTAIN_SAW_DISCARDED_MANACLES =
 {
 	-- Based on mission_util.PC_SAW_UNIT, but for the Captain.
@@ -364,11 +384,20 @@ local function updateHostageStatusAfterMove( script, sim )
 	end
 end
 
+local function checkCaptainSeenFreeHostage( script, sim )
+	local _, _, captain = script:waitFor( CAPTAIN_SAW_FREE_HOSTAGE )
+	captain:getTraits().mmCaptainSawFreeHostage = 1
+end
+
 local function alertCaptainForMissingHostage( script, sim )
 	local _, manacles, captain = script:waitFor( CAPTAIN_SAW_DISCARDED_MANACLES )
-	local x, y = manacles:getLocation()
-	captain:setAlerted(true)
-	captain:getBrain():getSenses():addInterest(x, y, simdefs.SENSE_SIGHT, simdefs.REASON_LOSTTARGET, manacles)
+
+	-- Don't investigate the manacles if the captain already knows the hostage is free.
+	if not captain:isAlerted() or not captain:getTraits().mmCaptainSawFreeHostage then
+		local x, y = manacles:getLocation()
+		captain:setAlerted(true)
+		captain:getBrain():getSenses():addInterest(x, y, simdefs.SENSE_SIGHT, simdefs.REASON_LOSTTARGET, manacles)
+	end
 end
 
 local function clearStatusAfterEndTurn( script, sim )
@@ -562,6 +591,7 @@ local function startPhase( script, sim )
 	script:addHook( clearHostageStatusAfterMove )
 	script:addHook( clearStatusAfterEndTurn )
 	script:addHook( updateHostageStatusAfterMove )
+	script:addHook( checkCaptainSeenFreeHostage )
 	script:addHook( alertCaptainForMissingHostage )
 	script:addHook( checkHostageKO )
 	script:addHook( checkHostageDeath )
