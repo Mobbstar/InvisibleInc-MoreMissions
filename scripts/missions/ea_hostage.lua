@@ -3,8 +3,10 @@ local util = include( "modules/util" )
 local mathutil = include( "modules/mathutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
+local simfactory = include( "sim/simfactory" )
 local simquery = include( "sim/simquery" )
 local mission_util = include( "sim/missions/mission_util" )
+local unitdefs = include( "sim/unitdefs" )
 local win_conditions = include( "sim/win_conditions" )
 local strings = include( "strings" )
 local astar = include( "modules/astar" )
@@ -81,6 +83,44 @@ NPC_END_TURN =
 		else
 			return true 
 		end  
+	end,
+}
+
+CAPTAIN_SAW_FREE_HOSTAGE =
+{
+	-- Based on mission_util.PC_SAW_UNIT, but for the Captain.
+	trigger = simdefs.TRG_UNIT_APPEARED,
+	fn = function( sim, evData )
+		local seer = sim:getUnit( evData.seerID )
+		if not seer or not seer:hasTag("MM_captain") then
+			return false
+		end
+
+	 -- Hostage "agent" and prop both have MM_hostage but untie_anim is prop-specific.
+		if evData.unit:hasTag("MM_hostage") and not evData.unit:getTraits().untie_anim then
+			return evData.unit, seer
+		else
+			return false
+		end
+	end,
+}
+
+
+CAPTAIN_SAW_DISCARDED_MANACLES =
+{
+	-- Based on mission_util.PC_SAW_UNIT, but for the Captain.
+	trigger = simdefs.TRG_UNIT_APPEARED,
+	fn = function( sim, evData )
+		local seer = sim:getUnit( evData.seerID )
+		if not seer or not seer:hasTag("MM_captain") then
+			return false
+		end
+
+		if evData.unit:hasTag("MM_discarded_manacles") then
+			return evData.unit, seer
+		else
+			return false
+		end
 	end,
 }
 
@@ -432,6 +472,22 @@ local function calculateHostageVitalSigns( sim )
 	print( "vital signs: "..hostage:getTraits().vitalSigns )
 end
 
+local function checkCaptainSeenFreeHostage(script, sim)
+	local _, _, captain = script:waitFor( CAPTAIN_SAW_FREE_HOSTAGE )
+	captain:getTraits().mmCaptainSawFreeHostage = 1
+end
+
+local function alertCaptainForMissingHostage(script, sim)
+	local _, manacles, captain = script:waitFor( CAPTAIN_SAW_DISCARDED_MANACLES )
+
+	-- Don't investigate if the captain already knows the hostage is free.
+	if not captain:isAlerted() or not captain:getTraits().mmCaptainSawFreeHostage then
+		local x, y = manacles:getLocation()
+		captain:setAlerted(true)
+		captain:getBrain():getSenses():addInterest(x, y, simdefs.SENSE_SIGHT, simdefs.REASON_LOSTTARGET, manacles)
+	end
+end
+
 local function courier_guard_banter(script, sim)
 	script:waitFor( mission_util.PC_START_TURN )
 	
@@ -459,29 +515,20 @@ local function courier_guard_banter(script, sim)
 	end
 end
 
-local function captain_alert(script, sim)
-	script:waitFor( mission_util.PC_START_TURN )
-	local captain = mission_util.findUnitByTag(sim, "MM_captain")
-	local hostage_freed = nil
-	if captain and not captain:isKO() then
-		local x1, y1
-		if captain:getBrain() and captain:getBrain():getSituation().ClassType == simdefs.SITUATION_IDLE then
-			for i, unit in pairs(sim:getAllUnits()) do
-				if unit:hasTag("MM_hostage") and not unit:getTraits().untie_anim then -- hostage "agent" and prop both have this tag but untie_anim is prop-specific
-					hostage_freed = true
-				end
-			end
-		end
-	end
-	if hostage_freed then
-		sim:emitSpeech( captain, speechdefs.HUNT_LOSTTARGET )
-		local x0, y0 = captain:getLocation()
-		captain:setAlerted(true)
-		captain:getBrain():getSenses():addInterest(x0, y0, simdefs.SENSE_HIT, simdefs.REASON_KO, captain)
-		sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = captain } )
-	elseif captain and not captain:isAlerted() then --no sense re-adding the hook if captain got alerted by something else
-		script:addHook(captain_alert)
-	end
+local function createManacles(sim)
+	local hostage = mission_util.findUnitByTag(sim, "MM_hostage")
+	local cell = sim:getCell(hostage:getLocation())
+	local manacles = simfactory.createUnit(unitdefs.lookupTemplate("MM_item_discarded_manacles"), sim)
+	sim:spawnUnit(manacles)
+	manacles:addTag("MM_discarded_manacles")
+	sim:warpUnit(manacles, cell)
+	sim:emitSound(simdefs.SOUND_ITEM_PUTDOWN, cell.x, cell.y)
+end
+
+local function fixCaptainPath(sim)
+  -- SimEngine:init doesn't save initial facing when it generates the patrolPath for nopatrol=true.
+  local captain = mission_util.findUnitByTag(sim, "MM_captain")
+  captain:getTraits().patrolPath[1].facing = captain:getFacing()
 end
 
 local function startPhase( script, sim )
@@ -503,7 +550,6 @@ local function startPhase( script, sim )
 
 	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.HOSTAGE_SIGHTED[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.HOSTAGE_SIGHTED)], type="newOperatorMessage" } )
 	script:addHook(courier_guard_banter)
-	script:addHook(captain_alert)
 	
 	script:waitFor( mission_util.PC_ANY )	
 	script:queue( { type="clearOperatorMessage" } )
@@ -525,9 +571,13 @@ local function startPhase( script, sim )
 	script:addHook( clearHostageStatusAfterMove )
 	script:addHook( clearStatusAfterEndTurn )
 	script:addHook( updateHostageStatusAfterMove )
+	script:addHook( checkCaptainSeenFreeHostage )
+	script:addHook( alertCaptainForMissingHostage )
 	script:addHook( checkHostageKO )
 	script:addHook( checkHostageDeath )
 	script:addHook( hostageBanter )	
+
+	createManacles(sim)
 
 	script:queue( { type="clearOperatorMessage" } )
 	script:queue( { type="clearEnemyMessage" } )
@@ -611,6 +661,7 @@ function hostage_mission:init( scriptMgr, sim )
 				end
 			end )
 			
+  fixCaptainPath(sim)
 	scriptMgr:addHook( "HOSTAGE", startPhase )
 
 

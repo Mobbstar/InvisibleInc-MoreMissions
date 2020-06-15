@@ -121,6 +121,18 @@ local tool_templates =
 		value = 150,
 		floorWeight = 1,
 	},		
+
+	-- for EA Hostage
+	MM_item_discarded_manacles = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.DISCARDED_MANACLES,
+		desc = STRINGS.MOREMISSIONS.ITEMS.DISCARDED_MANACLES_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.DISCARDED_MANACLES_FLAVOR,
+		icon = "itemrigs/FloorProp_AmmoClip.png",
+		profile_icon = "gui/items/item_quest.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_exit_key.png",
+		traits = { sightable = true }
+	},
 	
 }
 
