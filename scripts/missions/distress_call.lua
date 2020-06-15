@@ -85,7 +85,8 @@ end
 local function make_gear( sim, newUnit, agentTemplate )
 
 	local template_list = {
-	"vault_passcard",
+	-- "vault_passcard",
+	"item_corpIntel",
 	"item_crybaby",
 	"item_flash_pack",
 	"item_clip",
