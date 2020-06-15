@@ -49,6 +49,21 @@ local HOSTAGE_ESCAPED =
 	end,
 }
 
+--for the sole purpose of removing the UI tab
+local HOSTAGE_ESCAPING = 
+{
+	trigger = simdefs.TRG_MAP_EVENT,
+	fn = function( sim, evData )
+		if evData.units then
+			for i, unit in pairs(evData.units) do
+				if unit:hasTag("MM_hostage") then
+					return unit
+				end
+			end
+		end
+	end,
+}
+
 local PC_HOSTAGE_MOVED =
 {
 	action = "moveAction",
@@ -364,6 +379,11 @@ local function hostageBanter( script, sim )
 
 end
 
+local function clearHostageStatusAfterTeleport( script, sim )
+	local _, hostage = script:waitFor(HOSTAGE_ESCAPING)
+	hostage:destroyTab()
+end
+
 local function clearHostageStatusAfterMove( script, sim )
 	while true do		
 		local _, hostage = script:waitFor( PC_HOSTAGE_STARTED_MOVE )
@@ -496,7 +516,7 @@ local function courier_guard_banter(script, sim)
 	script:waitFor( mission_util.PC_START_TURN )
 	
 	local hostage = mission_util.findUnitByTag(sim, "MM_hostage")
-	local captain = simquery.findUnit(sim:getNPC():getUnits(), isCaptain )
+	local captain = simquery.findUnit(sim:getNPC():getUnits(), isCaptain ) --this version doesn't cause assertion error if captain has been killed i.e. despawned already
 	
 	if hostage and captain and captain:getBrain() and not captain:isAlerted() and captain:getBrain():getSituation().ClassType == simdefs.SITUATION_IDLE and not hostage:isKO() and not captain:isKO() and sim:canPlayerSeeUnit(sim:getPC(), hostage) and	sim:canPlayerSeeUnit(sim:getPC(), captain) then		
 		script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.GUARD_INTERROGATE1, 
@@ -575,6 +595,7 @@ local function startPhase( script, sim )
 	
 	sim:openElevator()	
 	script:addHook( clearHostageStatusAfterMove )
+	script:addHook( clearHostageStatusAfterTeleport )
 	script:addHook( clearStatusAfterEndTurn )
 	script:addHook( updateHostageStatusAfterMove )
 	script:addHook( checkCaptainSeenFreeHostage )
@@ -667,7 +688,7 @@ function hostage_mission:init( scriptMgr, sim )
 				end
 			end )
 			
-  fixCaptainPath(sim)
+	fixCaptainPath(sim)
 	scriptMgr:addHook( "HOSTAGE", startPhase )
 
 
