@@ -239,8 +239,11 @@ return {
 		TOOLTIPS = {
 			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
 			WEAPONS_EXPO_RESALE_DESC = "This prototype is not market-ready and can only be sold at half price.",
-		},
-		
+			EA_HOSTAGE_FRAIL = "FRAIL",
+			EA_HOSTAGE_FRAIL_DESC = "KO damage is lethal.",
+			EA_HOSTAGE_VITAL_STATUS = "VITAL STATUS",
+			EA_HOSTAGE_VITAL_STATUS_DESC = "Will expire if not extracted in {1} {1:turn|turns}.",
+		},	
 		
 	},
 
