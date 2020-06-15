@@ -110,7 +110,7 @@ return {
 		ITEM_TAZER_OLD_FLAVOR = "This disrupter is worn out, but still finds use as a \"persuasion\" tool.",
 
 		DISCARDED_MANACLES = "Discarded Manacles",
-		DISCARDED_MANACLES_TOOLTIP = "Alerts guards when seen.",
+		DISCARDED_MANACLES_TOOLTIP = "Secured in place. Alerts the captain when seen.",
 		DISCARDED_MANACLES_FLAVOR = "An empty space, where a prisoner is supposed to be restrained.",
 
 	},
