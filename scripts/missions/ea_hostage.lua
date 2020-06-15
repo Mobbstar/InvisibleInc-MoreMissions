@@ -515,31 +515,6 @@ local function courier_guard_banter(script, sim)
 	end
 end
 
-local function captain_alert(script, sim)
-	script:waitFor( mission_util.PC_START_TURN )
-	local captain = mission_util.findUnitByTag(sim, "MM_captain")
-	local hostage_freed = nil
-	if captain and not captain:isKO() then
-		local x1, y1
-		if captain:getBrain() and captain:getBrain():getSituation().ClassType == simdefs.SITUATION_IDLE then
-			for i, unit in pairs(sim:getAllUnits()) do
-				if unit:hasTag("MM_hostage") and not unit:getTraits().untie_anim then -- hostage "agent" and prop both have this tag but untie_anim is prop-specific
-					hostage_freed = true
-				end
-			end
-		end
-	end
-	if hostage_freed then
-		sim:emitSpeech( captain, speechdefs.HUNT_LOSTTARGET )
-		local x0, y0 = captain:getLocation()
-		captain:setAlerted(true)
-		captain:getBrain():getSenses():addInterest(x0, y0, simdefs.SENSE_HIT, simdefs.REASON_KO, captain)
-		sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = captain } )
-	elseif captain and not captain:isAlerted() then --no sense re-adding the hook if captain got alerted by something else
-		script:addHook(captain_alert)
-	end
-end
-
 local function createManacles(sim)
 	local hostage = mission_util.findUnitByTag(sim, "MM_hostage")
 	local cell = sim:getCell(hostage:getLocation())
@@ -575,7 +550,6 @@ local function startPhase( script, sim )
 
 	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.HOSTAGE_SIGHTED[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.HOSTAGE_SIGHTED)], type="newOperatorMessage" } )
 	script:addHook(courier_guard_banter)
-	script:addHook(captain_alert)
 	
 	script:waitFor( mission_util.PC_ANY )	
 	script:queue( { type="clearOperatorMessage" } )
