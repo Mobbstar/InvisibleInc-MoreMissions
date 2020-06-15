@@ -384,22 +384,6 @@ local function updateHostageStatusAfterMove( script, sim )
 	end
 end
 
-local function checkCaptainSeenFreeHostage( script, sim )
-	local _, _, captain = script:waitFor( CAPTAIN_SAW_FREE_HOSTAGE )
-	captain:getTraits().mmCaptainSawFreeHostage = 1
-end
-
-local function alertCaptainForMissingHostage( script, sim )
-	local _, manacles, captain = script:waitFor( CAPTAIN_SAW_DISCARDED_MANACLES )
-
-	-- Don't investigate the manacles if the captain already knows the hostage is free.
-	if not captain:isAlerted() or not captain:getTraits().mmCaptainSawFreeHostage then
-		local x, y = manacles:getLocation()
-		captain:setAlerted(true)
-		captain:getBrain():getSenses():addInterest(x, y, simdefs.SENSE_SIGHT, simdefs.REASON_LOSTTARGET, manacles)
-	end
-end
-
 local function clearStatusAfterEndTurn( script, sim )
 
 	while true do
@@ -488,6 +472,22 @@ local function calculateHostageVitalSigns( sim )
 	print( "vital signs: "..hostage:getTraits().vitalSigns )
 end
 
+local function checkCaptainSeenFreeHostage(script, sim)
+	local _, _, captain = script:waitFor( CAPTAIN_SAW_FREE_HOSTAGE )
+	captain:getTraits().mmCaptainSawFreeHostage = 1
+end
+
+local function alertCaptainForMissingHostage(script, sim)
+	local _, manacles, captain = script:waitFor( CAPTAIN_SAW_DISCARDED_MANACLES )
+
+	-- Don't investigate if the captain already knows the hostage is free.
+	if not captain:isAlerted() or not captain:getTraits().mmCaptainSawFreeHostage then
+		local x, y = manacles:getLocation()
+		captain:setAlerted(true)
+		captain:getBrain():getSenses():addInterest(x, y, simdefs.SENSE_SIGHT, simdefs.REASON_LOSTTARGET, manacles)
+	end
+end
+
 local function courier_guard_banter(script, sim)
 	script:waitFor( mission_util.PC_START_TURN )
 	
@@ -540,7 +540,7 @@ local function captain_alert(script, sim)
 	end
 end
 
-local function createManacles( script, sim )
+local function createManacles(sim)
 	local hostage = mission_util.findUnitByTag(sim, "MM_hostage")
 	local cell = sim:getCell(hostage:getLocation())
 	local manacles = simfactory.createUnit(unitdefs.lookupTemplate("MM_item_discarded_manacles"), sim)
@@ -603,7 +603,7 @@ local function startPhase( script, sim )
 	script:addHook( checkHostageDeath )
 	script:addHook( hostageBanter )	
 
-	createManacles(script, sim)
+	createManacles(sim)
 
 	script:queue( { type="clearOperatorMessage" } )
 	script:queue( { type="clearEnemyMessage" } )
