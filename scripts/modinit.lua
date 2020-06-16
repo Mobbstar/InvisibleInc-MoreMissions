@@ -162,8 +162,8 @@ local function load( modApi, options, params )
 	-- local corpworldPrefabs = include( scriptPath .. "/prefabs/corpworld/prefabt" )
 	-- modApi:addWorldPrefabt(scriptPath, "corpworld", corpworldPrefabs)
 
-	-- local escape_mission = include( scriptPath .. "/escape_mission" )
-	-- modApi:addEscapeScripts(escape_mission)
+	local escape_mission = include( scriptPath .. "/escape_mission" )
+	modApi:addEscapeScripts(escape_mission)
 
 	-- modApi:setCampaignEvent_setCampaignParam(nil,"contingency_plan",true)
 
