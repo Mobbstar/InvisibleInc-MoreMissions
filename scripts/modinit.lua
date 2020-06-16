@@ -10,7 +10,7 @@ local simquery = include ( "sim/simquery" )
 local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 
 local function earlyInit( modApi )
-	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Items Evacuation", "New Items And Augments" }
+	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Advanced Guard Protocol", "Items Evacuation", "New Items And Augments" }
 end
 
 local function init( modApi )
@@ -71,6 +71,7 @@ local function init( modApi )
 		end
 	end
 	
+	include( scriptPath .. "/idle" )
 	include( scriptPath .. "/unitrig" )
 
 end
