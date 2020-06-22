@@ -57,7 +57,7 @@ local ESCAPE_WITH_BODY =
 			if unit:hasTag("bounty_target") then
 				local cell = sim:getCell( unit:getLocation() )
 				if cell and cell.exitID == simdefs.DEFAULT_EXITID then
-					return true
+					return unit
 				end
 			end
 		end
@@ -67,23 +67,15 @@ local ESCAPE_WITH_BODY =
 
 --keep track of when the loot gets actually extracted
 local function gotloot(script, sim, mission)
-	script:waitFor( ESCAPE_WITH_BODY )
+	_, body = script:waitFor( ESCAPE_WITH_BODY )
+	assert(body:hasTag("bounty_target"))
 
-	--it sucks doing this whole search again immediately after the trigger, but beats having two triggers -M
-	for unitID, unit in pairs(sim:getAllUnits()) do
-		if unit:hasTag("bounty_target") then
-			local cell = sim:getCell( unit:getLocation() )
-			if cell and cell.exitID == simdefs.DEFAULT_EXITID then
-				if unit:isDead() then
-					mission.gotbody = true
-				else
-					mission.gotalive = true
-				end
-				sim:removeObjective( "drag" )
-			end
-		end
+	if body:isDead() then
+		mission.gotbody = true
+	else
+		mission.gotalive = true
 	end
-
+	sim:removeObjective( "drag" )
 end
 
 local function presawfn( script, sim, ceo )
