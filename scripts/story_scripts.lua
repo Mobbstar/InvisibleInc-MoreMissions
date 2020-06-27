@@ -1,13 +1,14 @@
 -- local SCRIPTS = include('client/story_scripts')
 local util = include( "modules/util" )
+local message_time = 10 --8 --use the same message delay for all messages for now
 
 local MakeLine = {
-	Central = function(t, text, voice)
+	Central = function(t, text, voice, timing)
 		t.text = text
         t.anim = "portraits/central_face"
         t.name = STRINGS.UI.CENTRAL_TITLE
         t.voice = voice
-        -- t.timing = timing --only used for the two-part cyberlab judgement
+        t.timing = timing --only used in vanilla for the two-part cyberlab judgement
         t.delay = 0.25
 	end,
 	Monster = function(t, text, voice)
@@ -31,7 +32,7 @@ local function GenerateScript(strings, scripts)
 			log:write("Warning: The following Story Script had no valid actor (" .. util.stringize(strings[3], 1) .. "):\n" .. strings[1])
 			strings[3] = "Central"
 		end
-		MakeLine[strings[3]](scripts, strings[1], strings[2])
+		MakeLine[strings[3]](scripts, strings[1], strings[2], message_time)
 	else
 		for i, data in pairs(strings) do
 			if type(data) == "table" then
