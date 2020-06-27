@@ -262,8 +262,10 @@ local function MM_checkTopGearItem( script, sim )
 	local _, topGearSafe = script:waitFor( mission_util.PC_SAW_UNIT("MM_topGear") )
 	-- topGearSafe:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB) 
 	local scripts = SCRIPTS.INGAME.WEAPONS_EXPO.FOUND_EXPO_DISABLED_SEC
-	if not sim.MM_security_disabled and not sim:getTags().MM_transformer_start then --only add objective if we have not yet disabled the security or even SEEN the switches... I suppose only the latter check is actually necessary, it would be hard to disable them without seeing them, eh...
+	if not sim.MM_security_disabled then
 		scripts = SCRIPTS.INGAME.WEAPONS_EXPO.FOUND_EXPO
+	end
+	if not sim:getTags().MM_transformer_start then --only add objective if we have not seen the switches yet
 		sim:addObjective( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_FIND_SWITCHES, "find_switches" )
 	end
 	queueCentral(script, scripts)
@@ -301,7 +303,7 @@ local function isNotKO( unit )
 end
 
 
-local function countUnstolenTech(script,sim,mission)
+local function countUnstolenTech(script,sim)
 	script:waitFor(UNIT_ESCAPE)
 
 	local fieldUnits, escapingUnits = simquery.countFieldAgents( sim )
@@ -312,13 +314,18 @@ local function countUnstolenTech(script,sim,mission)
 	--we don't want central to consider the mission failed if you stole something but already sold it or already escaped with it, so let's check for any objective items that are not in an agency unit's inventory
 
 	if isPartialEscape then
-		script:addhook(countUnstolenTech)
+		script:addHook(countUnstolenTech)
 	else
 		local not_stolen = {}
 		for i,unit in pairs(sim:getAllUnits()) do
-			if unit:hasTag("MM_topGearItem") then
+			if (unit:getLocation() or unit:getUnitOwner()) and unit:hasTag("MM_topGearItem") then
 				local owner = unit:getUnitOwner()
-				if (owner == nil) or (owner and owner:getPlayerOwner() == sim:getPC()) then --any lootables not in an escaping unit's inventory
+				local owner_cell = owner and owner:getLocation() and sim:getCell(owner:getLocation())
+				if (owner == nil) or --on the floor
+				( owner and --in someone's inventory or in a container
+				(owner:getPlayerOwner() == sim:getNPC()) or
+				((owner:getPlayerOwner() == sim:getPC()) and owner_cell and not owner_cell.exitID)
+				) then --any lootables not in an escaping unit's inventory
 					table.insert(not_stolen, unit)
 				end
 			end
@@ -327,10 +334,10 @@ local function countUnstolenTech(script,sim,mission)
 		if stolen > 0 then 
 			sim.exit_warning = nil
 			sim.TA_mission_success = true -- flag for Talkative Agents
-			mission.MM_got_partial_tech = true
+			sim.MM_got_partial_tech = true
 		end
 		if stolen >= sim.totalTopGear then
-			mission.MM_got_all_tech = true
+			sim.MM_got_all_tech = true
 			sim.TA_mission_success = true
 		end
 	end
@@ -367,13 +374,13 @@ function mission:init( scriptMgr, sim )
 	sim.exit_warning = STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_WARN_EXIT
 	scriptMgr:addHook( "TECH_EXPO_TOP_GEAR", MM_checkTopGearItem )
 	scriptMgr:addHook( "TECH_EXPO_BOOST_FIREWALLS", boost_firewalls )
-	scriptMgr:addHook( "TECH_EXPO_COUNT_UNSTOLEN_TECH", countUnstolenTech, nil, self )
+	scriptMgr:addHook( "TECH_EXPO_COUNT_UNSTOLEN_TECH", countUnstolenTech )
 	scriptMgr:addHook( "MM_TRANSFORMER", MM_transformer )
     sim:addObjective( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_OBJECTIVE, OBJECTIVE_ID )			
 			
     --This picks a reaction rant from Central on exit based upon whether or not an agent has escaped with the loot yet.
     local scriptfn = function()
-		local scripts = (self.MM_got_all_tech and SCRIPTS.INGAME.WEAPONS_EXPO.CENTRAL_JUDGEMENT.GOT_FULL) or (self.MM_got_partial_tech and SCRIPTS.INGAME.WEAPONS_EXPO.CENTRAL_JUDGEMENT.GOT_PARTIAL) or SCRIPTS.INGAME.WEAPONS_EXPO.CENTRAL_JUDGEMENT.NO_LOOT
+		local scripts = (sim.MM_got_all_tech and SCRIPTS.INGAME.WEAPONS_EXPO.CENTRAL_JUDGEMENT.GOT_FULL) or (sim.MM_got_partial_tech and SCRIPTS.INGAME.WEAPONS_EXPO.CENTRAL_JUDGEMENT.GOT_PARTIAL) or SCRIPTS.INGAME.WEAPONS_EXPO.CENTRAL_JUDGEMENT.NO_LOOT
         local scr = scripts[sim:nextRand(1, #scripts)]
         return scr
     end
