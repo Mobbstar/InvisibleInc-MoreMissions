@@ -3,6 +3,8 @@
 --
 -- Escort a mole to the console.
 -- Until the mole has assumed his identity, don't let him be seen.
+-- Guard and drone witnesses need their HUD wiped manually or killed.
+-- Camera witnesses need to be wiped at the Camera Database.
 --------------------------------------------------------------------------------
 
 local mission_util = include( "sim/missions/mission_util" )
@@ -11,31 +13,22 @@ local escape_mission = include( "sim/missions/escape_mission" )
 --------------------------------------------------------------------------------
 -- Local helpers
 
-local GUARD_SAW_AGENT =
+local GUARD_SAW_MOLE =
 {
 	trigger = simdefs.TRG_UNIT_APPEARED,
 	fn = function( sim, evData )
 		local seer = sim:getUnit( evData.seerID )
-		--NPC-controlled.
+		--NPC-controlled. Don't penalize the player for moving hacked enemies.
 		if not seer or not seer:isNPC() then
 			return false
 		end
 		local isGuardDrone = seer:getTraits().isGuard or seer:getTraits().isDrone
 		local isAlreadyWitness = seer:getTraits().witness
-		-- The target will either die or things fail anyways. Don't track as a witness.
-		local isBountyTarget = seer:hasTag("bounty_target")
-		if not isGuardDrone or isAlreadyWitness or isBountyTarget then
+		if not isGuardDrone or isAlreadyWitness then
 			return false
 		end
 
-		--Agency agents prove Invisible Inc was involved in the assassination.
-		local unitIsPlayerAgent = evData.unit:isPC() and sim:getQuery().isAgent(evData.unit)
-		--Controlled drones and guards are fine.
-		local unitIsGuard = evData.unit:getTraits().isGuard
-		--Disguised agents are fine.
-		local unitIsDisguised = evData.unit:getTraits().disguiseOn
-		--TODO: LEVER_status (TRUSTED/LEGIT/HARMLESS)
-		if unitIsPlayerAgent and not unitIsGuard and not unitIsDisguised then
+		if evData.unit:hasTag("mole") then
 			return evData.unit, seer
 		else
 			return false
@@ -62,7 +55,28 @@ local WITNESS_KOED =
 }
 local WITNESS_ESCAPED =
 {
-	-- TODO
+	-- TODO: Compile side-mission scientist, AGP sysadmin
+}
+
+local CAMERA_SAW_MOLE =
+{
+	trigger = simdefs.TRG_UNIT_APPEARED,
+	fn = function( sim, evData )
+		local seer = sim:getUnit( evData.seerID )
+		--Depending on mods, enemy cameras are either neutral or enemy owned
+		if not seer or seer:isPC() then
+			return false
+		end
+		if not seer:getTraits().mainframe_camera then
+			return false
+		end
+
+		if evData.unit:hasTag("mole") then
+			return evData.unit, seer
+		else
+			return false
+		end
+	end,
 }
 
 local function existsLivingWitness(sim)
@@ -77,7 +91,7 @@ end
 
 local function guardWitnessesAgent(script, sim)
 	while true do
-		_, agent, seer = script:waitFor( GUARD_SAW_AGENT )
+		_, agent, seer = script:waitFor( GUARD_SAW_MOLE )
 		seer:getTraits().witness = true
 		--TODO: Tabs get cleared too often on guards.
 		seer:createTab( STRINGS.MOREMISSIONS.MISSIONS.MOLE.WITNESS_DETECTED, "" )
