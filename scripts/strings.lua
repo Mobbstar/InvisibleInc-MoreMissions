@@ -159,9 +159,11 @@ return {
 		    OBJ_FIND = "Locate the target",
 		    OBJ_KILL = "Disable the target",
 		    OBJ_DRAG = "Extract the target",
+		},
+		MOLE = {
 		    OBJ_KILL_WITNESS = "Kill any eyewitnesses",
 			WITNESS_DETECTED = "WITNESS DETECTED"
-		},
+		}
 	},
 
 	LOCATIONS = {
