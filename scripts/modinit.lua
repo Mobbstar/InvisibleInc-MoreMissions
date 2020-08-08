@@ -216,10 +216,10 @@ local function load( modApi, options, params )
 
 	--add prefabs:
 
-	local sharedPrefabs = include( scriptPath .. "/prefabs/shared/prefabt" )
-	modApi:addPrefabt(sharedPrefabs)
-	sharedPrefabs = include( scriptPath .. "/prefabs/shared_assassination/prefabt" )
-	modApi:addPrefabt(sharedPrefabs)
+	local hostagePrefabs = include( scriptPath .. "/prefabs/EA_hostage/prefabt" )
+	modApi:addPrefabt(hostagePrefabs)
+	local assassinationPrefabs = include( scriptPath .. "/prefabs/assassination/prefabt" )
+	modApi:addPrefabt(assassinationPrefabs)
 	local distressPrefabs = include( scriptPath .. "/prefabs/distress_call/prefabt" )
     modApi:addPrefabt(distressPrefabs)
 	local weaponsExpoPrefabs = include( scriptPath .. "/prefabs/weaponsexpo/prefabt" )
