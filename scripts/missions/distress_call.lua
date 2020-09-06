@@ -214,7 +214,8 @@ local function startAgentEscape( script, sim, mission )
     -- If there aren't any lost agents, pick one of the remaining potentials at random.
 	if agentDef == nil and #agency.unitDefsPotential > 0 then
 
-        if (sim:nextRand() < CHANCE_OF_AGENT_IN_DETENTION ) then
+        if (sim:nextRand() < CHANCE_OF_AGENT_IN_DETENTION or sim:getParams().foundPrisoner == true ) or 
+           (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY and sim:getParams().agentsFound == 0) then
     		local wt = util.weighted_list()
             for i, agentDef in ipairs(agency.unitDefsPotential) do
                 wt:addChoice( agentDef, 1 )
@@ -471,6 +472,8 @@ function mission:init( scriptMgr, sim )
     end
 
     scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))
+	
+    sim:getTags().cbfCouldHaveAgent = true.
 
 end
 
