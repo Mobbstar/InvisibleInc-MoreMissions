@@ -2267,6 +2267,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_door</string>
         </Tags>
         <MatchTags />
         <BurnTags />
