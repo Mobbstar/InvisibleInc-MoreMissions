@@ -1268,6 +1268,7 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_door",
         },
     },
     {

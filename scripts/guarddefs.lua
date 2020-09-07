@@ -89,7 +89,7 @@ local npc_templates =
 		children = {},
 		idles = DEFAULT_IDLES,
 		sounds = SOUNDS.GUARD,
-		brain = "WimpBrain",		
+		brain = "mmBountyTargetBrain",
 	},
 	-- for TECH EXPO
 	MM_prototype_droid =

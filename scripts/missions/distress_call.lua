@@ -473,7 +473,7 @@ function mission:init( scriptMgr, sim )
 
     scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))
 	
-    sim:getTags().cbfCouldHaveAgent = true.
+    sim:getTags().cbfCouldHaveAgent = true
 
 end
 

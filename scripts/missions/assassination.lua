@@ -3,7 +3,9 @@ local util = include( "modules/util" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 local unitdefs = include( "sim/unitdefs" )
+local inventory = include( "sim/inventory" )
 local simfactory = include( "sim/simfactory" )
+local simquery = include( "sim/simquery" )
 local mission_util = include( "sim/missions/mission_util" )
 local escape_mission = include( "sim/missions/escape_mission" )
 local SCRIPTS = include("client/story_scripts")
@@ -35,7 +37,16 @@ local CEO_ALERTED =
 {
 	trigger = simdefs.TRG_UNIT_ALERTED,
 	fn = function( sim, evData )
-		if evData.unit:hasTag("assassination")  then
+		if evData.unit:hasTag("assassination") then
+			return evData.unit
+		end
+	end,
+}
+local CEO_ARMING =
+{
+	trigger = "MM-VIP-ARMING",
+	fn = function( sim, evData )
+		if evData.unit:hasTag("assassination") then
 			return evData.unit
 		end
 	end,
@@ -121,7 +132,68 @@ local function pstsawfn( script, sim, ceo )
 
 end
 
-local function ceoalerted(script, sim)
+-- Like mission_util.findUnitByTag, but returns nil if the unit isn't found
+local function safeFindUnitByTag(sim, tag)
+	for _, unit in pairs( sim:getAllUnits() ) do
+		if unit:hasTag( tag ) then
+			return unit
+		end
+	end
+end
+
+local function findCell(sim, tag)
+	local cells = sim:getCells( tag )
+	return cells and cells[1]
+end
+
+local function modifySafeRoomDoor(sim, script, open)
+	local c = findCell( sim, "saferoom_door" )
+	assert( c )
+	if open then
+		for i, exit in pairs( c.exits ) do
+			if exit.door and exit.locked and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then
+				sim:modifyExit( c, i, simdefs.EXITOP_UNLOCK )
+				sim:modifyExit( c, i, simdefs.EXITOP_OPEN )
+				sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED, {cell=c, dir=i} )
+			end
+		end
+	else
+		for i, exit in pairs( c.exits ) do
+			if exit.door and not exit.closed and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then
+				sim:modifyExit( c, i, simdefs.EXITOP_LOCK )
+				sim:modifyExit( c, i, simdefs.EXITOP_CLOSE )
+				sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED, {cell=c, dir=i} )
+			end
+		end
+	end
+end
+
+local function ceoalertedFlee(script, sim)
+	local _, ceo = script:waitFor( CEO_ALERTED )
+	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
+
+	-- Open the safe room
+	modifySafeRoomDoor( sim, script, true )
+
+	-- Send the CEO to the safe
+	local xSafe,ySafe = safe:getLocation()
+	local finalCell = findCell( sim, "saferoom_flee" )
+	assert( finalCell )
+	local finalFacing = simquery.getDirectionFromDelta(xSafe - finalCell.x, ySafe - finalCell.y)
+	ceo:getTraits().patrolPath = { { x = finalCell.x, y = finalCell.y, facing = finalFacing } }
+
+	script:waitFor( CEO_ARMING )
+	local weapon = safeFindUnitByTag( sim, "saferoom_weapon" )
+	if weapon and weapon:isValid() and safe and safe:isValid() and safe:hasChild( weapon:getID() ) then
+		inventory.giveItem( safe, ceo, weapon )
+		ceo:giveAbility( "shootOverwatch" )
+		ceo:giveAbility( "overwatch" )
+		ceo:getTraits().pacifist = false
+		ceo:getTraits().vip = false
+	end
+end
+
+local function ceoalertedMessage(script, sim)
 	local _, ceo = script:waitFor( CEO_ALERTED )
 	if not ceo:isDown() then
 	    script:queue( { script=SCRIPTS.INGAME.CENTRAL_CFO_RUNNING, type="newOperatorMessage" } )
@@ -164,10 +236,19 @@ end
 
 local mission = class( escape_mission )
 
+function spawnCeoWeapon( sim )
+	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
+	local newWeapon = simfactory.createUnit( unitdefs.lookupTemplate( "item_light_pistol" ), sim )
+	newWeapon:addTag("saferoom_weapon")
+	sim:spawnUnit( newWeapon )
+	safe:addChild( newWeapon )
+end
+
 function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
 
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_FIND, "find" )
+	spawnCeoWeapon( sim )
 
 	sim.exit_warning = function() return exitWarning(sim) end
 
@@ -175,9 +256,11 @@ function mission:init( scriptMgr, sim )
 
 	scriptMgr:addHook( "GOTLOOT", gotloot, nil, self)
 
+	scriptMgr:addHook( "RUN", ceoalertedFlee, nil, self)
+
 	--In case the target gets away, ripped straight from the CFO interrogation mission
-    scriptMgr:addHook( "RUN", ceoalerted, nil, self)
-    scriptMgr:addHook( "escaped", ceoescaped, nil, self)
+	scriptMgr:addHook( "RUNMSG", ceoalertedMessage, nil, self)
+	scriptMgr:addHook( "escaped", ceoescaped, nil, self)
 
 	--This picks a reaction rant from Central on exit based upon whether or not an agent has escaped with the loot yet.
 	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(function() judgement(sim, self) end))

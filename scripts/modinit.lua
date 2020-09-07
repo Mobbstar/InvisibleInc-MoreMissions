@@ -73,6 +73,9 @@ local function init( modApi )
 	
 	include( scriptPath .. "/idle" )
 	include( scriptPath .. "/unitrig" )
+	include( scriptPath .. "/btree/actions" )
+	include( scriptPath .. "/btree/conditions" )
+	include( scriptPath .. "/btree/bountytargetbrain" )
 
 end
 
