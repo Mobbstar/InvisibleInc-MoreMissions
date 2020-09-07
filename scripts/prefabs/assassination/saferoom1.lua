@@ -2875,7 +2875,7 @@ local units =
                     facing = 5, traits={nopatrol=true},
                     tags =
                     {
-                        "interrogate",
+                        "assassination",
                     },
                 },
             },

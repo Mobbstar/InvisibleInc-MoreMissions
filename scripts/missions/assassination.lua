@@ -16,8 +16,8 @@ local BOUNTY_TARGET_DEAD =
 {
 	trigger = simdefs.TRG_UNIT_KILLED,
 	fn = function( sim, triggerData )
-		if triggerData.unit:hasTag("bounty_target") then
-			triggerData.corpse:addTag("bounty_target") --track the body; no rest for the dead -M
+		if triggerData.unit:hasTag("assassination") then
+			triggerData.corpse:addTag("assassination") --track the body; no rest for the dead -M
 			return true
 		end
 	end,
@@ -26,7 +26,7 @@ local BOUNTY_TARGET_KO =
 {
 	trigger = simdefs.TRG_UNIT_KO,
 	fn = function( sim, triggerData )
-		if triggerData.unit:hasTag("bounty_target") then
+		if triggerData.unit:hasTag("assassination") then
 			return true
 		end
 	end,
@@ -35,7 +35,7 @@ local CEO_ALERTED =
 {
 	trigger = simdefs.TRG_UNIT_ALERTED,
 	fn = function( sim, evData )
-		if evData.unit:hasTag("bounty_target")  then
+		if evData.unit:hasTag("assassination")  then
 			return evData.unit
 		end
 	end,
@@ -43,18 +43,18 @@ local CEO_ALERTED =
 local CEO_ESCAPED =
 {
 	trigger = "vip_escaped",
-    fn = function( sim, evData )
-    	if evData.unit:hasTag("bounty_target") then
-    		return true
-    	end
-    end,
+	fn = function( sim, evData )
+		if evData.unit:hasTag("assassination") then
+			return true
+		end
+	end,
 }
 local ESCAPE_WITH_BODY =
 {
 	trigger = simdefs.TRG_UNIT_ESCAPED,
 	fn = function( sim, triggerData )
 		for unitID, unit in pairs(sim:getAllUnits()) do
-			if unit:hasTag("bounty_target") then
+			if unit:hasTag("assassination") then
 				local cell = sim:getCell( unit:getLocation() )
 				if cell and cell.exitID == simdefs.DEFAULT_EXITID then
 					return unit
@@ -68,7 +68,7 @@ local ESCAPE_WITH_BODY =
 --keep track of when the loot gets actually extracted
 local function gotloot(script, sim, mission)
 	_, body = script:waitFor( ESCAPE_WITH_BODY )
-	assert(body:hasTag("bounty_target"))
+	assert(body:hasTag("assassination"))
 
 	if body:isDead() then
 		mission.gotbody = true
@@ -97,7 +97,7 @@ local function pstsawfn( script, sim, ceo )
 
 	--The corpse is a separate unit, update the reference.
 	for unitID, unit in pairs(sim:getAllUnits()) do
-		if unit:hasTag("bounty_target") then
+		if unit:hasTag("assassination") then
 			ceo = unit
 			break
 		end
@@ -141,7 +141,7 @@ end
 
 local function exitWarning(sim)
 	for unitID, unit in pairs(sim:getAllUnits()) do
-		if unit:hasTag("bounty_target") then
+		if unit:hasTag("assassination") then
 			local cell = sim:getCell( unit:getLocation() )
 			--check if the target is still there, but not in the exit zone yet
 			if cell and cell.exitID ~= simdefs.DEFAULT_EXITID then
@@ -171,7 +171,7 @@ function mission:init( scriptMgr, sim )
 
 	sim.exit_warning = function() return exitWarning(sim) end
 
-	scriptMgr:addHook( "SEE", mission_util.DoReportObject(mission_util.PC_SAW_UNIT("bounty_target"), SCRIPTS.INGAME.ASSASSINATION.OBJECTIVE_SIGHTED, presawfn, pstsawfn ) )
+	scriptMgr:addHook( "SEE", mission_util.DoReportObject(mission_util.PC_SAW_UNIT("assassination"), SCRIPTS.INGAME.ASSASSINATION.OBJECTIVE_SIGHTED, presawfn, pstsawfn ) )
 
 	scriptMgr:addHook( "GOTLOOT", gotloot, nil, self)
 
