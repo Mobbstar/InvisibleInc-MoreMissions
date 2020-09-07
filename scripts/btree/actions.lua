@@ -22,7 +22,11 @@ function Actions.mmRequestNewPanicTarget( sim, unit )
 
 	if cells then
 		cells = util.tdupe( cells )
-		array.removeIf( cells, function (c) return math.abs(c.x - x0) <= 2 and math.abs(c.y - y0) <= 2 end )
+		local function isInvalidHuntCell(c)
+			-- Want open cells not near the CEO's current position
+			return c.impass > 0 or (math.abs(c.x - x0) <= 2 and math.abs(c.y - y0) <= 2)
+		end
+		array.removeIf( cells, isInvalidHuntCell )
 
 		targetCell = cells[sim:nextRand(1, #cells)]
 	end
