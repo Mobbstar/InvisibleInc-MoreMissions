@@ -2665,7 +2665,7 @@ local units =
             {
                 x = 11,
                 y = 1,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 1, traits={nopatrol=true},
@@ -2681,7 +2681,7 @@ local units =
             {
                 x = 14,
                 y = 2,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 3, traits={nopatrol=true},
@@ -2697,7 +2697,7 @@ local units =
             {
                 x = 14,
                 y = 7,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 5, traits={nopatrol=true},
@@ -2713,7 +2713,7 @@ local units =
             {
                 x = 11,
                 y = 6,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 7, traits={nopatrol=true},
