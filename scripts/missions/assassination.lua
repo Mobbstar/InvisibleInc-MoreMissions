@@ -34,11 +34,11 @@ local BOUNTY_TARGET_KO =
 local CEO_ALERTED =
 {
 	trigger = simdefs.TRG_UNIT_ALERTED,
-    fn = function( sim, evData )
-        if evData.unit:hasTag("bounty_target")  then
-        	return true
+	fn = function( sim, evData )
+		if evData.unit:hasTag("bounty_target")  then
+			return evData.unit
 		end
-    end,
+	end,
 }
 local CEO_ESCAPED =
 {
@@ -122,8 +122,7 @@ local function pstsawfn( script, sim, ceo )
 end
 
 local function ceoalerted(script, sim)
-	script:waitFor( CEO_ALERTED )
-	local ceo = mission_util.findUnitByTag( sim, "bounty_target" )
+	local _, ceo = script:waitFor( CEO_ALERTED )
 	if not ceo:isDown() then
 	    script:queue( { script=SCRIPTS.INGAME.CENTRAL_CFO_RUNNING, type="newOperatorMessage" } )
 		sim:getPC():glimpseUnit(sim, ceo:getID() )
