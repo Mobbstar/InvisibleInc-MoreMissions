@@ -48,10 +48,10 @@ local npc_templates =
 		type = "simunit",
 		name = STRINGS.MOREMISSIONS.GUARDS.BOUNTY_TARGET,
 		profile_anim = "portraits/portrait_animation_template",
-		profile_build = "portraits/executive_build",
+		profile_build = "portraits/mm_ceotarget_face",
 		profile_image = "executive.png",
 		onWorldTooltip = onGuardTooltip,
-		kanim = "kanim_business_man",
+		kanim = "kanim_mm_ceotarget",
 		traits = util.extend( commondefs.basic_guard_traits )   
 		{
 			walk=true,
