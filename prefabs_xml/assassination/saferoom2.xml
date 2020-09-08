@@ -3903,7 +3903,7 @@
         <X>11</X>
         <Y>1</Y>
         <UnitKey>Business man</UnitKey>
-        <Template>npc_bounty_target</Template>
+        <Template>npc_business_man</Template>
         <UnitData>facing = 1, traits={nopatrol=true}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
@@ -3916,7 +3916,7 @@
         <X>14</X>
         <Y>2</Y>
         <UnitKey>Business man</UnitKey>
-        <Template>npc_bounty_target</Template>
+        <Template>npc_business_man</Template>
         <UnitData>facing = 3, traits={nopatrol=true}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
@@ -3929,7 +3929,7 @@
         <X>14</X>
         <Y>7</Y>
         <UnitKey>Business man</UnitKey>
-        <Template>npc_bounty_target</Template>
+        <Template>npc_business_man</Template>
         <UnitData>facing = 5, traits={nopatrol=true}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
@@ -3942,7 +3942,7 @@
         <X>11</X>
         <Y>6</Y>
         <UnitKey>Business man</UnitKey>
-        <Template>npc_bounty_target</Template>
+        <Template>npc_business_man</Template>
         <UnitData>facing = 7, traits={nopatrol=true}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
@@ -3972,9 +3972,7 @@
         <UnitData>facing = 6, traits = { startOn = true, powerGrid = "saferoom", powerGridName = "SAFE ROOM" }</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag />
-        <Tags>
-          <string>lethal_laser</string>
-        </Tags>
+        <Tags />
         <BStates />
       </MapUnit>
       <MapUnit>
