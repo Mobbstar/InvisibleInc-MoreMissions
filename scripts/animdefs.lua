@@ -16,45 +16,43 @@ local BoundType = commondefs.BoundType
 
 local animdefs =
 {
-	-- kanim_scientist =
-	-- {
-		-- wireframe =
-		-- {
-			-- "data/anims/characters/corp_FTM/ftm_med_overlay.abld",
-		-- },
-		-- build = 
-		-- { 
-			-- "data/anims/characters/agents/lab_tech.abld",
-			-- "data/anims/characters/anims_male/shared_hits_01.abld",	
-			-- "data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
-		-- },
-		-- grp_build = 
-		-- {
-			-- "data/anims/characters/agents/grp_lab_tech.abld",
-		-- },		
-		-- grp_anims = commonanims.male.grp_anims,
+	kanim_mm_ceotarget =
+	{
+		wireframe =
+		{
+			"data/anims/characters/agents/executive.abld", --"data/anims/characters/corp_FTM/ftm_med_overlay.abld",
+		},
+		build = 
+		{ 
+			"data/anims/characters/corp_neutral/mm_ceotarget.abld",
+			"data/anims/characters/anims_male/shared_hits_01.abld",	
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+		},
+		grp_build = 
+		{
+			"data/anims/characters/corp_neutral/grp_mm_ceotarget.abld",
+		},
+		anims = commonanims.male.default_anims_1h,
+		anims_1h = commonanims.male.default_anims_1h,
+		anims_2h = commonanims.male.default_anims_2h,
+		anims_panic = commonanims.male.default_anims_panic,
+		animMap = GUARD_ANIMS,
 
-		-- anims = commonanims.male.default_anims_unarmed,
-		-- anims_1h = commonanims.male.default_anims_1h,
-		-- anims_2h = commonanims.male.default_anims_2h,
-		-- anims_panic = commonanims.male.default_anims_panic,
-		-- animMap = GUARD_ANIMS,
-
-		-- symbol = "character",
-		-- anim = "idle",
-		-- shouldFlip = true,
-		-- shouldFlipOverrides = {
-			-- {anim="peek_fwrd", shouldFlip=false},
-			-- {anim="peek_pst_fwrd", shouldFlip=false},
-		-- },
-		-- scale = 0.25,
-		-- layer = Layer.Unit,
-		-- boundType = BoundType.Character,
-		-- boundTypeOverrides = {			
-			-- {anim="idle_ko" ,boundType= BoundType.CharacterFloor},
-			-- {anim="dead" ,boundType= BoundType.CharacterFloor},
-		-- },		
-	-- },
+		symbol = "character",
+		anim = "idle",
+		shouldFlip = true,
+		shouldFlipOverrides = {
+			{anim="peek_fwrd", shouldFlip=false},
+			{anim="peek_pst_fwrd", shouldFlip=false},
+		},
+		scale = 0.25,
+		layer = Layer.Unit,
+		boundType = BoundType.Character,
+		boundTypeOverrides = {			
+			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
+			{anim="dead" ,boundType= BoundType.CharacterFloor},
+		},		
+	},
 	
 	kanim_mm_bodyguard =
 	{
