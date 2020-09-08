@@ -10,12 +10,27 @@ local simfactory = include( "sim/simfactory" )
 
 require("class")
 
+-- Escape. The saferoom is no longer safe.
+-- Ideally only comes up if the player is just toying with the target,
+-- or can't overcome endless armor.
+local function PanicEscape()
+	return btree.Sequence("PanicEscape",
+	{
+		btree.Condition(conditions.IsAlerted),
+		btree.Action(actions.Panic),  -- This Panic action is effectively shared through all Panic sequences
+		btree.Condition(conditions.mmHasSearchedVipSafe),
+		btree.Not(btree.Condition(conditions.mmIsArmed)),
+		btree.Action(actions.mmMarkVipUnarmed),
+		actions.MoveToNearestExit(),
+		btree.Action(actions.ExitLevel),
+	})
+end
+
 -- Combat, but screaming.
 local function PanicCombat()
 	return btree.Sequence("PanicCombat",
 	{
 		btree.Condition(conditions.IsAlerted),
-		btree.Action(actions.Panic),  -- This Panic action is effectively shared through all 3 Panic sequences
 		btree.Condition(conditions.mmIsArmed),
 		CommonBrain.RangedCombat(),
 	})
@@ -60,6 +75,7 @@ local BountyTargetBrain = class(Brain, function(self)
 	Brain.init(self, "mmBountyTargetBrain",
 		btree.Selector(
 		{
+			PanicEscape(),
 			PanicCombat(),
 			PanicHunt(),
 			PanicFlee(),
