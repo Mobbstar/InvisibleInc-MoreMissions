@@ -70,9 +70,27 @@ local function init( modApi )
 			return _trackerAdvance(self, delta, ...)
 		end
 	end
+
 	
+	-- for Assassination mission: ensure lethal laser grids in saferoom prefab
+	local simengine = include("sim/engine")
+	local oldInit = simengine.init
+	
+	function simengine.init( self, params, levelData, ... )
+		self._levelOutput = levelData:parseBoard( params.seed, params )	
+		if params.situationName == "assassination" then
+			for i, unit in pairs(self._levelOutput.units) do
+				if unit.template and unit.unitData and unit.unitData.traits and unit.unitData.traits.lethal_laser then then
+					unit.template = "security_laser_emitter_1x1"
+				end
+			end
+		end
+		oldInit( self, params, levelData, ... )	
+	end	
+  
 	include( scriptPath .. "/idle" )
 	include( scriptPath .. "/unitrig" )
+
 	include( scriptPath .. "/btree/actions" )
 	include( scriptPath .. "/btree/conditions" )
 	include( scriptPath .. "/btree/bountytargetbrain" )

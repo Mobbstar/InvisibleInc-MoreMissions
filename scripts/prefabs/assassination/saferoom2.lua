@@ -2791,11 +2791,7 @@ local units =
                 template = [[security_laser_emitter_1x1]],
                 unitData =
                 {
-                    facing = 6, traits = { startOn = true, powerGrid = "saferoom", powerGridName = "SAFE ROOM" },
-                    tags =
-                    {
-                        "lethal_laser",
-                    },
+                    facing = 6, traits = { startOn = true, powerGrid = "saferoom", powerGridName = "SAFE ROOM", lethal_laser = true },
                 },
             },
             1,
@@ -2810,7 +2806,7 @@ local units =
                     facing = 6, traits = { startOn = true, powerGrid = "saferoom", powerGridName = "SAFE ROOM" },
                     tags =
                     {
-                        --"lethal_laser",
+                        --"lethal_laser", --keep this one non-lethal
                     },
                 },
             },
