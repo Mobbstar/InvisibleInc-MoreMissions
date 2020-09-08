@@ -10,29 +10,27 @@ local simfactory = include( "sim/simfactory" )
 
 require("class")
 
--- Escape. The saferoom is no longer safe.
--- Ideally only comes up if the player is just toying with the target,
--- or can't overcome endless armor.
-local function PanicEscape()
-	return btree.Sequence("PanicEscape",
-	{
-		btree.Condition(conditions.IsAlerted),
-		btree.Action(actions.Panic),  -- This Panic action is effectively shared through all Panic sequences
-		btree.Condition(conditions.mmHasSearchedVipSafe),
-		btree.Not(btree.Condition(conditions.mmIsArmed)),
-		btree.Action(actions.mmMarkVipUnarmed),
-		actions.MoveToNearestExit(),
-		btree.Action(actions.ExitLevel),
-	})
-end
-
--- Combat, but screaming.
+-- CommonBrain.RangedCombat, but screaming.
+-- Falls back to behavior like CommonBrain.NoCombat if unarmed.
 local function PanicCombat()
 	return btree.Sequence("PanicCombat",
 	{
 		btree.Condition(conditions.IsAlerted),
-		btree.Condition(conditions.mmIsArmed),
-		CommonBrain.RangedCombat(),
+		btree.Action(actions.Panic),  -- This Panic action is effectively shared through all Panic sequences.
+		btree.Condition(conditions.mmHasSearchedVipSafe),
+		btree.Condition(conditions.HasTarget),
+		btree.Action(actions.ReactToTarget),
+		btree.Selector("Engage",
+		{
+			btree.Sequence("WithWeapon",
+			{
+				btree.Condition(conditions.mmIsArmed),
+				btree.Condition(conditions.CanShootTarget),
+				btree.Action(actions.ShootAtTarget),
+			}),
+			-- If the target's weapon has been stolen, just point and shout.
+			btree.Action(actions.WatchTarget),
+		}),
 	})
 end
 
@@ -41,7 +39,7 @@ local function PanicHunt()
 	return btree.Sequence("PanicHunt",
 	{
 		btree.Condition(conditions.IsAlerted),
-		btree.Condition(conditions.mmIsArmed),
+		btree.Condition(conditions.mmHasSearchedVipSafe),
 		btree.Condition(conditions.HasInterest),
 		btree.Action(actions.ReactToInterest),
 		actions.MoveToInterest(),
@@ -75,7 +73,6 @@ local BountyTargetBrain = class(Brain, function(self)
 	Brain.init(self, "mmBountyTargetBrain",
 		btree.Selector(
 		{
-			PanicEscape(),
 			PanicCombat(),
 			PanicHunt(),
 			PanicFlee(),

@@ -186,10 +186,7 @@ local function ceoalertedFlee(script, sim)
 	local weapon = safeFindUnitByTag( sim, "saferoom_weapon" )
 	if weapon and weapon:isValid() and safe and safe:isValid() and safe:hasChild( weapon:getID() ) then
 		inventory.giveItem( safe, ceo, weapon )
-		ceo:giveAbility( "shootOverwatch" )
-		ceo:giveAbility( "overwatch" )
 		ceo:getTraits().pacifist = false
-		ceo:getTraits().vip = false
 	end
 end
 

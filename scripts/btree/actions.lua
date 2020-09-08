@@ -5,14 +5,11 @@ local Actions = include("sim/btree/actions")
 
 function Actions.mmArmVip( sim, unit )
 	unit:getTraits().mmSearchedVipSafe = true
-	sim:triggerEvent( "MM-VIP-ARMING", {unit=unit} )
-	return simdefs.BSTATE_COMPLETE
-end
+	unit:getTraits().vip = false
 
-function Actions.mmMarkVipUnarmed( sim, unit )
-	unit:getTraits().pacifist = true
-	unit:getTraits().vip = true
-	unit:getPlayerOwner():createOrJoinFleeSituation( unit )
+	-- Let mission script handle the weapon transfer
+	sim:triggerEvent( "MM-VIP-ARMING", {unit=unit} )
+
 	return simdefs.BSTATE_COMPLETE
 end
 
