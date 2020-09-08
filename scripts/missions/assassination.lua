@@ -14,22 +14,22 @@ local SCRIPTS = include("client/story_scripts")
 -- Local helpers
 
 
-local BOUNTY_TARGET_DEAD =
+local CEO_DEAD =
 {
 	trigger = simdefs.TRG_UNIT_KILLED,
-	fn = function( sim, triggerData )
-		if triggerData.unit:hasTag("assassination") then
-			triggerData.corpse:addTag("assassination") --track the body; no rest for the dead -M
-			return true
+	fn = function( sim, evData )
+		if evData.unit:hasTag("assassination") then
+			evData.corpse:addTag("assassination") --track the body; no rest for the dead -M
+			return evData.corpse
 		end
 	end,
 }
-local BOUNTY_TARGET_KO =
+local CEO_KO =
 {
 	trigger = simdefs.TRG_UNIT_KO,
-	fn = function( sim, triggerData )
-		if triggerData.unit:hasTag("assassination") then
-			return true
+	fn = function( sim, evData )
+		if evData.unit:hasTag("assassination") then
+			return evData.unit
 		end
 	end,
 }
@@ -60,6 +60,34 @@ local CEO_ESCAPED =
 		end
 	end,
 }
+local BODYGUARD_ALERTED =
+{
+	trigger = simdefs.TRG_UNIT_ALERTED,
+	fn = function( sim, evData )
+		if evData.unit:hasTag("bodyguard") then
+			return evData.unit
+		end
+	end,
+}
+local BODYGUARD_DEAD =
+{
+	trigger = simdefs.TRG_UNIT_KILLED,
+	fn = function( sim, evData )
+		if evData.unit:hasTag("bodyguard") then
+			evData.corpse:addTag("bodyguard")
+			return evData.corpse
+		end
+	end,
+}
+local BODYGUARD_KO =
+{
+	trigger = simdefs.TRG_UNIT_KO,
+	fn = function( sim, evData )
+		if evData.unit:hasTag("bodyguard") then
+			return evData.unit
+		end
+	end,
+}
 local ESCAPE_WITH_BODY =
 {
 	trigger = simdefs.TRG_UNIT_ESCAPED,
@@ -75,6 +103,33 @@ local ESCAPE_WITH_BODY =
 	end,
 }
 
+-- Like mission_util.findUnitByTag, but returns nil if the unit isn't found
+local function safeFindUnitByTag(sim, tag)
+	for _, unit in pairs( sim:getAllUnits() ) do
+		if unit:hasTag( tag ) then
+			return unit
+		end
+	end
+end
+
+local function doAlertCeo(sim)
+	ceo = safeFindUnitByTag( sim, "assassination" )
+	if ceo and ceo:isValid() and not ceo:isDown() then
+		local x,y = ceo:getLocation()
+		-- Create an ephemeral interest to be forgotten later
+		ceo:getBrain():getSenses():addInterest(x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED)  -- REASON_SHARED is alerting
+		sim:processReactions( ceo )
+	end
+end
+
+local function doAlertBodyguard(sim, ceo)
+	local bodyguard = safeFindUnitByTag( sim, "bodyguard" )
+	if bodyguard and bodyguard:isValid() and not bodyguard:isDown() then
+		local x,y = ceo:getLocation()
+		-- spawnInterest creates a sticky interest
+		bodyguard:getBrain():spawnInterest(x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED)  -- REASON_SHARED is alerting
+	end
+end
 
 --keep track of when the loot gets actually extracted
 local function gotloot(script, sim, mission)
@@ -103,15 +158,7 @@ local function pstsawfn( script, sim, ceo )
 	else
 		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
 		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_DRAG, "drag" )
-		script:waitFor( BOUNTY_TARGET_DEAD, BOUNTY_TARGET_KO )
-	end
-
-	--The corpse is a separate unit, update the reference.
-	for unitID, unit in pairs(sim:getAllUnits()) do
-		if unit:hasTag("assassination") then
-			ceo = unit
-			break
-		end
+		_, ceo = script:waitFor( CEO_DEAD, CEO_KO )
 	end
 
 	sim:removeObjective( "kill" )
@@ -121,24 +168,12 @@ local function pstsawfn( script, sim, ceo )
 	script:waitFrames( .5*cdefs.SECONDS )
 
 	--aftermath
-	--TODO summon rival assassin instead? more like carrion eater hah!- M
-	local x0,y0 = ceo:getLocation()
-	--note that "REASON_FOUNDCORPSE" raises the alarm and alerts the guard
-	sim:getNPC():spawnInterest(x0,y0, simdefs.SENSE_RADIO, simdefs.REASON_FOUNDCORPSE, ceo)
+	doAlertBodyguard( sim, ceo )
 
 	--Why yes thank you Central, nearly did not notice something bad happened! -M
 	script:waitFrames( 1.5*cdefs.SECONDS )
 	script:queue( { script=SCRIPTS.INGAME.ASSASSINATION.AFTERMATH[sim:nextRand(1, #SCRIPTS.INGAME.ASSASSINATION.AFTERMATH)], type="newOperatorMessage" } )
 
-end
-
--- Like mission_util.findUnitByTag, but returns nil if the unit isn't found
-local function safeFindUnitByTag(sim, tag)
-	for _, unit in pairs( sim:getAllUnits() ) do
-		if unit:hasTag( tag ) then
-			return unit
-		end
-	end
 end
 
 local function findCell(sim, tag)
@@ -168,6 +203,25 @@ local function modifySafeRoomDoor(sim, script, open)
 	end
 end
 
+local function bodyguardAlertsCeo(script, sim)
+	local _, bodyguard = script:waitFor( BODYGUARD_DEAD, BODYGUARD_KO, BODYGUARD_ALERTED )
+
+	local ceo = safeFindUnitByTag( sim, "assassination" )
+	if ceo:isAlerted() then  -- Done
+		return
+	end
+
+	if ( bodyguard:isDown() ) then
+		-- delay 1 full CORP turn before the CEO notices, unless the bodyguard wakes up first.
+		local ev, _ = script:waitFor( mission_util.PC_END_TURN, BODYGUARD_ALERTED )
+		if ev == mission_util.PC_END_TURN then
+			script:waitFor( mission_util.PC_START_TURN, BODYGUARD_ALERTED )
+		end
+	end
+
+	doAlertCeo( sim )
+end
+
 local function ceoalertedFlee(script, sim)
 	local _, ceo = script:waitFor( CEO_ALERTED )
 	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
@@ -181,6 +235,9 @@ local function ceoalertedFlee(script, sim)
 	assert( finalCell )
 	local finalFacing = simquery.getDirectionFromDelta(xSafe - finalCell.x, ySafe - finalCell.y)
 	ceo:getTraits().patrolPath = { { x = finalCell.x, y = finalCell.y, facing = finalFacing } }
+
+	-- Alert the bodyguard
+	doAlertBodyguard(sim, ceo)
 
 	script:waitFor( CEO_ARMING )
 	local weapon = safeFindUnitByTag( sim, "saferoom_weapon" )
@@ -253,6 +310,7 @@ function mission:init( scriptMgr, sim )
 
 	scriptMgr:addHook( "GOTLOOT", gotloot, nil, self)
 
+	scriptMgr:addHook( "BODYGUARD", bodyguardAlertsCeo, nil, self)
 	scriptMgr:addHook( "RUN", ceoalertedFlee, nil, self)
 
 	--In case the target gets away, ripped straight from the CFO interrogation mission
