@@ -1193,6 +1193,7 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_door",
         },
     },
     {
@@ -2459,7 +2460,7 @@ local units =
             {
                 x = 8,
                 y = 7,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 1, traits={nopatrol=true},
@@ -2475,7 +2476,7 @@ local units =
             {
                 x = 1,
                 y = 12,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 7, traits={nopatrol=true},
@@ -2491,7 +2492,7 @@ local units =
             {
                 x = 2,
                 y = 9,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 6, traits={nopatrol=true},
@@ -2507,7 +2508,7 @@ local units =
             {
                 x = 5,
                 y = 7,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 1, traits={nopatrol=true},
@@ -2523,7 +2524,7 @@ local units =
             {
                 x = 11,
                 y = 10,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 5, traits={nopatrol=true},

@@ -3,7 +3,9 @@ local util = include( "modules/util" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 local unitdefs = include( "sim/unitdefs" )
+local inventory = include( "sim/inventory" )
 local simfactory = include( "sim/simfactory" )
+local simquery = include( "sim/simquery" )
 local mission_util = include( "sim/missions/mission_util" )
 local escape_mission = include( "sim/missions/escape_mission" )
 local SCRIPTS = include("client/story_scripts")
@@ -12,49 +14,86 @@ local SCRIPTS = include("client/story_scripts")
 -- Local helpers
 
 
-local BOUNTY_TARGET_DEAD =
+local CEO_DEAD =
 {
 	trigger = simdefs.TRG_UNIT_KILLED,
-	fn = function( sim, triggerData )
-		if triggerData.unit:hasTag("bounty_target") then
-			triggerData.corpse:addTag("bounty_target") --track the body; no rest for the dead -M
-			return true
+	fn = function( sim, evData )
+		if evData.unit:hasTag("assassination") then
+			evData.corpse:addTag("assassination") --track the body; no rest for the dead -M
+			return evData.corpse
 		end
 	end,
 }
-local BOUNTY_TARGET_KO =
+local CEO_KO =
 {
 	trigger = simdefs.TRG_UNIT_KO,
-	fn = function( sim, triggerData )
-		if triggerData.unit:hasTag("bounty_target") then
-			return true
+	fn = function( sim, evData )
+		if evData.unit:hasTag("assassination") then
+			return evData.unit
 		end
 	end,
 }
 local CEO_ALERTED =
 {
 	trigger = simdefs.TRG_UNIT_ALERTED,
-    fn = function( sim, evData )
-        if evData.unit:hasTag("bounty_target")  then
-        	return true
+	fn = function( sim, evData )
+		if evData.unit:hasTag("assassination") then
+			return evData.unit
 		end
-    end,
+	end,
+}
+local CEO_ARMING =
+{
+	trigger = "MM-VIP-ARMING",
+	fn = function( sim, evData )
+		if evData.unit:hasTag("assassination") then
+			return evData.unit
+		end
+	end,
 }
 local CEO_ESCAPED =
 {
 	trigger = "vip_escaped",
-    fn = function( sim, evData )
-    	if evData.unit:hasTag("bounty_target") then
-    		return true
-    	end
-    end,
+	fn = function( sim, evData )
+		if evData.unit:hasTag("assassination") then
+			return true
+		end
+	end,
+}
+local BODYGUARD_ALERTED =
+{
+	trigger = simdefs.TRG_UNIT_ALERTED,
+	fn = function( sim, evData )
+		if evData.unit:hasTag("bodyguard") then
+			return evData.unit
+		end
+	end,
+}
+local BODYGUARD_DEAD =
+{
+	trigger = simdefs.TRG_UNIT_KILLED,
+	fn = function( sim, evData )
+		if evData.unit:hasTag("bodyguard") then
+			evData.corpse:addTag("bodyguard")
+			return evData.corpse
+		end
+	end,
+}
+local BODYGUARD_KO =
+{
+	trigger = simdefs.TRG_UNIT_KO,
+	fn = function( sim, evData )
+		if evData.unit:hasTag("bodyguard") then
+			return evData.unit
+		end
+	end,
 }
 local ESCAPE_WITH_BODY =
 {
 	trigger = simdefs.TRG_UNIT_ESCAPED,
 	fn = function( sim, triggerData )
 		for unitID, unit in pairs(sim:getAllUnits()) do
-			if unit:hasTag("bounty_target") then
+			if unit:hasTag("assassination") then
 				local cell = sim:getCell( unit:getLocation() )
 				if cell and cell.exitID == simdefs.DEFAULT_EXITID then
 					return unit
@@ -64,11 +103,38 @@ local ESCAPE_WITH_BODY =
 	end,
 }
 
+-- Like mission_util.findUnitByTag, but returns nil if the unit isn't found
+local function safeFindUnitByTag(sim, tag)
+	for _, unit in pairs( sim:getAllUnits() ) do
+		if unit:hasTag( tag ) then
+			return unit
+		end
+	end
+end
+
+local function doAlertCeo(sim)
+	ceo = safeFindUnitByTag( sim, "assassination" )
+	if ceo and ceo:isValid() and not ceo:isDown() then
+		local x,y = ceo:getLocation()
+		-- Create an ephemeral interest to be forgotten later
+		ceo:getBrain():getSenses():addInterest(x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED)  -- REASON_SHARED is alerting
+		sim:processReactions( ceo )
+	end
+end
+
+local function doAlertBodyguard(sim, ceo)
+	local bodyguard = safeFindUnitByTag( sim, "bodyguard" )
+	if bodyguard and bodyguard:isValid() and not bodyguard:isDown() then
+		local x,y = ceo:getLocation()
+		-- spawnInterest creates a sticky interest
+		bodyguard:getBrain():spawnInterest(x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED)  -- REASON_SHARED is alerting
+	end
+end
 
 --keep track of when the loot gets actually extracted
 local function gotloot(script, sim, mission)
 	_, body = script:waitFor( ESCAPE_WITH_BODY )
-	assert(body:hasTag("bounty_target"))
+	assert(body:hasTag("assassination"))
 
 	if body:isDead() then
 		mission.gotbody = true
@@ -92,15 +158,7 @@ local function pstsawfn( script, sim, ceo )
 	else
 		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
 		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_DRAG, "drag" )
-		script:waitFor( BOUNTY_TARGET_DEAD, BOUNTY_TARGET_KO )
-	end
-
-	--The corpse is a separate unit, update the reference.
-	for unitID, unit in pairs(sim:getAllUnits()) do
-		if unit:hasTag("bounty_target") then
-			ceo = unit
-			break
-		end
+		_, ceo = script:waitFor( CEO_DEAD, CEO_KO )
 	end
 
 	sim:removeObjective( "kill" )
@@ -110,10 +168,7 @@ local function pstsawfn( script, sim, ceo )
 	script:waitFrames( .5*cdefs.SECONDS )
 
 	--aftermath
-	--TODO summon rival assassin instead? more like carrion eater hah!- M
-	local x0,y0 = ceo:getLocation()
-	--note that "REASON_FOUNDCORPSE" raises the alarm and alerts the guard
-	sim:getNPC():spawnInterest(x0,y0, simdefs.SENSE_RADIO, simdefs.REASON_FOUNDCORPSE, ceo)
+	doAlertBodyguard( sim, ceo )
 
 	--Why yes thank you Central, nearly did not notice something bad happened! -M
 	script:waitFrames( 1.5*cdefs.SECONDS )
@@ -121,9 +176,79 @@ local function pstsawfn( script, sim, ceo )
 
 end
 
-local function ceoalerted(script, sim)
-	script:waitFor( CEO_ALERTED )
-	local ceo = mission_util.findUnitByTag( sim, "bounty_target" )
+local function findCell(sim, tag)
+	local cells = sim:getCells( tag )
+	return cells and cells[1]
+end
+
+local function modifySafeRoomDoor(sim, script, open)
+	local c = findCell( sim, "saferoom_door" )
+	assert( c )
+	if open then
+		for i, exit in pairs( c.exits ) do
+			if exit.door and exit.locked and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then
+				sim:modifyExit( c, i, simdefs.EXITOP_UNLOCK )
+				sim:modifyExit( c, i, simdefs.EXITOP_OPEN )
+				sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED, {cell=c, dir=i} )
+			end
+		end
+	else
+		for i, exit in pairs( c.exits ) do
+			if exit.door and not exit.closed and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then
+				sim:modifyExit( c, i, simdefs.EXITOP_LOCK )
+				sim:modifyExit( c, i, simdefs.EXITOP_CLOSE )
+				sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED, {cell=c, dir=i} )
+			end
+		end
+	end
+end
+
+local function bodyguardAlertsCeo(script, sim)
+	local _, bodyguard = script:waitFor( BODYGUARD_DEAD, BODYGUARD_KO, BODYGUARD_ALERTED )
+
+	local ceo = safeFindUnitByTag( sim, "assassination" )
+	if ceo:isAlerted() then  -- Done
+		return
+	end
+
+	if ( bodyguard:isDown() ) then
+		-- delay 1 full CORP turn before the CEO notices, unless the bodyguard wakes up first.
+		local ev, _ = script:waitFor( mission_util.PC_END_TURN, BODYGUARD_ALERTED )
+		if ev == mission_util.PC_END_TURN then
+			script:waitFor( mission_util.PC_START_TURN, BODYGUARD_ALERTED )
+		end
+	end
+
+	doAlertCeo( sim )
+end
+
+local function ceoalertedFlee(script, sim)
+	local _, ceo = script:waitFor( CEO_ALERTED )
+	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
+
+	-- Open the safe room
+	modifySafeRoomDoor( sim, script, true )
+
+	-- Send the CEO to the safe
+	local xSafe,ySafe = safe:getLocation()
+	local finalCell = findCell( sim, "saferoom_flee" )
+	assert( finalCell )
+	local finalFacing = simquery.getDirectionFromDelta(xSafe - finalCell.x, ySafe - finalCell.y)
+	ceo:getTraits().patrolPath = { { x = finalCell.x, y = finalCell.y, facing = finalFacing } }
+
+	-- Alert the bodyguard
+	doAlertBodyguard(sim, ceo)
+
+	script:waitFor( CEO_ARMING )
+	local weapon = safeFindUnitByTag( sim, "saferoom_weapon" )
+	if weapon and weapon:isValid() and safe and safe:isValid() and safe:hasChild( weapon:getID() ) then
+		inventory.giveItem( safe, ceo, weapon )
+		ceo:getTraits().pacifist = false
+	end
+end
+
+local function ceoalertedMessage(script, sim)
+	local _, ceo = script:waitFor( CEO_ALERTED )
 	if not ceo:isDown() then
 	    script:queue( { script=SCRIPTS.INGAME.CENTRAL_CFO_RUNNING, type="newOperatorMessage" } )
 		sim:getPC():glimpseUnit(sim, ceo:getID() )
@@ -142,7 +267,7 @@ end
 
 local function exitWarning(sim)
 	for unitID, unit in pairs(sim:getAllUnits()) do
-		if unit:hasTag("bounty_target") then
+		if unit:hasTag("assassination") then
 			local cell = sim:getCell( unit:getLocation() )
 			--check if the target is still there, but not in the exit zone yet
 			if cell and cell.exitID ~= simdefs.DEFAULT_EXITID then
@@ -165,20 +290,32 @@ end
 
 local mission = class( escape_mission )
 
+function spawnCeoWeapon( sim )
+	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
+	local newWeapon = simfactory.createUnit( unitdefs.lookupTemplate( "item_light_pistol" ), sim )
+	newWeapon:addTag("saferoom_weapon")
+	sim:spawnUnit( newWeapon )
+	safe:addChild( newWeapon )
+end
+
 function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
 
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_FIND, "find" )
+	spawnCeoWeapon( sim )
 
 	sim.exit_warning = function() return exitWarning(sim) end
 
-	scriptMgr:addHook( "SEE", mission_util.DoReportObject(mission_util.PC_SAW_UNIT("bounty_target"), SCRIPTS.INGAME.ASSASSINATION.OBJECTIVE_SIGHTED, presawfn, pstsawfn ) )
+	scriptMgr:addHook( "SEE", mission_util.DoReportObject(mission_util.PC_SAW_UNIT("assassination"), SCRIPTS.INGAME.ASSASSINATION.OBJECTIVE_SIGHTED, presawfn, pstsawfn ) )
 
 	scriptMgr:addHook( "GOTLOOT", gotloot, nil, self)
 
+	scriptMgr:addHook( "BODYGUARD", bodyguardAlertsCeo, nil, self)
+	scriptMgr:addHook( "RUN", ceoalertedFlee, nil, self)
+
 	--In case the target gets away, ripped straight from the CFO interrogation mission
-    scriptMgr:addHook( "RUN", ceoalerted, nil, self)
-    scriptMgr:addHook( "escaped", ceoescaped, nil, self)
+	scriptMgr:addHook( "RUNMSG", ceoalertedMessage, nil, self)
+	scriptMgr:addHook( "escaped", ceoescaped, nil, self)
 
 	--This picks a reaction rant from Central on exit based upon whether or not an agent has escaped with the loot yet.
 	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(function() judgement(sim, self) end))

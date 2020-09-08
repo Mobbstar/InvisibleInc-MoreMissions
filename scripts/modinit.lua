@@ -70,9 +70,7 @@ local function init( modApi )
 			return _trackerAdvance(self, delta, ...)
 		end
 	end
-	
-	include( scriptPath .. "/idle" )
-	include( scriptPath .. "/unitrig" )
+
 	
 	-- for Assassination mission: ensure lethal laser grids in saferoom prefab
 	local simengine = include("sim/engine")
@@ -89,6 +87,13 @@ local function init( modApi )
 		end
 		oldInit( self, params, levelData, ... )	
 	end	
+  
+	include( scriptPath .. "/idle" )
+	include( scriptPath .. "/unitrig" )
+
+	include( scriptPath .. "/btree/actions" )
+	include( scriptPath .. "/btree/conditions" )
+	include( scriptPath .. "/btree/bountytargetbrain" )
 
 end
 

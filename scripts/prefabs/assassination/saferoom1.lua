@@ -1268,6 +1268,7 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_door",
         },
     },
     {
@@ -2837,7 +2838,7 @@ local units =
             {
                 x = 2,
                 y = 13,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 0, traits={nopatrol=true},
@@ -2853,7 +2854,7 @@ local units =
             {
                 x = 4,
                 y = 15,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 7, traits={nopatrol=true},
@@ -2869,13 +2870,13 @@ local units =
             {
                 x = 10,
                 y = 15,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 5, traits={nopatrol=true},
                     tags =
                     {
-                        "interrogate",
+                        "assassination",
                     },
                 },
             },
@@ -2885,7 +2886,7 @@ local units =
             {
                 x = 8,
                 y = 10,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 3, traits={nopatrol=true},
@@ -2901,7 +2902,7 @@ local units =
             {
                 x = 6,
                 y = 10,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 1, traits={nopatrol=true},
@@ -2917,7 +2918,7 @@ local units =
             {
                 x = 10,
                 y = 11,
-                template = [[npc_business_man]],
+                template = [[npc_bounty_target]],
                 unitData =
                 {
                     facing = 3, traits={nopatrol=true},

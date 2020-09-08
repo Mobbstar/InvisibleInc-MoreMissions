@@ -2703,6 +2703,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_door</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -3902,7 +3903,7 @@
         <X>11</X>
         <Y>1</Y>
         <UnitKey>Business man</UnitKey>
-        <Template>npc_business_man</Template>
+        <Template>npc_bounty_target</Template>
         <UnitData>facing = 1, traits={nopatrol=true}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
@@ -3915,7 +3916,7 @@
         <X>14</X>
         <Y>2</Y>
         <UnitKey>Business man</UnitKey>
-        <Template>npc_business_man</Template>
+        <Template>npc_bounty_target</Template>
         <UnitData>facing = 3, traits={nopatrol=true}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
@@ -3928,7 +3929,7 @@
         <X>14</X>
         <Y>7</Y>
         <UnitKey>Business man</UnitKey>
-        <Template>npc_business_man</Template>
+        <Template>npc_bounty_target</Template>
         <UnitData>facing = 5, traits={nopatrol=true}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
@@ -3941,7 +3942,7 @@
         <X>11</X>
         <Y>6</Y>
         <UnitKey>Business man</UnitKey>
-        <Template>npc_business_man</Template>
+        <Template>npc_bounty_target</Template>
         <UnitData>facing = 7, traits={nopatrol=true}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
