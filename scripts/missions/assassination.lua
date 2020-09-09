@@ -242,7 +242,13 @@ local function ceoalertedFlee(script, sim)
 	script:waitFor( CEO_ARMING )
 	local weapon = safeFindUnitByTag( sim, "saferoom_weapon" )
 	if weapon and weapon:isValid() and safe and safe:isValid() and safe:hasChild( weapon:getID() ) then
+		local sound = simdefs.SOUNDPATH_SAFE_OPEN
+		--sound = "SpySociety/Objects/securitysafe_open" --is there a difference?
+		safe:getTraits().open = true --this is a flag for anim, not sure if setting it to open and then closed again before/after the event will look good but worth a try -Hek
+		sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR, { unitID = ceo:getID(), facing = finalFacing, sound = sound, soundFrame = 1 } )
+		safe:getTraits().open = false		
 		inventory.giveItem( safe, ceo, weapon )
+		sim:emitSound( { path = weapon:getUnitData().sounds.reload, range = simdefs.SOUND_RANGE_0 }, finalCell.x, finalCell.y, ceo )
 		ceo:getTraits().pacifist = false
 	end
 end
