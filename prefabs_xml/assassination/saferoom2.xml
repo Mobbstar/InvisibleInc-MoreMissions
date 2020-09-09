@@ -2228,6 +2228,7 @@
         <Tags>
           <string>noguard</string>
           <string>bountyhunt_office</string>
+          <string>saferoom_unlock</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -2289,6 +2290,7 @@
         <Tags>
           <string>noguard</string>
           <string>bountyhunt_office</string>
+          <string>saferoom_unlock</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -2350,6 +2352,7 @@
         <Tags>
           <string>noguard</string>
           <string>bountyhunt_office</string>
+          <string>saferoom_unlock</string>
         </Tags>
         <MatchTags />
         <BurnTags />

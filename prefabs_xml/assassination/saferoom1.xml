@@ -2044,6 +2044,7 @@
         <Tags>
           <string>noguard</string>
           <string>bountyhunt_office</string>
+          <string>saferoom_unlock</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -2065,6 +2066,7 @@
         <Tags>
           <string>noguard</string>
           <string>bountyhunt_office</string>
+          <string>saferoom_unlock</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -2086,6 +2088,7 @@
         <Tags>
           <string>noguard</string>
           <string>bountyhunt_office</string>
+          <string>saferoom_unlock</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -4490,13 +4493,6 @@
         <Facing>6</Facing>
       </MapDeco>
       <MapDeco>
-        <X>6</X>
-        <Y>10</Y>
-        <Anim>guardoffice_wallwindow1</Anim>
-        <DecoKey>Unique GuardOffice WallWindow1</DecoKey>
-        <Facing>6</Facing>
-      </MapDeco>
-      <MapDeco>
         <X>5</X>
         <Y>10</Y>
         <Anim>guardoffice_wallwindow1</Anim>
@@ -4775,6 +4771,13 @@
         <Anim>guardoffice_1x1_floorpanel1</Anim>
         <DecoKey>guardoffice_1x1_floorpanel1</DecoKey>
         <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>6</X>
+        <Y>9</Y>
+        <Anim>guardoffice_wallwindow1</Anim>
+        <DecoKey>Unique GuardOffice WallWindow1</DecoKey>
+        <Facing>6</Facing>
       </MapDeco>
     </Decos>
     <Lights />
