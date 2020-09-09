@@ -3907,7 +3907,7 @@
         <Y>1</Y>
         <UnitKey>Business man</UnitKey>
         <Template>npc_business_man</Template>
-        <UnitData>facing = 1, traits={nopatrol=true}</UnitData>
+        <UnitData>facing = 1, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
         <Tags>
@@ -3920,7 +3920,7 @@
         <Y>2</Y>
         <UnitKey>Business man</UnitKey>
         <Template>npc_business_man</Template>
-        <UnitData>facing = 3, traits={nopatrol=true}</UnitData>
+        <UnitData>facing = 3, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
         <Tags>
@@ -3933,7 +3933,7 @@
         <Y>7</Y>
         <UnitKey>Business man</UnitKey>
         <Template>npc_business_man</Template>
-        <UnitData>facing = 5, traits={nopatrol=true}</UnitData>
+        <UnitData>facing = 5, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
         <Tags>
@@ -3946,7 +3946,7 @@
         <Y>6</Y>
         <UnitKey>Business man</UnitKey>
         <Template>npc_business_man</Template>
-        <UnitData>facing = 7, traits={nopatrol=true}</UnitData>
+        <UnitData>facing = 7, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag>ceo</SpawnTag>
         <Tags>
@@ -4007,7 +4007,7 @@
         <Y>5</Y>
         <UnitKey>Important Guard</UnitKey>
         <Template>important_guard</Template>
-        <UnitData>facing = 0</UnitData>
+        <UnitData>facing = 0, traits={mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag />
         <Tags>
@@ -4020,7 +4020,7 @@
         <Y>7</Y>
         <UnitKey>Important Guard</UnitKey>
         <Template>important_guard</Template>
-        <UnitData>facing = 0</UnitData>
+        <UnitData>facing = 0, traits={mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag />
         <Tags>
@@ -4033,7 +4033,7 @@
         <Y>3</Y>
         <UnitKey>Important Guard</UnitKey>
         <Template>important_guard</Template>
-        <UnitData>facing = 0</UnitData>
+        <UnitData>facing = 0, traits={mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag />
         <Tags>
