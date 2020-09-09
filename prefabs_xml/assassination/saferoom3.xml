@@ -3766,7 +3766,7 @@
         <Y>9</Y>
         <UnitKey>Important Guard</UnitKey>
         <Template>important_guard</Template>
-        <UnitData>facing = 0, traits={mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
+        <UnitData>facing = 0, traits={mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag />
         <Tags>
@@ -3779,7 +3779,7 @@
         <Y>6</Y>
         <UnitKey>Important Guard</UnitKey>
         <Template>important_guard</Template>
-        <UnitData>facing = 2, traits={mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
+        <UnitData>facing = 2, traits={mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag />
         <Tags>
@@ -3792,7 +3792,7 @@
         <Y>7</Y>
         <UnitKey>Important Guard</UnitKey>
         <Template>important_guard</Template>
-        <UnitData>facing = 2, traits={mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
+        <UnitData>facing = 2, traits={mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag />
         <Tags>
