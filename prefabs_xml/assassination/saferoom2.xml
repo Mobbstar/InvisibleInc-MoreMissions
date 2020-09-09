@@ -3959,12 +3959,10 @@
         <Y>7</Y>
         <UnitKey>Laser Emitter</UnitKey>
         <Template>security_laser_emitter_1x1</Template>
-        <UnitData>facing = 6, traits = { startOn = true, powerGrid = "saferoom", powerGridName = "SAFE ROOM" }</UnitData>
+        <UnitData>facing = 6, traits = { startOn = true, powerGrid = "saferoom", powerGridName = "SAFE ROOM", lethal_laser = true }</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag />
-        <Tags>
-          <string>lethal_laser</string>
-        </Tags>
+        <Tags />
         <BStates />
       </MapUnit>
       <MapUnit>
