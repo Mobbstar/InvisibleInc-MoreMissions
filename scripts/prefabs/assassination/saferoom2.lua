@@ -1185,6 +1185,7 @@ local tiles =
         {
             "noguard",
             "bountyhunt_office",
+            "saferoom_unlock",
         },
     },
     {
@@ -1216,6 +1217,7 @@ local tiles =
         {
             "noguard",
             "bountyhunt_office",
+            "saferoom_unlock",
         },
     },
     {
@@ -1247,6 +1249,7 @@ local tiles =
         {
             "noguard",
             "bountyhunt_office",
+            "saferoom_unlock",
         },
     },
     {
@@ -2669,7 +2672,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 1, traits={nopatrol=true},
+                    facing = 1, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2685,7 +2688,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 3, traits={nopatrol=true},
+                    facing = 3, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2701,7 +2704,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 5, traits={nopatrol=true},
+                    facing = 5, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2717,7 +2720,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 7, traits={nopatrol=true},
+                    facing = 7, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2727,60 +2730,6 @@ local units =
             1,
         },
     },
-	--bodyguard
-	ceo_bodyguard =
-	{
-	    spawnChance = 1,
-        maxCount = 1,		
-        {
-            {
-                x = 16,
-                y = 5,
-                template = [[important_guard]],
-                unitData =
-                {
-                    facing = 0,
-                    tags =
-                    {
-                        "bodyguard",
-                    },
-                },
-            },
-            1,
-        },
-        {
-            {
-                x = 10,
-                y = 7,
-                template = [[important_guard]],
-                unitData =
-                {
-                    facing = 0,
-                    tags =
-                    {
-                        "bodyguard",
-                    },
-                },
-            },
-            1,
-        },
-        {
-            {
-                x = 10,
-                y = 3,
-                template = [[important_guard]],
-                unitData =
-                {
-                    facing = 0,
-                    tags =
-                    {
-                        "bodyguard",
-                    },
-                },
-            },
-            1,
-        },
-	},
     {
         maxCount = 6,
         spawnChance = 1,
@@ -2804,10 +2753,6 @@ local units =
                 unitData =
                 {
                     facing = 6, traits = { startOn = true, powerGrid = "saferoom", powerGridName = "SAFE ROOM" },
-                    tags =
-                    {
-                        --"lethal_laser", --keep this one non-lethal
-                    },
                 },
             },
             1,
@@ -2860,6 +2805,59 @@ local units =
                 unitData =
                 {
                     facing = 2,
+                },
+            },
+            1,
+        },
+    },
+    ceo_bodyguard =
+    {
+        spawnChance = 1,
+        maxCount = 1,
+        {
+            {
+                x = 16,
+                y = 5,
+                template = [[important_guard]],
+                unitData =
+                {
+                    facing = 0, traits={mm_nopatrolchange = true,},
+                    tags =
+                    {
+                        "bodyguard",
+                    },
+                },
+            },
+            1,
+        },
+        {
+            {
+                x = 10,
+                y = 7,
+                template = [[important_guard]],
+                unitData =
+                {
+                    facing = 0, traits={mm_nopatrolchange = true,},
+                    tags =
+                    {
+                        "bodyguard",
+                    },
+                },
+            },
+            1,
+        },
+        {
+            {
+                x = 10,
+                y = 3,
+                template = [[important_guard]],
+                unitData =
+                {
+                    facing = 0, traits={mm_nopatrolchange = true,},
+                    tags =
+                    {
+                        "bodyguard",
+                    },
                 },
             },
             1,

@@ -1078,6 +1078,7 @@ local tiles =
         {
             "noguard",
             "bountyhunt_office",
+            "saferoom_unlock",
         },
     },
     {
@@ -1089,6 +1090,7 @@ local tiles =
         {
             "noguard",
             "bountyhunt_office",
+            "saferoom_unlock",
         },
     },
     {
@@ -1100,6 +1102,7 @@ local tiles =
         {
             "noguard",
             "bountyhunt_office",
+            "saferoom_unlock",
         },
     },
     {
@@ -2830,7 +2833,7 @@ local walls =
 }
 local units =
 {
-    ceo_target = --give unique spawn tag just in case
+    ceo_target =
     {
         spawnChance = 1,
         maxCount = 1,
@@ -2841,7 +2844,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 0, traits={nopatrol=true},
+                    facing = 0, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2857,7 +2860,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 7, traits={nopatrol=true},
+                    facing = 7, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2873,7 +2876,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 5, traits={nopatrol=true},
+                    facing = 5, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2889,7 +2892,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 3, traits={nopatrol=true},
+                    facing = 3, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2905,7 +2908,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 1, traits={nopatrol=true},
+                    facing = 1, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2921,7 +2924,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 3, traits={nopatrol=true},
+                    facing = 3, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2999,19 +3002,18 @@ local units =
             1,
         },
     },
-	--bodyguard
-	ceo_bodyguard =
-	{
-	    spawnChance = 1,
+    ceo_bodyguard =
+    {
+        spawnChance = 1,
         maxCount = 1,
-	        {
+        {
             {
                 x = 7,
                 y = 11,
                 template = [[important_guard]],
                 unitData =
                 {
-                    facing = 2,
+                    facing = 2, traits={mm_nopatrolchange = true,},
                     tags =
                     {
                         "bodyguard",
@@ -3027,7 +3029,7 @@ local units =
                 template = [[important_guard]],
                 unitData =
                 {
-                    facing = 0,
+                    facing = 0, traits={mm_nopatrolchange = true,},
                     tags =
                     {
                         "bodyguard",
@@ -3043,7 +3045,7 @@ local units =
                 template = [[important_guard]],
                 unitData =
                 {
-                    facing = 2,
+                    facing = 2, traits={mm_nopatrolchange = true,},
                     tags =
                     {
                         "bodyguard",
@@ -3059,7 +3061,7 @@ local units =
                 template = [[important_guard]],
                 unitData =
                 {
-                    facing = 6,
+                    facing = 6, traits={mm_nopatrolchange = true,},
                     tags =
                     {
                         "bodyguard",
@@ -3068,7 +3070,7 @@ local units =
             },
             1,
         },
-	},
+    },
 }
 local decos =
 {
@@ -3171,12 +3173,6 @@ local decos =
     {
         x = 9,
         y = 9,
-        kanim = [[guardoffice_wallwindow1]],
-        facing = 6,
-    },
-    {
-        x = 6,
-        y = 10,
         kanim = [[guardoffice_wallwindow1]],
         facing = 6,
     },
@@ -3419,6 +3415,12 @@ local decos =
         y = 9,
         kanim = [[guardoffice_1x1_floorpanel1]],
         facing = 2,
+    },
+    {
+        x = 6,
+        y = 9,
+        kanim = [[guardoffice_wallwindow1]],
+        facing = 6,
     },
 }
 local lights =

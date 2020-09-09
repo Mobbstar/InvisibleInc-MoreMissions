@@ -5,7 +5,6 @@
 --
 local PREFABT0 =
 {
--- start of saferoom1
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom1",
         tags =
@@ -8590,8 +8589,6 @@ local PREFABT0 =
         facing = 6,
         weight = 221,
     },
-	-- end of saferoom1
-	--start of saferoom2
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom2",
         tags =
@@ -17980,9 +17977,7 @@ local PREFABT0 =
         facing = 6,
         weight = 189,
     },
-	--end of saferoom2
-   --start of saferoom3
-	{
+    {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom3",
         tags =
         {
@@ -26146,6 +26141,5 @@ local PREFABT0 =
         facing = 6,
         weight = 169,
     },
-	--end of saferoom3	
 }
 return { PREFABT0 = PREFABT0 }
