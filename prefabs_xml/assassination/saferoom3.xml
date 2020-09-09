@@ -3633,7 +3633,7 @@
         <Template>npc_business_man</Template>
         <UnitData>facing = 1, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
-        <SpawnTag>ceo</SpawnTag>
+        <SpawnTag>ceo_target</SpawnTag>
         <Tags>
           <string>assassination</string>
         </Tags>
@@ -3646,7 +3646,7 @@
         <Template>npc_business_man</Template>
         <UnitData>facing = 7, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
-        <SpawnTag>ceo</SpawnTag>
+        <SpawnTag>ceo_target</SpawnTag>
         <Tags>
           <string>assassination</string>
         </Tags>
@@ -3659,7 +3659,7 @@
         <Template>npc_business_man</Template>
         <UnitData>facing = 6, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
-        <SpawnTag>ceo</SpawnTag>
+        <SpawnTag>ceo_target</SpawnTag>
         <Tags>
           <string>assassination</string>
         </Tags>
@@ -3672,7 +3672,7 @@
         <Template>npc_business_man</Template>
         <UnitData>facing = 1, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
-        <SpawnTag>ceo</SpawnTag>
+        <SpawnTag>ceo_target</SpawnTag>
         <Tags>
           <string>assassination</string>
         </Tags>
@@ -3685,7 +3685,7 @@
         <Template>npc_business_man</Template>
         <UnitData>facing = 5, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
-        <SpawnTag>ceo</SpawnTag>
+        <SpawnTag>ceo_target</SpawnTag>
         <Tags>
           <string>assassination</string>
         </Tags>
@@ -3766,7 +3766,7 @@
         <Template>important_guard</Template>
         <UnitData>facing = 0, traits={mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
-        <SpawnTag />
+        <SpawnTag>ceo_bodyguard</SpawnTag>
         <Tags>
           <string>bodyguard</string>
         </Tags>
@@ -3779,7 +3779,7 @@
         <Template>important_guard</Template>
         <UnitData>facing = 2, traits={mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
-        <SpawnTag />
+        <SpawnTag>ceo_bodyguard</SpawnTag>
         <Tags>
           <string>bodyguard</string>
         </Tags>
@@ -3792,7 +3792,7 @@
         <Template>important_guard</Template>
         <UnitData>facing = 2, traits={mm_nopatrolchange = true,}</UnitData>
         <SpawnWeight>1</SpawnWeight>
-        <SpawnTag />
+        <SpawnTag>ceo_bodyguard</SpawnTag>
         <Tags>
           <string>bodyguard</string>
         </Tags>
@@ -4141,7 +4141,12 @@
     <Settings>
       <SpawnGroups>
         <SpawnGroup>
-          <m_name>ceo</m_name>
+          <m_name>ceo_target</m_name>
+          <m_spawnCount>1</m_spawnCount>
+          <m_spawnChance>1</m_spawnChance>
+        </SpawnGroup>
+        <SpawnGroup>
+          <m_name>ceo_bodyguard</m_name>
           <m_spawnCount>1</m_spawnCount>
           <m_spawnChance>1</m_spawnChance>
         </SpawnGroup>
