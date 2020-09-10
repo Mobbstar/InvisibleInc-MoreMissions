@@ -322,7 +322,7 @@ local function load( modApi, options, params )
 	local shootSingle = abilitydefs.lookupAbility("shootSingle")
 	local shootSingle_canUse_old = shootSingle.canUseAbility
 	shootSingle.canUseAbility = function( self, sim, ownerUnit, unit, targetUnitID, ... )
-		local result, reason = shootSingle_canUse_old( self, sim, ownerUnit, unit, targetUnitID, ... )
+		local result, reason1, reason2, reason3 = shootSingle_canUse_old( self, sim, ownerUnit, unit, targetUnitID, ... )
 		local weaponUnit = simquery.getEquippedGun( unit )
 		if weaponUnit and weaponUnit:getRequirements() and (result == true) then
 			for skill,level in pairs( weaponUnit:getRequirements() ) do
@@ -335,13 +335,13 @@ local function load( modApi, options, params )
 				end
 			end
 		end
-		return result, reason
+		return result, reason1, reason2, reason3
 	end
 			
 	local overwatch = abilitydefs.lookupAbility("overwatch")
 	local overwatch_canUse_old = overwatch.canUseAbility
 	overwatch.canUseAbility = function(self, sim, unit, ... )
-		local result, reason = overwatch_canUse_old(self, sim, unit, ... )
+		local result, reason1, reason2, reason3 = overwatch_canUse_old(self, sim, unit, ... )
 		local weaponUnit = simquery.getEquippedGun(unit)
 		if (result == true) and weaponUnit and weaponUnit:getRequirements()then		
 			for skill,level in pairs( weaponUnit:getRequirements() ) do
@@ -354,14 +354,14 @@ local function load( modApi, options, params )
 				end
 			end	
 		end
-		return result, reason
+		return result, reason1, reason2, reason3
 	end
 	
 	local overwatchMelee = abilitydefs.lookupAbility("overwatchMelee")
 	local overwatchMelee_canUse_old = overwatchMelee.canUseAbility
 	overwatchMelee.canUseAbility = function( self, sim, unit, ... )
 
-		local result, reason = overwatchMelee_canUse_old(self, sim, unit, ... )
+		local result, reason1, reason2, reason3 = overwatchMelee_canUse_old(self, sim, unit, ... )
 		local tazerUnit = simquery.getEquippedMelee( unit )
 		if result == true then
 			if not unit:getPlayerOwner():isNPC() and tazerUnit then
@@ -379,13 +379,13 @@ local function load( modApi, options, params )
 			
 			end
 		end
-		return result, reason
+		return result, reason1, reason2, reason3
 	end
 
 	local melee = abilitydefs.lookupAbility("melee")
 	local melee_canUse_old = melee.canUseAbility
 	melee.canUseAbility = function(self, sim, unit, userUnit, targetID, ...)
-		local result, reason = melee_canUse_old(self, sim, unit, userUnit, targetID, ...)
+		local result, reason1, reason2, reason3 = melee_canUse_old(self, sim, unit, userUnit, targetID, ...)
 		local tazerUnit = simquery.getEquippedMelee( unit )
 		if (result == true) and targetID and tazerUnit then
 			local targetUnit = sim:getUnit(targetID)
@@ -402,7 +402,7 @@ local function load( modApi, options, params )
 				end
 			end					
 		end
-		return result, reason
+		return result, reason1, reason2, reason3
 	end	
 	--------	
 
