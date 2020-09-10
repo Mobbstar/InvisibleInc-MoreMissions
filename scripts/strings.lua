@@ -81,9 +81,14 @@ return {
 				},
 				FINAL_WORDS =
 				{
-					"...",
+					"...",--need to come up with sth here
 				},
 			},
+		},
+		
+		EA_HOSTAGE = 
+		{
+			NAME = "Johnny W.",
 		},
 	},
 
