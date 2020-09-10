@@ -333,7 +333,7 @@ local function hostageBanter( script, sim )
 			if hostage:getTraits().vitalSigns <= 0 then
 				script:removeHook( checkHostageDeath )
 				script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_PASS_OUT, 
-					header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage", 
+					header=STRINGS.MOREMISSIONS.AGENTS.EA_HOSTAGE.NAME, type="enemyMessage", 
 					profileAnim="portraits/portrait_animation_template",
 					profileBuild="portraits/courier_face",
 				} )
@@ -365,7 +365,7 @@ local function hostageBanter( script, sim )
 				i = i + 1
 				if i < #STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_BANTER then					
 					script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_BANTER[i], 
-					header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage", 
+					header=STRINGS.MOREMISSIONS.AGENTS.EA_HOSTAGE.NAME, type="enemyMessage", 
 					profileAnim="portraits/portrait_animation_template",
 					profileBuild="portraits/courier_face",
 				} )
@@ -608,7 +608,7 @@ local function startPhase( script, sim )
 	--updateVitalStatus(script, sim, true)
 
 	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_CONVO1, 
-					header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage", 
+					header=STRINGS.MOREMISSIONS.AGENTS.EA_HOSTAGE.NAME,, type="enemyMessage", 
 					profileAnim="portraits/portrait_animation_template",
 					profileBuild="portraits/courier_face",
 				} )
@@ -618,7 +618,7 @@ local function startPhase( script, sim )
 	--script:queue( 160 )	
 	script:queue( { type="clearOperatorMessage" } )
 	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_CONVO2, 
-					header=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_NAME, type="enemyMessage", 
+					header=STRINGS.MOREMISSIONS.AGENTS.EA_HOSTAGE.NAME,, type="enemyMessage", 
 					profileAnim="portraits/portrait_animation_template",
 					profileBuild="portraits/courier_face",
 				} )
