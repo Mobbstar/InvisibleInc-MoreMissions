@@ -55,7 +55,7 @@ local agent_templates =
 	MM_hostage =
 	{
 		type = "simunit",
-		name = STRINGS.AGENTS.HOSTAGE.NAME,
+		name = STRINGS.MOREMISSIONS.AGENTS.EA_HOSTAGE.NAME,
 		fullname = STRINGS.AGENTS.HOSTAGE.ALT_1.FULLNAME,
 		yearsOfService = STRINGS.AGENTS.HOSTAGE.YEARS_OF_SERVICE,
 		age = STRINGS.AGENTS.HOSTAGE.AGE,
