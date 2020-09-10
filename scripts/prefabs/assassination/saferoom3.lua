@@ -1124,6 +1124,7 @@ local tiles =
         {
             "noguard",
             "bountyhunt_office",
+            "saferoom_unlock",
         },
     },
     {
@@ -1135,6 +1136,7 @@ local tiles =
         {
             "noguard",
             "bountyhunt_office",
+            "saferoom_unlock",
         },
     },
     {
@@ -1146,6 +1148,7 @@ local tiles =
         {
             "noguard",
             "bountyhunt_office",
+            "saferoom_unlock",
         },
     },
     {
@@ -2463,7 +2466,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 1, traits={nopatrol=true},
+                    facing = 1, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2479,7 +2482,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 7, traits={nopatrol=true},
+                    facing = 7, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2495,7 +2498,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 6, traits={nopatrol=true},
+                    facing = 6, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2511,7 +2514,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 1, traits={nopatrol=true},
+                    facing = 1, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2527,7 +2530,7 @@ local units =
                 template = [[npc_bounty_target]],
                 unitData =
                 {
-                    facing = 5, traits={nopatrol=true},
+                    facing = 5, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
                     tags =
                     {
                         "assassination",
@@ -2537,60 +2540,6 @@ local units =
             1,
         },
     },
-	--bodyguard
-	ceo_bodyguard =
-	{
-        maxCount = 1,
-        spawnChance = 1,	
-       {
-            {
-                x = 5,
-                y = 9,
-                template = [[important_guard]],
-                unitData =
-                {
-                    facing = 0,
-                    tags =
-                    {
-                        "bodyguard",
-                    },
-                },
-            },
-            1,
-        },
-        {
-            {
-                x = 6,
-                y = 6,
-                template = [[important_guard]],
-                unitData =
-                {
-                    facing = 2,
-                    tags =
-                    {
-                        "bodyguard",
-                    },
-                },
-            },
-            1,
-        },
-        {
-            {
-                x = 11,
-                y = 7,
-                template = [[important_guard]],
-                unitData =
-                {
-                    facing = 2,
-                    tags =
-                    {
-                        "bodyguard",
-                    },
-                },
-            },
-            1,
-        },
-	},
     {
         maxCount = 6,
         spawnChance = 1,
@@ -2666,9 +2615,58 @@ local units =
                 unitData =
                 {
                     facing = 6, traits = { startOn = true, powerGrid = "saferoom", powerGridName = "SAFE ROOM" },
+                },
+            },
+            1,
+        },
+    },
+    ceo_bodyguard =
+    {
+        spawnChance = 1,
+        maxCount = 1,
+        {
+            {
+                x = 5,
+                y = 9,
+                template = [[important_guard]],
+                unitData =
+                {
+                    facing = 0, traits={mm_nopatrolchange = true,},
                     tags =
                     {
-                       -- "lethal_laser",
+                        "bodyguard",
+                    },
+                },
+            },
+            1,
+        },
+        {
+            {
+                x = 6,
+                y = 6,
+                template = [[important_guard]],
+                unitData =
+                {
+                    facing = 2, traits={mm_nopatrolchange = true,},
+                    tags =
+                    {
+                        "bodyguard",
+                    },
+                },
+            },
+            1,
+        },
+        {
+            {
+                x = 11,
+                y = 7,
+                template = [[important_guard]],
+                unitData =
+                {
+                    facing = 2, traits={mm_nopatrolchange = true,},
+                    tags =
+                    {
+                        "bodyguard",
                     },
                 },
             },
@@ -3346,9 +3344,17 @@ local export =
             },
             {
                 id0 = 100,
-                x0 = 9,
+                x0 = 8,
                 y0 = 13,
                 id1 = 45,
+                x1 = 8,
+                y1 = 14,
+            },
+            {
+                id0 = 100,
+                x0 = 9,
+                y0 = 13,
+                id1 = 46,
                 x1 = 9,
                 y1 = 14,
             },
@@ -3356,7 +3362,7 @@ local export =
                 id0 = 100,
                 x0 = 13,
                 y0 = 12,
-                id1 = 46,
+                id1 = 47,
                 x1 = 13,
                 y1 = 13,
             },
@@ -3364,7 +3370,7 @@ local export =
                 id0 = 100,
                 x0 = 12,
                 y0 = 12,
-                id1 = 47,
+                id1 = 48,
                 x1 = 12,
                 y1 = 13,
             },
@@ -3372,7 +3378,7 @@ local export =
                 id0 = 100,
                 x0 = 11,
                 y0 = 12,
-                id1 = 48,
+                id1 = 49,
                 x1 = 11,
                 y1 = 13,
             },
@@ -3380,12 +3386,12 @@ local export =
                 id0 = 100,
                 x0 = 10,
                 y0 = 12,
-                id1 = 49,
+                id1 = 50,
                 x1 = 10,
                 y1 = 13,
             },
             {
-                id0 = 49,
+                id0 = 50,
                 x0 = 10,
                 y0 = 13,
                 id1 = 100,
@@ -3401,7 +3407,7 @@ local export =
                 y1 = 7,
             },
             {
-                id0 = 46,
+                id0 = 47,
                 x0 = 13,
                 y0 = 13,
                 id1 = 100,
@@ -3569,7 +3575,7 @@ local export =
                 y1 = 13,
             },
             {
-                id0 = 45,
+                id0 = 46,
                 x0 = 9,
                 y0 = 14,
                 id1 = 100,
@@ -3577,7 +3583,7 @@ local export =
                 y1 = 13,
             },
             {
-                id0 = 49,
+                id0 = 50,
                 x0 = 10,
                 y0 = 13,
                 id1 = 100,
