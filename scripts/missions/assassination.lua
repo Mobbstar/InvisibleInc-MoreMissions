@@ -88,6 +88,37 @@ local BODYGUARD_KO =
 		end
 	end,
 }
+local function canUseSaferoomKey( unit )
+	return unit:getPlayerOwner() and unit:getPlayerOwner():isPC() and unit:ownsAbility("moveBody")
+end
+local function isSaferoomKey( unit )
+	return unit:isDown() and (unit:getTraits().isGuard and not unit:getTraits().isDrone or unit:getTraits().iscorpse and not unit:getTraits().wasDrone)
+end
+local PC_UNLOCK_SAFEROOM =
+{
+	trigger = simdefs.TRG_UNIT_WARP,
+	fn = function( sim, evData )
+		local unit = evData.unit
+		if not simquery.cellHasTag(sim, evData.to_cell, "saferoom_unlock") then
+			return false
+		end
+		-- Check if a player agent has moved onto a body that was already at the door
+		if unit and canUseSaferoomKey(unit) then
+			for _, cellUnit in ipairs(evData.to_cell.units) do
+				if cellUnit and isSaferoomKey( unit ) then
+					return unit, cellUnit
+				end
+			end
+		-- Check if a body has moved to or with a player agent, to the door.
+		elseif unit and  isSaferoomKey(unit) then
+			for _, cellUnit in ipairs(evData.to_cell.units) do
+				if cellUnit and canUseSaferoomKey(cellUnit) then
+					return cellUnit, unit
+				end
+			end
+		end
+	end,
+}
 local ESCAPE_WITH_BODY =
 {
 	trigger = simdefs.TRG_UNIT_ESCAPED,
@@ -222,11 +253,19 @@ local function bodyguardAlertsCeo(script, sim)
 	doAlertCeo( sim )
 end
 
+local function playerUnlockSaferoom(script, sim)
+	script:waitFor( PC_UNLOCK_SAFEROOM )
+	modifySafeRoomDoor( sim, script, true )
+end
+
 local function ceoalertedFlee(script, sim)
+	script:addHook( playerUnlockSaferoom )
+
 	local _, ceo = script:waitFor( CEO_ALERTED )
 	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
 
 	-- Open the safe room
+	script:removeHook( playerUnlockSaferoom )
 	modifySafeRoomDoor( sim, script, true )
 
 	-- Send the CEO to the safe
@@ -251,6 +290,12 @@ local function ceoalertedFlee(script, sim)
 		sim:emitSound( { path = weapon:getUnitData().sounds.reload, range = simdefs.SOUND_RANGE_0 }, finalCell.x, finalCell.y, ceo )
 		ceo:getTraits().pacifist = false
 	end
+
+	-- Lock the saferoom
+	-- TODO: Instead of locking here, allow the CEO to enter the safe room without globally unlocking it.
+	modifySafeRoomDoor( sim, script, false )
+
+	script:addHook( playerUnlockSaferoom )
 end
 
 local function ceoalertedMessage(script, sim)
