@@ -1,4 +1,5 @@
 local array = include( "modules/array" )
+local binops = include( "modules/binary_ops" )
 local util = include( "modules/util" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
@@ -264,10 +265,6 @@ local function ceoalertedFlee(script, sim)
 	local _, ceo = script:waitFor( CEO_ALERTED )
 	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
 
-	-- Open the safe room
-	script:removeHook( playerUnlockSaferoom )
-	modifySafeRoomDoor( sim, script, true )
-
 	-- Send the CEO to the safe
 	local xSafe,ySafe = safe:getLocation()
 	local finalCell = findCell( sim, "saferoom_flee" )
@@ -290,12 +287,6 @@ local function ceoalertedFlee(script, sim)
 		sim:emitSound( { path = weapon:getUnitData().sounds.reload, range = simdefs.SOUND_RANGE_0 }, finalCell.x, finalCell.y, ceo )
 		ceo:getTraits().pacifist = false
 	end
-
-	-- Lock the saferoom
-	-- TODO: Instead of locking here, allow the CEO to enter the safe room without globally unlocking it.
-	modifySafeRoomDoor( sim, script, false )
-
-	script:addHook( playerUnlockSaferoom )
 end
 
 local function ceoalertedMessage(script, sim)
@@ -341,12 +332,21 @@ end
 
 local mission = class( escape_mission )
 
-function spawnCeoWeapon( sim )
+local function spawnCeoWeapon( sim )
 	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
 	local newWeapon = simfactory.createUnit( unitdefs.lookupTemplate( "item_light_pistol" ), sim )
 	newWeapon:addTag("saferoom_weapon")
 	sim:spawnUnit( newWeapon )
 	safe:addChild( newWeapon )
+end
+local function authorizeCeoAccess( sim )
+	local ceo = mission_util.findUnitByTag( sim, "assassination" )
+	-- Allowed to walk in and out of the saferoom
+	if ceo:getTraits().npcPassiveKeybits then
+		ceo:getTraits().npcPassiveKeybits = binops.b_or( ceo:getTraits().npcPassiveKeybits, simdefs.DOOR_KEYS.BLAST_DOOR )
+	else
+		ceo:getTraits().npcPassiveKeybits = simdefs.DOOR_KEYS.BLAST_DOOR
+	end
 end
 
 function mission:init( scriptMgr, sim )
@@ -354,6 +354,7 @@ function mission:init( scriptMgr, sim )
 
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_FIND, "find" )
 	spawnCeoWeapon( sim )
+	authorizeCeoAccess( sim )
 
 	sim.exit_warning = function() return exitWarning(sim) end
 

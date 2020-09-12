@@ -88,6 +88,8 @@ local function init( modApi )
 		oldInit( self, params, levelData, ... )	
 	end	
   
+	include( scriptPath .. "/simquery" )
+	include( scriptPath .. "/engine" )
 	include( scriptPath .. "/idle" )
 	include( scriptPath .. "/unitrig" )
 
