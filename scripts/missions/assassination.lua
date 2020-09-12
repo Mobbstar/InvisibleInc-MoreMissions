@@ -90,10 +90,10 @@ local BODYGUARD_KO =
 	end,
 }
 local function canUseSaferoomKey( unit )
-	return unit:getPlayerOwner() and unit:getPlayerOwner():isPC() and unit:ownsAbility("moveBody")
+	return unit:getPlayerOwner() and unit:getPlayerOwner():isPC() and not unit:getTraits().isDrone
 end
 local function isSaferoomKey( unit )
-	return unit:isDown() and (unit:getTraits().isGuard and not unit:getTraits().isDrone or unit:getTraits().iscorpse and not unit:getTraits().wasDrone)
+	return unit:isDown() and (unit:hasTag("assassination") or unit:hasTag("bodyguard"))
 end
 local PC_UNLOCK_SAFEROOM =
 {
