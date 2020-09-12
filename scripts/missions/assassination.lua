@@ -213,28 +213,6 @@ local function findCell(sim, tag)
 	return cells and cells[1]
 end
 
-local function modifySafeRoomDoor(sim, script, open)
-	local c = findCell( sim, "saferoom_door" )
-	assert( c )
-	if open then
-		for i, exit in pairs( c.exits ) do
-			if exit.door and exit.locked and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then
-				sim:modifyExit( c, i, simdefs.EXITOP_UNLOCK )
-				sim:modifyExit( c, i, simdefs.EXITOP_OPEN )
-				sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED, {cell=c, dir=i} )
-			end
-		end
-	else
-		for i, exit in pairs( c.exits ) do
-			if exit.door and not exit.closed and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then
-				sim:modifyExit( c, i, simdefs.EXITOP_LOCK )
-				sim:modifyExit( c, i, simdefs.EXITOP_CLOSE )
-				sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED, {cell=c, dir=i} )
-			end
-		end
-	end
-end
-
 local function bodyguardAlertsCeo(script, sim)
 	local _, bodyguard = script:waitFor( BODYGUARD_DEAD, BODYGUARD_KO, BODYGUARD_ALERTED )
 
@@ -255,8 +233,27 @@ local function bodyguardAlertsCeo(script, sim)
 end
 
 local function playerUnlockSaferoom(script, sim)
-	script:waitFor( PC_UNLOCK_SAFEROOM )
-	modifySafeRoomDoor( sim, script, true )
+	local _, agent, body = script:waitFor( PC_UNLOCK_SAFEROOM )
+
+	local c = findCell( sim, "saferoom_door" )
+	assert( c )
+	for i, exit in pairs( c.exits ) do
+		if exit.door and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then
+			if exit.locked and exit.closed then
+				-- Unlock, but don't open. Just in case the CEO is pointing a gun this way and the player stood in front of the door.
+				sim:modifyExit( c, i, simdefs.EXITOP_UNLOCK)
+			elseif not exit.locked and exit.temporaryLockEndTurn then
+				-- Temporarily unlocked. Don't let it re-lock.
+				local reverseExit = exit.cell.exits[simquery.getReverseDirection( dir )]
+				exit.temporaryCloseEndTurn, reverseExit.temporaryCloseEndTurn = nil, nil
+				exit.temporaryLockEndTurn, reverseExit.temporaryLockEndTurn = nil, nil
+			end
+			-- Make the UI sound at the player's location. The tagged cell may be the wrong side of the door from the player.
+			local x0,y0 = agent:getLocation()
+			sim:emitSound( simdefs.SOUND_DOOR_UNLOCK, x0, y0 )
+		end
+	end
+	-- TODO: central line
 end
 
 local function ceoalertedFlee(script, sim)
