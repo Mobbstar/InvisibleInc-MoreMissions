@@ -64,12 +64,6 @@ local npc_templates =
 			vip = true, --This flag is important for the panic behaviour
 			pacifist = true,
 			recap_icon = "executive",
-			bounty = 1200,
-			corpseTemplate = { --reward for dead currently needs to be set explicitly -M
-				traits = {
-					bounty = 1200,
-				},
-			}
 		},
 		dropTable =
 		{

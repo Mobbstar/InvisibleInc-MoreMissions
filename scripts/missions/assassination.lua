@@ -218,19 +218,6 @@ end
 ----
 -- Script hooks
 
---keep track of when the loot gets actually extracted
-local function gotloot(script, sim, mission)
-	_, body = script:waitFor( ESCAPE_WITH_BODY )
-	assert(body:hasTag("assassination"))
-
-	if body:isDead() then
-		mission.gotbody = true
-	else
-		mission.gotalive = true
-	end
-	sim:removeObjective( "drag" )
-end
-
 local function presawfn( script, sim, ceo )
 	if not ceo:isDown() then
 		--create that big white arrow pointing to the target
@@ -240,27 +227,9 @@ local function presawfn( script, sim, ceo )
 end
 
 local function pstsawfn( script, sim, ceo )
-	if ceo:isDown() then --somehow, the target got knocked out before we found it
-		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_DRAG, "drag" )
-	else
+	if not ceo:isDown() then
 		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
-		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_DRAG, "drag" )
-		_, ceo = script:waitFor( CEO_DEAD, CEO_KO )
 	end
-
-	sim:removeObjective( "kill" )
-	ceo:destroyTab() --Remove the big white arrow (if it is still there)
-
-	sim:setClimax(true)
-	script:waitFrames( .5*cdefs.SECONDS )
-
-	--aftermath
-	doAlertBodyguard( sim, ceo )
-
-	--Why yes thank you Central, nearly did not notice something bad happened! -M
-	script:waitFrames( 1.5*cdefs.SECONDS )
-	script:queue( { script=SCRIPTS.INGAME.ASSASSINATION.AFTERMATH[sim:nextRand(1, #SCRIPTS.INGAME.ASSASSINATION.AFTERMATH)], type="newOperatorMessage" } )
-
 end
 
 local function bodyguardAlertsCeo(script, sim)
@@ -320,6 +289,31 @@ local function ceoalertedFlee(script, sim)
 	end
 end
 
+-- Direct the bodyguard to the CEO everytime he goes down
+-- And reward the player when he's down for good
+local function ceoDownAlarm( script, sim, mission )
+	local _, ceo
+	repeat
+		_, ceo = script:waitFor( CEO_KO, CEO_DEAD )
+
+		if ceo:getTraits().iscorpse then
+			mission.killedtarget = true
+			sim:addMissionReward( simquery.scaleCredits( sim, mission.BOUNTY_VALUE ) )
+
+			sim:removeObjective( "kill" )
+			ceo:destroyTab() --Remove the big white arrow (if it is still there)
+		end
+
+		sim:setClimax(true)
+		script:waitFrames( .5*cdefs.SECONDS )
+
+		doAlertBodyguard( sim, ceo )
+	until ceo:getTraits().iscorpse
+
+	script:waitFrames( 1.5*cdefs.SECONDS )
+	script:queue( { script=SCRIPTS.INGAME.ASSASSINATION.AFTERMATH[sim:nextRand(1, #SCRIPTS.INGAME.ASSASSINATION.AFTERMATH)], type="newOperatorMessage" } )
+end
+
 local function ceoalertedMessage(script, sim)
 	local _, ceo = script:waitFor( CEO_ALERTED )
 	if not ceo:isDown() then
@@ -329,31 +323,16 @@ local function ceoalertedMessage(script, sim)
 		script:addHook( script.hookFn )
 	end
 end
-local function ceoescaped(script, sim, mission)
-	script:waitFor( CEO_ESCAPED )
-    if not mission.failed then
-	   script:queue( { script=SCRIPTS.INGAME.CENTRAL_CFO_ESCAPED, type="newOperatorMessage" } )
-	   mission.failed = true
-       sim.exit_warning = nil
-    end
-end
 
-local function exitWarning(sim)
-	for unitID, unit in pairs(sim:getAllUnits()) do
-		if unit:hasTag("assassination") then
-			local cell = sim:getCell( unit:getLocation() )
-			--check if the target is still there, but not in the exit zone yet
-			if cell and cell.exitID ~= simdefs.DEFAULT_EXITID then
-				return STRINGS.MOREMISSIONS.UI.HUD_WARN_EXIT_MISSION_ASSASSINATION
-			end
-		end
+local function exitWarning(mission)
+	if not mission.killedtarget then
+		return STRINGS.MOREMISSIONS.UI.HUD_WARN_EXIT_MISSION_ASSASSINATION
 	end
 end
 
 local function judgement(sim, mission)
 	local scripts =
-		mission.gotalive and SCRIPTS.INGAME.ASSASSINATION.CENTRAL_JUDGEMENT.NOTDEAD or
-		mission.gotbody and SCRIPTS.INGAME.ASSASSINATION.CENTRAL_JUDGEMENT.GOTBODY or
+		mission.killedtarget and SCRIPTS.INGAME.ASSASSINATION.CENTRAL_JUDGEMENT.GOTBODY or
 		SCRIPTS.INGAME.ASSASSINATION.CENTRAL_JUDGEMENT.NOTHING
 	return scripts[sim:nextRand(1, #scripts)]
 end
@@ -366,24 +345,25 @@ local mission = class( escape_mission )
 function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
 
+	-- Base credit value for a successful kill
+	self.BOUNTY_VALUE = 1200
+
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_FIND, "find" )
 	spawnCeoWeapon( sim )
 	authorizeCeoAccess( sim )
 
-	sim.exit_warning = function() return exitWarning(sim) end
+	sim.exit_warning = function() return exitWarning(self) end
 
 	scriptMgr:addHook( "SEE", mission_util.DoReportObject(mission_util.PC_SAW_UNIT("assassination"), SCRIPTS.INGAME.ASSASSINATION.OBJECTIVE_SIGHTED, presawfn, pstsawfn ) )
-
-	scriptMgr:addHook( "GOTLOOT", gotloot, nil, self)
+	scriptMgr:addHook( "KILL", ceoDownAlarm, nil, self )
 
 	scriptMgr:addHook( "BODYGUARD", bodyguardAlertsCeo, nil, self)
 	scriptMgr:addHook( "RUN", ceoalertedFlee, nil, self)
 
 	--In case the target gets away, ripped straight from the CFO interrogation mission
 	scriptMgr:addHook( "RUNMSG", ceoalertedMessage, nil, self)
-	scriptMgr:addHook( "escaped", ceoescaped, nil, self)
 
-	--This picks a reaction rant from Central on exit based upon whether or not an agent has escaped with the loot yet.
+	--This picks a reaction rant from Central on exit based upon whether or not the target is dead yet.
 	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(function() judgement(sim, self) end))
 end
 
