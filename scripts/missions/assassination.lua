@@ -14,6 +14,8 @@ local SCRIPTS = include("client/story_scripts")
 ---------------------------------------------------------------------------------------------
 -- Local helpers
 
+----
+-- Trigger Definitions
 
 local CEO_DEAD =
 {
@@ -135,6 +137,14 @@ local ESCAPE_WITH_BODY =
 	end,
 }
 
+----
+-- Utility Functions
+
+local function findCell(sim, tag)
+	local cells = sim:getCells( tag )
+	return cells and cells[1]
+end
+
 -- Like mission_util.findUnitByTag, but returns nil if the unit isn't found
 local function safeFindUnitByTag(sim, tag)
 	for _, unit in pairs( sim:getAllUnits() ) do
@@ -144,7 +154,28 @@ local function safeFindUnitByTag(sim, tag)
 	end
 end
 
-local function doAlertCeo(sim)
+----
+-- Actions
+
+local function spawnCeoWeapon( sim )
+	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
+	local newWeapon = simfactory.createUnit( unitdefs.lookupTemplate( "item_light_pistol" ), sim )
+	newWeapon:addTag("saferoom_weapon")
+	sim:spawnUnit( newWeapon )
+	safe:addChild( newWeapon )
+end
+
+local function authorizeCeoAccess( sim )
+	local ceo = mission_util.findUnitByTag( sim, "assassination" )
+	-- Allowed to walk in and out of the saferoom
+	if ceo:getTraits().npcPassiveKeybits then
+		ceo:getTraits().npcPassiveKeybits = binops.b_or( ceo:getTraits().npcPassiveKeybits, simdefs.DOOR_KEYS.BLAST_DOOR )
+	else
+		ceo:getTraits().npcPassiveKeybits = simdefs.DOOR_KEYS.BLAST_DOOR
+	end
+end
+
+local function doAlertCeo( sim )
 	ceo = safeFindUnitByTag( sim, "assassination" )
 	if ceo and ceo:isValid() and not ceo:isDown() then
 		local x,y = ceo:getLocation()
@@ -154,7 +185,7 @@ local function doAlertCeo(sim)
 	end
 end
 
-local function doAlertBodyguard(sim, ceo)
+local function doAlertBodyguard( sim, ceo )
 	local bodyguard = safeFindUnitByTag( sim, "bodyguard" )
 	if bodyguard and bodyguard:isValid() and not bodyguard:isDown() then
 		local x,y = ceo:getLocation()
@@ -162,6 +193,30 @@ local function doAlertBodyguard(sim, ceo)
 		bodyguard:getBrain():spawnInterest(x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED)  -- REASON_SHARED is alerting
 	end
 end
+
+local function doUnlockSaferoom( sim, agent )
+	local c = findCell( sim, "saferoom_door" )
+	assert( c )
+	for i, exit in pairs( c.exits ) do
+		if exit.door and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then
+			if exit.locked and exit.closed then
+				-- Unlock, but don't open. Just in case the CEO is pointing a gun this way and the player stood in front of the door.
+				sim:modifyExit( c, i, simdefs.EXITOP_UNLOCK)
+			elseif not exit.locked and exit.temporaryLockEndTurn then
+				-- Temporarily unlocked. Don't let it re-lock.
+				local reverseExit = exit.cell.exits[simquery.getReverseDirection( dir )]
+				exit.temporaryCloseEndTurn, reverseExit.temporaryCloseEndTurn = nil, nil
+				exit.temporaryLockEndTurn, reverseExit.temporaryLockEndTurn = nil, nil
+			end
+			-- Make the UI sound at the player's location. The tagged cell may be the wrong side of the door from the player.
+			local x0,y0 = agent:getLocation()
+			sim:emitSound( simdefs.SOUND_DOOR_UNLOCK, x0, y0 )
+		end
+	end
+end
+
+----
+-- Script hooks
 
 --keep track of when the loot gets actually extracted
 local function gotloot(script, sim, mission)
@@ -208,11 +263,6 @@ local function pstsawfn( script, sim, ceo )
 
 end
 
-local function findCell(sim, tag)
-	local cells = sim:getCells( tag )
-	return cells and cells[1]
-end
-
 local function bodyguardAlertsCeo(script, sim)
 	local _, bodyguard = script:waitFor( BODYGUARD_DEAD, BODYGUARD_KO, BODYGUARD_ALERTED )
 
@@ -235,24 +285,8 @@ end
 local function playerUnlockSaferoom(script, sim)
 	local _, agent, body = script:waitFor( PC_UNLOCK_SAFEROOM )
 
-	local c = findCell( sim, "saferoom_door" )
-	assert( c )
-	for i, exit in pairs( c.exits ) do
-		if exit.door and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then
-			if exit.locked and exit.closed then
-				-- Unlock, but don't open. Just in case the CEO is pointing a gun this way and the player stood in front of the door.
-				sim:modifyExit( c, i, simdefs.EXITOP_UNLOCK)
-			elseif not exit.locked and exit.temporaryLockEndTurn then
-				-- Temporarily unlocked. Don't let it re-lock.
-				local reverseExit = exit.cell.exits[simquery.getReverseDirection( dir )]
-				exit.temporaryCloseEndTurn, reverseExit.temporaryCloseEndTurn = nil, nil
-				exit.temporaryLockEndTurn, reverseExit.temporaryLockEndTurn = nil, nil
-			end
-			-- Make the UI sound at the player's location. The tagged cell may be the wrong side of the door from the player.
-			local x0,y0 = agent:getLocation()
-			sim:emitSound( simdefs.SOUND_DOOR_UNLOCK, x0, y0 )
-		end
-	end
+	doUnlockSaferoom(sim, agent)
+
 	-- TODO: central line
 end
 
@@ -328,23 +362,6 @@ end
 -- Begin!
 
 local mission = class( escape_mission )
-
-local function spawnCeoWeapon( sim )
-	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
-	local newWeapon = simfactory.createUnit( unitdefs.lookupTemplate( "item_light_pistol" ), sim )
-	newWeapon:addTag("saferoom_weapon")
-	sim:spawnUnit( newWeapon )
-	safe:addChild( newWeapon )
-end
-local function authorizeCeoAccess( sim )
-	local ceo = mission_util.findUnitByTag( sim, "assassination" )
-	-- Allowed to walk in and out of the saferoom
-	if ceo:getTraits().npcPassiveKeybits then
-		ceo:getTraits().npcPassiveKeybits = binops.b_or( ceo:getTraits().npcPassiveKeybits, simdefs.DOOR_KEYS.BLAST_DOOR )
-	else
-		ceo:getTraits().npcPassiveKeybits = simdefs.DOOR_KEYS.BLAST_DOOR
-	end
-end
 
 function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
