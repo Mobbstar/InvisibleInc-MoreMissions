@@ -31,7 +31,7 @@ local CEO_KO =
 {
 	trigger = simdefs.TRG_UNIT_KO,
 	fn = function( sim, evData )
-		if evData.unit:hasTag("assassination") then
+		if evData.unit:hasTag("assassination") and evData.ticks then
 			return evData.unit
 		end
 	end,
@@ -86,7 +86,7 @@ local BODYGUARD_KO =
 {
 	trigger = simdefs.TRG_UNIT_KO,
 	fn = function( sim, evData )
-		if evData.unit:hasTag("bodyguard") then
+		if evData.unit:hasTag("bodyguard") and evData.ticks then
 			return evData.unit
 		end
 	end,
@@ -175,22 +175,29 @@ local function authorizeCeoAccess( sim )
 	end
 end
 
-local function doAlertCeo( sim )
+-- Alert the CEO
+local function doAlertCeo( sim, fromBodyguard )
 	ceo = safeFindUnitByTag( sim, "assassination" )
-	if ceo and ceo:isValid() and not ceo:isDown() then
-		local x,y = ceo:getLocation()
+	if ceo and ceo:isValid() and not ceo:isDown() and not ceo:isAlerted() then
+		if fromBodyguard then
+			-- Don't send alerts back and forth
+			ceo:getTraits().hasSentAlert = true
+		end
 		-- Create an ephemeral interest to be forgotten later
+		local x,y = ceo:getLocation()
 		ceo:getBrain():getSenses():addInterest(x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED)  -- REASON_SHARED is alerting
 		sim:processReactions( ceo )
 	end
 end
 
+-- Alert the bodyguard and send him to the CEO's location
 local function doAlertBodyguard( sim, ceo )
 	local bodyguard = safeFindUnitByTag( sim, "bodyguard" )
 	if bodyguard and bodyguard:isValid() and not bodyguard:isDown() then
 		local x,y = ceo:getLocation()
 		-- spawnInterest creates a sticky interest
 		bodyguard:getBrain():spawnInterest(x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED)  -- REASON_SHARED is alerting
+		ceo:getTraits().hasSentAlert = true
 	end
 end
 
@@ -232,7 +239,7 @@ local function pstsawfn( script, sim, ceo )
 	end
 end
 
-local function bodyguardAlertsCeo(script, sim)
+local function bodyguardAlertsCeo( script, sim )
 	local _, bodyguard = script:waitFor( BODYGUARD_DEAD, BODYGUARD_KO, BODYGUARD_ALERTED )
 
 	local ceo = safeFindUnitByTag( sim, "assassination" )
@@ -248,20 +255,11 @@ local function bodyguardAlertsCeo(script, sim)
 		end
 	end
 
-	doAlertCeo( sim )
+	doAlertCeo( sim, true )
 end
 
-local function playerUnlockSaferoom(script, sim)
-	local _, agent, body = script:waitFor( PC_UNLOCK_SAFEROOM )
-
-	doUnlockSaferoom(sim, agent)
-
-	-- TODO: central line
-end
-
-local function ceoalertedFlee(script, sim)
-	script:addHook( playerUnlockSaferoom )
-
+-- Behavior once the CEO becomes alerted
+local function ceoAlerted(script, sim)
 	local _, ceo = script:waitFor( CEO_ALERTED )
 	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
 
@@ -272,9 +270,19 @@ local function ceoalertedFlee(script, sim)
 	local finalFacing = simquery.getDirectionFromDelta(xSafe - finalCell.x, ySafe - finalCell.y)
 	ceo:getTraits().patrolPath = { { x = finalCell.x, y = finalCell.y, facing = finalFacing } }
 
-	-- Alert the bodyguard
-	doAlertBodyguard(sim, ceo)
+	-- Alert the bodyguard, unless we have already sent an alert
+	-- (No double interest for KO and first wakeup)
+	if not ceo:getTraits().hasSentAlert then
+		doAlertBodyguard(sim, ceo)
+	end
 
+	-- Tell the player (using the vanilla CFO running line)
+	if not ceo:isDown() then
+		script:queue( { script=SCRIPTS.INGAME.CENTRAL_CFO_RUNNING, type="newOperatorMessage" } )
+		sim:getPC():glimpseUnit(sim, ceo:getID() )
+	end
+
+	-- Wait for the CEO to reach the safe
 	script:waitFor( CEO_ARMING )
 	local weapon = safeFindUnitByTag( sim, "saferoom_weapon" )
 	if weapon and weapon:isValid() and safe and safe:isValid() and safe:hasChild( weapon:getID() ) then
@@ -314,14 +322,12 @@ local function ceoDownAlarm( script, sim, mission )
 	script:queue( { script=SCRIPTS.INGAME.ASSASSINATION.AFTERMATH[sim:nextRand(1, #SCRIPTS.INGAME.ASSASSINATION.AFTERMATH)], type="newOperatorMessage" } )
 end
 
-local function ceoalertedMessage(script, sim)
-	local _, ceo = script:waitFor( CEO_ALERTED )
-	if not ceo:isDown() then
-	    script:queue( { script=SCRIPTS.INGAME.CENTRAL_CFO_RUNNING, type="newOperatorMessage" } )
-		sim:getPC():glimpseUnit(sim, ceo:getID() )
-	else
-		script:addHook( script.hookFn )
-	end
+local function playerUnlockSaferoom(script, sim)
+	local _, agent, body = script:waitFor( PC_UNLOCK_SAFEROOM )
+
+	doUnlockSaferoom(sim, agent)
+
+	-- TODO: central line
 end
 
 local function exitWarning(mission)
@@ -355,13 +361,11 @@ function mission:init( scriptMgr, sim )
 	sim.exit_warning = function() return exitWarning(self) end
 
 	scriptMgr:addHook( "SEE", mission_util.DoReportObject(mission_util.PC_SAW_UNIT("assassination"), SCRIPTS.INGAME.ASSASSINATION.OBJECTIVE_SIGHTED, presawfn, pstsawfn ) )
+
+	scriptMgr:addHook( "BODYGUARD", bodyguardAlertsCeo, nil, self )
+	scriptMgr:addHook( "CEO", ceoAlerted, nil, self )
 	scriptMgr:addHook( "KILL", ceoDownAlarm, nil, self )
-
-	scriptMgr:addHook( "BODYGUARD", bodyguardAlertsCeo, nil, self)
-	scriptMgr:addHook( "RUN", ceoalertedFlee, nil, self)
-
-	--In case the target gets away, ripped straight from the CFO interrogation mission
-	scriptMgr:addHook( "RUNMSG", ceoalertedMessage, nil, self)
+	scriptMgr:addHook( "UNLOCK", playerUnlockSaferoom, nil, self )
 
 	--This picks a reaction rant from Central on exit based upon whether or not the target is dead yet.
 	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(function() judgement(sim, self) end))
