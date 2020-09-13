@@ -162,8 +162,7 @@ return {
 	MISSIONS = {
 		ASSASSINATION = {
 		    OBJ_FIND = "Locate the target",
-		    OBJ_KILL = "Disable the target",
-		    OBJ_DRAG = "Extract the target",
+		    OBJ_KILL = "Eliminate the target",
 		},
 		MOLE = {
 		    OBJ_KILL_WITNESS = "Kill any eyewitnesses",
@@ -331,8 +330,14 @@ return {
 						"moremissions/VoiceOver/Central/assassination/seen1",
 						"Central"}},
 				},
+				KO = {
+					{{"We don't earn partial credit here, operator. Find a way to finish the job.",
+						nil,
+						"Central"}},
+				},
 				AFTERMATH = {
-					{{"So far, so good. Now make sure not to bump into any rival assassins on your way out.",
+					-- "Now make sure not to bump into any rival assassins on your way out."
+					{{"So far, so good. Get our agents out of there and we can collect from the client.",
 						"moremissions/VoiceOver/Central/assassination/aftermath0",
 						"Central"}},
 				},

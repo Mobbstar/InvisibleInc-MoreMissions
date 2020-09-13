@@ -25,7 +25,7 @@ local SITUATIONS =
         ui = {
 			insetImg = "gui/mission_debrief/unknown.png",
 			icon = "gui/mission_previews/unknown.png",
-			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_DRAG ),
+			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL ),
 		},
 	},
 	landfill =

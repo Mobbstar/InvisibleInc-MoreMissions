@@ -154,6 +154,11 @@ local function safeFindUnitByTag(sim, tag)
 	end
 end
 
+local function selectStoryScript(sim, report)
+	return report[sim:nextRand(1, #report)]
+end
+
+
 ----
 -- Actions
 
@@ -225,18 +230,77 @@ end
 ----
 -- Script hooks
 
-local function presawfn( script, sim, ceo )
-	if not ceo:isDown() then
+-- Handle UI scripts and objectives when the target is first seen
+-- Based on mission_util.DoReportObject, but determines the report script based on the target's state. And tracks which scripts are played onto the mission.
+local function playerSeesCeo( script, sim, mission )
+	local _, ceo, agent = script:waitFor( mission_util.PC_SAW_UNIT("assassination") )
+
+	-- Report on "objective sighted" by default. If the target was KOed/killed outside LOS, then play that script instead.
+	local report = SCRIPTS.INGAME.ASSASSINATION.OBJECTIVE_SIGHTED
+
+	sim:removeObjective( "find" )
+	if ceo:getTraits().iscorpse then
+		report = SCRIPTS.INGAME.ASSASSINATION.AFTERMATH
+		mission.reportedCeoKilled = true
+		mission.reportedCeoSeen = true
+	elseif ceo:isKO() then
+		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
+		report = SCRIPTS.INGAME.ASSASSINATION.KO
+		mission.reportedCeoKOed = true
+		mission.reportedCeoSeen = true
+	else
+		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
+		mission.reportedCeoSeen = true
+
 		--create that big white arrow pointing to the target
 		ceo:createTab( STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, "" )
 	end
-	sim:removeObjective( "find" )
+
+	local x,y = ceo:getLocation()
+	script:queue( { type="pan", x=x, y=y } )
+	script:queue( .25*cdefs.SECONDS )
+	script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )
 end
 
-local function pstsawfn( script, sim, ceo )
-	if not ceo:isDown() then
-		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
+-- Update the player when the CEO is KOed/killed after seen
+-- and Direct the bodyguard to the CEO everytime he goes down
+local function ceoDown( script, sim, mission )
+	local _, ceo
+	repeat
+		_, ceo = script:waitFor( CEO_KO, CEO_DEAD )
+
+		if ceo:getTraits().iscorpse then
+			mission.killedTarget = true
+			sim:addMissionReward( simquery.scaleCredits( sim, mission.BOUNTY_VALUE ) )
+
+			sim:removeObjective( "kill" )
+		end
+
+		sim:setClimax(true)
+		sim:dispatchEvent( simdefs.EV_SCRIPT_EXIT_MAINFRAME ) -- In case the kill was via laser grid.
+		script:waitFrames( .5*cdefs.SECONDS )
+		doAlertBodyguard( sim, ceo )
+
+		if not ceo:getTraits().iscorpse and mission.reportedCeoSeen and not mission.reportedCeoKOed then
+			mission.reportedCeoKOed = true
+			script:waitFrames( 1.5*cdefs.SECONDS )
+			script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.KO ), type="newOperatorMessage" } )
+		end
+	until ceo:getTraits().iscorpse
+
+	if mission.reportedCeoSeen and not mission.reportedCeoKilled then
+		mission.reportedCeoKilled = true
+		script:waitFrames( 1.5*cdefs.SECONDS )
+		script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.AFTERMATH ), type="newOperatorMessage" } )
 	end
+end
+
+local function playerUnlocksSaferoom(script, sim)
+	local _, agent, body = script:waitFor( PC_UNLOCK_SAFEROOM )
+
+	doUnlockSaferoom(sim, agent)
+
+	-- TODO: central line
 end
 
 local function bodyguardAlertsCeo( script, sim )
@@ -297,48 +361,15 @@ local function ceoAlerted(script, sim)
 	end
 end
 
--- Direct the bodyguard to the CEO everytime he goes down
--- And reward the player when he's down for good
-local function ceoDownAlarm( script, sim, mission )
-	local _, ceo
-	repeat
-		_, ceo = script:waitFor( CEO_KO, CEO_DEAD )
-
-		if ceo:getTraits().iscorpse then
-			mission.killedtarget = true
-			sim:addMissionReward( simquery.scaleCredits( sim, mission.BOUNTY_VALUE ) )
-
-			sim:removeObjective( "kill" )
-			ceo:destroyTab() --Remove the big white arrow (if it is still there)
-		end
-
-		sim:setClimax(true)
-		script:waitFrames( .5*cdefs.SECONDS )
-
-		doAlertBodyguard( sim, ceo )
-	until ceo:getTraits().iscorpse
-
-	script:waitFrames( 1.5*cdefs.SECONDS )
-	script:queue( { script=SCRIPTS.INGAME.ASSASSINATION.AFTERMATH[sim:nextRand(1, #SCRIPTS.INGAME.ASSASSINATION.AFTERMATH)], type="newOperatorMessage" } )
-end
-
-local function playerUnlockSaferoom(script, sim)
-	local _, agent, body = script:waitFor( PC_UNLOCK_SAFEROOM )
-
-	doUnlockSaferoom(sim, agent)
-
-	-- TODO: central line
-end
-
 local function exitWarning(mission)
-	if not mission.killedtarget then
+	if not mission.killedTarget then
 		return STRINGS.MOREMISSIONS.UI.HUD_WARN_EXIT_MISSION_ASSASSINATION
 	end
 end
 
 local function judgement(sim, mission)
 	local scripts =
-		mission.killedtarget and SCRIPTS.INGAME.ASSASSINATION.CENTRAL_JUDGEMENT.GOTBODY or
+		mission.killedTarget and SCRIPTS.INGAME.ASSASSINATION.CENTRAL_JUDGEMENT.GOTBODY or
 		SCRIPTS.INGAME.ASSASSINATION.CENTRAL_JUDGEMENT.NOTHING
 	return scripts[sim:nextRand(1, #scripts)]
 end
@@ -360,12 +391,12 @@ function mission:init( scriptMgr, sim )
 
 	sim.exit_warning = function() return exitWarning(self) end
 
-	scriptMgr:addHook( "SEE", mission_util.DoReportObject(mission_util.PC_SAW_UNIT("assassination"), SCRIPTS.INGAME.ASSASSINATION.OBJECTIVE_SIGHTED, presawfn, pstsawfn ) )
+	scriptMgr:addHook( "SEE", playerSeesCeo, nil, self )
+	scriptMgr:addHook( "KILL", ceoDown, nil, self )
+	scriptMgr:addHook( "UNLOCK", playerUnlocksSaferoom, nil, self )
 
 	scriptMgr:addHook( "BODYGUARD", bodyguardAlertsCeo, nil, self )
 	scriptMgr:addHook( "CEO", ceoAlerted, nil, self )
-	scriptMgr:addHook( "KILL", ceoDownAlarm, nil, self )
-	scriptMgr:addHook( "UNLOCK", playerUnlockSaferoom, nil, self )
 
 	--This picks a reaction rant from Central on exit based upon whether or not the target is dead yet.
 	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(function() judgement(sim, self) end))
