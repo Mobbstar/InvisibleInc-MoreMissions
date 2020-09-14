@@ -185,7 +185,7 @@ end
 -- Alert the CEO
 local function doAlertCeo( sim, fromBodyguard )
 	ceo = safeFindUnitByTag( sim, "assassination" )
-	if ceo and ceo:isValid() and not ceo:isDown() and not ceo:isAlerted() then
+	if ceo and ceo:isValid() and not ceo:isDown() and not ceo:getTraits().iscorpse and not ceo:isAlerted() then
 		if fromBodyguard then
 			-- Don't send alerts back and forth
 			ceo:getTraits().hasSentAlert = true
@@ -200,7 +200,7 @@ end
 -- Alert the bodyguard and send him to the CEO's location
 local function doAlertBodyguard( sim, ceo )
 	local bodyguard = safeFindUnitByTag( sim, "bodyguard" )
-	if bodyguard and bodyguard:isValid() and not bodyguard:isDown() then
+	if bodyguard and bodyguard:isValid() and bodyguard:getBrain() and not bodyguard:isDown() then
 		local x,y = ceo:getLocation()
 		-- spawnInterest creates a sticky interest
 		bodyguard:getBrain():spawnInterest(x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED)  -- REASON_SHARED is alerting
