@@ -92,10 +92,12 @@ local BODYGUARD_KO =
 	end,
 }
 local function canUseSaferoomKey( unit )
-	return unit:getPlayerOwner() and unit:getPlayerOwner():isPC() and not unit:getTraits().isDrone
+	return unit:getPlayerOwner() and unit:getPlayerOwner():isPC() and not unit:getTraits().isDrone and not unit:isDown()
 end
 local function isSaferoomKey( unit )
-	return unit:isDown() and (unit:hasTag("assassination") or unit:hasTag("bodyguard"))
+	-- Can't check if the target is down or a corpse. Melee warps the unit before applying KO.
+	-- Rely on both these units and agents having dynamicImpass.
+	return unit:hasTag("assassination") or unit:hasTag("bodyguard")
 end
 local PC_UNLOCK_SAFEROOM =
 {
@@ -106,16 +108,16 @@ local PC_UNLOCK_SAFEROOM =
 			return false
 		end
 		-- Check if a player agent has moved onto a body that was already at the door
-		if unit and canUseSaferoomKey(unit) then
-			for _, cellUnit in ipairs(evData.to_cell.units) do
-				if cellUnit and isSaferoomKey( unit ) then
+		if unit and canUseSaferoomKey( unit ) then
+			for _, cellUnit in ipairs( evData.to_cell.units ) do
+				if cellUnit and isSaferoomKey( cellUnit ) then
 					return unit, cellUnit
 				end
 			end
 		-- Check if a body has moved to or with a player agent, to the door.
 		elseif unit and  isSaferoomKey(unit) then
-			for _, cellUnit in ipairs(evData.to_cell.units) do
-				if cellUnit and canUseSaferoomKey(cellUnit) then
+			for _, cellUnit in ipairs( evData.to_cell.units ) do
+				if cellUnit and canUseSaferoomKey( cellUnit ) then
 					return cellUnit, unit
 				end
 			end
@@ -295,23 +297,51 @@ local function ceoDown( script, sim, mission )
 	end
 end
 
-local function playerUnlocksSaferoom(script, sim)
+local function playerSeesSaferoom(script, sim)
+	-- TODO: TRG_LOS_REFRESH doesn't fire when a camera is taken by the player
+	script:waitFor( mission_util.PC_SAW_CELL_WITH_TAG( script, "saferoom_door" ) )
+
+	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_UNLOCK, "unlock" )
+	local doorCell = findCell( sim, "saferoom_doorouter" )
+	assert( doorCell )
+	script:queue( { type="displayHUDInstruction", text=STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.SECUREDOOR_TIP, x=doorCell.x, y=doorCell.y } )
+	script:queue( { type="pan", x=doorCell.x, y=doorCell.y } )
+	script:queue( .25*cdefs.SECONDS )
+	script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.DOOR_SIGHTED ), type="newOperatorMessage" } )
+end
+
+local function playerUnlocksSaferoom( script, sim )
 	local _, agent, body = script:waitFor( PC_UNLOCK_SAFEROOM )
 
-	doUnlockSaferoom(sim, agent)
+	script:removeHook( playerSeesSaferoom )
 
-	-- TODO: central line
+	doUnlockSaferoom( sim, agent )
+
+	sim:removeObjective( "unlock" )
+	script:queue( { type="hideHUDInstruction" } )
+	-- Cannot waitFrames in response to a TRG_UNIT_WARP. The walking animation ends up looping in place
+	script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.DOOR_UNLOCKED ), type="newOperatorMessage" } )
+end
+
+local function trackBodyguardDead( script, sim )
+	local _, bodyguard = script:waitFor( BODYGUARD_DEAD )
+	-- The trigger ensures the corpse has the original tag
 end
 
 local function bodyguardAlertsCeo( script, sim )
 	local _, bodyguard = script:waitFor( BODYGUARD_DEAD, BODYGUARD_KO, BODYGUARD_ALERTED )
+
+	if not bodyguard:getTraits().iscorpse then
+		-- Keep this trigger active
+		script:addHook( trackBodyguardDead )
+	end
 
 	local ceo = safeFindUnitByTag( sim, "assassination" )
 	if ceo:isAlerted() then  -- Done
 		return
 	end
 
-	if ( bodyguard:isDown() ) then
+	if bodyguard:isDown() or bodyguard:getTraits().iscorpse then
 		-- delay 1 full CORP turn before the CEO notices, unless the bodyguard wakes up first.
 		local ev, _ = script:waitFor( mission_util.PC_END_TURN, BODYGUARD_ALERTED )
 		if ev == mission_util.PC_END_TURN then
@@ -393,6 +423,7 @@ function mission:init( scriptMgr, sim )
 
 	scriptMgr:addHook( "SEE", playerSeesCeo, nil, self )
 	scriptMgr:addHook( "KILL", ceoDown, nil, self )
+	scriptMgr:addHook( "SEEDOOR", playerSeesSaferoom, nil, self )
 	scriptMgr:addHook( "UNLOCK", playerUnlocksSaferoom, nil, self )
 
 	scriptMgr:addHook( "BODYGUARD", bodyguardAlertsCeo, nil, self )
