@@ -2164,6 +2164,8 @@
           <string>noguard</string>
           <string>bountyhunt_office</string>
           <string>saferoom_unlock</string>
+          <string>saferoom_door</string>
+          <string>saferoom_doorouter</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -2249,6 +2251,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_unlock</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -2270,6 +2273,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_unlock</string>
           <string>saferoom_door</string>
         </Tags>
         <MatchTags />
@@ -2292,6 +2296,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_unlock</string>
         </Tags>
         <MatchTags />
         <BurnTags />

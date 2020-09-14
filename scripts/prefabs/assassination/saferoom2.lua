@@ -1218,6 +1218,8 @@ local tiles =
             "noguard",
             "bountyhunt_office",
             "saferoom_unlock",
+            "saferoom_door",
+            "saferoom_doorouter",
         },
     },
     {
@@ -1406,6 +1408,7 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_unlock",
         },
         impass = 1,
         cover = 1,
@@ -1443,6 +1446,7 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_unlock",
             "saferoom_door",
         },
     },
@@ -1479,6 +1483,7 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_unlock",
         },
     },
     {
