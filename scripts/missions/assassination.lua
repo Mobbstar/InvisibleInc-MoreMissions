@@ -172,14 +172,18 @@ local function spawnCeoWeapon( sim )
 	safe:addChild( newWeapon )
 end
 
-local function authorizeCeoAccess( sim )
+local function initCeoTraits( sim )
 	local ceo = mission_util.findUnitByTag( sim, "assassination" )
-	-- Allowed to walk in and out of the saferoom
+
+	-- CEO is allowed to walk in and out of the saferoom
 	if ceo:getTraits().npcPassiveKeybits then
 		ceo:getTraits().npcPassiveKeybits = binops.b_or( ceo:getTraits().npcPassiveKeybits, simdefs.DOOR_KEYS.BLAST_DOOR )
 	else
 		ceo:getTraits().npcPassiveKeybits = simdefs.DOOR_KEYS.BLAST_DOOR
 	end
+
+	-- No penalty for killing this one.
+	ceo:getTraits().cleanup = nil
 end
 
 -- Alert the CEO
@@ -273,7 +277,7 @@ local function ceoDown( script, sim, mission )
 
 		if ceo:getTraits().iscorpse then
 			mission.killedTarget = true
-			sim:addMissionReward( simquery.scaleCredits( sim, mission.BOUNTY_VALUE ) )
+			sim:setMissionReward( simquery.scaleCredits( sim, mission.BOUNTY_VALUE ) )
 
 			sim:removeObjective( "kill" )
 		end
@@ -417,7 +421,7 @@ function mission:init( scriptMgr, sim )
 
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_FIND, "find" )
 	spawnCeoWeapon( sim )
-	authorizeCeoAccess( sim )
+	initCeoTraits( sim )
 
 	sim.exit_warning = function() return exitWarning(self) end
 
