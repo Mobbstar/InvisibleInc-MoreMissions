@@ -2,6 +2,9 @@ local simdefs = include( "sim/simdefs" )
 local simengine = include( "sim/engine" )
 local simquery = include( "sim/simquery" )
 
+-----
+-- Allow guards with npcPassiveKeyBits to use matching locked doors
+
 local oldModifyExit = simengine.modifyExit
 
 function simengine:modifyExit( cell, dir, exitOp, unit, stealth, ... )
@@ -32,4 +35,24 @@ function simengine:modifyExit( cell, dir, exitOp, unit, stealth, ... )
 
 		self:dispatchEvent( simdefs.EV_EXIT_MODIFIED, { cell = cell, dir = dir, exitOp = simdefs.EXITOP_LOCK } )
 	end
+end
+
+-----
+-- Add a sim trigger for simultaneous KO/Kill groups
+--
+-- To defer a hook until after simultaneous KOs/Kills have been processed, check hasDaemonQueue, and if so wait for MM-KOGROUP-END before continuing.
+--
+-- Relies on mods wrapping simultaneous KOs/Kills in startDaeemonQueue/processDaemonQueue, which vanilla only requires for simultaneous KO.
+--
+
+function simengine:hasDaemonQueue()
+	return self._daemonQueue ~= nil
+end
+
+local oldProcessDaemonQueue = simengine.processDaemonQueue
+
+function simengine:processDaemonQueue( ... )
+	oldProcessDaemonQueue( self, ... )
+
+	self:triggerEvent( 'MM-KOGROUP-END' )
 end

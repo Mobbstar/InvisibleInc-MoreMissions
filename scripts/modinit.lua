@@ -91,6 +91,7 @@ local function init( modApi )
 	include( scriptPath .. "/simquery" )
 	include( scriptPath .. "/engine" )
 	include( scriptPath .. "/idle" )
+	include( scriptPath .. "/laser" )
 	include( scriptPath .. "/unitrig" )
 
 	include( scriptPath .. "/btree/actions" )
@@ -138,6 +139,10 @@ local function load( modApi, options, params )
 	unloadCommon( modApi, options )
 
     local scriptPath = modApi:getScriptPath()
+
+	if params then
+		params.mm_enabled = true
+	end
 
 	-- itemdefs moved to lateLoad to allow other mods to populate itemdefs for Tech Expo automatic template generation
 	--local itemdefs = include( scriptPath .. "/itemdefs" )

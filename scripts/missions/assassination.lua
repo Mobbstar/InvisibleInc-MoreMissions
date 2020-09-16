@@ -288,6 +288,12 @@ local function ceoDown( script, sim, mission )
 		end
 
 		sim:setClimax(true)
+
+		if sim:hasDaemonQueue() then
+			-- Wait for simultaneous KOs/Kills to finish resolving before looking for bodyguard or nearest guard to alert.
+			script:waitFor( { trigger = 'MM-KOGROUP-END' } )
+		end
+
 		sim:dispatchEvent( simdefs.EV_SCRIPT_EXIT_MAINFRAME ) -- In case the kill was via laser grid.
 		script:waitFrames( .5*cdefs.SECONDS )
 		doAlertBodyguard( sim, ceo )
