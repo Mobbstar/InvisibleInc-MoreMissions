@@ -194,22 +194,27 @@ local function doAlertCeo( sim, fromBodyguard )
 			-- Don't send alerts back and forth
 			ceo:getTraits().hasSentAlert = true
 		end
-		-- Create an ephemeral interest to be forgotten later
+		-- Senses:addInterest: Create an ephemeral interest to be forgotten later
 		local x,y = ceo:getLocation()
-		ceo:getBrain():getSenses():addInterest(x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED)  -- REASON_SHARED is alerting
+		ceo:getBrain():getSenses():addInterest( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
 		sim:processReactions( ceo )
 	end
 end
 
 -- Alert the bodyguard and send him to the CEO's location
+-- If the bodyguard is indisposed, the nearest other guard responses to the call.
 local function doAlertBodyguard( sim, ceo )
+	local x,y = ceo:getLocation()
 	local bodyguard = safeFindUnitByTag( sim, "bodyguard" )
 	if bodyguard and bodyguard:isValid() and bodyguard:getBrain() and not bodyguard:isDown() then
-		local x,y = ceo:getLocation()
-		-- spawnInterest creates a sticky interest
-		bodyguard:getBrain():spawnInterest(x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED)  -- REASON_SHARED is alerting
-		ceo:getTraits().hasSentAlert = true
+		-- Send the bodyguard to the CEO
+		-- Brain:spawnInterest: Create a remembered interest
+		bodyguard:getBrain():spawnInterest( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
+	else
+		-- Bodyguard unavailable. Send the nearest other guard to the CEO.
+		sim:getNPC():spawnInterestWithReturn( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED, nil, { ceo:getID() } )
 	end
+	ceo:getTraits().hasSentAlert = true
 end
 
 local function doUnlockSaferoom( sim, agent )
@@ -353,7 +358,8 @@ local function bodyguardAlertsCeo( script, sim )
 		end
 	end
 
-	doAlertCeo( sim, true )
+	local bodyguardIsAwake = not bodyguard:isDown() and not bodyguard:getTraits().iscorpse
+	doAlertCeo( sim, bodyguardIsAwake )
 end
 
 -- Behavior once the CEO becomes alerted
