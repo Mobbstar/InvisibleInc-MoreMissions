@@ -427,7 +427,7 @@ function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
 
 	-- Base credit value for a successful kill
-	self.BOUNTY_VALUE = 1200
+	self.BOUNTY_VALUE = 1000
 
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_FIND, "find" )
 	spawnCeoWeapon( sim )
