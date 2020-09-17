@@ -91,37 +91,34 @@ local BODYGUARD_KO =
 		end
 	end,
 }
-local function canUseSaferoomKey( unit )
-	return unit:getPlayerOwner() and unit:getPlayerOwner():isPC() and not unit:getTraits().isDrone and not unit:isDown()
-end
 local function isSaferoomKey( unit )
-	-- Can't check if the target is down or a corpse. Melee warps the unit before applying KO.
-	-- Rely on both these units and agents having dynamicImpass.
-	return unit:hasTag("assassination") or unit:hasTag("bodyguard")
+	return (unit:isDown() or unit:getTraits().iscorpse) and (unit:hasTag("assassination") or unit:hasTag("bodyguard"))
 end
-local PC_UNLOCK_SAFEROOM =
-{
-	trigger = simdefs.TRG_UNIT_WARP,
-	fn = function( sim, evData )
-		local unit = evData.unit
-		if not simquery.cellHasTag(sim, evData.to_cell, "saferoom_unlock") then
-			return false
-		end
-		-- Check if a player agent has moved onto a body that was already at the door
-		if unit and canUseSaferoomKey( unit ) then
-			for _, cellUnit in ipairs( evData.to_cell.units ) do
+local function playerCanUnlockSaferoom( sim )
+	-- Any player non-drone unit is at the door and standing over an authorized body.
+	for _,unit in ipairs( sim:getPC():getUnits() ) do
+		local cell = sim:getCell( unit:getLocation() )
+		if not unit:isDown() and not unit:getTraits().isDrone and simquery.cellHasTag( sim, cell, "saferoom_unlock" ) then
+			for _,cellUnit in ipairs( cell.units ) do
 				if cellUnit and isSaferoomKey( cellUnit ) then
 					return unit, cellUnit
 				end
 			end
-		-- Check if a body has moved to or with a player agent, to the door.
-		elseif unit and  isSaferoomKey(unit) then
-			for _, cellUnit in ipairs( evData.to_cell.units ) do
-				if cellUnit and canUseSaferoomKey( cellUnit ) then
-					return cellUnit, unit
-				end
-			end
 		end
+	end
+end
+local PC_UNLOCK_SAFEROOM_AFTER_ACTION =
+{
+	-- After any player action
+	action = "",
+	fn = playerCanUnlockSaferoom,
+}
+local PC_UNLOCK_SAFEROOM_START_TURN =
+{
+	-- At the start of the player turn (action=endTurnAction fires between PC and NPC turns)
+	trigger = simdefs.TRG_START_TURN,
+	fn = function( sim, evData )
+		return evData:isPC() and playerCanUnlockSaferoom( sim )
 	end,
 }
 local ESCAPE_WITH_BODY =
@@ -326,7 +323,8 @@ local function playerSeesSaferoom(script, sim)
 end
 
 local function playerUnlocksSaferoom( script, sim )
-	local _, agent, body = script:waitFor( PC_UNLOCK_SAFEROOM )
+	-- Trigger when the player could otherwise act: after an action has completed or at the start of the player turn.
+	local _, agent, body = script:waitFor( PC_UNLOCK_SAFEROOM_AFTER_ACTION, PC_UNLOCK_SAFEROOM_START_TURN )
 
 	script:removeHook( playerSeesSaferoom )
 
