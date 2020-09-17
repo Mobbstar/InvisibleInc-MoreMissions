@@ -313,9 +313,9 @@ local function ceoDown( script, sim, mission )
 end
 
 local function playerSeesSaferoom(script, sim)
-	-- TODO: TRG_LOS_REFRESH doesn't fire when a camera is taken by the player
 	script:waitFor( mission_util.PC_SAW_CELL_WITH_TAG( script, "saferoom_door" ) )
 
+	sim:dispatchEvent( simdefs.EV_SCRIPT_EXIT_MAINFRAME ) -- In case the kill was via laser grid.
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_UNLOCK, "unlock" )
 	local doorCell = findCell( sim, "saferoom_doorouter" )
 	assert( doorCell )

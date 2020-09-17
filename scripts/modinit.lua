@@ -92,6 +92,7 @@ local function init( modApi )
 	include( scriptPath .. "/engine" )
 	include( scriptPath .. "/idle" )
 	include( scriptPath .. "/laser" )
+	include( scriptPath .. "/pcplayer" )
 	include( scriptPath .. "/unitrig" )
 
 	include( scriptPath .. "/btree/actions" )
