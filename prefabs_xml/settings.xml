@@ -1661,6 +1661,7 @@ K&O PROPS
     </deco> 		
     <deco name ="KO hall standing lamp 1 1x1" anim="decor_ko_hall_standinglamp1" facings="85">
 	<tag name="impass"/>		
+	<tag name="cover"/>
       <tile x="0" y="0"/>
     </deco> 
     <deco name ="KO hall sidetable 1 2x1" anim="decor_ko_hall_sidetable1" facings="85">
@@ -1860,6 +1861,7 @@ K&O PROPS
     </deco> 	
      <deco name ="SK office lamp 1 1x1" anim="decor_sk_office_lamp1" facings="85">
 	<tag name="impass"/>
+	<tag name="cover"/>
 	<tile x="0" y="0"/>
     </deco> 	
 	
@@ -2095,6 +2097,7 @@ K&O PROPS
     </deco> 	
      <deco name ="Plastek office floorlamp 1 1x1" anim="decor_plastek_office_floorlamp1" facings="85">
 	<tag name="impass"/>		 
+	<tag name="cover"/>
       <tile x="0" y="0"/>
     </deco> 	
      <deco name ="Plastek office office chair 1 1x1" anim="decor_plastek_office_office_chair1" facings="85">
@@ -2413,6 +2416,7 @@ K&O PROPS
     </deco> 	
      <deco name ="Plastek hall floor lamp 1 1x1" anim="decor_plastek_hall_floorlamp1" facings="85">
 	<tag name="impass"/>			 
+	<tag name="cover"/>
       <tile x="0" y="0"/>
     </deco> 	
      <deco name ="Plastek hall planter 1 1x1" anim="decor_plastek_hall_planter1" facings="85">
