@@ -125,4 +125,13 @@ function mission:init( scriptMgr, sim )
 	scriptMgr:addHook( "dead_witness", witnessDied)
 end
 
+function mission.pregeneratePrefabs( cxt, tagSet )
+    escape_mission.pregeneratePrefabs( cxt, tagSet )
+
+	-- Place primary node room normally. Will be placed with most other rooms in a random order.
+    table.insert( tagSet[1], "moleinsertion_a" )
+	-- Place secondary node after other rooms. Tends to be singly-attached and on the edge of the level.
+    table.insert( tagSet, { "moleinsertion_b" } )
+end
+
 return mission
