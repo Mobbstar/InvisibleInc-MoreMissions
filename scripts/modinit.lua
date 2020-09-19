@@ -50,6 +50,8 @@ local function init( modApi )
 	--modApi:addGenerationOption("tech_expo",  STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.MISSION_TITLE , STRINGS.MOREMISSIONS.LOCATIONS.EA_HOSTAGE.DESCRIPTION, {noUpdate=true, enabled = true} ) --placeholder
 	--forgot to make an option for Distress Call... will do later
 
+	modApi:addGenerationOption("MM_sidemissions",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_TIP, {noUpdate=true} )
+			
 	-- abilities, for now simple override (I'm not smart enough to...)
 	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
 
@@ -87,6 +89,35 @@ local function init( modApi )
 		end
 		oldInit( self, params, levelData, ... )	
 	end	
+	
+	-- SIDE MISSIONS
+	local showItemStore = abilitydefs.lookupAbility( "showItemStore")
+	local showItemStore_executeOld = showItemStore.executeAbility
+	
+	showItemStore.executeAbility = function( self, sim, unit, userUnit, ... )
+	-- note: unit is nanofab, userUnit is agent
+		if unit:getTraits().storeType and (unit:getTraits().storeType == "large") then
+			
+			local strings_screens = include( "strings_screens" )
+			sim.old_augmenttip, sim.old_weapontip, sim.old_itemtip = strings_screens.STR_346165218, strings_screens.STR_2618909495, strings_screens.STR_590530336
+			local itemType = sim.luxuryNanofabItemType
+			local new_tooltip = [[]]
+			if itemType == 1 then
+				new_tooltip = [[ITEMS]]
+			elseif itemType ==2 then
+				new_tooltip = [[AUGMENTS]]
+			elseif itemType == 3 then
+				new_tooltip = [[WEAPONS]]
+			end
+			
+			strings_screens.STR_346165218 = new_tooltip
+			strings_screens.STR_2618909495 = new_tooltip
+			strings_screens.STR_590530336 = new_tooltip		
+		
+		end
+		
+		showItemStore_executeOld(self, sim, unit, userUnit, ...)
+	end		
   
 	include( scriptPath .. "/simquery" )
 	include( scriptPath .. "/engine" )
@@ -169,6 +200,12 @@ local function load( modApi, options, params )
 	
 	local commondefs = include( scriptPath .. "/commondefs" )
 	modApi:addTooltipDef( commondefs )
+	
+	local side_missions = include( scriptPath .. "/side_missions" )
+	if options["MM_sidemissions"].enabled then
+		modApi:addEscapeScripts(side_missions.escape_scripts)
+		modApi:addSideMissions(scriptPath, side_missions.SIDEMISSIONS )	
+	end	
 	
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
