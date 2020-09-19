@@ -1618,8 +1618,8 @@
         <string>+soundbug</string>
       </BurnTags>
       <Tags>
-        <string>moleinsertion_a</string>
-        <string>moleinsertion_a2</string>
+        <string>moleinsertion</string>
+        <string>moleinsertion2</string>
         <string>objective</string>
       </Tags>
     </PrefabData>
