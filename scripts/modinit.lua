@@ -40,7 +40,7 @@ local function init( modApi )
 	--I really wish there were some kind of splitter right about now -M
 	--Shirsh set those that not works to "false" until they'll be ready to not bug test playthroughs
 	modApi:addGenerationOption("holostudio",  STRINGS.MOREMISSIONS.OPTIONS.HOLOSTUDIO , STRINGS.MOREMISSIONS.OPTIONS.HOLOSTUDIO_TIP, {noUpdate=true} )
-	modApi:addGenerationOption("assassination",  STRINGS.MOREMISSIONS.OPTIONS.ASSASSINATION , STRINGS.MOREMISSIONS.OPTIONS.ASSASSINATION_TIP, {noUpdate=true, enabled = false} )
+	modApi:addGenerationOption("assassination",  STRINGS.MOREMISSIONS.OPTIONS.ASSASSINATION , STRINGS.MOREMISSIONS.OPTIONS.ASSASSINATION_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("landfill",  STRINGS.MOREMISSIONS.OPTIONS.LANDFILL , STRINGS.MOREMISSIONS.OPTIONS.LANDFILL_TIP, {noUpdate=true, enabled = false} )
 
 	modApi:addGenerationOption("ea_hostage",  STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.MISSION_TITLE , STRINGS.MOREMISSIONS.LOCATIONS.EA_HOSTAGE.DESCRIPTION, {noUpdate=true, enabled = true} )
