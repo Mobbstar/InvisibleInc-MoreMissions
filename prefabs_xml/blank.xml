@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ToolDocument xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="MapDocument">
+  <Version>1</Version>
+  <MapData>
+    <Tiles>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags>
+          <string>+rlink_4</string>
+        </BurnTags>
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags>
+          <string>+rlink_2</string>
+        </BurnTags>
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>7</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags />
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+    </Tiles>
+    <Walls>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>4</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>4</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>2</x>
+          <y>4</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>1</x>
+          <y>4</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>4</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>3</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>2</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>1</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>0</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>5</x>
+          <y>3</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>5</x>
+          <y>2</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>5</x>
+          <y>1</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>5</x>
+          <y>0</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>2</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>1</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+    </Walls>
+    <Units />
+    <Decos />
+    <Lights />
+    <Settings>
+      <SpawnGroups />
+    </Settings>
+    <MapType>Room</MapType>
+    <PrefabData>
+      <WeightFactor>1</WeightFactor>
+      <MinRlinks>1</MinRlinks>
+      <MatchTags>
+        <string>-tile</string>
+      </MatchTags>
+      <BurnTags>
+        <string>+burnt_wall_0</string>
+        <string>+burnt_wall_2</string>
+        <string>+burnt_wall_4</string>
+        <string>+burnt_wall_6</string>
+        <string>+burnt_floor</string>
+        <string>+soundbug</string>
+      </BurnTags>
+      <Tags>
+        <string>objective</string>
+      </Tags>
+    </PrefabData>
+  </MapData>
+</ToolDocument>

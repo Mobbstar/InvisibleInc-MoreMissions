@@ -1,0 +1,4823 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ToolDocument xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="MapDocument">
+  <Version>1</Version>
+  <MapData>
+    <Tiles>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>4</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>6</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>6</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>6</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>6</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>6</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>6</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>6</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>7</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>7</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>7</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>7</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>7</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>7</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>7</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>8</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>8</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>8</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>8</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>8</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>8</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>8</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>9</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>9</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>9</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>9</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>9</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>9</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>9</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>10</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>10</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>10</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>10</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>10</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>10</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>10</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>10</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>10</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>11</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>11</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>11</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>11</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>11</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>11</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>11</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>11</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>11</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>12</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>12</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>12</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>12</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>12</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>12</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>12</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>12</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>12</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>2</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>3</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>13</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>13</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>13</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>13</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags>
+          <string>+rlink_0</string>
+        </BurnTags>
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>13</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>13</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags>
+          <string>+rlink_0</string>
+        </BurnTags>
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>13</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>13</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>13</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>7</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>6</X>
+        <Y>7</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>bountyhunt_office</string>
+          <string>saferoom_unlock</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>7</X>
+        <Y>7</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>bountyhunt_office</string>
+          <string>saferoom_unlock</string>
+          <string>saferoom_door</string>
+          <string>saferoom_doorouter</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>8</X>
+        <Y>7</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>bountyhunt_office</string>
+          <string>saferoom_unlock</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>9</X>
+        <Y>7</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>9</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>9</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>8</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>7</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>6</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>6</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>7</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>8</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>7</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>8</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>9</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>7</X>
+        <Y>5</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>8</X>
+        <Y>5</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>9</X>
+        <Y>5</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>7</X>
+        <Y>6</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+          <string>saferoom_unlock</string>
+          <string>saferoom_door</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>8</X>
+        <Y>6</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+          <string>saferoom_unlock</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>9</X>
+        <Y>6</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>5</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+          <string>saferoom_flee</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>6</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>5</X>
+        <Y>5</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>6</X>
+        <Y>5</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>5</X>
+        <Y>6</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>6</X>
+        <Y>6</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+          <string>saferoom_unlock</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>7</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>8</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>9</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>7</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>8</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>9</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>6</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>6</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>5</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>30</TileIdx>
+        <TileVariant>2</TileVariant>
+        <X>5</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>10</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>10</X>
+        <Y>5</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>10</X>
+        <Y>6</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>10</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>10</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>8</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>9</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>10</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>5</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>6</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>7</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>4</X>
+        <Y>1</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>4</X>
+        <Y>2</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>4</X>
+        <Y>3</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>4</X>
+        <Y>4</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>4</X>
+        <Y>5</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>29</TileIdx>
+        <TileVariant>1</TileVariant>
+        <X>4</X>
+        <Y>6</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>noguard</string>
+          <string>saferoom</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>8</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>9</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>10</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>16</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>15</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>14</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>13</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>12</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>1</X>
+        <Y>11</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>9</X>
+        <Y>17</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>8</X>
+        <Y>17</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>7</X>
+        <Y>17</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags>
+          <string>+rlink_2</string>
+        </BurnTags>
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>6</X>
+        <Y>17</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+      <MapTile>
+        <TileIdx>36</TileIdx>
+        <TileVariant>0</TileVariant>
+        <X>5</X>
+        <Y>17</Y>
+        <DeployIndex>0</DeployIndex>
+        <DeployFacing>0</DeployFacing>
+        <SightRadius>0</SightRadius>
+        <NoiseRadius>0</NoiseRadius>
+        <IsExit>false</IsExit>
+        <ExitID>0</ExitID>
+        <RoomID>0</RoomID>
+        <UserFlags>0</UserFlags>
+        <Tags>
+          <string>bountyhunt_office</string>
+        </Tags>
+        <MatchTags />
+        <BurnTags />
+        <PrefabTag />
+      </MapTile>
+    </Tiles>
+    <Walls>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>7</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>16</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>2</x>
+          <y>7</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>1</x>
+          <y>7</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>2</x>
+          <y>16</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>1</x>
+          <y>16</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>15</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>9</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>8</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>7</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>9</x>
+          <y>15</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>9</x>
+          <y>7</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>9</x>
+          <y>8</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>9</x>
+          <y>9</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>9</x>
+          <y>7</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>10</x>
+          <y>7</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>11</x>
+          <y>7</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>9</x>
+          <y>16</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>10</x>
+          <y>16</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>11</x>
+          <y>16</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>9</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>5</x>
+          <y>9</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>7</x>
+          <y>9</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>8</x>
+          <y>9</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>12</x>
+          <y>16</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>12</x>
+          <y>7</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>6</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>6</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>5</x>
+          <y>6</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>7</x>
+          <y>6</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>8</x>
+          <y>6</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>9</x>
+          <y>6</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>5</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>6</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>7</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>8</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>9</x>
+          <y>0</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>0</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>1</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>2</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>3</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>4</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>5</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>10</x>
+          <y>0</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>10</x>
+          <y>1</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>10</x>
+          <y>2</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>10</x>
+          <y>3</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>10</x>
+          <y>4</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>10</x>
+          <y>5</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>9</x>
+          <y>6</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>3</x>
+          <y>6</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>6</x>
+          <y>9</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>2</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>6</x>
+          <y>6</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>13</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>7</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>16</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>7</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>8</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>9</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>10</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>11</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>12</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>13</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>14</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>0</x>
+          <y>15</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>13</x>
+          <y>14</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>13</x>
+          <y>15</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>13</x>
+          <y>12</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>13</x>
+          <y>13</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>13</x>
+          <y>11</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>13</x>
+          <y>10</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>13</x>
+          <y>9</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>13</x>
+          <y>8</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>13</x>
+          <y>7</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>9</x>
+          <y>16</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>8</x>
+          <y>17</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>7</x>
+          <y>17</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>6</x>
+          <y>17</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>5</x>
+          <y>17</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>17</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>16</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
+    </Walls>
+    <Units>
+      <MapUnit>
+        <X>2</X>
+        <Y>13</Y>
+        <UnitKey>Business man</UnitKey>
+        <Template>npc_business_man</Template>
+        <UnitData>facing = 0, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag>ceo_target</SpawnTag>
+        <Tags>
+          <string>assassination</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>4</X>
+        <Y>15</Y>
+        <UnitKey>Business man</UnitKey>
+        <Template>npc_business_man</Template>
+        <UnitData>facing = 7, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag>ceo_target</SpawnTag>
+        <Tags>
+          <string>assassination</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>10</X>
+        <Y>15</Y>
+        <UnitKey>Business man</UnitKey>
+        <Template>npc_business_man</Template>
+        <UnitData>facing = 5, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag>ceo_target</SpawnTag>
+        <Tags>
+          <string>assassination</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>8</X>
+        <Y>10</Y>
+        <UnitKey>Business man</UnitKey>
+        <Template>npc_business_man</Template>
+        <UnitData>facing = 3, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag>ceo_target</SpawnTag>
+        <Tags>
+          <string>assassination</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>6</X>
+        <Y>10</Y>
+        <UnitKey>Business man</UnitKey>
+        <Template>npc_business_man</Template>
+        <UnitData>facing = 1, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag>ceo_target</SpawnTag>
+        <Tags>
+          <string>assassination</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>10</X>
+        <Y>11</Y>
+        <UnitKey>Business man</UnitKey>
+        <Template>npc_business_man</Template>
+        <UnitData>facing = 3, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,}</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag>ceo_target</SpawnTag>
+        <Tags>
+          <string>assassination</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>4</X>
+        <Y>6</Y>
+        <UnitKey>Laser Generator</UnitKey>
+        <Template>laser_generator</Template>
+        <UnitData>facing = 0, traits = { startOn = true, powerGrid = "saferoom", powerGridName = "SAFE ROOM" }</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>5</X>
+        <Y>7</Y>
+        <UnitKey>Laser Emitter</UnitKey>
+        <Template>security_laser_emitter_1x1</Template>
+        <UnitData>facing = 0,  traits = { startOn = true, powerGrid = "saferoom", powerGridName = "SAFE ROOM", lethal_laser = true }</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>4</X>
+        <Y>4</Y>
+        <UnitKey>Lab Safe</UnitKey>
+        <Template>lab_safe</Template>
+        <UnitData>facing = 0</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags>
+          <string>saferoom_safe</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>7</X>
+        <Y>11</Y>
+        <UnitKey>Important Guard</UnitKey>
+        <Template>important_guard</Template>
+        <UnitData>facing = 2, traits={mm_nopatrolchange = true,}</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag>ceo_bodyguard</SpawnTag>
+        <Tags>
+          <string>bodyguard</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>9</X>
+        <Y>12</Y>
+        <UnitKey>Important Guard</UnitKey>
+        <Template>important_guard</Template>
+        <UnitData>facing = 0, traits={mm_nopatrolchange = true,}</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag>ceo_bodyguard</SpawnTag>
+        <Tags>
+          <string>bodyguard</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>13</X>
+        <Y>9</Y>
+        <UnitKey>Important Guard</UnitKey>
+        <Template>important_guard</Template>
+        <UnitData>facing = 2, traits={mm_nopatrolchange = true,}</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag>ceo_bodyguard</SpawnTag>
+        <Tags>
+          <string>bodyguard</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>13</X>
+        <Y>14</Y>
+        <UnitKey>Important Guard</UnitKey>
+        <Template>important_guard</Template>
+        <UnitData>facing = 6, traits={mm_nopatrolchange = true,}</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag>ceo_bodyguard</SpawnTag>
+        <Tags>
+          <string>bodyguard</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>4</X>
+        <Y>6</Y>
+        <UnitKey>Camera</UnitKey>
+        <Template>security_camera_1x1</Template>
+        <UnitData>facing = 7</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>5</X>
+        <Y>10</Y>
+        <UnitKey>Camera</UnitKey>
+        <Template>security_camera_1x1</Template>
+        <UnitData>facing = 1</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
+        <BStates />
+      </MapUnit>
+    </Units>
+    <Decos>
+      <MapDeco>
+        <X>10</X>
+        <Y>2</Y>
+        <Anim>decor_ko_barracks_fridge1</Anim>
+        <DecoKey>KO barracks fridge 1 1x1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>10</X>
+        <Y>3</Y>
+        <Anim>decor_ko_barracks_armourlocker1</Anim>
+        <DecoKey>KO barracks armour locker 1 1x1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>4</X>
+        <Y>3</Y>
+        <Anim>decor_ko_barracks_walldividerguns1</Anim>
+        <DecoKey>KO barracks wall divider guns 1 1x1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>10</X>
+        <Y>6</Y>
+        <Anim>decor_ko_lab_longcase1</Anim>
+        <DecoKey>KO lab long case 1 2x1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>9</X>
+        <Y>6</Y>
+        <Anim>decor_ko_lab_tallcase1</Anim>
+        <DecoKey>KO lab tall case 1 1x1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>10</X>
+        <Y>4</Y>
+        <Anim>decor_ko_lab_wallladder1</Anim>
+        <DecoKey>KO lab wall ladder 1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>6</X>
+        <Y>6</Y>
+        <Anim>decor_ko_lab_pillar1</Anim>
+        <DecoKey>KO lab pillar 1 1x1</DecoKey>
+        <Facing>6</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>8</X>
+        <Y>1</Y>
+        <Anim>decor_ko_barracks_walldivider1</Anim>
+        <DecoKey>KO barracks wall divider 1 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>6</X>
+        <Y>1</Y>
+        <Anim>decor_ko_barracks_walllight1</Anim>
+        <DecoKey>KO barracks wall light 1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>10</X>
+        <Y>1</Y>
+        <Anim>decor_ko_barracks_vendingmachine1</Anim>
+        <DecoKey>KO barracks vending machine 1 1x1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>4</X>
+        <Y>1</Y>
+        <Anim>decor_ko_hall_standinglamp1</Anim>
+        <DecoKey>KO hall standing lamp 1 1x1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>10</X>
+        <Y>5</Y>
+        <Anim>decor_ko_barracks_walllight1</Anim>
+        <DecoKey>KO barracks wall light 1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>8</X>
+        <Y>6</Y>
+        <Anim>decor_ko_barracks_walllight1</Anim>
+        <DecoKey>KO barracks wall light 1</DecoKey>
+        <Facing>6</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>4</X>
+        <Y>4</Y>
+        <Anim>decor_ko_barracks_walllight1</Anim>
+        <DecoKey>KO barracks wall light 1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>5</X>
+        <Y>6</Y>
+        <Anim>guardoffice_walllight1</Anim>
+        <DecoKey>Unique GuardOffice WallLight1</DecoKey>
+        <Facing>6</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>8</X>
+        <Y>6</Y>
+        <Anim>decor_sk_lab_wall_phonepanel1</Anim>
+        <DecoKey>SK lab wall phone panel 1</DecoKey>
+        <Facing>6</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>9</X>
+        <Y>9</Y>
+        <Anim>guardoffice_wallwindow1</Anim>
+        <DecoKey>Unique GuardOffice WallWindow1</DecoKey>
+        <Facing>6</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>5</X>
+        <Y>10</Y>
+        <Anim>guardoffice_wallwindow1</Anim>
+        <DecoKey>Unique GuardOffice WallWindow1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>8</X>
+        <Y>10</Y>
+        <Anim>guardoffice_wallwindow1</Anim>
+        <DecoKey>Unique GuardOffice WallWindow1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>10</X>
+        <Y>9</Y>
+        <Anim>guardoffice_wallwindow1</Anim>
+        <DecoKey>Unique GuardOffice WallWindow1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>4</X>
+        <Y>8</Y>
+        <Anim>guardoffice_wallwindow1</Anim>
+        <DecoKey>Unique GuardOffice WallWindow1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>9</X>
+        <Y>8</Y>
+        <Anim>guardoffice_wallwindow1</Anim>
+        <DecoKey>Unique GuardOffice WallWindow1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>5</X>
+        <Y>9</Y>
+        <Anim>guardoffice_wallwindow1</Anim>
+        <DecoKey>Unique GuardOffice WallWindow1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>7</X>
+        <Y>5</Y>
+        <Anim>guardoffice_1x1_floorpanel2</Anim>
+        <DecoKey>guardoffice_1x1_floorpanel2</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>7</X>
+        <Y>1</Y>
+        <Anim>holdingcell_2x1_bunk1</Anim>
+        <DecoKey>Unique holdingcell 2x1 bunk1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>12</X>
+        <Y>14</Y>
+        <Anim>decor_sk_office_koipond1</Anim>
+        <DecoKey>SK office koi pond 2x2</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>3</X>
+        <Y>9</Y>
+        <Anim>decor_sk_office_pillar1</Anim>
+        <DecoKey>SK office pillar 1 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>11</X>
+        <Y>9</Y>
+        <Anim>decor_sk_office_pillar1</Anim>
+        <DecoKey>SK office pillar 1 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>12</X>
+        <Y>9</Y>
+        <Anim>decor_sk_office_planter2</Anim>
+        <DecoKey>SK office planter 2 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>3</X>
+        <Y>10</Y>
+        <Anim>decor_sk_office_planter2</Anim>
+        <DecoKey>SK office planter 2 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>11</X>
+        <Y>10</Y>
+        <Anim>decor_sk_office_planter1</Anim>
+        <DecoKey>SK office planter 1 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>2</X>
+        <Y>9</Y>
+        <Anim>decor_sk_office_planter1</Anim>
+        <DecoKey>SK office planter 1 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>13</X>
+        <Y>16</Y>
+        <Anim>decor_sk_office_planter1</Anim>
+        <DecoKey>SK office planter 1 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>1</X>
+        <Y>16</Y>
+        <Anim>decor_sk_office_planter1</Anim>
+        <DecoKey>SK office planter 1 1x1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>5</X>
+        <Y>10</Y>
+        <Anim>decor_sk_office_podium1</Anim>
+        <DecoKey>SK office podium 1 1x1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>9</X>
+        <Y>10</Y>
+        <Anim>decor_sk_office_podium1</Anim>
+        <DecoKey>SK office podium 1 1x1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>1</X>
+        <Y>13</Y>
+        <Anim>decor_sk_office_shelf2</Anim>
+        <DecoKey>SK office shelf 2 2x1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>1</X>
+        <Y>11</Y>
+        <Anim>decor_sk_office_tv1</Anim>
+        <DecoKey>SK office tv 1 2x1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>4</X>
+        <Y>12</Y>
+        <Anim>decor_sk_office_ceo_desk1</Anim>
+        <DecoKey>SK office ceo desk 1 2x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>7</X>
+        <Y>14</Y>
+        <Anim>decor_sk_office_cofeetable1</Anim>
+        <DecoKey>SK office cofee table 1 2x1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>8</X>
+        <Y>14</Y>
+        <Anim>decor_sk_office_couch1</Anim>
+        <DecoKey>SK office couch 1 2x1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>7</X>
+        <Y>12</Y>
+        <Anim>decor_sk_office_chair1</Anim>
+        <DecoKey>SK office chair 1 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>3</X>
+        <Y>15</Y>
+        <Anim>decor_sk_office_koipond1</Anim>
+        <DecoKey>SK office koi pond 2x2</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>5</X>
+        <Y>12</Y>
+        <Anim>decor_sk_office_lamp1</Anim>
+        <DecoKey>SK office lamp 1 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>11</X>
+        <Y>8</Y>
+        <Anim>decor_sk_office_wall_paintings2</Anim>
+        <DecoKey>SK office wall painting 2</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>3</X>
+        <Y>8</Y>
+        <Anim>decor_sk_office_wall_paintings3</Anim>
+        <DecoKey>SK office wall painting 3</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>1</X>
+        <Y>9</Y>
+        <Anim>decor_sk_office_wall_light1</Anim>
+        <DecoKey>SK office wall light 1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>13</X>
+        <Y>9</Y>
+        <Anim>decor_sk_office_wall_light1</Anim>
+        <DecoKey>SK office wall light 1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>13</X>
+        <Y>14</Y>
+        <Anim>decor_sk_office_wall_light1</Anim>
+        <DecoKey>SK office wall light 1</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>1</X>
+        <Y>15</Y>
+        <Anim>decor_sk_office_wall_light1</Anim>
+        <DecoKey>SK office wall light 1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>8</X>
+        <Y>17</Y>
+        <Anim>decor_sk_office_wall_light1</Anim>
+        <DecoKey>SK office wall light 1</DecoKey>
+        <Facing>6</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>6</X>
+        <Y>17</Y>
+        <Anim>decor_sk_office_wall_light1</Anim>
+        <DecoKey>SK office wall light 1</DecoKey>
+        <Facing>6</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>9</X>
+        <Y>17</Y>
+        <Anim>decor_sk_office_podium1</Anim>
+        <DecoKey>SK office podium 1 1x1</DecoKey>
+        <Facing>6</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>5</X>
+        <Y>17</Y>
+        <Anim>decor_sk_office_podium1</Anim>
+        <DecoKey>SK office podium 1 1x1</DecoKey>
+        <Facing>6</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>9</X>
+        <Y>16</Y>
+        <Anim>decor_sk_office_podium1</Anim>
+        <DecoKey>SK office podium 1 1x1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>5</X>
+        <Y>16</Y>
+        <Anim>decor_sk_office_podium1</Anim>
+        <DecoKey>SK office podium 1 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>8</X>
+        <Y>9</Y>
+        <Anim>guardoffice_1x1_floorpanel1</Anim>
+        <DecoKey>guardoffice_1x1_floorpanel1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>6</X>
+        <Y>9</Y>
+        <Anim>guardoffice_wallwindow1</Anim>
+        <DecoKey>Unique GuardOffice WallWindow1</DecoKey>
+        <Facing>6</Facing>
+      </MapDeco>
+    </Decos>
+    <Lights />
+    <Settings>
+      <SpawnGroups>
+        <SpawnGroup>
+          <m_name>ceo_target</m_name>
+          <m_spawnCount>1</m_spawnCount>
+          <m_spawnChance>1</m_spawnChance>
+        </SpawnGroup>
+        <SpawnGroup>
+          <m_name>ceo_bodyguard</m_name>
+          <m_spawnCount>1</m_spawnCount>
+          <m_spawnChance>1</m_spawnChance>
+        </SpawnGroup>
+      </SpawnGroups>
+    </Settings>
+    <MapType>Room</MapType>
+    <PrefabData>
+      <WeightFactor>1</WeightFactor>
+      <MinRlinks>1</MinRlinks>
+      <MatchTags>
+        <string>-tile</string>
+      </MatchTags>
+      <BurnTags>
+        <string>+burnt_wall_0</string>
+        <string>+burnt_wall_2</string>
+        <string>+burnt_wall_6</string>
+        <string>+burnt_wall_4</string>
+        <string>+burnt_floor</string>
+        <string>+soundbug</string>
+      </BurnTags>
+      <Tags>
+        <string>assassination</string>
+        <string>assassination_1</string>
+        <string>objective</string>
+      </Tags>
+    </PrefabData>
+  </MapData>
+</ToolDocument>

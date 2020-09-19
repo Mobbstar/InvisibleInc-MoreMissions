@@ -4,6 +4,10 @@ local function createGeneralMissionObj( txt, txt2 )
 	return string.format("> %s\n> %s", txt, txt2 or STRINGS.MISSIONS.ESCAPE.OBJECTIVE)
 end
 
+local function createGeneralSecondaryMissionObj()
+	return string.format("<c:777777>> %s</>", STRINGS.MISSIONS.ESCAPE.SECONDARY_OBJECTIVE)
+end
+
 local ESCAPE_MISSION_TAGS = {}
 
 local SITUATIONS =
@@ -21,7 +25,7 @@ local SITUATIONS =
         ui = {
 			insetImg = "gui/mission_debrief/unknown.png",
 			icon = "gui/mission_previews/unknown.png",
-			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJECTIVE_1 ),
+			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL ),
 		},
 	},
 	landfill =
@@ -32,6 +36,32 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_NANO_FAB ),
 		},
 	},
+	ea_hostage =
+	{
+        ui = {
+			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			icon = "gui/mission_previews/ea_hostage.png",
+			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_HOSTAGE ),
+		},
+	},
+	weapons_expo =
+	{
+        ui = {
+			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			icon = "gui/mission_previews/ea_hostage.png", --gun icon
+			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_OBJECTIVE ),
+		},
+	},	
+	
+	distress_call =
+	{
+        ui = {
+			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			icon = "gui/mission_previews/ea_hostage.png", --gun icon
+			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE ),
+			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY),
+		},
+	},				
 }
 
 --automated processing
