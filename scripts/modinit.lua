@@ -251,6 +251,8 @@ local function load( modApi, options, params )
 	modApi:addPrefabt(assassinationPrefabs)
 	local distressPrefabs = include( scriptPath .. "/prefabs/distress_call/prefabt" )
     modApi:addPrefabt(distressPrefabs)
+	local moleInsertionPrefabs = include( scriptPath .. "/prefabs/mole_insertion/prefabt" )
+	modApi:addPrefabt(moleInsertionPrefabs)
 	local weaponsExpoPrefabs = include( scriptPath .. "/prefabs/weaponsexpo/prefabt" )
     modApi:addPrefabt(weaponsExpoPrefabs)	
 

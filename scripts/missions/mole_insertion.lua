@@ -125,4 +125,9 @@ function mission:init( scriptMgr, sim )
 	scriptMgr:addHook( "dead_witness", witnessDied)
 end
 
+function mission.pregeneratePrefabs( cxt, tagSet )
+    escape_mission.pregeneratePrefabs( cxt, tagSet )
+    table.insert( tagSet[1], "moleinsertion" )
+end
+
 return mission
