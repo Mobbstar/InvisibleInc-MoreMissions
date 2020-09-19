@@ -54,6 +54,9 @@ return {
 
 		ITEMS_IN_STORE = "ITEMS IN STORES",
 		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",
+
+		SIDEMISSIONS = "SIDE MISSIONS",
+		SIDEMISSIONS_TIP = "Enable new side missions",		
 	},
 
 	PROPS =
