@@ -58,18 +58,12 @@ local npc_templates =
 			heartMonitor = "enabled",
 			enforcer = false,
 			dashSoundRange = 8,
-			-- cashOnHand = 0, 
+			cashOnHand = 200,
 			ko_trigger = "intimidate_guard",
 			kill_trigger = "guard_dead",
 			vip = true, --This flag is important for the panic behaviour
 			pacifist = true,
 			recap_icon = "executive",
-			bounty = 1200,
-			corpseTemplate = { --reward for dead currently needs to be set explicitly -M
-				traits = {
-					bounty = 1200,
-				},
-			}
 		},
 		dropTable =
 		{

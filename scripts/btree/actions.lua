@@ -23,13 +23,20 @@ function Actions.mmRequestNewPanicTarget( sim, unit )
 
 	local x0,y0 = unit:getLocation()
 	local cells = sim:getCells( "saferoom" )
+	local doorCell = sim:getCells( "saferoom_door" ) and sim:getCells( "saferoom_door" )[1]
 	local targetCell = nil
 
 	if cells then
 		cells = util.tdupe( cells )
 		local function isInvalidHuntCell(c)
-			-- Want open cells not near the CEO's current position
-			return c.impass > 0 or (math.abs(c.x - x0) <= 2 and math.abs(c.y - y0) <= 2)
+			return (
+				-- open cells
+				c.impass > 0
+				-- not near the CEO's current position
+				or (math.abs(c.x - x0) <= 2 and math.abs(c.y - y0) <= 2)
+				-- not at the door (don't accidentally open the door to peek)
+				or (doorCell and c.x == doorCell.x and c.y == doorCell.y)
+			)
 		end
 		array.removeIf( cells, isInvalidHuntCell )
 

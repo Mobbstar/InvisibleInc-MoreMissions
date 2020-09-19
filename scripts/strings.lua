@@ -161,9 +161,10 @@ return {
 
 	MISSIONS = {
 		ASSASSINATION = {
-		    OBJ_FIND = "Locate the target",
-		    OBJ_KILL = "Disable the target",
-		    OBJ_DRAG = "Extract the target",
+			OBJ_FIND = "Locate the target",
+			OBJ_KILL = "Eliminate the target",
+			OBJ_UNLOCK = "Unlock the secure door",
+			SECUREDOOR_TIP = "UNLOCK USING AUTHORIZED BODY",
 		},
 		MOLE = {
 		    OBJ_KILL_WITNESS = "Kill any eyewitnesses",
@@ -331,8 +332,29 @@ return {
 						"moremissions/VoiceOver/Central/assassination/seen1",
 						"Central"}},
 				},
+				DOOR_SIGHTED = {
+					{
+						{"Interesting. Our target has prepared a secure room. Both the target and his bodyguard should have the codes to this door.",
+							nil,
+							"Central"},
+						{"We don't have time to extract the codes, so you'll need to drag one of them up to the door. Their bodies should also deactivate the lasers as you pass.",
+							nil,
+							"Central"},
+					},
+				},
+				DOOR_UNLOCKED = {
+					{{"Good work, now let's see what he has in here.",
+						nil,
+						"Central"}},
+				},
+				KO = {
+					{{"We don't earn partial credit here, operator. Find a way to finish the job.",
+						nil,
+						"Central"}},
+				},
 				AFTERMATH = {
-					{{"So far, so good. Now make sure not to bump into any rival assassins on your way out.",
+					-- "Now make sure not to bump into any rival assassins on your way out."
+					{{"So far, so good. Get our agents out of there and we can collect from the client.",
 						"moremissions/VoiceOver/Central/assassination/aftermath0",
 						"Central"}},
 				},

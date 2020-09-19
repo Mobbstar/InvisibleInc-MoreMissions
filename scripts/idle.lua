@@ -5,7 +5,10 @@ local oldGeneratePatrolPath = IdleSituation.generatePatrolPath
 function IdleSituation:generatePatrolPath( unit, x0, y0, noPatrolCheck )
 	assert( unit:getBrain():getSituation() == self )
 
-	if not unit:getTraits().mm_nopatrolchange then
-		oldGeneratePatrolPath( self, unit, x0, y0, noPatrolCheck )
+	-- With nopatrolchange, reject attempts to replace an existing patrol route with a newly generated one.
+	if unit:getTraits().mm_nopatrolchange and unit:getTraits().patrolPath then
+		return
 	end
+
+	oldGeneratePatrolPath( self, unit, x0, y0, noPatrolCheck )
 end
