@@ -16,7 +16,9 @@
         <ExitID>0</ExitID>
         <RoomID>0</RoomID>
         <UserFlags>0</UserFlags>
-        <Tags />
+        <Tags>
+          <string>personneldb_nearby</string>
+        </Tags>
         <MatchTags />
         <BurnTags />
         <PrefabTag />
@@ -34,7 +36,10 @@
         <ExitID>0</ExitID>
         <RoomID>0</RoomID>
         <UserFlags>0</UserFlags>
-        <Tags />
+        <Tags>
+          <string>personneldb_door</string>
+          <string>personneldb_nearby</string>
+        </Tags>
         <MatchTags />
         <BurnTags />
         <PrefabTag />
@@ -52,7 +57,9 @@
         <ExitID>0</ExitID>
         <RoomID>0</RoomID>
         <UserFlags>0</UserFlags>
-        <Tags />
+        <Tags>
+          <string>personneldb_nearby</string>
+        </Tags>
         <MatchTags />
         <BurnTags />
         <PrefabTag />
@@ -490,7 +497,9 @@
         <ExitID>0</ExitID>
         <RoomID>0</RoomID>
         <UserFlags>0</UserFlags>
-        <Tags />
+        <Tags>
+          <string>personneldb_nearby</string>
+        </Tags>
         <MatchTags />
         <BurnTags />
         <PrefabTag />
@@ -508,7 +517,9 @@
         <ExitID>0</ExitID>
         <RoomID>0</RoomID>
         <UserFlags>0</UserFlags>
-        <Tags />
+        <Tags>
+          <string>personneldb_nearby</string>
+        </Tags>
         <MatchTags />
         <BurnTags />
         <PrefabTag />
@@ -1559,12 +1570,14 @@
       <MapUnit>
         <X>4</X>
         <Y>1</Y>
-        <UnitKey>public terminal</UnitKey>
-        <Template>public_terminal</Template>
+        <UnitKey>detention processor</UnitKey>
+        <Template>detention_processor</Template>
         <UnitData>facing = 2</UnitData>
         <SpawnWeight>1</SpawnWeight>
         <SpawnTag />
-        <Tags />
+        <Tags>
+          <string>personneldb</string>
+        </Tags>
         <BStates />
       </MapUnit>
     </Units>

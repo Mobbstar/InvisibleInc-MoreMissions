@@ -10,6 +10,10 @@ local tiles =
         y = 5,
         zone = [[terminals2]],
         variant = 2,
+        tags =
+        {
+            "personneldb_nearby",
+        },
         impass = 1,
         cover = 1,
     },
@@ -18,12 +22,21 @@ local tiles =
         y = 5,
         zone = [[terminals2]],
         variant = 3,
+        tags =
+        {
+            "personneldb_door",
+            "personneldb_nearby",
+        },
     },
     {
         x = 3,
         y = 5,
         zone = [[terminals2]],
         variant = 2,
+        tags =
+        {
+            "personneldb_nearby",
+        },
         impass = 1,
         cover = 1,
     },
@@ -178,6 +191,10 @@ local tiles =
         y = 5,
         zone = [[terminals2]],
         variant = 2,
+        tags =
+        {
+            "personneldb_nearby",
+        },
         impass = 1,
         cover = 1,
     },
@@ -186,6 +203,10 @@ local tiles =
         y = 5,
         zone = [[terminals2]],
         variant = 2,
+        tags =
+        {
+            "personneldb_nearby",
+        },
         impass = 1,
         cover = 1,
     },
@@ -1013,6 +1034,10 @@ local units =
                 unitData =
                 {
                     facing = 2,
+                    tags =
+                    {
+                        "personneldb",
+                    },
                 },
             },
             1,
