@@ -1,0 +1,3928 @@
+<?xml version="1.0"?>
+<configuration>
+  <units>
+    <unit name="Passcard" template="passcard"/>
+    <unit name="Note" template="note"/>
+    <unit name="Poster" template="poster"/>
+	
+    <unit name="DLC - switch" template="lock_switch" tileflags="16">          
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+
+    <unit name="DLC - Flash Pack" template="item_flash_pack"/>
+    <unit name ="Radio" template="item_radio"/>
+    <unit name="NPC Guard" template="npc_guard" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+    <unit name="Important Guard" template="important_guard" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+    <unit name="Important Drone" template="important_drone" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+    <unit name="NPC Guard Enforcer" template="npc_guard_enforcer" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 1"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 3"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 5"/>
+      <variant data="facing = 6"/>
+      <variant data="facing = 7"/>	  
+    </unit>
+    <unit name="NPC PSI-BALL" template="npc_plastek_eye" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 1"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 3"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 5"/>
+      <variant data="facing = 6"/>
+      <variant data="facing = 7"/>    
+    </unit>
+    <unit name="KO guard" template="ko_guard" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 1"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 3"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 5"/>
+      <variant data="facing = 6"/>
+      <variant data="facing = 7"/>	  
+    </unit>   
+
+    <unit name="KO guard 2" template="ko_guard_tier2" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 1"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 3"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 5"/>
+      <variant data="facing = 6"/>
+      <variant data="facing = 7"/>	  
+    </unit>   
+	
+   <unit name="KO SPEC OPS" template="ko_specops" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 1"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 3"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 5"/>
+      <variant data="facing = 6"/>
+      <variant data="facing = 7"/>	  
+    </unit>   
+
+    <unit name="KO heavy guard" template="ko_guard_heavy" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 1"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 3"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 5"/>
+      <variant data="facing = 6"/>
+      <variant data="facing = 7"/>	  
+    </unit>   	
+	
+    <unit name="FTM scanner" template="ftm_scanner" tileflags="16">
+      <variant data="facing = 0, traits = { startOn = true }"/>
+      <variant data="facing = 2, traits = { startOn = true }"/>
+      <variant data="facing = 4, traits = { startOn = true }"/>
+      <variant data="facing = 6, traits = { startOn = true }"/>
+    </unit>	
+
+    <unit name="FTM PWR drain node" template="ftm_power_reversal" tileflags="16">
+      <variant data="facing = 0, traits = { startOn = true }"/>
+      <variant data="facing = 2, traits = { startOn = true }"/>
+      <variant data="facing = 4, traits = { startOn = true }"/>
+      <variant data="facing = 6, traits = { startOn = true }"/>
+    </unit>	
+	
+    <unit name="SA drone" template="drone" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 1"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 3"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 5"/>
+      <variant data="facing = 6"/>
+      <variant data="facing = 7"/>	  
+    </unit>   
+    <unit name="SA Akuma Drone" template="drone_akuma" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 1"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 3"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 5"/>
+      <variant data="facing = 6"/>
+      <variant data="facing = 7"/>	  
+    </unit>   	
+    <unit name="DUMMY Guard" template="dummy_guard" team="1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>	
+    <unit name="Tutorial Agent" template="sharpshooter_1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 1"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 3"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 5"/>
+      <variant data="facing = 6"/>
+      <variant data="facing = 7"/>	  
+    </unit>   
+    <unit name="Turret" template="turret" tileflags="16">
+      <variant data="facing = 0, traits = { startOn = true }"/>
+      <variant data="facing = 1, traits = { startOn = true }"/>
+      <variant data="facing = 2, traits = { startOn = true }"/>
+      <variant data="facing = 3, traits = { startOn = true }"/>	  
+      <variant data="facing = 4, traits = { startOn = true }"/>
+      <variant data="facing = 5, traits = { startOn = true }"/>	  
+      <variant data="facing = 6, traits = { startOn = true }"/>
+      <variant data="facing = 7, traits = { startOn = true }"/>
+    </unit>
+    <unit name="Turret Generator" template="turret_generator" tileflags="16">
+      <variant data="facing = 0, traits = { startOn = true }"/>
+      <variant data="facing = 2, traits = { startOn = true }"/>
+      <variant data="facing = 4, traits = { startOn = true }"/>
+      <variant data="facing = 6, traits = { startOn = true }"/>
+    </unit>
+    <unit name="Laser Generator" template="laser_generator" tileflags="16">
+      <variant data="facing = 0, traits = { startOn = true }"/>
+      <variant data="facing = 2, traits = { startOn = true }"/>
+      <variant data="facing = 4, traits = { startOn = true }"/>
+      <variant data="facing = 6, traits = { startOn = true }"/>
+    </unit>
+    <unit name="Laser Emitter" template="security_laser_emitter_1x1">
+      <variant data="facing = 0, traits = { startOn = true }"/>
+      <variant data="facing = 2, traits = { startOn = true }"/>
+      <variant data="facing = 4, traits = { startOn = true }"/>
+      <variant data="facing = 6, traits = { startOn = true }"/>
+    </unit>   
+    <unit name="Infrared Emitter" template="security_infrared_emitter_1x1">
+      <variant data="facing = 0, traits = { startOn = true }"/>
+      <variant data="facing = 2, traits = { startOn = true }"/>
+      <variant data="facing = 4, traits = { startOn = true }"/>
+      <variant data="facing = 6, traits = { startOn = true }"/>
+    </unit> 
+    <unit name="Infrared wall Emitter" template="security_infrared_wall_emitter_1x1">
+      <variant data="facing = 0, traits = { startOn = true }"/>
+      <variant data="facing = 2, traits = { startOn = true }"/>
+      <variant data="facing = 4, traits = { startOn = true }"/>
+      <variant data="facing = 6, traits = { startOn = true }"/>
+    </unit> 	
+    <unit name="Camera Database" template="camera_core" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>    
+    <unit name="Data Core" template="data_core" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>    
+    <unit name="Facility Database" template="map_core" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit> 
+    <unit name="Daemon Database" template="daemon_core" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit> 
+     <unit name="Routing Core" template="routing_core" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>   
+    <unit name="Item Store" template="item_store" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+    <unit name="Mini Server Terminal" template="mini_server_terminal" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>    
+    <unit name="Item Store LARGE" template="item_store_large" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>   	
+     <unit name="Bank Access" template="bank_access" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>   
+     <unit name="Trading Market" template="trading_market" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>   
+    <unit name="Captured Hostage" template="hostage_capture" >
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+    <unit name="Captured Engineer" template="engineer_capture" >
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+    <unit name="Neutral Agent" template="neutral_agent" >
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+    <unit name="Lab Safe" template="lab_safe" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>   
+    <unit name="Guard Locker" template="guard_locker" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>       
+    <unit name="Console Database" template="console_core" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit> 
+    <unit name="Black Level Console" template="black_level_console" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit> 
+     <unit name="Red Level Console" template="red_level_console" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit> 
+    <unit name="Final Console" template="final_console" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit> 
+    <unit name="Root Access Console" template="ending_jackin" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit> 
+     <unit name="Yellow Level Console" template="yellow_level_console" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit> 
+    <unit name="Camera" template="security_camera_1x1">
+      <variant data="facing = 0"/>
+      <variant data="facing = 1"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 3"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 5"/>
+      <variant data="facing = 6"/>
+      <variant data="facing = 7"/>	  
+    </unit>
+    <unit name="Sound Bug" template="security_soundBug_1x1"/>
+	
+    <unit name="Console" template="console" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+	
+    <unit name="server terminal" template="server_terminal" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+
+    <unit name="detention processor" template="detention_processor" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+	
+    <unit name="cell door" template="cell_door" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>	
+	
+    <unit name="public terminal" template="public_terminal" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>	
+	
+	
+	  <unit name="vault processor" template="vault_processor" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+	
+      <unit name="Vault safe 1" template="vault_safe_1" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+
+	
+      <unit name="Vault safe 2" template="vault_safe_2" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+      <unit name="Vault safe 3" template="vault_safe_3" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>	
+
+    <unit name="Augment Grafter" template="augment_grafter" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+
+    <unit name="Augment Drill" template="augment_drill" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>    
+
+    <unit name="Final Terminal" template="final_terminal" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>    
+
+    <unit name="Inhibitor Charger" template="inhibitor_charger" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>   
+
+    <unit name="Prisoner" template="prisoner_capture" >
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+
+    <unit name="Business man" template="npc_business_man">
+      <variant data="facing = 0"/>
+      <variant data="facing = 1"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 3"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 5"/>
+      <variant data="facing = 6"/>
+      <variant data="facing = 7"/>    
+    </unit>
+
+    <unit name="Research Console" template="research_processor" >
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+
+    <unit name="Ammo" template="item_clip"/>
+    <unit name="pistol" template="item_light_pistol"/>
+    <unit name="dartgun" template="item_dartgun"/>
+    <unit name="ammo dartgun" template="item_dartgun_ammo"/>
+    <unit name="corp data" template="item_corpdata"/>
+
+    <unit name="power core" template="power_core" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>    
+
+    <unit name="FTM Router" template="ftm_router" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit> 
+
+    <unit name="Data Bank" template="data_node" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>   
+
+    <unit name="Transformer Terminal" template="transformer_terminal" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>        
+
+     <unit name="Refit Drone Capture" template="refit_drone_capture" tileflags="16">   
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>     
+
+    <unit name="Diagnostic Terminal" template="diagnostic_terminal" tileflags="16">   
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>     
+
+    <unit name="Research Security Terminal" template="research_security_processor" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>
+  
+    <unit name="research security door" template="research_security_door" tileflags="16">
+      <variant data="facing = 0"/>
+      <variant data="facing = 2"/>
+      <variant data="facing = 4"/>
+      <variant data="facing = 6"/>
+    </unit>     
+  
+
+  </units>
+  
+  <decos>
+
+    
+     <deco name ="exit arrows" anim="decor_elevator_arrows" facings="85"/>
+
+
+<!--  
+==============================================================================================
+FTM_Office PROPS 
+==============================================================================================
+-->
+
+
+
+    <deco name="RANDOM FTM Hall Painting" anim="ftm_hall_painting1" skin="FTM_hall_painting" facings="85">
+      <tag name="skin"/>
+    </deco>
+    <deco name="RANDOM FTM Office Painting" anim="ftm_office_paintings1" skin="FTM_office_painting" facings="85">
+      <tag name="skin"/>
+    </deco>
+    <deco name="RANDOM FTM Office File Cabinet" anim="ftm_Office_1x1_verticalfilecabinet1" skin="FTM_office_filecabinet" facings="85">
+      <tag name="skin"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+</deco>
+		
+    <deco name="FTM office coffetable" anim="ftm_office_2x1_coffee_table" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office couch" anim="ftm_office_2x1_couch" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+	<tile x="-1" y="0"/>
+    </deco>	
+	    
+
+    <deco name="FTM office sidetable1" anim="ftm_office_1x1_side_table1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+	    
+    <deco name="FTM office sidetable2" anim="ftm_office_1x1_side_table2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office sidetable3" anim="ftm_office_1x1_side_table3" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office sidetable4" anim="ftm_office_1x1_side_table4" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office sidetable5" anim="ftm_office_1x1_side_table5" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office chair1" anim="ftm_office_1x1_chair_1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office closet1" anim="ftm_office_1x1_closet_1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM office shortbookshelf" anim="ftm_office_2x1_Bookshelf" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco>	
+	    
+    <deco name="FTM office PrinterSidetable1" anim="ftm_Office_1x1_PrinterSideTable" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    	    
+    <deco name="FTM office walllight" anim="ftm_office_walllight1" facings="85"/>
+
+	    
+    <deco name="FTM office coffeetable1" anim="ftm_office_2x1_coffee_table" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office coffeetable2" anim="ftm_office_2x1_coffee_table2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office coffeetable2_items1" anim="ftm_office_2x1_coffee_table2_items1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+     <tile x="-1" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office couch" anim="ftm_office_2x1_couch" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco>	
+	    
+    <deco name="FTM office desk3 items1" anim="ftm_office_object_2x2ldesk3_items1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco>	
+	    
+    <deco name="FTM office desk1 items2" anim="ftm_office_2x1_desk1_items2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco>	
+	    
+    <deco name="FTM office desk2 items1" anim="ftm_office_2x1_desk2_items1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco>	
+	    
+    <deco name="FTM office desk2 items2" anim="ftm_office_2x1_desk2_items2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco>	
+	    
+    <deco name="FTM office verticalfilecabinet1" anim="ftm_Office_1x1_verticalfilecabinet1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office verticalfilecabinet2" anim="ftm_Office_1x1_verticalfilecabinet2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office verticalfilecabinet3" anim="ftm_Office_1x1_verticalfilecabinet3" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office verticalfilecabinet4" anim="ftm_Office_1x1_verticalfilecabinet4" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office verticalfilecabinet5" anim="ftm_Office_1x1_verticalfilecabinet5" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office filecart" anim="ftm_Office_1x1_filecart" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office planter2" anim="ftm_office_planter_2_2x1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+	<tile x="-1" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office benchtable" anim="ftm_office_benchtable1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+	        <tile x="-1" y="0"/>
+    </deco>	
+	    
+    <deco name="FTM office horizontalcabinet" anim="ftm_office_horizontalfilecabinet1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+	        <tile x="-1" y="0"/>
+    </deco>	
+	    														    	 	 	   	 	 	   	 	 	   	 	 	    	 	 	    	 	 	    	    	    
+    <deco name="FTM office wallscreen1" anim="ftm_office_decor_wallmap1" facings="85"/>
+
+
+	    														    	 	 	   	 	 	   	 	 	   	 	 	    	 	 	    	 	 	    	    	    
+    <deco name="FTM office banner" anim="ftm_office_ftmbanner1" facings="85"/>
+      
+        														    	 	 	   	 	 	   	 	 	   	 	 	    	 	 	    	 	 	    	    	    
+    <deco name="FTM office paintings1" anim="ftm_office_paintings1" facings="85"/>
+							    	 	 	   	 	 	   	 	 	   	 	 	    	 	 	    	 	 	    	    	    
+    <deco name="FTM office paintings2" anim="ftm_office_paintings2" facings="85"/>
+											    	 	 	   	 	 	   	 	 	   	 	 	    	 	 	    	 	 	    	    	    
+    <deco name="FTM office vent1" anim="ftm_office_vent1" facings="85"/>
+
+
+    <deco name="FTM office BoardroomTable" anim="ftm_Office_2x3_BoardroomTable" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+	<tile x="-1" y="0"/>
+	<tile x="-2" y="0"/>
+	 <tile x="0" y="-1"/>
+	<tile x="-1" y="-1"/>
+	<tile x="-2" y="-1"/>
+    </deco>	
+
+    <deco name="FTM chair1" anim="ftm_office_1x1_chair_1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM planter" anim="ftm_office_1x1_planter" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM office desk3" anim="decor_ftm_office_object_2x1desk3" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+
+    <deco name="FTM tv camera" anim="ftm_Office_1x1_tvcamera" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+
+
+    <deco name="FTM elevator panel" anim="ftm_elevator_panel" facings="85"/>
+
+
+
+<!--  
+==============================================================================================
+FTM HALL PROPS 
+==============================================================================================
+-->												    	 	 	   	 	 	   	 	 	   	 	 	    	 	 	    	 	 	    	    	    
+    <deco name="FTM hall curtains1" anim="ftm_hall_curtains1" facings="85">
+		<match name="-burnt_wall"/>	
+		<burn name="+burnt_wall"/>	
+    </deco>
+
+
+    <deco name="FTM hall ottoman1" anim="ftm_hall_ottoman1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	 	 	    	 	 	    	    	    
+    <deco name="FTM hall painting1" anim="ftm_hall_painting1" facings="85">
+		<match name="-burnt_wall"/>	
+		<burn name="+burnt_wall"/>		  
+    </deco>
+	 	 	    	 	 	    	    	    
+    <deco name="FTM hall painting2" anim="ftm_hall_painting2" facings="85">
+		<match name="-burnt_wall"/>	
+		<burn name="+burnt_wall"/>		  
+    </deco>
+	 	 	    	 	 	    	    	    
+    <deco name="FTM hall painting3" anim="ftm_hall_painting3" facings="85">
+		<match name="-burnt_wall"/>	
+		<burn name="+burnt_wall"/>		  
+    </deco>
+	 	 	    	 	 	    	    	    
+    <deco name="FTM hall painting4" anim="ftm_hall_painting4" facings="85">
+		<match name="-burnt_wall"/>	
+		<burn name="+burnt_wall"/>		  
+    </deco>
+	 	 	    	 	 	    	    	    
+    <deco name="FTM hall painting5" anim="ftm_hall_painting5" facings="85">
+		<match name="-burnt_wall"/>	
+		<burn name="+burnt_wall"/>		  
+    </deco>
+	 	 	    	 	 	    	    	    
+    <deco name="FTM hall walllight1" anim="ftm_hall_walllight1" facings="85">
+		<match name="-burnt_wall"/>	
+		<burn name="+burnt_wall"/>		  
+    </deco>
+
+    <deco name="FTM hall chair1" anim="ftm_hall_chair1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM hall plant1" anim="ftm_hall_plant1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tag name="sightblock"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM hall plant2" anim="ftm_hall_plant2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tag name="sightblock"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM hall sculpt1" anim="ftm_hall_sculpt1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM hall sculpt2" anim="ftm_hall_sculpt2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM hall sculpt3" anim="ftm_hall_sculpt3" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM hall sidetable1" anim="ftm_hall_sidetable1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM hall sidetable2" anim="ftm_hall_sidetable2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM hall bookshelf" anim="ftm_hall_bookshelf" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tag name="sightblock"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM hall couch1" anim="ftm_hall_couch1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+     <tile x="-1" y="0"/>
+    </deco>	
+
+
+<!--  
+==============================================================================================
+FTM LAB 
+==============================================================================================
+-->
+
+	 	 	    	 	 	    	    	    
+    <deco name="FTM lab bulletinboard1" anim="ftm_lab_bulletinboard1" facings="85"/>
+    	 	 	    	    	    
+    <deco name="FTM lab cabinet1" anim="ftm_lab_cabinet1" facings="85"/>
+	 	 	    	 	 	    	    	    
+    <deco name="FTM lab coats" anim="ftm_lab_coats" facings="85"/>
+	 	 	    	 	 	    	    	    
+    <deco name="FTM lab paintings1" anim="ftm_lab_paintings2" facings="85"/>
+	 	 	    	    	    
+    <deco name="FTM lab picture1" anim="ftm_lab_picture1" facings="85"/>
+	 	    	    	    
+    <deco name="FTM lab poster1" anim="ftm_lab_poster1" facings="85"/>
+
+    <deco name="FTM lab postgizmo" anim="ftm_lab_postgizmo1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	 	 	    	 	 	    	    	    
+    <deco name="FTM lab sink1" anim="ftm_lab_sink1" facings="85"/>
+
+    <deco name="FTM lab trashcan1" anim="ftm_lab_trashcan1" facings="85">
+      <tag name="lab"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM lab wallblackboard1" anim="ftm_lab_wallblackboard1" facings="85"/>
+
+    <deco name="FTM lab wallgizmo1" anim="ftm_lab_wallgizmo1" facings="85">
+      <tile x="0" y="0"/>
+      <sound name="Objects/wallpump"/>    
+    </deco>
+
+    <deco name="FTM lab closet1" anim="ftm_lab_closet1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tag name="sightblock"/>
+      <tile x="0" y="0"/>
+
+    </deco>	
+
+    <deco name="FTM lab gear1" anim="ftm_lab_gear1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+     <sound name="Objects/FTM/gear_1"/>    
+    </deco>	
+	 	 	    		 	 	    		 	 	    		 	 	    	
+    <deco name="FTM lab gear2" anim="ftm_lab_gear2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <sound name="Objects/FTM/gear_2"/>    
+    </deco>	
+
+    <deco name="FTM lab gear3" anim="ftm_lab_gear3" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <sound name="Objects/FTM/gear_3"/>    
+    </deco>	
+
+    <deco name="FTM lab stool1" anim="ftm_lab_stool1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM lab stool2" anim="ftm_lab_stool2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM lab blackboard2" anim="ftm_lab_blackboard2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>		 	 	    	 	 	    	 	 	    	 	 	    
+
+    <deco name="FTM lab console1" anim="ftm_lab_console1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/> 
+    </deco>		 	 	    	 	 	    	 	 	    	 	 	    
+
+    <deco name="FTM lab console2" anim="ftm_lab_console2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+	 <tile x="-1" y="0"/>
+    </deco>		 	 
+
+    <deco name="FTM lab console3" anim="ftm_lab_console3" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>		 	 
+
+    <deco name="FTM lab horizontalfilecabinet1" anim="ftm_lab_horizontalfilecabinet1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>		 	 
+
+    <deco name="FTM lab horizontalfilecabinet1_items1" anim="ftm_lab_horizontalfilecabinet1_items1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>		 	 
+
+    <deco name="FTM lab steeltable1" anim="ftm_lab_steeltable1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>		 	 
+
+    <deco name="FTM lab steeltable2" anim="ftm_lab_steeltable2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>		 	 
+
+    <deco name="FTM lab table1_items1" anim="ftm_lab_table1_items1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+      <tile x="0" y="-1"/>
+      <tile x="-1" y="-1"/>
+    </deco>		 	 
+
+    <deco name="FTM lab table1_items2" anim="ftm_lab_table1_items2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+      <tile x="0" y="-1"/>
+      <tile x="-1" y="-1"/>
+    </deco>		 	 
+
+    <deco name="FTM lab table1_items3" anim="ftm_lab_table1_items3" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+      <tile x="0" y="-1"/>
+      <tile x="-1" y="-1"/>
+    </deco>		 	 
+
+
+
+<!--  
+==============================================================================================
+FTM SECURITY PROPS 
+==============================================================================================
+-->
+
+
+
+    <deco name="FTM security bulletinboard1" anim="ftm_security_bulletinboard1" facings="85"/>
+    <deco name="FTM security mapscreen1" anim="ftm_security_mapscreen1" facings="85"/>
+    <deco name="FTM security securitypanel1" anim="ftm_security_securitypanel1" facings="85"/>
+    <deco name="FTM security uniform shirts on hook" anim="ftm_security_uniformshirtsonhook" facings="85"/>
+
+    <deco name="FTM security wallbox1" anim="ftm_security_wallbox1" facings="85"/>
+    <deco name="FTM security wallbox2" anim="ftm_security_wallbox2" facings="85"/>
+    <deco name="FTM security wallscreen1" anim="ftm_security_wallscreen1" facings="85"/>    
+
+    <deco name="FTM security cabinet" anim="ftm_security_1x1cabinet" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM security filing cabinet" anim="ftm_security_1x1filingcabinet" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM security gear1" anim="ftm_security_1x1gear1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM security gear2" anim="ftm_security_1x1gear2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM security interrogation table1" anim="ftm_security_1x1interrogationtable1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+      <tile x="0" y="-1"/>
+      <tile x="-1" y="-1"/>
+    </deco>	
+
+    <deco name="FTM security locker" anim="ftm_security_1x1locker" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tag name="sightblock"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM security shelf" anim="ftm_security_1x1shelf" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM security watercooler" anim="ftm_security_1x1watercooler" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM security woodenstool" anim="ftm_security_1x1woodenstool" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="FTM security bench" anim="ftm_security_bench" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+
+    <deco name="FTM security bench with towel" anim="ftm_security_bench_withtowel" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+            <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+
+    <deco name="FTM security console1" anim="ftm_security_console1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+	<tile x="-1" y="0"/>
+    </deco>	
+
+    <deco name="FTM security console2" anim="ftm_security_console2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+
+    <deco name="FTM security steeltable1" anim="ftm_security_steeltable1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+            <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+
+
+
+
+<!--  
+==============================================================================================
+K&O PROPS 
+==============================================================================================
+-->
+
+    <deco name="RANDOM KO Hall Painting" anim="decor_ko_hall_picture1" skin="KO_hall_painting" facings="85">
+      <tag name="skin"/>
+    </deco>
+    <deco name="RANDOM KO Office Painting" anim="decor_ko_office_picture1" skin="KO_office_painting" facings="85">
+      <tag name="skin"/>
+    </deco>
+    <deco name="RANDOM KO Lab Tech" anim="decor_ko_lab_wallbox1" skin="KO_lab_tech" facings="85">
+      <tag name="skin"/>
+    </deco>
+
+<deco name ="KO office picture1" anim="decor_ko_office_picture1" facings="85"/> 
+<deco name ="KO office picture2" anim="decor_ko_office_picture2" facings="85"/> 
+<deco name ="KO office picture3" anim="decor_ko_office_picture3" facings="85"/> 
+<deco name ="KO office picture4" anim="decor_ko_office_picture4" facings="85"/> 
+<deco name ="KO office wallshield1" anim="decor_ko_office_wallshield1" facings="85"/> 
+
+     <deco name ="KO office flag1 1x1" anim="decor_ko_office_flag1" facings="85">
+	<tag name="impass"/>
+      <tile x="0" y="0"/>
+    </deco> 
+	<deco name ="KO office lamp 1x1" anim="decor_ko_office_lamp" facings="85">
+	<tag name="impass"/>
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name="KO office chair1 1x1" anim="decor_ko_office_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="0" y="0"/>
+    </deco>
+    <deco name="KO office chest1 1x1" anim="decor_ko_office_chest1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="0" y="0"/>
+    </deco>	
+    <deco name="KO office filecabinet1 1x1" anim="decor_ko_office_filecabinet1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="0" y="0"/>
+    </deco>
+    <deco name="KO office globe1 1x1" anim="decor_ko_office_globe1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="0" y="0"/>
+    </deco>
+    <deco name="KO office planter1 1x1" anim="decor_ko_office_planter1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="0" y="0"/>
+    </deco>	
+    <deco name="KO office podium1 1x1" anim="decor_ko_office_podium1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="0" y="0"/>
+    </deco>	
+    <deco name="KO office bookshelf1 2x1" anim="decor_ko_office_bookshelf1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+	<tag name="sightblock"/>
+      <tile x="0" y="0"/>	
+      <tile x="-1" y="0"/>
+    </deco>		
+    <deco name="KO office bookshelf2 2x1" anim="decor_ko_office_bookshelf2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+	<tag name="sightblock"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>			
+    <deco name="KO office couch1 2x1" anim="decor_ko_office_couch1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+    <deco name="KO office couch2 2x2" anim="decor_ko_office_couch2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	      
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+      <tile x="0" y="-1"/>
+      <tile x="-1" y="-1"/>
+    </deco>		
+    <deco name="KO office desk1 2x1" anim="decor_ko_office_desk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>
+    <deco name="KO office desk2 2x1" anim="decor_ko_office_desk2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+    <deco name="KO office glass1 2x1" anim="decor_ko_office_glasscabinet1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>		
+    <deco name="KO office cabinet1 2x1" anim="decor_ko_office_cabinet1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+	<tag name="sightblock"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>		
+
+
+
+	<deco name ="KO lab wallbox 1" anim="decor_ko_lab_wallbox1" facings="85"/> 
+	<deco name ="KO lab wall ladder 1" anim="decor_ko_lab_wallladder1" facings="85"/> 
+	<deco name ="KO lab wall pannel 1" anim="decor_ko_lab_wallpanel1" facings="85"/> 
+
+     <deco name ="KO lab barrel 1 1x1" anim="decor_ko_lab_barrel1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="KO lab buckets 1 1x1" anim="decor_ko_lab_buckets1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="KO lab case 1 1x1" anim="decor_ko_lab_case1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="KO lab tall case 1 1x1" anim="decor_ko_lab_tallcase1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+	<tag name="sightblock"/>
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="KO lab rockets 1 1x1" anim="decor_ko_lab_rockets1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+	
+	
+     <deco name ="KO lab cabinet 1 1x1" anim="decor_ko_lab_cabinet1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="KO lab cabinet screen 1 1x1" anim="decor_ko_lab_cabinetscreen1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="KO lab console 1 1x1" anim="decor_ko_lab_console1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="KO lab crane 1 1x1" anim="decor_ko_lab_crane1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="KO lab locker 1 1x1" anim="decor_ko_lab_locker1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="KO lab machine 1 1x1" anim="decor_ko_lab_machine1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="KO lab pillar 1 1x1" anim="decor_ko_lab_pillar1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="KO lab welding gear 1 1x1" anim="decor_ko_lab_weldinggear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco>
+    <deco name ="KO lab catwalk 1 2x1" anim="decor_ko_lab_catwalk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>
+    
+    <deco name ="KO lab long case 1 2x1" anim="decor_ko_lab_longcase1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>
+    <deco name ="KO lab rocket bench 1 2x1" anim="decor_ko_lab_rocketbench1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+	
+    <deco name ="KO lab drafting table 1 2x1" anim="decor_ko_lab_draftingtable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+    <deco name ="KO lab pushcart 1 2x1" anim="decor_ko_lab_pushcart1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>
+    <deco name ="KO lab rebar 1 2x1" anim="decor_ko_lab_rebar1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>
+    <deco name ="KO lab robot arm 1 2x1" anim="decor_ko_lab_reobotarm1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>
+    <deco name ="KO lab welding table 1 2x1" anim="decor_ko_lab_weldingtable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>
+    <deco name ="KO lab pit 1 2x3" anim="decor_ko_lab_pit1" facings="85">
+	<tag name="impass"/>
+	
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+      <tile x="-2" y="0"/>
+      <tile x="0" y="-1"/>
+      <tile x="-1" y="-1"/>
+      <tile x="-2" y="-1"/>
+    </deco>
+    <deco name ="KO lab pit 2 2x3" anim="decor_ko_lab_pit2" facings="85">
+	<tag name="impass"/>
+	
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+      <tile x="-2" y="0"/>
+      <tile x="0" y="-1"/>
+      <tile x="-1" y="-1"/>
+      <tile x="-2" y="-1"/>
+    </deco>	
+	
+	
+	<deco name ="KO barracks calendar 1" anim="decor_ko_barracks_calendar1" facings="85"/> 
+	<deco name ="KO barracks poster 1" anim="decor_ko_barracks_poster1" facings="85"/> 
+	<deco name ="KO barracks wall light 1" anim="decor_ko_barracks_walllight1" facings="85"/> 
+	
+	
+     <deco name ="KO barracks wall divider 1 1x1" anim="decor_ko_barracks_walldivider1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="KO barracks wall divider guns 1 1x1" anim="decor_ko_barracks_walldividerguns1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="KO barracks armour locker 1 1x1" anim="decor_ko_barracks_armourlocker1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="KO barracks chair 1 1x1" anim="decor_ko_barracks_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="KO barracks exercise bike 1 1x1" anim="decor_ko_barracks_exercisebike1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 	
+    <deco name ="KO barracks footlocker 1 1x1" anim="decor_ko_barracks_footlocker1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="KO barracks free weights 1 1x1" anim="decor_ko_barracks_freeweights1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco>
+    <deco name ="KO barracks fridge 1 1x1" anim="decor_ko_barracks_fridge1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+	<tag name="sightblock"/>	
+	<tile x="0" y="0"/>
+    </deco> 
+    <deco name ="KO barracks laundry hamper 1 1x1" anim="decor_ko_barracks_laundryhamper1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 	
+    <deco name ="KO barracks punching dummy 1 1x1" anim="decor_ko_barracks_punchingdummy1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="KO barracks vending machine 1 1x1" anim="decor_ko_barracks_vendingmachine1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+	<tag name="sightblock"/>	
+      <tile x="0" y="0"/>
+    </deco> 	
+    <deco name ="KO barracks weights 1 2x1" anim="decor_ko_barracks_weights1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 	
+    <deco name ="KO barracks bench 1 2x1" anim="decor_ko_barracks_bench1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 	
+    <deco name ="KO barracks bunk 1 2x1" anim="decor_ko_barracks_bunk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 	
+    <deco name ="KO barracks table 1 2x1" anim="decor_ko_barracks_table1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 
+    <deco name ="KO barracks treadmill 1 2x1" anim="decor_ko_barracks_treadmill1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 	
+    <deco name ="KO barracks wall locker 1 2x1" anim="decor_ko_barracks_walllocker1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 
+    <deco name ="KO barracks weight bench 1 2x1" anim="decor_ko_barracks_weightbench1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 
+    <deco name ="KO barracks weight rack 1 2x1" anim="decor_ko_barracks_weightrack1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 	
+
+	<deco name ="KO hall picture 1" anim="decor_ko_hall_picture1" facings="85"/> 
+	<deco name ="KO hall picture 2" anim="decor_ko_hall_picture2" facings="85"/> 	
+	<deco name ="KO hall wall lamp 1" anim="decor_ko_hall_walllamp1" facings="85"/> 	
+	
+     <deco name ="KO hall chair 1 1x1" anim="decor_ko_hall_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="KO hall corner shelf 1 1x1" anim="decor_ko_hall_cornershelf1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="KO hall grandfather clock 1 1x1" anim="decor_ko_hall_grandfatherclock1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 	
+    <deco name ="KO hall planter 1 1x1" anim="decor_ko_hall_planter1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="KO hall podium 1 1x1" anim="decor_ko_hall_podium1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 	
+    <deco name ="KO hall podium 2 1x1" anim="decor_ko_hall_podium2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="KO hall sittingbox 1 1x1" anim="decor_ko_hall_sittingbox1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 	
+    <deco name ="KO hall small planter 1 1x1" anim="decor_ko_hall_smallplanter1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+    </deco> 		
+    <deco name ="KO hall standing lamp 1 1x1" anim="decor_ko_hall_standinglamp1" facings="85">
+	<tag name="impass"/>		
+	<tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="KO hall sidetable 1 2x1" anim="decor_ko_hall_sidetable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 	
+    <deco name ="KO hall bookshelf 1 2x1" anim="decor_ko_hall_bookshelf1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+	<tag name="sightblock"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 	
+    <deco name ="KO hall chest 1 2x1" anim="decor_ko_hall_chest1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 	
+    <deco name ="KO hall couch 1 2x1" anim="decor_ko_hall_couch1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 	
+    <deco name ="KO hall side table 1 2x1" anim="decor_ko_hall_sidetable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 	
+    <deco name ="KO hall side table 2 2x1" anim="decor_ko_hall_sidetable2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco> 		
+	
+	<deco name="RANDOM SK Office Painting" anim="decor_ko_lab_wallbox1" skin="SK_office_painting" facings="85">
+      <tag name="skin"/>
+    </deco>
+	<deco name="RANDOM SK Office Podium" anim="decor_ko_lab_wallbox1" skin="SK_office_podium" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+	<tile x="0" y="0"/>
+      <tag name="skin"/>
+    </deco>	
+	
+		
+     <deco name ="SK lab barrel 1 1x1" anim="decor_sk_lab_barrel1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="SK lab bookshelf 1 1x1" anim="decor_sk_lab_bookshelf1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="SK lab boxes 1 1x1" anim="decor_sk_lab_boxes1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="SK lab chair 1 1x1" anim="decor_sk_lab_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="SK lab computer 1 1x1" anim="decor_sk_lab_computer1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="SK lab crane 1 1x1" anim="decor_sk_lab_crane1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="SK lab drafting table 1 1x1" anim="decor_sk_lab_drafting_table1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="SK lab gear 1 1x1" anim="decor_sk_lab_gear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="SK lab gear 2 1x1" anim="decor_sk_lab_gear2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="SK lab gear 4 1x1" anim="decor_sk_lab_gear4" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="SK lab recording computer 1x1" anim="decor_sk_lab_recording_computer1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="SK lab scrap bin 1x1" anim="decor_sk_lab_scrap_bin1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 		
+     <deco name ="SK lab stand 1" anim="decor_sk_lab_stand1" facings="85">
+    </deco> 			
+     <deco name ="SK lab standing tower 1x1" anim="decor_sk_lab_standing_tower1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="SK lab wall processor 1x1" anim="decor_sk_lab_wall_processor1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 		
+     <deco name ="SK lab welding machine 1x1" anim="decor_sk_lab_welding_machine1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 		
+     <deco name ="SK lab conveyor belt 2x1" anim="decor_sk_lab_conveyor_belt1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco> 	
+     <deco name ="SK lab desk 2x1" anim="decor_sk_lab_desk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco>
+     <deco name ="SK lab gunrack 2x1" anim="decor_sk_lab_gunrack1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco>	
+     <deco name ="SK lab gear 3 2x1" anim="decor_sk_lab_gear3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco>	
+     <deco name ="SK lab table 2 2x1" anim="decor_sk_lab_table2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco>
+     <deco name ="SK lab turbine box 2x1" anim="decor_sk_lab_turbine_box1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco>	
+
+	<deco name ="SK lab wall folders 1" anim="decor_sk_lab_wall_folders1" facings="85"/> 
+	<deco name ="SK lab wall phone panel 1" anim="decor_sk_lab_wall_phonepanel1" facings="85"/> 	
+	<deco name ="SK lab wall light 1" anim="decor_sk_lab_wall_light1" facings="85"/> 	
+	<deco name ="SK lab wall light 2" anim="decor_sk_lab_wall_light2" facings="85"/> 		
+	<deco name ="SK lab wall light 3" anim="decor_sk_lab_wall_light3" facings="85"/> 	
+	<deco name ="SK lab wall panel 1" anim="decor_sk_lab_wall_panel1" facings="85"/> 	
+	<deco name ="SK lab wall whiteboard 1" anim="decor_sk_lab_wall_whiteboard1" facings="85"/> 			
+	
+	<deco name ="SK office wall painting 1" anim="decor_sk_office_wall_paintings1" facings="85"/> 	
+	<deco name ="SK office wall painting 2" anim="decor_sk_office_wall_paintings2" facings="85"/> 	
+	<deco name ="SK office wall painting 3" anim="decor_sk_office_wall_paintings3" facings="85"/> 	
+	<deco name ="SK office wall painting 4" anim="decor_sk_office_wall_paintings4" facings="85"/> 	
+	<deco name ="SK office wall tv 1" anim="decor_sk_office_wall_tv1" facings="85"/> 		
+	<deco name ="SK office wall light 1" anim="decor_sk_office_wall_light1" facings="85"/> 		
+	
+     <deco name ="SK office podium 1 1x1" anim="decor_sk_office_podium1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="SK office podium 2 1x1" anim="decor_sk_office_podium2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="SK office chair 1 1x1" anim="decor_sk_office_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="SK office lamp 1 1x1" anim="decor_sk_office_lamp1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>
+	<tile x="0" y="0"/>
+    </deco> 	
+	
+     <deco name ="SK office pillar 1 1x1" anim="decor_sk_office_pillar1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="SK office planter 1 1x1" anim="decor_sk_office_planter1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="SK office planter 2 1x1" anim="decor_sk_office_planter2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+	
+     <deco name ="SK office shelf 1 1x1" anim="decor_sk_office_shelf1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+	<tag name="sightblock"/>	
+      <tile x="0" y="0"/>
+    </deco> 	
+	
+     <deco name ="SK office wall divider 1 1x1" anim="decor_sk_office_walldivider1" facings="85">
+	<tag name="impass"/>
+       <tag name="sightblock"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+	
+     <deco name ="SK office ceo desk 1 2x1" anim="decor_sk_office_ceo_desk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 		
+		
+     <deco name ="SK office cofee table 1 2x1" anim="decor_sk_office_cofeetable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 		
+		
+     <deco name ="SK office couch 1 2x1" anim="decor_sk_office_couch1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 	
+		
+     <deco name ="SK office fishtank 1 2x1" anim="decor_sk_office_fishtank1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+      <sound name="Objects/aquarium"/>	  
+    </deco> 		
+		
+     <deco name ="SK office desk 1 2x1" anim="decor_sk_office_desk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 
+     <deco name ="SK office shelf 2 2x1" anim="decor_sk_office_shelf2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 	
+     <deco name ="SK office tv 1 2x1" anim="decor_sk_office_tv1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+	<tag name="sightblock"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 		
+     <deco name ="SK office koi pond 2x2" anim="decor_sk_office_koipond1" facings="85">
+	      <tag name="impass"/>
+	      <tag name="cover"/>		 
+        <tile x="0" y="0"/>
+        <tile x="-1" y="0"/>
+        <tile x="0" y="-1"/>
+        <tile x="-1" y="-1"/>	
+	      <sound name="Objects/fishpond"/>			
+    </deco> 	
+
+	<deco name ="SK bay wall lights 1" anim="decor_sk_bay_walllights1" facings="85"/> 	
+	<deco name ="SK bay wall panel 1" anim="decor_sk_bay_wallpanel1" facings="85"/> 	
+	<deco name ="SK bay wall panel 2" anim="decor_sk_bay_wallpanel2" facings="85"/> 	
+	<deco name ="SK bay wall panel 3" anim="decor_sk_bay_wallpanel3" facings="85"/> 	
+	
+     <deco name ="SK bay computer rack 1 1x1" anim="decor_sk_bay_computerrack1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="SK bay drone 2 1x1" anim="decor_sk_bay_drone2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 		
+     <deco name ="SK bay drone 3 1x1" anim="decor_sk_bay_drone3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 			
+     <deco name ="SK bay gear 1 1x1" anim="decor_sk_bay_gear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 			
+     <deco name ="SK bay gear 2 1x1" anim="decor_sk_bay_gear2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 		
+    <deco name ="SK bay gear 3 1x1" anim="decor_sk_bay_gear3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 			
+    <deco name ="SK bay gear 4 1x1" anim="decor_sk_bay_gear4" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+    <deco name ="SK bay ionizer 1 1x1" anim="decor_sk_bay_ionizer1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="SK bay short crate 1 1x1" anim="decor_sk_bay_shortcrate1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+    <deco name ="SK bay tall crate 1 1x1" anim="decor_sk_bay_tallcrate1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+	<tag name="sightblock"/>
+      <tile x="0" y="0"/>
+    </deco> 	
+    <deco name ="SK bay body shop 1 2x1" anim="decor_sk_bay_bodyshop1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 	
+    <deco name ="SK bay cannon tester 1 2x1" anim="decor_sk_bay_cannontester1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 
+    <deco name ="SK bay crate 1 2x1" anim="decor_sk_bay_crate1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 	
+    <deco name ="SK bay drone 1 2x1" anim="decor_sk_bay_drone1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 		
+    <deco name ="SK bay fender maker 1 2x1" anim="decor_sk_bay_fendermaker1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 
+    <deco name ="SK bay robo lift down empty 1 2x1" anim="decor_sk_bay_roboliftdownempty1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 	
+    <deco name ="SK bay robo lift up drone 1 2x1" anim="decor_sk_bay_roboliftupdrone1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 	
+    <deco name ="SK bay robo lift up empty 1 2x1" anim="decor_sk_bay_roboliftupempty1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 		
+    <deco name ="SK bay worktable 1 2x1" anim="decor_sk_bay_worktable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>		  
+    </deco> 			
+		
+		
+	<deco name ="Plastek office wall picture 1" anim="decor_plastek_office_wall_picture1" facings="85"/> 	
+	<deco name ="Plastek office wall picture 2" anim="decor_plastek_office_wall_picture2" facings="85"/> 	
+	<deco name ="Plastek office wall reel to reel 1" anim="decor_plastek_office_wall_reeltoreel1" facings="85"/> 
+	<deco name ="Plastek office wall grate 1" anim="decor_plastek_office_wall_grate1" facings="85"/> 
+	<deco name ="Plastek office wall light 1" anim="decor_plastek_office_wall_light1" facings="85"/> 
+	<deco name ="Plastek office wall panel 1" anim="decor_plastek_office_wall_panel1" facings="85"/> 
+	<deco name ="Plastek office wall panel 2" anim="decor_plastek_office_wall_panel2" facings="85"/> 	
+	<deco name ="Plastek office wall screen 2" anim="decor_plastek_office_wall_screen2" facings="85"/> 	
+	
+     <deco name ="Plastek office chair 1 1x1" anim="decor_plastek_office_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek office chair 2 1x1" anim="decor_plastek_office_chair2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="Plastek office computer 1 1x1" anim="decor_plastek_office_computer1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="Plastek office filecabinet 2 1x1" anim="decor_plastek_office_filecabinet2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek office floorlamp 1 1x1" anim="decor_plastek_office_floorlamp1" facings="85">
+	<tag name="impass"/>		 
+	<tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek office office chair 1 1x1" anim="decor_plastek_office_office_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek office planter 1 1x1" anim="decor_plastek_office_planter1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="Plastek office planter 2 1x1" anim="decor_plastek_office_planter2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek office podium 1 1x1" anim="decor_plastek_office_podium1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="Plastek office sidetable 1 1x1" anim="decor_plastek_office_sidetable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek office wall divider 1 1x1" anim="decor_plastek_office_walldivider1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek office bench 1 2x1" anim="decor_plastek_office_bench1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 
+     <deco name ="Plastek office coffee table 1 2x1" anim="decor_plastek_office_coffeetable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+     <deco name ="Plastek office coffee table 2 2x1" anim="decor_plastek_office_coffeetable2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 
+     <deco name ="Plastek office coffee table 3 2x1" anim="decor_plastek_office_coffeetable3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+     <deco name ="Plastek office couch 1 2x1" anim="decor_plastek_office_couch1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+     <deco name ="Plastek office desk 1 2x1" anim="decor_plastek_office_desk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+     <deco name ="Plastek office desk 2 2x1" anim="decor_plastek_office_desk2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 		
+     <deco name ="Plastek office filecabinet 1 2x1" anim="decor_plastek_office_2x1filecabinet1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+     <deco name ="Plastek office shelf 1 2x1" anim="decor_plastek_office_shelf1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+     <deco name ="Plastek office standing screen 1 2x1" anim="decor_plastek_office_standingscreen1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+     <deco name ="Plastek office standing screen 1 2x2" anim="decor_plastek_office_tree1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+        <tile x="0" y="0"/>
+        <tile x="-1" y="0"/>
+        <tile x="0" y="-1"/>
+        <tile x="-1" y="-1"/>	
+    </deco> 		
+
+		
+	<deco name ="Plastek psilab wall light 1" anim="decor_plastek_psilab_wall_light1" facings="85"/> 
+	<deco name ="Plastek psilab wall piece 1" anim="decor_plastek_psilab_wall_piece1" facings="85"/> 	
+	<deco name ="Plastek psilab wall monitor 1" anim="decor_plastek_psilab_wall_monitor1" facings="85"/> 	
+
+     <deco name ="Plastek psilab bedside monitor 1 1x1" anim="decor_plastek_psilab_bedsidemonitor1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="Plastek psilab cabinet 1 1x1" anim="decor_plastek_psilab_cabinet1" facings="85">
+	<tag name="impass"/>
+  <tag name="sightblock"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek psilab gurneyup 1 1x1" anim="decor_plastek_psilab_gurneyup1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="Plastek psilab gear 1 1x1" anim="decor_plastek_psilab_gear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek psilab sidetable 1 1x1" anim="decor_plastek_psilab_sidetable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 		
+     <deco name ="Plastek psilab standing monitor 1 1x1" anim="decor_plastek_psilab_standingmonitor1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+    <deco name ="Plastek psilab bed 1 2x1" anim="decor_plastek_psilab_bed1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 
+    <deco name ="Plastek psilab bookshelf 1 2x1" anim="decor_plastek_psilab_bookshelf1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+  <tag name="sightblock"/>  
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 
+    <deco name ="Plastek psilab gurney flat 1 2x1" anim="decor_plastek_psilab_gurneyflat1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+    <deco name ="Plastek psilab gear 2 2x1" anim="decor_plastek_psilab_gear2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+    <deco name ="Plastek psilab tank 1 2x1" anim="decor_plastek_psilab_tank1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+        <tile x="0" y="0"/>
+        <tile x="-1" y="0"/>
+        <tile x="0" y="-1"/>
+        <tile x="-1" y="-1"/>
+    </deco> 
+    <deco name ="Plastek psilab tank gear 1 2x1" anim="decor_plastek_psilab_tankgear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+        <tile x="0" y="0"/>
+        <tile x="-1" y="0"/>
+        <tile x="0" y="-1"/>
+        <tile x="-1" y="-1"/>
+    </deco> 
+    <deco name ="Plastek psilab re-educator 1 2x1" anim="decor_plastek_psilab_reeducator" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+    <deco name ="Plastek psilab table 1 2x1" anim="decor_plastek_psilab_table1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 		
+
+
+<deco name ="Plastek lab wall box 1" anim="decor_plastek_lab_wall_box1" facings="85"/> 
+<deco name ="Plastek lab wall grate 1" anim="decor_plastek_lab_wall_grate1" facings="85"/> 
+<deco name ="Plastek lab wall panel 1" anim="decor_plastek_lab_wall_panel1" facings="85"/> 
+<deco name ="Plastek lab wall panel 2" anim="decor_plastek_lab_wall_panel2" facings="85"/> 
+
+     <deco name ="Plastek lab cabinet 1 1x1" anim="decor_plastek_lab_cabinet1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+  <tag name="sightblock"/>
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek lab chair 1 1x1" anim="decor_plastek_lab_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="Plastek lab computer 1 1x1" anim="decor_plastek_lab_computer1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek lab machine 1 1x1" anim="decor_plastek_lab_machine1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+     <deco name ="Plastek lab machine 2 1x1" anim="decor_plastek_lab_machine2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek lab machine 4 1x1" anim="decor_plastek_lab_machine4" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek lab processor 1 1x1" anim="decor_plastek_lab_processor1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 		
+     <deco name ="Plastek lab processor 2 1x1" anim="decor_plastek_lab_processor2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 		
+     <deco name ="Plastek lab console 1 2x1" anim="decor_plastek_lab_console1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 
+     <deco name ="Plastek lab console 2 2x1" anim="decor_plastek_lab_console2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+     <deco name ="Plastek lab desk 1 2x1" anim="decor_plastek_lab_desk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 	
+     <deco name ="Plastek lab floorhatch 1 2x1" anim="decor_plastek_lab_floorhatch1" facings="85">	 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco> 		
+     <deco name ="Plastek lab machine 3 2x1" anim="decor_plastek_lab_machine3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco>	
+     <deco name ="Plastek lab machine 5 2x1" anim="decor_plastek_lab_machine5" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco>	
+     <deco name ="Plastek lab machine 6 2x1" anim="decor_plastek_lab_machine6" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco>	
+     <deco name ="Plastek lab processor 3 2x1" anim="decor_plastek_lab_processor3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	
+    </deco>	
+     <deco name ="Plastek lab floor hatch 2 2x2" anim="decor_plastek_lab_floorhatch2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+        <tile x="0" y="0"/>
+        <tile x="-1" y="0"/>
+        <tile x="0" y="-1"/>
+        <tile x="-1" y="-1"/>
+    </deco>		
+
+<deco name ="Plastek hall wall picture 1" anim="decor_plastek_hall_wall_picture1" facings="85"/> 
+<deco name ="Plastek hall wall picture 2" anim="decor_plastek_hall_wall_picture2" facings="85"/> 
+<deco name ="Plastek hall wall picture 3" anim="decor_plastek_hall_wall_picture3" facings="85"/> 
+<deco name ="Plastek hall wall picture 4" anim="decor_plastek_hall_wall_picture4" facings="85"/> 
+<deco name ="Plastek hall wall light 1" anim="decor_plastek_hall_wall_light1" facings="85"/> 
+<deco name ="Plastek hall wall light 2" anim="decor_plastek_hall_wall_light2" facings="85"/> 
+
+	<deco name ="Plastek hall bookshelf 1" anim="decor_plastek_hall_bookshelf1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+  <tag name="sightblock"/>
+      <tile x="0" y="0"/>
+    </deco> 	
+	<deco name ="Plastek hall chair 1" anim="decor_plastek_hall_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+	<deco name ="Plastek hall coffee table 1" anim="decor_plastek_hall_coffeetable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek hall floor lamp 1 1x1" anim="decor_plastek_hall_floorlamp1" facings="85">
+	<tag name="impass"/>			 
+	<tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek hall planter 1 1x1" anim="decor_plastek_hall_planter1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 		
+     <deco name ="Plastek hall planter 2 1x1" anim="decor_plastek_hall_planter2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek hall sculpture 1 1x1" anim="decor_plastek_hall_sculpture1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek hall sculpture 2 1x1" anim="decor_plastek_hall_sculpture2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek hall sidetable 1 1x1" anim="decor_plastek_hall_sidetable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 		
+     <deco name ="Plastek hall sidetable 2 1x1" anim="decor_plastek_hall_sidetable2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 			
+     <deco name ="Plastek hall sidetable 3 1x1" anim="decor_plastek_hall_sidetable3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 			
+     <deco name ="Plastek hall wall divider 1 1x1" anim="decor_plastek_hall_walldivider1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek hall bookshelf 2 2x1" anim="decor_plastek_hall_bookshelf2" facings="85">
+	<tag name="impass"/>
+  <tag name="sightblock"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 		
+     <deco name ="Plastek hall wall coffee table 2 2x1" anim="decor_plastek_hall_coffeetable2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek hall wall low cabinet 1 2x1" anim="decor_plastek_hall_lowcabinet1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek hall wall low cabinet 2 2x1" anim="decor_plastek_hall_lowcabinet2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Plastek hall wall sofa 1 2x1" anim="decor_plastek_hall_sofa1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+
+	
+
+     <deco name ="Unique ServerRoom 1x1 Big Comp" anim="serverroom_1x1_bigcomp1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique ServerRoom 1x1 gear1" anim="serverroom_1x1_gear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique ServerRoom 1x3 gear2" anim="serverroom_1x3_gear2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+	<tile x="-1" y="0"/>
+	<tile x="-2" y="0"/>
+    </deco> 
+
+     <deco name ="Unique ServerRoom 1x1 gear3" anim="serverroom_1x1_gear3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+      <tile x="0" y="0"/>
+    </deco> 
+
+<deco name ="Unique ServerRoom WallLight1" anim="serverroom_walllight1" facings="85"/> 
+
+<deco name ="Unique ServerRoom WallScreen1" anim="serverroom_wallscreen1" facings="85"/> 
+
+<deco name ="Unique ServerRoom WallSlats1" anim="serverroom_wallslats1" facings="85"/> 
+
+	<deco name ="Unique ServerRoom wiring1" anim="serverroom_flooring_wiring1" facings="85"/> 
+	<deco name ="Unique ServerRoom wiring2" anim="serverroom_flooring_wiring2" facings="85"/> 
+	<deco name ="Unique ServerRoom wiring3" anim="serverroom_flooring_wiring3" facings="85"/> 
+
+
+     <deco name ="Unique Guard office 1x1 chair" anim="guardoffice_1x1_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 	
+
+     <deco name ="Unique Guard office 1x1 gear1" anim="guardoffice_1x1_gear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 	
+
+     <deco name ="Unique Guard office 1x1 fridgesafe1" anim="guardoffice_1x1_fridgesafe1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 	
+     <deco name ="Unique Guard office 1x1 gear2" anim="guardoffice_1x1_gear2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique Guard office 2x1 bench1" anim="guardoffice_2x1_bench1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique Guard office 2x1 desk1" anim="guardoffice_2x1_desk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name="Unique Guard office 2x2 interogationtable1" anim="guardoffice_2x2_interogationtable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+        <tile x="0" y="0"/>
+        <tile x="-1" y="0"/>
+        <tile x="0" y="-1"/>
+        <tile x="-1" y="-1"/>
+    </deco>
+	
+<deco name ="Unique GuardOffice WallLight1" anim="guardoffice_walllight1" facings="85"/> 
+
+<deco name ="Unique guardoffice_walldecal1" anim="guardoffice_walldecal1" facings="85"/> 
+
+<deco name ="Unique GuardOffice WallPhone1" anim="guardoffice_wallphone1" facings="85"/> 
+
+<deco name ="Unique GuardOffice WallSlat1" anim="guardoffice_wallslat1" facings="85"/> 
+
+<deco name ="Unique GuardOffice WallWindow1" anim="guardoffice_wallwindow1" facings="85"/> 
+
+	<deco name ="guardoffice_1x1_floorpanel1" anim="guardoffice_1x1_floorpanel1" facings="85"/> 
+	<deco name ="guardoffice_1x1_floorpanel2" anim="guardoffice_1x1_floorpanel2" facings="85"/> 
+
+
+
+
+
+
+<deco name ="Unique holdingcell 1x1 celldoor1" anim="holdingcell_1x1_celldoor1" facings="85">
+	<tag name="impass"/>
+	<tile x="0" y="0"/>
+</deco>
+
+<deco name ="Unique holdingcell 1x1 cellwall1" anim="holdingcell_1x1_cellwall1" facings="85"/>
+
+
+<deco name ="Unique holdingcell 1x1 cellwall2" anim="holdingcell_2x1_cellwall2" facings="85"/>
+
+
+     <deco name ="Unique holdingcell 2x1 securecell1" anim="holdingcell_2x1_securecell1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="Unique holdingcell 2x1 bunk1" anim="holdingcell_2x1_bunk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+
+
+
+
+
+
+     <deco name ="Unique vault 1x1 paintings1" anim="vault_1x1_paintings1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique vault 1x1 podium1" anim="vault_1x1_podium1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique vault 1x1 podium2" anim="vault_1x1_podium2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique vault 2x1 paintings2" anim="vault_2x1_paintings2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique vault 2x1 standing locker1" anim="vault_2x1_standinglocker1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique vault 2x1 standing locker2" anim="vault_2x1_standinglocker2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+<deco name ="Unique vault wall lockerbig1" anim="vault_walllockerbig1" facings="85"/> 
+
+<deco name ="Unique vault wall lockersmall1" anim="vault_walllockersmall1" facings="85"/> 
+
+
+
+							     
+     <deco name ="Unique Public Terminal 1x1 planter1" anim="publicterminal_1x1_planter1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="Unique Public Terminal 1x1 standing terminal1" anim="publicterminal_1x1_standingterminal1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="Unique Public Terminal 1x1 wall terminal1" anim="publicterminal_1x1_wallterminal1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique Public Terminal 1x1 wall terminal2" anim="publicterminal_1x1_wallterminal2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique Public Terminal 2x1 desk1" anim="publicterminal_2x1_desk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+
+    <deco name="Unique Public Terminal 2x3 couch1" anim="publicterminal_2x3_couch1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+	<tile x="0" y="-1"/>
+	<tile x="0" y="-2"/>
+    </deco>	
+
+
+<deco name ="Unique Public Terminal bookshelf1" anim="publicterminal_bookshelf1" facings="85"/> 
+
+<deco name ="Unique Public Terminal Glasswall1" anim="publicterminal_glasswall1" facings="85"/> 
+
+	<deco name ="Unique Public Terminal 1x1 rug1" anim="publicterminal_flooring_1x1rug1" facings="85"/> 
+	<deco name ="Unique Public Terminal 1x1 rug2" anim="publicterminal_flooring_1x1rug2" facings="85"/>
+
+
+
+
+     <deco name ="Unique nanofab 1x1 specialfab1" anim="nanofab_1x1_specialfab1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+
+     <deco name ="Unique nanofab 1x1 computerpedestal1" anim="nanofab_1x1_computerpedestal1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="Unique nanofab 1x1 cornerscreenl1" anim="nanofab_1x1_cornerscreenl1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="Unique nanofab 1x1 pillar1" anim="nanofab_1x1_pillar1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique nanofab 1x1 standingterminal1" anim="nanofab_1x1_standingterminal1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+	
+     <deco name ="Unique nanofab 2x1 largerprinter1" anim="nanofab_2x1_largerprinter1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+
+	<deco name ="Unique nanofab 2x1 displaycase1" anim="nanofab_2x1_displaycase1" facings="85"/> 
+
+
+     <deco name="Unique nanofab 2x2 catalog1" anim="nanofab_2x2_catalog1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		
+        <tile x="0" y="0"/>
+        <tile x="-1" y="0"/>
+        <tile x="0" y="-1"/>
+        <tile x="-1" y="-1"/>
+    </deco>
+
+	<deco name ="Unique nanofab 2x2 flooring_panel1" anim="nanofab_2x2_flooring_panel1" facings="85"/> 
+
+
+
+     <deco name ="Unique ceooffice object 1x1 chair1" anim="decor_ceooffice_object_1x1chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique ceooffice object 1x1 chessboard1" anim="decor_ceooffice_object_1x1chessboard1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique ceooffice object 1x1 planter1" anim="decor_ceooffice_object_1x1planter1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique ceooffice object 1x1 podium1" anim="decor_ceooffice_object_1x1podium1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique ceooffice object 1x1 sculpture1" anim="decor_ceooffice_object_1x1sculpture1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique ceooffice object 1x1 sidetable1" anim="decor_ceooffice_object_1x1sidetable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique ceooffice object 1x1 statue1" anim="decor_ceooffice_object_1x1statue1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique ceooffice object 1x1 stool1" anim="decor_ceooffice_object_1x1stool1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique ceooffice object 2x1 couch1" anim="decor_ceooffice_object_2x1couch1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique ceooffice object 2x1 fireplace1" anim="decor_ceooffice_object_2x1fireplace1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique ceooffice object 2x1 liquorcabinet1" anim="decor_ceooffice_object_2x1liquorcabinet1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique ceooffice object 3x1 ceodesk1" anim="decor_ceooffice_object_3x1_ceodesk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-2" y="0"/>     
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique ceooffice object 3x2 boardroomtable1" anim="decor_ceooffice_object_3x2boardroomtable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-2" y="0"/>  
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-2" y="-1"/>  
+      <tile x="-1" y="-1"/>     
+      <tile x="0" y="-1"/>      
+    </deco> 
+
+<deco name ="Unique ceooffice object walllight1" anim="decor_ceooffice_object_ceooffice_walllight1" facings="85"/> 
+
+<deco name ="Unique ceooffice object vaultlockside1" anim="decor_ceooffice_object_ceooffice_vaultlockside1" facings="85"/> 
+
+<deco name ="Unique ceooffice object vaultlockside2" anim="decor_ceooffice_object_ceooffice_vaultlockside2" facings="85"/> 
+
+<deco name ="Unique ceooffice object wallpanel1" anim="decor_ceooffice_object_ceooffice_wallpanel1" facings="85"/> 
+
+<deco name ="Unique ceooffice object wallscreen1" anim="decor_ceooffice_object_ceooffice_wallscreen1" facings="85"/> 
+
+<deco name ="Unique ceooffice object wallscreen2" anim="decor_ceooffice_object_ceooffice_wallscreen2" facings="85"/> 
+
+<deco name ="Unique ceooffice flooring rug1" anim="decor_ceooffice_flooring_rug1" facings="85"/> 
+
+
+	<deco name ="Unique cybernetics floor decal2" anim="decor_cybernetics_flooring_floordecal2" facings="85"/> 
+
+     <deco name ="Unique cybernetics object 1x1 cyborgtorso1" anim="decor_cybernetics_object_1x1cyborgtorso1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="Unique cybernetics object 1x1 gear1" anim="decor_cybernetics_object_1x1gear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="Unique cybernetics object 1x1 gear2" anim="decor_cybernetics_object_1x1gear2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="Unique cybernetics object 1x1 gear4" anim="decor_cybernetics_object_1x1gear4" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="Unique cybernetics object 1x1 holoprojector1" anim="decor_cybernetics_object_1x1holoprojector1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="Unique cybernetics object 1x1 rechargestation1" anim="decor_cybernetics_object_1x1rechargestation1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="Unique cybernetics object 1x1 standingscreen1" anim="decor_cybernetics_object_1x1standingscreen1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+	
+     <deco name ="Unique cybernetics object 2x1 chest1" anim="decor_cybernetics_object_2x1chest1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+	
+     <deco name ="Unique cybernetics object 2x1 chest2" anim="decor_cybernetics_object_2x1chest2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+	
+     <deco name ="Unique cybernetics object 2x1 gear3" anim="decor_cybernetics_object_2x1gear3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="Unique cybernetics object 2x1 liquidpool1" anim="decor_cybernetics_object_2x1liquidpool1" facings="85">
+	<tag name="impass"/>
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="Unique cybernetics object 2x1 operatingtable1" anim="decor_cybernetics_object_2x1operatingtable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+<deco name ="Unique cybernetics object walllight1" anim="decor_cybernetics_object_walllight1" facings="85"/> 
+
+<deco name ="Unique cybernetics object walllocker1" anim="decor_cybernetics_object_walllocker1" facings="85"/> 
+
+<deco name ="Unique cybernetics object wallscreen1" anim="decor_cybernetics_object_wallscreen1" facings="85"/> 
+
+<deco name ="Unique cybernetics object wallscreen2" anim="decor_cybernetics_object_wallscreen2" facings="85"/> 
+
+	<deco name ="Unique cybernetics floor glassfloorpanel1" anim="decor_cybernetics_flooring_1x1glassfloorpanel1" facings="85"/> 
+
+	<deco name ="Unique cybernetics floor decal1" anim="decor_cybernetics_flooring_floordecal1" facings="85"/> 
+
+	<deco name ="Unique cybernetics floor decal2" anim="decor_cybernetics_flooring_floordecal2" facings="85"/> 
+
+
+     <deco name ="decor_engineroom_1x1_gear2" anim="decor_engineroom_1x1_gear2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_engineroom_1x1_gear3" anim="decor_engineroom_1x1_gear3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_engineroom_1x1_gear4" anim="decor_engineroom_1x1_gear4" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_engineroom_1x1_gear5" anim="decor_engineroom_1x1_gear5" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+<deco name ="decor_engineroom_1x1_wallgear1" anim="decor_engineroom_1x1_wallgear1" facings="85"/> 
+
+	<deco name ="decor_engineroom_2x1_floorpanel1" anim="decor_engineroom_2x1_floorpanel1" facings="85"/> 
+
+	
+     <deco name ="decor_engineroom_2x1_gear1" anim="decor_engineroom_2x1_gear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+	
+     <deco name ="decor_engineroom_2x1_gear6" anim="decor_engineroom_2x1_gear6" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_engineroom_2x1_gear7" anim="decor_engineroom_2x1_gear7" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_engineroom_2x1_gear8" anim="decor_engineroom_2x1_gear8" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_engineroom_2x1_stackedpipes1" anim="decor_engineroom_2x1_stackedpipes1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_engineroom_2x2_biggear1" anim="decor_engineroom_2x2_biggear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+        <tile x="0" y="0"/>
+        <tile x="-1" y="0"/>
+        <tile x="0" y="-1"/>
+        <tile x="-1" y="-1"/>	
+    </deco> 	
+
+     <deco name ="decor_engineroom_2x2_biggear2" anim="decor_engineroom_2x2_biggear2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+        <tile x="0" y="0"/>
+        <tile x="-1" y="0"/>
+        <tile x="0" y="-1"/>
+        <tile x="-1" y="-1"/>	
+    </deco> 	
+
+<deco name ="decor_engineroom_1x1_walllight1" anim="decor_engineroom_1x1_walllight1" facings="85"/> 
+
+<deco name ="decor_engineroom_1x1_wallpanel1" anim="decor_engineroom_1x1_wallpanel1" facings="85"/> 
+
+<deco name ="decor_engineroom_1x1_wallpanel2" anim="decor_engineroom_1x1_wallpanel2" facings="85"/> 
+
+<deco name ="decor_engineroom_1x1_wallpanel3" anim="decor_engineroom_1x1_wallpanel3" facings="85"/> 
+
+	<deco name ="decor_engineroom_1x1_floorpanel2" anim="decor_engineroom_1x1_floorpanel2" facings="85"/> 
+
+	<deco name ="decor_engineroom_1x1_floorpanel3" anim="decor_engineroom_1x1_floorpanel3" facings="85"/> 
+
+
+
+
+
+     <deco name ="decor_holostorage_1x1_chair1" anim="decor_holostorage_1x1_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_holostorage_1x1_cranegear1" anim="decor_holostorage_1x1_cranegear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_holostorage_1x1_gear1" anim="decor_holostorage_1x1_gear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_holostorage_1x1_gear2" anim="decor_holostorage_1x1_gear2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_holostorage_1x1_gear5" anim="decor_holostorage_1x1_gear5" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+
+
+<deco name ="decor_holostorage_1x1_wallgear2" anim="decor_holostorage_1x1_wallgear2" facings="85"/> 
+
+<deco name ="decor_holostorage_1x1_wallgear3" anim="decor_holostorage_1x1_wallgear3" facings="85"/> 
+
+
+     <deco name ="decor_holostorage_2x1_desk1" anim="decor_holostorage_2x1_desk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_holostorage_2x1_desk2" anim="decor_holostorage_2x1_desk2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_holostorage_2x1_desk3" anim="decor_holostorage_2x1_desk3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_holostorage_2x1_gear3" anim="decor_holostorage_2x1_gear3" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_holostorage_2x1_gear4" anim="decor_holostorage_2x1_gear4" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+<deco name ="decor_holostorage_2x1_wallgear1" anim="decor_holostorage_1x1_wallgear1" facings="85"/> 
+
+
+	<deco name ="decor_holostorage_1x1_floorpanel1" anim="decor_holostorage_1x1_floorpanel1" facings="85"/> 
+
+	<deco name ="decor_holostorage_1x1_floorpanel2" anim="decor_holostorage_1x1_floorpanel2" facings="85"/> 
+
+	<deco name ="decor_holostorage_1x1_floorpanel3" anim="decor_holostorage_1x1_floorpanel3" facings="85"/> 
+
+	<deco name ="decor_holostorage_1x1_floorpanel4" anim="decor_holostorage_1x1_floorpanel4" facings="85"/> 
+
+<deco name ="decor_holostorage_1x1_walllight1" anim="decor_holostorage_1x1_walllight1" facings="85"/> 
+
+<deco name ="decor_holostorage_1x1_walllight2" anim="decor_holostorage_1x1_walllight2" facings="85"/>
+
+
+
+
+     <deco name ="decor_missioncontrol_1x1_atm1" anim="decor_missioncontrol_1x1_atm1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_missioncontrol_1x1_chair1" anim="decor_missioncontrol_1x1_chair1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_missioncontrol_1x1_chair2" anim="decor_missioncontrol_1x1_chair2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_missioncontrol_1x1_holopodium1" anim="decor_missioncontrol_1x1_holopodium1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_missioncontrol_1x1_holopodium2" anim="decor_missioncontrol_1x1_holopodium2" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_missioncontrol_1x1_podiumcomp1" anim="decor_missioncontrol_1x1_podiumcomp1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_missioncontrol_1x1_processorunit1" anim="decor_missioncontrol_1x1_processorunit1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+<deco name ="decor_missioncontrol_1x1_wallgear1" anim="decor_missioncontrol_1x1_wallgear1" facings="85"/> 
+
+<deco name ="decor_missioncontrol_1x1_walllight1" anim="decor_missioncontrol_1x1_walllight1" facings="85"/> 
+
+
+     <deco name ="decor_missioncontrol_2x1_bench1" anim="decor_missioncontrol_2x1_bench1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_missioncontrol_2x1_console1" anim="decor_missioncontrol_2x1_console1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+<deco name ="decor_missioncontrol_2x1_wallgear2" anim="decor_missioncontrol_2x1_wallgear2" facings="85"/> 
+<deco name ="decor_missioncontrol_2x1_wallgear3" anim="decor_missioncontrol_2x1_wallgear3" facings="85"/> 
+
+
+     <deco name ="decor_missioncontrol_2x2_bigdesk1" anim="decor_missioncontrol_2x2_bigdesk1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+        <tile x="0" y="0"/>
+        <tile x="-1" y="0"/>
+        <tile x="0" y="-1"/>
+        <tile x="-1" y="-1"/>	
+    </deco> 	
+	
+     <deco name ="decor_missioncontrol_3x2_bigtable1" anim="decor_missioncontrol_3x2_bigtable1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-2" y="0"/>  
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+      <tile x="-2" y="-1"/>  
+      <tile x="-1" y="-1"/>     
+      <tile x="0" y="-1"/>      
+    </deco> 
+
+	<deco name ="decor_missioncontrol_1x1_floorpanel1" anim="decor_missioncontrol_1x1_floorpanel1" facings="85"/>
+
+	<deco name ="decor_missioncontrol_1x1_floorpanel2" anim="decor_missioncontrol_1x1_floorpanel2" facings="85"/>
+
+	<deco name ="decor_missioncontrol_1x1_floorpanel3" anim="decor_missioncontrol_1x1_floorpanel3" facings="85"/>
+
+	<deco name ="decor_missioncontrol_1x1_floorpanel4" anim="decor_missioncontrol_1x1_floorpanel4" facings="85"/>
+
+	<deco name ="decor_missioncontrol_1x1_floorvent1" anim="decor_missioncontrol_1x1_floorvent1" facings="85"/>
+
+	<deco name ="decor_missioncontrol_6x4_bigfloorpiece1" anim="decor_missioncontrol_6x4_bigfloorpiece1" facings="85"/>
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+     <deco name ="decor_finalhall_1x1_crate1" anim="decor_finalhall_1x1_crate1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_finalhall_1x1_doublecrate1" anim="decor_finalhall_1x1_doublecrate1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="decor_finalhall_2x1_bench1" anim="decor_finalhall_2x1_bench1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+	<deco name ="decor_finalhall_1x1_floordecal1" anim="decor_finalhall_1x1_floordecal1" facings="85"/>
+
+	<deco name ="decor_finalhall_1x1_floordecal2" anim="decor_finalhall_1x1_floordecal2" facings="85"/>
+
+	<deco name ="decor_finalhall_2x1_floorpanel1" anim="decor_finalhall_2x1_floorpanel1" facings="85"/>
+
+	<deco name ="decor_finalhall_1x1_floorpanel2" anim="decor_finalhall_1x1_floorpanel2" facings="85"/>
+
+	<deco name ="decor_finalhall_1x1_floorpanel3" anim="decor_finalhall_1x1_floorpanel3" facings="85"/>
+
+	<deco name ="decor_finalhall_1x1_floorpanel5" anim="decor_finalhall_1x1_floorpanel5" facings="85"/>
+
+
+
+<deco name ="decor_finalhall_1x1_wallgear1" anim="decor_finalhall_1x1_wallgear1" facings="85"/> 
+<deco name ="decor_finalhall_1x1_wallgear2" anim="decor_finalhall_1x1_wallgear2" facings="85"/> 
+<deco name ="decor_finalhall_2x1_wallgear3" anim="decor_finalhall_2x1_wallgear3" facings="85"/> 
+<deco name ="decor_finalhall_1x1_wallgear4" anim="decor_finalhall_1x1_wallgear4" facings="85"/> 
+<deco name ="decor_finalhall_1x1_wallgear5" anim="decor_finalhall_1x1_wallgear5" facings="85"/> 
+<deco name ="decor_finalhall_1x1_wallgear6" anim="decor_finalhall_1x1_wallgear6" facings="85"/> 
+<deco name ="decor_finalhall_1x1_walllight1" anim="decor_finalhall_1x1_walllight1" facings="85"/>
+<deco name ="decor_finalhall_2x1_wallpanel1" anim="decor_finalhall_2x1_wallpanel1" facings="85"/> 
+<deco name ="decor_finalhall_1x1_wallpanel5" anim="decor_finalhall_1x1_wallpanel5" facings="85"/> 
+<deco name ="decor_finalhall_1x1_wallpanel6" anim="decor_finalhall_1x1_wallpanel6" facings="85"/> 
+<deco name ="decor_finalhall_1x1_wallpanel7" anim="decor_finalhall_1x1_wallpanel7" facings="85"/> 
+
+
+   <deco name ="finalroom_1x1_centerconsole1" anim="finalroom_1x1_centerconsole1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+   <deco name ="finalroom_1x1_farleftspine1" anim="finalroom_1x1_farleftspine1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+   <deco name ="finalroom_1x1_farrightspine1" anim="finalroom_1x1_farrightspine1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+	<deco name ="finalroom_1x1_floorpeice1" anim="finalroom_1x1_floorpeice1" facings="85"/> 
+
+
+   <deco name ="finalroom_1x1_leftspine1" anim="finalroom_1x1_leftspine1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+   <deco name ="finalroom_1x1_rightspine1" anim="finalroom_1x1_rightspine1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+
+     <deco name ="finalroom_2x1_bigspine1" anim="finalroom_2x1_bigspine1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+     <deco name ="monsterroom_2x1_wedge1" anim="monsterroom_2x1_wedge1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+
+
+   <deco name ="monsterroom_1x1_centerconsole1" anim="kanim_monsterConsole" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+
+	<deco name ="monsterroom_1x1_flooring1" anim="monsterroom_1x1_flooring1" facings="85"/> 
+	<deco name ="monsterroom_1x1_flooring2" anim="monsterroom_1x1_flooring2" facings="85"/> 
+	<deco name ="monsterroom_1x1_flooring3" anim="monsterroom_1x1_flooring3" facings="85"/> 
+
+
+<deco name ="monsterroom_bigwallscreen1" anim="monsterroom_bigwallscreen1" facings="85"/> 
+<deco name ="monsterroom_medwallscreen1" anim="monsterroom_medwallscreen1" facings="85"/> 
+<deco name ="monsterroom_walllight1" anim="monsterroom_walllight1" facings="85"/> 
+
+
+
+	
+     <deco name ="prefinal_3x1_standingscreen1" anim="prefinal_3x1_standingscreen1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-2" y="0"/>     
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="prefinal_2x1_gear1" anim="prefinal_2x1_gear1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>	
+      <tile x="-1" y="0"/>		 
+      <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="prefinal_1x1_console1" anim="prefinal_1x1_console1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+     <deco name ="prefinal_1x1_pillar1" anim="prefinal_1x1_pillar1" facings="85">
+	<tag name="impass"/>
+	<tag name="cover"/>			 
+        <tile x="0" y="0"/>
+    </deco> 
+
+	<deco name ="prefinal_1x1_floordecal1" anim="prefinal_1x1_floordecal1" facings="85"/>
+	<deco name ="prefinal_1x1_floordecal2" anim="prefinal_1x1_floordecal2" facings="85"/>
+	<deco name ="prefinal_1x1_floordecal3" anim="prefinal_1x1_floordecal3" facings="85"/>
+	<deco name ="prefinal_1x1_floordecal4" anim="prefinal_1x1_floordecal4" facings="85"/>
+	<deco name ="prefinal_1x1_floorpipes1" anim="prefinal_1x1_floorpipes1" facings="85"/>
+	<deco name ="prefinal_1x1_floorpipes2" anim="prefinal_1x1_floorpipes2" facings="85"/>
+	<deco name ="prefinal_1x1_floorpanel1" anim="prefinal_1x1_floorpanel1" facings="85"/>
+	<deco name ="prefinal_2x1_floorpanel2" anim="prefinal_2x1_floorpanel2" facings="85"/>
+
+<deco name ="prefinal_1x1_walllight1" anim="prefinal_1x1_walllight1" facings="85"/> 
+<deco name ="prefinal_1x1_wallpanel1" anim="prefinal_1x1_wallpanel1" facings="85"/> 
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	<deco name ="KO lab dirtstain 1 1x1" anim="decor_ko_lab_dirtstain1" facings="85"/> 
+	<deco name ="KO lab dirtstain 2 1x1" anim="decor_ko_lab_dirtstain2" facings="85"/> 
+	<deco name ="KO lab dirtstain 3 1x1" anim="decor_ko_lab_dirtstain3" facings="85"/> 
+
+	<deco name ="KO lab paperscrap 1 1x1" anim="decor_ko_lab_paperscrap1" facings="85"/> 
+	<deco name ="KO lab paperscrap 2 1x1" anim="decor_ko_lab_paperscrap2" facings="85"/> 
+	
+	<deco name ="Floor KO_lab manhole1" anim="decor_KO_lab_flooring_manhole1" facings="85"/> 
+	<deco name ="Floor KO_lab panel1" anim="decor_KO_lab_flooring_panel1" facings="85"/> 
+	<deco name ="Floor KO_lab panel2off" anim="decor_KO_lab_flooring_panel2off" facings="85"/> 
+	<deco name ="Floor KO_lab panel2on" anim="decor_KO_lab_flooring_panel2on" facings="85"/> 
+	<deco name ="Floor KO_lab panel3off" anim="decor_KO_lab_flooring_panel3off" facings="85"/> 
+	<deco name ="Floor KO_lab panel3on" anim="decor_KO_lab_flooring_panel3on" facings="85"/> 
+	<deco name ="Floor KO_lab panel4off" anim="decor_KO_lab_flooring_panel4off" facings="85"/> 
+	<deco name ="Floor KO_lab panel4on" anim="decor_KO_lab_flooring_panel4on" facings="85"/>
+	<deco name ="Floor KO_lab panel5on" anim="decor_KO_lab_flooring_panel5on" facings="85"/> 
+	<deco name ="Floor KO_lab panel6off" anim="decor_KO_lab_flooring_panel6off" facings="85"/> 
+	<deco name ="Floor KO_lab panel6on" anim="decor_KO_lab_flooring_panel6on" facings="85"/> 
+	<deco name ="Floor KO_lab panel7off" anim="decor_KO_lab_flooring_panel7off" facings="85"/> 
+	<deco name ="Floor KO_lab panel7on" anim="decor_KO_lab_flooring_panel7on" facings="85"/> 
+	<deco name ="Floor KO_lab panel8on" anim="decor_KO_lab_flooring_panel8on" facings="85"/> 
+
+	<deco name ="Floor KO_hall doormat1" anim="decor_KO_Hall_flooring_doormat1" facings="85"/> 
+	<deco name ="Floor KO_hall rug1" anim="decor_KO_Hall_flooring_rug1" facings="85"/> 
+	<deco name ="Floor KO_hall rug2" anim="decor_KO_hall_flooring_rug2" facings="85"/> 
+	<deco name ="Floor KO_hall rug3" anim="decor_KO_hall_flooring_rug3" facings="85"/> 
+	<deco name ="Floor KO_hall rug4" anim="decor_KO_hall_flooring_rug4" facings="85"/> 
+
+	<deco name ="Floor KO_office rug1" anim="decor_KO_office_flooring_rug1" facings="85"/> 
+	<deco name ="Floor KO_office rug2" anim="decor_KO_office_flooring_rug2" facings="85"/> 
+	<deco name ="Floor KO_office rug3" anim="decor_KO_office_flooring_rug3" facings="85"/> 
+	<deco name ="Floor KO_office rug4" anim="decor_KO_office_flooring_rug4" facings="85"/> 
+	<deco name ="Floor KO_office rugoff1" anim="decor_KO_office_flooring_rugoff1" facings="85"/> 
+ 
+	<deco name ="Floor Seikaku_lab alt2" anim="decor_Seikaku_lab_flooring_alt2" facings="85"/> 
+	<deco name ="Floor Seikaku_lab alt3" anim="decor_Seikaku_lab_flooring_alt3" facings="85"/> 
+	<deco name ="Floor Seikaku_lab alt4" anim="decor_Seikaku_lab_flooring_alt4" facings="85"/> 
+	<deco name ="Floor Seikaku_lab dark1" anim="decor_Seikaku_lab_flooring_dark1" facings="85"/> 
+	<deco name ="Floor Seikaku_lab dark2" anim="decor_Seikaku_lab_flooring_dark2" facings="85"/>  
+	<deco name ="Floor Seikaku_lab dark3" anim="decor_Seikaku_lab_flooring_dark3" facings="85"/>  
+	<deco name ="Floor Seikaku_lab dark4" anim="decor_Seikaku_lab_flooring_dark4" facings="85"/>  
+	<deco name ="Floor Seikaku_lab dark5" anim="decor_Seikaku_lab_flooring_dark5" facings="85"/>  
+	<deco name ="Floor Seikaku_lab light1" anim="decor_Seikaku_lab_flooring_light1" facings="85"/> 
+	<deco name ="Floor Seikaku_lab light2" anim="decor_Seikaku_lab_flooring_light2" facings="85"/>
+	<deco name ="Floor Seikaku_lab light3" anim="decor_Seikaku_lab_flooring_light3" facings="85"/>
+	<deco name ="Floor Seikaku_lab light4" anim="decor_Seikaku_lab_flooring_light4" facings="85"/>
+	<deco name ="Floor Seikaku_lab light5" anim="decor_Seikaku_lab_flooring_light5" facings="85"/>
+	<deco name ="Floor Seikaku_lab light6" anim="decor_Seikaku_lab_flooring_light6" facings="85"/>
+	<deco name ="Floor Seikaku_lab light7" anim="decor_Seikaku_lab_flooring_light7" facings="85"/>
+
+	<deco name ="Floor Seikaku_robobay alt1" anim="decor_Seikaku_robobay_flooring_alt1" facings="85"/>
+	<deco name ="Floor Seikaku_robobay alt3" anim="decor_Seikaku_robobay_flooring_alt3" facings="85"/>
+	<deco name ="Floor Seikaku_robobay alt4" anim="decor_Seikaku_robobay_flooring_alt4" facings="85"/>
+	<deco name ="Floor Seikaku_robobay dark1" anim="decor_Seikaku_robobay_flooring_dark1" facings="85"/>
+	<deco name ="Floor Seikaku_robobay dark2" anim="decor_Seikaku_robobay_flooring_dark2" facings="85"/>
+	<deco name ="Floor Seikaku_robobay dark3" anim="decor_Seikaku_robobay_flooring_dark3" facings="85"/>
+	<deco name ="Floor Seikaku_robobay dark4" anim="decor_Seikaku_robobay_flooring_dark4" facings="85"/>
+	<deco name ="Floor Seikaku_robobay dark5" anim="decor_Seikaku_robobay_flooring_dark5" facings="85"/>
+	<deco name ="Floor Seikaku_robobay light2" anim="decor_Seikaku_robobay_flooring_light2" facings="85"/>
+	<deco name ="Floor Seikaku_robobay light3" anim="decor_Seikaku_robobay_flooring_light3" facings="85"/>
+	<deco name ="Floor Seikaku_robobay light4" anim="decor_Seikaku_robobay_flooring_light4" facings="85"/>
+	<deco name ="Floor Seikaku_robobay light5" anim="decor_Seikaku_robobay_flooring_light5" facings="85"/>
+	<deco name ="Floor Seikaku_robobay light6" anim="decor_Seikaku_robobay_flooring_light6" facings="85"/>
+	<deco name ="Floor Seikaku_robobay light7" anim="decor_Seikaku_robobay_flooring_light7" facings="85"/>
+
+	<deco name ="Floor Seikaku_office alt1off" anim="decor_Seikaku_office_flooring1off_alt1" facings="85"/>
+	<deco name ="Floor Seikaku_office alt1on" anim="decor_Seikaku_office_flooring1on_alt1" facings="85"/>
+	<deco name ="Floor Seikaku_office alt2off" anim="decor_Seikaku_office_flooring1off_alt2" facings="85"/>
+	<deco name ="Floor Seikaku_office alt2on" anim="decor_Seikaku_office_flooring1on_alt2" facings="85"/>
+	<deco name ="Floor Seikaku_office tatami1off" anim="decor_Seikaku_office_flooring1off_tatami1" facings="85"/>
+	<deco name ="Floor Seikaku_office tatami1on" anim="decor_Seikaku_office_flooring1on_tatami1" facings="85"/>
+	<deco name ="Floor Seikaku_office tatami2off" anim="decor_Seikaku_office_flooring1off_tatami2" facings="85"/>
+	<deco name ="Floor Seikaku_office tatami2on" anim="decor_Seikaku_office_flooring1on_tatami2" facings="85"/>
+	<deco name ="Floor Seikaku_office tatami3off" anim="decor_Seikaku_office_flooring1off_tatami3" facings="85"/>
+	<deco name ="Floor Seikaku_office tatami3on" anim="decor_Seikaku_office_flooring1on_tatami3" facings="85"/>
+	<deco name ="Floor Seikaku_office tatami4off" anim="decor_Seikaku_office_flooring1off_tatami4" facings="85"/>
+	<deco name ="Floor Seikaku_office tatami4on" anim="decor_Seikaku_office_flooring1on_tatami4" facings="85"/>
+
+	<deco name ="Floor plastek_office rug1" anim="decor_plastek_office_flooring_1x1rug1" facings="85"/>
+	<deco name ="Floor plastek_office rug2" anim="decor_plastek_office_flooring_1x1rug2" facings="85"/>
+	<deco name ="Floor plastek_office rug3" anim="decor_plastek_office_flooring_1x1rug3" facings="85"/>
+	<deco name ="Floor plastek_office rug4" anim="decor_plastek_office_flooring_1x1rug4" facings="85"/>
+	<deco name ="Floor plastek_office rug5" anim="decor_plastek_office_flooring_1x1rug5" facings="85"/>
+
+	<deco name ="Floor plastek_lab dark1" anim="decor_plastek_lab_flooring_1x1dark1" facings="85"/>
+	<deco name ="Floor plastek_lab dark2" anim="decor_plastek_lab_flooring_1x1dark2" facings="85"/>
+	<deco name ="Floor plastek_lab dark3" anim="decor_plastek_lab_flooring_1x1dark3" facings="85"/>
+	<deco name ="Floor plastek_lab dark4" anim="decor_plastek_lab_flooring_1x1dark4" facings="85"/>
+	<deco name ="Floor plastek_lab dark5" anim="decor_plastek_lab_flooring_1x1dark5" facings="85"/>
+	<deco name ="Floor plastek_lab dark6" anim="decor_plastek_lab_flooring_1x1dark6" facings="85"/>
+	<deco name ="Floor plastek_lab light1" anim="decor_plastek_lab_flooring_1x1light1" facings="85"/>
+	<deco name ="Floor plastek_lab light2" anim="decor_plastek_lab_flooring_1x1light2" facings="85"/>
+	<deco name ="Floor plastek_lab light3" anim="decor_plastek_lab_flooring_1x1light3" facings="85"/>
+	<deco name ="Floor plastek_lab light4" anim="decor_plastek_lab_flooring_1x1light4" facings="85"/>
+	<deco name ="Floor plastek_lab light5" anim="decor_plastek_lab_flooring_1x1light5" facings="85"/>
+	<deco name ="Floor plastek_lab light6" anim="decor_plastek_lab_flooring_1x1light6" facings="85"/>
+	<deco name ="Floor plastek_lab light7" anim="decor_plastek_lab_flooring_1x1light7" facings="85"/>
+
+	<deco name ="Floor plastek_hall rug1" anim="decor_plastek_hall_flooring_1x1rug1" facings="85"/>
+	<deco name ="Floor plastek_hall rug2" anim="decor_plastek_hall_flooring_1x1rug2" facings="85"/>
+	<deco name ="Floor plastek_hall rug3" anim="decor_plastek_hall_flooring_1x1rug3" facings="85"/>
+	<deco name ="Floor plastek_hall rug4" anim="decor_plastek_hall_flooring_1x1rug4" facings="85"/>
+	<deco name ="Floor plastek_hall rug5" anim="decor_plastek_hall_flooring_1x1rug5" facings="85"/>
+	                                              
+	<deco name ="Floor plastek_psilab alt1" anim="decor_plastek_psilab_flooring_1x1alt1" facings="85"/>
+	<deco name ="Floor plastek_psilab alt2" anim="decor_plastek_psilab_flooring_1x1alt2" facings="85"/>
+	<deco name ="Floor plastek_psilab alt3" anim="decor_plastek_psilab_flooring_1x1alt3" facings="85"/>
+	<deco name ="Floor plastek_psilab alt4" anim="decor_plastek_psilab_flooring_1x1alt4" facings="85"/>
+	<deco name ="Floor plastek_psilab main1" anim="decor_plastek_psilab_flooring_1x1main1" facings="85"/>
+	<deco name ="Floor plastek_psilab main2" anim="decor_plastek_psilab_flooring_1x1main2" facings="85"/>
+	<deco name ="Floor plastek_psilab main3" anim="decor_plastek_psilab_flooring_1x1main3" facings="85"/>
+	<deco name ="Floor plastek_psilab main4" anim="decor_plastek_psilab_flooring_1x1main4" facings="85"/>
+
+	<deco name ="Floor ko_barracks caution1" anim="decor_ko_barracks_flooring_1x1caution1" facings="85"/>
+	<deco name ="Floor ko_barracks caution2" anim="decor_ko_barracks_flooring_1x1caution2" facings="85"/>
+	<deco name ="Floor ko_barracks panel1" anim="decor_ko_barracks_flooring_1x1panel1" facings="85"/>
+	<deco name ="Floor ko_barracks panel2" anim="decor_ko_barracks_flooring_1x1panel2" facings="85"/>
+	<deco name ="Floor ko_barracks panel3" anim="decor_ko_barracks_flooring_1x1panel3" facings="85"/>
+	<deco name ="Floor ko_barracks panel4" anim="decor_ko_barracks_flooring_1x1panel4" facings="85"/>
+	<deco name ="Floor ko_barracks panel5" anim="decor_ko_barracks_flooring_1x1panel5" facings="85"/>
+	<deco name ="Floor ko_barracks panel6" anim="decor_ko_barracks_flooring_1x1panel6" facings="85"/>
+	<deco name ="Floor ko_barracks panel7" anim="decor_ko_barracks_flooring_1x1panel7" facings="85"/>
+	<deco name ="Floor ko_barracks wood1" anim="decor_ko_barracks_flooring_1x1wood1" facings="85"/>
+	<deco name ="Floor ko_barracks wood2" anim="decor_ko_barracks_flooring_1x1wood2" facings="85"/>
+	<deco name ="Floor ko_barracks wood3" anim="decor_ko_barracks_flooring_1x1wood3" facings="85"/>
+
+	<deco name ="Floor ftm_hall rug1" anim="decor_ftm_hall_flooring_1x1rug1" facings="85"/>
+	<deco name ="Floor ftm_hall rug2" anim="decor_ftm_hall_flooring_1x1rug2" facings="85">
+		<match name="?burnt"/>
+		<match name="-burnt_floor"/>	
+		<burn name="+burnt_floor"/>	
+		 <tile x="-1" y="0"/>
+		 <tile x="-1" y="-1"/>
+		 <tile x="-1" y="-2"/>
+		 <tile x="0" y="0"/>		 
+		 <tile x="0" y="-1"/>		 
+		 <tile x="0" y="-2"/>
+	</deco>
+	<deco name ="Floor ftm_hall rug3" anim="decor_ftm_hall_flooring_1x1rug3" facings="85"/>
+	<deco name ="Floor ftm_hall rug4" anim="decor_ftm_hall_flooring_1x1rug4" facings="85"/>
+	
+	<deco name ="Floor ftm_lab alt1" anim="decor_ftm_lab_flooring_1x1alt1" facings="85"/>
+	<deco name ="Floor ftm_lab alt2" anim="decor_ftm_lab_flooring_1x1alt2" facings="85"/>
+	<deco name ="Floor ftm_lab alt3" anim="decor_ftm_lab_flooring_1x1alt3" facings="85"/>
+	<deco name ="Floor ftm_lab alt4" anim="decor_ftm_lab_flooring_1x1alt4" facings="85"/>
+	<deco name ="Floor ftm_lab alt5" anim="decor_ftm_lab_flooring_1x1alt5" facings="85"/>
+	<deco name ="Floor ftm_lab pane10" anim="decor_ftm_lab_flooring_1x1panel0" facings="85"/>
+	<deco name ="Floor ftm_lab pane11" anim="decor_ftm_lab_flooring_1x1panel1" facings="85"/>
+	<deco name ="Floor ftm_lab pane12" anim="decor_ftm_lab_flooring_1x1panel2" facings="85"/>
+	<deco name ="Floor ftm_lab pane13" anim="decor_ftm_lab_flooring_1x1panel3" facings="85"/>
+	<deco name ="Floor ftm_lab pane14" anim="decor_ftm_lab_flooring_1x1panel4" facings="85"/>
+	<deco name ="Floor ftm_lab pane15" anim="decor_ftm_lab_flooring_1x1panel5" facings="85"/>
+
+	<deco name ="Floor ftm_lab rug1" anim="decor_ftm_office_flooring_1x1rug1" facings="85"/>
+	<deco name ="Floor ftm_lab rug2" anim="decor_ftm_office_flooring_1x1rug2" facings="85"/>
+	<deco name ="Floor ftm_lab rug3" anim="decor_ftm_office_flooring_1x1rug3" facings="85"/>
+	<deco name ="Floor ftm_lab rug4" anim="decor_ftm_office_flooring_1x1rug4" facings="85"/>
+	<deco name ="Floor ftm_lab rug5" anim="decor_ftm_office_flooring_1x1rug5" facings="85"/>
+
+	<deco name ="Floor elevator floorpiece" anim="decor_elevator_floorpiece1" facings="85"/>
+
+<deco name ="elevator wallpiece1" anim="decor_elevator_1x1_wallpiece1" facings="85"/>
+
+<deco name ="elevator wallpiece2" anim="decor_elevator_1x1_wallpiece2" facings="85"/>
+
+   <deco name="FTM hall sculpt4" anim="kanim_hall_2x1_sculpt_4" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/> 
+     <tile x="-1" y="0"/>
+    </deco>
+	
+	
+	<!-- NEPTUNE PROPS -->
+	
+    <deco name="NEPTUNE hall walllight1" anim="ftm_hall_walllight1" facings="85">
+		<match name="-burnt_wall"/>	
+		<burn name="+burnt_wall"/>		  
+    </deco>
+	
+	    <deco name="NEPTUNE office desk3 items1" anim="ftm_office_object_2x2ldesk3_items1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco>	
+	
+	    <deco name="NEPTUNE office desk1 items2" anim="ftm_office_2x1_desk1_items2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco>	
+	    
+    <deco name="NEPTUNE office desk2 items1" anim="ftm_office_2x1_desk2_items1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco>	
+	    
+    <deco name="NEPTUNE office desk2 items2" anim="ftm_office_2x1_desk2_items2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>	  
+    </deco>	
+	
+	    <deco name="NEPTUNE office desk3" anim="decor_ftm_office_object_2x1desk3" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>	
+	
+	    <deco name="NEPTUNE office vent1" anim="ftm_office_vent1" facings="85"/>
+		
+		    <deco name="NEPTUNE planter" anim="ftm_office_1x1_planter" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	
+    <deco name="NEPTUNE hall painting5" anim="ftm_hall_painting5" facings="85">
+		<match name="-burnt_wall"/>	
+		<burn name="+burnt_wall"/>		  
+    </deco>	
+
+<deco name="NEPTUNE office banner" anim="ftm_office_ftmbanner1" facings="85"/>	
+
+<deco name="NEPTUNE elevator panel" anim="ftm_elevator_panel" facings="85"/>
+
+    <deco name="NEPTUNE hall chair1" anim="ftm_hall_chair1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+	
+    <deco name="NEPTUNE hall plant2" anim="ftm_hall_plant2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tag name="sightblock"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="NEPTUNE hall sculpt1" anim="ftm_hall_sculpt1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="NEPTUNE hall sculpt3" anim="ftm_hall_sculpt3" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>		
+	
+    <deco name="NEPTUNE hall bookshelf" anim="ftm_hall_bookshelf" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tag name="sightblock"/>
+      <tile x="0" y="0"/>
+    </deco>		
+	
+    <deco name="NEPTUNE hall couch1" anim="ftm_hall_couch1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+     <tile x="-1" y="0"/>
+    </deco>		
+	
+	 	 	    	 	 	    	    	    
+    <deco name="NEPTUNE lab coats" anim="ftm_lab_coats" facings="85"/>	
+	
+    <deco name="NEPTUNE lab poster1" anim="ftm_lab_poster1" facings="85"/>	
+	
+	    <deco name="NEPTUNE lab gear2" anim="ftm_lab_gear2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <sound name="Objects/FTM/gear_2"/>    
+    </deco>	
+	
+
+    <deco name="NEPTUNE lab console1" anim="ftm_lab_console1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/> 
+    </deco>		 	 	    	 	 	    	 	 	    	 	 	    
+
+    <deco name="NEPTUNE lab console2" anim="ftm_lab_console2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+	 <tile x="-1" y="0"/>
+    </deco>		 	 
+
+    <deco name="NEPTUNE lab console3" anim="ftm_lab_console3" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>			
+	
+    <deco name="NEPTUNE lab horizontalfilecabinet1" anim="ftm_lab_horizontalfilecabinet1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>		 		
+	
+	    <deco name="NEPTUNE lab table1_items1" anim="ftm_lab_table1_items1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+      <tile x="0" y="-1"/>
+      <tile x="-1" y="-1"/>
+    </deco>		
+	
+ <deco name="NEPTUNE security mapscreen1" anim="ftm_security_mapscreen1" facings="85"/>
+
+   <deco name="NEPTUNE security wallbox1" anim="ftm_security_wallbox1" facings="85"/>
+    <deco name="NEPTUNE security wallbox2" anim="ftm_security_wallbox2" facings="85"/> 
+	
+    <deco name="NEPTUNE security gear2" anim="ftm_security_1x1gear2" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="NEPTUNE security locker" anim="ftm_security_1x1locker" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tag name="sightblock"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="NEPTUNE security shelf" anim="ftm_security_1x1shelf" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>	
+
+    <deco name="NEPTUNE security watercooler" anim="ftm_security_1x1watercooler" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+    </deco>		
+	
+    <deco name="NEPTUNE lab steeltable1" anim="ftm_lab_steeltable1" facings="85">
+      <tag name="lab"/>
+      <tag name="impass"/>
+      <tag name="cover"/>
+      <tile x="0" y="0"/>
+      <tile x="-1" y="0"/>
+    </deco>		 		
+
+  </decos>
+
+
+  <tiles>
+
+
+  
+    <tile name="KO_barracks" zone = "ko_barracks" />
+    <tile name="KO_hall" zone = "ko_hall" />
+    <tile name="KO_factory" zone = "ko_factory" />
+    <tile name="KO_office" zone = "ko_office" />    
+    <tile name="Solid" zone="solid" flags="1"/>
+    <tile name="Elevator" zone = "elevator"/>
+    <tile name="Default"/>
+    <tile name="KO_security" zone = "ko_security" />
+	
+    <tile name="FTM_office" zone = "ftm_office" />
+    <tile name="FTM_lab" zone = "ftm_lab" />
+    <tile name="FTM_hall" zone = "ftm_hall" />
+    <tile name="FTM_security" zone = "ftm_security" />    	
+	
+    <tile name="SK_office" zone = "sk_office" />
+    <tile name="SK_lab" zone = "sk_lab" />
+    <tile name="SK_security" zone = "sk_security" />
+
+    <tile name="TECH_office" zone = "tech_office" />
+    <tile name="TECH_lab" zone = "tech_lab" />
+    <tile name="TECH_hall" zone = "tech_hall" />
+    <tile name="TECH_psi" zone = "tech_psi" />  
+	
+    <tile name="FTM_security_office" zone = "ftm_security_office" />
+    <tile name="FTM_security_security" zone = "ftm_security_security" />
+    <tile name="FTM_security_hall"   zone = "ftm_security_hall"   />
+
+    <tile name="NEUT_security" zone = "security" />    	    
+	
+    <tile name="FTM_TV_office" zone = "ftm_TV_office" />
+    <tile name="FTM_TV_studio" zone = "ftm_TV_studio" />
+    <tile name="FTM_TV_hall"   zone = "ftm_TV_hall" />
+    <tile name="Server room" zone = "server" />
+    <tile name="Guard room 1" zone = "guard_room_1" />
+    <tile name="Guard room 2" zone = "guard_room_2" />
+    <tile name="vault" zone = "vault" />
+	
+  	<tile name="terminals 1" zone = "terminals1" />
+  	<tile name="terminals 2" zone = "terminals2" />
+  	
+  	<tile name="detention" zone = "detention" />
+  	<tile name="nanofab" zone = "nanofab" />
+  	<tile name="Elevator Guard" zone = "elevator_guard" />
+    <tile name="CEO office" zone = "ceo_office" />
+    <tile name="Augment Lab" zone = "augment_lab" />
+
+    <tile name="Omni Mission Control" zone = "om_mission" />
+    <tile name="Omni Engine Room" zone = "om_holo" />
+    <tile name="Omni Holo data" zone = "om_engine" />
+    <tile name="Omni Hall" zone = "om_hall" />    
+    <tile name="Omni Final" zone = "om_final" />    
+    <tile name="Omni Pre Final" zone = "om_pre_final" />  
+    <tile name="Omni HUB" zone = "om_hub" />        
+	
+  </tiles>
+
+  <walls>
+    <wall name ="Default Wall" door="false" blocking="true" key = "default_wall"/>
+    <wall name ="Office Door" door="true" blocking="false" key = "office_door" match = "door"/>
+    <wall name ="Security Door" door="true" blocking="false" key = "security_door" match ="secdoor" />	
+    
+    <wall name ="Elevator" door="true" blocking="true" key = "elevator" match = "door" />
+    <wall name ="Elevator alt" door="true" blocking="true" key = "elevator_alt" match = "door" />
+    
+    <wall name ="Guard Door" door="true" blocking="false" key = "guard_door" match ="door" />	
+    <wall name ="Guard Door alt" door="true" blocking="false" key = "guard_door_alt" match ="door" />	
+
+    <wall name ="Vault Door" door="true" blocking="false" key = "vault_door" match ="door" />
+    <wall name ="Security Exit" door="true" blocking="false" key = "special_exit_door" match ="door" />
+
+    <wall name ="Final Door" door="true" blocking="false" key = "final_door" match ="door" />     
+    <wall name ="Final Door alt" door="true" blocking="false" key = "final_door_alt" match ="door" />     
+    <wall name ="Final Door alt2" door="true" blocking="false" key = "final_door_alt2" match ="door" />     
+
+    <wall name ="blastDoor" door="true" blocking="false" key = "blast_door" match ="door" />  
+  </walls>
+
+  <mtags>
+    <mtag name="tile" nodirection="true"/>
+    <mtag name="hall" nodirection="true"/>
+    <mtag name="office" nodirection="true"/>
+    <mtag name="lab" nodirection="true"/>
+    <mtag name="security" nodirection="true"/>
+    <mtag name="burnt"/>
+    <mtag name="burnt_wall"/>
+    <mtag name="burnt_floor" nodirection="true"/>
+    <mtag name="wall" notile="true"/>
+    <mtag name="door" notile="true"/>
+    <mtag name="secdoor" notile="true"/>
+    <mtag name="rlink" notile="true"/>
+    <mtag name="soundbug" nodirection="true"/>
+  </mtags>
+</configuration>
+
