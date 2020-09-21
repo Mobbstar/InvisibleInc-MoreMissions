@@ -65,7 +65,7 @@ return {
 
 	MISSIONS = {
 	HOSTAGE = {
-		MISSION_TITLE = "INSOMNIAC",
+		MISSION_TITLE = "HOSTAGE EXTRACTION",
 		MISSION_DESCRIPTION = "<Corporation> has intercepted one of our client's couriers. He's got important intel stored in a cerebral implant.",
 		MISSION_GOAL = "Your task is to break in, locate the courier, and recover the information. ",
 		MISSION_ENDER = "One final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",

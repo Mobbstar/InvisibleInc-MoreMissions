@@ -186,11 +186,11 @@ return {
 		},
 		ASSASSINATION = {
 			NAME= "Assassination",
-			MORE_INFO = "A person at this location has high bounty on their head. The client requests the corpse as proof of completion.\n\nThere will be personal security on-site, and we might run into other bounty-hunters. Be wary.", --This can be quite lengthy.
+			MORE_INFO = "A person at this location has a high bounty on their head.\n\nThe target is reportedly paranoid, with personal security on-site. Be wary.", --This can be quite lengthy.
 			INSET_TITLE = "MARKED FOR DEATH", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
-			DESCRIPTION = "Kill or knock out the VIP, then extract him.",
+			DESCRIPTION = "Locate and kill the VIP.",
 			REWARD = "1200 Credits.",
 		},
 		LANDFILL = {
