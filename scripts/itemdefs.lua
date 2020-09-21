@@ -160,10 +160,10 @@ function generateTechExpoGear()
 	
 	for i,itemdef in pairs(tech_expo_templates) do --upgrade traits
 		local traits = itemdef.traits
-		if traits.damage and not traits.lethalMelee then --NIAA compatibility
+		if traits.damage and (traits.damage > 0) and not traits.lethalMelee then --NIAA compatibility --if a trait is present, but 0, there's probably a good reason for it, keep it
 			traits.damage = traits.damage + 1
 		end
-		if traits.baseDamage and not traits.lethalMelee then --NIAA compatibility
+		if traits.baseDamage and (traits.baseDamage > 0) and not traits.lethalMelee then --NIAA compatibility
 			traits.baseDamage = traits.baseDamage + 1
 		end
 		if traits.pwrCost and (traits.pwrCost > 1) then
