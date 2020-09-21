@@ -47,8 +47,8 @@ local SITUATIONS =
 	weapons_expo =
 	{
         ui = {
-			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
-			icon = "gui/mission_previews/ea_hostage.png", --manacles icon
+			insetImg = "gui/menu pages/corp_select/New_mission_icons/10002.png", -- vault case (same as Vault mission, for now)
+			icon = "gui/icons/mission_icons/mission_weapons_expo_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_OBJECTIVE ),
 		},
 	},	
