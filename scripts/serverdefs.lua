@@ -23,8 +23,8 @@ local SITUATIONS =
 	assassination =
 	{
         ui = {
-			insetImg = "gui/mission_debrief/unknown.png",
-			icon = "gui/mission_previews/unknown.png",
+			insetImg = "gui/icons/mission_icons/mission_assassination.png",
+			icon = "gui/icons/mission_icons/mission_assassination_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL ),
 		},
 	},
@@ -39,8 +39,8 @@ local SITUATIONS =
 	ea_hostage =
 	{
         ui = {
-			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
-			icon = "gui/mission_previews/ea_hostage.png",
+			insetImg = "gui/icons/mission_icons/mission_EA_hostage.png",
+			icon = "gui/icons/mission_icons/mission_EA_hostage_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_HOSTAGE ),
 		},
 	},
@@ -48,7 +48,7 @@ local SITUATIONS =
 	{
         ui = {
 			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
-			icon = "gui/mission_previews/ea_hostage.png", --gun icon
+			icon = "gui/mission_previews/ea_hostage.png", --manacles icon
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_OBJECTIVE ),
 		},
 	},	
@@ -56,8 +56,8 @@ local SITUATIONS =
 	distress_call =
 	{
         ui = {
-			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
-			icon = "gui/mission_previews/ea_hostage.png", --gun icon
+			insetImg = "gui/icons/mission_icons/mission_distress_call_v5.png",
+			icon = "gui/icons/mission_icons/mission_distress_call_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY),
 		},
