@@ -1,11 +1,29 @@
 local array = include("modules/array")
 local util = include("modules/util")
 local simdefs = include("sim/simdefs")
+local simquery = include("sim/simquery")
 local Actions = include("sim/btree/actions")
 
+local function interestOutsideOfSaferoom( sim, interest )
+	local cell = sim:getCell( interest.x, interest.y )
+	return not simquery.cellHasTag( sim, cell, "saferoom" )
+end
+
 function Actions.mmArmVip( sim, unit )
+	-- Remove current interest and UI indicator, if outside the saferoom
+	local currentInterest = unit:getBrain():getInterest()
+	if currentInterest and interestOutsideOfSaferoom( sim, currentInterest ) then
+		sim:dispatchEvent( simdefs.EV_UNIT_DEL_INTEREST, {unit = unit, interest = currentInterest} )
+		sim:triggerEvent( simdefs.TRG_DEL_INTEREST, {unit = unit, interest = currentInterest} )
+	end
+	-- Remove other interests outside the saferoom
+	array.removeIf( unit:getBrain():getSenses().interests, function( interest ) return interestOutsideOfSaferoom( sim, interest ) end )
+
+	-- Update traits
 	unit:getTraits().mmSearchedVipSafe = true
 	unit:getTraits().vip = false
+
+	sim:processReactions( unit )
 
 	-- Let mission script handle the weapon transfer
 	sim:triggerEvent( "MM-VIP-ARMING", {unit=unit} )
