@@ -100,34 +100,6 @@ local BountyTargetBrain = class(Brain, function(self)
 	)
 end)
 
-function BountyTargetBrain:getPatrolFacing()
-	local facings = self.unit:getTraits().patrolFacing
-	local nextFacing = self.unit:getTraits().nextFacing
-
-	if facings and nextFacing then
-		return facings[nextFacing]
-	else
-		return self:getNextPatrolFacing()
-	end
-end
-
-function BountyTargetBrain:getNextPatrolFacing()
-	local facings = self.unit:getTraits().patrolFacing
-	if not facings then
-		return self.unit:getFacing()
-	end
-
-	local nextFacing = self.unit:getTraits().nextFacing
-	if not nextFacing then
-		nextFacing = 1
-	else
-		local maxFacing = #facings
-		nextFacing = (nextFacing % maxFacing) + 1
-	end
-	self.unit:getTraits().nextFacing = nextFacing
-	return facings[nextFacing]
-end
-
 -----
 -- Senses overrides for units with this brain
 
