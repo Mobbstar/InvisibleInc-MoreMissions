@@ -2318,6 +2318,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_hide_facing</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -2801,6 +2802,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_hide</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -4087,7 +4089,7 @@
       </MapDeco>
       <MapDeco>
         <X>1</X>
-        <Y>1</Y>
+        <Y>3</Y>
         <Anim>decor_ko_barracks_fridge1</Anim>
         <DecoKey>KO barracks fridge 1 1x1</DecoKey>
         <Facing>0</Facing>
@@ -4100,8 +4102,8 @@
         <Facing>0</Facing>
       </MapDeco>
       <MapDeco>
-        <X>1</X>
-        <Y>3</Y>
+        <X>4</X>
+        <Y>7</Y>
         <Anim>decor_ko_lab_case1</Anim>
         <DecoKey>KO lab case 1 1x1</DecoKey>
         <Facing>6</Facing>

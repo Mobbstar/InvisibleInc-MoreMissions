@@ -2948,6 +2948,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_hide_facing</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -2969,6 +2970,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_hide</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -4438,13 +4440,6 @@
         <Anim>decor_ko_barracks_walllight1</Anim>
         <DecoKey>KO barracks wall light 1</DecoKey>
         <Facing>2</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>10</X>
-        <Y>1</Y>
-        <Anim>decor_ko_barracks_vendingmachine1</Anim>
-        <DecoKey>KO barracks vending machine 1 1x1</DecoKey>
-        <Facing>4</Facing>
       </MapDeco>
       <MapDeco>
         <X>4</X>
