@@ -7,8 +7,12 @@ local conditions = include("sim/btree/conditions")
 local CommonBrain = include( "sim/btree/commonbrain" )
 local simdefs = include("sim/simdefs")
 local simfactory = include( "sim/simfactory" )
+local simquery = include("sim/simquery")
 
 require("class")
+
+-----
+-- Main behavior sequences for the brain.
 
 -- CommonBrain.RangedCombat, but screaming.
 -- Falls back to behavior like CommonBrain.NoCombat if unarmed.
@@ -75,6 +79,9 @@ local function PanicFlee()
 	})
 end
 
+-----
+-- Brain definition
+
 local BountyTargetBrain = class(Brain, function(self)
 	Brain.init(self, "mmBountyTargetBrain",
 		btree.Selector(
@@ -120,6 +127,36 @@ function BountyTargetBrain:getNextPatrolFacing()
 	self.unit:getTraits().nextFacing = nextFacing
 	return facings[nextFacing]
 end
+
+-----
+-- Senses overrides for units with this brain
+
+local function overrideSensesAddInterest( senses )
+	local oldAddInterest = senses.addInterest
+
+	function senses:addInterest(x, y, sense, reason, ...)
+		if self.unit:getTraits().mmSearchedVipSafe and x and y then
+			-- Don't add interests outside of the safe room.
+			local sim = self.unit:getSim()
+			local cell = sim:getCell(x, y)
+			if not simquery.cellHasTag(sim, cell, "saferoom") then
+				simlog(simdefs.LOG_AI, "Unit [%d] ignoring interest (%d,%d:%s:%s) outside the saferoom", self.unit:getID(), x, y, sense, reason)
+				return nil
+			end
+		end
+
+		return oldAddInterest(self, x, y, sense, reason, ... )
+	end
+end
+
+function BountyTargetBrain:onSpawned(sim, unit)
+	Brain.onSpawned(self, sim, unit)
+
+	overrideSensesAddInterest( self.senses )
+end
+
+-----
+-- Brain Registration
 
 local function createBrain()
 	return BountyTargetBrain()
