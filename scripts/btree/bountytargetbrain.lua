@@ -65,7 +65,13 @@ local function PanicFlee()
 		actions.MoveToNextPatrolPoint(),
 		btree.Action(actions.DoLookAround),
 		btree.Action(actions.mmArmVip),
-		btree.Action(actions.mmRequestNewPanicTarget),
+		btree.Selector("Finish",
+		{
+			-- If there's an existing interest in the safe room, stop here.
+			btree.Condition(conditions.HasInterest),
+			-- Otherwise begin hunting around the room.
+			btree.Action(actions.mmRequestNewPanicTarget),
+		}),
 	})
 end
 
