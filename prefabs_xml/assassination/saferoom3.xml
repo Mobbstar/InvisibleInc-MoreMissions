@@ -2780,6 +2780,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_hide_facing</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -2801,6 +2802,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_hide</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -4065,13 +4067,6 @@
         <Facing>4</Facing>
       </MapDeco>
       <MapDeco>
-        <X>4</X>
-        <Y>1</Y>
-        <Anim>decor_ko_barracks_armourlocker1</Anim>
-        <DecoKey>KO barracks armour locker 1 1x1</DecoKey>
-        <Facing>4</Facing>
-      </MapDeco>
-      <MapDeco>
         <X>1</X>
         <Y>4</Y>
         <Anim>decor_ko_barracks_walldividerguns1</Anim>
@@ -4087,31 +4082,17 @@
       </MapDeco>
       <MapDeco>
         <X>1</X>
-        <Y>1</Y>
-        <Anim>decor_ko_barracks_fridge1</Anim>
-        <DecoKey>KO barracks fridge 1 1x1</DecoKey>
-        <Facing>0</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>1</X>
         <Y>6</Y>
         <Anim>decor_ko_lab_wallbox1</Anim>
         <DecoKey>KO lab wallbox 1</DecoKey>
         <Facing>0</Facing>
       </MapDeco>
       <MapDeco>
-        <X>1</X>
-        <Y>3</Y>
+        <X>4</X>
+        <Y>7</Y>
         <Anim>decor_ko_lab_case1</Anim>
         <DecoKey>KO lab case 1 1x1</DecoKey>
         <Facing>6</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>1</X>
-        <Y>2</Y>
-        <Anim>decor_ko_lab_tallcase1</Anim>
-        <DecoKey>KO lab tall case 1 1x1</DecoKey>
-        <Facing>0</Facing>
       </MapDeco>
       <MapDeco>
         <X>2</X>
@@ -4128,18 +4109,39 @@
         <Facing>6</Facing>
       </MapDeco>
       <MapDeco>
-        <X>2</X>
-        <Y>1</Y>
-        <Anim>decor_ko_barracks_walllight1</Anim>
-        <DecoKey>KO barracks wall light 1</DecoKey>
-        <Facing>2</Facing>
-      </MapDeco>
-      <MapDeco>
         <X>4</X>
         <Y>4</Y>
         <Anim>guardoffice_1x1_floorpanel2</Anim>
         <DecoKey>guardoffice_1x1_floorpanel2</DecoKey>
         <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>2</X>
+        <Y>1</Y>
+        <Anim>decor_ko_barracks_fridge1</Anim>
+        <DecoKey>KO barracks fridge 1 1x1</DecoKey>
+        <Facing>2</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>1</X>
+        <Y>3</Y>
+        <Anim>decor_ko_barracks_armourlocker1</Anim>
+        <DecoKey>KO barracks armour locker 1 1x1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>4</X>
+        <Y>1</Y>
+        <Anim>decor_ko_lab_tallcase1</Anim>
+        <DecoKey>KO lab tall case 1 1x1</DecoKey>
+        <Facing>6</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>3</X>
+        <Y>1</Y>
+        <Anim>decor_ko_lab_case1</Anim>
+        <DecoKey>KO lab case 1 1x1</DecoKey>
+        <Facing>0</Facing>
       </MapDeco>
     </Decos>
     <Lights />
