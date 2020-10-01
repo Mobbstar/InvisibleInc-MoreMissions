@@ -10,6 +10,14 @@ local function interestOutsideOfSaferoom( sim, interest )
 end
 
 function Actions.mmArmVip( sim, unit )
+	if unit:getTraits().mmSearchedVipSafe then
+		-- Already done. Skip.
+		return simdefs.BSTATE_COMPLETE
+	end
+
+	-- Let mission script handle the weapon transfer
+	sim:triggerEvent( "MM-VIP-ARMING", {unit=unit} )
+
 	-- Remove current interest and UI indicator, if outside the saferoom
 	local currentInterest = unit:getBrain():getInterest()
 	if currentInterest and interestOutsideOfSaferoom( sim, currentInterest ) then
@@ -24,9 +32,6 @@ function Actions.mmArmVip( sim, unit )
 	unit:getTraits().vip = false
 
 	sim:processReactions( unit )
-
-	-- Let mission script handle the weapon transfer
-	sim:triggerEvent( "MM-VIP-ARMING", {unit=unit} )
 
 	return simdefs.BSTATE_COMPLETE
 end
