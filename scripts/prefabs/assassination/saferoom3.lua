@@ -579,6 +579,7 @@ local tiles =
             "bountyhunt_office",
         },
         impass = 1,
+        cover = 1,
     },
     {
         x = 12,
@@ -974,6 +975,7 @@ local tiles =
             "bountyhunt_office",
         },
         impass = 1,
+        cover = 1,
     },
     {
         x = 13,
@@ -1226,6 +1228,7 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_hide_facing",
         },
     },
     {
@@ -1396,6 +1399,8 @@ local tiles =
             "noguard",
             "saferoom",
         },
+        impass = 1,
+        cover = 1,
     },
     {
         x = 1,
@@ -1471,6 +1476,7 @@ local tiles =
         },
         impass = 1,
         cover = 1,
+        sightblock = 1,
     },
     {
         x = 1,
@@ -1495,10 +1501,8 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_hide",
         },
-        impass = 1,
-        cover = 1,
-        sightblock = 1,
     },
     {
         x = 1,
@@ -2923,7 +2927,7 @@ local decos =
     },
     {
         x = 1,
-        y = 1,
+        y = 3,
         kanim = [[decor_ko_barracks_fridge1]],
         facing = 0,
     },
@@ -2934,8 +2938,8 @@ local decos =
         facing = 0,
     },
     {
-        x = 1,
-        y = 3,
+        x = 4,
+        y = 7,
         kanim = [[decor_ko_lab_case1]],
         facing = 6,
     },
@@ -3514,22 +3518,6 @@ local export =
                 id1 = 100,
                 x1 = 1,
                 y1 = 2,
-            },
-            {
-                id0 = 28,
-                x0 = 1,
-                y0 = 0,
-                id1 = 100,
-                x1 = 1,
-                y1 = 1,
-            },
-            {
-                id0 = 29,
-                x0 = 0,
-                y0 = 1,
-                id1 = 100,
-                x1 = 1,
-                y1 = 1,
             },
             {
                 id0 = 41,
