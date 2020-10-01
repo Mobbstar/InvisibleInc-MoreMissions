@@ -46,6 +46,7 @@ local function PanicHunt()
 		btree.Condition(conditions.mmHasSearchedVipSafe),
 		btree.Condition(conditions.HasInterest),
 		btree.Action(actions.ReactToInterest),
+		btree.Condition(conditions.mmInterestInSaferoom),
 		actions.MoveToInterest(),
 		btree.Action(actions.MarkInterestInvestigated),
 		btree.Action(actions.DoLookAround),
@@ -101,18 +102,18 @@ end)
 local function overrideSensesAddInterest( senses )
 	local oldAddInterest = senses.addInterest
 
-	function senses:addInterest(x, y, sense, reason, ...)
-		if self.unit:getTraits().mmSearchedVipSafe and x and y then
-			-- Don't add interests outside of the safe room.
-			local sim = self.unit:getSim()
-			local cell = sim:getCell(x, y)
-			if not simquery.cellHasTag(sim, cell, "saferoom") then
-				simlog(simdefs.LOG_AI, "Unit [%d] ignoring interest (%d,%d:%s:%s) outside the saferoom", self.unit:getID(), x, y, sense, reason)
+	function senses:addInterest(x, y, sense, reason, sourceUnit, ...)
+		if self.unit:getTraits().mmSearchedVipSafe and sense == simdefs.SENSE_RADIO then
+			-- SENSE_RADIO is generally remote interests from other sources (camera, Authority daemon, etc).
+			-- Ignore them except for the random hunting interests sent by this unit.
+			-- Note: We'll still turn to join a shared overwatch combat. An interest only tries to be added if we can't immediately point our gun.
+			if not (reason == simdefs.REASON_HUNTING and sourceUnit == self.unit) then
+				simlog("LOG_MOREMISSIONS", "Unit [%d] ignoring radio interest (%d,%d:%s:%s:%s)", self.unit:getID(), x, y, sense, reason, sourceUnit and tostring(sourceUnit:getID()) or "nil")
 				return nil
 			end
 		end
 
-		return oldAddInterest(self, x, y, sense, reason, ... )
+		return oldAddInterest(self, x, y, sense, reason, sourceUnit, ... )
 	end
 end
 
