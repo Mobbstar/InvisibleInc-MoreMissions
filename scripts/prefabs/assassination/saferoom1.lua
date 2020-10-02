@@ -129,6 +129,7 @@ local tiles =
             "bountyhunt_office",
         },
         impass = 1,
+        cover = 1,
     },
     {
         x = 5,
@@ -1568,6 +1569,7 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_hide_facing",
         },
     },
     {
@@ -1579,10 +1581,8 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_hide",
         },
-        impass = 1,
-        cover = 1,
-        sightblock = 1,
     },
     {
         x = 5,
@@ -1632,6 +1632,7 @@ local tiles =
             "saferoom",
         },
         impass = 1,
+        cover = 1,
     },
     {
         x = 4,
@@ -3134,12 +3135,6 @@ local decos =
         facing = 2,
     },
     {
-        x = 10,
-        y = 1,
-        kanim = [[decor_ko_barracks_vendingmachine1]],
-        facing = 4,
-    },
-    {
         x = 4,
         y = 1,
         kanim = [[decor_ko_hall_standinglamp1]],
@@ -4024,22 +4019,6 @@ local export =
                 y0 = 0,
                 id1 = 101,
                 x1 = 8,
-                y1 = 1,
-            },
-            {
-                id0 = 28,
-                x0 = 11,
-                y0 = 1,
-                id1 = 101,
-                x1 = 10,
-                y1 = 1,
-            },
-            {
-                id0 = 21,
-                x0 = 10,
-                y0 = 0,
-                id1 = 101,
-                x1 = 10,
                 y1 = 1,
             },
             {
