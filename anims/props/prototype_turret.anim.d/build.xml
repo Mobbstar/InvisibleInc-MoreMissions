@@ -1,0 +1,168 @@
+<Build name="Office_Security_1x1Turret_new.fla">
+  <Symbol name="sparks2">
+    <Frame framenum="0" duration="1" image="sparks2-0" w="100" h="72" x="-0.7495003" y="27.6005" />
+    <Frame framenum="1" duration="1" image="sparks2-1" w="156" h="112" x="-1.249496" y="47.5005" />
+    <Frame framenum="2" duration="1" image="sparks2-2" w="172" h="124" x="-1.324501" y="53.6005" />
+    <Frame framenum="3" duration="1" image="sparks2-3" w="180" h="124" x="-1.349503" y="54.1005" />
+    <Frame framenum="4" duration="1" image="sparks2-4" w="188" h="128" x="-1.399498" y="56.2755" />
+    <Frame framenum="5" duration="1" image="sparks2-5" w="192" h="128" x="-1.4245" y="57.4755" />
+    <Frame framenum="6" duration="1" image="sparks2-6" w="196" h="128" x="-1.4245" y="59.9" />
+    <Frame framenum="7" duration="1" image="sparks2-7" w="196" h="132" x="-1.474503" y="59.1005" />
+    <Frame framenum="8" duration="1" image="sparks2-8" w="194" h="110" x="3.100502" y="62.95" />
+  </Symbol>
+  <Symbol name="bolt_a">
+    <Frame framenum="0" duration="1" image="bolt_a-0" w="80" h="108" x="10.7005" y="6.150501" />
+    <Frame framenum="3" duration="1" image="bolt_a-3" w="88" h="124" x="3.3755" y="2.100502" />
+    <Frame framenum="4" duration="1" image="bolt_a-4" w="92" h="124" x="1.5755" y="1.600498" />
+    <Frame framenum="5" duration="1" image="bolt_a-4" w="92" h="124" x="1.5755" y="1.600498" />
+    <Frame framenum="6" duration="1" image="bolt_a-6" w="92" h="124" x="0.3255005" y="-0.1495018" />
+    <Frame framenum="7" duration="1" image="bolt_a-6" w="92" h="124" x="0.3255005" y="-0.1495018" />
+    <Frame framenum="8" duration="1" image="bolt_a-8" w="92" h="128" x="-1.099499" y="-0.02449799" />
+    <Frame framenum="10" duration="1" image="bolt_a-10" w="96" h="124" x="-2.349499" y="-1.599499" />
+  </Symbol>
+  <Symbol name="bolt_b">
+    <Frame framenum="0" duration="1" image="bolt_b-0" w="64" h="92" x="11.2005" y="2.350502" />
+    <Frame framenum="3" duration="1" image="bolt_b-3" w="84" h="140" x="3.0755" y="4.300499" />
+    <Frame framenum="4" duration="1" image="bolt_b-4" w="84" h="144" x="1.275501" y="2.525497" />
+    <Frame framenum="5" duration="1" image="bolt_b-4" w="84" h="144" x="1.275501" y="2.525497" />
+    <Frame framenum="6" duration="1" image="bolt_b-6" w="84" h="144" x="0.1254997" y="1.2005" />
+    <Frame framenum="7" duration="1" image="bolt_b-6" w="84" h="144" x="0.1254997" y="1.2005" />
+    <Frame framenum="8" duration="1" image="bolt_b-8" w="84" h="148" x="-2.599499" y="-0.2245026" />
+    <Frame framenum="10" duration="1" image="bolt_b-10" w="84" h="152" x="-3.199501" y="-0.9244995" />
+  </Symbol>
+  <Symbol name="bolt_c">
+    <Frame framenum="0" duration="1" image="bolt_c-0" w="112" h="32" x="-1.7995" y="4.0755" />
+    <Frame framenum="3" duration="1" image="bolt_c-3" w="136" h="48" x="-0.699501" y="4.8505" />
+    <Frame framenum="4" duration="1" image="bolt_c-4" w="148" h="52" x="-1.5495" y="4.0755" />
+    <Frame framenum="5" duration="1" image="bolt_c-4" w="148" h="52" x="-1.5495" y="4.0755" />
+    <Frame framenum="6" duration="1" image="bolt_c-6" w="152" h="62" x="-0.07450104" y="1.7005" />
+    <Frame framenum="7" duration="1" image="bolt_c-6" w="152" h="62" x="-0.07450104" y="1.7005" />
+    <Frame framenum="8" duration="1" image="bolt_c-8" w="156" h="64" x="0.300499" y="-1.199501" />
+    <Frame framenum="10" duration="1" image="bolt_c-10" w="160" h="64" x="-0.274498" y="-0.04949951" />
+  </Symbol>
+  <Symbol name="teal">
+    <Frame framenum="0" duration="1" image="teal-0" w="68" h="72" x="-0.8995018" y="-11.4245" />
+    <Frame framenum="1" duration="1" image="teal-1" w="68" h="72" x="-0.1495018" y="-11.3745" />
+    <Frame framenum="2" duration="1" image="teal-2" w="68" h="72" x="-0.1495018" y="-11.3995" />
+    <Frame framenum="3" duration="1" image="teal-3" w="68" h="72" x="-0.1495018" y="-11.4495" />
+    <Frame framenum="4" duration="1" image="teal-4" w="68" h="72" x="0.675499" y="-11.3745" />
+    <Frame framenum="5" duration="1" image="teal-5" w="68" h="44" x="-0.1495018" y="2.425499" />
+    <Frame framenum="6" duration="1" image="teal-6" w="24" h="52" x="-23.099" y="-8.599499" />
+    <Frame framenum="7" duration="1" image="teal-7" w="32" h="56" x="-14.349" y="-2.699501" />
+    <Frame framenum="8" duration="1" image="teal-8" w="36" h="48" x="0.1005001" y="0.2255001" />
+    <Frame framenum="9" duration="1" image="teal-9" w="32" h="56" x="15.2" y="-2.7495" />
+    <Frame framenum="10" duration="1" image="teal-10" w="20" h="52" x="24.2" y="-7.699501" />
+  </Symbol>
+  <Symbol name="hit">
+    <Frame framenum="0" duration="1" image="hit-0" w="268" h="348" x="-136.249" y="-4.6745" />
+    <Frame framenum="1" duration="1" image="hit-1" w="300" h="364" x="-158.224" y="-6.599503" />
+    <Frame framenum="2" duration="1" image="hit-2" w="322" h="404" x="-174.174" y="-4.724503" />
+    <Frame framenum="3" duration="1" image="hit-3" w="328" h="380" x="-189.599" y="-6.749496" />
+    <Frame framenum="4" duration="1" image="hit-4" w="256" h="400" x="-160.774" y="-4.9245" />
+    <Frame framenum="5" duration="1" image="hit-5" w="112" h="268" x="-189.349" y="-33.2495" />
+  </Symbol>
+  <Symbol name="chunk">
+    <Frame framenum="0" duration="1" image="chunk-0" w="24" h="24" x="12.85" y="-8.874001" />
+    <Frame framenum="1" duration="1" image="chunk-1" w="24" h="24" x="5.775" y="-5.073999" />
+    <Frame framenum="2" duration="1" image="chunk-2" w="24" h="24" x="4.0255" y="-11.424" />
+    <Frame framenum="3" duration="1" image="chunk-3" w="20" h="20" x="-4.874001" y="-4.874001" />
+    <Frame framenum="4" duration="1" image="chunk-4" w="20" h="20" x="-4.649" y="-14.999" />
+    <Frame framenum="5" duration="1" image="chunk-5" w="16" h="16" x="-4.299" y="-21.049" />
+    <Frame framenum="6" duration="1" image="chunk-6" w="24" h="24" x="5.0005" y="-18.974" />
+    <Frame framenum="7" duration="1" image="chunk-7" w="24" h="26" x="-4.3745" y="20.35" />
+    <Frame framenum="8" duration="1" image="chunk-8" w="20" h="24" x="-9.399" y="17.15" />
+    <Frame framenum="9" duration="1" image="chunk-9" w="20" h="26" x="-14.074" y="14" />
+  </Symbol>
+  <Symbol name="red">
+    <Frame framenum="0" duration="1" image="red-0" w="72" h="72" x="0.1505013" y="-8.1245" />
+    <Frame framenum="1" duration="1" image="red-1" w="72" h="76" x="0.175499" y="-10.0995" />
+    <Frame framenum="2" duration="1" image="red-2" w="72" h="72" x="0.175499" y="-7.774498" />
+    <Frame framenum="3" duration="1" image="red-3" w="72" h="76" x="0.175499" y="-10.2495" />
+    <Frame framenum="4" duration="1" image="red-4" w="72" h="72" x="0.175499" y="-7.7995" />
+    <Frame framenum="5" duration="1" image="red-5" w="72" h="56" x="0.175499" y="-0.02449989" />
+    <Frame framenum="6" duration="1" image="red-6" w="24" h="52" x="-23.099" y="-8.599499" />
+    <Frame framenum="7" duration="1" image="red-7" w="32" h="56" x="-14.349" y="-2.699501" />
+    <Frame framenum="8" duration="1" image="red-8" w="36" h="48" x="0.1005001" y="0.2255001" />
+    <Frame framenum="9" duration="1" image="red-9" w="32" h="56" x="15.2" y="-2.7495" />
+    <Frame framenum="10" duration="1" image="red-10" w="24" h="52" x="23.7" y="-7.199501" />
+  </Symbol>
+  <Symbol name="flash">
+    <Frame framenum="0" duration="1" image="flash-0" w="84" h="178" x="-0.09949875" y="-44.6245" />
+    <Frame framenum="1" duration="1" image="flash-1" w="44" h="232" x="0.3005009" y="-72.32449" />
+    <Frame framenum="2" duration="1" image="flash-2" w="38" h="116" x="0.2255001" y="-39.5995" />
+  </Symbol>
+  <Symbol name="side_flash">
+    <Frame framenum="0" duration="1" image="side_flash-0" w="198" h="72" x="-32.5495" y="0.3504982" />
+    <Frame framenum="1" duration="1" image="side_flash-1" w="142" h="74" x="-61.89951" y="1.400501" />
+    <Frame framenum="2" duration="1" image="side_flash-2" w="86" h="50" x="-73.749" y="2.025499" />
+    <Frame framenum="3" duration="1" image="side_flash-3" w="44" h="32" x="-87.224" y="0.3505001" />
+  </Symbol>
+  <Symbol name="base_plate">
+    <Frame framenum="0" duration="1" image="base_plate-0" w="20" h="58" x="-22.699" y="-8.149498" />
+    <Frame framenum="1" duration="1" image="base_plate-1" w="32" h="56" x="-14.349" y="-3.574501" />
+    <Frame framenum="2" duration="1" image="base_plate-2" w="36" h="48" x="0.1005001" y="-0.04949951" />
+    <Frame framenum="3" duration="1" image="base_plate-3" w="32" h="56" x="15.225" y="-3.7995" />
+    <Frame framenum="4" duration="1" image="base_plate-4" w="22" h="58" x="24.2" y="-7.9245" />
+  </Symbol>
+  <Symbol name="sigil">
+    <Frame framenum="0" duration="1" image="sigil-0" w="24" h="40" x="0.1505003" y="0.02549934" />
+    <Frame framenum="1" duration="1" image="sigil-1" w="40" h="56" x="8.3005" y="4.3755" />
+    <Frame framenum="2" duration="1" image="sigil-2" w="48" h="48" x="23.75" y="11.5755" />
+    <Frame framenum="3" duration="1" image="sigil-3" w="42" h="56" x="39.05" y="5.025499" />
+    <Frame framenum="4" duration="1" image="sigil-4" w="26" h="40" x="47.7" y="0.9755001" />
+  </Symbol>
+  <Symbol name="barrel">
+    <Frame framenum="0" duration="1" image="barrel-0" w="34" h="72" x="1.0255" y="-18.6245" />
+    <Frame framenum="1" duration="1" image="barrel-1" w="84" h="64" x="-31.1495" y="-15.2495" />
+    <Frame framenum="2" duration="1" image="barrel-2" w="96" h="28" x="-42.27451" y="0.7005005" />
+    <Frame framenum="3" duration="1" image="barrel-3" w="88" h="60" x="-31.1745" y="16.2755" />
+    <Frame framenum="4" duration="1" image="barrel-4" w="32" h="80" x="-0.6744995" y="19.9005" />
+  </Symbol>
+  <Symbol name="barre_mainframe">
+    <Frame framenum="0" duration="1" image="barre_mainframe-0" w="32" h="72" x="0.0255003" y="-18.6245" />
+    <Frame framenum="1" duration="1" image="barre_mainframe-1" w="84" h="64" x="-31.1995" y="-15.2495" />
+    <Frame framenum="2" duration="1" image="barre_mainframe-2" w="96" h="28" x="-42.27451" y="0.7005005" />
+    <Frame framenum="3" duration="1" image="barre_mainframe-3" w="88" h="60" x="-31.1745" y="16.2755" />
+    <Frame framenum="4" duration="1" image="barre_mainframe-4" w="32" h="80" x="-0.6744995" y="19.9005" />
+  </Symbol>
+  <Symbol name="top">
+    <Frame framenum="0" duration="1" image="top-0" w="68" h="116" x="0.2005005" y="-0.1495018" />
+    <Frame framenum="1" duration="1" image="top-1" w="68" h="116" x="0.2504997" y="-0.09949875" />
+    <Frame framenum="2" duration="1" image="top-2" w="68" h="116" x="0.2504997" y="-0.09949875" />
+    <Frame framenum="3" duration="1" image="top-3" w="68" h="116" x="0.2504997" y="-0.1245003" />
+    <Frame framenum="4" duration="1" image="top-4" w="68" h="116" x="0.2504997" y="-0.09949875" />
+    <Frame framenum="5" duration="1" image="top-5" w="68" h="116" x="0.2504997" y="-0.09949875" />
+    <Frame framenum="6" duration="1" image="top-6" w="68" h="116" x="0.02550125" y="0.0004997253" />
+    <Frame framenum="7" duration="1" image="top-7" w="68" h="116" x="0.02550125" y="-0.0245018" />
+    <Frame framenum="8" duration="1" image="top-8" w="68" h="116" x="0.02550125" y="-0.0245018" />
+    <Frame framenum="9" duration="1" image="top-9" w="68" h="116" x="0.02550125" y="-0.0245018" />
+    <Frame framenum="10" duration="1" image="top-10" w="68" h="116" x="0.02550125" y="0.0004997253" />
+    <Frame framenum="11" duration="1" image="top-11" w="68" h="116" x="0.02550125" y="0.0004997253" />
+    <Frame framenum="12" duration="1" image="top-12" w="68" h="116" x="0.2005005" y="-0.1495018" />
+    <Frame framenum="13" duration="1" image="top-13" w="68" h="116" x="0.2504997" y="-0.09949875" />
+    <Frame framenum="14" duration="1" image="top-14" w="68" h="116" x="0.2504997" y="-0.09949875" />
+    <Frame framenum="15" duration="1" image="top-15" w="68" h="116" x="0.2504997" y="-0.1245003" />
+    <Frame framenum="16" duration="1" image="top-16" w="68" h="116" x="0.2504997" y="-0.09949875" />
+    <Frame framenum="17" duration="1" image="top-17" w="68" h="116" x="0.2504997" y="-0.09949875" />
+  </Symbol>
+  <Symbol name="mid">
+    <Frame framenum="0" duration="1" image="mid-0" w="84" h="116" x="-0.1245003" y="0.02550125" />
+    <Frame framenum="1" duration="1" image="mid-1" w="84" h="116" x="-0.199501" y="0.02550125" />
+    <Frame framenum="2" duration="1" image="mid-2" w="84" h="116" x="0.02550125" y="-0.574501" />
+    <Frame framenum="3" duration="1" image="mid-3" w="84" h="116" x="0.02550125" y="0.02550125" />
+    <Frame framenum="4" duration="1" image="mid-4" w="84" h="116" x="0.02550125" y="-0.574501" />
+    <Frame framenum="5" duration="1" image="mid-5" w="84" h="116" x="0.02550125" y="0.02550125" />
+  </Symbol>
+  <Symbol name="bottom">
+    <Frame framenum="0" duration="1" image="bottom-0" w="88" h="112" x="0.2005005" y="2.8755" />
+    <Frame framenum="1" duration="1" image="bottom-1" w="88" h="112" x="0.2005005" y="2.8755" />
+    <Frame framenum="2" duration="1" image="bottom-2" w="88" h="112" x="0.2005005" y="2.8755" />
+  </Symbol>
+  <Symbol name="floor">
+    <Frame framenum="0" duration="1" image="floor-0" w="180" h="108" x="1.2005" y="0.7005005" />
+    <Frame framenum="1" duration="1" image="floor-1" w="180" h="108" x="1.2005" y="0.7005005" />
+  </Symbol>
+  <Symbol name="tile_outline">
+    <Frame framenum="0" duration="1" image="tile_outline-0" w="184" h="116" x="-0.04949951" y="0.0004997253" />
+  </Symbol>
+</Build>

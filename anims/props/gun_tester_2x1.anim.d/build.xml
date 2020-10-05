@@ -1,0 +1,14 @@
+<Build name="Seikaku_RoboBay_Object_2x1CannonTester1.fla">
+  <Symbol name="Symbol 1">
+    <Frame framenum="0" duration="1" image="Symbol 1-0" w="248" h="224" x="-0.02449799" y="-0.02449799" />
+  </Symbol>
+  <Symbol name="Symbol 2">
+    <Frame framenum="0" duration="1" image="Symbol 2-0" w="240" h="236" x="-0.02449799" y="-0.02449799" />
+  </Symbol>
+  <Symbol name="Symbol 3">
+    <Frame framenum="0" duration="1" image="Symbol 3-0" w="248" h="236" x="-0.02449799" y="-0.02449799" />
+  </Symbol>
+  <Symbol name="Symbol 4">
+    <Frame framenum="0" duration="1" image="Symbol 4-0" w="248" h="224" x="-0.02449799" y="-0.02449799" />
+  </Symbol>
+</Build>

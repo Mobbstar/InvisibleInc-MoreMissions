@@ -8,6 +8,9 @@ gui.kwad
 sound.kwad
 scripts.zip
 
+# Qoala
+anims/**/*.anim
+
 # Mobb
 testmod.py
 pull.bat
