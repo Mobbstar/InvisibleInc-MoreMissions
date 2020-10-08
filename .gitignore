@@ -10,6 +10,8 @@ scripts.zip
 
 # Qoala
 anims/**/*.anim
+out/
+makeconfig.mk
 
 # Mobb
 testmod.py
