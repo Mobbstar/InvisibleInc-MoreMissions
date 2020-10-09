@@ -8,9 +8,11 @@ gui.kwad
 sound.kwad
 scripts.zip
 
-# Qoala
+# Automated build output
 anims/**/*.anim
 out/
+# Automated build local configs
+batconfig.bat
 makeconfig.mk
 
 # Mobb
