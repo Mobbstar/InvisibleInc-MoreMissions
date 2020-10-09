@@ -24,7 +24,9 @@ call %~dp0\batconfig.bat
 
 
 FOR /R "%~dp0\anims" /D %%I IN (*.anim.d) DO (
-  powershell -NoProfile "$output=[System.IO.Path]::ChangeExtension('%%~dI%%~pI%%~nI', 'zip'); Compress-Archive -WhatIf -Path %%I\* -DestinationPath $output"
+  :: Calculate the path names for the .anim and a temporary .zip, because Compress-Archive checks the file extension.
+  :: Then compress to a .zip. Then, finally rename the .zip to the .anim.
+  powershell -NoProfile "$animfile='%%~dI%%~pI%%~nI'; $zipfile=[System.IO.Path]::ChangeExtension($animfile, 'zip'); Compress-Archive -Path %%I\* -DestinationPath $zipfile; Move-Item -Force $zipfile $animfile"
   if ERRORLEVEL 1 PAUSE
   if ERRORLEVEL 1 exit /b 1
 )
