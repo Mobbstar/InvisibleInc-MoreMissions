@@ -103,7 +103,19 @@ end
 	
 local function spawnAndroids(script,sim)
 	local enemy = mission_util.findUnitByTag( sim, "spawningDroid" ) 
-	enemy:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB) 
+	local enemies = {}
+	for i,unit in pairs(sim:getAllUnits()) do
+		if unit:hasTag("spawningDroid") then
+			table.insert(enemies, unit)
+			unit:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB) 
+		end
+	end
+	assert (#enemies > 0)
+	for i, unit in pairs(enemies) do
+		if sim:canPlayerSeeUnit( sim:getPC(), unit ) then --for camera pan, pick one currently visible to the player if possible
+			enemy = unit
+		end
+	end
 	local x1,y1 = enemy:getLocation()
 	script:queue( {type = "pan", x=x1, y=y1 } )
 	script:queue(1*cdefs.SECONDS )  
@@ -111,7 +123,9 @@ local function spawnAndroids(script,sim)
 	queueCentral(script, scripts)
 
 	script:waitFor( mission_util.PC_START_TURN )
-	enemy:destroyTab()
+	for i, unit in pairs(enemies) do
+		unit:destroyTab()
+	end
 
 	local droid_props = sim.androidSpawnedPool
 	for i=#droid_props, 1, -1 do
@@ -125,11 +139,11 @@ local function spawnAndroids(script,sim)
 		local cell = sim:getCell( unit:getLocation() )
 		sim:warpUnit( unit, nil )
 		sim:despawnUnit( unit )
-		
+
+		newUnit:setPlayerOwner(sim:getNPC())		
 		sim:spawnUnit( newUnit )
 		newUnit:setFacing(facing)			
 		sim:warpUnit( newUnit, cell )
-		newUnit:setPlayerOwner(sim:getNPC())
 		newUnit:setPather(sim:getNPC().pather)
 		sim:dispatchEvent( simdefs.EV_UNIT_APPEARED, { unitID = newUnit:getID() } )	--no idea what this does but vanilla code has it so....
 		newUnit:setAlerted(true)
@@ -248,12 +262,13 @@ local function MM_checkTopGearSafes( sim )
 		-- Add a random item to unit (presumably a safe)
 		local item = itemList[ sim:nextRand( 1, #itemList ) ]
 		local newItem = simfactory.createUnit( item, sim )						
-		newItem:addTag("MM_topGearItem") -- For the UI loot hook
 		sim:spawnUnit( newItem )
 		newItem:getTraits().artifact = true --for safe to display the loot symbol
 		unit:addChild( newItem )	
+		newItem:addTag("MM_topGearItem") -- For the UI loot hook	
 		sim.totalTopGear = sim.totalTopGear or 0 
 		sim.totalTopGear = sim.totalTopGear + 1 
+		log:write(util.stringize(newItem._tags,3))
 	end
 	-- log:write("LOG sim.totalTopGear " ..tostring(sim.totalTopGear))
 end
@@ -277,7 +292,7 @@ local function MM_checkTopGearItem( script, sim )
     script:waitFor( mission_util.UI_LOOT_CLOSED )
     sim:removeObjective( OBJECTIVE_ID )        
     script:waitFrames( .5*cdefs.SECONDS )
-
+	sim.exit_warning = nil
 	androidFX(script,sim)
 	script:addHook(spawnAndroids)
 	
@@ -317,22 +332,32 @@ local function countUnstolenTech(script,sim)
 		script:addHook(countUnstolenTech)
 	else
 		local not_stolen = {}
-		for i,unit in pairs(sim:getAllUnits()) do
-			if (unit:getLocation() or unit:getUnitOwner()) and unit:hasTag("MM_topGearItem") then
+		for i, unit in pairs(sim:getAllUnits()) do
+			if unit:hasTag("MM_topGearItem") then
+				local stolen_item = true
 				local owner = unit:getUnitOwner()
 				local owner_cell = owner and owner:getLocation() and sim:getCell(owner:getLocation())
-				if (owner == nil) or --on the floor
-				( owner and --in someone's inventory or in a container
-				(owner:getPlayerOwner() == sim:getNPC()) or
-				((owner:getPlayerOwner() == sim:getPC()) and owner_cell and not owner_cell.exitID)
-				) then --any lootables not in an escaping unit's inventory
-					table.insert(not_stolen, unit)
+				if owner == nil then --on the floor
+					stolen_item = false
+				elseif owner then
+					if owner:getPlayerOwner() == sim:getPC() then
+						if not owner:getTraits().isAgent then
+							stolen_item = false
+						elseif owner_cell and not owner_cell.exitID then
+							stolen_item = false
+						end
+					else
+						stolen_item = false
+					end
+				end
+				if stolen_item == false then
+					table.insert(not_stolen, unit )
 				end
 			end
-		end
+		end				
 		local stolen = sim.totalTopGear -(#not_stolen)  --sim.totalTopGear should always be 5 with these prefabs
+		log:write("LOG stolen" .. tostring(stolen))
 		if stolen > 0 then 
-			sim.exit_warning = nil
 			sim.TA_mission_success = true -- flag for Talkative Agents
 			sim.MM_got_partial_tech = true
 		end
