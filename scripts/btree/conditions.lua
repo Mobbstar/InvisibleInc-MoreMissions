@@ -9,9 +9,6 @@ function Conditions.mmIsArmed( sim, unit )
 	return unit:ownsAbility( "shootSingle" )
 end
 
-local function interestInSaferoom( sim, interest )
-end
-
 function Conditions.mmInterestInSaferoom( sim, unit )
 	local interest = unit:getBrain():getInterest()
 	if interest then
