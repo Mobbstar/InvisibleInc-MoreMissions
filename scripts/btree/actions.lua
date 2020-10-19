@@ -2,6 +2,7 @@ local array = include("modules/array")
 local util = include("modules/util")
 local simdefs = include("sim/simdefs")
 local simquery = include("sim/simquery")
+local btree = include("sim/btree/btree")
 local Actions = include("sim/btree/actions")
 
 local function interestOutsideOfSaferoom( sim, interest )
@@ -73,4 +74,42 @@ function Actions.mmRequestNewPanicTarget( sim, unit )
 	unit:getBrain():getSenses():addInterest( targetCell.x, targetCell.y, simdefs.SENSE_RADIO, simdefs.REASON_HUNTING, unit )
 
 	return simdefs.BSTATE_COMPLETE
+end
+
+-- Normally Actions.ReactToInterest handles facing things seen in peripheral vision, except that
+-- (1) the interests are already 'noticed' by Actions.Panic.
+-- (2) Actions.ReactToInterest only changes facing if the interest is noticed while this is the active guard.
+-- Explicitly turn to face interests noticed while active
+function Actions.mmFaceInterest( sim, unit )
+	local interest = unit:getBrain():getInterest()
+	if interest and not interest.mmFaced and unit:canReact() then
+		unit:turnToFace(interest.x, interest.y)
+		interest.mmFaced = true
+	end
+
+	return simdefs.BSTATE_COMPLETE
+end
+
+-- MoveToNextPatrolPoint, except the mission script has replaced the patrol path with the current safe destination.
+-- Also, turn to face interests if we can see the cell. This lets the guard try to overwatch someone standing outside the room before fleeing in the other direction.
+Actions.mmMoveToSafetyPoint = class(Actions.MoveTo, function(self, name)
+	btree.BaseAction.init(self, name or "mmMoveToSafetyPoint")
+end)
+
+function Actions.mmMoveToSafetyPoint:getDestination()
+	return self.unit:getBrain():getPatrolPoint()
+end
+
+function Actions.mmMoveToSafetyPoint:executePath(unit, ...)
+	local interest = unit:getBrain():getInterest()
+	if interest and not interest.mmFaced then
+		local x0, y0 = unit:getLocation()
+		local raycastX, raycastY = unit:getSim():getLOS():raycast(x0, y0, interest.x, interest.y)
+		if raycastX == interest.x and raycastY == interest.y then
+			unit:turnToFace(interest.x, interest.y)
+		end
+		interest.mmFaced = true
+	end
+
+	return Actions.MoveTo.executePath(self, unit, ...)
 end

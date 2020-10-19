@@ -46,6 +46,7 @@ local function PanicHunt()
 		btree.Condition(conditions.mmHasSearchedVipSafe),
 		btree.Condition(conditions.HasInterest),
 		btree.Action(actions.ReactToInterest),
+		btree.Action(actions.mmFaceInterest),
 		btree.Condition(conditions.mmInterestInSaferoom),
 		actions.MoveToInterest(),
 		btree.Action(actions.MarkInterestInvestigated),
@@ -67,7 +68,7 @@ local function PanicFlee()
 	return btree.Sequence("PanicFlee",
 	{
 		btree.Condition(conditions.IsAlerted),
-		actions.MoveToNextPatrolPoint(),
+		actions.mmMoveToSafetyPoint(),
 		btree.Action(actions.DoLookAround),
 		btree.Action(actions.mmArmVip),
 		btree.Action(actions.Cower), -- Also removes interests, if present.
