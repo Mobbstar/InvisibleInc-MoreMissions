@@ -280,9 +280,10 @@ local function startAgentEscape( script, sim, mission )
 	end
 
 	if newOperative then
+		sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/hostage/hostage_chair_move" )
 		local x0,y0 = newOperative:getLocation()
 		local unit_cell = sim:getCell(x0, y0)
-
+		
 		local guardTemplate = unitdefs.lookupTemplate( "important_guard" )
 		local newGuard = simfactory.createUnit( guardTemplate, sim ) --captain
 		sim:spawnUnit( newGuard )
@@ -290,7 +291,6 @@ local function startAgentEscape( script, sim, mission )
 		newGuard:setPather(sim:getNPC().pather)
 		sim:warpUnit( newGuard, unit_cell )
 		newGuard:setKO( sim, 3 )
-		sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/hostage/free_hostage" )
 		local item_passcard = simfactory.createUnit( unitdefs.lookupTemplate( "passcard" ), sim )  --this is less effort than fiddling with spyface to make sure the door to that room can never be locked...
 		sim:spawnUnit( item_passcard )
 		newGuard:addChild( item_passcard )
@@ -343,8 +343,8 @@ local function startAgentEscape( script, sim, mission )
 			end
 
 		end
-
-
+		script:queue(0.2*cdefs.SECONDS)
+		sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/hostage/free_hostage" )
 		script:queue(1*cdefs.SECONDS)
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
 		script:queue(2*cdefs.SECONDS) --without this Central's message gets "skipped" for some reason because of the agent stating oneliner still playing
