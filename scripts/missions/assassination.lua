@@ -153,6 +153,21 @@ local function safeFindUnitByTag(sim, tag)
 	end
 end
 
+-- Copied from IdleSituation:generateStationaryPath
+local function calculateBestFacing( sim, cell, unit )
+    -- Look for stationary patrollers and face them in a direction that allows maximal visibility.
+    local maxFacing, maxCells = nil, 0
+    for facing = 0, simdefs.DIR_MAX do
+        local cells = sim:getLOS():calculateLOS( cell, simquery.getFacingRads( facing ), simquery.getLOSArc( unit ) / 2, unit:getTraits().LOSrange )
+        local cellCount = util.tcount( cells )
+        if cellCount > maxCells then
+            maxCells = cellCount
+            maxFacing = facing
+        end
+    end
+    return maxFacing
+end
+
 local function selectStoryScript(sim, report)
 	return report[sim:nextRand(1, #report)]
 end
@@ -367,6 +382,10 @@ local function bodyguardAlertsCeo( script, sim )
 end
 
 -- Behavior once the CEO becomes alerted
+-- Stage 1: Run to the safe.
+-- Stage 2: Randomly search the room.
+-- Stage 2b: If spooked run to a corner of the room.
+-- In both 1 & 2b, the destination is set as a stationary patrol point.
 local function ceoAlerted(script, sim)
 	local _, ceo = script:waitFor( CEO_ALERTED )
 	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
@@ -391,7 +410,14 @@ local function ceoAlerted(script, sim)
 	end
 
 	-- Wait for the CEO to reach the safe
-	script:waitFor( CEO_ARMING )
+	_, ceo = script:waitFor( CEO_ARMING )
+
+	-- New "patrol" destination: corner of the room, hidden from the door by tall cover.
+	-- This is the CEO's fallback when spooked.
+	local hidingCell = findCell( sim, "saferoom_hide" )
+	ceo:getTraits().patrolPath = { { x = hidingCell.x, y = hidingCell.y, facing = calculateBestFacing( sim, hidingCell, ceo ) } }
+
+	-- Fully armed and operational.
 	local weapon = safeFindUnitByTag( sim, "saferoom_weapon" )
 	if weapon and weapon:isValid() and safe and safe:isValid() and safe:hasChild( weapon:getID() ) then
 		local sound = simdefs.SOUNDPATH_SAFE_OPEN

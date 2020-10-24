@@ -7,8 +7,12 @@ local conditions = include("sim/btree/conditions")
 local CommonBrain = include( "sim/btree/commonbrain" )
 local simdefs = include("sim/simdefs")
 local simfactory = include( "sim/simfactory" )
+local simquery = include("sim/simquery")
 
 require("class")
+
+-----
+-- Main behavior sequences for the brain.
 
 -- CommonBrain.RangedCombat, but screaming.
 -- Falls back to behavior like CommonBrain.NoCombat if unarmed.
@@ -42,6 +46,8 @@ local function PanicHunt()
 		btree.Condition(conditions.mmHasSearchedVipSafe),
 		btree.Condition(conditions.HasInterest),
 		btree.Action(actions.ReactToInterest),
+		btree.Action(actions.mmFaceInterest),
+		btree.Condition(conditions.mmInterestInSaferoom),
 		actions.MoveToInterest(),
 		btree.Action(actions.MarkInterestInvestigated),
 		btree.Action(actions.DoLookAround),
@@ -62,12 +68,16 @@ local function PanicFlee()
 	return btree.Sequence("PanicFlee",
 	{
 		btree.Condition(conditions.IsAlerted),
-		actions.MoveToNextPatrolPoint(),
+		actions.mmMoveToSafetyPoint(),
 		btree.Action(actions.DoLookAround),
 		btree.Action(actions.mmArmVip),
-		btree.Action(actions.mmRequestNewPanicTarget),
+		btree.Action(actions.Cower), -- Also removes interests, if present.
+		btree.Action(actions.mmRequestNewPanicTarget), -- Begin hunting around the room.
 	})
 end
+
+-----
+-- Brain definition
 
 local BountyTargetBrain = class(Brain, function(self)
 	Brain.init(self, "mmBountyTargetBrain",
@@ -87,33 +97,35 @@ local BountyTargetBrain = class(Brain, function(self)
 	)
 end)
 
-function BountyTargetBrain:getPatrolFacing()
-	local facings = self.unit:getTraits().patrolFacing
-	local nextFacing = self.unit:getTraits().nextFacing
+-----
+-- Senses overrides for units with this brain
 
-	if facings and nextFacing then
-		return facings[nextFacing]
-	else
-		return self:getNextPatrolFacing()
+local function overrideSensesAddInterest( senses )
+	local oldAddInterest = senses.addInterest
+
+	function senses:addInterest(x, y, sense, reason, sourceUnit, ...)
+		if self.unit:getTraits().mmSearchedVipSafe and sense == simdefs.SENSE_RADIO then
+			-- SENSE_RADIO is generally remote interests from other sources (camera, Authority daemon, etc).
+			-- Ignore them except for the random hunting interests sent by this unit.
+			-- Note: We'll still turn to join a shared overwatch combat. An interest only tries to be added if we can't immediately point our gun.
+			if not (reason == simdefs.REASON_HUNTING and sourceUnit == self.unit) then
+				simlog("LOG_MOREMISSIONS", "Unit [%d] ignoring radio interest (%d,%d:%s:%s:%s)", self.unit:getID(), x, y, sense, reason, sourceUnit and tostring(sourceUnit:getID()) or "nil")
+				return nil
+			end
+		end
+
+		return oldAddInterest(self, x, y, sense, reason, sourceUnit, ... )
 	end
 end
 
-function BountyTargetBrain:getNextPatrolFacing()
-	local facings = self.unit:getTraits().patrolFacing
-	if not facings then
-		return self.unit:getFacing()
-	end
+function BountyTargetBrain:onSpawned(sim, unit)
+	Brain.onSpawned(self, sim, unit)
 
-	local nextFacing = self.unit:getTraits().nextFacing
-	if not nextFacing then
-		nextFacing = 1
-	else
-		local maxFacing = #facings
-		nextFacing = (nextFacing % maxFacing) + 1
-	end
-	self.unit:getTraits().nextFacing = nextFacing
-	return facings[nextFacing]
+	overrideSensesAddInterest( self.senses )
 end
+
+-----
+-- Brain Registration
 
 local function createBrain()
 	return BountyTargetBrain()
