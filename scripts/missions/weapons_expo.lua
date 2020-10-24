@@ -118,6 +118,7 @@ local function spawnAndroids(script,sim)
 	end
 	local x1,y1 = enemy:getLocation()
 	script:queue( {type = "pan", x=x1, y=y1 } )
+	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/reboot_initiated_scanner" )
 	script:queue(1*cdefs.SECONDS )  
 	local scripts = SCRIPTS.INGAME.WEAPONS_EXPO.LOOTED_CASE_DROIDS_BOOTING
 	queueCentral(script, scripts)
@@ -128,6 +129,7 @@ local function spawnAndroids(script,sim)
 	end
 
 	local droid_props = sim.androidSpawnedPool
+	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/reboot_complete_scanner" )
 	for i=#droid_props, 1, -1 do
 		local unit = droid_props[i]
 		local facing = unit:getFacing()
@@ -144,6 +146,7 @@ local function spawnAndroids(script,sim)
 		sim:spawnUnit( newUnit )
 		newUnit:setFacing(facing)			
 		sim:warpUnit( newUnit, cell )
+		sim:dispatchEvent( simdefs.EV_UNIT_OVERWATCH_MELEE, { unit = newUnit, cancel=true})
 		newUnit:setPather(sim:getNPC().pather)
 		sim:dispatchEvent( simdefs.EV_UNIT_APPEARED, { unitID = newUnit:getID() } )	--no idea what this does but vanilla code has it so....
 		newUnit:setAlerted(true)
@@ -268,7 +271,7 @@ local function MM_checkTopGearSafes( sim )
 		newItem:addTag("MM_topGearItem") -- For the UI loot hook	
 		sim.totalTopGear = sim.totalTopGear or 0 
 		sim.totalTopGear = sim.totalTopGear + 1 
-		log:write(util.stringize(newItem._tags,3))
+		-- log:write(util.stringize(newItem._tags,3))
 	end
 	-- log:write("LOG sim.totalTopGear " ..tostring(sim.totalTopGear))
 end
