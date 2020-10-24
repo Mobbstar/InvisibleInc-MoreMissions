@@ -148,6 +148,7 @@ local npc_templates =
 	MM_prototype_droid_spec =
 	{
 		type = "simdrone",--"simunit", 
+		rig = "dronerig",
 		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_DROID_SPEC or "Prototype Android",
 		profile_anim = "portraits/portrait_animation_template",
 		profile_build = "portraits/mm_bodyguard_face", --placeholder	
@@ -189,7 +190,8 @@ local npc_templates =
 			mainframe_no_recapture = true,	
 			magnetic_reinforcement = true,			
 			pulseScan = true,
-			range =5,	
+			range =5,
+			lookaroundRange = 1,
 			armor = 1,
 			isDrone = true,
 			pulse_sound = "SpySociety_DLC001/Actions/scandrone_scan",
