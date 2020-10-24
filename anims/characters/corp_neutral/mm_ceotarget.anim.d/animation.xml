@@ -1,0 +1,1192 @@
+<Anims>
+<anim name="anim"  root="lrg_cal"  numframes="20"  framerate="30" >
+	<frame  idx="0"  w="21.448999999999998"  h="21.75"  x="0.07550000000000079"  y="-32.024" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="1"  w="10.299000000000001"  h="30.45"  x="3.6505"  y="-32.824" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="1"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="2"  w="19.698999999999998"  h="26.749999999999996"  x="1.5004999999999997"  y="-33.474" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="2"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="3"  w="21.399"  h="23.55"  x="0.0004999999999997229"  y="-34.274" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="3"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="4"  w="0.699"  h="0.999"  x="0.0005000000000000004"  y="0.10049999999999998" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="4"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="5"  w="0.699"  h="0.999"  x="0.0005000000000000004"  y="0.10049999999999998" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="5"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="6"  w="20.999"  h="22.549999999999997"  x="-9.5495"  y="-36.424" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="6"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="7"  w="17.499000000000002"  h="21.849999999999998"  x="4.6505"  y="-30.124000000000002" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="7"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="8"  w="19.749"  h="26.05"  x="-2.0745"  y="-33.774" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="8"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="9"  w="7.399"  h="35.299"  x="-2.1995"  y="-17.199499999999997" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="9"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="10"  w="8.199"  h="36.949000000000005"  x="3.3505000000000003"  y="-18.0245" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="10"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="11"  w="17.249000000000002"  h="25.05"  x="-2.3745000000000003"  y="-29.774" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="11"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="12"  w="20.25"  h="22.849999999999998"  x="-12.774000000000001"  y="-37.274" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="12"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="13"  w="20.549"  h="22"  x="0.0754999999999999"  y="-28.399" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="13"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="14"  w="9.6"  h="24.549999999999997"  x="-9.649000000000001"  y="-25.674" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="14"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="15"  w="7.399"  h="27.049"  x="3.3005"  y="-13.0745" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="15"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="16"  w="13.8"  h="22.349999999999998"  x="-9.949"  y="-31.024" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="16"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="17"  w="26.799"  h="25.35"  x="0.7004999999999999"  y="-32.574" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="17"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="18"  w="22.899"  h="22.599999999999998"  x="-8.4495"  y="-37.749" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="18"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="19"  w="19.149"  h="18.599999999999994"  x="-0.22449999999999992"  y="-23.049" >
+		<element  name="lrg_cal_clr_00"  layername="rdg_clr_00"  parentname=""  frame="19"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_aur"  numframes="22"  framerate="30" >
+	<frame  idx="0"  w="12.699"  h="32.249"  x="3.3504999999999994"  y="13.7255" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="0"  depth="0" />
+	</frame>
+	<frame  idx="1"  w="12.849"  h="34.699"  x="3.2754999999999996"  y="14.3005" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="1"  depth="0" />
+	</frame>
+	<frame  idx="2"  w="13.949"  h="37.699"  x="6.5255"  y="18.5505" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="2"  depth="0" />
+	</frame>
+	<frame  idx="3"  w="12.099"  h="29.35"  x="3.0504999999999995"  y="15.175" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="3"  depth="0" />
+	</frame>
+	<frame  idx="4"  w="12.049000000000001"  h="29.35"  x="3.0255"  y="15.175" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="4"  depth="0" />
+	</frame>
+	<frame  idx="5"  w="15.149000000000001"  h="35.649"  x="0.07550000000000034"  y="13.875499999999999" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="5"  depth="0" />
+	</frame>
+	<frame  idx="6"  w="13.049"  h="27.698999999999998"  x="-0.4744999999999999"  y="9.900500000000001" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="6"  depth="0" />
+	</frame>
+	<frame  idx="7"  w="14.699"  h="38.949"  x="-0.0495000000000001"  y="18.325499999999998" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="7"  depth="0" />
+	</frame>
+	<frame  idx="8"  w="13.099"  h="32.498999999999995"  x="-3.7995"  y="14.9005" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="8"  depth="0" />
+	</frame>
+	<frame  idx="9"  w="12.449"  h="33.199"  x="-2.3244999999999996"  y="14.1005" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="9"  depth="0" />
+	</frame>
+	<frame  idx="10"  w="14.549"  h="33.199"  x="-3.3744999999999994"  y="14.1005" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="10"  depth="0" />
+	</frame>
+	<frame  idx="11"  w="13.949000000000002"  h="38.949"  x="1.8255000000000003"  y="18.5255" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="11"  depth="0" />
+	</frame>
+	<frame  idx="12"  w="18.899"  h="25.249000000000002"  x="3.2504999999999997"  y="3.8754999999999997" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="12"  depth="0" />
+	</frame>
+	<frame  idx="13"  w="15.998999999999999"  h="30.948999999999998"  x="0.10049999999999981"  y="12.025500000000001" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="13"  depth="0" />
+	</frame>
+	<frame  idx="14"  w="15.549"  h="31.299"  x="0.3254999999999999"  y="15.5505" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="14"  depth="0" />
+	</frame>
+	<frame  idx="15"  w="12.049"  h="20.599"  x="-0.4744999999999999"  y="5.9505" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="15"  depth="0" />
+	</frame>
+	<frame  idx="16"  w="13.249"  h="21.198999999999998"  x="-2.4745"  y="5.1005" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="16"  depth="0" />
+	</frame>
+	<frame  idx="17"  w="17.849"  h="29.799"  x="1.1255000000000002"  y="9.400500000000001" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="17"  depth="0" />
+	</frame>
+	<frame  idx="18"  w="13.899000000000001"  h="37.249"  x="-0.5995000000000004"  y="13.3255" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="18"  depth="0" />
+	</frame>
+	<frame  idx="19"  w="15.649000000000001"  h="21.299"  x="1.0755000000000003"  y="5.1005" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="19"  depth="0" />
+	</frame>
+	<frame  idx="20"  w="17.948999999999998"  h="34.899"  x="0.6755000000000004"  y="12.2005" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="20"  depth="0" />
+	</frame>
+	<frame  idx="21"  w="16.349"  h="24.299"  x="-0.5745000000000005"  y="8.500499999999999" >
+		<element  name="aur_clr_00"  layername="aur_clr_00"  parentname=""  frame="21"  depth="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_cst"  numframes="20"  framerate="30" >
+	<frame  idx="0"  w="46.199"  h="51.399"  x="-0.7494999999999994"  y="-22.499499999999998" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="0"  depth="0" />
+	</frame>
+	<frame  idx="1"  w="37.699"  h="54.349"  x="2.650499999999999"  y="-21.7745" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="1"  depth="0" />
+	</frame>
+	<frame  idx="2"  w="27.849"  h="53.398999999999994"  x="1.9254999999999995"  y="-20.1495" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="2"  depth="0" />
+	</frame>
+	<frame  idx="3"  w="36.449"  h="42.149"  x="-0.07450000000000045"  y="-13.974499999999999" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="3"  depth="0" />
+	</frame>
+	<frame  idx="4"  w="46.199"  h="51.649"  x="-0.19950000000000045"  y="-22.424500000000002" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="4"  depth="0" />
+	</frame>
+	<frame  idx="5"  w="44.099000000000004"  h="47.049"  x="0.7505000000000006"  y="-19.724500000000003" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="5"  depth="0" />
+	</frame>
+	<frame  idx="6"  w="39.249"  h="41.299"  x="-7.8245000000000005"  y="-14.999500000000001" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="6"  depth="0" />
+	</frame>
+	<frame  idx="7"  w="32.299"  h="50.549"  x="0.9005000000000001"  y="-18.724500000000003" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="7"  depth="0" />
+	</frame>
+	<frame  idx="8"  w="36.199"  h="55.899"  x="0.0005000000000006111"  y="-22.1995" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="8"  depth="0" />
+	</frame>
+	<frame  idx="9"  w="39.149"  h="43.099"  x="-2.3245000000000005"  y="-13.299499999999998" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="9"  depth="0" />
+	</frame>
+	<frame  idx="10"  w="38.899"  h="46.249"  x="-0.39949999999999974"  y="-18.8745" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="10"  depth="0" />
+	</frame>
+	<frame  idx="11"  w="39.649"  h="55.199000000000005"  x="-0.07450000000000045"  y="-20.6495" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="11"  depth="0" />
+	</frame>
+	<frame  idx="12"  w="32.799"  h="39.849"  x="-10.6995"  y="-14.5245" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="12"  depth="0" />
+	</frame>
+	<frame  idx="13"  w="44.649"  h="47.449"  x="0.9755000000000003"  y="-20.9745" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="13"  depth="0" />
+	</frame>
+	<frame  idx="14"  w="42.699"  h="45.399"  x="-7.7495"  y="-18.1995" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="14"  depth="0" />
+	</frame>
+	<frame  idx="15"  w="44.949"  h="38.549"  x="5.375500000000001"  y="-13.7245" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="15"  depth="0" />
+	</frame>
+	<frame  idx="16"  w="37.049"  h="48.699"  x="-0.37450000000000117"  y="-16.799500000000002" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="16"  depth="0" />
+	</frame>
+	<frame  idx="17"  w="43.899"  h="42.699"  x="5.0504999999999995"  y="-12.0495" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="17"  depth="0" />
+	</frame>
+	<frame  idx="18"  w="37.998999999999995"  h="45.349000000000004"  x="-0.0495000000000001"  y="-14.3245" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="18"  depth="0" />
+	</frame>
+	<frame  idx="19"  w="43.149"  h="42.299"  x="0.8254999999999999"  y="-17.0495" >
+		<element  name="cst_clr_00"  layername="cst_clr_00"  parentname=""  frame="19"  depth="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_alr"  numframes="20"  framerate="30" >
+	<frame  idx="0"  w="6.2989999999999995"  h="22.249000000000002"  x="0.10050000000000003"  y="7.4755" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="0"  depth="2" />
+	</frame>
+	<frame  idx="1"  w="6.2989999999999995"  h="22.249000000000002"  x="0.10050000000000003"  y="7.4755" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="1"  depth="2" />
+	</frame>
+	<frame  idx="2"  w="8.049"  h="23.049"  x="1.1755"  y="8.825500000000002" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="2"  depth="2" />
+	</frame>
+	<frame  idx="3"  w="7.7490000000000006"  h="20.299"  x="0.5755000000000001"  y="7.3505" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="3"  depth="2" />
+	</frame>
+	<frame  idx="4"  w="7.2989999999999995"  h="23.499"  x="0.20050000000000012"  y="9.0005" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="4"  depth="2" />
+	</frame>
+	<frame  idx="5"  w="7.099"  h="22.098999999999997"  x="-0.39949999999999997"  y="7.600499999999999" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="5"  depth="2" />
+	</frame>
+	<frame  idx="6"  w="7.2989999999999995"  h="24.198999999999998"  x="0.20050000000000012"  y="9.3505" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="6"  depth="2" />
+	</frame>
+	<frame  idx="7"  w="7.4990000000000006"  h="22.499"  x="-1.7995"  y="8.7505" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="7"  depth="2" />
+	</frame>
+	<frame  idx="8"  w="6.149"  h="22.848999999999997"  x="-0.1745000000000001"  y="8.7255" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="8"  depth="2" />
+	</frame>
+	<frame  idx="9"  w="6.149"  h="22.848999999999997"  x="-0.1745000000000001"  y="8.7255" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="9"  depth="2" />
+	</frame>
+	<frame  idx="10"  w="10.248999999999999"  h="19.149"  x="1.1755"  y="7.8755" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="10"  depth="2" />
+	</frame>
+	<frame  idx="11"  w="10.299"  h="18.698999999999998"  x="1.7005"  y="5.7505" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="11"  depth="2" />
+	</frame>
+	<frame  idx="12"  w="10.299"  h="18.698999999999998"  x="1.7005"  y="5.7505" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="12"  depth="2" />
+	</frame>
+	<frame  idx="13"  w="10.099"  h="12.099"  x="-4.3995"  y="5.400499999999999" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="13"  depth="2" />
+	</frame>
+	<frame  idx="14"  w="9.099"  h="20.299"  x="0.9005000000000001"  y="7.1505" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="14"  depth="2" />
+	</frame>
+	<frame  idx="15"  w="8.399000000000001"  h="19.149"  x="0.5005000000000002"  y="7.1754999999999995" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="15"  depth="2" />
+	</frame>
+	<frame  idx="16"  w="15.199"  h="13.799"  x="0.2504999999999997"  y="2.0005" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="16"  depth="2" />
+	</frame>
+	<frame  idx="17"  w="7.649"  h="8.799"  x="-0.37449999999999983"  y="1.2505000000000002" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="17"  depth="2" />
+	</frame>
+	<frame  idx="18"  w="10.499"  h="15.799000000000001"  x="0.7004999999999999"  y="4.4005" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="18"  depth="2" />
+	</frame>
+	<frame  idx="19"  w="11.699"  h="30.299"  x="2.6004999999999994"  y="10.200500000000002" >
+		<element  name="alr_clr_00"  layername="alr_clr_00"  parentname=""  frame="19"  depth="2" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_cal"  numframes="10"  framerate="30" >
+	<frame  idx="0"  w="11.699"  h="13.649000000000001"  x="0.10050000000000026"  y="-0.8245" >
+		<element  name="cal_clr_00"  layername="cal_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="1"  w="13.799"  h="14.299"  x="-1.9994999999999994"  y="-0.4495" >
+		<element  name="cal_clr_00"  layername="cal_clr_00"  parentname=""  frame="1"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="2"  w="15.248999999999999"  h="13.449"  x="-2.5745"  y="0.9755000000000003" >
+		<element  name="cal_clr_00"  layername="cal_clr_00"  parentname=""  frame="2"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="3"  w="11.649000000000001"  h="12.649000000000001"  x="-1.3245"  y="-3.3745" >
+		<element  name="cal_clr_00"  layername="cal_clr_00"  parentname=""  frame="3"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="4"  w="11.349"  h="10.949"  x="0.025500000000000078"  y="-2.5244999999999997" >
+		<element  name="cal_clr_00"  layername="cal_clr_00"  parentname=""  frame="4"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="5"  w="16.948999999999998"  h="8.099"  x="-3.9244999999999997"  y="0.30049999999999977" >
+		<element  name="cal_clr_00"  layername="cal_clr_00"  parentname=""  frame="5"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="6"  w="18.599"  h="11.549"  x="-2.4495000000000005"  y="-0.02450000000000019" >
+		<element  name="cal_clr_00"  layername="cal_clr_00"  parentname=""  frame="6"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="7"  w="17.149"  h="11.599"  x="2.3754999999999997"  y="-1.4495" >
+		<element  name="cal_clr_00"  layername="cal_clr_00"  parentname=""  frame="7"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="8"  w="13.049"  h="16.849"  x="-0.12449999999999983"  y="1.2255000000000003" >
+		<element  name="cal_clr_00"  layername="cal_clr_00"  parentname=""  frame="8"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="9"  w="16.448999999999998"  h="14.799"  x="2.1254999999999997"  y="-0.09949999999999992" >
+		<element  name="cal_clr_00"  layername="cal_clr_00"  parentname=""  frame="9"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_her"  numframes="31"  framerate="30" >
+	<frame  idx="0"  w="7.7490000000000006"  h="11.949"  x="2.1254999999999997"  y="5.475499999999999" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="0"  depth="0" />
+	</frame>
+	<frame  idx="1"  w="7.949"  h="12.299"  x="2.2255000000000003"  y="6.1005" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="1"  depth="0" />
+	</frame>
+	<frame  idx="2"  w="7.449"  h="10.599"  x="1.9755"  y="4.8004999999999995" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="2"  depth="0" />
+	</frame>
+	<frame  idx="3"  w="7.649"  h="14.149"  x="1.4754999999999998"  y="4.5255" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="3"  depth="0" />
+	</frame>
+	<frame  idx="4"  w="8.248999999999999"  h="10.649"  x="-2.6245"  y="3.5255" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="4"  depth="0" />
+	</frame>
+	<frame  idx="5"  w="7.699"  h="14.349"  x="-0.6995000000000002"  y="5.9254999999999995" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="5"  depth="0" />
+	</frame>
+	<frame  idx="6"  w="7.648999999999999"  h="11.649"  x="-1.6744999999999999"  y="4.3755" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="6"  depth="0" />
+	</frame>
+	<frame  idx="7"  w="6.899"  h="11.049"  x="-1.1495000000000002"  y="5.0755" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="7"  depth="0" />
+	</frame>
+	<frame  idx="8"  w="6.899"  h="11.049"  x="-1.1495000000000002"  y="5.0755" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="8"  depth="0" />
+	</frame>
+	<frame  idx="9"  w="9.248999999999999"  h="12.799"  x="1.9255"  y="4.500500000000001" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="9"  depth="0" />
+	</frame>
+	<frame  idx="10"  w="9.649000000000001"  h="4.399"  x="-0.5245000000000002"  y="-0.24949999999999994" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="10"  depth="0" />
+	</frame>
+	<frame  idx="11"  w="6.7490000000000006"  h="8.499"  x="-0.9245000000000001"  y="2.5505" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="11"  depth="0" />
+	</frame>
+	<frame  idx="12"  w="8.699"  h="17.349"  x="1.3505"  y="5.3255" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="12"  depth="0" />
+	</frame>
+	<frame  idx="13"  w="10.199"  h="14.299"  x="-2.8495"  y="5.250500000000001" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="13"  depth="0" />
+	</frame>
+	<frame  idx="14"  w="11.899000000000001"  h="11.749"  x="1.3504999999999998"  y="3.4255000000000004" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="14"  depth="0" />
+	</frame>
+	<frame  idx="15"  w="10.049"  h="15.949"  x="1.0755"  y="5.2755" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="15"  depth="0" />
+	</frame>
+	<frame  idx="16"  w="8.248999999999999"  h="12.399000000000001"  x="-0.37449999999999983"  y="4.3505" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="16"  depth="0" />
+	</frame>
+	<frame  idx="17"  w="9.949"  h="10.949"  x="-1.8745"  y="2.4255000000000004" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="17"  depth="0" />
+	</frame>
+	<frame  idx="18"  w="7.2490000000000006"  h="13.449"  x="0.12549999999999994"  y="4.6755" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="18"  depth="0" />
+	</frame>
+	<frame  idx="19"  w="13.699000000000002"  h="11.149000000000001"  x="1.5505"  y="1.1255000000000002" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="19"  depth="0" />
+	</frame>
+	<frame  idx="20"  w="10.999"  h="9.049"  x="2.4505"  y="-0.1745000000000001" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="20"  depth="0" />
+	</frame>
+	<frame  idx="21"  w="10.549"  h="10.049"  x="-0.22449999999999992"  y="0.12550000000000017" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="21"  depth="0" />
+	</frame>
+	<frame  idx="22"  w="11.349"  h="14.299"  x="-2.2744999999999997"  y="5.250500000000001" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="22"  depth="0" />
+	</frame>
+	<frame  idx="23"  w="7.7989999999999995"  h="13.649000000000001"  x="-0.2994999999999999"  y="6.2255" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="23"  depth="0" />
+	</frame>
+	<frame  idx="24"  w="7.7490000000000006"  h="14.748999999999999"  x="-0.12450000000000006"  y="4.9755" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="24"  depth="0" />
+	</frame>
+	<frame  idx="25"  w="14.399"  h="13.199"  x="-4.9495"  y="6.5005" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="25"  depth="0" />
+	</frame>
+	<frame  idx="26"  w="14.549"  h="12.248999999999999"  x="-4.9245"  y="4.4755" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="26"  depth="0" />
+	</frame>
+	<frame  idx="27"  w="13.299"  h="18.499"  x="4.250500000000001"  y="7.2505" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="27"  depth="0" />
+	</frame>
+	<frame  idx="28"  w="12.599"  h="12.449"  x="1.0505"  y="4.3755" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="28"  depth="0" />
+	</frame>
+	<frame  idx="29"  w="16.599"  h="20.649"  x="-5.099499999999999"  y="9.375499999999999" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="29"  depth="0" />
+	</frame>
+	<frame  idx="30"  w="24.948999999999998"  h="22.799"  x="-6.6245"  y="6.150500000000001" >
+		<element  name="her_clr_00"  layername="her_clr_00"  parentname=""  frame="30"  depth="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_hed"  numframes="5"  framerate="30" >
+	<frame  idx="0"  w="27.599"  h="30.849000000000004"  x="-0.4994999999999994"  y="-9.5245" >
+		<element  name="hat_clr_00"  layername="hat"  parentname="med_hat"  frame="0"  depth="0" />
+		<element  name="har_clr_00"  layername="Hair"  parentname="med_har"  frame="0"  depth="1"  m0_a="1"  m0_b="0"  m0_c="0"  m0_d="1"  m0_tx="-0.649"  m0_ty="-14.299" />
+		<element  name="fac_clr_00"  layername="Head"  parentname="med_fac"  frame="0"  depth="2" />
+	</frame>
+	<frame  idx="1"  w="23.749000000000002"  h="30.899"  x="-3.0744999999999996"  y="-8.549499999999998" >
+		<element  name="hat_clr_00"  layername="hat"  parentname="med_hat"  frame="1"  depth="0" />
+		<element  name="har_clr_00"  layername="Hair"  parentname="med_har"  frame="1"  depth="1"  m0_a="1"  m0_b="0"  m0_c="0"  m0_d="1"  m0_tx="-2.899"  m0_ty="-17.249" />
+		<element  name="fac_clr_00"  layername="Head"  parentname="med_fac"  frame="1"  depth="2" />
+	</frame>
+	<frame  idx="2"  w="28.499000000000002"  h="30.199"  x="-5.0995"  y="-7.5495" >
+		<element  name="hat_clr_00"  layername="hat"  parentname="med_hat"  frame="2"  depth="0" />
+		<element  name="har_clr_00"  layername="Hair"  parentname="med_har"  frame="2"  depth="1"  m0_a="1"  m0_b="0"  m0_c="0"  m0_d="1"  m0_tx="-3.599"  m0_ty="-10.949" />
+		<element  name="fac_clr_00"  layername="Head"  parentname="med_fac"  frame="2"  depth="2" />
+	</frame>
+	<frame  idx="3"  w="29.198999999999998"  h="30.349"  x="-4.2495"  y="-6.874499999999999" >
+		<element  name="hat_clr_00"  layername="hat"  parentname="med_hat"  frame="3"  depth="0" />
+		<element  name="har_clr_00"  layername="Hair"  parentname="med_har"  frame="3"  depth="1"  m0_a="1"  m0_b="0"  m0_c="0"  m0_d="1"  m0_tx="0"  m0_ty="-5.999" />
+		<element  name="fac_clr_00"  layername="Head"  parentname="med_fac"  frame="3"  depth="2" />
+	</frame>
+	<frame  idx="4"  w="27.799"  h="30.749"  x="0.4005000000000001"  y="-8.1745" >
+		<element  name="hat_clr_00"  layername="hat"  parentname="med_hat"  frame="4"  depth="0" />
+		<element  name="har_clr_00"  layername="Hair"  parentname="med_har"  frame="4"  depth="1"  m0_a="1"  m0_b="0"  m0_c="0"  m0_d="1"  m0_tx="0.4"  m0_ty="-7.799"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+		<element  name="fac_clr_00"  layername="Head"  parentname="med_fac"  frame="4"  depth="2" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_abs"  numframes="12"  framerate="30" >
+	<frame  idx="0"  w="31.249000000000002"  h="30.899"  x="0.025500000000000078"  y="-13.249500000000001" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="0"  depth="0" />
+	</frame>
+	<frame  idx="1"  w="30.749"  h="33.049"  x="1.8255"  y="-16.0245" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="1"  depth="0" />
+	</frame>
+	<frame  idx="2"  w="22.349"  h="33.599000000000004"  x="0.3254999999999999"  y="-11.5995" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="2"  depth="0" />
+	</frame>
+	<frame  idx="3"  w="30.299"  h="36.498999999999995"  x="-0.39949999999999974"  y="-11.4995" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="3"  depth="0" />
+	</frame>
+	<frame  idx="4"  w="29.198999999999998"  h="34.299"  x="0.0004999999999997229"  y="-9.849499999999999" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="4"  depth="0" />
+	</frame>
+	<frame  idx="5"  w="28.449"  h="33.049"  x="-4.1745"  y="-13.6745" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="5"  depth="0" />
+	</frame>
+	<frame  idx="6"  w="23.049"  h="30.199"  x="-0.6244999999999994"  y="-9.0995" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="6"  depth="0" />
+	</frame>
+	<frame  idx="7"  w="27.899"  h="29.999000000000002"  x="-1.2495000000000003"  y="-8.3995" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="7"  depth="0" />
+	</frame>
+	<frame  idx="8"  w="30.698999999999998"  h="35.399"  x="-0.5494999999999992"  y="-11.499500000000001" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="8"  depth="0" />
+	</frame>
+	<frame  idx="9"  w="27.749000000000002"  h="37.299"  x="-0.7244999999999999"  y="-12.349499999999999" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="9"  depth="0" />
+	</frame>
+	<frame  idx="10"  w="35.949"  h="35.049"  x="-0.6745000000000001"  y="-10.5745" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="10"  depth="0" />
+	</frame>
+	<frame  idx="11"  w="30.699"  h="38.349"  x="-1.0495"  y="-14.0245" >
+		<element  name="abs_clr_00"  layername="abs_clr_00"  parentname=""  frame="11"  depth="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_hip"  numframes="6"  framerate="30" >
+	<frame  idx="0"  w="23.899"  h="17.448999999999998"  x="0.0004999999999997229"  y="-1.1245000000000003" >
+		<element  name="hip_clr_00"  layername="hip_clr_00"  parentname=""  frame="0"  depth="0" />
+	</frame>
+	<frame  idx="1"  w="23.549"  h="23.499000000000002"  x="0.22550000000000026"  y="-2.5995" >
+		<element  name="hip_clr_00"  layername="hip_clr_00"  parentname=""  frame="1"  depth="0" />
+	</frame>
+	<frame  idx="2"  w="19.198999999999998"  h="25.549"  x="-1.8495"  y="-3.8745000000000003" >
+		<element  name="hip_clr_00"  layername="hip_clr_00"  parentname=""  frame="2"  depth="0" />
+	</frame>
+	<frame  idx="3"  w="23.848999999999997"  h="22.099"  x="-2.4745"  y="-3.6494999999999997" >
+		<element  name="hip_clr_00"  layername="hip_clr_00"  parentname=""  frame="3"  depth="0" />
+	</frame>
+	<frame  idx="4"  w="23.899"  h="17.448999999999998"  x="0.0004999999999997229"  y="-1.1245000000000003" >
+		<element  name="hip_clr_00"  layername="hip_clr_00"  parentname=""  frame="4"  depth="0" />
+	</frame>
+	<frame  idx="5"  w="24.649"  h="25.999000000000002"  x="-1.4245"  y="-3.6995000000000005" >
+		<element  name="hip_clr_00"  layername="hip_clr_00"  parentname=""  frame="5"  depth="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_nck"  numframes="9"  framerate="30" >
+	<frame  idx="0"  w="10.799"  h="20.149"  x="0.000500000000000167"  y="-7.7745" >
+		<element  name="nck_clr_00"  layername="nck_clr_00"  parentname=""  frame="0"  depth="0" />
+	</frame>
+	<frame  idx="1"  w="10.199000000000002"  h="25.249000000000002"  x="-0.1995"  y="-8.224499999999999" >
+		<element  name="nck_clr_00"  layername="nck_clr_00"  parentname=""  frame="1"  depth="0" />
+	</frame>
+	<frame  idx="2"  w="11.449"  h="25.099"  x="-1.1245000000000003"  y="-6.499499999999999" >
+		<element  name="nck_clr_00"  layername="nck_clr_00"  parentname=""  frame="2"  depth="0" />
+	</frame>
+	<frame  idx="3"  w="11.399000000000001"  h="25.599"  x="-1.2494999999999998"  y="-9.949499999999999" >
+		<element  name="nck_clr_00"  layername="nck_clr_00"  parentname=""  frame="3"  depth="0" />
+	</frame>
+	<frame  idx="4"  w="11.399000000000001"  h="22.499"  x="-0.049499999999999655"  y="-8.2995" >
+		<element  name="nck_clr_00"  layername="nck_clr_00"  parentname=""  frame="4"  depth="0" />
+	</frame>
+	<frame  idx="5"  w="13.998999999999999"  h="19.149"  x="-2.5494999999999997"  y="-5.7245" >
+		<element  name="nck_clr_00"  layername="nck_clr_00"  parentname=""  frame="5"  depth="0" />
+	</frame>
+	<frame  idx="6"  w="12.899000000000001"  h="18.999000000000002"  x="0.3005"  y="-5.2495" >
+		<element  name="nck_clr_00"  layername="nck_clr_00"  parentname=""  frame="6"  depth="0" />
+	</frame>
+	<frame  idx="7"  w="12.899000000000001"  h="18.999000000000002"  x="0.3005"  y="-5.2495" >
+		<element  name="nck_clr_00"  layername="nck_clr_00"  parentname=""  frame="6"  depth="0" />
+	</frame>
+	<frame  idx="8"  w="12.499"  h="20.849"  x="-0.2995000000000001"  y="-5.124499999999999" >
+		<element  name="nck_clr_00"  layername="nck_clr_00"  parentname=""  frame="8"  depth="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_lur"  numframes="19"  framerate="30" >
+	<frame  idx="0"  w="9.449"  h="32.699"  x="0.8254999999999999"  y="13.400500000000001" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="0"  depth="0" />
+	</frame>
+	<frame  idx="1"  w="9.449"  h="32.699"  x="0.8254999999999999"  y="13.400500000000001" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="1"  depth="0" />
+	</frame>
+	<frame  idx="2"  w="10.949"  h="35.749"  x="0.8754999999999997"  y="13.4255" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="2"  depth="0" />
+	</frame>
+	<frame  idx="3"  w="10.699"  h="31.948999999999998"  x="0.7504999999999997"  y="12.775500000000001" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="3"  depth="0" />
+	</frame>
+	<frame  idx="4"  w="11.649000000000001"  h="37.399"  x="0.6755"  y="14.250500000000002" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="4"  depth="0" />
+	</frame>
+	<frame  idx="5"  w="10.399000000000001"  h="36.549"  x="-0.29949999999999966"  y="13.7255" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="5"  depth="0" />
+	</frame>
+	<frame  idx="6"  w="8.999"  h="35.499"  x="0.4005000000000001"  y="13.2005" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="6"  depth="0" />
+	</frame>
+	<frame  idx="7"  w="9.149000000000001"  h="32.599"  x="0.32550000000000034"  y="12.8505" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="7"  depth="0" />
+	</frame>
+	<frame  idx="8"  w="9.149000000000001"  h="32.599"  x="0.32550000000000034"  y="12.8505" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="8"  depth="0" />
+	</frame>
+	<frame  idx="9"  w="12.049"  h="34.949"  x="-0.6244999999999998"  y="16.6755" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="9"  depth="0" />
+	</frame>
+	<frame  idx="10"  w="13.649000000000001"  h="24.749000000000002"  x="-0.22450000000000037"  y="11.4755" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="10"  depth="0" />
+	</frame>
+	<frame  idx="11"  w="10.199000000000002"  h="31.999000000000002"  x="-0.9495"  y="14.0505" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="11"  depth="0" />
+	</frame>
+	<frame  idx="12"  w="12.799"  h="39.049"  x="-0.2995000000000001"  y="14.2255" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="12"  depth="0" />
+	</frame>
+	<frame  idx="13"  w="12.299"  h="35.599"  x="-0.1495000000000002"  y="14.6005" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="13"  depth="0" />
+	</frame>
+	<frame  idx="14"  w="9.949"  h="31.049"  x="0.47550000000000026"  y="12.825500000000002" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="14"  depth="0" />
+	</frame>
+	<frame  idx="15"  w="10.199000000000002"  h="39.748999999999995"  x="0.8005"  y="16.9255" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="15"  depth="0" />
+	</frame>
+	<frame  idx="16"  w="12.599"  h="13.998999999999999"  x="1.7505000000000002"  y="1.7004999999999995" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="16"  depth="0" />
+	</frame>
+	<frame  idx="17"  w="14.599"  h="40.099000000000004"  x="0.3005"  y="15.150500000000001" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="17"  depth="0" />
+	</frame>
+	<frame  idx="18"  w="14.649000000000001"  h="40.549"  x="-0.02450000000000019"  y="15.075500000000002" >
+		<element  name="lur_clr_00"  layername="lur_clr_00"  parentname=""  frame="18"  depth="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_llr"  numframes="18"  framerate="30" >
+	<frame  idx="0"  w="5.4990000000000006"  h="22.749"  x="0.40049999999999986"  y="10.8255" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="0"  depth="0" />
+	</frame>
+	<frame  idx="1"  w="5.7989999999999995"  h="22.749"  x="0.25049999999999994"  y="10.8255" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="1"  depth="0" />
+	</frame>
+	<frame  idx="2"  w="7.549"  h="26.549"  x="-1.0245000000000002"  y="10.7255" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="2"  depth="0" />
+	</frame>
+	<frame  idx="3"  w="6.649"  h="21.749"  x="0.4754999999999998"  y="8.8255" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="3"  depth="0" />
+	</frame>
+	<frame  idx="4"  w="8.749"  h="29.899"  x="-0.1745000000000001"  y="12.400500000000001" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="4"  depth="0" />
+	</frame>
+	<frame  idx="5"  w="6.2490000000000006"  h="18.999"  x="0.7255"  y="7.7005" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="5"  depth="0" />
+	</frame>
+	<frame  idx="6"  w="7.849"  h="29.349"  x="-0.6745000000000001"  y="12.2755" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="6"  depth="0" />
+	</frame>
+	<frame  idx="7"  w="6.499"  h="24.249000000000002"  x="0.3005"  y="9.6755" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="7"  depth="0" />
+	</frame>
+	<frame  idx="8"  w="6.349"  h="26.099"  x="-0.8745000000000003"  y="11.9005" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="8"  depth="0" />
+	</frame>
+	<frame  idx="9"  w="6.349"  h="26.099"  x="-0.8745000000000003"  y="11.9005" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="9"  depth="0" />
+	</frame>
+	<frame  idx="10"  w="5.4990000000000006"  h="22.749"  x="0.40049999999999986"  y="10.8255" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="10"  depth="0" />
+	</frame>
+	<frame  idx="11"  w="7.449"  h="25.049"  x="-0.07450000000000001"  y="11.875499999999999" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="11"  depth="0" />
+	</frame>
+	<frame  idx="12"  w="7.2989999999999995"  h="17.299"  x="-0.7495"  y="8.0505" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="12"  depth="0" />
+	</frame>
+	<frame  idx="13"  w="10.149000000000001"  h="26.099"  x="0.9255"  y="10.7505" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="13"  depth="0" />
+	</frame>
+	<frame  idx="14"  w="8.349"  h="25.849"  x="-0.12450000000000028"  y="9.0755" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="14"  depth="0" />
+	</frame>
+	<frame  idx="15"  w="9.699000000000002"  h="34.399"  x="0.5505"  y="13.2005" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="15"  depth="0" />
+	</frame>
+	<frame  idx="16"  w="8.748999999999999"  h="17.349"  x="-0.12449999999999983"  y="5.275499999999999" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="16"  depth="0" />
+	</frame>
+	<frame  idx="17"  w="8.748999999999999"  h="17.349"  x="-0.12449999999999983"  y="5.275499999999999" >
+		<element  name="llr_clr_00"  layername="llr_clr_00"  parentname=""  frame="17"  depth="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_ftr"  numframes="32"  framerate="30" >
+	<frame  idx="0"  w="7.249"  h="11.6"  x="-1.8744999999999998"  y="5.8999999999999995" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="1"  w="7.249"  h="11.6"  x="-1.8744999999999998"  y="5.8999999999999995" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="1"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="2"  w="7.949"  h="12.849"  x="1.0255"  y="5.875500000000001" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="2"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="3"  w="15.299"  h="7.7"  x="-5.6495"  y="3.9499999999999997" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="3"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="4"  w="17.349"  h="7.999"  x="-5.974499999999999"  y="3.2505" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="4"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="5"  w="15.699"  h="4.249"  x="-6.1995"  y="1.5255" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="5"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="6"  w="15.199"  h="7.199"  x="-5.8495"  y="1.0004999999999997" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="6"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="7"  w="8.799"  h="7.149"  x="-2.7495000000000003"  y="-0.5245000000000002" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="7"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="8"  w="6.099"  h="12.399000000000001"  x="-1.2495000000000003"  y="1.2005000000000003" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="8"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="9"  w="6.099"  h="12.399000000000001"  x="-1.2495000000000003"  y="1.2005000000000003" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="9"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="10"  w="14.799"  h="9.299"  x="-6.0495"  y="4.000500000000001" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="10"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="11"  w="9.649000000000001"  h="12.949"  x="-0.47450000000000037"  y="5.475499999999999" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="11"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="12"  w="12.399"  h="9.499"  x="-4.7495"  y="3.8005000000000004" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="12"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="13"  w="17.899"  h="7.899000000000001"  x="-5.499499999999999"  y="0.9505000000000001" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="13"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="14"  w="22.599"  h="7.749"  x="-8.199499999999999"  y="0.2254999999999998" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="14"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="15"  w="18.399"  h="6.649"  x="-8.599499999999999"  y="2.2255" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="15"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="16"  w="17.799"  h="6.849"  x="-8.349499999999999"  y="2.3754999999999997" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="16"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="17"  w="9.649000000000001"  h="12.949"  x="-0.47450000000000037"  y="5.475499999999999" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="17"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="18"  w="17.149"  h="10.399000000000001"  x="-7.3245"  y="4.0504999999999995" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="18"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="19"  w="14.799"  h="9.299"  x="-6.0495"  y="4.000500000000001" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="19"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="20"  w="12.749"  h="14.649000000000001"  x="-2.4745"  y="5.8255" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="20"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="21"  w="19.299"  h="6.699"  x="-5.0495"  y="2.7005" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="21"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="22"  w="21.399"  h="7.799"  x="-6.3995"  y="3.3005" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="22"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="23"  w="20.698999999999998"  h="6.349"  x="-5.5995"  y="2.8754999999999997" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="23"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="24"  w="10.249"  h="12.299000000000001"  x="-0.6745000000000001"  y="5.9005" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="24"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="25"  w="8.499"  h="14.349"  x="0.4505000000000001"  y="5.875500000000001" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="25"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="26"  w="8.499"  h="14.349"  x="0.4505000000000001"  y="5.875500000000001" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="26"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="27"  w="7.349"  h="10.149"  x="-0.4245000000000001"  y="4.2755" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="27"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="28"  w="7.349"  h="10.149"  x="-0.4245000000000001"  y="4.2755" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="28"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="29"  w="17.899"  h="7.899000000000001"  x="-5.499499999999999"  y="0.9505000000000001" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="29"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="30"  w="17.899"  h="7.899000000000001"  x="-5.499499999999999"  y="0.9505000000000001" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="30"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="31"  w="22.599"  h="7.749"  x="-8.199499999999999"  y="0.2254999999999998" >
+		<element  name="ftr_clr_00"  layername="ftr_clr_00"  parentname=""  frame="31"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_cot"  numframes="13"  framerate="30" >
+	<frame  idx="0"  w="21.749"  h="46.949"  x="-6.9245"  y="13.6755" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="0"  depth="0" />
+	</frame>
+	<frame  idx="1"  w="21.749"  h="46.899"  x="6.025499999999999"  y="13.700499999999998" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="1"  depth="0" />
+	</frame>
+	<frame  idx="2"  w="29.049"  h="47.499"  x="-10.224499999999999"  y="18.1005" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="2"  depth="0" />
+	</frame>
+	<frame  idx="3"  w="29.099"  h="47.499"  x="9.300500000000001"  y="18.1005" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="3"  depth="0" />
+	</frame>
+	<frame  idx="4"  w="9.849"  h="50.149"  x="0.4255"  y="22.325499999999998" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="4"  depth="0" />
+	</frame>
+	<frame  idx="5"  w="21.749000000000002"  h="49.649"  x="-6.024500000000001"  y="23.1755" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="5"  depth="0" />
+	</frame>
+	<frame  idx="6"  w="39.949"  h="52.949"  x="2.4254999999999995"  y="17.825499999999998" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="6"  depth="0" />
+	</frame>
+	<frame  idx="7"  w="28.099"  h="49.049"  x="-4.999499999999999"  y="19.4755" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="7"  depth="0" />
+	</frame>
+	<frame  idx="8"  w="22.698999999999998"  h="46.999"  x="-1.9494999999999996"  y="19.7505" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="8"  depth="0" />
+	</frame>
+	<frame  idx="9"  w="32.099"  h="52.299"  x="-3.4494999999999996"  y="14.700500000000002" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="9"  depth="0" />
+	</frame>
+	<frame  idx="10"  w="30.198999999999998"  h="48.049"  x="5.700500000000001"  y="12.575500000000002" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="10"  depth="0" />
+	</frame>
+	<frame  idx="11"  w="33.199"  h="59.199"  x="5.5504999999999995"  y="23.6505" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="11"  depth="0" />
+	</frame>
+	<frame  idx="12"  w="40.099000000000004"  h="59.149"  x="-0.0495000000000001"  y="20.875500000000002" >
+		<element  name="cot_clr_00"  layername="cot_clr_00"  parentname=""  frame="12"  depth="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_swp"  numframes="3"  framerate="30" >
+	<frame  idx="0"  w="80.69900000000001"  h="41.150000000000006"  x="1.3505000000000003"  y="-72.724" >
+		<element  name="swp_clr_00"  layername="swp_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.1"  m1_ty="0" />
+	</frame>
+	<frame  idx="1"  w="54.2"  h="119.099"  x="-52.049"  y="-23.5995" >
+		<element  name="swp_clr_00"  layername="swp_clr_00"  parentname=""  frame="1"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.1"  m1_ty="0" />
+	</frame>
+	<frame  idx="2"  w="70.899"  h="35.05"  x="-26.999499999999998"  y="33.475" >
+		<element  name="swp_clr_00"  layername="swp_clr_00"  parentname=""  frame="2"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.1"  m1_ty="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_tzr"  numframes="2"  framerate="30" >
+	<frame  idx="0"  w="12.949"  h="33.749"  x="0.0754999999999999"  y="-6.9745" >
+		<element  name="tzr_clr_00"  layername="tzr_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0.05" />
+	</frame>
+	<frame  idx="1"  w="12.949"  h="33.749"  x="0.0754999999999999"  y="-6.9745" >
+		<element  name="tzr_clr_00"  layername="tzr_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0.05" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_btn"  numframes="2"  framerate="30" >
+	<frame  idx="0"  w="3.049"  h="57.549"  x="0.1755"  y="-17.8745" >
+		<element  name="btn_clr_00"  layername="btn_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="0.05" />
+	</frame>
+	<frame  idx="1"  w="3.049"  h="57.549"  x="0.1755"  y="-17.8745" >
+		<element  name="btn_clr_00"  layername="btn_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="0.05" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_cot_loop"  numframes="120"  framerate="30" >
+	<frame  idx="0"  w="86.34899999999999"  h="52.449000000000005"  x="0.9755000000000003"  y="19.2255" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="1"  w="86.34899999999999"  h="52.449000000000005"  x="0.9755000000000003"  y="19.2255" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="2"  w="86.34899999999999"  h="52.449000000000005"  x="0.9755000000000003"  y="19.2255" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="3"  w="83.349"  h="46.849000000000004"  x="2.1754999999999995"  y="22.9255" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="1"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="4"  w="83.349"  h="46.849000000000004"  x="2.1754999999999995"  y="22.9255" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="1"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="5"  w="84.649"  h="39.599999999999994"  x="2.325499999999998"  y="28" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="2"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="6"  w="84.649"  h="39.599999999999994"  x="2.325499999999998"  y="28" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="2"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="7"  w="84.649"  h="39.599999999999994"  x="2.325499999999998"  y="28" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="2"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="8"  w="85.549"  h="49.300000000000004"  x="2.425500000000003"  y="25.7" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="3"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="9"  w="85.549"  h="49.300000000000004"  x="2.425500000000003"  y="25.7" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="3"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="10"  w="82.499"  h="51.049"  x="0.4505000000000017"  y="19.3755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="4"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="11"  w="82.499"  h="51.049"  x="0.4505000000000017"  y="19.3755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="4"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="12"  w="82.499"  h="51.049"  x="0.4505000000000017"  y="19.3755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="4"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="13"  w="81.599"  h="43.999"  x="-1.1995000000000005"  y="21.0005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="5"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="14"  w="81.599"  h="43.999"  x="-1.1995000000000005"  y="21.0005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="5"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="15"  w="89.299"  h="42.400000000000006"  x="-2.5995000000000026"  y="29.4" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="6"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="16"  w="89.299"  h="42.400000000000006"  x="-2.5995000000000026"  y="29.4" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="6"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="17"  w="89.299"  h="42.400000000000006"  x="-2.5995000000000026"  y="29.4" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="6"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="18"  w="85.649"  h="51.4"  x="-3.924500000000002"  y="26.8" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="7"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="19"  w="85.649"  h="51.4"  x="-3.924500000000002"  y="26.8" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="7"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-6.149" />
+	</frame>
+	<frame  idx="20"  w="73.149"  h="75.24900000000001"  x="20.225499999999997"  y="27.2755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="8"  depth="0" />
+	</frame>
+	<frame  idx="21"  w="73.149"  h="75.24900000000001"  x="20.225499999999997"  y="27.2755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="8"  depth="0" />
+	</frame>
+	<frame  idx="22"  w="73.149"  h="75.24900000000001"  x="20.225499999999997"  y="27.2755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="8"  depth="0" />
+	</frame>
+	<frame  idx="23"  w="73.049"  h="62.449"  x="18.6755"  y="27.125500000000002" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="9"  depth="0" />
+	</frame>
+	<frame  idx="24"  w="73.049"  h="62.449"  x="18.6755"  y="27.125500000000002" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="9"  depth="0" />
+	</frame>
+	<frame  idx="25"  w="75.54899999999999"  h="56.4"  x="20.2755"  y="31.45" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="10"  depth="0" />
+	</frame>
+	<frame  idx="26"  w="75.54899999999999"  h="56.4"  x="20.2755"  y="31.45" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="10"  depth="0" />
+	</frame>
+	<frame  idx="27"  w="75.54899999999999"  h="56.4"  x="20.2755"  y="31.45" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="10"  depth="0" />
+	</frame>
+	<frame  idx="28"  w="79.249"  h="58.099000000000004"  x="21.0255"  y="28.6505" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="11"  depth="0" />
+	</frame>
+	<frame  idx="29"  w="79.249"  h="58.099000000000004"  x="21.0255"  y="28.6505" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="11"  depth="0" />
+	</frame>
+	<frame  idx="30"  w="78.099"  h="67.999"  x="20.950499999999998"  y="23.8005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="12"  depth="0" />
+	</frame>
+	<frame  idx="31"  w="78.099"  h="67.999"  x="20.950499999999998"  y="23.8005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="12"  depth="0" />
+	</frame>
+	<frame  idx="32"  w="78.099"  h="67.999"  x="20.950499999999998"  y="23.8005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="12"  depth="0" />
+	</frame>
+	<frame  idx="33"  w="76.299"  h="57.899"  x="17.2505"  y="26.8005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="13"  depth="0" />
+	</frame>
+	<frame  idx="34"  w="76.299"  h="57.899"  x="17.2505"  y="26.8005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="13"  depth="0" />
+	</frame>
+	<frame  idx="35"  w="78.899"  h="59.949999999999996"  x="19.8005"  y="33.824999999999996" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="14"  depth="0" />
+	</frame>
+	<frame  idx="36"  w="78.899"  h="59.949999999999996"  x="19.8005"  y="33.824999999999996" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="14"  depth="0" />
+	</frame>
+	<frame  idx="37"  w="78.899"  h="59.949999999999996"  x="19.8005"  y="33.824999999999996" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="14"  depth="0" />
+	</frame>
+	<frame  idx="38"  w="81.549"  h="67.899"  x="21.9755"  y="32.6005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="15"  depth="0" />
+	</frame>
+	<frame  idx="39"  w="81.549"  h="67.899"  x="21.9755"  y="32.6005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="15"  depth="0" />
+	</frame>
+	<frame  idx="40"  w="74.999"  h="61.499"  x="22.0005"  y="19.5005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="16"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="41"  w="74.999"  h="61.499"  x="22.0005"  y="19.5005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="16"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="42"  w="74.999"  h="61.499"  x="22.0005"  y="19.5005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="16"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="43"  w="74.849"  h="61.399"  x="22.4755"  y="23.4005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="17"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="44"  w="74.849"  h="61.399"  x="22.4755"  y="23.4005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="17"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="45"  w="72.449"  h="60.349"  x="24.1755"  y="25.2255" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="18"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="46"  w="72.449"  h="60.349"  x="24.1755"  y="25.2255" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="18"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="47"  w="72.449"  h="60.349"  x="24.1755"  y="25.2255" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="18"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="48"  w="78.999"  h="54.899"  x="24.7005"  y="23.450499999999998" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="19"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="49"  w="78.999"  h="54.899"  x="24.7005"  y="23.450499999999998" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="19"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="50"  w="78.549"  h="49.449000000000005"  x="22.8755"  y="16.9755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="20"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="51"  w="78.549"  h="49.449000000000005"  x="22.8755"  y="16.9755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="20"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="52"  w="78.549"  h="49.449000000000005"  x="22.8755"  y="16.9755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="20"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="53"  w="73.949"  h="48.799"  x="24.125500000000002"  y="17.400499999999997" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="21"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="54"  w="73.949"  h="48.799"  x="24.125500000000002"  y="17.400499999999997" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="21"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="55"  w="80.499"  h="47.099000000000004"  x="27.350499999999997"  y="16.8005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="22"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="56"  w="80.499"  h="47.099000000000004"  x="27.350499999999997"  y="16.8005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="22"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="57"  w="80.499"  h="47.099000000000004"  x="27.350499999999997"  y="16.8005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="22"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="58"  w="79.949"  h="50.949"  x="24.2255"  y="20.625500000000002" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="23"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="59"  w="79.949"  h="50.949"  x="24.2255"  y="20.625500000000002" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="23"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="60"  w="56.549"  h="47.199"  x="23.7255"  y="20.000500000000002" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="24"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="61"  w="56.549"  h="47.199"  x="23.7255"  y="20.000500000000002" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="24"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="62"  w="56.549"  h="47.199"  x="23.7255"  y="20.000500000000002" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="24"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="63"  w="54.499"  h="48.499"  x="25.0005"  y="21.1005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="25"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="64"  w="54.499"  h="48.499"  x="25.0005"  y="21.1005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="25"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="65"  w="57.249"  h="51.499"  x="26.8755"  y="24.1005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="26"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="66"  w="57.249"  h="51.499"  x="26.8755"  y="24.1005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="26"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="67"  w="57.249"  h="51.499"  x="26.8755"  y="24.1005" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="26"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="68"  w="58.549"  h="42.9"  x="27.7255"  y="22.55" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="27"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="69"  w="58.549"  h="42.9"  x="27.7255"  y="22.55" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="27"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="70"  w="53.999"  h="39.749"  x="24.2505"  y="17.9755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="28"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="71"  w="53.999"  h="39.749"  x="24.2505"  y="17.9755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="28"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="72"  w="53.999"  h="39.749"  x="24.2505"  y="17.9755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="28"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="73"  w="57.599000000000004"  h="35.25"  x="25.0505"  y="18.674999999999997" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="29"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="74"  w="57.599000000000004"  h="35.25"  x="25.0505"  y="18.674999999999997" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="29"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="75"  w="50.099000000000004"  h="43.3"  x="24.3005"  y="24.35" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="30"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="76"  w="50.099000000000004"  h="43.3"  x="24.3005"  y="24.35" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="30"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="77"  w="50.099000000000004"  h="43.3"  x="24.3005"  y="24.35" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="30"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="78"  w="53.2"  h="46.949000000000005"  x="27.35"  y="19.9755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="31"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="79"  w="53.2"  h="46.949000000000005"  x="27.35"  y="19.9755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="31"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="-3.949"  m1_ty="-3.949" />
+	</frame>
+	<frame  idx="80"  w="58.199"  h="61.699000000000005"  x="-1.3994999999999997"  y="28.3505" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="32"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="81"  w="58.199"  h="61.699000000000005"  x="-1.3994999999999997"  y="28.3505" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="32"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="82"  w="58.199"  h="61.699000000000005"  x="-1.3994999999999997"  y="28.3505" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="32"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="83"  w="65.999"  h="56.45"  x="1.4004999999999992"  y="33.125" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="33"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="84"  w="65.999"  h="56.45"  x="1.4004999999999992"  y="33.125" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="33"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="85"  w="63.849"  h="55.699999999999996"  x="2.375499999999999"  y="41.75" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="34"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="86"  w="63.849"  h="55.699999999999996"  x="2.375499999999999"  y="41.75" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="34"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="87"  w="63.849"  h="55.699999999999996"  x="2.375499999999999"  y="41.75" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="34"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="88"  w="60.549"  h="58.55"  x="3.4755000000000003"  y="35.275" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="35"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="89"  w="60.549"  h="58.55"  x="3.4755000000000003"  y="35.275" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="35"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="90"  w="57.949"  h="59.949"  x="-0.2245000000000008"  y="26.875500000000002" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="36"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="91"  w="57.949"  h="59.949"  x="-0.2245000000000008"  y="26.875500000000002" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="36"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="92"  w="57.949"  h="59.949"  x="-0.2245000000000008"  y="26.875500000000002" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="36"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="93"  w="66.199"  h="56.2"  x="-1.9994999999999976"  y="33.4" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="37"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="94"  w="66.199"  h="56.2"  x="-1.9994999999999976"  y="33.4" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="37"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="95"  w="63.449"  h="55.39999999999999"  x="-3.5245000000000015"  y="41.9" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="38"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="96"  w="63.449"  h="55.39999999999999"  x="-3.5245000000000015"  y="41.9" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="38"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="97"  w="63.449"  h="55.39999999999999"  x="-3.5245000000000015"  y="41.9" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="38"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="98"  w="61.248999999999995"  h="58.8"  x="-4.974499999999999"  y="35.699999999999996" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="39"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="99"  w="61.248999999999995"  h="58.8"  x="-4.974499999999999"  y="35.699999999999996" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="39"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="100"  w="47.748999999999995"  h="36.549"  x="2.1255000000000006"  y="15.7755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="40"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="101"  w="47.748999999999995"  h="36.549"  x="2.1255000000000006"  y="15.7755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="40"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="102"  w="47.748999999999995"  h="36.549"  x="2.1255000000000006"  y="15.7755" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="40"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="103"  w="51.54900000000001"  h="38.300000000000004"  x="3.0755"  y="24.05" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="41"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="104"  w="51.54900000000001"  h="38.300000000000004"  x="3.0755"  y="24.05" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="41"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="105"  w="50.699"  h="30.6"  x="2.8505000000000003"  y="29.2" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="42"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="106"  w="50.699"  h="30.6"  x="2.8505000000000003"  y="29.2" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="42"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="107"  w="50.699"  h="30.6"  x="2.8505000000000003"  y="29.2" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="42"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="108"  w="49.899"  h="40.5"  x="-0.8994999999999997"  y="26.25" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="43"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="109"  w="49.899"  h="40.5"  x="-0.8994999999999997"  y="26.25" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="43"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="110"  w="52.649"  h="39.599000000000004"  x="-1.5244999999999997"  y="16.700499999999998" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="44"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="111"  w="52.649"  h="39.599000000000004"  x="-1.5244999999999997"  y="16.700499999999998" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="44"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="112"  w="52.649"  h="39.599000000000004"  x="-1.5244999999999997"  y="16.700499999999998" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="44"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="113"  w="51.199"  h="38.1"  x="-3.849500000000001"  y="24.349999999999998" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="45"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="114"  w="51.199"  h="38.1"  x="-3.849500000000001"  y="24.349999999999998" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="45"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="115"  w="49.998999999999995"  h="30.55"  x="-4.249499999999999"  y="29.475" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="46"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="116"  w="49.998999999999995"  h="30.55"  x="-4.249499999999999"  y="29.475" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="46"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="117"  w="49.998999999999995"  h="30.55"  x="-4.249499999999999"  y="29.475" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="46"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="118"  w="53.149"  h="37.5"  x="-2.4245"  y="25.049999999999997" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="47"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+	<frame  idx="119"  w="53.149"  h="37.5"  x="-2.4245"  y="25.049999999999997" >
+		<element  name="cotl_clr_00"  layername="cotl_clr_00"  parentname=""  frame="47"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0"  m1_ty="-11.949" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_cmp"  numframes="5"  framerate="30" >
+	<frame  idx="0"  w="58.649"  h="41.799"  x="0.6754999999999995"  y="-12.749500000000001" >
+		<element  name="cmp_clr_00"  layername="cmp_clr_00"  parentname=""  frame="0"  depth="0" />
+	</frame>
+	<frame  idx="1"  w="58.649"  h="41.799"  x="0.6754999999999995"  y="-12.749500000000001" >
+		<element  name="cmp_clr_00"  layername="cmp_clr_00"  parentname=""  frame="1"  depth="0" />
+	</frame>
+	<frame  idx="2"  w="53.099000000000004"  h="40.899"  x="-4.599500000000001"  y="-13.4995" >
+		<element  name="cmp_clr_00"  layername="cmp_clr_00"  parentname=""  frame="2"  depth="0" />
+	</frame>
+	<frame  idx="3"  w="53.099000000000004"  h="40.899"  x="-4.199499999999999"  y="-13.4995" >
+		<element  name="cmp_clr_00"  layername="cmp_clr_00"  parentname=""  frame="3"  depth="0" />
+	</frame>
+	<frame  idx="4"  w="61.599000000000004"  h="27.899"  x="-0.0495000000000001"  y="12.6005" >
+		<element  name="cmp_clr_00"  layername="cmp_clr_00"  parentname=""  frame="4"  depth="0" />
+	</frame>
+</anim>
+<anim name="anim"  root="med_srg"  numframes="11"  framerate="30" >
+	<frame  idx="0"  w="37.599000000000004"  h="5.849"  x="-1.8495000000000008"  y="-0.024499999999999966" >
+		<element  name="srg_clr_00"  layername="srg_clr_00"  parentname=""  frame="0"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="1"  w="38.049"  h="5.849"  x="-1.7744999999999997"  y="-0.024499999999999966" >
+		<element  name="srg_clr_00"  layername="srg_clr_00"  parentname=""  frame="1"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="2"  w="35.949"  h="5.7490000000000006"  x="-2.5744999999999996"  y="-0.024499999999999966" >
+		<element  name="srg_clr_00"  layername="srg_clr_00"  parentname=""  frame="2"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="3"  w="17.599"  h="5.849"  x="8.1505"  y="-0.024499999999999966" >
+		<element  name="srg_clr_00"  layername="srg_clr_00"  parentname=""  frame="3"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="4"  w="20.749000000000002"  h="5.849"  x="-10.2745"  y="-0.024499999999999966" >
+		<element  name="srg_clr_00"  layername="srg_clr_00"  parentname=""  frame="4"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="5"  w="16.15"  h="5.849"  x="9.175"  y="-0.024499999999999966" >
+		<element  name="srg_clr_00"  layername="srg_clr_00"  parentname=""  frame="5"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="6"  w="22.849"  h="5.849"  x="-9.3745"  y="-0.024499999999999966" >
+		<element  name="srg_clr_00"  layername="srg_clr_00"  parentname=""  frame="6"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="7"  w="74.949"  h="13.149"  x="16.9255"  y="-3.4745" >
+		<element  name="srg_clr_00"  layername="srg_clr_00"  parentname=""  frame="7"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="8"  w="37.8"  h="9.649"  x="20"  y="-1.6744999999999999" >
+		<element  name="srg_clr_00"  layername="srg_clr_00"  parentname=""  frame="8"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="9"  w="15.25"  h="5.7490000000000006"  x="7.775"  y="-0.024499999999999966" >
+		<element  name="srg_clr_00"  layername="srg_clr_00"  parentname=""  frame="9"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+	<frame  idx="10"  w="20.698999999999998"  h="5.7490000000000006"  x="-10.1995"  y="-0.024499999999999966" >
+		<element  name="srg_clr_00"  layername="srg_clr_00"  parentname=""  frame="10"  depth="0"  m1_a="1"  m1_b="0"  m1_c="0"  m1_d="1"  m1_tx="0.05"  m1_ty="0" />
+	</frame>
+</anim>
+</Anims>

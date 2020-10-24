@@ -1,0 +1,38 @@
+<Anims>
+<anim name="anim"  root="forceexport/shoulder_armor"  numframes="2"  framerate="30" >
+	<frame  idx="0"  w="176.399"  h="215.199"  x="0.0005000000000023874"  y="0.000499999999995282" >
+	</frame>
+	<frame  idx="1"  w="176.399"  h="215.199"  x="0.0005000000000023874"  y="0.000499999999995282" >
+	</frame>
+</anim>
+<anim name="anim"  root="forceexport/eye_shield"  numframes="2"  framerate="30" >
+	<frame  idx="0"  w="151.499"  h="79.299"  x="0.0005000000000023874"  y="0.0004999999999988347" >
+	</frame>
+	<frame  idx="1"  w="151.499"  h="79.299"  x="0.0005000000000023874"  y="0.0004999999999988347" >
+	</frame>
+</anim>
+<anim name="anim"  root="forceexport/helmet"  numframes="2"  framerate="30" >
+	<frame  idx="0"  w="204.499"  h="166.099"  x="0.0005000000000023874"  y="0.000499999999995282" >
+	</frame>
+	<frame  idx="1"  w="204.499"  h="166.099"  x="0.0005000000000023874"  y="0.000499999999995282" >
+	</frame>
+</anim>
+<anim name="anim"  root="forceexport/moustache"  numframes="2"  framerate="30" >
+	<frame  idx="0"  w="74.349"  h="49.099000000000004"  x="0.025500000000000966"  y="0.0005000000000006111" >
+	</frame>
+	<frame  idx="1"  w="74.349"  h="49.099000000000004"  x="0.025500000000000966"  y="0.0005000000000006111" >
+	</frame>
+</anim>
+<anim name="anim"  root="forceexport/shoulder_armor_2"  numframes="2"  framerate="30" >
+	<frame  idx="0"  w="170.54899999999998"  h="190.699"  x="0.025500000000000966"  y="0.000499999999995282" >
+	</frame>
+	<frame  idx="1"  w="170.54899999999998"  h="190.699"  x="0.025500000000000966"  y="0.000499999999995282" >
+	</frame>
+</anim>
+<anim name="anim"  root="forceexport/backpack"  numframes="2"  framerate="30" >
+	<frame  idx="0"  w="248.949"  h="285.299"  x="2.6254999999999953"  y="-7.299500000000009" >
+	</frame>
+	<frame  idx="1"  w="248.949"  h="285.299"  x="2.6254999999999953"  y="-7.299500000000009" >
+	</frame>
+</anim>
+</Anims>

@@ -1,0 +1,38 @@
+<Build name="vault_1x1_podium1.fla">
+  <Symbol name="post">
+    <Frame framenum="0" duration="1" image="post-0" w="32" h="108" x="0.0004997253" y="-4.2495" />
+  </Symbol>
+  <Symbol name="inside_teal">
+    <Frame framenum="0" duration="1" image="inside_teal-0" w="48" h="92" x="0.0004997253" y="0.0004997253" />
+  </Symbol>
+  <Symbol name="Symbol 69">
+    <Frame framenum="0" duration="1" image="Symbol 69-0" w="76" h="24" x="32.475" y="6.475" />
+  </Symbol>
+  <Symbol name="inside_red">
+    <Frame framenum="0" duration="1" image="inside_red-0" w="48" h="92" x="0.0004997253" y="0.0004997253" />
+  </Symbol>
+  <Symbol name="Symbol 70">
+    <Frame framenum="0" duration="1" image="Symbol 70-0" w="76" h="24" x="32.475" y="6.475" />
+  </Symbol>
+  <Symbol name="line">
+    <Frame framenum="0" duration="1" image="line-0" w="44" h="36" x="-0.8994999" y="0.5505009" />
+  </Symbol>
+  <Symbol name="Symbol 71">
+    <Frame framenum="0" duration="1" image="Symbol 71-0" w="88" h="88" x="28.9755" y="23.4755" />
+  </Symbol>
+  <Symbol name="Symbol 72">
+    <Frame framenum="0" duration="1" image="Symbol 72-0" w="56" h="80" x="20.975" y="32.975" />
+  </Symbol>
+  <Symbol name="Symbol 1">
+    <Frame framenum="0" duration="1" image="Symbol 1-0" w="72" h="88" x="0.02550125" y="0.02550125" />
+  </Symbol>
+  <Symbol name="internal">
+    <Frame framenum="0" duration="1" image="internal-0" w="140" h="260" x="1.375504" y="-87.9245" />
+    <Frame framenum="1" duration="1" image="internal-0" w="140" h="260" x="1.375504" y="-87.9245" />
+    <Frame framenum="2" duration="1" image="internal-0" w="140" h="260" x="1.375504" y="-87.9245" />
+    <Frame framenum="3" duration="1" image="internal-0" w="140" h="260" x="1.375504" y="-87.9245" />
+  </Symbol>
+  <Symbol name="icon">
+    <Frame framenum="0" duration="1" image="icon-0" w="104" h="252" x="-0.0245018" y="-0.02449799" />
+  </Symbol>
+</Build>
