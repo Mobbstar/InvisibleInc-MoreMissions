@@ -98,7 +98,7 @@ local prop_templates =
 		tooltip = nil,
 		tags = {"MM_droid_dummy"},
 		kanim = "mm_kanim_guard_male_dummy1", 
-		traits = { impass = {0,0}, sightable = true, staticAnim  = true, MM_droid_dummy = true},
+		traits = { impass = {0,0}, sightable = true, cover = true, staticAnim  = true, MM_droid_dummy = true},
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", },
 	},
 	
@@ -110,7 +110,7 @@ local prop_templates =
 		tooltip = nil,
 		tags = {"MM_droid_dummy"},
 		kanim = "mm_kanim_guard_male_dummy2", 
-		traits = { impass = {0,0}, sightable = true, staticAnim  = true, MM_droid_dummy = true, spec_droid = true},
+		traits = { impass = {0,0}, sightable = true, cover = true, staticAnim  = true, MM_droid_dummy = true, spec_droid = true},
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", },
 	},	
 	
