@@ -303,7 +303,8 @@ local function load( modApi, options, params )
 	local mission_util = include("sim/missions/mission_util") --for Distress Call
 	local doAgentBanter_old = mission_util.doAgentBanter
 	mission_util.doAgentBanter = function(script,sim,cross_script,odds,returnIfFailed, ...)
-		if sim:getParams().situationName == "distress_call" then
+		--if sim:getParams().situationName == "distress_call" then
+		if sim:hasTag("skipBanter") then
 			--log:write("skipping banter")
 			return
 		end
