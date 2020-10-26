@@ -445,6 +445,7 @@ end
 local mission = class( escape_mission )
 
 function mission:init( scriptMgr, sim )
+    sim:getTags().skipBanter = true
     escape_mission.init( self, scriptMgr, sim )
 
 	scriptMgr:addHook( "START_AGENT_ESCAPE", startAgentEscape, nil, self )
