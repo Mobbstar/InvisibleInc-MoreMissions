@@ -12,14 +12,14 @@ local ESCAPE_MISSION_TAGS = {}
 
 local SITUATIONS =
 {
-	holostudio =
-	{
-        ui = {
-			insetImg = "gui/mission_debrief/unknown.png",
-			icon = "gui/mission_previews/unknown.png",
-			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_SECURITY ),
-		},
-	},
+--	holostudio =
+--	{
+--        ui = {
+--			insetImg = "gui/mission_debrief/unknown.png",
+--			icon = "gui/mission_previews/unknown.png",
+--			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_SECURITY ),
+--		},
+--	},
 	assassination =
 	{
         ui = {
@@ -28,14 +28,14 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL ),
 		},
 	},
-	landfill =
-	{
-        ui = {
-			insetImg = "gui/mission_debrief/unknown.png",
-			icon = "gui/mission_previews/unknown.png",
-			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_NANO_FAB ),
-		},
-	},
+--	landfill =
+--	{
+--        ui = {
+--			insetImg = "gui/mission_debrief/unknown.png",
+--			icon = "gui/mission_previews/unknown.png",
+--			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_NANO_FAB ),
+--		},
+--	},
 	ea_hostage =
 	{
         ui = {
