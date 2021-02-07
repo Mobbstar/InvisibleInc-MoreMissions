@@ -110,18 +110,29 @@ local function make_gear( sim, newUnit, agentTemplate )
 	"item_light_pistol",
 	}
 	local new_items = {}
+	local captured_items = {} --separate table for these as they're already spawned
 	if newUnit:getUnitData().agentID then
 
 		local items = newUnit:getChildren() or {}
 			for i = #items, 1, -1 do
 				if not items[i]:getTraits().installed then
-					table.remove(items,i) --this will empty their inventory even if they would normally have it at detention centers
+					-- table.remove(items,i) --this will empty their inventory even if they would normally have it at detention centers
 					if items[i] then
-						sim:despawnUnit( items[i] )
+						if newUnit:getTraits().MM_captureTime then
+							-- log:write("LOG MM_captureTime")
+							if items[i]:getTraits().equipped then 
+								items[i]:getTraits().equipped = false
+							end
+							table.insert(captured_items, items[i])
+							newUnit:removeChild( items[i] )
+						else
+							newUnit:removeChild( items[i] )
+							sim:despawnUnit( items[i] )
+						end
 					end
 				end
 			end
-			if agentTemplate then
+			if agentTemplate and not newUnit:getTraits().MM_captureTime then
 				for k,v in pairs(agentTemplate.upgrades) do
 					local itemdef = unitdefs.lookupTemplate( v )
 					if itemdef.traits.installed == nil then
@@ -137,11 +148,17 @@ local function make_gear( sim, newUnit, agentTemplate )
 	end
 
 	items_output = {}
-
-	for k,template in pairs(new_items) do
-		local newItem = simfactory.createUnit( unitdefs.lookupTemplate( template ), sim )
-		sim:spawnUnit( newItem )
-		table.insert(items_output, newItem)
+	
+	if newUnit:getTraits().MM_captureTime then
+		for k, item in pairs(captured_items) do
+			table.insert(items_output, item) --these already existed in the inventory and don't need to be spawned in
+		end
+	else
+		for k,template in pairs(new_items) do
+			local newItem = simfactory.createUnit( unitdefs.lookupTemplate( template ), sim )
+			sim:spawnUnit( newItem )
+			table.insert(items_output, newItem)
+		end
 	end
 
 	return items_output
@@ -215,7 +232,7 @@ local function startAgentEscape( script, sim, mission )
 	if agentDef == nil and #agency.unitDefsPotential > 0 then
 
         if (sim:nextRand() < CHANCE_OF_AGENT_IN_DETENTION or sim:getParams().foundPrisoner == true ) or 
-           (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY and sim:getParams().agentsFound == 0) then
+           (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY and sim:getParams().agentsFound == 0) then		
     		local wt = util.weighted_list()
             for i, agentDef in ipairs(agency.unitDefsPotential) do
                 wt:addChoice( agentDef, 1 )
@@ -257,6 +274,9 @@ local function startAgentEscape( script, sim, mission )
 
 		newOperative = sim:getPC():hireUnit( sim, newUnit, cell, facing )
 		newOperative:addTag("escapedAgent")
+		if agentDef.captureTime then
+			newOperative:getTraits().MM_captureTime = true
+		end
 
 	else
 		mission.operative_distressed = true
@@ -273,8 +293,8 @@ local function startAgentEscape( script, sim, mission )
 		sim:warpUnit( unit, nil )
 		sim:despawnUnit( unit )
 		sim:spawnUnit( newUnit )
+		newUnit:setPlayerOwner(sim:getPC()) --needs to be before warp or causes agentrig yield error
 		sim:warpUnit( newUnit, cell, facing )
-		newUnit:setPlayerOwner(sim:getPC())
 		newOperative = newUnit
 
 	end
@@ -283,7 +303,6 @@ local function startAgentEscape( script, sim, mission )
 		sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/hostage/hostage_chair_move" )
 		local x0,y0 = newOperative:getLocation()
 		local unit_cell = sim:getCell(x0, y0)
-		
 		local guardTemplate = unitdefs.lookupTemplate( "important_guard" )
 		local newGuard = simfactory.createUnit( guardTemplate, sim ) --captain
 		sim:spawnUnit( newGuard )
@@ -311,7 +330,7 @@ local function startAgentEscape( script, sim, mission )
 			--log:write("found safe")
 		end
 
-		local gear = make_gear( sim, newOperative, agentTemplate ) --handles inventory wrangling
+		local gear = make_gear( sim, newOperative, agentTemplate ) --handles inventory wrangling & spawning
 
 		if safeUnit then
 			--log:write("putting stuff in safe")
@@ -363,6 +382,8 @@ local function startAgentEscape( script, sim, mission )
 		local agent_id
 		if newOperative:getUnitData().agentID then
 			agent_id = newOperative:getUnitData().agentID
+			sim:removeObjective( "rescue_agent" )
+			sim:addObjective( string.format(STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_AGENT,newOperative:getUnitData().name), "rescue_agent" )--rename objective
 		else
 			agent_id = "agent009"
 		end
@@ -385,7 +406,6 @@ local function startAgentEscape( script, sim, mission )
 			script:queue( { type="clearEnemyMessage" } )
 		end
 		--------
-
 		--script:addHook( increaseAlarm, true )
 		sim.missionTrackerBoost = 1 --rest is in modinit.lua/init()
 
