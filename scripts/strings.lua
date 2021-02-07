@@ -238,7 +238,7 @@ return {
 			-- HYPERUNLOCKED = "Busted open by a blue keycard",
 		-- },
 		DISTRESS_OBJECTIVE = "Rescue the operative",
-		DISTRESS_OBJECTIVE_SECONDARY = "Find the operative's gear",
+		DISTRESS_OBJECTIVE_SECONDARY = "Find the confiscated gear",
 		DISTRESS_AGENT_GEAR_CONTAINER = "SIGNAL DETECTED",
 		DISTRESS_AGENT_GEAR_CONTAINER_DESC = "VALUABLE EQUIPMENT", --should probably go under MISSIONS above but we can tidy things later...
 		WEAPONS_EXPO_OBJECTIVE = "Locate and steal weapon prototypes",
