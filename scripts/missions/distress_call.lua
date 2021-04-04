@@ -127,7 +127,7 @@ local function make_gear( sim, newUnit, agentTemplate )
 							newUnit:removeChild( items[i] )
 						else
 							newUnit:removeChild( items[i] )
-							sim:despawnUnit( items[i] )
+							--sim:despawnUnit( items[i] )
 						end
 					end
 				end
