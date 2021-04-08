@@ -56,7 +56,7 @@ return {
 		WEAPONSEXPO = "TECH EXPO",
 		WEAPONSEXPO_TIP = "<c:FF8411>TECH EXPO</c>\nProvides powerful weapons protected by advanced security measures.",
 		MOLE_INSERTION = "INFORMANT RENDEZVOUS",
-		MOLE_INSERTION_TIP = "<c:FF8411>INFORMANT RENDEZVOUS</c>\nPlant an informant who will feed you intel for the next few missions."	
+		MOLE_INSERTION_TIP = "<c:FF8411>INFORMANT RENDEZVOUS</c>\nPlant an informant who will feed you intel for the next few missions.",	
 		
 		SIDEMISSIONS = "SIDE MISSIONS",
 		SIDEMISSIONS_TIP = "Enable new side missions",		
@@ -148,7 +148,7 @@ return {
 		DISCARDED_MANACLES_TOOLTIP = "Secured in place. Alerts the Captain when seen.",
 		DISCARDED_MANACLES_FLAVOR = "An empty space, where a prisoner is supposed to be restrained.",
 		
-	AMNESIAC = "Amnesiac",
+		AMNESIAC = "Amnesiac",
 		AMNESIAC_TOOLTIP = "Use on pinned targets. Removes alert status and WITNESS tag. Reduces max AP by 2.",
 		AMNESIAC_FLAVOR = "A mind-scrambling mix of chemicals straight off the seedy underbelly of the black market. The target wakes up sluggish, disoriented, and unable to recall certain pertinent details, such as any faces they might have recently seen.",
 
@@ -221,6 +221,7 @@ return {
 			WITNESSES_ESCAPED = "{1} {1:witness has|witnesses have} escaped the level and can no longer be removed.",
 
 		},	
+	},
 
 	-- PROGRAMS =
 	-- {
