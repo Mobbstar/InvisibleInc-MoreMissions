@@ -1,6 +1,8 @@
 local util = include( "modules/util" )
 local commondefs = include( "sim/unitdefs/commondefs" )
 -- local simdefs = include( "sim/simdefs" )
+local NEVER_SOLD = 10000
+
 
 local tool_templates =
 {
@@ -102,9 +104,12 @@ local tool_templates =
 		profile_icon_100 = "gui/icons/item_icons/icon-item_tazer.png",		
 		--profile_icon = "gui/items/icon-tazer-ftm.png",
 		requirements = {  },
-		traits = { damage = 1,  cooldown = 0, cooldownMax = 4, melee = true, level = 1 },
+		traits = { damage = 1,  cooldown = 0, cooldownMax = 4, melee = true, level = 1, usesLeft = 3, },
 		value = 100,
 		floorWeight = 1,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end,				
 	},	
 	
 	MM_item_tazer_old_armour = util.extend(commondefs.melee_template)
@@ -117,9 +122,12 @@ local tool_templates =
 		profile_icon_100 = "gui/icons/item_icons/icon-item_tazer.png",		
 		--profile_icon = "gui/items/icon-tazer-ftm.png",
 		requirements = {  },
-		traits = { damage = 1,  cooldown = 0, cooldownMax = 4, armorPiercing = 1, melee = true, level = 1 },
+		traits = { damage = 1,  cooldown = 0, cooldownMax = 4, armorPiercing = 1, melee = true, level = 1, usesLeft = 3, },
 		value = 150,
 		floorWeight = 1,
+        createUpgradeParams = function( self, unit )
+            return { traits = { usesLeft = unit:getTraits().usesLeft } }
+        end,		
 	},		
 
 	-- for EA Hostage
@@ -134,7 +142,44 @@ local tool_templates =
 		traits = { sightable = true }
 	},	
 	
+	-- for Mole Insertion
+    MM_paralyzer_amnesiac = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.AMNESIAC,
+		desc = STRINGS.MOREMISSIONS.ITEMS.AMNESIAC_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.AMNESIAC_FLAVOR,
+		icon = "itemrigs/FloorProp_Bandages.png",
+		--profile_icon = "gui/items/icon-paralyzer.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_paralyzerdose_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_paralyzer_dose.png",	
+		abilities = { "carryable","recharge","paralyze" },
+		requirements = { },
+		traits = { cooldown = 0, cooldownMax = 6, koTime = 0, impare_AP = 2, amnesiac = true, usesLeft = 3, }, --impare_AP (sic) is used by Function Library
+		value = 300,
+		floorWeight = 1,
+        createUpgradeParams = function( self, unit )
+            return { traits = { usesLeft = unit:getTraits().usesLeft } }
+        end,	
+		soldAfter = NEVER_SOLD,		
+	},	
+	
+	-- MM_mole_cloak = util.extend(commondefs.item_template) --MOVED TO PROPS
+	-- {
+		-- name = STRINGS.MOREMISSIONS.ITEMS.MOLE_CLOAK,
+		-- desc = STRINGS.ITEMS.CLOAK_1_TOOLTIP .. "\n\nCannot use while sighted.",
+		-- flavor = STRINGS.ITEMS.MOLE_CLOAK_FLAVOR,
+		-- icon = "itemrigs/FloorProp_InvisiCloakTimed.png",
+		-- --profile_icon = "gui/items/icon-cloak.png",
+		-- profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",			
+		-- profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
+		-- traits = { cantdrop = true, pickupOnly="Natalie", disposable = false, duration = 1,cooldown = 0, cooldownMax = 8,  cloakDistanceMax=5, cloakInVision = false, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}},
+		-- abilities = { "carryable","recharge","useInvisiCloak" },
+		-- value = 0,
+		-- floorWeight = 1,
+		-- soldAfter = NEVER_SOLD,
+	-- },
 }
+
 
 -- TECH EXPO block which autogenerates items from existing templates
 local tech_expo_templates = {}
