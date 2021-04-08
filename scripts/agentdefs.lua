@@ -6,6 +6,31 @@ local SCRIPTS = include('client/story_scripts')
 local DEFAULT_DRONE = commondefs.DEFAULT_DRONE
 local SOUNDS = commondefs.SOUNDS
 
+
+local INTERNATIONALE_SOUNDS =
+{
+    bio = "SpySociety/VoiceOver/Missions/Bios/Internationale",
+    escapeVo = "SpySociety/VoiceOver/Missions/Escape/Operator_Escape_Agent_Internationale",
+	speech="SpySociety/Agents/dialogue_player",  
+	step = simdefs.SOUNDPATH_FOOTSTEP_FEMALE_HARDWOOD_NORMAL, 
+	stealthStep = simdefs.SOUNDPATH_FOOTSTEP_FEMALE_HARDWOOD_SOFT,
+
+	wallcover = "SpySociety/Movement/foley_suit/wallcover", 
+	crouchcover = "SpySociety/Movement/foley_suit/crouchcover",
+	fall = "SpySociety/Movement/foley_suit/fall",
+	land = "SpySociety/Movement/deathfall_agent_hardwood",
+	land_frame = 16,						
+	getup = "SpySociety/Movement/foley_suit/getup",
+	grab = "SpySociety/Movement/foley_suit/grab_guard",
+	pin = "SpySociety/Movement/foley_suit/pin_guard",
+	pinned = "SpySociety/Movement/foley_suit/pinned",
+	peek_fwd = "SpySociety/Movement/foley_suit/peek_forward",	
+	peek_bwd = "SpySociety/Movement/foley_suit/peek_back",
+	move = "SpySociety/Movement/foley_suit/move",		
+	hit = "SpySociety/HitResponse/hitby_ballistic_flesh",		
+}
+
+
 local agent_templates =
 {
 	--NPCs
@@ -17,7 +42,7 @@ local agent_templates =
 		yearsOfService = STRINGS.AGENTS.PRISONER.YEARS_OF_SERVICE,
 		age = STRINGS.AGENTS.PRISONER.AGE,
 		hometown = STRINGS.AGENTS.PRISONER.HOMETOWN,
-		toolTip = STRINGS.AGENTS.PRISONER.ALT_1.TOOLTIP, --placeholder
+		toolTip = STRINGS.MOREMISSIONS.AGENTS.AGENT_009.TOOLTIP,
 		onWorldTooltip = commondefs.onAgentTooltip,
 		profile_icon_36x36= "gui/profile_icons/prisoner_64.png",
 		splash_image = "gui/agents/agentDeckard_768.png",
@@ -91,7 +116,40 @@ local agent_templates =
 				},--
 		speech = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE.BANTER,
 		blurb = "",
-	},			
+	},	
+
+	--NPCs
+	MM_mole =		-- graphics are placeholder
+	{
+		type = "simunit",
+		agentID = "MM_mole", --for item's restrictedUse
+		name = STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME,
+		fullname = STRINGS.MOREMISSIONS.AGENTS.MOLE.FULLNAME,
+		yearsOfService = STRINGS.AGENTS.PRISONER.YEARS_OF_SERVICE,
+		age = STRINGS.AGENTS.PRISONER.AGE,
+		hometown = STRINGS.AGENTS.PRISONER.HOMETOWN,
+		toolTip = STRINGS.MOREMISSIONS.AGENTS.MOLE.TOOLTIP,
+		onWorldTooltip = commondefs.onAgentTooltip,
+		profile_icon_36x36= "gui/profile_icons/lady_tech_36.png",--
+		profile_icon_64x64= "gui/profile_icons/engineer2_64x64.png",--
+		splash_image = "gui/agents/central_1024.png",--
+		profile_anim = "portraits/central_face",--
+		gender = "female",
+		team_select_img = {
+			"gui/agents/team_select_1_central.png",--
+		},
+		kanim = "kanim_central",--
+		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=8,  mpMax = 8, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false},	
+		tags = {"MM_mole","Natalie"},
+		children = { "MM_mole_cloak", "MM_paralyzer_amnesiac"}, -- Dont add items here, add them to the upgrades table in createDefaultAgency()
+		startingSkills = { anarchy = 2},
+		abilities = util.tconcat( {  "sprint","MM_escape_guardelevator" }, commondefs.DEFAULT_AGENT_ABILITIES ),
+		sounds = INTERNATIONALE_SOUNDS,
+		speech = STRINGS.MOREMISSIONS.AGENTS.MOLE.BANTER,
+		blurb = "",
+		upgrades = { },
+	},		
+	
 }
 
 return agent_templates
