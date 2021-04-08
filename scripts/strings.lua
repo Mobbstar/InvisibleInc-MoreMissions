@@ -55,6 +55,11 @@ return {
 		DISTRESSCALL_TIP = "<c:FF8411>DISTRESS CALL</c>\nProvides a chance at an agent and their gear but the alarm rises quickly.",
 		WEAPONSEXPO = "TECH EXPO",
 		WEAPONSEXPO_TIP = "<c:FF8411>TECH EXPO</c>\nProvides powerful weapons protected by advanced security measures.",
+		MOLE_INSERTION = "INFORMANT RENDEZVOUS",
+		MOLE_INSERTION_TIP = "<c:FF8411>INFORMANT RENDEZVOUS</c>\nPlant an informant who will feed you intel for the next few missions."	
+		
+		SIDEMISSIONS = "SIDE MISSIONS",
+		SIDEMISSIONS_TIP = "Enable new side missions",		
 
 		ITEMS_IN_STORE = "ITEMS IN STORES",
 		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",
@@ -63,6 +68,7 @@ return {
 	PROPS =
 	{
 		-- RECHARGE_STATION = "Phone Recharge Socket",
+		PERSONNEL_DB = "Personnel Database",
 	},
 
 	GUARDS =
@@ -78,6 +84,7 @@ return {
 		AGENT_009 =
 		{
 			NAME = "Agent-OO9",
+			TOOLTIP = "Covert Operative",
 			BANTER =
 			{
 				START = {
@@ -85,7 +92,8 @@ return {
 				},
 				FINAL_WORDS =
 				{
-					"...",--need to come up with sth here
+					"End of the line.",
+					"Good evening to you, gentlemen.",
 				},
 			},
 		},
@@ -94,6 +102,24 @@ return {
 		{
 			NAME = "Johnny W.",
 		},
+		MOLE = 
+		{
+			NAME = "Natalie",
+			FULLNAME = "N. Formaunte",
+			TOOLTIP = "Professional Informant",
+			BANTER =
+			{
+				START = {
+					"",
+				},
+				FINAL_WORDS = 
+				{
+					"Well, this was a wild ride.",
+					"This is all a huge mistake. Come on, I'll show you my ID...",
+					"I've got friends in high places. You sure you want to take that shot?",
+				},
+			},		
+		},		
 	},
 
 	ITEMS =
@@ -119,8 +145,30 @@ return {
 		ITEM_TAZER_OLD_FLAVOR = "This disrupter is worn out, but still finds use as a \"persuasion\" tool.",
 
 		DISCARDED_MANACLES = "Discarded Manacles",
-		DISCARDED_MANACLES_TOOLTIP = "Secured in place. Alerts the captain when seen.",
+		DISCARDED_MANACLES_TOOLTIP = "Secured in place. Alerts the Captain when seen.",
 		DISCARDED_MANACLES_FLAVOR = "An empty space, where a prisoner is supposed to be restrained.",
+		
+	AMNESIAC = "Amnesiac",
+		AMNESIAC_TOOLTIP = "Use on pinned targets. Removes alert status and WITNESS tag. Reduces max AP by 2.",
+		AMNESIAC_FLAVOR = "A mind-scrambling mix of chemicals straight off the seedy underbelly of the black market. The target wakes up sluggish, disoriented, and unable to recall certain pertinent details, such as any faces they might have recently seen.",
+
+		MOLE_CLOAK = "Custom Cloaking Rig I",
+		MOLE_CLOAK_FLAVOR = "Some cloaking rig models have increased efficiency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",		
+
+	},
+
+	ABILITIES = {
+		HACK_PERSONNELDB = "Hack Database",
+		HACK_PERSONNELDB_DESC = "Fabricate cover identity",
+		HACK_ONLY_MOLE = "Only the Informant can do this",
+
+		SCRUB_CAMERADB = "Scrub Database",
+		SCRUB_CAMERADB_DESC = "Removes WITNESS status from all cameras and drones",
+
+		-- ESCAPE_GUARD = "Escape",
+		ESCAPE_GUARD_DESC = "Undercover Informant teleports out",
+		ESCAPE_GUARD_POWER_CELL = "Informant must drop the {1} before leaving!",
+
 
 	},
 
@@ -130,16 +178,49 @@ return {
 		-- UNLOCK_BLUE_TIP = "Unlock this door so hard, it stays open forever.",
 	-- },
 
-	-- DAEMONS =
-	-- {
-		-- CHITON =
-		-- {
-			-- NAME = "CHITON",
-			-- DESC = "All guards get +1 ARMOR.",
-			-- SHORT_DESC = "Boost Guard ARMOR",
-			-- ACTIVE_DESC = "Guards have +1 ARMOR",
-		-- },
-	-- },
+	DAEMONS =
+	{
+		MOLE_DAEMON = {
+			NAME = "INFORMANT INTEL",
+			DESC = "Receive random intel at mission start. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
+			SHORT_DESC = "",
+			ACTIVE_DESC = "INTEL PROVIDED BY INFORMANT",
+		},
+
+		MOLE_DAEMON_EVENT = {
+			INTEL_TYPES = {
+			["layout"] = "Facility layout revealed",
+			["patrols"] = "Some guard patrols revealed",
+			["consoles"] = "Consoles revealed",
+			["safes"] = "Safes revealed",
+			["cameras"] = "Cameras & turrets revealed",
+			["daemons"] = "Daemons revealed",
+			["doors"] = "Doors revealed",
+			["exit"] = "Exit revealed",
+			},
+
+			-- for event notification
+			MOLE_DAEMON_HEAD = "E S P I O N A G E   B O N U S",
+			MOLE_DAEMON_TITLE = "INFORMANT INTEL",
+			MOLE_DAEMON_TXT = "Your informant has provided you with the following intel on this facility:\n\n",
+		},	
+
+		WITNESS_WARNING = {
+			NAME = "",--"WITNESS WARNING", --looks less cluttered when this string is empty
+			DESC = "Remove witnesses who have seen the INFORMANT",
+			SHORT_DESC = "Remove witnesses",
+			ACTIVE_DESC = "WITNESS TRACKING",
+			GUARDS = "GUARDS",
+			CAMERAS = "CAMERAS",
+			DRONES = "DRONES",
+			ESCAPED = "ESCAPED",
+			WITNESSES_LEFT_GUARDS = "{1} {1:witness|witnesses} remaining. Remove by killing or injecting KO'd target with Amnesiac.",
+			WITNESSES_LEFT_CAMERAS = "{1} {1:witness|witnesses} remaining. Remove by destroying unit, EMPing unit, or Scrubbing a Camera Database.",
+			WITNESSES_LEFT_DRONES = "{1} {1:witness|witnesses} remaining. Remove by destroying or EMPing unit.",
+			WITNESSES_LEFT_DRONES_WE = "{1} {1:witness|witnesses} remaining. Remove by destroying or Data Scrubbing a Drone Uplink.", --Worldgen Extended
+			WITNESSES_ESCAPED = "{1} {1:witness has|witnesses have} escaped the level and can no longer be removed.",
+
+		},	
 
 	-- PROGRAMS =
 	-- {
@@ -170,10 +251,21 @@ return {
 			OBJ_UNLOCK = "Unlock the secure door",
 			SECUREDOOR_TIP = "UNLOCK USING AUTHORIZED BODY",
 		},
-		MOLE = {
-		    OBJ_KILL_WITNESS = "Kill any eyewitnesses",
-			WITNESS_DETECTED = "WITNESS DETECTED"
-		}
+		MOLE_INSERTION = {
+			MOLE_OBJECTIVE = "Secure informant's cover and escort them to guard exit",
+			MOLE_OBJECTIVE_SECONDARY = "",
+			OBJ_KILL_WITNESS = "Remove any witnesses",
+			WITNESS_DETECTED = "WITNESS DETECTED",
+			PERSONNEL_DB = "PERSONNEL DATABASE",
+			HACK_WITH_MOLE = "Hack with informant",
+			FIND_DB = "Find personnel database",
+			HACK_DB = "Hack personnel database with informant",
+			ESCAPE = "Informant must escape through guard elevator",
+			NOT_SEEN = "Informant must not be seen",
+			NOT_SEEN_FAILED = "Informant must not be seen (FAILED)",
+			CAMERADB = "CAMERA DATABASE",
+			CAMERADB_TIP = "Scrub to clear mainframe witnesses",
+		},
 	},
 
 	LOCATIONS = {
@@ -194,7 +286,7 @@ return {
 			INSET_TITLE = "MARKED FOR DEATH", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
-			DESCRIPTION = "Locate and kill the VIP.",
+			DESCRIPTION = "Kill or knock out the VIP, then extract him.",
 			REWARD = "1200 Credits.",
 		},
 		LANDFILL = {
@@ -221,13 +313,24 @@ return {
 
 		WEAPONS_EXPO = {
 			NAME= "Tech Expo",
-			MORE_INFO = "This facility is hosting a world class tier tech exposition. The corporations and their industry finest will be showing off their newest weapon prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nKeep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
+			MORE_INFO = "This facility is hosting a world class tier tech exposition. The corporations and the industry finest will be showing off their newest weapon prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nKeep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
 			INSET_TITLE = "WEAPONS EXPO", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused unless we actually get these voiced somehow
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
 			DESCRIPTION = "Locate the main exhibition center and steal at least one prototype.",
 			REWARD = "Advanced melee or ranged weapons you can sell or use as equipment.",
 		},
+
+		MOLE_INSERTION = {
+			NAME = "Informant Rendezvous", -- thanks to jlaub for name idea
+			MORE_INFO = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. \n\nFirst, we'll need to get them on site and secure their cover. Make sure they remain unseen, or things will get complicated. Take measures to remove any witnesses to maximise the benefit from this mission.",
+			INSET_TITLE = "",
+			INSET_TXT = "",
+			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			DESCRIPTION = "Plant an informant and secure their cover identity. For best results, informant must remain unseen.",
+			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or exit location.",
+
+		},			
 
 	},
 
@@ -249,6 +352,13 @@ return {
 		WEAPONS_EXPO_DROIDS_WARNING_SUB = "BOOTING...",
 		WEAPONS_EXPO_SWITCHES_OBJECTIVE = "Activate relay switches to disable the firewall boost",
 		WEAPONS_EXPO_FIND_SWITCHES = "Find a way to disable the firewall boost",
+		DOORS_REVEALED = "DOORS REVEALED",
+		EXIT_REVEALED = "EXIT REVEALED",
+		NO_GUARD_ESCAPE = "Must access Personnel Database first",
+		CAMERADB_SCRUBBED = "MAINFRAME WITNESSES CLEARED",
+		WITNESS_CLEARED = "WITNESS REMOVED",
+		MOLE_EXIT_WARNING = "Are you sure you want to leave? You haven't located the Personnel Database yet.",
+		MOLE_EXIT_WARNING2 = "Are you sure you want to leave? The Informant needs to escape through the GUARD elevator.",			
 		
 		TOOLTIPS = {
 			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
@@ -257,6 +367,12 @@ return {
 			EA_HOSTAGE_FRAIL_DESC = "KO damage is lethal.",
 			EA_HOSTAGE_VITAL_STATUS = "VITAL STATUS",
 			EA_HOSTAGE_VITAL_STATUS_DESC = "Will expire if not extracted in {1} {1:turn|turns}.",
+			PARALYZE_AMNESIAC = "Amnesiac dose",
+			PARALYZE_AMNESIAC_DESC = "Inject pinned victim with amnesiac. Removes WITNESS tag, removes alert, and reduces max AP by {1}.",
+			WITNESS = "WITNESS",
+			WITNESS_DESC_HUMAN = "Kill this unit or KO and apply Amnesiac.",
+			WITNESS_DESC_MAINFRAME = "Destroy this unit or scrub Camera Database.",
+			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",				
 		},	
 		
 	},
@@ -281,6 +397,9 @@ return {
 			[_M.CENTRAL] = "There you are. Good timing. Now get me out of here.",
 			[_M.OLIVIA] = "Good. I cannot spend another second in this place.",
 		},
+		MOLE_INSERTION = {
+			MOLE_MISSION_START = "I'm in. Two things to remember: Nobody sees me, and don't get me killed. Stick to that, and we'll be the best of friends.",
+		},			
 	},
 
 	BANTER = {
@@ -470,6 +589,89 @@ return {
 					{{"Commendable work, Operator. We've expanded our arsenal and put a dent in their research all at once.",nil,"Central"}}},
 				},
 			},
+	
+			MOLE_INSERTION = {
+				MOLE_ESCAPED_NOWITNESSES = {
+					{{"The informant is out, and their cover identity is secure. Extract the rest of the team, Operator. We're done here.", nil, "Central"}},
+				},
+				MOLE_ESCAPED_WITNESSES = {
+					{{"The informant is out, but they won't last long unless we secure their cover. If anyone saw them before they were out, be sure to take care of it before you leave.", nil, "Central"}},
+				},
+				MOLE_ESCAPED_TO_JET = {
+					{{"You were supposed to get that informant into the enemy camp, not back on board, Operator. I trust you had good reason to abort the mission.", nil, "Central"}},
+					{{"We should be able to find a new target for her somewhere nearby, so it's not entirely a loss. The important thing is nobody got hurt.", nil, "Monster"}},
+				},
+				MOLE_DIED = {
+					{
+						{{"What a sorry waste of a live asset. We'll be lucky if we get this opportunity again.",nil,"Central"}},
+						{{"Yes, lucky is indeed the word. I suppose I ought to think twice about throwing any more \"live assets\" your way.",nil,"Monster"}},
+					},
+					{
+						{{"That's the mission gone down the drain. Make sure the team is extracted safely, and we'll discuss this in debriefing.",nil,"Central"}},
+						{{"And there goes one of my favourite contacts. Was this really necessary?",nil,"Monster"}},
+					},
+					{
+						{{"Damn it, Operator! Do you have any idea how much having that contact in place would have helped our odds?",nil,"Central"}},
+						{{"I suppose this particular death is on me. I put them in touch with you, after all.",nil,"Monster"}},
+					},
+				},
+				MOLE_SEEN_BY_GUARD = {
+					{{"Operator, our mole is as good as dead unless we secure their cover. If anyone sees them before they leave, make sure to clean up those loose ends.",nil,"Central"}},
+					{{"And by \"clean up\", she means...",nil,"Monster"}},
+					{{"Not necessarily. If you can find a nonlethal solution, use it. The mole should have something on them for that.",nil,"Central"}},
+					},
+				MOLE_SEEN_BY_CAMERA = {
+					{{"You'll want to keep an eye out for any cameras that caught a glimpse of our informant. Their visual feeds are synched to the nearest Camera Database. See if you can find one on this level.",nil,"Monster"}},
+					{{"Scrub the database to clear all cameras at once. A bullet or an EMP should do the trick, too.",nil,"Monster"}},
+					{{"They really don't use the most robust tech, I'm afraid. Now, if they had purchased those from me-",nil,"Monster"}},
+					{{"Derek, this is not the time.",nil,"Central"}},
+					{{"Right, yes, of course. Carry on.",nil,"Monster"}},
+					},
+				MOLE_SEEN_BY_DRONE = {
+					{{"You'll want to take care of any drones that saw the informant. Unlike cameras, they're not linked to a central feed.",nil,"Monster"}},
+					{{"You'll have to scramble each one with an EMP, or destroy it entirely. I'm sure you're up to the task.",nil,"Monster"}},
+				},
+				SEE_CAMERADB = {
+					{{"A camera database. Keep that in mind, that may come in handy if our informant gets spotted by any pesky cameras.",nil,"Monster"}},
+				},
+				SEE_OBJECTIVE_DOOR = {
+					{{"Heads up, Operator. We're in the right place. The Personnel Database should be behind that door.",nil,"Central"}},
+				},
+				SEE_OBJECTIVE_DB = {
+					{{"There's the Personnel Database. The informant can use it to fabricate their cover identity. Make sure it goes smoothly.",nil,"Central"}},
+				},
+				FINISHED_DB_HACK = {
+					{{"The informant is ready to go undercover now. Get them to a guard elevator and stay out of sight.",nil,"Central"}},
+				},
+				SEE_GUARD_EXIT = {
+					{{"There's a guard exit. Be careful, Operator. Make sure the informant doesn't run into any inbound reinforcements on the way.",nil,"Central"}},
+				},				
+				CENTRAL_JUDGEMENT = {
+					MOLE_JET_ESCAPE = {
+					{{"We cannot afford to keep wasting our time like this, Operator. Luckily, we may just have a second shot at this. Make it count.", nil,"Central"}},
+					{{"We're no better off than we started. There should be another infiltration target like this nearby. Don't make me give you a third chance, Operator.",nil,"Central"}},
+					},
+					MOLE_DIED = {
+					{{"This was a sorry waste of an opportunity. We don't have much in the way of friends anymore, Operator. This could have been a step forward.",nil, "Central"}},
+					{{"Your job was to get them inside, not to get them killed. It's a damn shame to see a fine operative go down like that.",nil,"Central"}},
+					{{"A complete and utter disappointment. We need people on the inside, Operator. That kind of intel would be invaluable for our survival.",nil,"Central"}},
+					{{"Don't let this kind of failure become a pattern, Operator. It would not be in your best interest.",nil,"Central"}},
+					},
+					WIN_WITH_WITNESSES = {
+					{{"You weren't supposed to leave witnesses. Our mole on the inside won't be able to feed us intel for long before their cover is blown. Still, it's better than nothing.",nil,"Central"}},
+					{{"Next time, try to make sure the mole is unseen. They'll be useful to us for that much longer if their cover is secure.",nil,"Central"}},
+					{{"A job half done. We won't be able to use their intel for long, not with the witnesses you left behind. Be more careful next time.",nil,"Central"}},
+					},
+					WIN_NO_WITNESSES = {
+					{{"An informant in the right place is worth their weight in gold, and you kept things clean. Well done, Operator.",nil,"Central"}},
+					{{"We'll have advance intel on the next few infiltrations now. A shadow of our former prep work, but invaluable in these dire times. Excellent work.",nil,"Central"}},
+					{{"A difficult task well performed. The informant is in, and you made sure there were no witnesses. Nice work.",nil,"Central"}},
+					{{"Well done, Operator. With that informant in place, our job will be that much easier. Pity we won't have access to that intel for long.",nil,"Central"}},
+					},					
+
+				},
+			},
+				
 		},
 		-- CAMPAIGN_MAP = {
 			-- MISSIONS = {
