@@ -234,7 +234,38 @@ local prop_templates =
 		traits = {  impass = {0,0}, sightable=true, cell_door=true },
 		sounds = { }
 	},		
-		
+	
+	-- for Informant mission
+	MM_personneldb = 
+	{
+		type = "simunit", 
+		name = STRINGS.MOREMISSIONS.PROPS.PERSONNEL_DB,
+		rig ="corerig",
+		onWorldTooltip = onDeviceTooltip,
+		kanim = "kanim_serverTerminal", 
+		abilities = { "MM_hack_personneldb" },
+		traits = util.extend( MAINFRAME_TRAITS )
+			{ moveToDevice=true, cover = true, impass = {0,0}, sightable=true, MM_personneldb = true, progressMax = 3, },
+		tags = { "personneldb" },
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator", stageAdvance="SpySociety_DLC001/Actions/DLCswitch_ready" }		
+		-- sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator" }
+	},
+
+	MM_mole_cloak = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.MOLE_CLOAK,
+		desc = STRINGS.ITEMS.CLOAK_1_TOOLTIP .. "\n\nCannot use while sighted.",
+		flavor = STRINGS.ITEMS.MOLE_CLOAK_FLAVOR,
+		icon = "itemrigs/FloorProp_InvisiCloakTimed.png",
+		--profile_icon = "gui/items/icon-cloak.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",			
+		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
+		traits = { cantdrop = true, pickupOnly="Natalie", disposable = false, duration = 1,cooldown = 0, cooldownMax = 8,  cloakDistanceMax=5, cloakInVision = false, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}},
+		abilities = { "carryable","recharge","useInvisiCloak" },
+		value = 0,
+		floorWeight = 1,
+		soldAfter = NEVER_SOLD,
+	},		
 }
 
 
