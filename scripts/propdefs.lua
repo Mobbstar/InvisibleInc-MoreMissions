@@ -3,6 +3,7 @@ local simdefs = include( "sim/simdefs" )
 local commondefs = include("sim/unitdefs/commondefs")
 local itemdefs = include("sim/unitdefs/itemdefs")
 local tool_templates = include("sim/unitdefs/itemdefs")
+local NEVER_SOLD = 10000
 
 -------------------------------------------------------------
 --
