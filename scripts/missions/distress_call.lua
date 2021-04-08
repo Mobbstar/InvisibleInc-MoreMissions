@@ -60,7 +60,7 @@ local ALARM_INCREASE =
 
 local AGENT_CONNECTION =
 {
-	trigger = simdefs.TRG_UNIT_DROPPED, --custom 'hook' in makeAgentConnection append in modinit
+	trigger = "agentConnectionDone", --custom 'hook' in makeAgentConnection append in modinit
 	fn = function( sim, evData )
 		return true
 	end,
