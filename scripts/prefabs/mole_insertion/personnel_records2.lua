@@ -946,7 +946,7 @@ local units =
             {
                 x = 2,
                 y = 1,
-                template = [[diagnostic_terminal]],
+                template = [[MM_personneldb]],
                 unitData =
                 {
                     facing = 2,
