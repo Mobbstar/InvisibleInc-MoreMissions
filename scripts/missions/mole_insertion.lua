@@ -441,12 +441,22 @@ mission.revealMoleBonus = function(sim, bonusType) --need to call on this from m
 			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.UI.FLY_TXT.FACILITY_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
 		end
 	elseif bonusType == "patrols" then
+		local total_guards = 0
+		for _, unit in pairs(sim:getAllUnits() ) do
+			if (unit:getPlayerOwner() ~= currentPlayer) and unit:getTraits().isGuard then
+				total_guards = total_guards + 1
+			end
+		end
+		local to_tag = math.floor(PATROLS_REVEALED * total_guards)
+		local tagged_guards = 0
 		for _, unit in pairs( sim:getAllUnits() ) do 
-			if sim:nextRand() <= (PATROLS_REVEALED or 0.75) then --don't tag all the guards, just most of them
+			-- if sim:nextRand() <= (PATROLS_REVEALED or 0.75) then --don't tag all the guards, just most of them
+			if tagged_guards < to_tag then
 				if unit:getPlayerOwner() ~= currentPlayer and unit:getTraits().isGuard and not unit:getTraits().tagged then 										
 					unit:setTagged() -- need to consider PE's hostile AI interaction..
 					sim:dispatchEvent( simdefs.EV_UNIT_TAGGED, {unit = unit} )
 					sim:getPC():glimpseUnit(sim, unit:getID())
+					tagged_guards = tagged_guards + 1
 					-- tag + glimpse may be OP... maybe just tag... keep uncertainty about which guards are on the level...
 				end
 			end
@@ -498,10 +508,22 @@ mission.revealMoleBonus = function(sim, bonusType) --need to call on this from m
 			end	
 			sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
 	elseif bonusType == "exit" then
+			local exit_procGen = nil
 			sim:forEachCell(
 			function ( cell )
 				if cell.exitID then
+					exit_procGen = cell.procgenRoom
+				end
+			end )
+			sim:forEachCell(
+			function ( cell )
+				if exit_procGen and (cell.procgenRoom == exit_procGen) then
 					sim:getPC():glimpseCell(sim, cell)
+					if cell.units then
+						for i, unit in pairs(cell.units) do
+							sim:getPC():glimpseUnit( sim, unit:getID() )
+						end
+					end
 				end
 			end )
 			if x0 and y0 then
