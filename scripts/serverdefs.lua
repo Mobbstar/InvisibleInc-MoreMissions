@@ -61,7 +61,17 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY),
 		},
-	},				
+	},
+	
+	mole_insertion =
+	{
+        ui = {
+			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			icon = "gui/mission_previews/ea_hostage.png", --placeholder
+			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE ),
+			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE_SECONDARY),
+		},
+	},		
 }
 
 --automated processing
