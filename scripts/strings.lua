@@ -639,10 +639,12 @@ return {
 					{{"Heads up, Operator. We're in the right place. The Personnel Database should be behind that door.",nil,"Central"}},
 				},
 				SEE_OBJECTIVE_DB = {
-					{{"There's the Personnel Database. The informant can use it to fabricate their cover identity. Make sure it goes smoothly.",nil,"Central"}},
+					{{"There's the Personnel Database. The informant can use it to fabricate their cover identity before they infiltrate deeper into the facility. Make sure it goes smoothly.",nil,"Central"}},
 				},
 				FINISHED_DB_HACK = {
-					{{"The informant is ready to go undercover now. Get them to a guard elevator and stay out of sight.",nil,"Central"}},
+					{{"The hack is done, but the informant got tagged as they were plugging out. Their location will keep pinging nearby security each alarm level.",nil,"Central"}},
+					{{"Get them to a guard elevator and off this floor, and stay out of sight. Our work is almost done.",nil,"Central"}},
+					-- {{"The informant is ready to go undercover now. Get them to a guard elevator and stay out of sight.",nil,"Central"}},
 				},
 				SEE_GUARD_EXIT = {
 					{{"There's a guard exit. Be careful, Operator. Make sure the informant doesn't run into any inbound reinforcements on the way.",nil,"Central"}},
