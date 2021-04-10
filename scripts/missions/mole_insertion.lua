@@ -75,6 +75,11 @@ local FINISHED_DBHACK =
 	trigger = "mole_DB_hack_end",
 }
 
+local ALARM_CHANGE = 
+{
+	trigger = simdefs.TRG_ALARM_STATE_CHANGE,
+}
+
 -- for i, exit in pairs(cell.exits) do
 -- exit.keybits and exit.keybits == simdefs.DOOR_KEYS.GUARD
 
@@ -348,16 +353,15 @@ local function spawnMole( script, sim )
 end
 
 local function progressDBhack(sim, database, hacker, script)
-	database:getTraits().progress = database:getTraits().progress + 1
-	
+	database:getTraits().MMprogress = database:getTraits().MMprogress + 1
 	if database:getSounds().stageAdvance then
 		local x1,y1 = database:getLocation()
 		database:getSim():dispatchEvent( simdefs.EV_PLAY_SOUND, {sound=database:getSounds().stageAdvance , x=x1,y=y1} )	
 	end
-	database:getSim():dispatchEvent(simdefs.EV_UNIT_SWTICH_FX,{unit=database,transition=true})
+	-- database:getSim():dispatchEvent(simdefs.EV_UNIT_SWTICH_FX,{unit=database,transition=true})
 	
 	sim:triggerEvent( "mole_DB_hack", {unit=database} )
-	if database:getTraits().progress == database:getTraits().progressMax then
+	if database:getTraits().MMprogress == database:getTraits().MMprogressMax then
 		sim:getTags().finished_DB_hack = true
 		local x, y = hacker:getLocation()
 		script:queue( { type="pan", x=x, y=y, zoom=0.27 } )
@@ -367,13 +371,12 @@ local function progressDBhack(sim, database, hacker, script)
 		hacker:getSounds().spot = nil
 		sim:dispatchEvent( simdefs.EV_UNIT_TINKER_END, { unit = hacker } ) 	
 		sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = hacker })
-		database:getTraits().progress = nil		
+		database:getTraits().MMprogress = nil		
 		-- database:getTraits().mainframe_status = "off"
 		sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = database })
 		sim:removeObjective( "hack_personnel_DB" )
 		sim:triggerEvent( "mole_DB_hack_end")
 		-- hacker:removeAbility(sim, "escape")
-		-- CENTRAL REACTION
 	end
 end
 
@@ -606,6 +609,23 @@ local function sawCameraDB( script, sim, mission )
 	end
 end
 
+local function investigateMole( script, sim )
+	while true do
+		script:waitFor( ALARM_CHANGE )
+		local mole
+		for i, agent in pairs(sim:getPC():getUnits()) do
+			if agent:getTraits().MM_mole then
+				mole = agent
+			end
+		end
+		if mole then
+			local x0, y0 = mole:getLocation()
+			sim:dispatchEvent( simdefs.EV_SHOW_DIALOG, { dialog = "locationDetectedDialog", dialogParams = { mole }} )
+			sim:getNPC():spawnInterest(x0,y0, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, mole)
+		end
+	end
+end
+
 local function moleMission( script, sim )
 
 	local a, cell = script:waitFor( mission_util.PC_SAW_CELL_WITH_TAG(script, "personneldb_door" ) )
@@ -624,7 +644,7 @@ local function moleMission( script, sim )
 	sim:removeObjective( "findDB" )
 	-- log:write("LOG pc saw db")
 	
-	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.HACK_DB, "hack_personnel_DB", 3 )
+	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.HACK_DB, "hack_personnel_DB", 5 )
 	script:waitFor( STARTED_DBHACK )
 	script:addHook( DBhack )
 	script:waitFor( FINISHED_DBHACK )
@@ -638,6 +658,7 @@ local function moleMission( script, sim )
 	script:queue( 1*cdefs.SECONDS )
 	queueCentral( script, scripts )
 	
+	script:addHook( investigateMole )
 	script:addHook( seeGuardExit )
 	script:waitFor( MOLE_ESCAPED_GUARD_ELEVATOR )	
 	sim:getTags().MM_informant_success = true --successfully planted mole
