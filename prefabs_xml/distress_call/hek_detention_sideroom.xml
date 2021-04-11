@@ -220,7 +220,6 @@
           <string>+wall_4</string>
           <string>-secdoor_0</string>
           <string>+wall_2</string>
-          <string>+rlink_0</string>
         </BurnTags>
         <PrefabTag />
       </MapTile>
@@ -1295,7 +1294,7 @@
         <UserFlags>0</UserFlags>
         <Tags>
           <string>noguard</string>
-          <string>hostageSpawn</string>
+          <string>distressSpawn</string>
         </Tags>
         <MatchTags />
         <BurnTags>
@@ -1543,7 +1542,6 @@
           <string>+wall_4</string>
           <string>+wall_2</string>
           <string>-secdoor_6</string>
-          <string>+rlink_6</string>
         </BurnTags>
         <PrefabTag />
       </MapTile>
@@ -2313,7 +2311,6 @@
         <MatchTags />
         <BurnTags>
           <string>+wall_2</string>
-          <string>+rlink_4</string>
         </BurnTags>
         <PrefabTag />
       </MapTile>
@@ -2659,7 +2656,7 @@
         <MatchTags />
         <BurnTags>
           <string>+wall_4</string>
-          <string>?rlink_2</string>
+          <string>+rlink_2</string>
         </BurnTags>
         <PrefabTag />
       </MapTile>
@@ -2747,7 +2744,6 @@
           <string>+wall_4</string>
           <string>+wall_2</string>
           <string>-secdoor_6</string>
-          <string>+rlink_6</string>
         </BurnTags>
         <PrefabTag />
       </MapTile>
@@ -3232,15 +3228,6 @@
       </MapWall>
       <MapWall>
         <Coord>
-          <x>4</x>
-          <y>9</y>
-          <z>1</z>
-        </Coord>
-        <WallIndex>3</WallIndex>
-        <Flags>1</Flags>
-      </MapWall>
-      <MapWall>
-        <Coord>
           <x>5</x>
           <y>9</y>
           <z>1</z>
@@ -3347,6 +3334,15 @@
         <WallIndex>1</WallIndex>
         <Flags>1</Flags>
       </MapWall>
+      <MapWall>
+        <Coord>
+          <x>4</x>
+          <y>9</y>
+          <z>1</z>
+        </Coord>
+        <WallIndex>2</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
     </Walls>
     <Units>
       <MapUnit>
@@ -3373,6 +3369,17 @@
           <string>hostage</string>
           <string>hostageSituation</string>
         </Tags>
+        <BStates />
+      </MapUnit>
+      <MapUnit>
+        <X>7</X>
+        <Y>10</Y>
+        <UnitKey>Camera</UnitKey>
+        <Template>security_camera_1x1</Template>
+        <UnitData>facing = 3</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags />
         <BStates />
       </MapUnit>
     </Units>
@@ -3679,13 +3686,6 @@
         <Facing>0</Facing>
       </MapDeco>
       <MapDeco>
-        <X>7</X>
-        <Y>11</Y>
-        <Anim>holdingcell_2x1_bunk1</Anim>
-        <DecoKey>Unique holdingcell 2x1 bunk1</DecoKey>
-        <Facing>4</Facing>
-      </MapDeco>
-      <MapDeco>
         <X>5</X>
         <Y>11</Y>
         <Anim>decor_missioncontrol_1x1_floorvent1</Anim>
@@ -3775,6 +3775,27 @@
         <Anim>decor_plastek_hall_floorlamp1</Anim>
         <DecoKey>Plastek hall floor lamp 1 1x1</DecoKey>
         <Facing>6</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>7</X>
+        <Y>11</Y>
+        <Anim>guardoffice_1x1_chair1</Anim>
+        <DecoKey>Unique Guard office 1x1 chair</DecoKey>
+        <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>4</X>
+        <Y>10</Y>
+        <Anim>decor_ko_lab_locker1</Anim>
+        <DecoKey>KO lab locker 1 1x1</DecoKey>
+        <Facing>0</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>1</X>
+        <Y>6</Y>
+        <Anim>holdingcell_2x1_securecell1</Anim>
+        <DecoKey>Unique holdingcell 2x1 securecell1</DecoKey>
+        <Facing>0</Facing>
       </MapDeco>
     </Decos>
     <Lights />
