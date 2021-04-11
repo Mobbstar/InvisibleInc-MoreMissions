@@ -295,6 +295,7 @@ local tiles =
             "noguard",
         },
         impass = 1,
+        cover = 1,
     },
     {
         x = 7,
@@ -313,7 +314,6 @@ local tiles =
         variant = 0,
         tags =
         {
-            "noguard",
             "distressSpawn",
         },
     },
@@ -582,6 +582,8 @@ local tiles =
         y = 6,
         zone = [[guard_room_2]],
         variant = 0,
+        impass = 1,
+        cover = 1,
     },
     {
         x = 1,
@@ -594,12 +596,16 @@ local tiles =
         y = 7,
         zone = [[guard_room_2]],
         variant = 0,
+        impass = 1,
+        cover = 1,
     },
     {
         x = 4,
         y = 10,
         zone = [[guard_room_2]],
         variant = 0,
+        impass = 1,
+        cover = 1,
     },
     {
         x = 5,
@@ -630,8 +636,6 @@ local tiles =
         y = 10,
         zone = [[guard_room_2]],
         variant = 0,
-        impass = 1,
-        cover = 1,
     },
     {
         x = 6,
@@ -1265,18 +1269,6 @@ local walls =
         dir = 6,
     },
     {
-        x = 5,
-        y = 9,
-        wallIndex = [[security_door]],
-        dir = 2,
-    },
-    {
-        x = 5,
-        y = 10,
-        wallIndex = [[security_door]],
-        dir = 6,
-    },
-    {
         x = 6,
         y = 9,
         wallIndex = [[default_wall]],
@@ -1420,11 +1412,23 @@ local walls =
         wallIndex = [[default_wall]],
         dir = 0,
     },
+    {
+        x = 5,
+        y = 9,
+        wallIndex = [[office_door]],
+        dir = 2,
+    },
+    {
+        x = 5,
+        y = 10,
+        wallIndex = [[office_door]],
+        dir = 6,
+    },
 }
 local units =
 {
     {
-        maxCount = 1,
+        maxCount = 2,
         spawnChance = 1,
         {
             {
@@ -1438,8 +1442,20 @@ local units =
             },
             1,
         },
+        {
+            {
+                x = 7,
+                y = 10,
+                template = [[security_camera_1x1]],
+                unitData =
+                {
+                    facing = 3,
+                },
+            },
+            1,
+        },
     },
-    scientist =
+    hostage =
     {
         spawnChance = 1,
         maxCount = 1,
@@ -1447,15 +1463,14 @@ local units =
             {
                 x = 7,
                 y = 2,
-                template = [[scientist]],
+                template = [[hostage_capture]],
                 unitData =
                 {
                     facing = 4,
                     tags =
                     {
-                        "escapedAgent",
                         "hostage",
-                        "hostageSituation",
+                        "escapedAgent",
                     },
                 },
             },
@@ -1724,12 +1739,6 @@ local decos =
         facing = 0,
     },
     {
-        x = 7,
-        y = 11,
-        kanim = [[holdingcell_2x1_bunk1]],
-        facing = 4,
-    },
-    {
         x = 5,
         y = 11,
         kanim = [[decor_missioncontrol_1x1_floorvent1]],
@@ -1806,6 +1815,24 @@ local decos =
         y = 1,
         kanim = [[decor_plastek_hall_floorlamp1]],
         facing = 6,
+    },
+    {
+        x = 7,
+        y = 11,
+        kanim = [[guardoffice_1x1_chair1]],
+        facing = 4,
+    },
+    {
+        x = 4,
+        y = 10,
+        kanim = [[decor_ko_lab_locker1]],
+        facing = 0,
+    },
+    {
+        x = 1,
+        y = 6,
+        kanim = [[holdingcell_2x1_securecell1]],
+        facing = 0,
     },
 }
 local lights =
@@ -2205,11 +2232,27 @@ local export =
                 y1 = 3,
             },
             {
-                id0 = 29,
-                x0 = 8,
+                id0 = 20,
+                x0 = 0,
+                y0 = 6,
+                id1 = 100,
+                x1 = 1,
+                y1 = 6,
+            },
+            {
+                id0 = 22,
+                x0 = 0,
+                y0 = 7,
+                id1 = 100,
+                x1 = 1,
+                y1 = 7,
+            },
+            {
+                id0 = 32,
+                x0 = 3,
                 y0 = 10,
                 id1 = 100,
-                x1 = 7,
+                x1 = 4,
                 y1 = 10,
             },
             {

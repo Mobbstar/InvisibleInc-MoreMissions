@@ -10,12 +10,20 @@ local tiles =
         y = 5,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
     },
     {
         x = 1,
         y = 6,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
     },
     {
         x = 1,
@@ -32,18 +40,30 @@ local tiles =
         y = 8,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
     },
     {
         x = 2,
         y = 5,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
     },
     {
         x = 2,
         y = 6,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
         impass = 1,
         cover = 1,
     },
@@ -52,6 +72,10 @@ local tiles =
         y = 7,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
         impass = 1,
         cover = 1,
     },
@@ -60,12 +84,20 @@ local tiles =
         y = 8,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
     },
     {
         x = 3,
         y = 5,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
     },
     {
         x = 3,
@@ -80,6 +112,10 @@ local tiles =
         y = 7,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
         impass = 1,
         cover = 1,
     },
@@ -88,30 +124,50 @@ local tiles =
         y = 8,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
     },
     {
         x = 4,
         y = 5,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
     },
     {
         x = 4,
         y = 6,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
     },
     {
         x = 4,
         y = 7,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
     },
     {
         x = 4,
         y = 8,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
     },
     {
         x = 5,
@@ -248,6 +304,8 @@ local tiles =
         y = 3,
         zone = [[guard_room_2]],
         variant = 0,
+        impass = 1,
+        cover = 1,
     },
     {
         x = 6,
@@ -290,6 +348,8 @@ local tiles =
         y = 2,
         zone = [[guard_room_2]],
         variant = 0,
+        impass = 1,
+        cover = 1,
     },
     {
         x = 6,
@@ -370,6 +430,24 @@ local tiles =
     {
         x = 1,
         y = 1,
+        zone = [[guard_room_2]],
+        variant = 0,
+    },
+    {
+        x = 5,
+        y = 9,
+        zone = [[guard_room_2]],
+        variant = 0,
+    },
+    {
+        x = 6,
+        y = 9,
+        zone = [[guard_room_2]],
+        variant = 0,
+    },
+    {
+        x = 7,
+        y = 9,
         zone = [[guard_room_2]],
         variant = 0,
     },
@@ -593,42 +671,6 @@ local walls =
         dir = 6,
     },
     {
-        x = 5,
-        y = 8,
-        wallIndex = [[default_wall]],
-        dir = 2,
-    },
-    {
-        x = 5,
-        y = 9,
-        wallIndex = [[default_wall]],
-        dir = 6,
-    },
-    {
-        x = 6,
-        y = 8,
-        wallIndex = [[default_wall]],
-        dir = 2,
-    },
-    {
-        x = 6,
-        y = 9,
-        wallIndex = [[default_wall]],
-        dir = 6,
-    },
-    {
-        x = 7,
-        y = 8,
-        wallIndex = [[default_wall]],
-        dir = 2,
-    },
-    {
-        x = 7,
-        y = 9,
-        wallIndex = [[default_wall]],
-        dir = 6,
-    },
-    {
         x = 8,
         y = 8,
         wallIndex = [[default_wall]],
@@ -857,28 +899,88 @@ local walls =
         dir = 0,
     },
     {
+        x = 8,
+        y = 9,
+        wallIndex = [[default_wall]],
+        dir = 4,
+    },
+    {
+        x = 7,
+        y = 9,
+        wallIndex = [[default_wall]],
+        dir = 0,
+    },
+    {
+        x = 7,
+        y = 9,
+        wallIndex = [[default_wall]],
+        dir = 2,
+    },
+    {
+        x = 7,
+        y = 10,
+        wallIndex = [[default_wall]],
+        dir = 6,
+    },
+    {
+        x = 6,
+        y = 9,
+        wallIndex = [[default_wall]],
+        dir = 2,
+    },
+    {
+        x = 6,
+        y = 10,
+        wallIndex = [[default_wall]],
+        dir = 6,
+    },
+    {
+        x = 5,
+        y = 9,
+        wallIndex = [[default_wall]],
+        dir = 2,
+    },
+    {
+        x = 5,
+        y = 10,
+        wallIndex = [[default_wall]],
+        dir = 6,
+    },
+    {
+        x = 5,
+        y = 9,
+        wallIndex = [[default_wall]],
+        dir = 4,
+    },
+    {
+        x = 4,
+        y = 9,
+        wallIndex = [[default_wall]],
+        dir = 0,
+    },
+    {
         x = 2,
         y = 4,
-        wallIndex = [[security_door]],
+        wallIndex = [[office_door]],
         dir = 2,
     },
     {
         x = 2,
         y = 5,
-        wallIndex = [[security_door]],
+        wallIndex = [[office_door]],
         dir = 6,
     },
 }
 local units =
 {
     {
-        maxCount = 1,
+        maxCount = 3,
         spawnChance = 1,
         {
             {
                 x = 1,
                 y = 7,
-                template = [[scientist]],
+                template = [[hostage_capture]],
                 unitData =
                 {
                     facing = 0,
@@ -887,6 +989,30 @@ local units =
                         "hostage",
                         "escapedAgent",
                     },
+                },
+            },
+            1,
+        },
+        {
+            {
+                x = 5,
+                y = 9,
+                template = [[security_laser_emitter_1x1]],
+                unitData =
+                {
+                    facing = 0, traits = { startOn = true },
+                },
+            },
+            1,
+        },
+        {
+            {
+                x = 7,
+                y = 5,
+                template = [[security_camera_1x1]],
+                unitData =
+                {
+                    facing = 3,
                 },
             },
             1,
@@ -1032,12 +1158,6 @@ local decos =
         y = 6,
         kanim = [[ftm_security_wallscreen1]],
         facing = 4,
-    },
-    {
-        x = 7,
-        y = 8,
-        kanim = [[ftm_security_wallbox2]],
-        facing = 6,
     },
     {
         x = 5,
@@ -1195,6 +1315,18 @@ local decos =
         kanim = [[guardoffice_1x1_floorpanel2]],
         facing = 0,
     },
+    {
+        x = 7,
+        y = 3,
+        kanim = [[holdingcell_2x1_securecell1]],
+        facing = 4,
+    },
+    {
+        x = 7,
+        y = 4,
+        kanim = [[decor_ko_lab_wallladder1]],
+        facing = 4,
+    },
 }
 local lights =
 {
@@ -1273,31 +1405,7 @@ local export =
                 y1 = 9,
             },
             {
-                id0 = 100,
-                x0 = 5,
-                y0 = 8,
-                id1 = 9,
-                x1 = 5,
-                y1 = 9,
-            },
-            {
-                id0 = 100,
-                x0 = 6,
-                y0 = 8,
-                id1 = 10,
-                x1 = 6,
-                y1 = 9,
-            },
-            {
-                id0 = 100,
-                x0 = 7,
-                y0 = 8,
-                id1 = 11,
-                x1 = 7,
-                y1 = 9,
-            },
-            {
-                id0 = 12,
+                id0 = 9,
                 x0 = 8,
                 y0 = 8,
                 id1 = 100,
@@ -1305,7 +1413,7 @@ local export =
                 y1 = 8,
             },
             {
-                id0 = 13,
+                id0 = 10,
                 x0 = 8,
                 y0 = 7,
                 id1 = 100,
@@ -1313,7 +1421,7 @@ local export =
                 y1 = 7,
             },
             {
-                id0 = 14,
+                id0 = 11,
                 x0 = 8,
                 y0 = 6,
                 id1 = 100,
@@ -1321,7 +1429,7 @@ local export =
                 y1 = 6,
             },
             {
-                id0 = 15,
+                id0 = 12,
                 x0 = 8,
                 y0 = 5,
                 id1 = 100,
@@ -1329,7 +1437,7 @@ local export =
                 y1 = 5,
             },
             {
-                id0 = 16,
+                id0 = 13,
                 x0 = 8,
                 y0 = 4,
                 id1 = 100,
@@ -1337,7 +1445,7 @@ local export =
                 y1 = 4,
             },
             {
-                id0 = 17,
+                id0 = 14,
                 x0 = 8,
                 y0 = 3,
                 id1 = 100,
@@ -1345,7 +1453,7 @@ local export =
                 y1 = 3,
             },
             {
-                id0 = 18,
+                id0 = 15,
                 x0 = 8,
                 y0 = 2,
                 id1 = 100,
@@ -1353,7 +1461,7 @@ local export =
                 y1 = 2,
             },
             {
-                id0 = 19,
+                id0 = 16,
                 x0 = 8,
                 y0 = 1,
                 id1 = 100,
@@ -1361,7 +1469,7 @@ local export =
                 y1 = 1,
             },
             {
-                id0 = 20,
+                id0 = 17,
                 x0 = 7,
                 y0 = 0,
                 id1 = 100,
@@ -1369,7 +1477,7 @@ local export =
                 y1 = 1,
             },
             {
-                id0 = 21,
+                id0 = 18,
                 x0 = 6,
                 y0 = 0,
                 id1 = 100,
@@ -1377,7 +1485,7 @@ local export =
                 y1 = 1,
             },
             {
-                id0 = 22,
+                id0 = 19,
                 x0 = 5,
                 y0 = 0,
                 id1 = 100,
@@ -1385,7 +1493,7 @@ local export =
                 y1 = 1,
             },
             {
-                id0 = 23,
+                id0 = 20,
                 x0 = 4,
                 y0 = 0,
                 id1 = 100,
@@ -1393,7 +1501,7 @@ local export =
                 y1 = 1,
             },
             {
-                id0 = 24,
+                id0 = 21,
                 x0 = 3,
                 y0 = 0,
                 id1 = 100,
@@ -1401,7 +1509,7 @@ local export =
                 y1 = 1,
             },
             {
-                id0 = 25,
+                id0 = 22,
                 x0 = 2,
                 y0 = 0,
                 id1 = 100,
@@ -1409,7 +1517,7 @@ local export =
                 y1 = 1,
             },
             {
-                id0 = 26,
+                id0 = 23,
                 x0 = 1,
                 y0 = 0,
                 id1 = 100,
@@ -1420,7 +1528,7 @@ local export =
                 id0 = 100,
                 x0 = 1,
                 y0 = 1,
-                id1 = 27,
+                id1 = 24,
                 x1 = 0,
                 y1 = 1,
             },
@@ -1428,7 +1536,7 @@ local export =
                 id0 = 100,
                 x0 = 1,
                 y0 = 2,
-                id1 = 28,
+                id1 = 25,
                 x1 = 0,
                 y1 = 2,
             },
@@ -1436,7 +1544,7 @@ local export =
                 id0 = 100,
                 x0 = 1,
                 y0 = 3,
-                id1 = 29,
+                id1 = 26,
                 x1 = 0,
                 y1 = 3,
             },
@@ -1444,20 +1552,52 @@ local export =
                 id0 = 100,
                 x0 = 1,
                 y0 = 4,
-                id1 = 30,
+                id1 = 27,
                 x1 = 0,
                 y1 = 4,
             },
             {
-                id0 = 9,
-                x0 = 5,
+                id0 = 28,
+                x0 = 8,
                 y0 = 9,
                 id1 = 100,
-                x1 = 5,
-                y1 = 8,
+                x1 = 7,
+                y1 = 9,
             },
             {
-                id0 = 14,
+                id0 = 100,
+                x0 = 7,
+                y0 = 9,
+                id1 = 29,
+                x1 = 7,
+                y1 = 10,
+            },
+            {
+                id0 = 100,
+                x0 = 6,
+                y0 = 9,
+                id1 = 30,
+                x1 = 6,
+                y1 = 10,
+            },
+            {
+                id0 = 100,
+                x0 = 5,
+                y0 = 9,
+                id1 = 31,
+                x1 = 5,
+                y1 = 10,
+            },
+            {
+                id0 = 100,
+                x0 = 5,
+                y0 = 9,
+                id1 = 5,
+                x1 = 4,
+                y1 = 9,
+            },
+            {
+                id0 = 11,
                 x0 = 8,
                 y0 = 6,
                 id1 = 100,
@@ -1465,17 +1605,33 @@ local export =
                 y1 = 6,
             },
             {
-                id0 = 13,
+                id0 = 10,
                 x0 = 8,
                 y0 = 7,
                 id1 = 100,
                 x1 = 7,
                 y1 = 7,
             },
+            {
+                id0 = 14,
+                x0 = 8,
+                y0 = 3,
+                id1 = 100,
+                x1 = 7,
+                y1 = 3,
+            },
+            {
+                id0 = 15,
+                x0 = 8,
+                y0 = 2,
+                id1 = 100,
+                x1 = 7,
+                y1 = 2,
+            },
         },
     },
     width = 7,
-    height = 8,
+    height = 9,
     version = 1,
     tiles = tiles,
     walls = walls,
