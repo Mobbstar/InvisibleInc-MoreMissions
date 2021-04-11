@@ -741,13 +741,29 @@ function mission:init( scriptMgr, sim )
 	
 end
 
+local function moleFitness( cxt, prefab, x, y )
+    local tileCount = cxt:calculatePrefabLinkage( prefab, x, y )
+    if tileCount == 0 then
+        return 0 -- Doesn't link up
+    end
+
+    local maxDist = mission_util.calculatePrefabDistance( cxt, x, y, "moleinsertion" )
+    return tileCount + maxDist^2
+end
+
 function mission.pregeneratePrefabs( cxt, tagSet )
     escape_mission.pregeneratePrefabs( cxt, tagSet )
     table.insert( tagSet[1], "moleinsertion" )
 end
 
 function mission.generatePrefabs( cxt, candidates )
-    local prefabs = include( "sim/prefabs" )   
+    local prefabs = include( "sim/prefabs" )  
+	cxt.defaultFitnessFn = cxt.defaultFitnessFn or {}
+	cxt.defaultFitnessSelect = cxt.defaultFitnessSelect or {}
+	cxt.maxCountOverride = cxt.maxCountOverride or {}
+	cxt.defaultFitnessFn["entry_guard"] = moleFitness
+	cxt.defaultFitnessSelect["entry_guard"] = prefabs.SELECT_HIGHEST
+	cxt.maxCountOverride["entry_guard"] = 1	
 	escape_mission.generatePrefabs( cxt, candidates )
 	prefabs.generatePrefabs( cxt, candidates, "MM_cameradb", 1 ) --force-spawn a camera db, then later despawn any redundant one
 	-- log:write("LOG spawning cameradb")
