@@ -1263,7 +1263,7 @@ local PREFABT0 =
             },
         },
         facing = 0,
-        weight = 96,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/mole_insertion/personnel_records3",
@@ -2523,7 +2523,7 @@ local PREFABT0 =
             },
         },
         facing = 2,
-        weight = 96,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/mole_insertion/personnel_records3",
@@ -3783,7 +3783,7 @@ local PREFABT0 =
             },
         },
         facing = 4,
-        weight = 96,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/mole_insertion/personnel_records3",
@@ -5043,7 +5043,7 @@ local PREFABT0 =
             },
         },
         facing = 6,
-        weight = 96,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/mole_insertion/personnel_records1",
@@ -5950,7 +5950,7 @@ local PREFABT0 =
             },
         },
         facing = 0,
-        weight = 63,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/mole_insertion/personnel_records1",
@@ -6857,7 +6857,7 @@ local PREFABT0 =
             },
         },
         facing = 2,
-        weight = 63,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/mole_insertion/personnel_records1",
@@ -7764,7 +7764,7 @@ local PREFABT0 =
             },
         },
         facing = 4,
-        weight = 63,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/mole_insertion/personnel_records1",
@@ -8671,7 +8671,7 @@ local PREFABT0 =
             },
         },
         facing = 6,
-        weight = 63,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/mole_insertion/personnel_records2",
@@ -9500,7 +9500,7 @@ local PREFABT0 =
             },
         },
         facing = 0,
-        weight = 56,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/mole_insertion/personnel_records2",
@@ -10329,7 +10329,7 @@ local PREFABT0 =
             },
         },
         facing = 2,
-        weight = 56,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/mole_insertion/personnel_records2",
@@ -11158,7 +11158,7 @@ local PREFABT0 =
             },
         },
         facing = 4,
-        weight = 56,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/mole_insertion/personnel_records2",
@@ -11987,7 +11987,7 @@ local PREFABT0 =
             },
         },
         facing = 6,
-        weight = 56,
+        weight = 100,
     },
 }
 return { PREFABT0 = PREFABT0 }
