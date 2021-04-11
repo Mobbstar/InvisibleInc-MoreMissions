@@ -2149,7 +2149,7 @@ local PREFABT0 =
             },
         },
         facing = 0,
-        weight = 221,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom1",
@@ -4295,7 +4295,7 @@ local PREFABT0 =
             },
         },
         facing = 2,
-        weight = 221,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom1",
@@ -6441,7 +6441,7 @@ local PREFABT0 =
             },
         },
         facing = 4,
-        weight = 221,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom1",
@@ -8587,7 +8587,7 @@ local PREFABT0 =
             },
         },
         facing = 6,
-        weight = 221,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom2",
@@ -10934,7 +10934,7 @@ local PREFABT0 =
             },
         },
         facing = 0,
-        weight = 189,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom2",
@@ -13281,7 +13281,7 @@ local PREFABT0 =
             },
         },
         facing = 2,
-        weight = 189,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom2",
@@ -15628,7 +15628,7 @@ local PREFABT0 =
             },
         },
         facing = 4,
-        weight = 189,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom2",
@@ -17975,7 +17975,7 @@ local PREFABT0 =
             },
         },
         facing = 6,
-        weight = 189,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom3",
@@ -20016,7 +20016,7 @@ local PREFABT0 =
             },
         },
         facing = 0,
-        weight = 169,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom3",
@@ -22057,7 +22057,7 @@ local PREFABT0 =
             },
         },
         facing = 2,
-        weight = 169,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom3",
@@ -24098,7 +24098,7 @@ local PREFABT0 =
             },
         },
         facing = 4,
-        weight = 169,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/assassination/saferoom3",
@@ -26139,7 +26139,7 @@ local PREFABT0 =
             },
         },
         facing = 6,
-        weight = 169,
+        weight = 100,
     },
 }
 return { PREFABT0 = PREFABT0 }
