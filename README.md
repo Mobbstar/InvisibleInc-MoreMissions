@@ -11,6 +11,8 @@ You may need to compile some files before the game can run this mod.
 scripts.zip - Simply but all the contents of the "scripts" directory directly into a zip file with the same name.
 KWAD files - Run the KWAD builder to generate a fresh KWAD file from the raw assets in this repository. View the official modding tutorials for more information.
 
+Alternatively, and much easier, you can download the .rar file containing a full build of the mod, such as MoreMissionsV.0.4.rar, and unzip it into your Mods folder. This version is largely up to date but may not include recent minor updates.
+
 This mod requires Sim Constructor by Cyberboy2000.
 
 ## Contribution
