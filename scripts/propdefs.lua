@@ -256,7 +256,7 @@ local prop_templates =
 	{
 		name = STRINGS.MOREMISSIONS.ITEMS.MOLE_CLOAK,
 		desc = STRINGS.ITEMS.CLOAK_1_TOOLTIP .. "\n\nCannot use while sighted.",
-		flavor = STRINGS.ITEMS.MOLE_CLOAK_FLAVOR,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.MOLE_CLOAK_FLAVOR,
 		icon = "itemrigs/FloorProp_InvisiCloakTimed.png",
 		--profile_icon = "gui/items/icon-cloak.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",			
