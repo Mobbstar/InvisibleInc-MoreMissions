@@ -17,7 +17,7 @@ This mod requires Sim Constructor by Cyberboy2000.
 
 ## Content
 
-A summary of the currently implemented missions, as well as more detailed installation instructions, can be found on the [Wiki](#Wiki).
+A summary of the currently implemented missions, as well as more detailed installation instructions, can be found on the [Wiki](https://github.com/Mobbstar/InvisibleInc-MoreMissions/wiki).
 
 ## Contribution
 
