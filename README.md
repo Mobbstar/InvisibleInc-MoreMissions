@@ -15,6 +15,10 @@ Alternatively, and much easier, you can download the .rar file containing the mo
 
 This mod requires Sim Constructor by Cyberboy2000.
 
+## Content
+
+A summary of the currently implemented missions, as well as more detailed installation instructions, can be found on the [Wiki](#Wiki).
+
 ## Contribution
 
 In order to contribute to this repository directly, you need to [make a GitHub account](https://github.com/login).
