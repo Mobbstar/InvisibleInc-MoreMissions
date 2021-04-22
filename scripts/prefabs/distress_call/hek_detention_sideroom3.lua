@@ -1193,7 +1193,7 @@ local units =
                 template = [[security_camera_1x1]],
                 unitData =
                 {
-                    facing = 1,
+                    facing = 1, traits = { MM_camera = true },
                 },
             },
             1,
