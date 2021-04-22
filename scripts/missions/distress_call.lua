@@ -179,14 +179,9 @@ local function checkGuard( unit )
 end
 
 local function makeGuardInvestigate( script, sim )
-	local objInc = 1
-	while objInc < 3 do
-		script:waitFor( mission_util.PC_START_TURN )
-		objInc = objInc + 1
-		if objInc == 2 then
 			local cell = findCell( sim, "distressSpawn")
 			if cell then
-				script:queue( { type="pan", x=cell.x, y=cell.y } )
+				--script:queue( { type="pan", x=cell.x, y=cell.y } )
 				local guard, closestDistance = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, function( u ) return not u:isKO() end )
 				local guard = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, checkGuard )
 				local agent = mission_util.findUnitByTag( sim, "escapedAgent" )
@@ -196,9 +191,6 @@ local function makeGuardInvestigate( script, sim )
 					sim:setClimax(true)
 				end
 			end
-		end
-	end
-
 end
 
 local function getLostAgent( agency )
@@ -368,6 +360,8 @@ local function startAgentEscape( script, sim, mission )
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
 		script:queue(2*cdefs.SECONDS) --without this Central's message gets "skipped" for some reason because of the agent stating oneliner still playing
 
+		makeGuardInvestigate(script, sim)
+		
 		local scripts = SCRIPTS.INGAME.DISTRESS_CALL.SAW_AGENT
 		if not newOperative:getUnitData().agentID then
 			scripts = SCRIPTS.INGAME.DISTRESS_CALL.SAW_OTHER
@@ -411,8 +405,6 @@ local function startAgentEscape( script, sim, mission )
 
 		script:waitFor( OPERATIVE_DESPAWNED )
 
-		script:removeHook( makeGuardInvestigate ) --in case player somehow manages to teleport rescuee out on turn 1
-
 	end
 end
 
@@ -448,6 +440,20 @@ local function gearSafeReaction( script, sim, mission )
 
 end
 
+local function activateCam( sim )
+	for i, unit in pairs(sim:getAllUnits()) do
+		if unit:getTraits().MM_camera then
+			-- unit:activate( sim )
+			unit:getTraits().mainframe_status = "active"
+			unit:getTraits().hasSight = true
+			sim:refreshUnitLOS( unit )
+			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = unit } )	
+			sim:addTrigger( simdefs.TRG_OVERWATCH, unit )	
+		end
+	end
+
+end
+
 local function detentionFitness( cxt, prefab, x, y )
     local tileCount = cxt:calculatePrefabLinkage( prefab, x, y )
     if tileCount == 0 then
@@ -458,7 +464,6 @@ local function detentionFitness( cxt, prefab, x, y )
     local maxDist = mission_util.calculatePrefabDistance( cxt, x, y, "entry", "exit" )
     return tileCount + maxDist^2
 end
-
 ---------------------------------------------------------------------------------------------
 -- Begin!
 
@@ -467,12 +472,12 @@ local mission = class( escape_mission )
 function mission:init( scriptMgr, sim )
     sim:getTags().skipBanter = true
     escape_mission.init( self, scriptMgr, sim )
+	activateCam( sim )
 
 	scriptMgr:addHook( "START_AGENT_ESCAPE", startAgentEscape, nil, self )
     sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE, "rescue_agent" )
 
 	sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY, "find_agent_gear" )	--get gear
-	scriptMgr:addHook( "MAKE_GUARD_INVESTIGATE", makeGuardInvestigate, nil, self )
 	scriptMgr:addHook( "GEAR SAFE REACTION", gearSafeReaction, nil, self)
 	scriptMgr:addHook( "GOT_OPERATIVE", got_operative, nil, self )
     --This picks a reaction rant from Central on exit based upon whether or not an agent has escaped with the loot yet.
