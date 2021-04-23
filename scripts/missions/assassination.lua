@@ -295,6 +295,8 @@ local function ceoDown( script, sim, mission )
 		if ceo:getTraits().iscorpse then
 			mission.killedTarget = true
 			sim:setMissionReward( simquery.scaleCredits( sim, mission.BOUNTY_VALUE ) )
+			sim:getTags().MM_assassination_success = true
+			sim.TA_mission_success = true -- flag for Talkative Agents
 
 			sim:removeObjective( "kill" )
 		end
@@ -444,6 +446,22 @@ local function judgement(sim, mission)
 	return scripts[sim:nextRand(1, #scripts)]
 end
 
+local function despawnRedundantCameraDB(sim)
+	local cameraDBs = {}
+	for i,unit in pairs(sim:getAllUnits()) do
+		if unit:getUnitData().id == "camera_core" then
+			table.insert(cameraDBs, unit)
+			local daemonList = sim:getIcePrograms()
+			-- if daemonList:getCount() > 0 then
+				-- unit:getTraits().mainframe_program = daemonList:getChoice( sim:nextRand( 1, daemonList:getTotalWeight() )) --make it fun y'know?
+			-- end
+		end
+	end
+	if #cameraDBs > 1 then
+		sim:warpUnit( cameraDBs[2], nil )
+		sim:despawnUnit( cameraDBs[2] )
+	end
+end
 ---------------------------------------------------------------------------------------------
 -- Begin!
 
@@ -451,7 +469,7 @@ local mission = class( escape_mission )
 
 function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
-
+	despawnRedundantCameraDB( sim )
 	-- Base credit value for a successful kill
 	self.BOUNTY_VALUE = 1000
 
@@ -491,10 +509,11 @@ function mission.pregeneratePrefabs( cxt, tagSet )
 	-- table.insert( tagSet, { { "exit", exitFitnessFn } })
 end
 
--- function mission.generatePrefabs( cxt, candidates )
-	-- local prefabs = include( "sim/prefabs" )
-	-- prefabs.generatePrefabs( cxt, candidates, "switch", 2 )
--- end
+function mission.generatePrefabs( cxt, candidates )
+    local prefabs = include( "sim/prefabs" ) 
+	escape_mission.generatePrefabs( cxt, candidates )
+	prefabs.generatePrefabs( cxt, candidates, "MM_cameradb", 1 ) 
+end	
 
 
 return mission
