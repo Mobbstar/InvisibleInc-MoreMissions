@@ -7,6 +7,7 @@ local simquery = include ( "sim/simquery" )
 -- local itemdefs = include ("sim/unitdefs/itemdefs")
 local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
+local simdefs = include( "sim/simdefs" )
 
 --for unloading
 local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
@@ -208,8 +209,55 @@ local function lateInit( modApi )
 		if sim:getTags().MM_mole_escaped then
             serverdefs.createCampaignSituations( campaign, 1, {sim:getParams().world, "mole_insertion"} )
 		end
+		
+		if sim:getTags().EA_hostage_rescued then
+			-- spawn two new missions in the same corp but otherwise unspecified
+			-- needs to be done a little differently became serverdefs expects tags to be either all or nothing
+			local tags = simdefs.DEFAULT_MISSION_TAGS
+			local corp_names = {}
+			for i, name in pairs(serverdefs.CORP_NAMES) do
+				corp_names[name] = true
+			end
+			for i = #tags, 1, -1 do --remove all corp names that don't match the corp we were just in
+				local pos = tags[i] 
+				if corp_names[pos] and not (pos == sim:getParams().world) then
+					table.remove(tags, i)
+				end
+			end
+		
+			serverdefs.createCampaignSituations( campaign, 2, tags )
+			-- serverdefs.createCampaignSituations( campaign, 2, {sim:getParams().world } )
+		end
+		
+		-- ASSASSINATION
+		if (sim:getParams().situationName == "assassination") and sim:getTags().MM_assassination_success then -- or some other mission type check, as well as a mission success check
+		
+			-- this is for modifying the difficulty of newly-spawned ones, in case we also want this
+			campaign.MM_assassination  = campaign.MM_assassination or {}
+			local world = sim:getParams().world
+			if campaign.MM_assassination[world] == nil then
+				campaign.MM_assassination[world] = 0
+			end
+			
+			campaign.MM_assassination[world] = campaign.MM_assassination[world] + 1
+			
+			-- this is for modifying the difficulty of existing ones
+			local situations = campaign.situations
+
+			for i, sitch in pairs(situations) do
+				local corpData = serverdefs.getCorpData( sitch )
+				if corpData.world == sim:getParams().world then
+					-- if sitch.difficulty > 1 then
+						sitch.difficulty = sitch.difficulty + 1
+					-- end
+				end
+			end
+		end
+		
 		return DoFinishMission_old( sim, campaign, ... )
 	end
+	
+	--other part in load
 
 	local spawn_mole_bonus = include( scriptPath .. "/spawn_mole_bonus" )
 	-- start of mission: spawn intel bonuses if player has completed a mole mission
@@ -652,6 +700,18 @@ local function load( modApi, options, params )
 				end
 			end	
 		end
+	end	
+	
+	--ASSASSINATION
+	local serverdefs_createNewSituation_old = serverdefs.createNewSituation
+	serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )
+		local newSituation =  serverdefs_createNewSituation_old(campaign, gen, tags, difficulty )
+		local corp = serverdefs.MAP_LOCATIONS[newSituation.mapLocation].corpName
+		if campaign.MM_assassination and campaign.MM_assassination[corp] then
+			newSituation.difficulty  = newSituation.difficulty + campaign.MM_assassination[corp]
+		end
+		
+		return newSituation
 	end	
 
 end
