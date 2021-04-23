@@ -640,8 +640,9 @@ local function startPhase( script, sim )
 
 	script:waitFor( HOSTAGE_ESCAPED )
 	sim.TA_mission_success = true -- flag for Talkative Agents
+	sim:getTags().EA_hostage_rescued = true
 	--sim:setMissionReward( MISSION_REWARD )
-	sim:setMissionReward ( simquery.scaleCredits( sim, MISSION_REWARD ))		
+	-- sim:setMissionReward ( simquery.scaleCredits( sim, MISSION_REWARD ))		--removed for now as we want the two new sites to be the only reward from this. 
 	sim:removeObjective( "hostage_3" )
 
 	sim:getTags().delayPostGame = true
