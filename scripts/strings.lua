@@ -74,6 +74,7 @@ return {
 	GUARDS =
 	{
 		BOUNTY_TARGET = "Bounty Target",
+		BODYGUARD = "Bodyguard",
 		PROTOTYPE_DROID = "Prototype Android",
 		PROTOTYPE_DROID_SPEC = "Prototype SpecDroid",
 	},
@@ -256,6 +257,7 @@ return {
 			MOLE_OBJECTIVE = "Secure informant's cover and escort them to guard exit",
 			MOLE_OBJECTIVE_SECONDARY = "",
 			OBJ_KILL_WITNESS = "Remove any witnesses",
+			OBJ_KILL_WITNESS_FAILED = "Remove any witnesses (FAILED)",
 			WITNESS_DETECTED = "WITNESS DETECTED",
 			PERSONNEL_DB = "PERSONNEL DATABASE",
 			HACK_WITH_MOLE = "Hack with informant",
@@ -266,6 +268,10 @@ return {
 			NOT_SEEN_FAILED = "Informant must not be seen (FAILED)",
 			CAMERADB = "CAMERA DATABASE",
 			CAMERADB_TIP = "Scrub to clear mainframe witnesses",
+		},
+		AI_TERMINAL = {
+			AI_OBJECTIVE = "Access the AI Development Terminal",
+			AI_OBJECTIVE_SECONDARY = "Unlock the doors to the terminal",
 		},
 	},
 
@@ -283,12 +289,12 @@ return {
 		},
 		ASSASSINATION = {
 			NAME= "Assassination",
-			MORE_INFO = "A person at this location has a high bounty on their head.\n\nThe target is reportedly paranoid, with personal security on-site. Be wary.", --This can be quite lengthy.
+			MORE_INFO = "A high-ranked executive at this location has an impressive bounty on their head, but such a high-profile hit will not go unanswered by the corp.\n\nThe target is reportedly paranoid, with personal security on-site. Be wary", --This can be quite lengthy.
 			INSET_TITLE = "MARKED FOR DEATH", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
 			DESCRIPTION = "Kill or knock out the VIP, then extract him.",
-			REWARD = "1200 Credits.",
+			REWARD = "A hefty cash reward, at the cost of a permanent security increase at this corporation.",
 		},
 		LANDFILL = {
 			--This one is supposed to hold only items the operator doesn't normally have, but there's no way to lore-ify that information, is there? -M
@@ -330,6 +336,17 @@ return {
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
 			DESCRIPTION = "Plant an informant and secure their cover identity. For best results, informant must remain unseen.",
 			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or exit location.",
+
+		},	
+
+		AI_TERMINAL = {
+			NAME = "AI Terminal",
+			MORE_INFO = "We've located an AI Development Terminal with unusually high security clearance. We should be able to integrate some of this research to increase Incognita's processing efficiency.\n\nThe terminal has multiple redundant locks, so be prepared to be thorough.",
+			INSET_TITLE = "",
+			INSET_TXT = "",
+			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			DESCRIPTION = "Unlock and access the AI Development Terminal using keycards and devices found on-site.",
+			REWARD = "An additional program slot for Incognita, or valuable tech.",
 
 		},			
 
