@@ -68,8 +68,8 @@ local function PanicFlee()
 	{
 		btree.Condition(conditions.IsAlerted),
 		actions.mmMoveToSafetyPoint(),
-		btree.Action(actions.DoLookAround),
 		btree.Action(actions.mmArmVip),
+		btree.Action(actions.DoLookAround),
 		btree.Action(actions.Cower), -- Also removes interests, if present.
 		btree.Action(actions.mmRequestNewPanicTarget), -- Begin hunting around the room.
 	})

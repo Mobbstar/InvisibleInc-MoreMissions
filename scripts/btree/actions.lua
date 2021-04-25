@@ -33,8 +33,6 @@ function Actions.mmArmVip( sim, unit )
 	unit:getTraits().mmSearchedVipSafe = true
 	unit:getTraits().vip = false
 
-	sim:processReactions( unit )
-
 	return simdefs.BSTATE_COMPLETE
 end
 
