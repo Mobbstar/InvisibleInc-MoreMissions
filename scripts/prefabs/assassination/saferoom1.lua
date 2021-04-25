@@ -3016,7 +3016,7 @@ local units =
             {
                 x = 7,
                 y = 11,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 2, traits={mm_nopatrolchange = true,},
@@ -3032,7 +3032,7 @@ local units =
             {
                 x = 9,
                 y = 12,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 0, traits={mm_nopatrolchange = true,},
@@ -3048,7 +3048,7 @@ local units =
             {
                 x = 13,
                 y = 9,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 2, traits={mm_nopatrolchange = true,},
@@ -3064,7 +3064,7 @@ local units =
             {
                 x = 13,
                 y = 14,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 6, traits={mm_nopatrolchange = true,},

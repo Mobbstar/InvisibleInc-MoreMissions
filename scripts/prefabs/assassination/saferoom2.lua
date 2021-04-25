@@ -2822,7 +2822,7 @@ local units =
             {
                 x = 16,
                 y = 5,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 0, traits={mm_nopatrolchange = true,},
@@ -2838,7 +2838,7 @@ local units =
             {
                 x = 10,
                 y = 7,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 0, traits={mm_nopatrolchange = true,},
@@ -2854,7 +2854,7 @@ local units =
             {
                 x = 10,
                 y = 3,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 0, traits={mm_nopatrolchange = true,},
