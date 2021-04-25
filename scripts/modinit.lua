@@ -9,6 +9,7 @@ local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 
+local assassination_mission = {}
 --for unloading
 local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 
@@ -123,7 +124,6 @@ local function init( modApi )
 	local prefabs = include("sim/prefabs")
 	local generatePrefabs_old = prefabs.generatePrefabs
 	prefabs.generatePrefabs = function( cxt, candidates, tag, maxCount, fitnessFn, fitnessSelect, ... )
-		log:write("LOG prefabs")
 		if not fitnessFn and cxt.defaultFitnessFn and cxt.defaultFitnessSelect and cxt.defaultFitnessFn[tag] and cxt.defaultFitnessSelect[tag] then
 			fitnessFn = cxt.defaultFitnessFn[tag]
 			fitnessSelect = cxt.defaultFitnessSelect[tag]
@@ -282,7 +282,7 @@ local function lateInit( modApi )
 		end
 		return setAlerted_old( self, alerted, ... )	
 	end
-
+	
 	-- for clearing mainframe witnesses
 	local processEMP_old = simunit.processEMP
 	simunit.processEMP = function( self, bootTime, noEmpFX, ... )
@@ -333,6 +333,46 @@ local function lateInit( modApi )
 		--Funky Library takes care of impair AP stuff
 	end
 	
+	-- ASSASSINATION bodyguard
+	local simunit_onDamage_old = simunit.onDamage
+	simunit.onDamage = function( self, damage, ... )
+		simunit_onDamage_old( self, damage, ... )
+		if not self:getTraits().isDead and (self:getTraits().MM_bodyguard or self:getTraits().MM_bounty_target) then
+			self:getSim():dispatchEvent( simdefs.EV_UNIT_HIT, {unit = self, result = 0} ) --stagger FX
+		end
+	end
+	
+	local simengine = include("sim/engine")
+	local simengine_tryShootAt_old = simengine.tryShootAt
+	simengine.tryShootAt = function( self, sourceUnit, targetUnit, dmgt0, equipped, ... )
+		if targetUnit:getTraits().MM_bounty_disguise 
+		-- and not equipped:getTraits().canTag 
+		then
+			local newTarget = assassination_mission.getOpposite( self, targetUnit )
+			assassination_mission.bodyguardSwap( self ) --this clears MM_bounty_disguise trait on both!
+			log:write("LOG swapping")
+			if newTarget then
+				targetUnit = newTarget
+			-- we want the swap to happen no matter who is attacked or what kind of attack it is
+			end
+		end
+		simengine_tryShootAt_old( self, sourceUnit, targetUnit, dmgt0, equipped, ... )
+	end	
+	
+	local simengine_hitUnit_old = simengine.hitUnit
+	simengine.hitUnit = function( self, sourceUnit, targetUnit, dmgt, ... )
+		--hitUnit is called as part of tryShootAt but it's also called in other cases so we need to cover those as well
+		if targetUnit:getTraits().MM_bounty_disguise then
+			local newTarget = assassination_mission.getOpposite( self, targetUnit )
+			assassination_mission.bodyguardSwap( self )
+			if newTarget then
+				targetUnit = newTarget
+			-- we want the swap to happen no matter who is attacked or what kind of attack it is
+			end			
+		end
+		simengine_hitUnit_old( self, sourceUnit, targetUnit, dmgt, ... )			
+	end
+		
 end
 
 --The implementation of array.removeAllElements is not optimal for our purposes, and we also need something to remove dupes, so might as well combine it all. -M
@@ -416,9 +456,11 @@ local function load( modApi, options, params )
 	
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
-	include( scriptPath .. "/missions/assassination" )
+	local assassination = include( scriptPath .. "/missions/assassination" )
 	include( scriptPath .. "/missions/ea_hostage" )	
 	-- include( scriptPath .. "/missions/mole_insertion" ) -- mole_insertion included in init instead
+	assassination_mission.bodyguardSwap = assassination.bodyguardSwap
+	assassination_mission.getOpposite = assassination.getOpposite
 
 	-- local mainframe_abilities = include( scriptPath .. "/mainframe_abilities" )
 	-- for name, ability in pairs(mainframe_abilities) do
@@ -448,6 +490,7 @@ local function load( modApi, options, params )
 	for id,situation in pairs(serverdefs_mod.SITUATIONS) do
 		modApi:addSituation( situation, id, scriptPath .."/missions" )
 	end
+	
 	--remove vanilla tags if disabled
 	for i = #serverdefs.ESCAPE_MISSION_TAGS, 1, -1 do
 		if options[serverdefs.ESCAPE_MISSION_TAGS[i]] and not options[serverdefs.ESCAPE_MISSION_TAGS[i]].enabled then
@@ -502,6 +545,8 @@ local function load( modApi, options, params )
 	modApi:addPrefabt(cameraDB)	
 	local weaponsExpoPrefabs = include( scriptPath .. "/prefabs/weaponsexpo/prefabt" )
     modApi:addPrefabt(weaponsExpoPrefabs)
+	local aiTerminalPrefabs = include( scriptPath .. "/prefabs/ai_terminal/prefabt" )
+    modApi:addPrefabt(aiTerminalPrefabs)
 
 	--local koPrefabs = include( scriptPath .. "/prefabs/ko/prefabt" )
  	--modApi:addWorldPrefabt(scriptPath, "ko", koPrefabs)
@@ -665,6 +710,19 @@ local function load( modApi, options, params )
 		end
 		return result, reason1, reason2, reason3
 	end	
+	-- Assassination
+	local melee_executeOld = melee.executeAbility
+	melee.executeAbility = function( self, sim, unit, userUnit, target, ... )
+		local targetUnit = sim:getUnit(target)
+		if targetUnit:getTraits().MM_bounty_disguise then
+			local newTarget = assassination_mission.getOpposite( sim, targetUnit )
+			assassination_mission.bodyguardSwap( sim )
+			if newTarget then
+				target = newTarget:getID()
+			end
+		end
+		return melee_executeOld( self, sim, unit, userUnit, target, ... )
+	end
 	--------
 	-- MOLE INSERTION
 	local mole_insertion = include( scriptPath .. "/missions/mole_insertion" )
@@ -701,6 +759,17 @@ local function load( modApi, options, params )
 			end	
 		end
 	end	
+	
+	-- default weight for missions with no weight is 1, but the function doesn't accept weight less than 1. Set it to 100 instead so we can make missions both less frequent and more frequent than the vanilla unweighted ones without overriding the rest of the function. 
+	local serverdefs_chooseSituation_old = serverdefs.chooseSituation
+	serverdefs.chooseSituation = function( campaign, tags, gen, ... )
+		for name, situationData in pairs( serverdefs.SITUATIONS ) do
+			if situationData.weight == nil then
+				situationData.weight = 100
+			end
+		end 
+		return serverdefs_chooseSituation_old( campaign, tags, gen, ... )
+	end
 	
 	--ASSASSINATION
 	local serverdefs_createNewSituation_old = serverdefs.createNewSituation
