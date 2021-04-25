@@ -218,6 +218,10 @@ local WITNESS_KOED =
 mission.existsLivingWitness = function(sim)
 	--Guard or drone or camera that has directly seen the mole
 	if sim:getTags().MM_escapedWitness then --set in mole UI daemon ability
+		if sim:hasObjective("kill_witness") then
+			sim:removeObjective("kill_witness")
+			sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.OBJ_KILL_WITNESS_FAILED, "kill_witness_failed" )
+		end
 		return true
 	end
 	for unitID, unit in pairs(sim:getAllUnits()) do
