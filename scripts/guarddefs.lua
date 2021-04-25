@@ -43,6 +43,7 @@ local SHARP_SOUNDS =
 local npc_templates =
 {
 
+	-- ASSASSINATION
 	npc_bounty_target =
 	{
 		type = "simunit",
@@ -64,6 +65,8 @@ local npc_templates =
 			vip = true, --This flag is important for the panic behaviour
 			pacifist = true,
 			recap_icon = "executive",
+			MM_bounty_target = true,
+			woundsMax = 2, --EXPERIMENTAL
 		},
 		dropTable =
 		{
@@ -85,6 +88,37 @@ local npc_templates =
 		sounds = SOUNDS.GUARD,
 		brain = "mmBountyTargetBrain",
 	},
+	
+	MM_bodyguard =
+	{
+		type = "simunit",
+		name = STRINGS.MOREMISSIONS.GUARDS.BODYGUARD,
+		profile_anim = "portraits/portrait_animation_template",
+		profile_build = "portraits/enforcer2_build",	
+		profile_image = "enforcer_2.png",
+		profile_icon_36x36= "gui/profile_icons/security_36.png",
+    	onWorldTooltip = onGuardTooltip,
+		kanim = "kanim_guard_male_enforcer_2",
+		traits = util.extend( commondefs.basic_guard_traits )   
+		{
+			walk=true,
+			heartMonitor="enabled",
+			kill_trigger = "guard_dead",
+			enforcer = false,
+			dashSoundRange = 8, 
+			sightable = true,
+			woundsMax = 2,
+			MM_bodyguard = true,
+		},
+		speech = speechdefs.NPC,
+		voices = {"KO_Heavy"},
+		skills = {},
+		abilities = util.extend(DEFAULT_ABILITIES){"consciousness_monitor_passive"}, --minimise differences between bodyguard and target for the sake of the disguise mechanic
+		children = { itemdefs.item_npc_pistol },
+		sounds = SOUNDS.GUARD,
+		brain = "GuardBrain",		
+	},
+	
 	-- for TECH EXPO
 	MM_prototype_droid =
 	{
