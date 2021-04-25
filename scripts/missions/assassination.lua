@@ -10,10 +10,15 @@ local simquery = include( "sim/simquery" )
 local mission_util = include( "sim/missions/mission_util" )
 local escape_mission = include( "sim/missions/escape_mission" )
 local SCRIPTS = include("client/story_scripts")
+local mathutil = include( "modules/mathutil" )
 
 ---------------------------------------------------------------------------------------------
 -- Local helpers
 
+local CHANCE_OF_DECOY = 0.5
+local DECLOAK_RANGE = 1.5
+local bodyguard_unit --file-wide variable for ease of checking
+local bounty_target_unit
 ----
 -- Trigger Definitions
 
@@ -91,6 +96,33 @@ local BODYGUARD_KO =
 		end
 	end,
 }
+
+local BODYGUARD_SHOT_AT =
+{
+	trigger = simdefs.TRG_UNIT_SHOT,
+	fn = function( sim, evData )
+		if evData.targetUnit:getTraits().MM_bodyguard then
+			return evData.targetUnit, evData.sourceUnit
+		end
+	end,
+}
+
+local UNIT_WARP = 
+{
+	trigger = simdefs.TRG_UNIT_WARP,
+	fn = function( sim, evData )
+		return evData.unit
+	end
+}
+
+local UNIT_USE_DOOR = 
+{
+	trigger = simdefs.TRG_UNIT_USEDOOR,
+	fn = function( sim, evData )
+		return evData.unit
+	end
+}
+
 local function isSaferoomKey( unit )
 	return (unit:isDown() or unit:getTraits().iscorpse) and (unit:hasTag("assassination") or unit:hasTag("bodyguard"))
 end
@@ -446,6 +478,50 @@ local function judgement(sim, mission)
 	return scripts[sim:nextRand(1, #scripts)]
 end
 
+local function centralReactionDecloak( sim )
+	local script = sim:getLevelScript()
+	script:queue( 2 * cdefs.SECONDS )
+	-- blah blah
+end
+
+local function disguiseRange( script, sim, mission ) --UNUSED
+	while sim.MM_bounty_disguise_active and bodyguard_unit and bounty_target_unit do
+		script:waitFor( UNIT_WARP )	
+		for i, enemy in pairs(sim:getNPC():getUnits()) do
+			if enemy:getTraits().MM_bounty_disguise then
+				for k, agent in pairs(sim:getPC():getUnits()) do
+					local x0, y0 = enemy:getLocation()
+					local x1, y1 = agent:getLocation()
+					local distance = mathutil.dist2d( x0, y0, x1, y1)
+					if sim:canUnitSeeUnit( agent, enemy ) and (distance <= DECLOAK_RANGE ) then
+						-- log:write("LOG decloaking")
+						mission.bodyguardSwap( sim )
+					end
+				end
+			end
+		end
+	end
+end
+
+local function disguiseRangeDoor( script, sim, mission ) --UNUSED
+	while sim.MM_bounty_disguise_active and bodyguard_unit and bounty_target_unit do
+		script:waitFor( UNIT_USE_DOOR )
+		for i, enemy in pairs(sim:getNPC():getUnits()) do
+			if enemy:getTraits().MM_bounty_disguise then
+				for k, agent in pairs(sim:getPC():getUnits()) do
+					local x0, y0 = enemy:getLocation()
+					local x1, y1 = agent:getLocation()
+					local distance = mathutil.dist2d( x0, y0, x1, y1)
+					if sim:canUnitSeeUnit( agent, enemy ) and (distance <= DECLOAK_RANGE ) then
+						log:write("LOG decloaking")
+						mission.bodyguardSwap( sim )
+					end
+				end
+			end
+		end
+	end
+end
+
 local function despawnRedundantCameraDB(sim)
 	local cameraDBs = {}
 	for i,unit in pairs(sim:getAllUnits()) do
@@ -462,14 +538,161 @@ local function despawnRedundantCameraDB(sim)
 		sim:despawnUnit( cameraDBs[2] )
 	end
 end
+
+local function bodyguardShotAt( script, sim )
+	local _, guard, agent = script:waitFor( BODYGUARD_SHOT_AT )
+	if guard:isValid() and guard:getLocation() then
+		if simquery.couldUnitSee( sim, guard, agent, true, nil ) then
+			guard:turnToFace( agent:getLocation() )
+		end
+	end
+end
+
+local function dropDisguises( sim, ceo, guard )
+
+	local x0, y0 = ceo:getLocation()
+	local x1, y1 = guard:getLocation()
+	
+	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, {sound="SpySociety/Actions/holocover_deactivate", x=x1,y=y1} )
+	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, {sound="SpySociety/Actions/holocover_deactivate", x=x0,y=y0} )
+	
+	sim:dispatchEvent( simdefs.EV_UNIT_ADD_FX, { unit = ceo, kanim = "fx/agent_cloak_fx", symbol = "effect", anim="out", above=true, params={} } )		
+	sim:dispatchEvent( simdefs.EV_UNIT_ADD_FX, { unit = guard, kanim = "fx/agent_cloak_fx", symbol = "effect", anim="out", above=true, params={} } )		
+
+	local ceo_kanim = ceo:getUnitData().kanim
+	local guard_kanim = guard:getUnitData().kanim
+	
+	ceo:changeKanim(  nil , 0.05 )
+	guard:changeKanim(  nil , 0.05 )
+	
+	ceo:changeKanim(  guard_kanim , 0.1 )
+	guard:changeKanim(  ceo_kanim , 0.1 )
+	
+	ceo:changeKanim(  nil , 0.05 )
+	guard:changeKanim(  nil , 0.05 )
+	
+	ceo:changeKanim(  guard_kanim , 0.05 )
+	guard:changeKanim(  ceo_kanim , 0.05 )
+	
+	ceo:changeKanim(  nil , 0.1 )
+	guard:changeKanim(  nil , 0.1 )
+	
+	ceo:changeKanim(  guard_kanim , 0.05 )
+	guard:changeKanim(  ceo_kanim , 0.05 )
+	
+	ceo:changeKanim(  nil )
+	guard:changeKanim(  nil )		
+	
+end
+
+local function checkBodyguardAlert( script, sim, mission )
+	local _, guard = script:waitFor( BODYGUARD_ALERTED )
+	if guard:getTraits().MM_bounty_disguise then
+		mission.bodyguardSwap( sim )
+	end
+end
+
+local function checkBountyAlert( script, sim, mission )
+	local _, ceo = script:waitFor( CEO_ALERTED )
+	
+	if ceo:getTraits().MM_bounty_disguise then
+		mission.bodyguardSwap( sim )
+	end
+end
 ---------------------------------------------------------------------------------------------
 -- Begin!
 
 local mission = class( escape_mission )
 
+mission.getOpposite = function( sim, unit )
+	-- outputs ceo if you input bodyguard and vice versa
+	local opposite = nil
+	for i, u in pairs(sim:getAllUnits()) do
+		if u:getTraits().MM_bounty_disguise and not (u == unit) then
+			opposite = u
+		end
+	end
+	return opposite
+end
+
+mission.bodyguardSwap = function( sim )
+	local bodyguard
+	local ceo 
+	for i, unit in pairs(sim:getNPC():getUnits()) do
+		if unit:getTraits().MM_bodyguard then
+			bodyguard = unit
+		end
+		if unit:getTraits().MM_bounty_target then
+			ceo = unit
+		end
+	end	
+
+	if bodyguard and ceo then
+		local bodyguard_cell = sim:getCell(bodyguard:getLocation())	local bodyguard_facing = bodyguard:getFacing()	
+		local bodyguard_patrol = bodyguard:getTraits().patrolPath
+		local bodyguard_tagged = bodyguard:getTraits().tagged or nil
+		local bodyguard_observed = bodyguard:getTraits().patrolObserved or nil		
+		local bodyguard_heart = bodyguard:getTraits().heartMonitor -- <3 <3 <3
+		
+		local ceo_patrol = ceo:getTraits().patrolPath
+		local ceo_facing = ceo:getFacing()
+		local ceo_cell = sim:getCell(ceo:getLocation())
+		local ceo_tagged = ceo:getTraits().tagged or nil
+		local ceo_observed = ceo:getTraits().patrolObserved or nil
+		local ceo_heart = ceo:getTraits().heartMonitor -- <3 <3 <3
+		
+		-- synchronise inventories?
+		
+		bodyguard:setFacing(ceo_facing)		
+		ceo:setFacing( bodyguard_facing )	
+
+		sim:warpUnit( bodyguard, ceo_cell )
+		
+		sim:warpUnit( ceo, bodyguard_cell )	
+		dropDisguises( sim, ceo, bodyguard )
+
+		-- can't predict all possible alterations to the 'pre-decloak' unit, but this should cover most of them
+		bodyguard:getTraits().MM_bounty_disguise = nil
+		bodyguard:getTraits().tagged = ceo_tagged
+		bodyguard:getTraits().patrolObserved = ceo_observed
+		bodyguard:getTraits().heartMonitor = ceo_heart
+		
+		ceo:getTraits().MM_bounty_disguise = nil
+		ceo:getTraits().tagged = bodyguard_tagged
+		ceo:getTraits().patrolObserved = bodyguard_observed
+		ceo:getTraits().heartMonitor = bodyguard_heart
+		
+		sim.MM_bounty_disguise_active = nil
+		sim:processReactions()
+		if bounty_target_unit then --have central comment on the disguise if target is still alive
+			centralReactionDecloak( sim )
+		end
+
+	end		
+end
+
+local function tryDecoy( sim )
+	bodyguard_unit = nil
+	bounty_target_unit = nil -- resetting for save file edge cases
+	if sim:nextRand() < CHANCE_OF_DECOY then --0.5 -- memo: comment back in after testing
+		-- this determines whether decoy/disguise mechanic will be in place this mission.
+		for i, unit in pairs(sim:getNPC():getUnits()) do
+			if unit:getTraits().MM_bounty_target then
+				bounty_target_unit = unit
+				unit:getTraits().MM_bounty_disguise = true
+			elseif unit:getTraits().MM_bodyguard then
+				bodyguard_unit = unit
+				unit:getTraits().MM_bounty_disguise = true --gets applied to both target and bodyguard
+			end
+		end
+		sim.MM_bounty_disguise_active = true
+	end
+end
+
 function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
 	despawnRedundantCameraDB( sim )
+	tryDecoy( sim )
 	-- Base credit value for a successful kill
 	self.BOUNTY_VALUE = 1000
 
@@ -486,6 +709,12 @@ function mission:init( scriptMgr, sim )
 
 	scriptMgr:addHook( "BODYGUARD", bodyguardAlertsCeo, nil, self )
 	scriptMgr:addHook( "CEO", ceoAlerted, nil, self )
+	scriptMgr:addHook( "bodyguardShotAt", bodyguardShotAt )
+	
+	scriptMgr:addHook( "checkBodyguardAlert", checkBodyguardAlert, nil, self )
+	scriptMgr:addHook( "checkBountyAlert", checkBountyAlert, nil, self )	
+	-- scriptMgr:addHook( "disguiseRange", disguiseRange, nil, self )
+	-- scriptMgr:addHook( "disguiseRangeDoor", disguiseRangeDoor, nil, self ) --currently disabling the auto-decloak when at close range
 
 	--This picks a reaction rant from Central on exit based upon whether or not the target is dead yet.
 	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(function() judgement(sim, self) end))
