@@ -20,6 +20,8 @@ local SITUATIONS =
 --			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_SECURITY ),
 --		},
 --	},
+
+-- Note: see modinit, default weight for all missions including vanilla ones is 100! so we can set custom missions to have more or less weight than that.
 	assassination =
 	{
         ui = {
@@ -27,6 +29,7 @@ local SITUATIONS =
 			icon = "gui/icons/mission_icons/mission_assassination_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL ),
 		},
+		-- weight = 100,
 	},
 --	landfill =
 --	{
@@ -61,6 +64,7 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY),
 		},
+		weight = 40, 
 	},
 	
 	mole_insertion =
@@ -71,7 +75,18 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE_SECONDARY),
 		},
-	},		
+	},	
+
+	-- ai_terminal = -- ported from Worldgen Extended by wodzu!
+	-- {
+        -- ui = {
+			-- insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			-- icon = "gui/mission_previews/ea_hostage.png", --placeholder
+			-- objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE ),
+			-- secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE_SECONDARY),
+		-- },
+		-- weight = 30, -- 30% as common as default
+	-- },			
 }
 
 --automated processing
