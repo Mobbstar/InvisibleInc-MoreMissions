@@ -4,6 +4,7 @@ local simdefs = include("sim/simdefs")
 local simquery = include("sim/simquery")
 local btree = include("sim/btree/btree")
 local Actions = include("sim/btree/actions")
+local Conditions = include("sim/btree/conditions")
 
 local function interestOutsideOfSaferoom( sim, interest )
 	local cell = sim:getCell( interest.x, interest.y )
@@ -31,8 +32,6 @@ function Actions.mmArmVip( sim, unit )
 	-- Update traits
 	unit:getTraits().mmSearchedVipSafe = true
 	unit:getTraits().vip = false
-
-	sim:processReactions( unit )
 
 	return simdefs.BSTATE_COMPLETE
 end
@@ -83,7 +82,10 @@ end
 function Actions.mmFaceInterest( sim, unit )
 	local interest = unit:getBrain():getInterest()
 	if interest and not interest.mmFaced and unit:canReact() then
-		unit:turnToFace(interest.x, interest.y)
+		-- Skip turning if unarmed and losttarget. Otherwise we keep turning back while trying to flee.
+		if (not interest.reason == simdefs.REASON_LOSTTARGET) or Conditions.mmIsArmed( sim, unit ) then
+			unit:turnToFace(interest.x, interest.y)
+		end
 		interest.mmFaced = true
 	end
 

@@ -24,17 +24,11 @@ local function PanicCombat()
 		btree.Condition(conditions.mmHasSearchedVipSafe),
 		btree.Condition(conditions.HasTarget),
 		btree.Action(actions.ReactToTarget),
-		btree.Selector("Engage",
-		{
-			btree.Sequence("WithWeapon",
-			{
-				btree.Condition(conditions.mmIsArmed),
-				btree.Condition(conditions.CanShootTarget),
-				btree.Action(actions.ShootAtTarget),
-			}),
-			-- If the target's weapon has been stolen, just point and shout.
-			btree.Action(actions.WatchTarget),
-		}),
+
+		btree.Condition(conditions.mmIsArmed),
+		btree.Condition(conditions.CanShootTarget),
+		-- Otherwise, fall through to PanicFlee.
+		btree.Action(actions.ShootAtTarget),
 	})
 end
 
@@ -47,7 +41,12 @@ local function PanicHunt()
 		btree.Condition(conditions.HasInterest),
 		btree.Action(actions.ReactToInterest),
 		btree.Action(actions.mmFaceInterest),
-		btree.Condition(conditions.mmInterestInSaferoom),
+		btree.Selector("CanInvestigate",
+		{
+			btree.Condition(conditions.mmInterestIsSelfPanic),
+			btree.Condition(conditions.mmIsArmedAndInterestInSaferoom),
+			-- Otherwise, fall through to PanicFlee.
+		}),
 		actions.MoveToInterest(),
 		btree.Action(actions.MarkInterestInvestigated),
 		btree.Action(actions.DoLookAround),
@@ -69,8 +68,8 @@ local function PanicFlee()
 	{
 		btree.Condition(conditions.IsAlerted),
 		actions.mmMoveToSafetyPoint(),
-		btree.Action(actions.DoLookAround),
 		btree.Action(actions.mmArmVip),
+		btree.Action(actions.DoLookAround),
 		btree.Action(actions.Cower), -- Also removes interests, if present.
 		btree.Action(actions.mmRequestNewPanicTarget), -- Begin hunting around the room.
 	})
