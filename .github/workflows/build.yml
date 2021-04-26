@@ -36,7 +36,7 @@ jobs:
         run: |
           sudo chmod +x exampleapi/KWAD\ builder/bin/linux/builder
           echo KWAD_BUILDER="./exampleapi/KWAD\ builder/bin/linux/builder" > makeconfig.mk
-          echo INSTALL_PATH="./install" > makeconfig.mk
+          echo INSTALL_PATH="./install" >> makeconfig.mk
           make install
         
       - name: Upload a Build Artifact
