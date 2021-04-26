@@ -349,9 +349,9 @@ local function lateInit( modApi )
 		-- and not equipped:getTraits().canTag 
 		then
 			local newTarget = assassination_mission.getOpposite( self, targetUnit )
-			assassination_mission.bodyguardSwap( self ) --this clears MM_bounty_disguise trait on both!
-			log:write("LOG swapping")
 			if newTarget then
+				assassination_mission.bodyguardSwap( self ) --this clears MM_bounty_disguise trait on both!
+				log:write("LOG swapping")
 				targetUnit = newTarget
 			-- we want the swap to happen no matter who is attacked or what kind of attack it is
 			end
@@ -364,14 +364,27 @@ local function lateInit( modApi )
 		--hitUnit is called as part of tryShootAt but it's also called in other cases so we need to cover those as well
 		if targetUnit:getTraits().MM_bounty_disguise then
 			local newTarget = assassination_mission.getOpposite( self, targetUnit )
-			assassination_mission.bodyguardSwap( self )
 			if newTarget then
+				assassination_mission.bodyguardSwap( self )
 				targetUnit = newTarget
 			-- we want the swap to happen no matter who is attacked or what kind of attack it is
 			end			
 		end
 		simengine_hitUnit_old( self, sourceUnit, targetUnit, dmgt, ... )			
 	end
+	
+
+	local simunit_setKO_old = simunit.setKO --for flash grenade
+	simunit.setKO = function( self, sim, ticks, fx, ... )
+		if self:getTraits().MM_bounty_disguise then
+			local newTarget = assassination_mission.getOpposite( sim, self )
+			if newTarget then
+				assassination_mission.bodyguardSwap( sim )
+				self = newTarget
+			end
+		end
+		return simunit_setKO_old( self, sim, ticks, fx, ... )
+	end	
 		
 end
 
@@ -716,13 +729,15 @@ local function load( modApi, options, params )
 		local targetUnit = sim:getUnit(target)
 		if targetUnit:getTraits().MM_bounty_disguise then
 			local newTarget = assassination_mission.getOpposite( sim, targetUnit )
-			assassination_mission.bodyguardSwap( sim )
 			if newTarget then
+				sim:dispatchEvent( simdefs.EV_UNIT_STOP_WALKING, { unit = targetUnit  } ) --interrupt old target, without this old target glides to new target's location during swap XD
+				assassination_mission.bodyguardSwap( sim )
 				target = newTarget:getID()
 			end
 		end
 		return melee_executeOld( self, sim, unit, userUnit, target, ... )
 	end
+		
 	--------
 	-- MOLE INSERTION
 	local mole_insertion = include( scriptPath .. "/missions/mole_insertion" )
