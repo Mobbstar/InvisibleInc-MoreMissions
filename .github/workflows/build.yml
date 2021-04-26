@@ -36,10 +36,11 @@ jobs:
         run: |
           sudo chmod +x exampleapi/KWAD\ builder/bin/linux/builder
           echo KWAD_BUILDER="./exampleapi/KWAD\ builder/bin/linux/builder" > makeconfig.mk
-          make
+          echo INSTALL_PATH="./install" > makeconfig.mk
+          make install
         
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.3
         with:
           name: "MoreMissions"
-          path: out
+          path: install
