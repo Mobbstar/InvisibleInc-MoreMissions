@@ -35,7 +35,7 @@ jobs:
       - name: Make the mod using the given makefile
         run: |
           sudo chmod +x builder/bin/linux/builder
-          echo KWAD_BUILDER="./exampleapi/KWAD\ builder/bin/linux/builder" > makeconfig.mk
+          echo KWAD_BUILDER=./builder/bin/linux/builder > makeconfig.mk
           echo INSTALL_PATH="./install" >> makeconfig.mk
           make install
         
