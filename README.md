@@ -11,9 +11,9 @@ You may need to compile some files before the game can run this mod.
 scripts.zip - Simply but all the contents of the "scripts" directory directly into a zip file with the same name.
 KWAD files - Run the KWAD builder to generate a fresh KWAD file from the raw assets in this repository. View the official modding tutorials for more information.
 
-Alternatively, and much easier, you can download the .rar file containing the most recent full build of the mod (a rar file) from the Releases tab on the right, and unzip it into your Mods folder. This version is largely up to date but may not include recent minor updates.
+**Alternatively, and much easier, you can download the .rar file containing the most recent full build of the mod** from the Releases tab on the right, and unzip it into your Mods folder. This version is largely up to date but may not include recent minor updates.
 
-This mod requires Sim Constructor by Cyberboy2000.
+This mod requires [Sim Constructor by Cyberboy2000](https://steamcommunity.com/workshop/filedetails/?id=580661011) and [Function Library by wodzu_93](https://steamcommunity.com/sharedfiles/filedetails/?id=1745350836).
 
 ## Content
 
