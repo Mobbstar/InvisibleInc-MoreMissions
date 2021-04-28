@@ -9,7 +9,7 @@ local PREFABT0 =
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/ai_terminal/w93_incogroom",
         tags =
         {
-            "incogRoom",
+            "MM_incogRoom",
             "contained",
 			"objective",
         },

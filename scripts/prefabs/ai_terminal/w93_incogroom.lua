@@ -1753,7 +1753,7 @@ local units =
             {
                 x = 1,
                 y = 5,
-                template = [[W93_incogRoom_terminal]],
+                template = [[MM_W93_incogRoom_terminal]],
                 unitData =
                 {
                     facing = 0,
@@ -1765,7 +1765,7 @@ local units =
             {
                 x = 1,
                 y = 2,
-                template = [[W93_incogRoom_terminal]],
+                template = [[MM_W93_incogRoom_terminal]],
                 unitData =
                 {
                     facing = 0,
@@ -1777,7 +1777,7 @@ local units =
             {
                 x = 11,
                 y = 2,
-                template = [[W93_incogRoom_terminal]],
+                template = [[MM_W93_incogRoom_terminal]],
                 unitData =
                 {
                     facing = 4,
@@ -1789,7 +1789,7 @@ local units =
             {
                 x = 11,
                 y = 5,
-                template = [[W93_incogRoom_terminal]],
+                template = [[MM_W93_incogRoom_terminal]],
                 unitData =
                 {
                     facing = 4,
@@ -1801,7 +1801,7 @@ local units =
             {
                 x = 6,
                 y = 9,
-                template = [[W93_incogRoom_ai_terminal]],
+                template = [[MM_W93_incogRoom_ai_terminal]],
                 unitData =
                 {
                     facing = 0,
