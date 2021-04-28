@@ -80,9 +80,6 @@ local ALARM_CHANGE =
 	trigger = simdefs.TRG_ALARM_STATE_CHANGE,
 }
 
--- for i, exit in pairs(cell.exits) do
--- exit.keybits and exit.keybits == simdefs.DOOR_KEYS.GUARD
-
 local MOLE_ESCAPED_AGENT =  --we don't actually want this because it means mission failure, but the option should be there -- maybe reward should be adding another mole mission to the map? DONE
 {
     trigger = simdefs.TRG_UNIT_ESCAPED,
