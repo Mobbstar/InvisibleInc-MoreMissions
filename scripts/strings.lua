@@ -69,6 +69,11 @@ return {
 	{
 		-- RECHARGE_STATION = "Phone Recharge Socket",
 		PERSONNEL_DB = "Personnel Database",
+		AI_CARD = "AI Vault Keycard",
+		AI_CARD_DESC = "Unlocks an AI Lock Vault Door. Cannot be taken out of the facility.",
+		AI_CARD_FLAVOR = "A local passkey, required for any personnel to access top-security terminals with AI prototypes and databanks.",
+		INCOGROOM_TERMINAL = "AI Terminal Lock",
+		INCOGROOM_AI_TERMINAL = "AI Development Terminal",
 	},
 
 	GUARDS =
@@ -169,7 +174,14 @@ return {
 		-- ESCAPE_GUARD = "Escape",
 		ESCAPE_GUARD_DESC = "Undercover Informant teleports out",
 		ESCAPE_GUARD_POWER_CELL = "Informant must drop the {1} before leaving!",
+		
+		INCOGROOM_UNLOCK = "REMOVE LOCK",
+		INCOGROOM_UNLOCK_DESC = "Unlocks 1 of 4 locks to the AI Development Terminal.",
 
+		INCOGROOM_UPGRADE = "UPGRADE INCOGNITA",
+		INCOGROOM_UPGRADE_DESC = "Use this terminal to add 1 program slot to Incognita.",	
+
+		DEACTIVATE_LOCKS = "DEACTIVATE LOCKS",
 
 	},
 
@@ -270,8 +282,69 @@ return {
 			CAMERADB_TIP = "Scrub to clear mainframe witnesses",
 		},
 		AI_TERMINAL = {
-			AI_OBJECTIVE = "Access the AI Development Terminal",
+			AI_OBJECTIVE = "Access the AI Terminal",
 			AI_OBJECTIVE_SECONDARY = "Unlock the doors to the terminal",
+			OBJECTIVE1 = "Deactivate Locks",
+			OBJECTIVE2 = "Activate AI Development Terminal",
+			OBJ_FIND = "Locate the AI Development Terminal",
+			EXIT_WARNING = "Are you sure you want to leave? You haven't accessed the AI Dev Terminal yet.",
+			
+			DIALOG = { --this needs to be rewritten to be nicer and fluffier
+				OPTIONS1 = {
+				"CANCEL",
+				"UPGRADE PROGRAM",
+				"NEW PROGRAM SLOT",
+				},
+				
+				OPTIONS1_MAXSLOTS = {
+					"CANCEL",
+					"UPGRADE PROGRAM"
+				},
+				
+				OPTIONS1_TXT = "Choose between new slot and upgraded program",
+				OPTIONS1_TXT_MAXSLOTS = "Choose between new slot and upgraded program.\n\nProgram slots full. New slot unavailable.",
+				OPTIONS1_TITLE = "AI TERMINAL ACCESS",
+				OPTIONS1_RESULT1_TITLE = "NEW SLOT ACQUIRED",
+				OPTIONS1_RESULT1_TXT = "New program slot acquired. Will be available after this mission.",
+				
+				OPTIONS2_TXT = "Select a program to upgrade. \n\n<c:FC5603>Cannot upgrade the same program twice.</c>",
+				OPTIONS2_TITLE = "SELECT PROGRAM",
+				
+				OPTIONS3_TXT = "Choose a parameter to upgrade.",
+				OPTIONS3_TITLE = "CHOOSE PARAMETER",
+				OPTIONS3 = {
+					"Firewalls broken",
+					"PWR cost",
+					"Cooldown",
+				},
+				OPTIONS3_PARASITE = {
+					"Parasite strength",
+					"PWR cost",
+					"Cooldown",				
+				},
+				
+				OPTIONS4_INC = {
+					"Start over",
+					"Decrease by 1",
+					"Increase by 1",
+				},
+				OPTIONS4_TXT = "How do you want to modify this parameter?\n\n<c:FC5603>Warning: Cannot decrease a parameter below 1.</c>",
+				
+				OPTIONS_FIREWALLS_TITLE = "FIREWALLS BROKEN",
+				OPTIONS_FIREWALLS_INCREASE = "Icebreaking power increased by 1.",
+				OPTIONS_FIREWALLS_DECREASE = "Icebreaking power decreased by 1.",
+				
+				OPTIONS_PWRCOST_TITLE = "PWR COST",
+				OPTIONS_PWRCOST_INCREASE = "PWR cost increased by 1",
+				OPTIONS_PWRCOST_DECREASE = "PWR cost decreased by 1",
+				
+				OPTIONS_COOLDOWN_TITLE = "COOLDOWN",
+				OPTIONS_COOLDOWN_INCREASE = "Cooldown increased by 1",
+				OPTIONS_COOLDOWN_DECREASE = "Cooldown decreased by 1",
+				
+				PROGRAM_UPGRADED_SUCCESS = "PROGRAM UPGRADED",
+				PROGRAM_UPGRADE_FAIL = "Could not upgrade this parameter. Returning to root.", --needs to be implemented
+			},
 		},
 	},
 
@@ -315,7 +388,7 @@ return {
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
 			INSET_VO = {""}, --{"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},			
 			DESCRIPTION = "Get the escaped operative safely to extraction and grab their confiscated gear on the way out. Alarm level will increase more quickly here.",
-			REWARD = "Agent or prisoner rescue with valuable items.",
+			REWARD = "Agent or prisoner rescue with valuable items.\n<c:FC5603>URGENT:</c> This mission will disappear unless visited immediately.",
 		},
 
 		WEAPONS_EXPO = {
@@ -346,7 +419,8 @@ return {
 			INSET_TXT = "",
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
 			DESCRIPTION = "Unlock and access the AI Development Terminal using keycards and devices found on-site.",
-			REWARD = "An additional program slot for Incognita, or valuable tech.",
+			-- REWARD = "An additional program slot for Incognita, or valuable tech if at upgrade cap (2 additional slots).",
+			REWARD = "An additional program slot for Incognita, or a program upgrade.",
 
 		},			
 
@@ -376,7 +450,8 @@ return {
 		CAMERADB_SCRUBBED = "MAINFRAME WITNESSES CLEARED",
 		WITNESS_CLEARED = "WITNESS REMOVED",
 		MOLE_EXIT_WARNING = "Are you sure you want to leave? You haven't located the Personnel Database yet.",
-		MOLE_EXIT_WARNING2 = "Are you sure you want to leave? The Informant needs to escape through the GUARD elevator.",			
+		MOLE_EXIT_WARNING2 = "Are you sure you want to leave? The Informant needs to escape through the GUARD elevator.",
+		INCOGROOM_TEXT1 = "High-Security Door Detected",
 		
 		TOOLTIPS = {
 			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
@@ -390,7 +465,11 @@ return {
 			WITNESS = "WITNESS",
 			WITNESS_DESC_HUMAN = "Kill this unit or KO and apply Amnesiac.",
 			WITNESS_DESC_MAINFRAME = "Destroy this unit or scrub Camera Database.",
-			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",				
+			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",
+			KO_GAS = "KNOCKOUT GAS",
+			KO_GAS_DESC = "This agent is surrounded by knockout gas and will be KO'd if they end their turn here.",
+			KO_GAS_PINNED = "GASSED",
+			KO_GAS_PINNED_DESC = "This agent's KO timer will not decrease until they leave the knockout gas.",
 		},	
 		
 	},
@@ -489,7 +568,7 @@ return {
 						"Central"}},
 				},
 				KO = {
-					{{"We don't earn partial credit here, operator. Find a way to finish the job.",
+					{{"We don't earn partial credit here, Operator. Find a way to finish the job.",
 						nil,
 						"Central"}},
 				},
@@ -522,7 +601,7 @@ return {
 						{{"You didn't get what we came for. Perhaps you would like to offer your own head to our client?",
 							"moremissions/VoiceOver/Central/assassination/judge/noloot0",
 							"Central"}},
-						{{"Now somebody else is going to get the bounty. Quit wasting precious time, operator!",
+						{{"Now somebody else is going to get the bounty. Quit wasting precious time, Operator!",
 							"moremissions/VoiceOver/Central/assassination/judge/noloot1",
 							"Central"}},
 					},
@@ -690,6 +769,66 @@ return {
 					},					
 
 				},
+			},
+			
+			AI_TERMINAL = {
+				CENTRAL_DOOR_SPOTTED = {
+					-- {{"A scan of that door shows unusually high security measures. Whatever is behind it, must be very valuable. Shall we take a look, Operator?", nil, "Central"}}, --old WE version
+					{{"A scan of that door shows unusually high security measures. This must be the AI research center we've been looking for. Shall we take a look, Operator?", nil, "Central"}},
+					{{"You need to disable a lock behind each of those four doors. You should be able to find measures to unlock them on site. Take a look around.", nil, "Central"}},
+				},
+				CENTRAL_UNLOCKED_SUBDOOR = 
+				{
+					{{"That Console sent a signal to another part of the facility. One of the previously locked doors should be open now.", nil, "Central"}},
+				},
+
+				CENTRAL_UNLOCKED_MAINDOOR_OMNI_UNSEEN =
+				{
+					-- {{"Aha! Looks like we stumbled upon an AI development site. Get data from the terminal inside, and it should provide some useful information for Incognita.", nil, "Central"}},-- old WE version 
+					{{"That's the main AI development terminal. Finally. Let's access the data and see if there is anything worthwhile for Incognita.", nil, "Central"}},
+					{{"Something strange is going on here. The equipment at this research site is like nothing I've seen before. Certainly not at this corporation.", nil, "Monster"}},
+					{{"Something to puzzle over later. For now, we need to finish the job and get out of here.", nil, "Central"}},
+				},
+				
+				CENTRAL_UNLOCKED_MAINDOOR_OMNI_SEEN =
+				{
+					{{"That's the main AI development terminal. Finally. Let's access the data and see if there is anything worthwhile for Incognita.", nil, "Central"}},
+					{{"This must be one of Omni Corp's covert research sites - only they have tech quite this advanced. The decor is a bit of a giveaway, too.", nil, "Monster"}},
+					{{"There must be hundreds of such facilities scattered across the globe. How on Earth did we not run into one of these before?", nil, "Central"}},
+					{{"I confess I have my suspicions, but you may not like hearing them...",nil,"Monster"}}, --it's because you're a bad mom, Central
+				},				
+				
+				INCOGNITA_DATA_ACQUIRED = {
+					{{"Acquired new data. High probability of increasing efficiency in coroutine execution. Processing... Estimated finish time is 1 hour, 21 minutes and 48 seconds.", nil, "Incognita"}},
+					-- {{"Excelent job, Operator. Incognita will be able to install one additional program after we're finished here.",nil,"Central"}},
+				},
+				
+				INCOGNITA_PROG_UPGRADED = {
+					{{"Acquired new data. High probability of increasing effectiveness in coroutine execution. Processing... Integration complete.", nil, "Incognita"}},
+				},
+				
+				INCOGNITA_TECH_ACQUIRED = { --unused?
+					{{"Excelent job, Operator. Monst3r will certainly be interested in selling this data. Get it back to the jet.", nil, "Central"}},
+					{{"Quite so, I already have half a dozen buyers in mind for something like this. We should do this more often.", nil, "Monster"}},
+				},
+				
+				SMOKE_WARNING = {
+					{{"We've tripped a failsafe. The room is rapidly filling with knockout gas. Get your agent out of there, now.",nil, "Central"}},
+					{{"It could be worse. At least they're not flooding the research center with deadly neurotoxin.", nil, "Monster"}},
+				},
+				
+				CENTRAL_JUDGEMENT = {
+					GOT_SLOT = {
+						{{"Excellent job, Operator. Incognita will be able to install one additional program soon.",nil,"Central"}},
+						-- {{"",nil,"Central"}},
+					},
+					GOT_UPGRADE = {
+						{{"Have a cookie, Operator.", nil, "Central"}},
+					},
+					GOT_NOTHING = {
+						{{"I should have left you at the orphanage.", nil, "Central"}}, --will rewrite when feeling more creative
+					},
+				},		
 			},
 				
 		},
