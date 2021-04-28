@@ -51,6 +51,7 @@ local function init( modApi )
 	modApi:addGenerationOption("distress_call",  STRINGS.MOREMISSIONS.OPTIONS.DISTRESSCALL, STRINGS.MOREMISSIONS.OPTIONS.DISTRESSCALL_TIP, {noUpdate=true, enabled = true} )
 	modApi:addGenerationOption("weapons_expo",  STRINGS.MOREMISSIONS.OPTIONS.WEAPONSEXPO, STRINGS.MOREMISSIONS.OPTIONS.WEAPONSEXPO_TIP, {noUpdate=true, enabled = true} )
 	modApi:addGenerationOption("mole_insertion",  STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION, STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION_TIP, {noUpdate=true, enabled = true} )
+	modApi:addGenerationOption("ai_terminal",  STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL, STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL_TIP, {noUpdate=true, enabled = true} )	
 	
 	modApi:addGenerationOption("MM_sidemissions",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_TIP, {noUpdate=true} ) --doesn't do anything yet
 	-- abilities, for now simple override (I'm not smart enough to...)
