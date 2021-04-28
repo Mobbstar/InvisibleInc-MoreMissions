@@ -57,6 +57,8 @@ return {
 		WEAPONSEXPO_TIP = "<c:FF8411>TECH EXPO</c>\nProvides powerful weapons protected by advanced security measures.",
 		MOLE_INSERTION = "INFORMANT RENDEZVOUS",
 		MOLE_INSERTION_TIP = "<c:FF8411>INFORMANT RENDEZVOUS</c>\nPlant an informant who will feed you intel for the next few missions.",	
+		AI_TERMINAL = "AI TERMINAL",
+		AI_TERMINAL_TIP = "<c:FF8411>INFORMANT RENDEZVOUS</c>\nUpgrade a program or gain a new program slot for Incognita.",
 		
 		SIDEMISSIONS = "SIDE MISSIONS",
 		SIDEMISSIONS_TIP = "Enable new side missions",		
