@@ -23,6 +23,7 @@ local MakeLine = {
 		t.anim = "portraits/incognita_face"
 		t.name = STRINGS.UI.INCOGNITA_TITLE
 		t.voice = voice
+		t.delay = 0.25
 	end,
 }
 
