@@ -364,7 +364,7 @@ return {
 		},
 		ASSASSINATION = {
 			NAME= "Assassination",
-			MORE_INFO = "A high-ranked executive at this location has an impressive bounty on their head, but such a high-profile hit will not go unanswered by the corp.\n\nThe target is reportedly paranoid, with personal security on-site. Be wary", --This can be quite lengthy.
+			MORE_INFO = "A high-ranked executive at this location has an impressive bounty on their head, but such a high-profile hit will not go unanswered by the corp.\n\nThe target is reportedly paranoid, with personal security on-site. Be wary.", --This can be quite lengthy.
 			INSET_TITLE = "MARKED FOR DEATH", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
 			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
