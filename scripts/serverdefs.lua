@@ -64,7 +64,7 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY),
 		},
-		weight = 40, 
+		weight = 70, 
 	},
 	
 	mole_insertion =
@@ -77,16 +77,16 @@ local SITUATIONS =
 		},
 	},	
 
-	-- ai_terminal = -- ported from Worldgen Extended by wodzu!
-	-- {
-        -- ui = {
-			-- insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
-			-- icon = "gui/mission_previews/ea_hostage.png", --placeholder
-			-- objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE ),
-			-- secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE_SECONDARY),
-		-- },
-		-- weight = 30, -- 30% as common as default
-	-- },			
+	ai_terminal = -- ported from Worldgen Extended by wodzu! with some extra features
+	{
+        ui = {
+			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			icon = "gui/mission_previews/ea_hostage.png", --placeholder
+			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE ),
+			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE_SECONDARY),
+		},
+		weight = 50, -- 30% as common as default
+	},			
 }
 
 --automated processing
