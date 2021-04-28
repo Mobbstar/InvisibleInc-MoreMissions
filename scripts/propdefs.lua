@@ -266,7 +266,100 @@ local prop_templates =
 		value = 0,
 		floorWeight = 1,
 		soldAfter = NEVER_SOLD,
-	},		
+	},	
+	
+	-- AI TERMINAL
+	MM_W93_incogRoom_terminal =
+	{
+		type = "simunit",
+		name = STRINGS.MOREMISSIONS.PROPS.INCOGROOM_TERMINAL,
+		onWorldTooltip = onDeviceTooltip,
+		kanim = "kanim_serverTerminal",
+		abilities = { "MM_W93_incogRoom_unlock" },
+		traits = util.extend( MAINFRAME_TRAITS )
+		{
+			moveToDevice=true,
+			cover = true,
+			impass = {0,0},
+			sightable = true,
+			MM_incogRoom_unlock = true,
+		},
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", spot="SpySociety/Objects/computer_types_occlude", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator",activate="SpySociety/Actions/holocover_activate", deactivate="SpySociety/Actions/holocover_deactivate", activeSpot="SpySociety/Actions/holocover_run_LP"},
+		rig = "corerig",
+	},
+
+	MM_W93_incogRoom_ai_terminal =
+	{
+		type = "simunit",
+		name = STRINGS.MOREMISSIONS.PROPS.INCOGROOM_AI_TERMINAL,
+		onWorldTooltip = function( tooltip, unit )
+    			tooltip:addLine( "<ttheader>"..unit:getName() )
+			if unit:isPC() then
+				tooltip:addAbility( STRINGS.UI.ACTIONS.OPERATE_DEVICE.NAME, STRINGS.UI.ACTIONS.OPERATE_DEVICE.TOOLTIP_NOFIREWALLS, "gui/items/icon-action_open-safe.png" )
+			else
+				tooltip:addAbility( STRINGS.UI.ACTIONS.OPERATE_DEVICE.NAME, STRINGS.UI.ACTIONS.OPERATE_DEVICE.TOOLTIP, "gui/items/icon-action_open-safe.png" )
+			end
+		end,
+		kanim = "kanim_preFinalConsole",
+		abilities = { "MM_W93_incogRoom_upgrade" },
+		traits =
+		{
+			cover = true,
+			impass = {0,0},
+			sightable = true,
+			moveToDevice=true,
+			maxOcclusion = 4,
+			MM_incogRoom_main = true,
+		},
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", spot="SpySociety/Objects/computer_types_occlude", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator",activate="SpySociety/Actions/holocover_activate", deactivate="SpySociety/Actions/holocover_deactivate", activeSpot="SpySociety/Actions/holocover_run_LP"},
+		rig = "corerig",
+	},
+
+	MM_W93_AiRoomPasscard =
+	{
+		type = "simunit",
+		name = STRINGS.MOREMISSIONS.PROPS.AI_CARD,
+		desc = STRINGS.MOREMISSIONS.PROPS.AI_CARD_DESC,
+		flavor = STRINGS.MOREMISSIONS.PROPS.AI_CARD_FLAVOR,			
+		icon = "itemrigs/FloorProp_KeyCard.png",		
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_exit_key_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_exit_key.png",
+    		onWorldTooltip = commondefs.onItemWorldTooltip,
+    		onTooltip = commondefs.onItemTooltip,		
+		abilities = { "carryable" },
+		traits = { keybits = simdefs.DOOR_KEYS.VAULT, noDestroy = true }, 
+	},	
+	
+	MM_gas_cloud =
+    {
+        type = "simKOcloud",
+        name = STRINGS.PROPS.SMOKE,
+        rig = "smokerig",
+		kanim = "kanim_smoke_plume",
+        -- traits = { radius = 4, lifetime = 3, noghost = true, gasColor = {r = 0.5, g = 1, b = 1, a = 0.25} }
+		traits = { radius = 4, lifetime = 4, noghost = true, KOgas = true, gasColor = {r=197/255,g=227/255,b=107/255, a = 0.35} }	
+    },	
+	
+	MM_gas_cloud_harmless = --spawns MM_gas_cloud at end of lifetime
+    {
+        type = "simKOcloud",
+        name = STRINGS.PROPS.SMOKE,
+        rig = "smokerig",
+		kanim = "kanim_smoke_plume",
+        -- traits = { radius = 4, lifetime = 3, noghost = true, gasColor = {r = 0.5, g = 1, b = 1, a = 0.25} }
+		traits = { radius = 4, lifetime = 2, noghost = true, spawnKOgas = true, gasColor = {r=197/255,g=227/255,b=107/255, a = 0.15} }	
+    },
+
+	MM_gas_cloud_dispersal = 
+    {
+        type = "simKOcloud",
+        name = STRINGS.PROPS.SMOKE,
+        rig = "smokerig",
+		kanim = "kanim_smoke_plume",
+        -- traits = { radius = 4, lifetime = 3, noghost = true, gasColor = {r = 0.5, g = 1, b = 1, a = 0.25} }
+		traits = { radius = 4, lifetime = 2, noghost = true, KOgasdispersal = true, gasColor = {r=197/255,g=227/255,b=107/255, a = 0.05} }	
+    },		
+
 }
 
 
