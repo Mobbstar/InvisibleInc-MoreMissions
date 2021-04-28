@@ -152,6 +152,9 @@ local function init( modApi )
 	include( scriptPath .. "/btree/actions" )
 	include( scriptPath .. "/btree/conditions" )
 	include( scriptPath .. "/btree/bountytargetbrain" )
+	
+	include( scriptPath.."/simdefs" ) -- copied from Interactive Events & expanded to support up to 8 buttons
+	include( scriptPath.."/hud" )--from Interactive Events, required for modal dialog choice menu to work properly
 
 end
 
@@ -466,12 +469,16 @@ local function load( modApi, options, params )
 	modApi:addAbilityDef( "MM_hack_personneldb", scriptPath .."/abilities/MM_hack_personneldb" )
 	modApi:addAbilityDef( "MM_escape_guardelevator", scriptPath .."/abilities/MM_escape_guardelevator" )
 	modApi:addAbilityDef( "MM_scrubcameradb", scriptPath .."/abilities/MM_scrubcameradb" )	
+	modApi:addAbilityDef( "MM_W93_incogRoom_unlock", scriptPath .."/abilities/MM_W93_incogRoom_unlock" )
+	modApi:addAbilityDef( "MM_W93_incogRoom_upgrade", scriptPath .."/abilities/MM_W93_incogRoom_upgrade" )
 	
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
 	local assassination = include( scriptPath .. "/missions/assassination" )
 	include( scriptPath .. "/missions/ea_hostage" )	
 	-- include( scriptPath .. "/missions/mole_insertion" ) -- mole_insertion included in init instead
+	include( scriptPath .. "/missions/mission_util" )
+	
 	assassination_mission.bodyguardSwap = assassination.bodyguardSwap
 	assassination_mission.getOpposite = assassination.getOpposite
 
@@ -494,6 +501,7 @@ local function load( modApi, options, params )
 	local escape_mission = include( scriptPath .. "/escape_mission" )
 	modApi:addEscapeScripts(escape_mission)
 
+	include(scriptPath.."/simKOcloud")
 	-- modApi:setCampaignEvent_setCampaignParam(nil,"contingency_plan",true)
 
 	--mod_api:addTooltipDef( commondef ) --Lets us append all onTooltip functions
@@ -786,6 +794,18 @@ local function load( modApi, options, params )
 		return serverdefs_chooseSituation_old( campaign, tags, gen, ... )
 	end
 	
+	local serverdefs_advanceCampaignTime_old = serverdefs.advanceCampaignTime
+	serverdefs.advanceCampaignTime = function( campaign, hours, ... )
+		-- remove existing Distress Call missions, THEN run the old function that might add new ones.
+		for i = #campaign.situations, 1, -1 do
+			local situation = campaign.situations[i]
+			if situation.name == "distress_call" then
+				table.remove( campaign.situations, i )
+			end
+		end
+		serverdefs_advanceCampaignTime_old( campaign, hours, ... )		
+	end	
+	
 	--ASSASSINATION
 	local serverdefs_createNewSituation_old = serverdefs.createNewSituation
 	serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )
@@ -807,6 +827,8 @@ local function lateLoad( modApi, options, params )
 		modApi:addItemDef( name, itemDef )
 	end
 
+	-- AI TERMINAL
+	include( scriptPath .. "/abilities/mainframe_abilities" )
 end
 
 local function unload( modApi, options )
