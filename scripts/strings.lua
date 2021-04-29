@@ -58,7 +58,9 @@ return {
 		MOLE_INSERTION = "INFORMANT RENDEZVOUS",
 		MOLE_INSERTION_TIP = "<c:FF8411>INFORMANT RENDEZVOUS</c>\nPlant an informant who will feed you intel for the next few missions.",	
 		AI_TERMINAL = "AI TERMINAL",
-		AI_TERMINAL_TIP = "<c:FF8411>INFORMANT RENDEZVOUS</c>\nUpgrade a program or gain a new program slot for Incognita.",
+		AI_TERMINAL_TIP = "<c:FF8411>AI TERMINAL</c>\nUpgrade a program or gain a new program slot for Incognita.",
+		EA_HOSTAGE = "SECURE HOLDING FACILITY",
+		EA_HOSTAGE_TIP = "<c:FF8411>SECURE HOLDING FACILITY</c>\nRescue the Courier in the limited time before he dies, to gain access to more infiltration sites.",
 		
 		SIDEMISSIONS = "SIDE MISSIONS",
 		SIDEMISSIONS_TIP = "Enable new side missions",		
@@ -318,11 +320,13 @@ return {
 					"Firewalls broken",
 					"PWR cost",
 					"Cooldown",
+					"Range",
 				},
 				OPTIONS3_PARASITE = {
 					"Parasite strength",
 					"PWR cost",
-					"Cooldown",				
+					"Cooldown",	
+					"Range",
 				},
 				
 				OPTIONS4_INC = {
@@ -330,11 +334,17 @@ return {
 					"Decrease by 1",
 					"Increase by 1",
 				},
-				OPTIONS4_TXT = "How do you want to modify this parameter?\n\n<c:FC5603>Warning: Cannot decrease a parameter below 1.</c>",
+				OPTIONS4_TXT = "How do you want to modify this parameter?\n\n<c:FC5603>Warning: Cannot decrease a parameter below 1.</c>\nCannot upgrade if parameter is 0 or NOT APPLICABLE.",
 				
 				OPTIONS_FIREWALLS_TITLE = "FIREWALLS BROKEN",
 				OPTIONS_FIREWALLS_INCREASE = "Icebreaking power increased by 1.",
 				OPTIONS_FIREWALLS_DECREASE = "Icebreaking power decreased by 1.",
+				
+				INVALID = "NOT APPLICABLE",
+				FIREWALLS_TIP = "{1} currently has a firewall-breaking strength of {2}.\n\n",
+				PWRCOST_TIP = "{1} currently has a PWR cost of {2}.\n\n",
+				COOLDOWN_TIP = "{1} currently has a cooldown of {2}.\n\n",
+				RANGE_TIP = "{1} currently has a range of {2}.\n\n",
 				
 				OPTIONS_PWRCOST_TITLE = "PWR COST",
 				OPTIONS_PWRCOST_INCREASE = "PWR cost increased by 1",
@@ -344,8 +354,15 @@ return {
 				OPTIONS_COOLDOWN_INCREASE = "Cooldown increased by 1",
 				OPTIONS_COOLDOWN_DECREASE = "Cooldown decreased by 1",
 				
+				OPTIONS_RANGE_TITLE = "RANGE",
+				OPTIONS_RANGE_INCREASE = "Range increased by 1 tile",
+				OPTIONS_RANGE_DECREASE = "Range decreased by 1 tile",
+				
 				PROGRAM_UPGRADED_SUCCESS = "PROGRAM UPGRADED",
-				PROGRAM_UPGRADE_FAIL = "Could not upgrade this parameter. Returning to root.", --needs to be implemented
+				PROGRAM_UPGRADE_FAIL_TXT = "Could not upgrade this parameter. Returning to root.", --needs to be implemented
+				PROGRAM_UPGRADE_FAIL_TITLE = "INVALID UPGRADE",
+				
+				
 			},
 		},
 	},
@@ -472,6 +489,16 @@ return {
 			KO_GAS_DESC = "This agent is surrounded by knockout gas and will be KO'd if they end their turn here.",
 			KO_GAS_PINNED = "GASSED",
 			KO_GAS_PINNED_DESC = "This agent's KO timer will not decrease until they leave the knockout gas.",
+			
+			PROGRAM_UPGRADE = {
+				UPGRADED = "UPGRADED",
+				UPGRADED_LONG = "AI TERMINAL UPGRADE",
+				PARASITE = "{1} parasite strength",
+				FIREWALLS = "{1} firewalls broken",
+				PWRCOST = "{1} PWR cost",
+				COOLDOWN = "{1} cooldown",
+				RANGE = "{1} range",
+			},
 		},	
 		
 	},
