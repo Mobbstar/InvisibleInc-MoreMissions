@@ -82,7 +82,22 @@ local function populateProgramList( sim )
 	local programs = player:getAbilities()
 	local options_list = {}
 	local traits = {}
-	for i, ability in pairs(programs) do
+	-- for i, ability in pairs(programs) do
+		-- if not ability.MM_upgraded then
+			-- local name = ability.name
+			-- table.insert( options_list, name )
+			-- traits[name] = {}
+			-- traits[name].parasite_strength = ability.parasite_strength or nil
+			-- traits[name].break_firewalls = ability.break_firewalls or nil
+			-- traits[name].maxCooldown = ability.maxCooldown or nil
+			-- traits[name].value = ability.value or nil
+			-- traits[name].cpu_cost = ability.cpu_cost or nil
+			-- traits[name].ID = ability._abilityID
+		-- end
+	-- end
+	
+	for i = 1, #programs do
+		local ability = programs[#programs +1 -i] --reverse iteration so the dialog buttons appear in the same order as in the slots
 		if not ability.MM_upgraded then
 			local name = ability.name
 			table.insert( options_list, name )
@@ -94,16 +109,18 @@ local function populateProgramList( sim )
 			traits[name].cpu_cost = ability.cpu_cost or nil
 			traits[name].ID = ability._abilityID
 		end
-	end
+	end	
 	
 	return {options_list = options_list, traits = traits}
 
 end
 
 local function upgradeIcebreak( upgradedProgram, sim, boost )
+	local validUpgrade = false
 	local result = (upgradedProgram.break_firewalls or 0) + boost
 	if result > 0 then
 		if (upgradedProgram.break_firewalls or 0) > 0 then
+			validUpgrade = true
 			upgradedProgram.break_firewalls = upgradedProgram.break_firewalls + boost
 			
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers or {}
@@ -114,6 +131,7 @@ local function upgradeIcebreak( upgradedProgram, sim, boost )
 	local result2 = (upgradedProgram.parasite_strength or 0) + boost
 	if result2 > 0 then
 		if upgradedProgram.parasite_strength then
+			validUpgrade = true
 			upgradedProgram.parasite_strength = upgradedProgram.parasite_strength + boost
 			
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
@@ -121,12 +139,15 @@ local function upgradeIcebreak( upgradedProgram, sim, boost )
 			upgradedProgram.MM_modifiers.parasite_strength = upgradedProgram.MM_modifiers.parasite_strength + boost			
 		end	
 	end
+	return validUpgrade
 end
 
 local function upgradePWRcost( upgradedProgram, sim, boost )
+	local validUpgrade = false
 	local result = (upgradedProgram.cpu_cost or 0) + boost
 	if result > 0 then
 		if upgradedProgram.cpu_cost then
+			validUpgrade = true
 			upgradedProgram.cpu_cost = upgradedProgram.cpu_cost + boost
 			
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
@@ -134,20 +155,41 @@ local function upgradePWRcost( upgradedProgram, sim, boost )
 			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost + boost			
 		end
 	end
+	return validUpgrade
 end
 
 local function upgradeCooldown( upgradedProgram, sim, boost )
+	local validUpgrade = false
 	local result = (upgradedProgram.maxCooldown or 0 ) + boost
 	if result > 0 then
 		if upgradedProgram.maxCooldown then
+			validUpgrade = true
 			upgradedProgram.maxCooldown = upgradedProgram.maxCooldown + boost
+			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
+			upgradedProgram.MM_modifiers.maxCooldown = boost		
 		end
 	end
+	return validUpgrade
+end
+
+local function upgradeRange( upgradedProgram, sim, boost )
+	local validUpgrade = false
+	local result = (upgradedProgram.range or 0) + boost
+	if result > 0 then
+		if upgradedProgram.range then
+			validUpgrade = true
+			upgradedProgram.range = upgradedProgram.range + boost
+			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
+			upgradedProgram.MM_modifiers.range = boost		
+		end
+	end
+	return validUpgrade
 end
 
 local function finishProgramUpgrade( upgradedProgram, sim )
 	upgradedProgram.value = upgradedProgram.value or 0
 	upgradedProgram.value = upgradedProgram.value * 1.5 --increase resale value of upgraded program
+	upgradedProgram.name = "UPGRADED "..upgradedProgram.name
 	sim:getTags().used_AI_terminal = true
 	sim:getTags().upgradedPrograms = true
 	sim:triggerEvent( "finished_using_AI_terminal" )
@@ -221,22 +263,37 @@ local function upgradeDialog( script, sim )
 				
 				if option3 == 1 then
 					--increase/decrease firewalls broken
-					local txt_firewalls = util.sformat("{1} currently has a firewall-breaking strength of {2}.\n\n",upgradedProgram.name, (upgradedProgram.break_firewalls or upgradedProgram.parasite_strength or 0))..txt_increment
+					local txt_firewalls = util.sformat(dialogPath.FIREWALLS_TIP, upgradedProgram.name, (
+					(((upgradedProgram.break_firewalls or 0) > 0) and upgradedProgram.break_firewalls )
+					or (((upgradedProgram.parasite_strength or 0) > 0) and upgradedProgram.parasite_strength)
+					or dialogPath.INVALID	))..txt_increment
 					
 					local option_firewalls = mission_util.showDialog( sim, dialogPath.OPTIONS_FIREWALLS_TITLE, txt_firewalls, options_increment )
 					
-					-- todo: show failure screen and abort dialog (to start over) if player tries to make an invalid upgrade
+
 					if option_firewalls == 3 then	
-						upgradeIcebreak( upgradedProgram, sim, 1 )		
-						mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_FIREWALLS_INCREASE )	
+						local validUpgrade = upgradeIcebreak( upgradedProgram, sim, 1 )	
+						if validUpgrade == true then
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_FIREWALLS_INCREASE )	
 						
-						finishProgramUpgrade(upgradedProgram, sim )
+							finishProgramUpgrade(upgradedProgram, sim )
+						else
+							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
+							option_firewalls = nil
+							triggerData.abort = true
+						end
 						
 					elseif option_firewalls == 2 then
-						upgradeIcebreak( upgradedProgram, sim, -1 )
-						mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_FIREWALLS_DECREASE )
+						local validUpgrade = upgradeIcebreak( upgradedProgram, sim, -1 )
+						if validUpgrade == true then
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_FIREWALLS_DECREASE )
 						
-						finishProgramUpgrade(upgradedProgram, sim )
+							finishProgramUpgrade(upgradedProgram, sim )
+						else
+							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
+							option_firewalls = nil
+							triggerData.abort = true
+						end
 					else
 						option_firewalls = nil
 						triggerData.abort = true
@@ -244,41 +301,100 @@ local function upgradeDialog( script, sim )
 					
 				elseif option3 == 2 then
 				
-					local option_PWR = mission_util.showDialog( sim, "PWR COST", txt_increment, options_increment )
-					if option_PWR == 3 then
+					local txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (upgradedProgram.cpu_cost or dialogPath.INVALID))..txt_increment		
+
+					if upgradedProgram.parasiteV2 then --blargh, hardcoding
+						txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (dialogPath.INVALID))..txt_increment
+					end
 					
-						upgradePWRcost( upgradedProgram, sim, 1 )
-						mission_util.showGoodResult( sim, dialogPath.OPTIONS_PWRCOST_TITLE, dialogPath.OPTIONS_PWRCOST_INCREASE )					
-						finishProgramUpgrade(upgradedProgram, sim )
+					local option_PWR = mission_util.showDialog( sim, dialogPath.OPTIONS_PWRCOST_TITLE, txt_PWRcost, options_increment )
+					if option_PWR == 3 then
+						
+						local validUpgrade = upgradePWRcost( upgradedProgram, sim, 1 )
+						if validUpgrade == true then
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_PWRCOST_INCREASE )					
+							finishProgramUpgrade(upgradedProgram, sim )
+						else
+							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
+							option_PWR = nil
+							triggerData.abort = true						
+						end
 						
 					elseif option_PWR == 2 then
 					
-						upgradePWRcost( upgradedProgram, sim, -1 )
-						mission_util.showGoodResult( sim, dialogPath.OPTIONS_PWRCOST_TITLE, dialogPath.OPTIONS_PWRCOST_DECREASE )		
-						finishProgramUpgrade(upgradedProgram, sim )
+						local validUpgrade = upgradePWRcost( upgradedProgram, sim, -1 )
+						if validUpgrade == true then
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_PWRCOST_DECREASE )		
+							finishProgramUpgrade(upgradedProgram, sim )
+						else
+							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
+							option_PWR = nil
+							triggerData.abort = true						
+						end
 					else
 						option_PWR = nil
 						triggerData.abort = true
 					end
 				elseif option3 == 3 then
 				
-					local option_CD = mission_util.showDialog( sim, "COOLDOWN", txt_increment, options_increment )
+					local txt_cooldown = util.sformat(dialogPath.COOLDOWN_TIP, upgradedProgram.name, (upgradedProgram.maxCooldown or dialogPath.INVALID))..txt_increment					
+				
+					local option_CD = mission_util.showDialog( sim, dialogPath.OPTIONS_COOLDOWN_TITLE, txt_cooldown, options_increment )
 					if option_CD == 3 then
 					
-						upgradeCooldown( upgradedProgram, sim, 1 )
-						mission_util.showGoodResult( sim, dialogPath.OPTIONS_COOLDOWN_TITLE, dialogPath.OPTIONS_COOLDOWN_INCREASE )
-						finishProgramUpgrade(upgradedProgram, sim )
+						local validUpgrade = upgradeCooldown( upgradedProgram, sim, 1 )
+						if validUpgrade == true then
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_COOLDOWN_INCREASE )
+							finishProgramUpgrade(upgradedProgram, sim )
+						else
+							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
+							option_CD = nil
+							triggerData.abort = true						
+						end
 						
 					elseif option_CD == 2 then
 					
-						upgradeCooldown( upgradedProgram, sim, -1 )
-						mission_util.showGoodResult( sim, dialogPath.OPTIONS_COOLDOWN_TITLE, dialogPath.OPTIONS_COOLDOWN_DECREASE )	finishProgramUpgrade(upgradedProgram, sim )
-						
+						local validUpgrade = upgradeCooldown( upgradedProgram, sim, -1 )
+						if validUpgrade == true then
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_COOLDOWN_DECREASE )	
+							finishProgramUpgrade(upgradedProgram, sim )
+						else
+							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
+							option_CD = nil
+							triggerData.abort = true						
+						end
 					else
 						option_CD = nil
 						triggerData.abort = true
 					end
-
+				elseif option3 == 4 then
+					local txt_range = util.sformat( dialogPath.RANGE_TIP, upgradedProgram.name, (upgradedProgram.range or dialogPath.INVALID))..txt_increment
+					
+					local option_RANGE = mission_util.showDialog( sim, dialogPath.OPTIONS_RANGE_TITLE, txt_range, options_increment )
+					if option_RANGE == 3 then
+						local validUpgrade = upgradeRange( upgradedProgram, sim, 1 )
+						if validUpgrade == true then
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_RANGE_INCREASE )
+							finishProgramUpgrade(upgradedProgram, sim )
+						else
+							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
+							option_CD = nil
+							triggerData.abort = true						
+						end
+					elseif option_RANGE == 2 then
+						local validUpgrade = upgradeRange( upgradedProgram, sim, -1 )
+						if validUpgrade == true then
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_RANGE_DECREASE )
+							finishProgramUpgrade(upgradedProgram, sim )
+						else
+							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
+							option_CD = nil
+							triggerData.abort = true						
+						end
+					else
+						option_CD = nil
+						triggerData.abort = true
+					end
 				end
 			end
 		end
@@ -454,7 +570,8 @@ local function upgradeIncognita( script, sim )
 		
 		local programs = sim:getPC():getAbilities()
 		for i, ability in pairs(programs) do	
-			local ID = ability._abilityID
+			-- local ID = ability._abilityID --see rant in scriptPath mainframe_abilities
+			local ID = ability.name
 			if ability.MM_modifiers then
 				agency.MM_upgradedPrograms[ID] = {}
 				agency.MM_upgradedPrograms[ID] = util.tcopy( ability.MM_modifiers )
@@ -477,7 +594,15 @@ local function addKeys( sim )
 		end
 		if unit:getTraits().mainframe_console and not consoleAdded then
 			unit:addTag("W93_INCOG_LOCK")
+			-- log:write("LOG console added!")
 			consoleAdded = true
+			if not (unit:getPlayerOwner() == sim:getNPC()) then
+				-- log:write("reowning console")
+				-- this is necessary on the 0 consoles setting because consoles start out player-owned
+				unit:setPlayerOwner(sim:getNPC())
+				unit:getTraits().hijacked = nil
+				unit:getTraits().cpus = 2 --sorry, AndrewKay, I cannot be bothered to look up the console PWR determining thing for this
+			end
 		end
 		if consoleAdded and safeAdded then
 			break
@@ -525,9 +650,16 @@ function mission.pregeneratePrefabs( cxt, tagSet )
 	table.insert( tagSet[1], "MM_incogRoom" )
 end
 
--- function mission.generatePrefabs( cxt, candidates )
-    -- local prefabs = include( "sim/prefabs" ) 
-	-- escape_mission.generatePrefabs( cxt, candidates )
--- end	
+function mission.generatePrefabs( cxt, candidates )
+    local prefabs = include( "sim/prefabs" ) 
+	escape_mission.generatePrefabs( cxt, candidates )
+	
+	if cxt.params.difficultyOptions.safesPerLevel == 0 then
+		prefabs.generatePrefabs( cxt, candidates, "safe", 1 )
+	end 
+	if cxt.params.difficultyOptions.consolesPerLevel == 0 then
+		prefabs.generatePrefabs( cxt, candidates, "console", 1 )
+	end	
+end	
 
 return mission
