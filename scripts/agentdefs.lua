@@ -133,7 +133,40 @@ local agent_templates =
 		profile_icon_36x36= "gui/profile_icons/lady_tech_36.png",--
 		profile_icon_64x64= "gui/profile_icons/engineer2_64x64.png",--
 		splash_image = "gui/agents/central_1024.png",--
-		profile_anim = "portraits/central_face",--
+		profile_build = "portraits/lady_mole_face_dark",
+		profile_anim = "portraits/dracul_build",
+		gender = "female",
+		team_select_img = {
+			"gui/agents/team_select_1_central.png",--
+		},
+		kanim = "kanim_central",--
+		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=8,  mpMax = 8, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false},	
+		tags = {"MM_mole","Natalie"},
+		children = { "MM_mole_cloak", "MM_paralyzer_amnesiac"}, -- Dont add items here, add them to the upgrades table in createDefaultAgency()
+		startingSkills = { anarchy = 2},
+		abilities = util.tconcat( {  "sprint","MM_escape_guardelevator" }, commondefs.DEFAULT_AGENT_ABILITIES ),
+		sounds = INTERNATIONALE_SOUNDS,
+		speech = STRINGS.MOREMISSIONS.AGENTS.MOLE.BANTER,
+		blurb = "",
+		upgrades = { },
+	},	
+
+	MM_mole2 =		-- different kanim/portrait
+	{
+		type = "simunit",
+		agentID = "MM_mole", --for item's restrictedUse
+		name = STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME,
+		fullname = STRINGS.MOREMISSIONS.AGENTS.MOLE.FULLNAME,
+		yearsOfService = STRINGS.AGENTS.PRISONER.YEARS_OF_SERVICE,
+		age = STRINGS.AGENTS.PRISONER.AGE,
+		hometown = STRINGS.AGENTS.PRISONER.HOMETOWN,
+		toolTip = STRINGS.MOREMISSIONS.AGENTS.MOLE.TOOLTIP,
+		onWorldTooltip = commondefs.onAgentTooltip,
+		profile_icon_36x36= "gui/profile_icons/lady_tech_36.png",--
+		profile_icon_64x64= "gui/profile_icons/engineer2_64x64.png",--
+		splash_image = "gui/agents/central_1024.png",--
+		profile_build = "portraits/lady_mole_face_light",
+		profile_anim = "portraits/dracul_build",
 		gender = "female",
 		team_select_img = {
 			"gui/agents/team_select_1_central.png",--
