@@ -71,7 +71,7 @@ local SITUATIONS =
 	{
         ui = {
 			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
-			icon = "gui/mission_previews/ea_hostage.png", --placeholder
+			icon = "gui/icons/mission_icons/mission_mole_insertion_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE_SECONDARY),
 		},
@@ -81,7 +81,7 @@ local SITUATIONS =
 	{
         ui = {
 			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
-			icon = "gui/mission_previews/ea_hostage.png", --placeholder
+			icon = "gui/icons/mission_icons/mission_ai_terminal_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE_SECONDARY),
 		},
