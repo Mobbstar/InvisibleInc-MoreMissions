@@ -325,6 +325,9 @@ local function spawnMole( script, sim )
 				
 	local spawn_cell = adjacent_cells[sim:nextRand(1, #adjacent_cells)]
 	local unitData = unitdefs.lookupTemplate("MM_mole")
+	if sim:nextRand() < 0.5 then
+		unitData = unitdefs.lookupTemplate("MM_mole2") --alt skin
+	end
 	local newUnit = simfactory.createUnit( unitData, sim )
 	local player = sim:getPC()
 	newUnit:setPlayerOwner(player)
