@@ -50,7 +50,7 @@ local SITUATIONS =
 	weapons_expo =
 	{
         ui = {
-			insetImg = "gui/menu pages/corp_select/New_mission_icons/10002.png", -- vault case (same as Vault mission, for now)
+			insetImg = "gui/icons/mission_icons/mission_tech_expo.png",
 			icon = "gui/icons/mission_icons/mission_weapons_expo_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_OBJECTIVE ),
 		},
@@ -70,7 +70,7 @@ local SITUATIONS =
 	mole_insertion =
 	{
         ui = {
-			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			insetImg = "gui/icons/mission_icons/mission_mole_insertion.png",
 			icon = "gui/icons/mission_icons/mission_mole_insertion_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE_SECONDARY),
@@ -80,7 +80,7 @@ local SITUATIONS =
 	ai_terminal = -- ported from Worldgen Extended by wodzu! with some extra features
 	{
         ui = {
-			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
+			insetImg = "gui/icons/mission_icons/mission_ai_terminal.png",
 			icon = "gui/icons/mission_icons/mission_ai_terminal_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE_SECONDARY),
