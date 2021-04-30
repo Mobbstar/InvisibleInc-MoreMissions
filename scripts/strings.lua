@@ -480,7 +480,7 @@ return {
 			EA_HOSTAGE_VITAL_STATUS = "VITAL STATUS",
 			EA_HOSTAGE_VITAL_STATUS_DESC = "Will expire if not extracted in {1} {1:turn|turns}.",
 			PARALYZE_AMNESIAC = "Amnesiac dose",
-			PARALYZE_AMNESIAC_DESC = "Inject pinned victim with amnesiac. Removes WITNESS tag, removes alert, and reduces max AP by {1}.",
+			PARALYZE_AMNESIAC_DESC = "Inject pinned victim with amnesiac. Removes WITNESS tag and reduces max AP by {1}.",
 			WITNESS = "WITNESS",
 			WITNESS_DESC_HUMAN = "Kill this unit or KO and apply Amnesiac.",
 			WITNESS_DESC_MAINFRAME = "Destroy this unit or scrub Camera Database.",
