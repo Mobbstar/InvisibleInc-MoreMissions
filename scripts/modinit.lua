@@ -316,6 +316,15 @@ local function lateInit( modApi )
 			end
 		end	
 	end
+	
+	-- this keeps the personnel DB hack from erroneously triggering actual data bank hacking scripts
+	local simunit_progressHack_old = simunit.progressHack
+	simunit.progressHack = function( self, ... )
+		if self:getTraits().MM_personneldb then
+			return
+		end
+		return simunit_progressHack_old( self, ... )
+	end	
 
 	-- Amnesiac function as append of paralyze
 	local paralyze = abilitydefs.lookupAbility("paralyze")
