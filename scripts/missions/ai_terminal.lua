@@ -411,6 +411,7 @@ end
 
 local function spottedDoor( script, sim )
 	script:waitFor( mission_util.PC_SAW_CELL_WITH_TAG( script, "IncognitaLock2" ))
+	
 	local c = findCell( sim, "IncognitaLock2" )
 
 	script:queue( 1*cdefs.SECONDS )
@@ -617,7 +618,16 @@ local mission = class( escape_mission )
 
 function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
-
+	
+	local c = findCell( sim, "IncognitaLock2" )
+	if not c then
+		log:write("LOG: AI terminal room not found. Regenerating level.")
+		local basegame = include( "states/state-game" )
+		if basegame then
+			basegame:regenerateLevel()
+		end
+	end
+	
 	addKeys( sim )
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.OBJ_FIND, "find" )
 
