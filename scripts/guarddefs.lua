@@ -94,11 +94,11 @@ local npc_templates =
 		type = "simunit",
 		name = STRINGS.MOREMISSIONS.GUARDS.BODYGUARD,
 		profile_anim = "portraits/portrait_animation_template",
-		profile_build = "portraits/enforcer2_build",	
+		profile_build = "portraits/mm_bodyguard_face",	
 		profile_image = "enforcer_2.png",
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
-		kanim = "kanim_guard_male_enforcer_2",
+		kanim = "kanim_mm_bodyguard",
 		traits = util.extend( commondefs.basic_guard_traits )   
 		{
 			walk=true,
