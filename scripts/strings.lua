@@ -114,9 +114,9 @@ return {
 		},
 		MOLE = 
 		{
-			NAME = "Natalie",
-			FULLNAME = "N. Formaunte",
-			TOOLTIP = "Professional Informant",
+			NAME = "INFORMANT",
+			FULLNAME = "Natalie Formaunte",
+			TOOLTIP = "Undercover Specialist",
 			BANTER =
 			{
 				START = {
