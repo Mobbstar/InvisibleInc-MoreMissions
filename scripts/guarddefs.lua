@@ -125,11 +125,11 @@ local npc_templates =
 		type = "simdrone",--"simunit", --simdrone, surprisingly, works well
 		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_DROID or "Prototype Android",
 		profile_anim = "portraits/portrait_animation_template",
-		profile_build = "portraits/mm_bodyguard_face",	--PLACEHOLDER
+		profile_build = "portraits/MM_bot_pink_face",	
 		profile_image = "enforcer_2.png",
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
-		kanim = "mm_kanim_guard_male_dummy", --replace with better one?
+		kanim = "kanim_MM_android",
 		traits = util.extend( commondefs.basic_guard_traits )   
 		{
 			-- walk=true,
@@ -185,11 +185,11 @@ local npc_templates =
 		rig = "dronerig",
 		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_DROID_SPEC or "Prototype Android",
 		profile_anim = "portraits/portrait_animation_template",
-		profile_build = "portraits/mm_bodyguard_face", --placeholder	
+		profile_build = "portraits/MM_bot_purple_face",
 		profile_image = "enforcer_2.png",
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
-		kanim = "mm_kanim_guard_male_dummy", 
+		kanim = "kanim_MM_android_elite", 
 		traits = util.extend( commondefs.basic_guard_traits )   
 		{
 			-- walk=true,
