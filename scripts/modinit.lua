@@ -158,7 +158,8 @@ local function init( modApi )
 	include( scriptPath.."/hud" )--from Interactive Events, required for modal dialog choice menu to work properly
 	
 	-- AI TERMINAL
-	include( scriptPath .. "/abilities/mainframe_abilities" )	
+	local modifyPrograms = include( scriptPath .. "/abilities/mainframe_abilities" )
+	modifyPrograms()	
 	-- double-included here in init and in lateLoad to catch both vanilla overrides and mod additions. Upgraded programs with abilityOverride such as Fusion DO NOT WORK without this line!
 end
 
@@ -841,7 +842,8 @@ local function lateLoad( modApi, options, params )
 	end
 
 	-- AI TERMINAL
-	include( scriptPath .. "/abilities/mainframe_abilities" )
+	local modifyPrograms = include( scriptPath .. "/abilities/mainframe_abilities" )
+	modifyPrograms()
 end
 
 local function unload( modApi, options )
