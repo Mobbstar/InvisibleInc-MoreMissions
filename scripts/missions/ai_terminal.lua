@@ -149,7 +149,9 @@ local function upgradePWRcost( upgradedProgram, sim, boost )
 		if upgradedProgram.cpu_cost then
 			validUpgrade = true
 			upgradedProgram.cpu_cost = upgradedProgram.cpu_cost + boost
-			
+			if upgradedProgram.GOLEMCOST then
+				upgradedProgram.GOLEMCOST = upgradedProgram.GOLEMCOST + boost
+			end
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
 			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost or 0
 			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost + boost			
@@ -189,6 +191,7 @@ end
 local function finishProgramUpgrade( upgradedProgram, sim )
 	upgradedProgram.value = upgradedProgram.value or 0
 	upgradedProgram.value = upgradedProgram.value * 1.5 --increase resale value of upgraded program
+	upgradedProgram.oldName = upgradedProgram.name
 	upgradedProgram.name = "UPGRADED "..upgradedProgram.name
 	sim:getTags().used_AI_terminal = true
 	sim:getTags().upgradedPrograms = true
@@ -572,8 +575,8 @@ local function upgradeIncognita( script, sim )
 		local programs = sim:getPC():getAbilities()
 		for i, ability in pairs(programs) do	
 			-- local ID = ability._abilityID --see rant in scriptPath mainframe_abilities
-			local ID = ability.name
 			if ability.MM_modifiers then
+				local ID = ability.oldName
 				agency.MM_upgradedPrograms[ID] = {}
 				agency.MM_upgradedPrograms[ID] = util.tcopy( ability.MM_modifiers )
 			end
