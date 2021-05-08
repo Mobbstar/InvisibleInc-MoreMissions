@@ -689,7 +689,8 @@ local function despawnRedundantCameraDB(sim)
 		if unit:getUnitData().id == "camera_core" then
 			table.insert(cameraDBs, unit)
 			unit:getTraits().MM_camera_core = true
-			unit:addTag("MM_camera_core") --this doesn't work?!!!
+			unit:getTraits().sightable = true --required for triggering on unit appeared
+			unit:addTag("MM_camera_core")
 			unit:giveAbility("MM_scrubcameradb") --ability that allows witness scrubbing
 			local daemonList = sim:getIcePrograms()
 			if daemonList:getCount() > 0 then
