@@ -824,9 +824,13 @@ local function load( modApi, options, params )
 	local serverdefs_createNewSituation_old = serverdefs.createNewSituation
 	serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )
 		local newSituation =  serverdefs_createNewSituation_old(campaign, gen, tags, difficulty )
-		local corp = serverdefs.MAP_LOCATIONS[newSituation.mapLocation].corpName
-		if campaign.MM_assassination and campaign.MM_assassination[corp] then
-			newSituation.difficulty  = newSituation.difficulty + campaign.MM_assassination[corp]
+
+		if newSituation then
+			local corp = serverdefs.MAP_LOCATIONS[newSituation.mapLocation].corpName
+			if campaign.MM_assassination and campaign.MM_assassination[corp] then
+				-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
+				newSituation.difficulty = newSituation.difficulty + campaign.MM_assassination[corp]
+			end
 		end
 		
 		return newSituation
