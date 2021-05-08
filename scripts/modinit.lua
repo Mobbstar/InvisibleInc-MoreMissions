@@ -4,7 +4,6 @@ local simdefs = include( "sim/simdefs" )
 local array = include( "modules/array" )
 local abilitydefs = include( "sim/abilitydefs" )
 local simquery = include ( "sim/simquery" )
--- local itemdefs = include ("sim/unitdefs/itemdefs")
 local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
@@ -449,11 +448,10 @@ local function load( modApi, options, params )
 		params.mm_enabled = true
 	end
 
-	-- itemdefs moved to lateLoad to allow other mods to populate itemdefs for Tech Expo automatic template generation
-	--local itemdefs = include( scriptPath .. "/itemdefs" )
-	--for name, itemDef in pairs(itemdefs) do
-		--modApi:addItemDef( name, itemDef )
-	--end
+	local itemdefs = include( scriptPath .. "/itemdefs" )
+	for name, itemDef in pairs(itemdefs) do
+		modApi:addItemDef( name, itemDef )
+	end
 	local propdefs = include( scriptPath .. "/propdefs" )
 	for i,item in pairs(propdefs) do
 		modApi:addPropDef( i, item, true )
@@ -840,8 +838,8 @@ end
 
 local function lateLoad( modApi, options, params )
 	local scriptPath = modApi:getScriptPath()
-	local itemdefs = include( scriptPath .. "/itemdefs" )
-	for name, itemDef in pairs(itemdefs) do
+	local tech_expo_itemdefs = include( scriptPath .. "/tech_expo_itemdefs" )
+	for name, itemDef in pairs(tech_expo_itemdefs.generateTechExpoGear()) do
 		modApi:addItemDef( name, itemDef )
 	end
 
