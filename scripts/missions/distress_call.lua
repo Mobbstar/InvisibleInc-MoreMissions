@@ -272,7 +272,7 @@ local function startAgentEscape( script, sim, mission )
 
 	else
 		mission.operative_distressed = true
-		local new_template = unitdefs.lookupTemplate( "agent_009" )
+		local new_template = unitdefs.lookupTemplate( "MM_agent_009" )
 		local newUnit = simfactory.createUnit(new_template, sim)
 		-- newUnit._traits.template = new_template.template
 		-- newUnit._unitData.kanim = new_template.kanim
