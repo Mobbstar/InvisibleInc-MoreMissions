@@ -34,7 +34,7 @@ local INTERNATIONALE_SOUNDS =
 local agent_templates =
 {
 	--NPCs
-	agent_009 =
+	MM_agent_009 =
 	{
 		type = "simunit",
 		name = STRINGS.MOREMISSIONS.AGENTS.AGENT_009.NAME,
@@ -44,11 +44,11 @@ local agent_templates =
 		hometown = STRINGS.AGENTS.PRISONER.HOMETOWN,
 		toolTip = STRINGS.MOREMISSIONS.AGENTS.AGENT_009.TOOLTIP,
 		onWorldTooltip = commondefs.onAgentTooltip,
-		profile_icon_36x36= "gui/profile_icons/prisoner_64.png",
+		profile_icon_36x36= "gui/icons/agent_icons/MM_agent009_36.png",
 		splash_image = "gui/agents/agentDeckard_768.png",
 		profile_anim = "portraits/portrait_animation_template",
-		profile_build = "portraits/executive_build", --PLACEHOLDER		
-		kanim = "kanim_sharpshooter_male_a", --PLACEHOLDER
+		profile_build = "portraits/MM_agent009_face", --PLACEHOLDER		
+		kanim = "kanim_MM_agent009",
 		gender = "male",
 		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { cant_abandon = true, mp=9, mpMax=9, rescued=true, leavesAtEndOfMission= true},	
 		children = {}, -- Dont add items here, add them to the upgrades table in createDefaultAgency()
