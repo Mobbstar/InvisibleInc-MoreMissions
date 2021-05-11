@@ -15,6 +15,8 @@ KWAD files - Run the KWAD builder to generate a fresh KWAD file from the raw ass
 
 **Alternatively, and much easier, you can download the .rar file containing the most recent full build of the mod** from the Releases tab on the right, and unzip it into your Mods folder. This version is largely up to date but may not include recent minor updates.
 
+![image](https://user-images.githubusercontent.com/39839566/117757618-b3319200-b220-11eb-8001-c416c9df1233.png)
+
 This mod requires [Sim Constructor by Cyberboy2000](https://steamcommunity.com/workshop/filedetails/?id=580661011) and [Function Library by wodzu_93](https://steamcommunity.com/sharedfiles/filedetails/?id=1745350836).
 
 ## Content
