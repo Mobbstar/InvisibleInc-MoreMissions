@@ -442,7 +442,7 @@ end
 
 local function activateCam( sim )
 	for i, unit in pairs(sim:getAllUnits()) do
-		if unit:getTraits().MM_camera then
+		if unit:getTraits().MM_camera and (unit:getTraits().mainframe_status ~= "active") then
 			-- unit:activate( sim )
 			unit:getTraits().mainframe_status = "active"
 			unit:getTraits().hasSight = true
