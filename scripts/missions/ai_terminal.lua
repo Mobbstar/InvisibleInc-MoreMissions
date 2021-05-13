@@ -554,7 +554,8 @@ local function upgradeIncognita( script, sim )
 	--now for the security measures
 	script:queue( 1 * cdefs.SECONDS )
 	script:addHook( makeSmoke )
-
+	
+	sim:setClimax(true)
 	sim.exit_warning = nil
 	sim.TA_mission_success = true
 
