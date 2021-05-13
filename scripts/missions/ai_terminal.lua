@@ -240,20 +240,57 @@ local function upgradeDialog( script, sim )
 		for i = #options2, 1, -1 do
 			if option2 == i then
 				local txt3 = dialogPath.OPTIONS3_TXT
-				local options3 = dialogPath.OPTIONS3
+				local options3 = util.tcopy(dialogPath.OPTIONS3)
 				-- {
 					-- "Firewalls broken",
 					-- "PWR cost",
-					-- "Cooldown"
+					-- "Cooldown",
+					-- "Range"
 				-- }
 	
 				local program_ID  = populateProgramList(sim).traits[program_name].ID
 				local upgradedProgram = sim:getPC():hasMainframeAbility( program_ID )
 				
 				if upgradedProgram.parasite_strength ~= nil then
-					options3 = dialogPath.OPTIONS3_PARASITE
+					options3 = util.tcopy(dialogPath.OPTIONS3_PARASITE)
 				end
 				
+				-- NEW: only 2 out of 4 upgrades should be available in a given mission, at random, to force variety and more interesting choices.
+				local upgrades_available = {
+					[1] = true,
+					[2] = true,
+					[3] = true,
+					[4] = true,
+				}				
+				
+				local pos1, pos2 = sim.MM_AI_terminal_parameters[1], sim.MM_AI_terminal_parameters[2]
+				
+				table.remove(options3,pos1)
+				table.remove(options3,pos2)
+
+				local firewall_opt = nil --1
+				local pwr_opt = nil --2
+				local cd_opt = nil --3
+				local range_opt = nil --4
+				
+				-- reassign now that two entries in options were randomly removed
+				for num = #options3, 1, -1 do
+					local pam = options3[num]
+				-- for num, pam in pairs(options3) do
+					if (pam == "Firewalls broken") or (pam == "Parasite strength") then
+						firewall_opt = num
+					end
+					if pam == "PWR cost" then
+						pwr_opt = num
+					end
+					if pam == "Cooldown" then
+						cd_opt = num
+					end
+					if pam == "Range" then
+						range_opt = num
+					end
+				end
+
 				local option3 = mission_util.showDialog( sim, dialogPath.OPTIONS3_TITLE, txt3, options3 ) --choose between parameters to upgrade
 				
 				local txt_increment = dialogPath.OPTIONS4_TXT --"Choose a change. Parameter cannot be decreased below 1."
@@ -264,7 +301,7 @@ local function upgradeDialog( script, sim )
 					-- "Decrease by 1",
 				-- }
 				
-				if option3 == 1 then
+				if option3 == firewall_opt then
 					--increase/decrease firewalls broken
 					local txt_firewalls = util.sformat(dialogPath.FIREWALLS_TIP, upgradedProgram.name, (
 					(((upgradedProgram.break_firewalls or 0) > 0) and upgradedProgram.break_firewalls )
@@ -302,7 +339,7 @@ local function upgradeDialog( script, sim )
 						triggerData.abort = true
 					end
 					
-				elseif option3 == 2 then
+				elseif option3 == pwr_opt then
 				
 					local txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (upgradedProgram.cpu_cost or dialogPath.INVALID))..txt_increment		
 
@@ -338,7 +375,7 @@ local function upgradeDialog( script, sim )
 						option_PWR = nil
 						triggerData.abort = true
 					end
-				elseif option3 == 3 then
+				elseif option3 == cd_opt then
 				
 					local txt_cooldown = util.sformat(dialogPath.COOLDOWN_TIP, upgradedProgram.name, (upgradedProgram.maxCooldown or dialogPath.INVALID))..txt_increment					
 				
@@ -370,7 +407,7 @@ local function upgradeDialog( script, sim )
 						option_CD = nil
 						triggerData.abort = true
 					end
-				elseif option3 == 4 then
+				elseif option3 == range_opt then
 					local txt_range = util.sformat( dialogPath.RANGE_TIP, upgradedProgram.name, (upgradedProgram.range or dialogPath.INVALID))..txt_increment
 					
 					local option_RANGE = mission_util.showDialog( sim, dialogPath.OPTIONS_RANGE_TITLE, txt_range, options_increment )
@@ -615,6 +652,22 @@ local function addKeys( sim )
 	end
 
 end
+
+local function chooseUpgrades( sim )
+
+	local pos1, pos2 = nil, nil
+	pos1 = sim:nextRand(1,4) --pick two non-duplicate random parameters
+	while pos2 == nil do
+		local temp_pos2 = sim:nextRand(1,4)
+		if pos1 ~= temp_pos2 then
+			pos2 = temp_pos2
+		end
+	end
+	sim.MM_AI_terminal_parameters = {}
+	sim.MM_AI_terminal_parameters[1] = pos1
+	sim.MM_AI_terminal_parameters[2] = pos2
+
+end
 ---------------------------------------------------------------------------------------------
 -- Begin!
 
@@ -633,6 +686,7 @@ function mission:init( scriptMgr, sim )
 	end
 	
 	addKeys( sim )
+	chooseUpgrades( sim ) --randomly choose 2 out of 4 possible parameters available for program upgrade in AI terminal
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.OBJ_FIND, "find" )
 
 	scriptMgr:addHook( "spottedDoor", spottedDoor )
