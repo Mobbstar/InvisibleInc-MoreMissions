@@ -66,7 +66,7 @@ local npc_templates =
 			pacifist = true,
 			recap_icon = "executive",
 			MM_bounty_target = true,
-			woundsMax = 2, --EXPERIMENTAL
+			-- woundsMax = 2, --EXPERIMENTAL
 		},
 		dropTable =
 		{
