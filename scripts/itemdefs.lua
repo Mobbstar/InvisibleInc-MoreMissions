@@ -3,6 +3,26 @@ local commondefs = include( "sim/unitdefs/commondefs" )
 -- local simdefs = include( "sim/simdefs" )
 local NEVER_SOLD = 10000
 
+local function onCloakTooltip( tooltip, unit, userUnit )
+    local cdefs = include( "client_defs" )
+    local simquery = include( "sim/simquery" )
+    commondefs.item_template.onTooltip( tooltip, unit, userUnit )
+    if userUnit and unit:getSim() then
+        local x0, y0 = userUnit:getLocation()
+        tooltip:addRange( unit:getTraits().range, x0, y0, cdefs.HILITE_TARGET_COLOR )
+
+        local hiliteUnits = {}
+		local cells = simquery.fillCircle( unit:getSim(), x0, y0, unit:getTraits().range, 0)
+		for i, cell in ipairs(cells) do
+			for i, cellUnit in ipairs( cell.units ) do
+				if cellUnit:getTraits().isAgent and cellUnit:getPlayerOwner() and (cellUnit:getPlayerOwner() == userUnit:getPlayerOwner()) then
+                    table.insert( hiliteUnits, cellUnit:getID() )
+				end
+			end
+		end
+        tooltip:addUnitHilites( hiliteUnits )
+    end
+end	
 
 local tool_templates =
 {
@@ -166,6 +186,239 @@ local tool_templates =
 	-- MM_mole_cloak = util.extend(commondefs.item_template) --MOVED TO PROPS
 	-- {
 	-- },
+	
+	-- TECH EXPO NON-WEAPONS: manually-created rather than procedurally
+	-- Powerful, single-use items!
+	--MM_tech_expo_item trait added in tech_expo_itemdefs.lua
+	
+	MM_techexpo_fraggrenade = util.extend( commondefs.grenade_template)
+	{
+        type = "MM_simfraggrenade",
+		name = STRINGS.MOREMISSIONS.ITEMS.GRENADE_FRAG,
+		desc = STRINGS.MOREMISSIONS.ITEMS.GRENADE_FRAG_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.GRENADE_FRAG_FLAVOR,
+		icon = "itemrigs/Crybaby.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_flash_grenade_small.png",	
+		profile_icon_100 = "gui/icons/item_icons/icon-item_flash_grenade.png",		
+		kanim = "kanim_flashgrenade",		
+		sounds = {explode="SpySociety/Grenades/flashbang_explo", bounce="SpySociety/Grenades/bounce"},
+		traits = { baseDamage = 2, range=3, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, }, --lethal damage
+		value = 600,
+		locator=true,
+	},
+	
+	MM_techexpo_frag_smoke_grenade = util.extend( commondefs.grenade_template)
+	{
+        type = "MM_simfraggrenade",
+		name = STRINGS.MOREMISSIONS.ITEMS.SMOKE_FRAG_GRENADE,
+		desc = STRINGS.MOREMISSIONS.ITEMS.SMOKE_FRAG_GRENADE_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.SMOKE_FRAG_GRENADE_FLAVOR,
+		icon = "itemrigs/Crybaby.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_flash_grenade_small.png",	
+		profile_icon_100 = "gui/icons/item_icons/icon-item_flash_grenade.png",		
+		kanim = "kanim_flashgrenade",		
+		sounds = {explode="SpySociety/Grenades/flashbang_explo", bounce="SpySociety/Grenades/bounce"},
+		traits = { baseDamage = 2, range=2, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, createsSmoke = true, on_spawn = "smoke_cloud" }, --lethal damage
+		value = 600,
+		locator=true,
+	},	
+	
+	MM_techexpo_smokegrenade = util.extend( commondefs.grenade_template )
+	{
+        type = "smoke_grenade",
+		name = STRINGS.ITEMS.GRENADE_SMOKE,
+		desc = STRINGS.ITEMS.GRENADE_SMOKE_TOOLTIP,
+		flavor = STRINGS.ITEMS.GRENADE_SMOKE_FLAVOR,
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_smoke_grenade_small.png",	
+		profile_icon_100 = "gui/icons/item_icons/icon-item_smoke_grenade.png",	
+		kanim = "kanim_stickycam",		
+		sounds = {explode="SpySociety/Grenades/smokegrenade_explo", bounce="SpySociety/Grenades/bounce_smokegrenade"},
+		traits = { on_spawn = "smoke_cloud" , range=6, noghost = true, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		value = 300,
+		locator=true,
+	},	
+	
+	MM_techexpo_cloakingrig = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.CLOAK_1,
+		desc = STRINGS.MOREMISSIONS.ITEMS.CLOAK_1_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.CLOAK_1_FLAVOR,
+		onTooltip = onCloakTooltip,
+		icon = "itemrigs/FloorProp_InvisiCloakTimed.png",
+		--profile_icon = "gui/items/icon-cloak.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",			
+		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
+		traits = { disposable = true, duration = 2, cloakDistanceMax=1, cloakInVision = true, range = 2, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		requirements = { stealth = 3 },
+		abilities = { "carryable","useInvisiCloak" },
+		value = 400,
+	},	
+	
+	MM_techexpo_cloakingrig2 = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.CLOAK_2,
+		desc = STRINGS.MOREMISSIONS.ITEMS.CLOAK_2_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.CLOAK_2_FLAVOR,
+		icon = "itemrigs/FloorProp_InvisiCloakTimed.png",
+		--profile_icon = "gui/items/icon-cloak.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",			
+		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
+		traits = { disposable = true, duration = 3, cloakDistanceMax=0, cloakInVision = false, MM_tech_expo_nonweapon = true, pwrCost = 5, MM_tech_expo_item = true},
+		requirements = { stealth = 3 },
+		abilities = { "carryable","useInvisiCloak" },
+		value = 400,
+	},		
+	
+	MM_techexpo_icebreaker = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.BUSTER,
+		desc = STRINGS.MOREMISSIONS.ITEMS.BUSTER_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.BUSTER_FLAVOR,
+		icon = "itemrigs/FloorProp_AmmoClip.png",
+		--profile_icon = "gui/items/icon-action_crack-safe.png",		
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_chip_hyper_buster_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_chip_ice_breaker.png",		
+		traits = { icebreak = 8, disposable = true, MM_tech_expo_nonweapon = true, killDaemon = true, MM_tech_expo_item = true },
+		requirements = { anarchy = 3, },
+		abilities = { "icebreak","carryable" },
+		value = 600,
+	},	
+	
+	MM_techexpo_econchip = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.ECON_CHIP,
+		desc = STRINGS.MOREMISSIONS.ITEMS.ECON_CHIP_TOOLTIP,
+		flavor = STRINGS.ITEMS.ECON_CHIP_FLAVOR,
+		icon = "itemrigs/FloorProp_AmmoClip.png",
+		--profile_icon = "gui/items/icon-action_crack-safe.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_chip_econ_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_chip_econ.png",	
+		traits = { PWR_conversion = 100, disposable = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		requirements = { stealth = 3, },
+		abilities = { "carryable","jackin" },
+		value = 800,
+	},
+
+	MM_techexpo_stim = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.STIM,
+		desc = STRINGS.MOREMISSIONS.ITEMS.STIM_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.STIM_FLAVOR,
+		icon = "itemrigs/FloorProp_Bandages.png",
+		--profile_icon = "gui/items/icon-stims.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_stim_small.png",	
+		profile_icon_100 = "gui/icons/item_icons/icon-item_stim.png",
+		traits = { mpRestored = 12, impair_agent_AP = 3, combatRestored = true, disposable = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		requirements = { stealth = 3 },
+		abilities = { "carryable","use_stim" },
+		value = 1000,
+	},		
+	
+	MM_techexpo_shocktrap = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.SHOCK_TRAP,
+		desc = STRINGS.MOREMISSIONS.ITEMS.SHOCK_TRAP_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.SHOCK_TRAP_FLAVOR,
+		icon = "itemrigs/FloorProp_AmmoClip.png",
+		--profile_icon = "gui/items/icon-shocktrap-.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_shocktrap_small.png",	
+		profile_icon_100 = "gui/icons/item_icons/icon-item_shock trap.png",		
+		traits = { damage = 5, stun = 5, range = 7, applyFn = "isClosedDoor", doorDevice = "simtrap", pwrCost = 3, disposable = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		requirements = { anarchy = 3 },
+		abilities = { "doorMechanism","carryable" },
+		value = 1000,
+	},
+	
+	MM_techexpo_emp_pack = util.extend(commondefs.item_template)
+	{
+		type = "MM_simemppack_pulse",
+		name = STRINGS.MOREMISSIONS.ITEMS.EMP,
+		desc = STRINGS.MOREMISSIONS.ITEMS.EMP_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.EMP_FLAVOR,
+		icon = "itemrigs/FloorProp_emp.png",
+		--profile_icon = "gui/items/icon-emp.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_emp_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_emp.png",	
+		abilities = { "carryable","prime_emp", },
+		requirements = { hacking = 3 },
+		traits = { range = 8, emp_duration = 4, disposable = true, multiPulse = 3, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, },
+		value = 1200,
+	},	
+	
+	MM_techexpo_crybaby = util.extend( commondefs.grenade_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.GRENADE_CRY_BABY,
+		desc = STRINGS.MOREMISSIONS.ITEMS.GRENADE_CRY_BABY_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.GRENADE_CRY_BABY_FLAVOR,
+
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-crybaby_small.png",	
+		profile_icon_100 = "gui/icons/item_icons/crybaby.png",
+		kanim = "kanim_stickycam",	
+		abilities ={"carryable" , "throw"},		
+		sounds = {activate="SpySociety/Grenades/stickycam_deploy", bounce="SpySociety/Grenades/bounce", cry_baby="SpySociety_DLC001/Actions/crybaby_activate"},
+		traits = { MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, throwUnit = "MM_techexpo_crybaby_throwUnit", disposable = true},
+		value = 300,
+		locator=true,
+	},	
+	
+	MM_techexpo_crybaby_throwUnit = util.extend( commondefs.grenade_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.GRENADE_CRY_BABY_DEAD,
+		desc = STRINGS.MOREMISSIONS.ITEMS.GRENADE_CRY_BABY_DEAD_TOOLTIP,
+		flavor = "",
+
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-crybaby_small.png",	
+		profile_icon_100 = "gui/icons/item_icons/crybaby.png",
+		kanim = "kanim_stickycam",	
+		uses_mainframe =
+		{
+			toggle =
+			{
+				name = STRINGS.MOREMISSIONS.ITEMS.GRENADE_CRY_BABY_USE,
+				tooltip = STRINGS.MOREMISSIONS.ITEMS.GRENADE_CRY_BABY_USE_TIP,
+				fn = "toggle" -- global script function
+			}
+		},
+		abilities = {"throw"},		
+		sounds = {activate="SpySociety/Grenades/stickycam_deploy", bounce="SpySociety/Grenades/bounce", cry_baby="SpySociety_DLC001/Actions/crybaby_activate"},
+		traits = { cryBaby=true, range=15, agent_filter=true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true,},
+		value = 300,
+		locator=true,
+	},	
+
+	MM_techexpo_flash_pack = util.extend(commondefs.item_template)
+	{
+		type = "simemppack",
+		name = STRINGS.MOREMISSIONS.ITEMS.FLASH_PACK,
+		desc = STRINGS.MOREMISSIONS.ITEMS.FLASH_PACK_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.FLASH_PACK_FLAVOR,
+
+		ITEM_LIST = true,
+		
+		icon = "itemrigs/FlashPack.png",
+		--profile_icon = "gui/items/icon-emp.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_flashpack_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_flashpack.png",	
+		abilities = { "carryable","prime_emp", },
+		requirements = { anarchy = 2 },
+		uses_mainframe =
+		{
+			toggle =
+			{
+				name = STRINGS.MOREMISSIONS.ITEMS.FLASH_PACK_USE,
+				tooltip = STRINGS.MOREMISSIONS.ITEMS.FLASH_PACK_USE_TIP,
+				fn = "toggle", -- global script function
+				canToggle = function(unit)
+					if unit:getSim():getPC():getCpus() < 3 then
+						return false, STRINGS.UI.REASON.NOT_ENOUGH_PWR
+					end
+					return true
+				end						
+			}
+		},		
+		traits = { range = 5, attackNeedsLOS=true, canSleep = true, baseDamage = 4, flash_pack = true, trigger_mainframe=true, MM_tech_expo_nonweapon = true, disposable = true, MM_tech_expo_item = true},
+		value = 900,	
+	},	
 }
 
 return tool_templates
