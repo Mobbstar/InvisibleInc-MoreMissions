@@ -78,6 +78,8 @@ return {
 		AI_CARD_FLAVOR = "A local passkey, required for any personnel to access top-security terminals with AI prototypes and databanks.",
 		INCOGROOM_TERMINAL = "AI Terminal Lock",
 		INCOGROOM_AI_TERMINAL = "AI Development Terminal",
+		ITEMLOCKER = "Secure Tech Case",
+		WEAPONSLOCKER = "Secure Weapon Case",
 	},
 
 	GUARDS =
@@ -159,11 +161,62 @@ return {
 		DISCARDED_MANACLES_FLAVOR = "An empty space, where a prisoner is supposed to be restrained.",
 		
 		AMNESIAC = "Amnesiac",
-		AMNESIAC_TOOLTIP = "Use on pinned targets. Removes alert status and WITNESS tag. Reduces max AP by 2.",
+		AMNESIAC_TOOLTIP = "Use on pinned targets. Removes WITNESS tag. Reduces max AP by 2.",
 		AMNESIAC_FLAVOR = "A mind-scrambling mix of chemicals straight off the seedy underbelly of the black market. The target wakes up sluggish, disoriented, and unable to recall certain pertinent details, such as any faces they might have recently seen.",
 
 		MOLE_CLOAK = "Custom Cloaking Rig I",
 		MOLE_CLOAK_FLAVOR = "Some cloaking rig models have increased efficiency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",		
+		
+		-- TECH EXPO CUSTOM ITEMS
+		GRENADE_FRAG = "Frag Grenade",
+		GRENADE_FRAG_TOOLTIP = "Detonates in an area. Lethal damage to humans and fragile mainframe devices. Friendly damage.",
+		GRENADE_FRAG_FLAVOR = "Practically a living fossil of military technology. Dating back to the early 20th century, this concussive IED causes extreme property damage and was outlawed by the Physplant Integrity Act of 2058.",
+		
+		SMOKE_FRAG_GRENADE = "Occlusive Frag Grenade",
+		SMOKE_FRAG_GRENADE_TOOLTIP = "Detonates in an area and occludes sight with smoke cover. Lethal damage to humans and fragile mainframe devices. Friendly damage.",
+		SMOKE_FRAG_GRENADE_FLAVOR = "The Swiss Army knife of grenades, for when you can't choose between deadly force and subterfuge and want a little bit of both.",		
+
+		CLOAK_1 = "Fragile Cloaking Zone Rig",
+		CLOAK_1_TOOLTIP = "Renders the user and anyone in range invisible for 2 turns, as long as they don't move or attack.",
+		CLOAK_1_FLAVOR = "Cloaking rigs use an array of holographic projectors to bend light around a small area, rendering it almost invisible. This one creates a large but easily-disrupted holographic field extending far beyond the initial user.",
+
+		CLOAK_2 = "Extended Cloaking Rig",
+		CLOAK_2_TOOLTIP = "Renders the user invisible for 3 turns, or until they attack.\n\nCannot use while sighted.",
+		CLOAK_2_FLAVOR = "This cloaking rig benefits from cutting edge efficiency and ease of use, but requires a hefty initial surge of PWR to activate.",
+
+		BUSTER = "Experimental Buster Chip",
+		BUSTER_TOOLTIP = "Use this to manually break through 8 firewalls, destroying any installed daemon.",
+		BUSTER_FLAVOR = "An advanced Buster Chip model designed for taking down high-security, high-priority targets with no fuss.",
+
+		ECON_CHIP = "Experimental Econ Chip",
+		ECON_CHIP_TOOLTIP = "Collects credits from consoles instead of PWR. 100 credit per PWR point.",
+
+		STIM = "Experimental Stim",
+		STIM_TOOLTIP = "Refreshes an agent's attack and restores 12 AP, but reduces max AP by 3 for the rest of the mission.",
+		STIM_FLAVOR = "This experimental chemical cocktail has proven reasonably sublethal in most rats.\n\nYou'll probably be fine.",
+
+		SHOCK_TRAP = "Experimental Shock Trap",
+		SHOCK_TRAP_TOOLTIP = "Place on a door. Triggers when opened. Has an area of effect. One time use. Ignores Armor.",
+		SHOCK_TRAP_FLAVOR = "This experimental shock trap has a particularly impressive range, and extra large buttons for ease of operating.",
+
+		EMP = "Experimental EMP Pack",
+		EMP_TOOLTIP = "Detonates at the end of the turn when primed. Disables all Mainframe devices and drones in a range of 8 tiles. Emits 3 pulses.",
+		EMP_FLAVOR = "A high-end EMP pack which couples multiple consecutive pulses, effectively disabling even most devices with magnetic reinforcements.",
+
+		GRENADE_CRY_BABY = "Experimental Cry Baby",
+		GRENADE_CRY_BABY_TOOLTIP = "Throw to place. Activate in the mainframe to create a noise. Will not be ignored even if seen.",
+		GRENADE_CRY_BABY_FLAVOR = "An extra loud, extra annoying version of the run-of-the-mill Cry Baby tech, sure to draw security personnel from far and wide.",
+		GRENADE_CRY_BABY_USE = "Activate Cry Baby",
+		GRENADE_CRY_BABY_USE_TIP = "Device will emit a large sound.",
+		
+		GRENADE_CRY_BABY_DEAD = "Deployed Cry Baby",
+		GRENADE_CRY_BABY_DEAD_TOOLTIP = "Cannot be picked up again, only activated.",
+
+		FLASH_PACK = "Experimental Flash Pack",
+		FLASH_PACK_TOOLTIP = "Place on the ground. Detonate it using the mainframe. Requires 3 PWR to activate. KO all guards for 4 turns in a radius of 5 tiles.",
+		FLASH_PACK_FLAVOR = "The power of a flash bomb married to the wireless magic of mainframe technology.",		
+		FLASH_PACK_USE = "Detonate Flash Pack",
+		FLASH_PACK_USE_TIP = "KO guards in a 5 tile radius for 4 turns.",
 
 	},
 
@@ -384,7 +437,7 @@ return {
 			MORE_INFO = "A high-ranked executive at this location has an impressive bounty on their head, but such a high-profile hit will not go unanswered by the corp.\n\nThe target is reportedly paranoid, with personal security on-site. Be wary.", --This can be quite lengthy.
 			INSET_TITLE = "MARKED FOR DEATH", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
-			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			INSET_VO = {""},
 			DESCRIPTION = "Kill or knock out the VIP, then extract him.",
 			REWARD = "A hefty cash reward, at the cost of a permanent security increase at this corporation.",
 		},
@@ -413,11 +466,11 @@ return {
 		WEAPONS_EXPO = {
 			NAME= "Tech Expo",
 			MORE_INFO = "This facility is hosting a world class tier tech exposition. The corporations and the industry finest will be showing off their newest weapon prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nKeep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
-			INSET_TITLE = "WEAPONS EXPO", --unused
+			INSET_TITLE = "TECH EXPO", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused unless we actually get these voiced somehow
-			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			INSET_VO = {""},
 			DESCRIPTION = "Locate the main exhibition center and steal at least one prototype.",
-			REWARD = "Advanced melee or ranged weapons you can sell or use as equipment.",
+			REWARD = "Advanced weapons and powerful single-use items you can sell or use as equipment.",
 		},
 
 		MOLE_INSERTION = {
@@ -425,7 +478,7 @@ return {
 			MORE_INFO = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. \n\nFirst, we'll need to get them on site and secure their cover. Make sure they remain unseen, or things will get complicated. Take measures to remove any witnesses to maximise the benefit from this mission.",
 			INSET_TITLE = "",
 			INSET_TXT = "",
-			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			INSET_VO = {""},
 			DESCRIPTION = "Plant an informant and secure their cover identity. For best results, informant must remain unseen.",
 			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or exit location.",
 
@@ -436,7 +489,7 @@ return {
 			MORE_INFO = "We've located an AI Development Terminal with unusually high security clearance. We should be able to integrate some of this research to increase Incognita's processing efficiency.\n\nThe terminal has multiple redundant locks, so be prepared to be thorough.",
 			INSET_TITLE = "",
 			INSET_TXT = "",
-			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			INSET_VO = {""},
 			DESCRIPTION = "Unlock and access the AI Development Terminal using keycards and devices found on-site.",
 			-- REWARD = "An additional program slot for Incognita, or valuable tech if at upgrade cap (2 additional slots).",
 			REWARD = "An additional program slot for Incognita, or a program upgrade.",
