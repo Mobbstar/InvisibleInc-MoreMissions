@@ -248,9 +248,13 @@ end
 local function MM_checkTopGearSafes( sim )
 	-- log:write("spawning special gear")
 	local itemList = {}
+	local techList = {}
 	for k,v in pairs(itemdefs) do
-		if v.traits and v.traits.MM_tech_expo_item then
+		if v.traits and v.traits.MM_tech_expo_weapon then
 			table.insert(itemList,v)				
+		end
+		if v.traits and v.traits.MM_tech_expo_nonweapon then
+			table.insert(techList, v)
 		end
 	end
 	
@@ -263,14 +267,26 @@ local function MM_checkTopGearSafes( sim )
 	end
 	for i, unit in pairs(safes) do
 		-- Add a random item to unit (presumably a safe)
-		local item = itemList[ sim:nextRand( 1, #itemList ) ]
-		local newItem = simfactory.createUnit( item, sim )						
-		sim:spawnUnit( newItem )
-		newItem:getTraits().artifact = true --for safe to display the loot symbol
-		unit:addChild( newItem )	
-		newItem:addTag("MM_topGearItem") -- For the UI loot hook	
-		sim.totalTopGear = sim.totalTopGear or 0 
-		sim.totalTopGear = sim.totalTopGear + 1 
+		local item = nil
+		if unit:getTraits().MM_loot == "weapon" then
+			-- log:write("LOG choosing weapon")
+			item = itemList[ sim:nextRand( 1, #itemList ) ]
+		end
+		if unit:getTraits().MM_loot == "item" then
+			-- log:write("LOG choosing item")
+			item = techList[ sim:nextRand( 1, #techList ) ]
+		end
+		if item then
+			local newItem = simfactory.createUnit( item, sim )						
+			sim:spawnUnit( newItem )
+			-- log:write("LOG newItem")
+			-- log:write(util.stringize(newItem:getUnitData().name,2))
+			newItem:getTraits().artifact = true --for safe to display the loot symbol
+			unit:addChild( newItem )	
+			newItem:addTag("MM_topGearItem") -- For the UI loot hook	
+			sim.totalTopGear = sim.totalTopGear or 0 
+			sim.totalTopGear = sim.totalTopGear + 1 
+		end
 		-- log:write(util.stringize(newItem._tags,3))
 	end
 	-- log:write("LOG sim.totalTopGear " ..tostring(sim.totalTopGear))
