@@ -17,7 +17,7 @@ local propdefs = include("sim/unitdefs/propdefs")
 -----------------------------------------------------
 -- Local functions
 
-local simKOcloud = { ClassType = "simKOcloud" } --based on Neptune frost cloud
+local simKOcloud = { ClassType = "MM_simKOcloud" } --based on Neptune frost cloud
 
 local function occludeSight( sim, targetCell, smokeRadius, self )
 	local cells = simquery.floodFill( sim, nil, targetCell, smokeRadius, simquery.getManhattanMoveCost, simquery.canPathBetween )
