@@ -4,7 +4,7 @@ return {
 			MORE_INFO = "The corp has intercepted a courier of one of our former clients. He's got important site intel stored in a cerebral implant, intel we could use. Your task is to break in, locate the courier, and recover the information.\n\nOne final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",
 			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
-			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			INSET_VO = {""}, 
 			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.\nTelepad locked, courier has the key.",
 			REWARD = "Two new infiltration targets at the same corporation as this facility.",
 			BANTER = {
