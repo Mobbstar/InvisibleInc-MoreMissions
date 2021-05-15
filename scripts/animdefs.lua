@@ -155,6 +155,28 @@ local animdefs =
 		boundType = BoundType.bound_1x1_tall_med,
 		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
 	},	
+	
+	kanim_MM_techsafe_1 =
+	{
+		build = "data/anims/props/MM_techsafe1.abld",
+		anims = { "data/anims/Unique_Vault/vault_1x1_podium1.adef" },
+		symbol = "character",		
+		scale = 0.25,
+		layer = Layer.Decor,
+		boundType = BoundType.bound_1x1_tall_med,
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
+	},	
+
+	kanim_MM_techsafe_2 =
+	{
+		build = "data/anims/props/MM_techsafe2.abld",
+		anims = { "data/anims/Unique_Vault/vault_1x1_podium1.adef" },
+		symbol = "character",		
+		scale = 0.25,
+		layer = Layer.Decor,
+		boundType = BoundType.bound_1x1_tall_med,
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
+	},		
 
 	kanim_MM_prototype_drone =
 	{
