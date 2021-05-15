@@ -1876,7 +1876,7 @@ local units =
             {
                 x = 9,
                 y = 2,
-                template = [[MM_vault_safe_1]],
+                template = [[MM_vault_safe_nonweapon_1]],
                 unitData =
                 {
                     facing = 2,
@@ -1888,7 +1888,7 @@ local units =
             {
                 x = 6,
                 y = 2,
-                template = [[MM_vault_safe_2]],
+                template = [[MM_vault_safe_nonweapon_2]],
                 unitData =
                 {
                     facing = 2,
