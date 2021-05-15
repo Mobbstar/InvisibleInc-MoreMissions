@@ -13,7 +13,7 @@ function generateTechExpoGear()
 		if ((v.floorWeight or 0) > 1 )
 		and ((v.value or 0) >= 700)		 --will include tier 2 weapons and up
 		and (v.traits.damage or v.traits.baseDamage) and (v.traits.weaponType or v.traits.melee) then
-			tech_expo_templates["MM_"..k.."_techexpo"] = v
+			tech_expo_templates["MM_techexpo_"..k] = v
 		end
 	end
 
@@ -48,7 +48,7 @@ function generateTechExpoGear()
 		if traits.value and (traits.value > 800) then --higher STR req for items based off stuff tier 3 and up
 			strength_req = 3
 		end
-		itemdef.requirements.inventory = strength_req
+		-- itemdef.requirements.inventory = strength_req -- scrap this for now in favour of limited uses for each item
 
 		if itemdef.value then
 			itemdef.value = itemdef.value/2
@@ -59,7 +59,13 @@ function generateTechExpoGear()
 			itemdef.floorWeight = nil
 		end
 
+		traits.usesLeft = 5
+		itemdef.createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end
+		
 		traits.MM_tech_expo_item = true
+		traits.MM_tech_expo_weapon = true
 
 		-- Fix Biogenic Dart's hardcoded cooldown cooltip
 		if itemdef.desc == STRINGS.ITEMS.DART_GUN_BIO_TOOLTIP then
@@ -68,10 +74,10 @@ function generateTechExpoGear()
 			itemdef.desc = new_desc
 		end
 
-		itemdef.name = "Improved " .. itemdef.name
-		itemdef.flavor = itemdef.flavor .. "\n\nThis model is an advanced prototype."
+		itemdef.name = "Experimental " .. itemdef.name
+		itemdef.flavor = itemdef.flavor .. "\n\nThis model is an experimental prototype."
 	end
-
+		
 	simlog("LOG_MM", "LOG tech expo templates")
 	simlog("LOG_MM", util.stringize(tech_expo_templates,3))
 
