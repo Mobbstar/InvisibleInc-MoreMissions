@@ -184,12 +184,12 @@ local prop_templates =
 	MM_vault_safe_1 = 
 	{ 
 		type = "simunit", 
-		name = STRINGS.PROPS.SECURE_CASE,
+		name = STRINGS.MOREMISSIONS.PROPS.WEAPONSLOCKER,
 		onWorldTooltip = onSafeTooltip,
 		kanim = "kanim_MM_gunsafe_1", 
 		rig ="corerig",
 		tags = {"MM_topGear"},
-		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2,},
+		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2, MM_loot = "weapon"},
 		abilities = { "stealCredits" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
 		-- children = {"item_valuable_tech"},
@@ -198,12 +198,12 @@ local prop_templates =
 	MM_vault_safe_2 = 
 	{ 
 		type = "simunit", 
-		name = STRINGS.PROPS.SECURE_CASE,
+		name = STRINGS.MOREMISSIONS.PROPS.WEAPONSLOCKER,
 		onWorldTooltip = onSafeTooltip,
 		kanim = "kanim_MM_gunsafe_2", 
 		rig ="corerig",
 		tags = {"MM_topGear"},
-		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2,},
+		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2, MM_loot = "weapon"},
 		abilities = { "stealCredits" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
 		-- children = {"item_valuable_tech"},
@@ -212,12 +212,40 @@ local prop_templates =
 	MM_vault_safe_3 = 
 	{ 
 		type = "simunit", 
-		name = STRINGS.PROPS.SECURE_CASE,
+		name = STRINGS.MOREMISSIONS.PROPS.WEAPONSLOCKER,
 		onWorldTooltip = onSafeTooltip,
 		kanim = "kanim_MM_gunsafe_3", 
 		rig ="corerig",
 		tags = {"MM_topGear"},
-		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2,},
+		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2,  MM_loot = "weapon"},
+		abilities = { "stealCredits" },
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
+		-- children = {"item_valuable_tech"},
+	},	
+
+	MM_vault_safe_nonweapon_1 = 
+	{ 
+		type = "simunit", 
+		name = STRINGS.MOREMISSIONS.PROPS.ITEMLOCKER,
+		onWorldTooltip = onSafeTooltip,
+		kanim = "kanim_MM_techsafe_1", 
+		rig ="corerig",
+		tags = {"MM_topGear"},
+		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2, MM_loot = "item"},
+		abilities = { "stealCredits" },
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
+		-- children = {"item_valuable_tech"},
+	},	
+
+	MM_vault_safe_nonweapon_2 = 
+	{ 
+		type = "simunit", 
+		name = STRINGS.MOREMISSIONS.PROPS.ITEMLOCKER,
+		onWorldTooltip = onSafeTooltip,
+		kanim = "kanim_MM_techsafe_2", 
+		rig ="corerig",
+		tags = {"MM_topGear"},
+		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2, MM_loot = "item"},
 		abilities = { "stealCredits" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
 		-- children = {"item_valuable_tech"},
@@ -332,7 +360,7 @@ local prop_templates =
 	
 	MM_gas_cloud =
     {
-        type = "simKOcloud",
+        type = "MM_simKOcloud",
         name = STRINGS.PROPS.SMOKE,
         rig = "smokerig",
 		kanim = "kanim_smoke_plume",
@@ -342,7 +370,7 @@ local prop_templates =
 	
 	MM_gas_cloud_harmless = --spawns MM_gas_cloud at end of lifetime
     {
-        type = "simKOcloud",
+        type = "MM_simKOcloud",
         name = STRINGS.PROPS.SMOKE,
         rig = "smokerig",
 		kanim = "kanim_smoke_plume",
@@ -352,7 +380,7 @@ local prop_templates =
 
 	MM_gas_cloud_dispersal = 
     {
-        type = "simKOcloud",
+        type = "MM_simKOcloud",
         name = STRINGS.PROPS.SMOKE,
         rig = "smokerig",
 		kanim = "kanim_smoke_plume",
