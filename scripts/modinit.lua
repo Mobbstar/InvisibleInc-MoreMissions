@@ -402,6 +402,32 @@ local function lateInit( modApi )
 		return simunit_setKO_old( self, sim, ticks, fx, ... )
 	end	
 		
+	-- FOR TECH EXPO CUSTOM ITEM
+	local icebreak = abilitydefs.lookupAbility("icebreak")
+	local icebreak_executeAbility_old = icebreak.executeAbility
+	icebreak.executeAbility = function( self, sim, unit, userUnit, target, ... ) --this might be worth moving to FuncLib...
+		if unit:getTraits().killDaemon then
+			local targetUnit = sim:getUnit(target)	
+			targetUnit:getTraits().mainframe_program = nil
+			sim:dispatchEvent( simdefs.EV_KILL_DAEMON, {unit = targetUnit})	
+			if targetUnit:getTraits().daemonHost then
+				sim:getUnit(targetUnit:getTraits().daemonHost):killUnit(sim)
+				targetUnit:getTraits().daemonHost =nil
+			end
+		end	
+		icebreak_executeAbility_old( self, sim, unit, userUnit, target, ... )
+	end
+	
+	local use_stim = abilitydefs.lookupAbility( "use_stim" )
+	local use_stim_executeAbitlity_old = use_stim.executeAbility
+	use_stim.executeAbility = function( self, sim, unit, userUnit, target )
+		use_stim_executeAbitlity_old( self, sim, unit, userUnit, target )
+		local targetUnit = sim:getUnit(target)
+		if unit:getTraits().impair_agent_AP and targetUnit:getTraits().mpMax then
+			targetUnit:getTraits().mpMax = math.max(targetUnit:getTraits().mpMax - unit:getTraits().impair_agent_AP, 4)
+		end	
+	end
+	
 end
 
 --The implementation of array.removeAllElements is not optimal for our purposes, and we also need something to remove dupes, so might as well combine it all. -M
@@ -513,7 +539,11 @@ local function load( modApi, options, params )
 	local escape_mission = include( scriptPath .. "/escape_mission" )
 	modApi:addEscapeScripts(escape_mission)
 
+	-- custom SIMUNITS
 	include(scriptPath.."/simKOcloud")
+	include(scriptPath.."/MM_simemppack_pulse")
+	include(scriptPath.."/MM_simfraggrenade")
+	
 	-- modApi:setCampaignEvent_setCampaignParam(nil,"contingency_plan",true)
 
 	--mod_api:addTooltipDef( commondef ) --Lets us append all onTooltip functions
