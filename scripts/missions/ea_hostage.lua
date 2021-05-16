@@ -651,6 +651,13 @@ local function startPhase( script, sim )
 
 	script:queue( { type="clearOperatorMessage" } )
 	sim:getTags().delayPostGame = false
+
+	-- Spawn two new missions in the same corp but otherwise unspecified
+	local serverdefs = include( "modules/serverdefs" )
+	local tags = util.tmerge( { sim:getParams().world, "2max" }, serverdefs.ESCAPE_MISSION_TAGS )
+
+	sim:addNewLocation( tags )
+	sim:addNewLocation( tags )
 end
 
 ---------------------------------------------------------------------------------------------

@@ -420,6 +420,8 @@ local function moleEscaped( script, sim)
 	-- log:write("LOG mole escaped through agent elevator")
 	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_ESCAPED_TO_JET
 	queueCentral( script, scripts )
+	
+	sim:addNewLocation( {sim:getParams().world, "mole_insertion"} )
 end	
 
 mission.bonus_types = {
