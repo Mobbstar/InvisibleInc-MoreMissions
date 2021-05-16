@@ -326,7 +326,8 @@ local function ceoDown( script, sim, mission )
 
 		if ceo:getTraits().iscorpse then
 			mission.killedTarget = true
-			sim:setMissionReward( simquery.scaleCredits( sim, mission.BOUNTY_VALUE ) )
+			sim._assassinationReward = simquery.scaleCredits( sim, mission.BOUNTY_VALUE )
+			sim:addMissionReward( sim._assassinationReward )
 			sim:getTags().MM_assassination_success = true
 			sim.TA_mission_success = true -- flag for Talkative Agents
 

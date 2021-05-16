@@ -90,6 +90,9 @@ local function init( modApi )
 		end
 		oldInit( self, params, levelData, ... )	
 	end	
+
+	--cannot set display string... local variable only -M
+	table.insert(modApi.mod_manager.credit_sources, "assassinationreward")
   
 	-- SIDE MISSIONS
 	local showItemStore = abilitydefs.lookupAbility( "showItemStore")
@@ -245,7 +248,16 @@ local function lateInit( modApi )
 			end
 		end
 		
-		return DoFinishMission_old( sim, campaign, ... )
+		local returnvalue = DoFinishMission_old( sim, campaign, ... )
+
+		if sim._assassinationReward then
+			-- if sim._resultTable.credits_gained.hostage then
+				-- sim._resultTable.credits_gained.hostage = sim._resultTable.credits_gained.hostage - sim._assassinationReward
+			-- end
+			sim._resultTable.credits_gained.assassinationreward = sim._assassinationReward
+		end
+
+		return returnvalue
 	end
 	
 	--other part in load
