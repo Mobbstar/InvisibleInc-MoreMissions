@@ -13,7 +13,7 @@ local assassination_mission = {}
 local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 
 local function earlyInit( modApi )
-	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Advanced Guard Protocol", "Items Evacuation", "New Items And Augments","Advanced Cyberwarfare","Programs Extended","Offbrand Programs","Switch Content Mod", }
+	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Advanced Guard Protocol", "Items Evacuation", "New Items And Augments","Advanced Cyberwarfare","Programs Extended","Offbrand Programs","Switch Content Mod", "Interactive Events" }
 end
 
 local function init( modApi )
@@ -196,6 +196,14 @@ local function lateInit( modApi )
 				end
 			end
 		end
+		
+		-- remove existing Distress Call missions, THEN run the old function that might add new ones.
+		for i = #campaign.situations, 1, -1 do
+			local situation = campaign.situations[i]
+			if situation.name == "distress_call" then
+				table.remove( campaign.situations, i )
+			end
+		end
 
 		-- add new bonus from mission just completed, if relevant
 		if sim:getTags().MM_informantMission and sim:getTags().MM_informant_success then
@@ -210,30 +218,6 @@ local function lateInit( modApi )
 			}
 			-- add new mole bonus
 			table.insert(agency.MM_informant_bonus, intel_bonus)
-		end
-		
-		-- if Mole escaped through agent elevator instead
-		if sim:getTags().MM_mole_escaped then
-            serverdefs.createCampaignSituations( campaign, 1, {sim:getParams().world, "mole_insertion"} )
-		end
-		
-		if sim:getTags().EA_hostage_rescued then
-			-- spawn two new missions in the same corp but otherwise unspecified
-			-- needs to be done a little differently became serverdefs expects tags to be either all or nothing
-			local tags = simdefs.DEFAULT_MISSION_TAGS
-			local corp_names = {}
-			for i, name in pairs(serverdefs.CORP_NAMES) do
-				corp_names[name] = true
-			end
-			for i = #tags, 1, -1 do --remove all corp names that don't match the corp we were just in
-				local pos = tags[i] 
-				if corp_names[pos] and not (pos == sim:getParams().world) then
-					table.remove(tags, i)
-				end
-			end
-		
-			serverdefs.createCampaignSituations( campaign, 2, tags )
-			-- serverdefs.createCampaignSituations( campaign, 2, {sim:getParams().world } )
 		end
 		
 		-- ASSASSINATION
@@ -835,18 +819,6 @@ local function load( modApi, options, params )
 		end 
 		return serverdefs_chooseSituation_old( campaign, tags, gen, ... )
 	end
-	
-	local serverdefs_advanceCampaignTime_old = serverdefs.advanceCampaignTime
-	serverdefs.advanceCampaignTime = function( campaign, hours, ... )
-		-- remove existing Distress Call missions, THEN run the old function that might add new ones.
-		for i = #campaign.situations, 1, -1 do
-			local situation = campaign.situations[i]
-			if situation.name == "distress_call" then
-				table.remove( campaign.situations, i )
-			end
-		end
-		serverdefs_advanceCampaignTime_old( campaign, hours, ... )		
-	end	
 	
 	--ASSASSINATION
 	local serverdefs_createNewSituation_old = serverdefs.createNewSituation

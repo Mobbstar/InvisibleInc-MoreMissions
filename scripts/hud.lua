@@ -89,13 +89,14 @@ hud.createHud = function( ... )
     local oldOnSimEvent = hudObject.onSimEvent
 
     function hudObject:onSimEvent( ev )
-        oldOnSimEvent( self, ev )
         if ev.eventType == "INC_EV_CHOICE_DIALOG" then
 			return showChoiceDialog( self, ev.eventData.headerTxt, ev.eventData.bodyTxt, ev.eventData.options, ev.eventData.type, ev.eventData.tooltips, ev.eventData.playerCredits, ev.eventData.enemyProfile )
 		elseif ev.eventType == "INC_EV_CREDITS_ACQUIRED" then
 			if not self._game.debugStep then
 				modalDialog.show( string.format("%s acquired %d credits!", ev.eventData.unit:getName(), ev.eventData.credits ), "Loot" )
 			end
+		else
+			oldOnSimEvent( self, ev )
 		end
     end
 

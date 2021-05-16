@@ -5,10 +5,6 @@ local simdefs = include("sim/simdefs")
 
 local i = 13
 
-if simdefs.SCREEN_CUSTOMS["modal-event.lua"] and simdefs.SCREEN_CUSTOMS["modal-event.lua"].widgets and simdefs.SCREEN_CUSTOMS["modal-event.lua"].widgets[2] and simdefs.SCREEN_CUSTOMS["modal-event.lua"].widgets[2].children then
-	i = #simdefs.SCREEN_CUSTOMS["modal-event.lua"].widgets[2].children + 1
-end
-
 simdefs.SCREEN_CUSTOMS = util.extend(simdefs.SCREEN_CUSTOMS) {
 	["modal-event.lua"] = {
 		widgets = {
