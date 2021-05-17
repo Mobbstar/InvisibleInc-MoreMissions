@@ -18,6 +18,7 @@ local function clearWitnesses( sim )
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().witness and unit:getTraits().mainframe_camera then
 			unit:getTraits().witness = nil
+			unit:destroyTab()
 		end
 	end
 end
