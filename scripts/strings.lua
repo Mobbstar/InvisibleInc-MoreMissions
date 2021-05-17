@@ -198,10 +198,18 @@ return {
 		SHOCK_TRAP = "Experimental Shock Trap",
 		SHOCK_TRAP_TOOLTIP = "Place on a door. Triggers when opened. Has an area of effect. One time use. Ignores Armor.",
 		SHOCK_TRAP_FLAVOR = "This experimental shock trap has a particularly impressive range, and extra large buttons for ease of operating.",
+		
+		SHOCK_TRAP2 = "Penetrative Shock Trap",
+		SHOCK_TRAP2_TOOLTIP = "Place on a door. Triggers when opened. Has an area of effect. One time use. Ignores Armor. Ignores Magnetic Reinforcements.",
+		SHOCK_TRAP2_FLAVOR = "A more localised, efficient model of shock trap developed by Sankaku as a security countermeasure, bypassing magnetic reinforcements. Hidden compartments with emergency buster chips sometimes just don't cut it for a rogue drone.",
 
-		EMP = "Experimental EMP Pack",
-		EMP_TOOLTIP = "Detonates at the end of the turn when primed. Disables all Mainframe devices and drones in a range of 8 tiles. Emits 3 pulses.",
+		EMP = "Multi-Pulse EMP Pack",
+		EMP_TOOLTIP = "Detonates at the end of the turn when primed. Disables all Mainframe devices and drones for 4 turns. Emits 3 pulses.",
 		EMP_FLAVOR = "A high-end EMP pack which couples multiple consecutive pulses, effectively disabling even most devices with magnetic reinforcements.",
+		
+		EMP2 = "Penetrative EMP Pack",
+		EMP2_TOOLTIP = "Detonates at the end of the turn when primed. Disables all Mainframe devices and drones for 8 turns. Ignores Magnetic Reinforcements.",
+		EMP2_FLAVOR = "A high-end EMP pack which bypasses magnetic reinforcements entirely, but has a fairly small range.",
 
 		GRENADE_CRY_BABY = "Experimental Cry Baby",
 		GRENADE_CRY_BABY_TOOLTIP = "Throw to place. Activate in the mainframe to create a noise. Will not be ignored even if seen.",
@@ -537,11 +545,14 @@ return {
 			WITNESS = "WITNESS",
 			WITNESS_DESC_HUMAN = "Kill this unit or KO and apply Amnesiac.",
 			WITNESS_DESC_MAINFRAME = "Destroy this unit or scrub Camera Database.",
+			WITNESS_DESC_DRONE = "Destroy or EMP this unit.",
 			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",
 			KO_GAS = "KNOCKOUT GAS",
 			KO_GAS_DESC = "This agent is surrounded by knockout gas and will be KO'd if they end their turn here.",
 			KO_GAS_PINNED = "GASSED",
 			KO_GAS_PINNED_DESC = "This agent's KO timer will not decrease until they leave the knockout gas.",
+			NO_PATROL_CHANGE = "NO PATROL CHANGE",
+			NO_PATROL_CHANGE_DESC = "This unit will not change their patrol route.",
 			
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
