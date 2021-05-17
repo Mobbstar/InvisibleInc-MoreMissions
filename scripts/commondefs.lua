@@ -33,10 +33,13 @@ end
 local function onGuardTooltip(tooltip, unit)
 	if unit:getTraits().witness then
 		if unit:getTraits().isDrone then
-			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS_DESC_MAINFRAME, "gui/items/icon-action_peek.png" )
+			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS_DESC_DRONE, "gui/items/icon-action_peek.png" )
 		else
 			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS_DESC_HUMAN, "gui/items/icon-action_peek.png" )
 		end
+	end
+	if unit:getTraits().mm_nopatrolchange then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_PATROL_CHANGE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_PATROL_CHANGE_DESC, "gui/icons/arrow_small.png" )
 	end
 end
 
