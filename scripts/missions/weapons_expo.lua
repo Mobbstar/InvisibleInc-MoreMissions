@@ -266,6 +266,7 @@ local function MM_checkTopGearSafes( sim )
 		end
 	end
 	for i, unit in pairs(safes) do
+		unit:getTraits().safeUnit = true --for Authority
 		-- Add a random item to unit (presumably a safe)
 		local item = nil
 		if unit:getTraits().MM_loot == "weapon" then
@@ -309,7 +310,8 @@ local function MM_checkTopGearItem( script, sim )
     
 	sim:setClimax(true)
     script:waitFor( mission_util.UI_LOOT_CLOSED )
-    sim:removeObjective( OBJECTIVE_ID )        
+    sim:removeObjective( OBJECTIVE_ID )    
+	sim:getNPC():addMainframeAbility( sim, "authority" ) --add Authority daemon after first one looted
     script:waitFrames( .5*cdefs.SECONDS )
 	sim.exit_warning = nil
 	androidFX(script,sim)
