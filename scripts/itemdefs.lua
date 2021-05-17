@@ -329,6 +329,21 @@ local tool_templates =
 		value = 1000,
 	},
 	
+	MM_techexpo_shocktrap2 = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.SHOCK_TRAP2,
+		desc = STRINGS.MOREMISSIONS.ITEMS.SHOCK_TRAP2_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.SHOCK_TRAP2_FLAVOR,
+		icon = "itemrigs/FloorProp_AmmoClip.png",
+		--profile_icon = "gui/items/icon-shocktrap-.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_shocktrap_small.png",	
+		profile_icon_100 = "gui/icons/item_icons/icon-item_shock trap.png",		
+		traits = { damage = 3, stun = 3, range = 3, applyFn = "isClosedDoor", doorDevice = "simtrap", pwrCost = 2, disposable = true, ignoreMagReinf = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		requirements = { anarchy = 3 },
+		abilities = { "doorMechanism","carryable" },
+		value = 1000,
+	},	
+	
 	MM_techexpo_emp_pack = util.extend(commondefs.item_template)
 	{
 		type = "MM_simemppack_pulse",
@@ -341,7 +356,23 @@ local tool_templates =
 		profile_icon_100 = "gui/icons/item_icons/icon-item_emp.png",	
 		abilities = { "carryable","prime_emp", },
 		requirements = { hacking = 3 },
-		traits = { range = 8, emp_duration = 4, disposable = true, multiPulse = 3, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, },
+		traits = { range = 7, emp_duration = 4, disposable = true, multiPulse = 3, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, },
+		value = 1200,
+	},	
+	
+	MM_techexpo_emp_pack2 = util.extend(commondefs.item_template)
+	{
+		type = "MM_simemppack_pulse",
+		name = STRINGS.MOREMISSIONS.ITEMS.EMP2,
+		desc = STRINGS.MOREMISSIONS.ITEMS.EMP2_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.EMP2_FLAVOR,
+		icon = "itemrigs/FloorProp_emp.png",
+		--profile_icon = "gui/items/icon-emp.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_emp_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_emp.png",	
+		abilities = { "carryable","prime_emp", },
+		requirements = { hacking = 3 },
+		traits = { range = 3, emp_duration = 8, disposable = true, ignoreMagReinf = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, },
 		value = 1200,
 	},	
 	
