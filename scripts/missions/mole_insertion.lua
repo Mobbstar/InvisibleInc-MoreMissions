@@ -11,7 +11,8 @@ local serverdefs = include( "modules/serverdefs" )
 local SCRIPTS = include('client/story_scripts')
 local inventory = include( "sim/inventory" )
 local itemdefs = include("sim/unitdefs/itemdefs")
-local escape_mission = include( "sim/missions/escape_mission" )--------------------------------------------------------------------------------
+local escape_mission = include( "sim/missions/escape_mission" )
+local worldgen = include( "sim/worldgen" )--------------------------------------------------------------------------------
 -- Mole Insertion
 --
 -- Escort a mole to the personnel database.
@@ -229,6 +230,15 @@ mission.existsLivingWitness = function(sim)
 	return false
 end
 
+local function moleOnLevel( sim )
+	for i, unit in pairs(sim:getAllUnits()) do
+		if unit:getTraits().MM_mole then
+			return true
+		end
+	end
+	return false
+end
+
 -- this could be cleaned up into one function but whatever
 local function guardWitnessesAgent(script, sim)
 	while true do
@@ -289,7 +299,7 @@ local function witnessDied(script, sim, mission)
 	while true do
 		_, witness = script:waitFor( WITNESS_DEAD )
 
-		if not mission.existsLivingWitness(sim) then
+		if not mission.existsLivingWitness(sim) and not moleOnLevel(sim) then
 			sim:removeObjective( "kill_witness" )
 			sim:getNPC():removeAbility(sim, "MM_informant_witness") --despawn the UI "daemon"
 		end
@@ -329,6 +339,7 @@ local function spawnMole( script, sim )
 		unitData = unitdefs.lookupTemplate("MM_mole2") --alt skin
 	end
 	local newUnit = simfactory.createUnit( unitData, sim )
+	assert(newUnit)
 	local player = sim:getPC()
 	newUnit:setPlayerOwner(player)
 	sim:spawnUnit( newUnit )	
@@ -564,6 +575,7 @@ local function moleDied( script, sim )
 	sim:removeObjective("mole_escape")	
 	sim:removeObjective("kill_witness")
 	sim:getTags().MM_mole_died = true
+	sim:getNPC():removeAbility(sim, "MM_informant_witness")
 	-- log:write("LOG mole died")
 	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_DIED[sim:nextRand(1,#SCRIPTS.INGAME.MOLE_INSERTION.MOLE_DIED)]
 	queueCentral( script, scripts )
@@ -672,7 +684,7 @@ local function moleMission( script, sim )
 	
 	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_ESCAPED_WITNESSES
 	
-	if not mission.existsLivingWitness(sim) then
+	if not mission.existsLivingWitness(sim) and not moleOnLevel(sim) then
 		sim:removeObjective( "kill_witness" )
 		sim:getNPC():removeAbility(sim, "MM_informant_witness") --despawn the UI "daemon"
 		scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_ESCAPED_NOWITNESSES
@@ -684,6 +696,43 @@ local function moleMission( script, sim )
 	
 end
 
+local function findCell( sim, tag )
+	local cells = sim:getCells( tag )
+	return cells and cells[1]
+end
+
+local function spawnEliteGuard( sim ) --spawns a high-tier stationary guard at the door to the database room
+	local templateName = "important_guard"
+	local door_cell = findCell( sim, "personneldb_door" )
+	local world = worldgen[sim:getParams().world:upper()]
+	local list = world.THREAT_FIX or world.THREAT
+	local wt = util.weighted_list( list )
+	if list then
+		templateName = wt:getChoice( sim:nextRand( 1, wt:getTotalWeight() ) )
+	end
+	local guardTemplate = unitdefs.lookupTemplate( templateName )
+	local newGuard = simfactory.createUnit( guardTemplate, sim ) 
+	sim:spawnUnit( newGuard )
+	newGuard:setPlayerOwner( sim:getNPC() )
+	newGuard:setPather(sim:getNPC().pather)
+	sim:warpUnit( newGuard, door_cell )
+	newGuard:getTraits().nopatrol = true
+	local x0, y0 = newGuard:getLocation()
+    newGuard:getTraits().patrolPath = { { x = x0, y = y0 } }
+	newGuard:getTraits().mm_nopatrolchange = true
+	
+	local facing = 0
+	-- make him face away from the door
+	for dir, exit in pairs(door_cell.exits) do
+		if simquery.isDoorExit(exit) then
+			-- log:write("LOG setting facing")
+			local x1, y1 = exit.cell.x, exit.cell.y
+			facing = simquery.getDirectionFromDelta( x0 - x1, y0 - y1 )
+		end
+	end
+	newGuard:setFacing(facing)
+	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newGuard } )
+end
 ----------------
 local function despawnRedundantCameraDB(sim)
 	local cameraDBs = {}
@@ -711,6 +760,7 @@ function mission:init( scriptMgr, sim )
 	sim:getTags().skipBanter = true
 	despawnRedundantCameraDB(sim)
 	escape_mission.init( self, scriptMgr, sim )
+	spawnEliteGuard( sim )
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.FIND_DB, "findDB" ) 
 	
 	sim:getTags().MM_informantMission = true -- for DoFinishMission
