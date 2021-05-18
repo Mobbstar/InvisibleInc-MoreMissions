@@ -4,7 +4,7 @@ local function onMainframeTooltip( tooltip, unit )
 	if unit:getTraits().MM_emp_safe then
 		tooltip:addAbility( STRINGS.ITEMS.TOOLTIPS.EMP_SAFE, STRINGS.ITEMS.TOOLTIPS.EMP_SAFE_DESC, "gui/items/icon-action_open-safe.png" )
 	end
-	if unit:getTraits().witness and unit:getTraits().mainframe_camera then
+	if unit:getTraits().witness and unit:getTraits().mainframe_camera and not unit:isDead() then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS_DESC_MAINFRAME, "gui/items/icon-action_peek.png" )
 	end
 	if unit:getTraits().MM_tech_expo_contents then
