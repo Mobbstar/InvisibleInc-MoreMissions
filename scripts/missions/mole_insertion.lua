@@ -241,8 +241,14 @@ end
 
 -- this could be cleaned up into one function but whatever
 local function guardWitnessesAgent(script, sim)
-	while true do
-		_, agent, seer = script:waitFor( GUARD_SAW_MOLE )
+	_, agent, seer = script:waitFor( GUARD_SAW_MOLE )
+	
+	-- Add a new instance of the hook, since it's possible that multiple guards saw the agent at the same time
+	script:addHook( guardWitnessesAgent )
+	
+	script:waitFor( { trigger = simdefs.TRG_OVERWATCH } )
+	
+	if seer:isValid() and not seer:isKO() and not seer:getTraits().witness then
 		seer:getTraits().witness = true
 		local x0, y0 = seer:getLocation()
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
