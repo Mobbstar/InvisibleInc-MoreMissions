@@ -7,6 +7,15 @@ local function onMainframeTooltip( tooltip, unit )
 	if unit:getTraits().witness and unit:getTraits().mainframe_camera then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS_DESC_MAINFRAME, "gui/items/icon-action_peek.png" )
 	end
+	if unit:getTraits().MM_tech_expo_contents then
+		--you're gonna have to pick one, guys
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_LOOT_CONTENT, "\""..tostring(unit:getTraits().MM_tech_expo_contents).."\"",
+		"gui/icons/item_icons/items_icon_small/icon_plaque.png" )
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_LOOT_CONTENT, "\""..tostring(unit:getTraits().MM_tech_expo_contents).."\"",
+		"gui/icons/item_icons/items_icon_small/icon_plaque_v2.png" )		
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_LOOT_CONTENT, "\""..tostring(unit:getTraits().MM_tech_expo_contents).."\"",
+		"gui/icons/item_icons/items_icon_small/icon_plaque_v3.png" )			
+	end
 end
 
 local function onItemTooltip(tooltip, unit)
