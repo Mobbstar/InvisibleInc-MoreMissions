@@ -311,7 +311,7 @@ local function MM_checkTopGearItem( script, sim )
 	sim:setClimax(true)
     script:waitFor( mission_util.UI_LOOT_CLOSED )
     sim:removeObjective( OBJECTIVE_ID )    
-	sim:getNPC():addMainframeAbility( sim, "authority" ) --add Authority daemon after first one looted
+	sim:getNPC():addMainframeAbility( sim, "authority", nil, 0 ) --add Authority daemon (with no reversal) after first one looted
     script:waitFrames( .5*cdefs.SECONDS )
 	sim.exit_warning = nil
 	androidFX(script,sim)
