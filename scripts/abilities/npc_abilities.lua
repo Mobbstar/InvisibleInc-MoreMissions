@@ -131,14 +131,14 @@ local npc_abilities =
 				local drone_witnesses = {}
 
 				for unitID, unit in pairs(sim:getAllUnits()) do
-					if unit:getTraits().witness then
+					if unit:getTraits().witness and not unit:isDead() then
 						if unit:getTraits().isGuard and not unit:getTraits().isDrone then
 							table.insert(guard_witnesses, unit)
 						end
 						if unit:getTraits().isDrone then
 							table.insert(drone_witnesses, unit)
 						end
-						if unit:getTraits().mainframe_camera and not unit:isDead() then
+						if unit:getTraits().mainframe_camera then
 							table.insert(camera_witnesses, unit)
 						end
 					end
