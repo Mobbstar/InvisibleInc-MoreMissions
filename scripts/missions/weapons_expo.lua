@@ -284,6 +284,8 @@ local function MM_checkTopGearSafes( sim )
 			-- log:write(util.stringize(newItem:getUnitData().name,2))
 			newItem:getTraits().artifact = true --for safe to display the loot symbol
 			unit:addChild( newItem )	
+			local itemName = newItem:getUnitData().name
+			unit:getTraits().MM_tech_expo_contents = itemName
 			newItem:addTag("MM_topGearItem") -- For the UI loot hook	
 			sim.totalTopGear = sim.totalTopGear or 0 
 			sim.totalTopGear = sim.totalTopGear + 1 
