@@ -213,6 +213,31 @@ local WITNESS_KOED =
 	end,
 }
 
+
+local WITNESS_ESCAPED = 
+{
+	trigger = "vip_escaped",
+	fn = function( sim, triggerData )
+		if triggerData.unit:getTraits().witness then
+			return triggerData.unit
+		end
+	end,
+}
+
+local witnessEscaped = function( script, sim )
+	local _, witness = script:waitFor( WITNESS_ESCAPED )
+	-- sim:getTags().MM_escapedWitness = true --this is set in npc_abilities by the UI daemon! just putting this here for reference
+	if sim:getNPC():hasMainframeAbility("MM_informant_witness") then
+		local scripts = SCRIPTS.INGAME.MOLE_INSERTION.WITNESS_FLED_LEVEL_RETRY -- if mole hasn't escaped yet, have Central suggest you abort the mission
+		if sim:getTags().MM_informant_success then -- mole already escaped through guard exit
+			scripts = SCRIPTS.INGAME.MOLE_INSERTION.WITNESS_FLED_LEVEL
+		end
+		script:waitFor( util.extend( mission_util.PC_START_TURN ){ priority = -1 } )
+		script:queue( 2*cdefs.SECONDS )
+		queueCentral( script, scripts )
+	end
+end	
+			
 mission.existsLivingWitness = function(sim)
 	--Guard or drone or camera that has directly seen the mole
 	if sim:getTags().MM_escapedWitness then --set in mole UI daemon ability
@@ -333,7 +358,7 @@ local function spawnMole( script, sim )
 	local adjacent_cells = {}
 	for i, cell in ipairs(agent_cells) do
 		for dir, exit in pairs(cell.exits) do
-			if not (tablelength(exit.cell.units) > 0) and exit.cell.impass == 0  and not exit.closed then
+			if not (tablelength(exit.cell.units) > 0) and exit.cell.impass == 0  and not exit.closed and not simquery.isCellWatched(sim, sim:getPC(), cell.x, cell.y) then
 				table.insert(adjacent_cells, exit.cell)
 			end
 		end
@@ -782,6 +807,7 @@ function mission:init( scriptMgr, sim )
 	scriptMgr:addHook( "spawnMole", spawnMole )
 	scriptMgr:addHook( "moleEscaped", moleEscaped )
 	scriptMgr:addHook( "sawCameraDB", sawCameraDB, nil, self)
+	scriptMgr:addHook( "witnessEscaped", witnessEscaped )
 	sim:getNPC():addMainframeAbility( sim, "MM_informant_witness", nil, 0 )
 	
     --This picks a reaction rant from Central on exit based upon whether or not an agent has escaped with the loot yet.
