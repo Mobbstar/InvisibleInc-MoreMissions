@@ -516,7 +516,7 @@ return {
 		DISTRESS_OBJECTIVE_SECONDARY = "Find the confiscated gear",
 		DISTRESS_AGENT_GEAR_CONTAINER = "SIGNAL DETECTED",
 		DISTRESS_AGENT_GEAR_CONTAINER_DESC = "VALUABLE EQUIPMENT", --should probably go under MISSIONS above but we can tidy things later...
-		WEAPONS_EXPO_OBJECTIVE = "Locate and steal weapon prototypes",
+		WEAPONS_EXPO_OBJECTIVE = "Locate and steal tech prototypes",
 		WEAPONS_EXPO_EMP_SAFE = "Cannot loot while device is disabled",
 		WEAPONS_EXPO_WARN_EXIT = "Are you sure you want to leave? You haven't stolen any of the weapon prototypes yet.",
 		WEAPONS_EXPO_FIREWALLS = "SECURITY FAILSAFE: FIREWALL BOOST",
@@ -527,7 +527,7 @@ return {
 		DOORS_REVEALED = "DOORS REVEALED",
 		EXIT_REVEALED = "EXIT REVEALED",
 		NO_GUARD_ESCAPE = "Must access Personnel Database first",
-		CAMERADB_SCRUBBED = "MAINFRAME WITNESSES CLEARED",
+		CAMERADB_SCRUBBED = "CAMERAS CLEARED",
 		WITNESS_CLEARED = "WITNESS REMOVED",
 		MOLE_EXIT_WARNING = "Are you sure you want to leave? You haven't located the Personnel Database yet.",
 		MOLE_EXIT_WARNING2 = "Are you sure you want to leave? The Informant needs to escape through the GUARD elevator.",
@@ -553,6 +553,7 @@ return {
 			KO_GAS_PINNED_DESC = "This agent's KO timer will not decrease until they leave the knockout gas.",
 			NO_PATROL_CHANGE = "NO PATROL CHANGE",
 			NO_PATROL_CHANGE_DESC = "This unit will not change their patrol route.",
+			WEAPONS_EXPO_LOOT_CONTENT = "DISPLAY PLAQUE",
 			
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
@@ -775,7 +776,7 @@ return {
 					{{"Acceptable work. You didn't get the entire arsenal, but this should tide us over for now.",nil,"Central"}},
 					{{"This should give our people an edge in the field. Let's just hope the enemy won't be armed with those prototypes you chose to leave behind.",nil,"Central"}}},
 					GOT_FULL = {{{"I hope you dusted the shelves on your way out. We wouldn't want their cleaners to think we've missed a spot. Excellent work.",nil,"Central"}},
-					{{"That should do quite nicely. It won't put us on par with the corps, but we're no longer as catastrophically outgunned as we were before.",nil,"Central"}},
+					{{"That should do quite nicely. It won't put us on par with the corps, but we're no longer as catastrophically outmatched as we were before.",nil,"Central"}},
 					{{"Commendable work, Operator. We've expanded our arsenal and put a dent in their research all at once.",nil,"Central"}}},
 				},
 			},
@@ -837,6 +838,14 @@ return {
 				},
 				SEE_GUARD_EXIT = {
 					{{"There's a guard exit. Be careful, Operator. Make sure the informant doesn't run into any inbound reinforcements on the way.",nil,"Central"}},
+				},	
+				WITNESS_FLED_LEVEL = {
+					{{"Damn it! Someone who's seen our informant has just escaped from this floor. We can't get to them now, and the informant is already inside.", nil, "Central"}},
+					{{"If you left any other witnesses, don't bother taking care of them. Just focus on getting out. Let us hope our mole can give us at least something before they get burned.",nil, "Central"}},
+				},
+				WITNESS_FLED_LEVEL_RETRY = {
+					{{"Damn it! Someone who's seen our informant has just escaped from this floor. We can't get to them now.", nil, "Central"}},
+					{{"We can abort this mission, extract the informant normally and try elsewhere, or send them in now knowing their cover will be blown soon. Make your choice, Operator.",nil,"Central",}},
 				},				
 				CENTRAL_JUDGEMENT = {
 					MOLE_JET_ESCAPE = {
