@@ -138,7 +138,7 @@ local npc_abilities =
 						if unit:getTraits().isDrone then
 							table.insert(drone_witnesses, unit)
 						end
-						if unit:getTraits().mainframe_camera then
+						if unit:getTraits().mainframe_camera and not unit:isDead() then
 							table.insert(camera_witnesses, unit)
 						end
 					end
