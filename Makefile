@@ -10,12 +10,12 @@ include makeconfig.mk
 
 .PHONY: build
 
-build: out/scripts.zip out/gui.kwad out/moremissions_anims.kwad
+build: out/scripts.zip out/gui.kwad out/moremissions_anims.kwad out/modinfo.txt
 
 install: build
 	mkdir -p $(INSTALL_PATH)
 	rm -f $(INSTALL_PATH)/*.kwad $(INSTALL_PATH)/*.zip
-	cp modinfo.txt $(INSTALL_PATH)/
+	cp out/modinfo.txt $(INSTALL_PATH)/
 	cp out/scripts.zip $(INSTALL_PATH)/
 	cp out/gui.kwad $(INSTALL_PATH)/
 	cp out/moremissions_anims.kwad $(INSTALL_PATH)/
@@ -23,6 +23,7 @@ install: build
 ifneq ($(INSTALL_PATH2),)
 	mkdir -p $(INSTALL_PATH2)
 	rm -f $(INSTALL_PATH2)/*.kwad $(INSTALL_PATH2)/*.zip
+	cp out/modinfo.txt $(INSTALL_PATH2)/
 	cp out/scripts.zip $(INSTALL_PATH2)/
 	cp scripts/pedler_oil.kwad $(INSTALL_PATH2)/
 	cp out/gui.kwad $(INSTALL_PATH2)/
@@ -61,3 +62,7 @@ out/gui.kwad out/moremissions_anims.kwad: $(anims)
 out/scripts.zip: $(shell find scripts -type f -name "*.lua")
 	mkdir -p out
 	cd scripts && zip -r ../$@ . -i '*.lua'
+
+out/modinfo.txt: modinfo.txt
+	mkdir -p out
+	cp modinfo.txt out/modinfo.txt
