@@ -179,18 +179,18 @@ local function checkGuard( unit )
 end
 
 local function makeGuardInvestigate( script, sim )
-			local cell = findCell( sim, "distressSpawn")
-			if cell then
-				--script:queue( { type="pan", x=cell.x, y=cell.y } )
-				local guard, closestDistance = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, function( u ) return not u:isKO() end )
-				local guard = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, checkGuard )
-				local agent = mission_util.findUnitByTag( sim, "escapedAgent" )
-				if agent and guard and guard:getBrain() then
-					guard:getBrain():getSenses():addInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_HUNTING, agent)
-					-- sim:processReactions()
-					sim:setClimax(true)
-				end
+		local cell = findCell( sim, "distressSpawn")
+		if cell then
+			--script:queue( { type="pan", x=cell.x, y=cell.y } )
+			local guard, closestDistance = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, function( u ) return not u:isKO() end )
+			local guard = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, checkGuard )
+			local agent = mission_util.findUnitByTag( sim, "escapedAgent" )
+			if agent and guard and guard:getBrain() then
+				guard:getBrain():getSenses():addInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_HUNTING, agent)
+				-- sim:processReactions()
+				sim:setClimax(true)
 			end
+		end
 end
 
 local function getLostAgent( agency )
@@ -360,7 +360,9 @@ local function startAgentEscape( script, sim, mission )
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
 		script:queue(2*cdefs.SECONDS) --without this Central's message gets "skipped" for some reason because of the agent stating oneliner still playing
 
-		makeGuardInvestigate(script, sim)
+		if not sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY then
+			makeGuardInvestigate(script, sim)
+		end
 		
 		local scripts = SCRIPTS.INGAME.DISTRESS_CALL.SAW_AGENT
 		if not newOperative:getUnitData().agentID then
