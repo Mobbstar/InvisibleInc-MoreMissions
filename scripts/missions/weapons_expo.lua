@@ -229,6 +229,9 @@ local function boost_firewalls(script, sim)
 	local _, vaultcase = script:waitFor( SAFE_HACKED )
 	local units_left = false
 	if not sim.MM_security_disabled then
+		if sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY then
+			ice_boost = 1
+		end
 		sim:dispatchEvent( simdefs.EV_SHOW_WARNING, {txt=STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_FIREWALLS, color=cdefs.COLOR_CORP_WARNING, sound = "SpySociety/Actions/mainframe_deterrent_action" } )
 		for i, unit in pairs(sim:getAllUnits()) do
 			if unit:hasTag("MM_topGear") and (vaultcase ~= unit) and unit:getTraits().mainframe_ice and (unit:getTraits().mainframe_ice > 0) and (unit:getTraits().mainframe_status == "active") then
