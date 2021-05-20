@@ -99,13 +99,13 @@ local npc_abilities =
 		
 		onSpawnAbility = function( self, sim, player, agent )
 			sim:addTrigger( simdefs.TRG_UNIT_KILLED, self )
-			sim:addTrigger( simdefs.TRG_UNIT_PARALYZED , self )
 			sim:addTrigger( TRG_DATABASE_SCRUBBED , self )
 			sim:addTrigger( simdefs.TRG_UNIT_APPEARED , self )
 			sim:addTrigger( simdefs.TRG_START_TURN , self ) --just in case
 			sim:addTrigger( "cameradb_scrubbed", self )
 			sim:addTrigger( "mole_final_escape", self )
 			sim:addTrigger( "vip_escaped", self )
+			sim:addTrigger( "used_amnesiac", self ) --trg_unit_paralyzed is firing too early, need this instead
 			self.camera_witnesses = 0
 			self.guard_witnesses = 0
 			self.drone_witnesses = 0
@@ -115,13 +115,13 @@ local npc_abilities =
 		
 		onDespawnAbility = function( self, sim )
 			sim:removeTrigger( simdefs.TRG_UNIT_KILLED, self )
-			sim:removeTrigger( simdefs.TRG_UNIT_PARALYZED, self )
 			sim:removeTrigger( TRG_DATABASE_SCRUBBED, self )
 			sim:removeTrigger( simdefs.TRG_UNIT_APPEARED , self )
 			sim:removeTrigger( simdefs.TRG_START_TURN , self )
 			sim:removeTrigger( "cameradb_scrubbed", self )
 			sim:removeTrigger( "mole_final_escape", self )
 			sim:removeTrigger( "vip_escaped", self )
+			sim:removeTrigger( "used_amnesiac", self )
 		end,
 		
 		onTrigger = function( self, sim, evType, evData, userUnit )
