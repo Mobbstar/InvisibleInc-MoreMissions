@@ -336,11 +336,12 @@ local function lateInit( modApi )
 	paralyze.executeAbility = function( self, sim, unit, userUnit, target, ... )
 		paralyze_executeAbility_old( self, sim, unit, userUnit, target, ... )
 		local targetUnit = sim:getUnit(target)
-		targetUnit:setAlerted(false)
-		targetUnit:getTraits().witness = nil
+		-- targetUnit:setAlerted(false)
 		local x0, y0 = targetUnit:getLocation()
-		if x0 and y0 then
-			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
+		if x0 and y0 and targetUnit:getTraits().witness then
+			targetUnit:getTraits().witness = nil
+			sim:triggerEvent( "used_amnesiac", { userUnit = userUnit, targetUnit = targetUnit } )
+			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=0,a=1}} )
 		end		
 		--Funky Library takes care of impair AP stuff
 	end
@@ -350,7 +351,9 @@ local function lateInit( modApi )
 	simunit.onDamage = function( self, damage, ... )
 		simunit_onDamage_old( self, damage, ... )
 		if self and self:isValid() and self:getLocation() and not self:getTraits().isDead and (self:getTraits().MM_bodyguard or self:getTraits().MM_bounty_target) then
-			self:getSim():dispatchEvent( simdefs.EV_UNIT_HIT, {unit = self, result = 0} ) --stagger FX
+			if not self:isKO() then
+				self:getSim():dispatchEvent( simdefs.EV_UNIT_HIT, {unit = self, result = 0} ) --stagger FX
+			end
 		end
 	end
 	
