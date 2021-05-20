@@ -460,7 +460,7 @@ local function calculateHostageVitalSigns( sim )
 	if isEndless then
 		extraSigns = 2
 	end
-	if sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY then
+	if (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY) then
 		extraSigns = 3
 	end
 
