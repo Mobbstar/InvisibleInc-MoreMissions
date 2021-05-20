@@ -360,7 +360,7 @@ local function startAgentEscape( script, sim, mission )
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
 		script:queue(2*cdefs.SECONDS) --without this Central's message gets "skipped" for some reason because of the agent stating oneliner still playing
 
-		if not sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY then
+		if not (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY) then
 			makeGuardInvestigate(script, sim)
 		end
 		
