@@ -1434,6 +1434,19 @@
         </Tags>
         <BStates />
       </MapUnit>
+      <MapUnit>
+        <X>1</X>
+        <Y>4</Y>
+        <UnitKey>Camera</UnitKey>
+        <Template>security_camera_1x1</Template>
+        <UnitData>facing = 7</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags>
+          <string>MM_personneldb_camera</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
     </Units>
     <Decos>
       <MapDeco>
