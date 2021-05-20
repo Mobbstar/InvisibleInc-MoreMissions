@@ -543,6 +543,9 @@ local function makeSmoke( script, sim )
 	sim:getNPC():spawnInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, terminal) 
 	
 	script:waitFor( mission_util.PC_START_TURN )
+	if sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY then
+		script:waitFor( mission_util.PC_START_TURN )
+	end
 	
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().MM_incogRoom_unlock then
