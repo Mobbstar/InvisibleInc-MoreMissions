@@ -1921,7 +1921,7 @@ local units =
             {
                 x = 2,
                 y = 8,
-                template = [[MM_vault_safe_2]],
+                template = [[MM_vault_safe_nonweapon_1]],
                 unitData =
                 {
                     facing = 0,
@@ -1933,7 +1933,7 @@ local units =
             {
                 x = 2,
                 y = 10,
-                template = [[MM_vault_safe_3]],
+                template = [[MM_vault_safe_nonweapon_2]],
                 unitData =
                 {
                     facing = 0,
@@ -1945,7 +1945,7 @@ local units =
             {
                 x = 9,
                 y = 2,
-                template = [[MM_vault_safe_nonweapon_1]],
+                template = [[MM_vault_safe_2]],
                 unitData =
                 {
                     facing = 0,
@@ -1957,7 +1957,7 @@ local units =
             {
                 x = 9,
                 y = 16,
-                template = [[MM_vault_safe_nonweapon_2]],
+                template = [[MM_vault_safe_3]],
                 unitData =
                 {
                     facing = 0,
