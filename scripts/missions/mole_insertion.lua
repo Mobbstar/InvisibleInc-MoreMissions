@@ -426,6 +426,23 @@ local function progressDBhack(sim, database, hacker, script)
 	end
 end
 
+local function activateCamera(script, sim)
+	for i, cameraUnit in pairs(sim:getAllUnits()) do
+		if cameraUnit:hasTag("MM_personneldb_camera") and cameraUnit:getTraits().mainframe_status =="off" and
+        not cameraUnit:getTraits().mainframe_booting and not cameraUnit:getTraits().dead then
+			cameraUnit:getTraits().mainframe_camera = true
+			cameraUnit:getTraits().mainframe_status_old = "active"
+			cameraUnit:getTraits().mainframe_booting = 1
+			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = cameraUnit } )
+			local x0, y0 = cameraUnit:getLocation()
+			cameraUnit:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB ) 
+			script:queue( { type="pan", x=x0, y=y0, zoom=0.25 } )
+			script:waitFor( util.extend( mission_util.NPC_START_TURN ){ priority = -1 } )
+			cameraUnit:destroyTab()
+		end
+	end
+end
+
 local function DBhack( script, sim )
 	local mole = nil
 	local progress = 0
@@ -440,11 +457,14 @@ local function DBhack( script, sim )
 				-- if progress > 0 then
 					local x2,y2 = mole:getLocation()
 					sim:getNPC():spawnInterest(x2,y2, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, mole) --keep spawning interest for duration of hack
-				-- end				
+				-- end		
 				local database = sim:getUnit(agent:getTraits().monster_hacking)
 				progressDBhack(sim, database, mole, script)
 				sim:incrementTimedObjective( "hack_personnel_DB" )
 				progress = progress + 1
+				if progress == 3 then
+					activateCamera(script, sim)
+				end
 			end 
 		end 	
 			
@@ -732,37 +752,47 @@ local function findCell( sim, tag )
 	return cells and cells[1]
 end
 
-local function spawnEliteGuard( sim ) --spawns a high-tier stationary guard at the door to the database room
-	local templateName = "important_guard"
-	local door_cell = findCell( sim, "personneldb_door" )
-	local world = worldgen[sim:getParams().world:upper()]
-	local list = world.THREAT_FIX or world.THREAT
-	local wt = util.weighted_list( list )
-	if list then
-		templateName = wt:getChoice( sim:nextRand( 1, wt:getTotalWeight() ) )
-	end
-	local guardTemplate = unitdefs.lookupTemplate( templateName )
-	local newGuard = simfactory.createUnit( guardTemplate, sim ) 
-	sim:spawnUnit( newGuard )
-	newGuard:setPlayerOwner( sim:getNPC() )
-	newGuard:setPather(sim:getNPC().pather)
-	sim:warpUnit( newGuard, door_cell )
-	newGuard:getTraits().nopatrol = true
-	local x0, y0 = newGuard:getLocation()
-    newGuard:getTraits().patrolPath = { { x = x0, y = y0 } }
-	newGuard:getTraits().mm_nopatrolchange = true
-	
-	local facing = 0
-	-- make him face away from the door
-	for dir, exit in pairs(door_cell.exits) do
-		if simquery.isDoorExit(exit) then
-			-- log:write("LOG setting facing")
-			local x1, y1 = exit.cell.x, exit.cell.y
-			facing = simquery.getDirectionFromDelta( x0 - x1, y0 - y1 )
+local function spawnEliteGuard( sim ) --spawns a high-tier stationary guard at the door to the database room, also initially deactivates the camera
+	for i, cameraUnit in pairs(sim:getAllUnits()) do
+		if cameraUnit:getTraits().mainframe_camera and cameraUnit:hasTag("MM_personneldb_camera") then
+			cameraUnit:getTraits().mainframe_camera = nil --prevents camera from being activated at alarm level 1
+			cameraUnit:deactivate(sim)
+			cameraUnit:getTraits().mainframe_status = "off"
 		end
 	end
-	newGuard:setFacing(facing)
-	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newGuard } )
+
+	if not (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY) then
+	
+		local templateName = "important_guard"
+		local door_cell = findCell( sim, "personneldb_door" )
+		local world = worldgen[sim:getParams().world:upper()]
+		local list = world.THREAT_FIX or world.THREAT
+		local wt = util.weighted_list( list )
+		if list then
+			templateName = wt:getChoice( sim:nextRand( 1, wt:getTotalWeight() ) )
+		end
+		local guardTemplate = unitdefs.lookupTemplate( templateName )
+		local newGuard = simfactory.createUnit( guardTemplate, sim ) 
+		sim:spawnUnit( newGuard )
+		newGuard:setPlayerOwner( sim:getNPC() )
+		newGuard:setPather(sim:getNPC().pather)
+		newGuard:getTraits().nopatrol = true
+		newGuard:getTraits().patrolPath = { { x = door_cell.x, y = door_cell.y } }
+		newGuard:getTraits().mm_nopatrolchange = true
+		
+		local facing = 0
+		-- make him face away from the door
+		for dir, exit in pairs(door_cell.exits) do
+			if simquery.isDoorExit(exit) then
+				-- log:write("LOG setting facing")
+				local x1, y1 = exit.cell.x, exit.cell.y
+				facing = simquery.getDirectionFromDelta( door_cell.x - x1, door_cell.y - y1 )
+			end
+		end
+		newGuard:setFacing(facing)
+		sim:warpUnit( newGuard, door_cell )
+		sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newGuard } )
+	end
 end
 ----------------
 local function despawnRedundantCameraDB(sim)
