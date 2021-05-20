@@ -161,7 +161,7 @@ return {
 		DISCARDED_MANACLES_FLAVOR = "An empty space, where a prisoner is supposed to be restrained.",
 		
 		AMNESIAC = "Amnesiac",
-		AMNESIAC_TOOLTIP = "Use on pinned targets. Removes WITNESS tag. Reduces max AP by 2.",
+		AMNESIAC_TOOLTIP = "Use on pinned targets. Removes WITNESS status. KOs target for 2 more turns. Reduces max AP by 2.",
 		AMNESIAC_FLAVOR = "A mind-scrambling mix of chemicals straight off the seedy underbelly of the black market. The target wakes up sluggish, disoriented, and unable to recall certain pertinent details, such as any faces they might have recently seen.",
 
 		MOLE_CLOAK = "Custom Cloaking Rig I",
@@ -473,7 +473,7 @@ return {
 
 		WEAPONS_EXPO = {
 			NAME= "Tech Expo",
-			MORE_INFO = "This facility is hosting a world class tier tech exposition. The corporations and the industry finest will be showing off their newest weapon prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nKeep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
+			MORE_INFO = "This facility is hosting a world class tier tech exposition. The corporations and the industry finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nKeep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
 			INSET_TITLE = "TECH EXPO", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused unless we actually get these voiced somehow
 			INSET_VO = {""},
@@ -541,10 +541,10 @@ return {
 			EA_HOSTAGE_VITAL_STATUS = "VITAL STATUS",
 			EA_HOSTAGE_VITAL_STATUS_DESC = "Will expire if not extracted in {1} {1:turn|turns}.",
 			PARALYZE_AMNESIAC = "Amnesiac dose",
-			PARALYZE_AMNESIAC_DESC = "Inject pinned victim with amnesiac. Removes WITNESS tag and reduces max AP by {1}.",
+			PARALYZE_AMNESIAC_DESC = "Inject pinned victim with amnesiac. Removes WITNESS status. KOs target for 2 extra turns. Reduces max AP by {1}.",
 			WITNESS = "WITNESS",
 			WITNESS_DESC_HUMAN = "Kill this unit or KO and apply Amnesiac.",
-			WITNESS_DESC_MAINFRAME = "Destroy this unit or scrub Camera Database.",
+			WITNESS_DESC_MAINFRAME = "Destroy this unit, EMP or scrub Camera Database.",
 			WITNESS_DESC_DRONE = "Destroy or EMP this unit.",
 			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",
 			KO_GAS = "KNOCKOUT GAS",
