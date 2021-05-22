@@ -678,7 +678,7 @@ local mission = class( escape_mission )
 
 function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
-	
+	sim.TA_mission_success = false
 	local c = findCell( sim, "IncognitaLock2" )
 	if not c then
 		log:write("LOG: AI terminal room not found. Regenerating level.")
