@@ -670,6 +670,7 @@ local hostage_mission = class( mission_util.campaign_mission )
 --local hostage_mission = class( escape_mission )
 
 function hostage_mission:init( scriptMgr, sim )
+	sim.TA_mission_success = true
 	escape_mission.init( self, scriptMgr, sim ) --let vanilla escape_mission.init run but follow it up with custom version of the sim:closeElevator code which doesn't set a 2 turn timer
 
 	sim:forEachCell(
