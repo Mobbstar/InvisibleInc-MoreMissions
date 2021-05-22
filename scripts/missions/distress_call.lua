@@ -473,6 +473,7 @@ local mission = class( escape_mission )
 
 function mission:init( scriptMgr, sim )
     sim:getTags().skipBanter = true
+	sim.TA_mission_success = false
     escape_mission.init( self, scriptMgr, sim )
 	activateCam( sim )
 
