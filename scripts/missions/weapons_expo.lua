@@ -402,6 +402,7 @@ end
 local mission = class( escape_mission )
 
 function mission:init( scriptMgr, sim )
+	sim.TA_mission_success = false
     local params = sim:getParams()
     if params.side_mission then
 		if params.side_mission == "transformer" then
