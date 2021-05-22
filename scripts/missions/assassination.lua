@@ -692,6 +692,7 @@ end
 
 function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
+	sim.TA_mission_success = false
 	despawnRedundantCameraDB( sim )
 	tryDecoy( sim )
 	-- Base credit value for a successful kill
