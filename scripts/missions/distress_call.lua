@@ -281,7 +281,7 @@ local function startAgentEscape( script, sim, mission )
 		newUnit:getTraits().rescued = true
         newUnit:getTraits().detention = true
 		newUnit:addTag("escapedAgent")
-		newOperative:addTag("MM_distressCallAgent") --used by TA
+		newUnit:addTag("MM_distressCallAgent") --used by TA
 		local cell = sim:getCell( unit:getLocation() )
         assert( cell )
 		sim:warpUnit( unit, nil )
