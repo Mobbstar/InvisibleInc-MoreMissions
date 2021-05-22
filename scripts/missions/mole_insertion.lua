@@ -818,6 +818,7 @@ end
 --------------------------------------------------------------------------------
 
 function mission:init( scriptMgr, sim )
+	sim.TA_mission_success = false
 	sim:getTags().skipBanter = true
 	despawnRedundantCameraDB(sim)
 	escape_mission.init( self, scriptMgr, sim )
