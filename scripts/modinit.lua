@@ -102,13 +102,6 @@ local function init( modApi )
 		end
 	end
 
-	local simunit = include("sim/simunit")
-	local destroyTab_old = simunit.destroyTab
-
-	function simunit.destroyTab( self, unlessThisTab )
-		if self._tab = { , } then
-
-
 	--cannot set display string... local variable only -M
 	table.insert(modApi.mod_manager.credit_sources, "assassinationreward")
   
