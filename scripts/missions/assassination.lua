@@ -328,6 +328,9 @@ local function followHeatSig( script, sim )
 				end	}
 		)
 		ceo:destroyTab()
+		if ceo:getTraits().iscorpse then 
+			break
+		end
 		ceo:createTab( STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, "" )
 		local x, y = ceo:getLocation()
 		script:queue( { type="pan", x=x, y=y } )
