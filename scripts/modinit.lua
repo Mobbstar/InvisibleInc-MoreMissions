@@ -91,6 +91,17 @@ local function init( modApi )
 		oldInit( self, params, levelData, ... )	
 	end	
 
+	--Keeps the "heat signature detected" label when target returns to idling after having been distracted
+	local aiplayer = include("sim/aiplayer")
+	local returnToIdleSituation_old = aiplayer.returnToIdleSituation
+
+	function aiplayer.returnToIdleSituation( self, unit )
+		returnToIdleSituation_old( self, unit )
+		if unit:getTraits().MM_bounty_target_spotted == true then
+			unit:createTab( STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, "" )
+		end
+	end
+
 	--cannot set display string... local variable only -M
 	table.insert(modApi.mod_manager.credit_sources, "assassinationreward")
   

@@ -282,6 +282,61 @@ local function doUnlockSaferoom( sim, agent )
 	end
 end
 
+--Ended up being loosely based on followHeatSig from mission_ceo_office (CFO) -SLF
+local function followHeatSig( script, sim )
+	for _, unit in pairs( sim:getNPC():getUnits() ) do
+		if unit:getTraits().MM_bounty_target then
+			ceo = unit
+		end
+	end
+
+	ceo:createTab( STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, "" )
+	local x, y = ceo:getLocation()
+	script:queue( { type="pan", x=x, y=y } )
+
+	while true do
+		local ev, triggerData = script:waitFor( 
+			{ 	trigger = simdefs.TRG_UNIT_WARP,
+		    	fn = function( sim, triggerData )
+			    	if triggerData.unit and triggerData.unit:isNPC() and triggerData.unit:getTraits().dynamicImpass then
+			    		if triggerData.unit == ceo then
+			    			--log:write("[MM] [SLFTEST] Update -- MOVEMENT")
+			    			return sim:getCurrentPlayer() == sim:getNPC()
+			    		end
+			    	end
+			    end }, 
+			{	trigger = simdefs.TRG_NEW_INTEREST,
+				fn = function( sim, triggerData )
+					if triggerData.unit == ceo then
+						--log:write("[MM] [SLFTEST] Update -- ASSIGNED INTEREST POINT")
+						return true
+					end
+				end }, 
+			{ 	trigger = simdefs.TRG_UNIT_NEWINTEREST,
+			 	fn = function( sim, triggerData )
+					if triggerData.unit == ceo then
+						--log:write("[MM] [SLFTEST] Update -- UNIT INTEREST POINT")
+						return true
+					end
+				end }, 
+			{ 	trigger = simdefs.TRG_START_TURN,
+				fn = function( sim, triggerData )
+					--log:write("[MM] [SLFTEST] Update -- TURN START")
+					--by the way, if the target was distracted, then returns to idling, that happens AFTER start of turn
+					--there's a special append for that in modinit
+					return true
+				end	}
+		)
+		ceo:destroyTab()
+		if ceo:getTraits().iscorpse then 
+			break
+		end
+		ceo:createTab( STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, "" )
+		local x, y = ceo:getLocation()
+		script:queue( { type="pan", x=x, y=y } )
+	end
+end
+
 ----
 -- Script hooks
 
@@ -297,6 +352,10 @@ local function playerSeesCeo( script, sim, mission )
 	if ceo:getTraits().iscorpse then
 		report = SCRIPTS.INGAME.ASSASSINATION.AFTERMATH
 		mission.reportedCeoKilled = true
+		if mission.reportedCeoSeen == true then
+			script:removeHook( followHeatSig )
+			ceo:getTraits().MM_bounty_target_spotted = nil
+		end
 		mission.reportedCeoSeen = true
 	elseif ceo:isKO() then
 		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
@@ -308,7 +367,8 @@ local function playerSeesCeo( script, sim, mission )
 		mission.reportedCeoSeen = true
 
 		--create that big white arrow pointing to the target
-		ceo:createTab( STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, "" )
+		script:addHook( followHeatSig )
+		ceo:getTraits().MM_bounty_target_spotted = true --checked in a modinit append
 	end
 
 	local x,y = ceo:getLocation()
