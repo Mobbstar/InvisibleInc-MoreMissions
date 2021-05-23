@@ -366,17 +366,20 @@ return {
 					"UPGRADE PROGRAM"
 				},
 				
-				OPTIONS1_TXT = "Choose between new slot and upgraded program",
-				OPTIONS1_TXT_MAXSLOTS = "Choose between new slot and upgraded program.\n\nProgram slots full. New slot unavailable.",
+				OPTIONS1_TXT = "This terminal has months of AI research data on it, but due to a security failsafe, you can only access one subset of it at a time. You can increase Incognita's program capacity or upgrade an existing program.\n\n<c:FC5603>AVAILABLE UPGRADES:\n{1}\n{2}</c>",
+				-- OPTIONS1_TXT = "Choose between new slot and upgraded program",
+				OPTIONS1_TXT_MAXSLOTS = "This terminal has months of AI research data on it, but due to a security failsafe, you can only access one subset of it at a time. You can increase Incognita's program capacity or upgrade an existing program.\n\n<c:FC5603>PROGRAM SLOTS FULL\nNew slot unavailable\n\nAVAILABLE UPGRADES:\n{1}\n{2}</c>",
 				OPTIONS1_TITLE = "AI TERMINAL ACCESS",
 				OPTIONS1_RESULT1_TITLE = "NEW SLOT ACQUIRED",
-				OPTIONS1_RESULT1_TXT = "New program slot acquired. Will be available after this mission.",
+				OPTIONS1_RESULT1_TXT = "New program slot acquired. Will become available after this mission.",
 				
-				OPTIONS2_TXT = "Select a program to upgrade. \n\n<c:FC5603>Cannot upgrade the same program twice.</c>",
+				OPTIONS2_TXT = "Select a program to upgrade. \n\n<c:FC5603>WARNING: Cannot upgrade the same program twice.\n\nAVAILABLE UPGRADES:\n{1}\n{2}</c>",
+				OPTIONS2_TXT_COMPACT = "Select a program to upgrade. \n<c:FC5603>WARNING: Cannot upgrade the same program twice.\nAVAILABLE UPGRADES: {1}, {2}.</c>", --more compact, for full program slots/many buttons
+				-- OPTIONS2_TXT = "Select a program to upgrade. <c:FC5603>Cannot upgrade the same program twice. AVAILABLE UPGRADES:{1}, {2}</c>",
 				OPTIONS2_TITLE = "SELECT PROGRAM",
 				
-				OPTIONS3_TXT = "Choose a parameter to upgrade.",
-				OPTIONS3_TITLE = "CHOOSE PARAMETER",
+				OPTIONS3_TXT = "Select a parameter to upgrade.",
+				OPTIONS3_TITLE = "SELECT PARAMETER",
 				OPTIONS3 = {
 					"Firewalls broken",
 					"PWR cost",
@@ -395,7 +398,7 @@ return {
 					"Decrease by 1",
 					"Increase by 1",
 				},
-				OPTIONS4_TXT = "How do you want to modify this parameter?\n\n<c:FC5603>Warning: Cannot decrease a parameter below 1.</c>\nCannot upgrade if parameter is 0 or NOT APPLICABLE.",
+				OPTIONS4_TXT = "How do you want to modify this parameter?\n\n<c:FC5603>WARNING: Cannot decrease a parameter below 1.\nCannot upgrade if parameter is 0 or NOT APPLICABLE.</c>",
 				
 				OPTIONS_FIREWALLS_TITLE = "FIREWALLS BROKEN",
 				OPTIONS_FIREWALLS_INCREASE = "Icebreaking power increased by 1.",
@@ -422,6 +425,8 @@ return {
 				PROGRAM_UPGRADED_SUCCESS = "PROGRAM UPGRADED",
 				PROGRAM_UPGRADE_FAIL_TXT = "Could not upgrade this parameter. Returning to root.", --needs to be implemented
 				PROGRAM_UPGRADE_FAIL_TITLE = "INVALID UPGRADE",
+				
+				START_OVER = "Start over",
 				
 				
 			},
