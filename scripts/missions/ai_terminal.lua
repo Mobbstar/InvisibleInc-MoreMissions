@@ -475,7 +475,7 @@ local function incrementLocks( script, sim )
 	end
 	if step >= 4 then
 		for i, AIunit in pairs( sim:getAllUnits() ) do
-			if AIunit:getName() == STRINGS.WORLDEXTEND.PROPS.INCOGROOM_AI_TERMINAL then
+			if AIunit:getName() == STRINGS.MOREMISSIONS.PROPS.INCOGROOM_AI_TERMINAL then
 				AIunit:setPlayerOwner( sim:getPC() )
 				sim:getCurrentPlayer():glimpseUnit( sim, AIunit:getID() )
 				sim:dispatchEvent( simdefs.EV_UNIT_CAPTURE, { unit = AIunit, nosound = true } )	
