@@ -190,7 +190,7 @@ end
 
 local function finishProgramUpgrade( upgradedProgram, sim )
 	upgradedProgram.value = upgradedProgram.value or 0
-	upgradedProgram.value = upgradedProgram.value * 1.5 --increase resale value of upgraded program
+	upgradedProgram.value = upgradedProgram.value * 1.3 --increase resale value of upgraded program
 	upgradedProgram.oldName = upgradedProgram.name
 	upgradedProgram.name = "UPGRADED "..upgradedProgram.name
 	sim:getTags().used_AI_terminal = true
@@ -207,13 +207,19 @@ local function upgradeDialog( script, sim )
 	
 	local dialogPath = STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.DIALOG
 	
-	local txt = dialogPath.OPTIONS1_TXT
+	-- check available upgrade types for display purposes
+	local pos1, pos2 = sim.MM_AI_terminal_parameters[1], sim.MM_AI_terminal_parameters[2]	
+	local options3_temp = {}
+	table.insert(options3_temp, dialogPath.OPTIONS3[pos1])
+	table.insert(options3_temp, dialogPath.OPTIONS3[pos2])
+				
+	local txt = util.sformat(dialogPath.OPTIONS1_TXT, options3_temp[2],options3_temp[1])
 	local title = dialogPath.OPTIONS1_TITLE
 	local options = dialogPath.OPTIONS1 --choose between slot and program upgrade
 	
 	if sim:getParams().agency.W93_aiTerminals and (sim:getParams().agency.W93_aiTerminals) >= 2 then --max slots reached
 		options = dialogPath.OPTIONS1_MAXSLOTS
-		txt = dialogPath.OPTIONS1_TXT_MAXSLOTS
+		txt = util.sformat(dialogPath.OPTIONS1_TXT_MAXSLOTS,options3_temp[2],options3_temp[1])
 	end
 
 	option = mission_util.showDialog( sim, title, txt, options )
@@ -230,9 +236,12 @@ local function upgradeDialog( script, sim )
 		option = nil
 		triggerData.abort = true
 	else--default to first and only option if max slots are reached
-		local txt2 = dialogPath.OPTIONS2_TXT 
+		local txt2 = util.sformat(dialogPath.OPTIONS2_TXT,options3_temp[2],options3_temp[1])
 		
 		local options2 = populateProgramList( sim ).options_list
+		if #options2 > 5 then
+			txt2 = util.sformat(dialogPath.OPTIONS2_TXT_COMPACT,options3_temp[2],options3_temp[1])
+		end
 		local option2 = mission_util.showDialog( sim, dialogPath.OPTIONS2_TITLE, txt2, options2 ) -- choose program to upgrade
 		
 		local program_name = options2[option2]
@@ -264,19 +273,21 @@ local function upgradeDialog( script, sim )
 				}				
 				
 				local pos1, pos2 = sim.MM_AI_terminal_parameters[1], sim.MM_AI_terminal_parameters[2]
-				
-				table.remove(options3,pos1)
-				table.remove(options3,pos2)
+				local options3_random = {} --make a new options table, keeping only the two randomised entries
+				table.insert(options3_random, dialogPath.OPTIONS3[pos1])
+				table.insert(options3_random, dialogPath.OPTIONS3[pos2])
+				table.insert(options3_random, 1, dialogPath.START_OVER )
 
-				local firewall_opt = nil --1
-				local pwr_opt = nil --2
-				local cd_opt = nil --3
-				local range_opt = nil --4
+				local firewall_opt = nil 
+				local pwr_opt = nil
+				local cd_opt = nil
+				local range_opt = nil 
+				local restart_opt = nil
 				
 				-- reassign now that two entries in options were randomly removed
-				for num = #options3, 1, -1 do
-					local pam = options3[num]
-				-- for num, pam in pairs(options3) do
+				for num = #options3_random, 1, -1 do
+					local pam = options3_random[num]
+				-- for num, pam in pairs(options3_random) do
 					if (pam == "Firewalls broken") or (pam == "Parasite strength") then
 						firewall_opt = num
 					end
@@ -289,9 +300,12 @@ local function upgradeDialog( script, sim )
 					if pam == "Range" then
 						range_opt = num
 					end
+					if pam == "Start over" then
+						restart_opt = num --should be 1
+					end
 				end
 
-				local option3 = mission_util.showDialog( sim, dialogPath.OPTIONS3_TITLE, txt3, options3 ) --choose between parameters to upgrade
+				local option3 = mission_util.showDialog( sim, dialogPath.OPTIONS3_TITLE, txt3, options3_random ) --choose between parameters to upgrade
 				
 				local txt_increment = dialogPath.OPTIONS4_TXT --"Choose a change. Parameter cannot be decreased below 1."
 				
@@ -301,7 +315,10 @@ local function upgradeDialog( script, sim )
 					-- "Decrease by 1",
 				-- }
 				
-				if option3 == firewall_opt then
+				if option3 == restart_opt then 
+					restart_opt = nil
+					triggerData.abort = true			
+				elseif option3 == firewall_opt then
 					--increase/decrease firewalls broken
 					local txt_firewalls = util.sformat(dialogPath.FIREWALLS_TIP, upgradedProgram.name, (
 					(((upgradedProgram.break_firewalls or 0) > 0) and upgradedProgram.break_firewalls )
