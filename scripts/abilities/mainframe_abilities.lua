@@ -61,6 +61,7 @@ for i, program in pairs(mainframe_abilities) do
 						self.MM_upgrade = {"range", upgrades[abilityID].range}
 					end
 					self.MM_upgraded = true
+					self.value = self.value * 1.3
 					self.name = "UPGRADED ".. self.name
 				end
 			end
