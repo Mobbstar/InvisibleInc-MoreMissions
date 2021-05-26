@@ -10,6 +10,7 @@ local simfactory = include( "sim/simfactory" )
 local itemdefs = include( "sim/unitdefs/itemdefs" )
 local serverdefs = include( "modules/serverdefs" )
 local cdefs = include( "client_defs" )
+local modifiers = include( "sim/modifiers" )
 
 local SCRIPTS = include('client/story_scripts')
 
@@ -123,10 +124,12 @@ local function spawnAndroids(script,sim)
 	local scripts = SCRIPTS.INGAME.WEAPONS_EXPO.LOOTED_CASE_DROIDS_BOOTING
 	queueCentral(script, scripts)
 
-	script:waitFor( mission_util.PC_START_TURN )
+	script:waitFor( mission_util.PC_END_TURN )
 	for i, unit in pairs(enemies) do
 		unit:destroyTab()
 	end
+	
+	script:waitFor( mission_util.PC_START_TURN )	
 
 	local droid_props = sim.androidSpawnedPool
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/reboot_complete_scanner" )
@@ -149,8 +152,18 @@ local function spawnAndroids(script,sim)
 		sim:dispatchEvent( simdefs.EV_UNIT_OVERWATCH_MELEE, { unit = newUnit, cancel=true})
 		newUnit:setPather(sim:getNPC().pather)
 		sim:dispatchEvent( simdefs.EV_UNIT_APPEARED, { unitID = newUnit:getID() } )	--no idea what this does but vanilla code has it so....
-		newUnit:setAlerted(true)
-		sim:getNPC():createOrJoinHuntSituation(newUnit)
+		if (sim:getParams().difficultyOptions.MM_difficulty == nil) or sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
+			newUnit:setAlerted(true)
+			sim:getNPC():createOrJoinHuntSituation(newUnit)
+		end
+		if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+			if newUnit:getTraits().range then
+				newUnit:getTraits().range = newUnit:getTraits().range - 1
+			end
+			newUnit:getModifiers():add("LOSrange","MM_easymode", modifiers.ADD, -1 )
+			newUnit:getBrain():setSituation(sim:getNPC():getIdleSituation() )
+			sim:getNPC():getIdleSituation():generatePatrolPath( newUnit, newUnit:getLocation() )
+		end
 		sim:getPC():glimpseCell(sim, cell)
 		sim:processReactions( newUnit )
 		
@@ -229,7 +242,7 @@ local function boost_firewalls(script, sim)
 	local _, vaultcase = script:waitFor( SAFE_HACKED )
 	local units_left = false
 	if not sim.MM_security_disabled then
-		if (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY) then
+		if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
 			ice_boost = 1
 		end
 		sim:dispatchEvent( simdefs.EV_SHOW_WARNING, {txt=STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_FIREWALLS, color=cdefs.COLOR_CORP_WARNING, sound = "SpySociety/Actions/mainframe_deterrent_action" } )
