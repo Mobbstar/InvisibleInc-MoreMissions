@@ -52,6 +52,8 @@ local function init( modApi )
 	modApi:addGenerationOption("mole_insertion",  STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION, STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION_TIP, {noUpdate=true, enabled = true} )
 	modApi:addGenerationOption("ai_terminal",  STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL, STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL_TIP, {noUpdate=true, enabled = true} )	
 	
+	modApi:addGenerationOption("MM_easy_mode",  STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE , STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE_TIP, {enabled = false, noUpdate=true} )
+	
 	modApi:addGenerationOption("MM_sidemissions",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_TIP, {noUpdate=true} ) --doesn't do anything yet
 	-- abilities, for now simple override (I'm not smart enough to...)
 	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
@@ -482,6 +484,11 @@ local function load( modApi, options, params )
 
 	if params then
 		params.mm_enabled = true
+		if options["MM_easy_mode"] and options["MM_easy_mode"].enabled then
+			params.MM_difficulty = "easy"
+		elseif options["MM_easy_mode"] and not options["MM_easy_mode"].enabled then
+			params.MM_difficulty = "hard"
+		end
 	end
 
 	local itemdefs = include( scriptPath .. "/itemdefs" )
