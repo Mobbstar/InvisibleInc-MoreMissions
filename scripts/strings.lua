@@ -67,6 +67,9 @@ return {
 
 		ITEMS_IN_STORE = "ITEMS IN STORES",
 		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",
+		
+		EASY_MODE = "EASY MODE",
+		EASY_MODE_TIP = "Some security measures in the custom missions are disabled or more forgiving.",
 	},
 
 	PROPS =
