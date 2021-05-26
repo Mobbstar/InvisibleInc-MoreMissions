@@ -761,7 +761,7 @@ local function spawnEliteGuard( sim ) --spawns a high-tier stationary guard at t
 		end
 	end
 
-	if not (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY) then
+	if (sim:getParams().difficultyOptions.MM_difficulty == nil) or sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
 	
 		local templateName = "important_guard"
 		local door_cell = findCell( sim, "personneldb_door" )
