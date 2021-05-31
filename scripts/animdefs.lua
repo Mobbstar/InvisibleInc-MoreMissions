@@ -402,7 +402,7 @@ local animdefs =
 	{
 		wireframe =
 		{
-			"data/anims/characters/agents/overlay_agent_shalem.abld",
+			"data/anims/characters/agents/agent_male_empty.abld",
 		},
 		build = 
 		{ 
@@ -433,6 +433,80 @@ local animdefs =
 		},		
 		peekBranchSet = 1,	
 	},	
+	
+	kanim_MM_mole_light =
+	{
+		wireframe =
+		{
+			"data/anims/characters/agents/agent_male_empty.abld",
+		},
+		build = 
+		{ 			
+			"data/anims/characters/anims_female/shared_female_hits_01.abld",		 
+			"data/anims/characters/anims_female/shared_female_attacks_a_01.abld",	
+			"data/anims/characters/agents/lady_mole_light.abld",
+		},
+		grp_build = 
+		{
+			"data/anims/characters/agents/grp_lady_mole_light.abld",
+		},
+		grp_anims = commonanims.female.grp_anims,
+
+		anims = commonanims.female.default_anims_unarmed,
+		anims_1h = commonanims.female.default_anims_1h,
+		anims_2h = commonanims.female.default_anims_2h,
+
+		animMap = AGENT_ANIMS,
+
+		symbol = "character",
+		anim = "idle",
+		shouldFlip = true,
+		scale = 0.25,
+		layer = Layer.Unit,
+		boundType = BoundType.Character,
+		boundTypeOverrides = {			
+			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
+			{anim="dead" ,boundType= BoundType.CharacterFloor},
+		},		
+		peekBranchSet =  2,
+	},	
+	
+	kanim_MM_mole_dark =
+	{
+		wireframe =
+		{
+			"data/anims/characters/agents/agent_male_empty.abld",
+		},
+		build = 
+		{ 			
+			"data/anims/characters/anims_female/shared_female_hits_01.abld",		 
+			"data/anims/characters/anims_female/shared_female_attacks_a_01.abld",	
+			"data/anims/characters/agents/lady_mole_dark.abld",
+		},
+		grp_build = 
+		{
+			"data/anims/characters/agents/grp_lady_mole_dark.abld",
+		},
+		grp_anims = commonanims.female.grp_anims,
+
+		anims = commonanims.female.default_anims_unarmed,
+		anims_1h = commonanims.female.default_anims_1h,
+		anims_2h = commonanims.female.default_anims_2h,
+
+		animMap = AGENT_ANIMS,
+
+		symbol = "character",
+		anim = "idle",
+		shouldFlip = true,
+		scale = 0.25,
+		layer = Layer.Unit,
+		boundType = BoundType.Character,
+		boundTypeOverrides = {			
+			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
+			{anim="dead" ,boundType= BoundType.CharacterFloor},
+		},		
+		peekBranchSet =  2,
+	},		
 }
 
 return animdefs
