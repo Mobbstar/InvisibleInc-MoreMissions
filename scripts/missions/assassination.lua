@@ -282,58 +282,27 @@ local function doUnlockSaferoom( sim, agent )
 	end
 end
 
---Ended up being loosely based on followHeatSig from mission_ceo_office (CFO) -SLF
+--full circle to the CFO mission followHeatSig
 local function followHeatSig( script, sim )
-	for _, unit in pairs( sim:getNPC():getUnits() ) do
-		if unit:getTraits().MM_bounty_target then
-			ceo = unit
+	sim:forEachUnit(
+	function(unit)
+		if unit:getTraits().MM_bounty_target then 
+			local x, y = unit:getLocation()
+			script:queue( { type="displayHUDInstruction", text=STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, x=x, y=y } )
+			script:queue( { type="pan", x=x, y=y } )
 		end
-	end
+	end)
 
-	ceo:createTab( STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, "" )
-	local x, y = ceo:getLocation()
-	script:queue( { type="pan", x=x, y=y } )
-
-	while true do
-		local ev, triggerData = script:waitFor( 
-			{ 	trigger = simdefs.TRG_UNIT_WARP,
-		    	fn = function( sim, triggerData )
-			    	if triggerData.unit and triggerData.unit:isNPC() and triggerData.unit:getTraits().dynamicImpass then
-			    		if triggerData.unit == ceo then
-			    			--log:write("[MM] [SLFTEST] Update -- MOVEMENT")
-			    			return sim:getCurrentPlayer() == sim:getNPC()
-			    		end
-			    	end
-			    end }, 
-			{	trigger = simdefs.TRG_NEW_INTEREST,
-				fn = function( sim, triggerData )
-					if triggerData.unit == ceo then
-						--log:write("[MM] [SLFTEST] Update -- ASSIGNED INTEREST POINT")
-						return true
-					end
-				end }, 
-			{ 	trigger = simdefs.TRG_UNIT_NEWINTEREST,
-			 	fn = function( sim, triggerData )
-					if triggerData.unit == ceo then
-						--log:write("[MM] [SLFTEST] Update -- UNIT INTEREST POINT")
-						return true
-					end
-				end }, 
-			{ 	trigger = simdefs.TRG_START_TURN,
-				fn = function( sim, triggerData )
-					--log:write("[MM] [SLFTEST] Update -- TURN START")
-					--by the way, if the target was distracted, then returns to idling, that happens AFTER start of turn
-					--there's a special append for that in modinit
-					return true
-				end	}
-		)
-		ceo:destroyTab()
-		if ceo:getTraits().iscorpse then 
-			break
-		end
-		ceo:createTab( STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, "" )
-		local x, y = ceo:getLocation()
-		script:queue( { type="pan", x=x, y=y } )
+	while true do 
+		local ev, triggerData = script:waitFor( mission_util.UNIT_WARP )
+		if triggerData.unit:getTraits().MM_bounty_target then
+			script:queue( { type="hideHUDInstruction" } ) 
+			local x, y = triggerData.unit:getLocation()
+            if x and y then
+			    script:queue( { type="displayHUDInstruction", text=STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, x=x, y=y } )
+			    script:queue( { type="pan", x=x, y=y } )
+            end
+		end 
 	end
 end
 
@@ -354,7 +323,6 @@ local function playerSeesCeo( script, sim, mission )
 		mission.reportedCeoKilled = true
 		if mission.reportedCeoSeen == true then
 			script:removeHook( followHeatSig )
-			ceo:getTraits().MM_bounty_target_spotted = nil
 		end
 		mission.reportedCeoSeen = true
 	elseif ceo:isKO() then
@@ -368,7 +336,6 @@ local function playerSeesCeo( script, sim, mission )
 
 		--create that big white arrow pointing to the target
 		script:addHook( followHeatSig )
-		ceo:getTraits().MM_bounty_target_spotted = true --checked in a modinit append
 	end
 
 	local x,y = ceo:getLocation()
@@ -426,7 +393,20 @@ local function playerSeesSaferoom(script, sim)
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_UNLOCK, "unlock" )
 	local doorCell = findCell( sim, "saferoom_doorouter" )
 	assert( doorCell )
-	script:queue( { type="displayHUDInstruction", text=STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.SECUREDOOR_TIP, x=doorCell.x, y=doorCell.y } )
+
+	-- spawn a label-carrying decoder on the door
+	local labelCarrier = simfactory.createUnit( unitdefs.prop_templates.door_decoder, sim )
+	labelCarrier:getTraits().LOSarc = 0
+	labelCarrier:getTraits().MM_label_carrier = true
+	for dir, exit in pairs(doorCell.exits) do
+		if exit.door and exit.closed then
+			labelCarrier:setFacing( dir )
+		end
+	end
+	sim:spawnUnit( labelCarrier )
+	sim:warpUnit( labelCarrier, doorCell )
+	labelCarrier:createTab( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.SECUREDOOR_TIP, "" )
+
 	script:queue( { type="pan", x=doorCell.x, y=doorCell.y } )
 	script:queue( .25*cdefs.SECONDS )
 	script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.DOOR_SIGHTED ), type="newOperatorMessage" } )
@@ -441,7 +421,17 @@ local function playerUnlocksSaferoom( script, sim )
 	doUnlockSaferoom( sim, agent )
 
 	sim:removeObjective( "unlock" )
-	script:queue( { type="hideHUDInstruction" } )
+
+	--despawn the label-carrying decoder
+	for _, unit in pairs(sim:getAllUnits()) do
+		if unit:getTraits().MM_label_carrier == true then
+			log:write("TAB DESTROYED.")
+			unit:destroyTab()
+			sim:warpUnit( unit, nil )
+			sim:despawnUnit( unit )
+		end
+	end
+
 	-- Cannot waitFrames in response to a TRG_UNIT_WARP. The walking animation ends up looping in place
 	script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.DOOR_UNLOCKED ), type="newOperatorMessage" } )
 end
