@@ -875,7 +875,7 @@ return {
 					{{"An informant in the right place is worth their weight in gold, and you kept things clean. Well done, Operator.",nil,"Central"}},
 					{{"We'll have advance intel on the next few infiltrations now. A shadow of our former prep work, but invaluable in these dire times. Excellent work.",nil,"Central"}},
 					{{"A difficult task well performed. The informant is in, and you made sure there were no witnesses. Nice work.",nil,"Central"}},
-					{{"Well done, Operator. With that informant in place, our job will be that much easier. Pity we won't have access to that intel for long.",nil,"Central"}},
+					{{"Well done, Operator. With that informant in place, our job will be that much easier.",nil,"Central"}},
 					},					
 
 				},
