@@ -119,7 +119,7 @@ local agent_templates =
 	},	
 
 	--NPCs
-	MM_mole =		-- graphics are placeholder
+	MM_mole =		
 	{
 		type = "simunit",
 		agentID = "MM_mole", --for item's restrictedUse
@@ -131,15 +131,15 @@ local agent_templates =
 		toolTip = STRINGS.MOREMISSIONS.AGENTS.MOLE.TOOLTIP,
 		onWorldTooltip = commondefs.onAgentTooltip,
 		profile_icon_36x36= "gui/icons/agent_icons/MM_mole_dark_36.png",
-		profile_icon_64x64= "gui/profile_icons/engineer2_64x64.png",--
-		splash_image = "gui/agents/central_1024.png",--
+		profile_icon_64x64= "gui/profile_icons/engineer2_64x64.png",
+		splash_image = "gui/agents/central_1024.png",
 		profile_build = "portraits/lady_mole_face_dark",
 		profile_anim = "portraits/dracul_build",
 		gender = "female",
 		team_select_img = {
-			"gui/agents/team_select_1_central.png",--
+			"gui/agents/team_select_1_central.png",
 		},
-		kanim = "kanim_central",--
+		kanim = "kanim_MM_mole_dark",
 		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=8,  mpMax = 8, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false},	
 		tags = {"MM_mole","Natalie"},
 		children = { "MM_mole_cloak", "MM_paralyzer_amnesiac"}, -- Dont add items here, add them to the upgrades table in createDefaultAgency()
@@ -163,15 +163,15 @@ local agent_templates =
 		toolTip = STRINGS.MOREMISSIONS.AGENTS.MOLE.TOOLTIP,
 		onWorldTooltip = commondefs.onAgentTooltip,
 		profile_icon_36x36= "gui/icons/agent_icons/MM_mole_light_36.png",
-		profile_icon_64x64= "gui/profile_icons/engineer2_64x64.png",--
-		splash_image = "gui/agents/central_1024.png",--
+		profile_icon_64x64= "gui/profile_icons/engineer2_64x64.png",
+		splash_image = "gui/agents/central_1024.png",
 		profile_build = "portraits/lady_mole_face_light",
 		profile_anim = "portraits/dracul_build",
 		gender = "female",
 		team_select_img = {
-			"gui/agents/team_select_1_central.png",--
+			"gui/agents/team_select_1_central.png",
 		},
-		kanim = "kanim_central",--
+		kanim = "kanim_MM_mole_light",
 		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=8,  mpMax = 8, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false},	
 		tags = {"MM_mole","Natalie"},
 		children = { "MM_mole_cloak", "MM_paralyzer_amnesiac"}, -- Dont add items here, add them to the upgrades table in createDefaultAgency()
