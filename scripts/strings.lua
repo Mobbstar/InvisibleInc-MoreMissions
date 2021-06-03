@@ -91,6 +91,7 @@ return {
 		BODYGUARD = "Bodyguard",
 		PROTOTYPE_DROID = "Prototype Android",
 		PROTOTYPE_DROID_SPEC = "Prototype SpecDroid",
+		SCIENTIST = "Scientist",
 	},
 
 
