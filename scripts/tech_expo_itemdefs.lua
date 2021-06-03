@@ -75,7 +75,7 @@ function generateTechExpoGear()
 		end
 
 		itemdef.name = "Experimental " .. itemdef.name
-		itemdef.flavor = itemdef.flavor .. "\n\nThis model is an experimental prototype."
+		itemdef.flavor = itemdef.flavor .. STRINGS.MOREMISSIONS.ITEMS.TECHEXPO_FLAVOR
 	end
 		
 	simlog("LOG_MM", "LOG tech expo templates")
