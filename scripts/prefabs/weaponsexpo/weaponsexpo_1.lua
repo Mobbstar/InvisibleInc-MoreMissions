@@ -2053,7 +2053,7 @@ local units =
             {
                 x = 9,
                 y = 14,
-                template = [[scientist]],
+                template = [[MM_scientist]],
                 unitData =
                 {
                     facing = 2,
