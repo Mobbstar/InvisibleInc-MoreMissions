@@ -1996,7 +1996,7 @@ local units =
             {
                 x = 10,
                 y = 9,
-                template = [[scientist]],
+                template = [[MM_scientist]],
                 unitData =
                 {
                     facing = 0,
