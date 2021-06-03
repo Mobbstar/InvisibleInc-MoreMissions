@@ -2181,7 +2181,7 @@ local units =
             {
                 x = 7,
                 y = 2,
-                template = [[scientist]],
+                template = [[MM_scientist]],
                 unitData =
                 {
                     facing = 6,
