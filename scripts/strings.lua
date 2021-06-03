@@ -228,6 +228,41 @@ return {
 		FLASH_PACK_FLAVOR = "The power of a flash bomb married to the wireless magic of mainframe technology.",		
 		FLASH_PACK_USE = "Detonate Flash Pack",
 		FLASH_PACK_USE_TIP = "KO guards in a 5 tile radius for 4 turns.",
+		
+		TECHEXPO_FLAVOR = "\n\nThis model is an experimental prototype.",
+		
+		AUGMENTS = {
+		
+			TITANIUM_RODS = "Experimental Titanium Rods",
+			TITANIUM_RODS_TIP = "Melee weapons deal +2 KO damage",
+			TITANIUM_RODS_FLAVOR = "Sometimes the simplest things are the most effective. Metal bones let you hit things really hard.\n\nThis model is an experimental prototype.",
+
+
+			PIERCING_SCANNER = "Experimental Piercing Scanner",
+			PIERCING_SCANNER_TIP = "Gives +2 armor piercing to ranged weapons.", 
+			PIERCING_SCANNER_FLAVOR = "A suite of sensors and AI routines that analyze weaknesses in ballistic armor.\n\nThis model is an experimental prototype.",
+
+			PENETRATION_SCANNER = "Experimental Penetration Scanner",
+			PENETRATION_SCANNER_TIP = "Gives +2 armor piercing to melee weapons.", 
+			PENETRATION_SCANNER_FLAVOR = "A suite of sensors and AI routines that analyze weaknesses in blunt trauma armor.\n\nThis model is an experimental prototype.",
+
+			SKILL_CHIP_SPEED = "Experimental Kinesiology Brain Chip",
+			SKILL_CHIP_SPEED_TIP = "Sets the agents SPEED skill to 4. This skill can not be upgraded",
+			SKILL_CHIP_SPEED_FLAVOR = 'The term "chip" is used as a euphemism in this case. In fact, these devices are a growth of tendrils that wholly replace synaptic regions of the brain.\n\nThis model is an experimental prototype.',
+			
+			SKILL_CHIP_HACKING = "Experimental Cryptology Brain Chip",
+			SKILL_CHIP_HACKING_TIP = "Sets the agents HACKING skill to 4. This skill can not be upgraded",
+			SKILL_CHIP_HACKING_FLAVOR = 'The term "chip" is used as a euphemism in this case. In fact, these devices are a growth of tendrils that wholly replace synaptic regions of the brain.\n\nThis model is an experimental prototype.',
+			
+			SKILL_CHIP_STRENGTH = "Experimental Physiology Brain Chip",
+			SKILL_CHIP_STRENGTH_TIP = "Sets the agents STRENGTH skill to 4. This skill can not be upgraded",
+			SKILL_CHIP_STRENGTH_FLAVOR = 'The term "chip" is used as a euphemism in this case. In fact, these devices are a growth of tendrils that wholly replace synaptic regions of the brain.\n\nThis model is an experimental prototype.',
+
+			SKILL_CHIP_ANARCHY = "Legerdemain Brain Chip",
+			SKILL_CHIP_ANARCHY_TIP = "Sets the agents ANARCHY skill to 4. This skill can not be upgraded",
+			SKILL_CHIP_ANARCHY_FLAVOR = 'The term "chip" is used as a euphemism in this case. In fact, these devices are a growth of tendrils that wholly replace synaptic regions of the brain.\n\nThis model is an experimental prototype.',		
+		
+		},
 
 	},
 
@@ -798,7 +833,7 @@ return {
 				},
 				MOLE_ESCAPED_TO_JET = {
 					{{"You were supposed to get that informant into the enemy camp, not back on board, Operator. I trust you had good reason to abort the mission.", nil, "Central"}},
-					{{"We should be able to find a new target for her somewhere nearby, so it's not entirely a loss. The important thing is nobody got hurt.", nil, "Monster"}},
+					{{"We should be able to find a new target for them somewhere nearby, so it's not entirely a loss. The important thing is nobody got hurt.", nil, "Monster"}},
 				},
 				MOLE_DIED = {
 					{
@@ -885,7 +920,7 @@ return {
 				CENTRAL_DOOR_SPOTTED = {
 					-- {{"A scan of that door shows unusually high security measures. Whatever is behind it, must be very valuable. Shall we take a look, Operator?", nil, "Central"}}, --old WE version
 					{{"A scan of that door shows unusually high security measures. This must be the AI research center we've been looking for. Shall we take a look, Operator?", nil, "Central"}},
-					{{"You need to disable a lock behind each of those four doors. You should be able to find measures to unlock them on site. Take a look around.", nil, "Central"}},
+					{{"You'll need to disable a lock behind each of those four doors. You should be able to find measures to unlock them on site. Take a look around.", nil, "Central"}},
 				},
 				CENTRAL_UNLOCKED_SUBDOOR = 
 				{
