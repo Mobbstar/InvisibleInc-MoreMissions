@@ -141,7 +141,7 @@ local agent_templates =
 		},
 		kanim = "kanim_MM_mole_dark",
 		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=8,  mpMax = 8, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false},	
-		tags = {"MM_mole","Natalie"},
+		tags = {"MM_mole","INFORMANT"},
 		children = { "MM_mole_cloak", "MM_paralyzer_amnesiac"}, -- Dont add items here, add them to the upgrades table in createDefaultAgency()
 		startingSkills = { anarchy = 2},
 		abilities = util.tconcat( {  "sprint","MM_escape_guardelevator" }, commondefs.DEFAULT_AGENT_ABILITIES ),
