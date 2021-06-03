@@ -247,7 +247,58 @@ local npc_templates =
 			{ "item_icebreaker_3", 3 },
 			{nil, 67}
 		},		
-	},		
+	},	
+
+	MM_scientist = -- scientist dupe for Tech Expo, in case player has DLC installed but not enabled
+	{
+		type = "simunit",
+		name = STRINGS.MOREMISSIONS.GUARDS.SCIENTIST,
+		profile_anim = "portraits/portrait_animation_template",
+		profile_build = "portraits/lab_tech_build",	
+		profile_image = "lab_tech.png",
+    	onWorldTooltip = onGuardTooltip,
+		kanim = "kanim_scientist",
+		traits = util.extend( commondefs.basic_guard_traits )   
+		{
+			walk=true,
+			heartMonitor="enabled",
+			enforcer = false,
+			dashSoundRange = 8,
+			cashOnHand = 0, 
+			ko_trigger = "intimidate_guard",
+			kill_trigger = "guard_dead",
+			vip=true,
+            pacifist = true,
+            scientist = true,
+            recap_icon = "lab_tech",	
+		},
+		dropTable =
+		{	-- and since we're here, might as well add some special loot?
+			{ "MM_augment_skill_chip_speed", 5},
+			{ "MM_augment_skill_chip_hacking", 5},
+			{ "MM_augment_skill_chip_strength", 5},
+			{ "MM_augment_skill_chip_anarchy", 5},
+			{ "MM_augment_titanium_rods", 5},
+			{ "MM_augment_piercing_scanner", 5},
+			{ "MM_augment_penetration_scanner", 5},
+			{nil,100}
+		},
+		anarchyDropTable =
+		{
+			{ "item_laptop",5},
+		    { "item_stim",5},
+			{nil,150}
+		},		
+		speech = speechdefs.NPC,
+		voices = {"Executive"},
+		skills = {},
+		abilities = { },
+		children = { },
+		idles = DEFAULT_IDLES,
+		sounds = SOUNDS.GUARD,
+		brain = "WimpBrain",		
+	},
+	
 	
 }
 
