@@ -423,8 +423,6 @@ local tool_templates =
 		name = STRINGS.MOREMISSIONS.ITEMS.FLASH_PACK,
 		desc = STRINGS.MOREMISSIONS.ITEMS.FLASH_PACK_TOOLTIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.FLASH_PACK_FLAVOR,
-
-		ITEM_LIST = true,
 		
 		icon = "itemrigs/FlashPack.png",
 		--profile_icon = "gui/items/icon-emp.png",
@@ -449,6 +447,111 @@ local tool_templates =
 		},		
 		traits = { range = 5, attackNeedsLOS=true, canSleep = true, baseDamage = 4, flash_pack = true, trigger_mainframe=true, MM_tech_expo_nonweapon = true, disposable = true, MM_tech_expo_item = true},
 		value = 900,	
+	},	
+	-- special scientist loot
+	MM_augment_skill_chip_speed = util.extend( commondefs.augment_template )
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_SPEED,
+		desc = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_SPEED_TIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_SPEED_FLAVOR, 	
+
+		value = 400, 
+		traits = util.extend( commondefs.DEFAULT_AUGMENT_TRAITS ){
+			modSkill = 1,
+			modSkillStat = 4,		
+			modSkillLock = {1},
+		},		
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_generic_head_small2.png",
+    	profile_icon_100 = "gui/icons/item_icons/icon-item_generic_head2.png",				
+	},
+
+	MM_augment_skill_chip_hacking = util.extend( commondefs.augment_template )
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_HACKING,
+		desc = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_HACKING_TIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_HACKING_FLAVOR, 	
+
+		value = 400, 
+		traits = util.extend( commondefs.DEFAULT_AUGMENT_TRAITS ){
+			modSkill = 2,
+			modSkillStat = 4,		
+			modSkillLock = {2},
+		},		
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_generic_head_small2.png",
+    	profile_icon_100 = "gui/icons/item_icons/icon-item_generic_head2.png",				
+	},
+
+	MM_augment_skill_chip_strength = util.extend( commondefs.augment_template )
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_STRENGTH,
+		desc = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_STRENGTH_TIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_STRENGTH_FLAVOR, 		
+
+		value = 400, 
+		traits = util.extend( commondefs.DEFAULT_AUGMENT_TRAITS ){
+			modSkill = 3,
+			modSkillStat = 4,		
+			modSkillLock = {3},
+		},		
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_generic_head_small2.png",
+    	profile_icon_100 = "gui/icons/item_icons/icon-item_generic_head2.png",				
+	},
+
+	MM_augment_skill_chip_anarchy = util.extend( commondefs.augment_template )
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_ANARCHY,
+		desc = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_ANARCHY_TIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.SKILL_CHIP_ANARCHY_FLAVOR, 	
+
+
+		value = 400, 
+		traits = util.extend( commondefs.DEFAULT_AUGMENT_TRAITS ){
+			modSkill = 4,
+			modSkillStat = 4,		
+			modSkillLock = {4},
+		},		
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_generic_head_small2.png",
+    	profile_icon_100 = "gui/icons/item_icons/icon-item_generic_head2.png",				
+	},	
+	
+	MM_augment_titanium_rods = util.extend( commondefs.augment_template )
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.TITANIUM_RODS,
+		desc = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.TITANIUM_RODS_TIP, 
+		flavor = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.TITANIUM_RODS_FLAVOR,
+		traits = util.extend( commondefs.DEFAULT_AUGMENT_TRAITS ){
+			modTrait = {{"meleeDamage",2}},	
+			stackable = true,
+		},			
+		value = 400, 
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_generic_arm_small.png",
+    	profile_icon_100 = "gui/icons/item_icons/icon-item_generic_arm.png",	
+	},	
+
+	MM_augment_piercing_scanner = util.extend( commondefs.augment_template )
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.PIERCING_SCANNER,
+		desc = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.PIERCING_SCANNER_TIP, 
+		flavor = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.PIERCING_SCANNER_FLAVOR,
+		traits = util.extend( commondefs.DEFAULT_AUGMENT_TRAITS ){
+			addArmorPiercingRanged = 2,
+			stackable = true,
+		},
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_generic_head_small.png",
+    	profile_icon_100 = "gui/icons/item_icons/icon-item_generic_head.png",			
+	},
+	
+	MM_augment_penetration_scanner = util.extend( commondefs.augment_template )
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.PENETRATION_SCANNER,
+		desc = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.PENETRATION_SCANNER_TIP, 
+		flavor = STRINGS.MOREMISSIONS.ITEMS.AUGMENTS.PENETRATION_SCANNER_FLAVOR,
+		traits = util.extend( commondefs.DEFAULT_AUGMENT_TRAITS ){
+			addArmorPiercingMelee = 2,
+			stackable = true,
+		},	
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_generic_arm_small.png",
+    	profile_icon_100 = "gui/icons/item_icons/icon-item_generic_arm.png",	
 	},	
 }
 
