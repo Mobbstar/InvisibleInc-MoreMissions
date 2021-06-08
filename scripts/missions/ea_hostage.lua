@@ -661,6 +661,7 @@ local function startPhase( script, sim )
 
 	sim:addNewLocation( tags )
 	sim:addNewLocation( tags )
+	sim:addNewLocation( tags )
 end
 
 ---------------------------------------------------------------------------------------------
