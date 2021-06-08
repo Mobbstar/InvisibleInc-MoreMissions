@@ -174,7 +174,7 @@ local tool_templates =
 		profile_icon_100 = "gui/icons/item_icons/icon-item_paralyzer_dose.png",	
 		abilities = { "carryable","recharge","paralyze" },
 		requirements = { },
-		traits = { cooldown = 0, cooldownMax = 6, koTime = 2, impare_AP = 2, amnesiac = true, usesLeft = 3, }, --impare_AP is used by Function Library
+		traits = { cooldown = 0, cooldownMax = 6, koTime = 0, impare_sight = 2, amnesiac = true, usesLeft = 3, }, --impare_sight is used by Function Library
 		value = 300,
 		floorWeight = 1,
         createUpgradeParams = function( self, unit )
