@@ -8,13 +8,8 @@ local function onMainframeTooltip( tooltip, unit )
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WITNESS_DESC_MAINFRAME, "gui/items/icon-action_peek.png" )
 	end
 	if unit:getTraits().MM_tech_expo_contents then
-		--you're gonna have to pick one, guys
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_LOOT_CONTENT, "\""..tostring(unit:getTraits().MM_tech_expo_contents).."\"",
-		"gui/icons/item_icons/items_icon_small/icon_plaque.png" )
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_LOOT_CONTENT, "\""..tostring(unit:getTraits().MM_tech_expo_contents).."\"",
-		"gui/icons/item_icons/items_icon_small/icon_plaque_v2.png" )		
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_LOOT_CONTENT, "\""..tostring(unit:getTraits().MM_tech_expo_contents).."\"",
-		"gui/icons/item_icons/items_icon_small/icon_plaque_v3.png" )			
+		"gui/icons/item_icons/items_icon_small/icon_plaque.png" )			
 	end
 end
 
@@ -49,6 +44,9 @@ local function onGuardTooltip(tooltip, unit)
 	end
 	if unit:getTraits().mm_nopatrolchange then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_PATROL_CHANGE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_PATROL_CHANGE_DESC, "gui/icons/arrow_small.png" )
+	end
+	if unit:getTraits().MM_amnesiac then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT_DESC, "gui/icons/arrow_small.png" )	
 	end
 end
 
