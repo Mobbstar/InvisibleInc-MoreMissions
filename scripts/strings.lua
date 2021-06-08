@@ -507,7 +507,7 @@ return {
 
 		DISTRESS_CALL = {
 			NAME= "Distress Call",
-			MORE_INFO = "We've intercepted a signal suggesting an operative in need of extraction at this facility. It may be one of our missing agents, and if not, we can still negotiate a suitable compensation from them once we get them out safely. \n\nBe careful, Operator - our telemetry suggests the facility is already on high alert, and the alarm level will advance more quickly as a result.", --This can be quite lengthy.
+			MORE_INFO = "We've intercepted a signal from an operative in need of extraction. It may be one of our missing agents, and if not, we can still negotiate a suitable compensation from them once we get them out safely. \n\nBe careful, Operator - our telemetry suggests the facility is already on high alert, and the alarm level will advance more quickly as a result.", --This can be quite lengthy.
 			INSET_TITLE = "OPERATIVE EXTRACTION", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
 			INSET_VO = {""}, --{"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},			
@@ -517,7 +517,7 @@ return {
 
 		WEAPONS_EXPO = {
 			NAME= "Tech Expo",
-			MORE_INFO = "This facility is hosting a world class tier tech exposition. The corporations and the industry finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nKeep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
+			MORE_INFO = "This facility is hosting a world class tech exposition. The corporations and the industry finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nBut keep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
 			INSET_TITLE = "TECH EXPO", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused unless we actually get these voiced somehow
 			INSET_VO = {""},
@@ -585,7 +585,7 @@ return {
 			EA_HOSTAGE_VITAL_STATUS = "VITAL STATUS",
 			EA_HOSTAGE_VITAL_STATUS_DESC = "Will expire if not extracted in {1} {1:turn|turns}.",
 			PARALYZE_AMNESIAC = "Amnesiac dose",
-			PARALYZE_AMNESIAC_DESC = "Inject pinned victim with amnesiac. Removes WITNESS status. KOs target for 2 extra turns. Reduces max AP by {1}.",
+			PARALYZE_AMNESIAC_DESC = "Inject pinned victim with amnesiac. Removes WITNESS status. Reduces vision range by {1}. Guard wakes up without being alerted.",
 			WITNESS = "WITNESS",
 			WITNESS_DESC_HUMAN = "Kill this unit or KO and apply Amnesiac.",
 			WITNESS_DESC_MAINFRAME = "Destroy this unit, EMP or scrub Camera Database.",
@@ -596,7 +596,10 @@ return {
 			KO_GAS_PINNED = "GASSED",
 			KO_GAS_PINNED_DESC = "This agent's KO timer will not decrease until they leave the knockout gas.",
 			NO_PATROL_CHANGE = "NO PATROL CHANGE",
-			NO_PATROL_CHANGE_DESC = "This unit will not change their patrol route.",
+			NO_PATROL_CHANGE_DESC = "This unit will not respond to patrol changes.",
+			NO_ALERT = "NO ALERT ON WAKE-UP",
+			NO_ALERT_DESC = "This unit will not become alerted when they wake up.",
+			
 			WEAPONS_EXPO_LOOT_CONTENT = "DISPLAY PLAQUE",
 			
 			PROGRAM_UPGRADE = {
@@ -809,18 +812,18 @@ return {
 				SAW_SWITCH = {{{"This security switch controls the failsafes protecting the exhibit. Find the other switch and activate both at the same time.",nil,"Central"}}},
 				DISABLED_SWITCH = {{{"You've deactivated the firewall boost, but don't let your guard down. There may still be failsafes in place we don't know about.", nil, "Central"}}},
 				LOOTED_CASE_DROIDS_BOOTING = {
-				{{"Heads up, Operator. Those droid prototypes are coming online.",nil,"Central"}},
+				{{"Heads up, Operator. Those android prototypes are coming online.",nil,"Central"}},
 				{{"Looks like the expo is providing its own security. Get out while you still can.",nil,"Central"}},				
 				},
 				CENTRAL_JUDGEMENT = {
 					NO_LOOT = {{{"This was a waste of time, Operator. If you cannot pull off a simple museum heist, then what good are you?",nil,"Central"}},
 					{{"I expected better results from you, Operator. We've lost our previous firepower, and opportunities like this don't come knocking every day.",nil,"Central"}},
-					{{"Outstanding work, Operator. I trust you'll remember this moment the next time our agents enter the field armed with toothpicks and nerf guns.",nil,"Central"}}},
+					{{"Outstanding work, Operator. I trust you'll remember this moment the next time our agents enter the field armed with toothpicks and BB guns.",nil,"Central"}}},
 					GOT_PARTIAL = {{{"I trust you've made the right call, Operator. Pity we couldn't clean them out completely, but the reward is not always worth the risk.",nil,"Central"}},
 					{{"Acceptable work. You didn't get the entire arsenal, but this should tide us over for now.",nil,"Central"}},
 					{{"This should give our people an edge in the field. Let's just hope the enemy won't be armed with those prototypes you chose to leave behind.",nil,"Central"}}},
 					GOT_FULL = {{{"I hope you dusted the shelves on your way out. We wouldn't want their cleaners to think we've missed a spot. Excellent work.",nil,"Central"}},
-					{{"That should do quite nicely. It won't put us on par with the corps, but we're no longer as catastrophically outmatched as we were before.",nil,"Central"}},
+					{{"This should do quite nicely. It won't put us on par with the corps, but we're no longer as catastrophically outmatched as we were before.",nil,"Central"}},
 					{{"Commendable work, Operator. We've expanded our arsenal and put a dent in their research all at once.",nil,"Central"}}},
 				},
 			},
@@ -873,7 +876,7 @@ return {
 					{{"Heads up, Operator. We're in the right place. The Personnel Database should be behind that door.",nil,"Central"}},
 				},
 				SEE_OBJECTIVE_DB = {
-					{{"There's the Personnel Database. The informant can use it to fabricate their cover identity before they infiltrate deeper into the facility. Make sure it goes smoothly.",nil,"Central"}},
+					{{"There's the database. The informant can use it to fabricate their cover identity before they infiltrate deeper into the facility. Make sure it goes smoothly.",nil,"Central"}},
 				},
 				FINISHED_DB_HACK = {
 					{{"The hack is done, but the informant got tagged as they were plugging out. Their location will keep pinging nearby security each alarm level.",nil,"Central"}},
@@ -884,8 +887,8 @@ return {
 					{{"There's a guard exit. Be careful, Operator. Make sure the informant doesn't run into any inbound reinforcements on the way.",nil,"Central"}},
 				},	
 				WITNESS_FLED_LEVEL = {
-					{{"Damn it! Someone who's seen our informant has just escaped from this floor. We can't get to them now, and the informant is already inside.", nil, "Central"}},
-					{{"If you left any other witnesses, don't bother taking care of them. Just focus on getting out. Let us hope our mole can give us at least something before they get burned.",nil, "Central"}},
+					{{"Damn it! Someone who's seen our informant has just escaped from this floor. We can't get to them now, and our contact is already inside.", nil, "Central"}},
+					{{"If you left any other witnesses, don't bother cleaning that up. Just focus on getting out. Let us hope our mole can give us at least something before they get burned.",nil, "Central"}},
 				},
 				WITNESS_FLED_LEVEL_RETRY = {
 					{{"Damn it! Someone who's seen our informant has just escaped from this floor. We can't get to them now.", nil, "Central"}},
@@ -894,7 +897,7 @@ return {
 				CENTRAL_JUDGEMENT = {
 					MOLE_JET_ESCAPE = {
 					{{"We cannot afford to keep wasting our time like this, Operator. Luckily, we may just have a second shot at this. Make it count.", nil,"Central"}},
-					{{"We're no better off than we started. There should be another infiltration target like this nearby. Don't make me give you a third chance, Operator.",nil,"Central"}},
+					{{"We're no better off than we started. There should be another infiltration target like this nearby. Don't force me to give you a third chance, Operator.",nil,"Central"}},
 					},
 					MOLE_DIED = {
 					{{"This was a sorry waste of an opportunity. We don't have much in the way of friends anymore, Operator. This could have been a step forward.",nil, "Central"}},
@@ -925,7 +928,7 @@ return {
 				},
 				CENTRAL_UNLOCKED_SUBDOOR = 
 				{
-					{{"That Console sent a signal to another part of the facility. One of the previously locked doors should be open now.", nil, "Central"}},
+					{{"That Console just sent a signal to another part of the facility. One of the previously locked doors should be open now.", nil, "Central"}},
 				},
 
 				CENTRAL_UNLOCKED_MAINDOOR_OMNI_UNSEEN =
@@ -941,7 +944,7 @@ return {
 					{{"That's the main AI development terminal. Finally. Let's access the data and see if there is anything worthwhile for Incognita.", nil, "Central"}},
 					{{"This must be one of Omni Corp's covert research sites - only they have tech quite this advanced. The decor is a bit of a giveaway, too.", nil, "Monster"}},
 					{{"There must be hundreds of such facilities scattered across the globe. How on Earth did we not run into one of these before?", nil, "Central"}},
-					{{"I confess I have my suspicions, but you may not like hearing them...",nil,"Monster"}}, --it's because you're a bad mom, Central
+					{{"I confess I have my suspicions, although you may not like hearing them...",nil,"Monster"}}, --it's because you're a bad mom, Central
 				},				
 				
 				INCOGNITA_DATA_ACQUIRED = {
