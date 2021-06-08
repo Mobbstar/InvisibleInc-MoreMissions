@@ -276,17 +276,18 @@ local function lateInit( modApi )
 		spawn_mole_bonus( sim, mole_insertion )
 	end
 	-- Similar edit is done in Load to mid_1!
-
+	
 	-- setAlerted edit to allow un-alerting for Amnesiac function
-	local simunit = include("sim/simunit")
-	local setAlerted_old = simunit.setAlerted
+	local simunit = include("sim/simunit")	
+	local simunit_setAlerted_old = simunit.setAlerted
 	simunit.setAlerted = function( self, alerted, ... )
-		if alerted == false then
-			self:getTraits().alerted = alerted
-			return false --override assertion error that disallows un-alerting already alert units
+		if self and self:getTraits().MM_amnesiac and self._sim then
+			self:getTraits().alerted = nil
+			self:getTraits().MM_amnesiac = nil --clear the trait after it's used
+		else
+			return simunit_setAlerted_old( self, alerted, ... )
 		end
-		return setAlerted_old( self, alerted, ... )	
-	end
+	end	
 	
 	-- for clearing mainframe witnesses
 	local processEMP_old = simunit.processEMP
@@ -330,7 +331,7 @@ local function lateInit( modApi )
 	local paralyze_createToolTip_old = paralyze.createToolTip
 	paralyze.createToolTip = function( self, sim, abilityOwner, ...)
 		if abilityOwner:getTraits().amnesiac then
-			return abilityutil.formatToolTip(STRINGS.MOREMISSIONS.UI.TOOLTIPS.PARALYZE_AMNESIAC, util.sformat(STRINGS.MOREMISSIONS.UI.TOOLTIPS.PARALYZE_AMNESIAC_DESC,abilityOwner:getTraits().impare_AP), simdefs.DEFAULT_COST) --impare_AP 2 [sic] in itemdef traits
+			return abilityutil.formatToolTip(STRINGS.MOREMISSIONS.UI.TOOLTIPS.PARALYZE_AMNESIAC, util.sformat(STRINGS.MOREMISSIONS.UI.TOOLTIPS.PARALYZE_AMNESIAC_DESC,abilityOwner:getTraits().impare_sight), simdefs.DEFAULT_COST) --impare_AP 2 [sic] in itemdef traits
 		end
 		return paralyze_createToolTip_old( self, sim, abilityOwner, ... )
 	end
@@ -338,9 +339,9 @@ local function lateInit( modApi )
 	paralyze.executeAbility = function( self, sim, unit, userUnit, target, ... )
 		paralyze_executeAbility_old( self, sim, unit, userUnit, target, ... )
 		local targetUnit = sim:getUnit(target)
-		-- targetUnit:setAlerted(false)
 		local x0, y0 = targetUnit:getLocation()
 		if x0 and y0 and targetUnit:getTraits().witness then
+			targetUnit:getTraits().MM_amnesiac = true
 			targetUnit:getTraits().witness = nil
 			sim:triggerEvent( "used_amnesiac", { userUnit = userUnit, targetUnit = targetUnit } )
 			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=0,a=1}} )
