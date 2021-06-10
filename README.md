@@ -52,7 +52,7 @@ In order to suggest any changes or additions, [make a new Issue][issues]. You ca
 
 ## Chat
 
-Most of us are active on [Discord](https://discord.gg/aQrXEse)
+Most of us are active on [Discord](https://discord.gg/nP5dKKvubh)
 
 If you have any questions or are missing information, let us know and we'll update this file!
 
