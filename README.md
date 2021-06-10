@@ -7,17 +7,20 @@ The aim of this mod is to add new kinds of missions to the game.
 
 ## Installation
 
+If you're looking to playtest the mod, see the [Wiki/Installation](https://github.com/Mobbstar/InvisibleInc-MoreMissions/wiki/1.-Installation).
+**You can download the .rar file containing the most recent full build of the mod** from the Releases tab on the right, and unzip it into your Mods folder. This version is largely up to date but may not include recent minor updates.
+
+This mod requires [Sim Constructor by Cyberboy2000](https://steamcommunity.com/workshop/filedetails/?id=580661011) and [Function Library by wodzu_93](https://steamcommunity.com/sharedfiles/filedetails/?id=1745350836).
+
+![image](https://user-images.githubusercontent.com/39839566/117757618-b3319200-b220-11eb-8001-c416c9df1233.png)
+
+For the Github-savvy:
+
 Download the files. If you intend to contribute, or update frequently, consider installing git on your computer and creating a local branch to pull to. (It's pretty straight-forward, look up some tutorials. I recommend using the "git GUI" application where possible.)
 
 You may need to compile some files before the game can run this mod.
 scripts.zip - Simply but all the contents of the "scripts" directory directly into a zip file with the same name.
 KWAD files - Run the KWAD builder to generate a fresh KWAD file from the raw assets in this repository. View the official modding tutorials for more information.
-
-**Alternatively, and much easier, you can download the .rar file containing the most recent full build of the mod** from the Releases tab on the right, and unzip it into your Mods folder. This version is largely up to date but may not include recent minor updates.
-
-![image](https://user-images.githubusercontent.com/39839566/117757618-b3319200-b220-11eb-8001-c416c9df1233.png)
-
-This mod requires [Sim Constructor by Cyberboy2000](https://steamcommunity.com/workshop/filedetails/?id=580661011) and [Function Library by wodzu_93](https://steamcommunity.com/sharedfiles/filedetails/?id=1745350836).
 
 ## Content
 
