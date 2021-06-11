@@ -19,13 +19,13 @@ install: build
 	cp out/scripts.zip $(INSTALL_PATH)/
 	cp out/gui.kwad $(INSTALL_PATH)/
 	cp out/moremissions_anims.kwad $(INSTALL_PATH)/
-	cp scripts/pedler_oil.kwad $(INSTALL_PATH)/
+	cp pedler_oil.kwad $(INSTALL_PATH)/
 ifneq ($(INSTALL_PATH2),)
 	mkdir -p $(INSTALL_PATH2)
 	rm -f $(INSTALL_PATH2)/*.kwad $(INSTALL_PATH2)/*.zip
 	cp out/modinfo.txt $(INSTALL_PATH2)/
 	cp out/scripts.zip $(INSTALL_PATH2)/
-	cp scripts/pedler_oil.kwad $(INSTALL_PATH2)/
+	cp pedler_oil.kwad $(INSTALL_PATH2)/
 	cp out/gui.kwad $(INSTALL_PATH2)/
 	cp out/moremissions_anims.kwad $(INSTALL_PATH2)/
 endif
