@@ -879,7 +879,7 @@ local function load( modApi, options, params )
 		if array.find(tags, "close_by") and not array.find(tags, "close_by_nevermind") then
 			local MAX_DIST = 6 -- 6 hour distance
 			local dist = serverdefs.trueCalculateTravelTime( serverdefs.MAP_LOCATIONS[ campaign.location ], tempLocation, campaign )
-			log:write(tostring(dist))
+			--log:write(tostring(dist))
 			if dist > MAX_DIST then
 				return false
 			end		
