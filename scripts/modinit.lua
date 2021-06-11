@@ -301,6 +301,20 @@ local function lateInit( modApi )
 			end
 		end
 	end
+	
+	local simdrone = include("sim/units/simdrone")
+	local simdrone_processEMP_old = simdrone.processEMP
+	simdrone.processEMP = function(self, empTime, noEmpFx, noAttack)
+		log:write("LOG custom process EMP drone")
+		simdrone_processEMP_old(self, empTime, noEmpFx, noAttack)
+		if self:getTraits().witness then
+			self:getTraits().witness = nil
+			local x0, y0 = self:getLocation()
+			if x0 and y0 then
+				self._sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
+			end
+		end		
+	end	
 
 	-- update stopHacking to refresh database hacking state
 	local stopHacking_old = simunit.stopHacking
