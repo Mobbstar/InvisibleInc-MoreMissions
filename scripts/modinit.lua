@@ -853,11 +853,41 @@ local function load( modApi, options, params )
 			if campaign.MM_assassination and campaign.MM_assassination[corp] then
 				-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
 				newSituation.difficulty = newSituation.difficulty + campaign.MM_assassination[corp]
+				
+				-- for Secure Holding Facility: check if there is a viable location. If not, lift the requirement for proximity.
+				if array.find(tags, "close_by") then
+					local availableLocationsTemp = {}
+					for i, location in ipairs( serverdefs.MAP_LOCATIONS) do
+						assert( location.name )
+						if serverdefs.defaultMapSelector( campaign, tags, location ) then
+							table.insert( availableLocationsTemp, i )
+						end
+					end		
+					if not (#availableLocationsTemp > 0) then
+						table.insert(tags, "close_by_nevermind")
+					end
+				end
 			end
 		end
 		
 		return newSituation
 	end	
+	
+	--SECURE HOLDING FACILITY	
+	local serverdefs_defaultMapSelector_old = serverdefs.defaultMapSelector
+	serverdefs.defaultMapSelector = function( campaign, tags, tempLocation )
+		if array.find(tags, "close_by") and not array.find(tags, "close_by_nevermind") then
+			local MAX_DIST = 6 -- 6 hour distance
+			local dist = serverdefs.trueCalculateTravelTime( serverdefs.MAP_LOCATIONS[ campaign.location ], tempLocation, campaign )
+			log:write(tostring(dist))
+			if dist > MAX_DIST then
+				return false
+			end		
+		end
+
+		return serverdefs_defaultMapSelector_old( campaign, tags, tempLocation)
+	
+	end		
 
 end
 
