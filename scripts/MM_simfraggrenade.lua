@@ -64,10 +64,12 @@ function frag_grenade:getExplodeCells()
 	local currentCell = self:getSim():getCell( x0, y0 )
 	local cells = {currentCell}
 	if self:getTraits().range then
-		local fillCells = simquery.fillCircle( self._sim, x0, y0, self:getTraits().range, 0)
-
-		for i, cell in ipairs(fillCells) do
-			if cell ~= currentCell then
+		-- local fillCells = simquery.fillCircle( self._sim, x0, y0, self:getTraits().range, 0)
+		
+		local fillCells = simquery.rasterCircle( self._sim, x0, y0, self:getTraits().range ) --redefine cells based on range, so the effect goes through walls
+		for i, x, y in util.xypairs( fillCells ) do
+			local cell = self._sim:getCell( x, y )
+			if cell and (cell ~= currentCell) then
 				local raycastX, raycastY = self._sim:getLOS():raycast(x0, y0, cell.x, cell.y)
 				if raycastX == cell.x and raycastY == cell.y then
 					table.insert(cells, cell)
