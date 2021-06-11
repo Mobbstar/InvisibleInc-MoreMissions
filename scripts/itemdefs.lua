@@ -202,7 +202,7 @@ local tool_templates =
 		profile_icon_100 = "gui/icons/item_icons/icon-item_flash_grenade.png",		
 		kanim = "kanim_flashgrenade",		
 		sounds = {explode="SpySociety/Grenades/flashbang_explo", bounce="SpySociety/Grenades/bounce"},
-		traits = { baseDamage = 2, range=3, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, }, --lethal damage
+		traits = { baseDamage = 2, range=2, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, }, --lethal damage
 		value = 600,
 		locator=true,
 	},
