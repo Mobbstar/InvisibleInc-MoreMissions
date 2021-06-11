@@ -64,11 +64,12 @@ local npc_abilities =
 	MM_informant_witness = util.extend( mainframe_common.createDaemon( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING ) ) --this daemon is basically cosmetic/for UI convenience only
 	{
 		icon = "gui/icons/UI_icons/icon_program_moleWitness.png",--icon
-		title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_NAME,
+		title = "",
 		
 		onTooltip = function( self, hud, sim, player )
             local tooltip = util.tooltip( hud._screen )
 			local section = tooltip:addSection()
+			self.name = util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.NAME,checkAllWitnesses(self))
 			section:addLine( self.name )
 			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.ACTIVE_DESC, STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DESC, "gui/items/icon-action_peek.png" )
 			-----
