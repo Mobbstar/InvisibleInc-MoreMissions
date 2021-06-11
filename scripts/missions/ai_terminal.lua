@@ -12,6 +12,7 @@ local escape_mission = include( "sim/missions/escape_mission" )
 local SCRIPTS = include("client/story_scripts")
 local mathutil = include( "modules/mathutil" )
 local propdefs = include("sim/unitdefs/propdefs")
+local serverdefs = include("modules/serverdefs")
 
 ---------------------------------------------------------------------------------------------
 -- Port of AI Terminal side mission from Worldgen Extended by wodzu93.
@@ -199,11 +200,9 @@ local function finishProgramUpgrade( upgradedProgram, sim )
 end
 
 local function upgradeDialog( script, sim )
--- Todo: improve text and descriptiveness of existing programs so the current program's selected parameter's current value is displayed in the dialog, for clarity
 	while sim:getTags().used_AI_terminal == nil do
 
 	local _, triggerData = script:waitFor( INCOGNITA_UPGRADED )
-	-- local pronoun = STRINGS.GENDER_CONTEXT[unit:getUnitData().gender].he	
 	
 	local dialogPath = STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.DIALOG
 	
@@ -217,25 +216,84 @@ local function upgradeDialog( script, sim )
 	local title = dialogPath.OPTIONS1_TITLE
 	local options = dialogPath.OPTIONS1 --choose between slot and program upgrade
 	
-	if sim:getParams().agency.W93_aiTerminals and (sim:getParams().agency.W93_aiTerminals) >= 2 then --max slots reached
-		options = dialogPath.OPTIONS1_MAXSLOTS
-		txt = util.sformat(dialogPath.OPTIONS1_TXT_MAXSLOTS,options3_temp[2],options3_temp[1])
+	if sim:getParams().difficultyOptions.W93_AI > 0 then
+		--display alternate menu with option to disrupt hostile AI
+		options = dialogPath.OPTIONS1_PE
+		txt = util.sformat(dialogPath.OPTIONS1_TXT_PE, options3_temp[2],options3_temp[1])
 	end
-
-	option = mission_util.showDialog( sim, title, txt, options )
 	
-	if option == 3 then -- upgrade Incognita's slots
-		mission_util.showGoodResult( sim, dialogPath.OPTIONS1_RESULT1_TITLE, dialogPath.OPTIONS1_RESULT1_TXT )
-		sim:getTags().used_AI_terminal = true
-		if not sim:getParams().agency.W93_aiTerminals or sim:getParams().agency.W93_aiTerminals < 2 then
-			sim:getPC():getTraits().W93_incognitaUpgraded = 1
+	local option = mission_util.showDialog( sim, title, txt, options )
+	
+	local cancel_opt = nil
+	local slots_opt = nil
+	local upgrade_opt = nil
+	local counterAI_opt = nil
+	
+	for optnum = #options, 1, -1 do
+		local opt_name = options[optnum]
+		if opt_name == "CANCEL" then
+			cancel_opt = optnum
+		elseif opt_name == "UPGRADE PROGRAM" then
+			upgrade_opt = optnum
+		elseif opt_name == "NEW PROGRAM SLOT" then
+			slots_opt = optnum
+		elseif opt_name == "DISRUPT HOSTILE AI" then
+			counterAI_opt = optnum
 		end
-		sim:triggerEvent( "finished_using_AI_terminal" )
+	end
+	
+	if option == slots_opt then -- upgrade Incognita's slots
+	
+		local currentSlots = simquery.getMaxPrograms( sim )
+		local doneUpgrades = sim:getParams().agency.W93_aiTerminals or 0 
+		local remainingUpgrades = 2 - doneUpgrades
+		local maxSlots = currentSlots + remainingUpgrades
 		
-	elseif option == 1 then
+		if sim:getParams().agency.W93_aiTerminals and (sim:getParams().agency.W93_aiTerminals) >= 2 then --max slots reached
+			local slotsfull_txt = util.sformat(dialogPath.OPTIONS2_SLOTSFULL_TXT, currentSlots, maxSlots )
+			mission_util.showBadResult( sim, dialogPath.OPTIONS2_SLOTSFULL_TITLE, slotsfull_txt )
+			option = nil
+			triggerData.abort = true	
+		else
+			local slots_txt = util.sformat(dialogPath.OPTIONS2_SLOTS_TXT,currentSlots, maxSlots)
+			local slots_title = dialogPath.OPTIONS2_SLOTS_TITLE
+			local slots_options = dialogPath.OPTIONS2_CANCEL_CONFIRM
+			local option_confirm = mission_util.showDialog( sim, slots_title, slots_txt, slots_options )
+			--confirm screen
+			if option_confirm == 1 then
+				option_confirm = nil
+				triggerData.abort = true
+			else
+				mission_util.showGoodResult( sim, dialogPath.OPTIONS2_RESULT1_TITLE, dialogPath.OPTIONS2_RESULT1_TXT )
+				sim:getTags().used_AI_terminal = true
+				if not sim:getParams().agency.W93_aiTerminals or sim:getParams().agency.W93_aiTerminals < 2 then
+					sim:getPC():getTraits().W93_incognitaUpgraded = 1
+				end
+				sim:triggerEvent( "finished_using_AI_terminal" )
+			end
+		end
+	elseif option == counterAI_opt then
+		local corpName = serverdefs.CORP_DATA[ sim:getParams().world ].stringTable.SHORTNAME
+		local option_pe_txt = util.sformat(dialogPath.OPTIONS2_PE_TXT, corpName )
+		if sim:getParams().agency.MM_hostileAInerf and sim:getParams().agency.MM_hostileAInerf[sim:getParams().world] then --if we've already debuffed this corp's AI in the past, display this
+			local debuff = sim:getParams().agency.MM_hostileAInerf[sim:getParams().world]
+			option_pe_txt = util.sformat(dialogPath.OPTIONS2_PE_TXT_PREEXISTING, corpName, debuff )
+		end
+		local option_pe = mission_util.showDialog( sim, dialogPath.OPTIONS2_PE_TITLE, option_pe_txt, dialogPath.OPTIONS2_CANCEL_CONFIRM )
+		if option_pe == 1 then
+			option_confirm = nil
+			triggerData.abort = true
+		else
+			local options_pe_result_txt = util.sformat(dialogPath.OPTIONS2_PE_RESULT_TXT, corpName )
+			mission_util.showGoodResult( sim, dialogPath.OPTIONS_PE_RESULT_TITLE, options_pe_result_txt )
+			sim:getTags().used_AI_terminal = true
+			sim:getTags().weakened_counterAI = true
+			sim:triggerEvent( "finished_using_AI_terminal" )
+		end		
+	elseif option == cancel_opt then
 		option = nil
 		triggerData.abort = true
-	else--default to first and only option if max slots are reached
+	elseif option == upgrade_opt then
 		local txt2 = util.sformat(dialogPath.OPTIONS2_TXT,options3_temp[2],options3_temp[1])
 		
 		local options2 = populateProgramList( sim ).options_list
@@ -616,9 +674,11 @@ local function upgradeIncognita( script, sim )
 	sim.exit_warning = nil
 	sim.TA_mission_success = true
 
-	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
+	script:waitFor( mission_util.PC_WON ) -- to think I could have been doing agency changes like wodzu all this time instead of putting things in DoFinishMission
+	local agency = sim:getParams().agency
 	
-		script:waitFor( mission_util.PC_WON )
+	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
+		
 		if not sim:getParams().agency.W93_aiTerminals then
 			sim:getParams().agency.W93_aiTerminals = 0
 		end
@@ -626,8 +686,6 @@ local function upgradeIncognita( script, sim )
 		
 	elseif sim:getTags().upgradedPrograms then
 	
-		script:waitFor( mission_util.PC_WON ) -- to think I could have been doing agency changes like wodzu all this time instead of putting things in DoFinishMission
-		local agency = sim:getParams().agency
 		agency.MM_upgradedPrograms = agency.MM_upgradedPrograms or {}
 		
 		local programs = sim:getPC():getAbilities()
@@ -638,7 +696,12 @@ local function upgradeIncognita( script, sim )
 				agency.MM_upgradedPrograms[ID] = {}
 				agency.MM_upgradedPrograms[ID] = util.tcopy( ability.MM_modifiers )
 			end
-		end		
+		end	
+	elseif sim:getTags().weakened_counterAI then
+		local corp = sim:getParams().world
+		agency.MM_hostileAInerf = agency.MM_hostileAInerf or {}
+		agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] or 0
+		agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] + 1	--FuncLib or PE should do the rest
 	end
 end
 
@@ -725,6 +788,8 @@ function mission:init( scriptMgr, sim )
 			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_UPGRADE
 		elseif sim:getPC():getTraits().W93_incognitaUpgraded then
 			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_SLOT
+		elseif sim:getTags().weakened_counterAI then
+			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.WEAKENED_COUNTER_AI
 		end
         local scr = scripts[sim:nextRand(1, #scripts)]
         return scr
