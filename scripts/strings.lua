@@ -165,7 +165,7 @@ return {
 		DISCARDED_MANACLES_FLAVOR = "An empty space, where a prisoner is supposed to be restrained.",
 		
 		AMNESIAC = "Amnesiac",
-		AMNESIAC_TOOLTIP = "Use on pinned targets. Removes WITNESS status. KOs target for 2 more turns. Reduces max AP by 2.",
+		AMNESIAC_TOOLTIP = "Use on pinned targets. Removes WITNESS status. Reduces vision range by 2 tiles. Target will be alerted on waking up.",
 		AMNESIAC_FLAVOR = "A mind-scrambling mix of chemicals straight off the seedy underbelly of the black market. The target wakes up sluggish, disoriented, and unable to recall certain pertinent details, such as any faces they might have recently seen.",
 
 		MOLE_CLOAK = "Custom Cloaking Rig I",
@@ -323,7 +323,7 @@ return {
 		},	
 
 		WITNESS_WARNING = {
-			NAME = "",--"WITNESS WARNING", --looks less cluttered when this string is empty
+			NAME = "{1} {1:WITNESS|WITNESSES} REMAINING",--"WITNESS WARNING", --looks less cluttered when this string is empty
 			DESC = "Remove witnesses who have seen the INFORMANT",
 			SHORT_DESC = "Remove witnesses",
 			ACTIVE_DESC = "WITNESS TRACKING",
@@ -394,23 +394,44 @@ return {
 			EXIT_WARNING = "Are you sure you want to leave? You haven't accessed the AI Dev Terminal yet.",
 			
 			DIALOG = { --this needs to be rewritten to be nicer and fluffier
-				OPTIONS1 = {
-				"CANCEL",
-				"UPGRADE PROGRAM",
-				"NEW PROGRAM SLOT",
+				OPTIONS1 = {  --do not edit these strings! --> ai_terminal.lua
+					"CANCEL",
+					"UPGRADE PROGRAM",
+					"NEW PROGRAM SLOT",
 				},
 				
-				OPTIONS1_MAXSLOTS = {
+				OPTIONS1_PE = { --do not edit these strings! --> ai_terminal.lua
 					"CANCEL",
-					"UPGRADE PROGRAM"
+					"DISRUPT HOSTILE AI",
+					"UPGRADE PROGRAM",
+					"NEW PROGRAM SLOT",				
 				},
 				
 				OPTIONS1_TXT = "This terminal has months of AI research data on it, but due to a security failsafe, you can only access one subset of it at a time. You can increase Incognita's program capacity or upgrade an existing program.\n\n<c:FC5603>AVAILABLE UPGRADES:\n{1}\n{2}</c>",
+				OPTIONS1_TXT_PE = "This terminal has months of AI research data on it, but due to a security failsafe, you can only access one subset of it at a time. You can increase Incognita's program capacity, upgrade an existing program, or sabotage the research and weaken this corporation's Counterintelligence AI.\n\n<c:FC5603>AVAILABLE UPGRADES:\n{1}\n{2}</c>",
 				-- OPTIONS1_TXT = "Choose between new slot and upgraded program",
-				OPTIONS1_TXT_MAXSLOTS = "This terminal has months of AI research data on it, but due to a security failsafe, you can only access one subset of it at a time. You can increase Incognita's program capacity or upgrade an existing program.\n\n<c:FC5603>PROGRAM SLOTS FULL\nNew slot unavailable\n\nAVAILABLE UPGRADES:\n{1}\n{2}</c>",
 				OPTIONS1_TITLE = "AI TERMINAL ACCESS",
-				OPTIONS1_RESULT1_TITLE = "NEW SLOT ACQUIRED",
-				OPTIONS1_RESULT1_TXT = "New program slot acquired. Will become available after this mission.",
+				
+				OPTIONS2_SLOTS_TITLE = "NEW PROGRAM SLOT",
+				OPTIONS2_SLOTS_TXT = "You can use this research to add an empty program slot to Incognita, allowing you to install more programs. The slot will become available in the next mission.\n\nCurrent slots: {1}\nMax slots: {2}",
+				
+				OPTIONS2_SLOTSFULL_TITLE = "SLOTS FULL",
+				OPTIONS2_SLOTSFULL_TXT = "You can use this research to add an empty program slot to Incognita, allowing you to install more programs. The slot will become available in the next mission.\n\nCurrent slots: {1}\nMax slots: {2}\n\nMaximal number of program slots reached.\nReturning to root.",
+				
+				OPTIONS2_RESULT1_TITLE = "NEW SLOT ACQUIRED",
+				OPTIONS2_RESULT1_TXT = "New program slot acquired. Will become available after this mission.",
+				
+				OPTIONS2_CANCEL_CONFIRM = {
+					"Cancel",
+					"Confirm"
+				},
+				
+				OPTIONS2_PE_TXT = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with (to a minimum of 1), as well as the selection pool.",
+				OPTIONS2_PE_TXT_PREEXISTING = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with (to a minimum of 1), as well as the selection pool.\n\nYou have previously already weakened the {1} AI by {2} {2:level|levels}.",
+				OPTIONS2_PE_TITLE = "DISRUPT HOSTILE AI",
+				
+				OPTIONS_PE_RESULT_TITLE = "SABOTAGE SUCCESSFUL",
+				OPTIONS2_PE_RESULT_TXT = "A nasty virus or two slipped into the right place can do a lot of damage. Starting with the next mission, the {1} AI should be weaker now.",
 				
 				OPTIONS2_TXT = "Select a program to upgrade. \n\n<c:FC5603>WARNING: Cannot upgrade the same program twice.\n\nAVAILABLE UPGRADES:\n{1}\n{2}</c>",
 				OPTIONS2_TXT_COMPACT = "Select a program to upgrade. \n<c:FC5603>WARNING: Cannot upgrade the same program twice.\nAVAILABLE UPGRADES: {1}, {2}.</c>", --more compact, for full program slots/many buttons
@@ -419,8 +440,8 @@ return {
 				
 				OPTIONS3_TXT = "Select a parameter to upgrade.",
 				OPTIONS3_TITLE = "SELECT PARAMETER",
-				OPTIONS3 = {
-					"Firewalls broken",
+				OPTIONS3 = { --do not edit these strings! --> ai_terminal.lua
+					"Firewalls broken", 
 					"PWR cost",
 					"Cooldown",
 					"Range",
@@ -486,9 +507,9 @@ return {
 		},
 		ASSASSINATION = {
 			NAME= "Assassination",
-			MORE_INFO = "A high-ranked executive at this location has an impressive bounty on their head, but such a high-profile hit will not go unanswered by the corp.\n\nThe target is reportedly paranoid, with personal security on-site. Be wary.", --This can be quite lengthy.
+			MORE_INFO = "A high-ranked executive at this location has an impressive bounty on their head, but such a high-profile hit will not go unanswered by the corp.\n\nBe wary - the target is reportedly paranoid, with personal security on-site. If you're short on firepower, some of it may potentially be used against him.", --This can be quite lengthy.
 			INSET_TITLE = "MARKED FOR DEATH", --unused
-			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
+			INSET_TXT = "I would't normally stoop to assassination contracts, but the payday on this one is too tempting to ignore. The target is highly placed, so we can expect heightened security at this corporation if you complete the job. Ready to get your hands dirty, Operator?", --unused
 			INSET_VO = {""},
 			DESCRIPTION = "Kill or knock out the VIP, then extract him.",
 			REWARD = "A hefty cash reward, at the cost of a permanent security increase at this corporation.",
@@ -503,23 +524,45 @@ return {
 			DESCRIPTION = "Find and access the repair workstation.",
 			REWARD = "A range of heavily discounted items.",
 		},
-		EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
+		-- EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
+		EA_HOSTAGE = {			
+			NAME= "Secure Holding Facility",
+			-- MORE_INFO = "The corp has intercepted a courier of one of our former clients. He's got important site intel stored in a cerebral implant, intel we could use. Your task is to break in, locate the courier, and recover the information.\n\nOne final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",
+			MORE_INFO = "Data couriers traffic valuable information for their clients, but are easy targets for the corps if they get caught. This courier has detailed knowledge of the corp's facilities and can provide us with more targets nearby.\n\nAs a security precaution, the exit elevator is locked until further notice, but the courier should have a backdoor sequence for it.",
+			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
+			INSET_TXT = "The corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we might be able to persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
+			INSET_VO = {""}, 
+			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.\nTelepad locked, courier has the key.",
+			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby.",
+			BANTER = {
+				START = {
+				"",
+				},
+				FINAL_WORDS = {
+					"I knew I shouldn't have taken that job...",
+					"I can't go back in there. I can't.",
+					"I just want to lie down...",
+					"Don't shoot! I don't even know these people!",
+				},			
+			},
+		},
 
 		DISTRESS_CALL = {
 			NAME= "Distress Call",
-			MORE_INFO = "We've intercepted a signal from an operative in need of extraction. It may be one of our missing agents, and if not, we can still negotiate a suitable compensation from them once we get them out safely. \n\nBe careful, Operator - our telemetry suggests the facility is already on high alert, and the alarm level will advance more quickly as a result.", --This can be quite lengthy.
+			MORE_INFO = "We've intercepted a signal from an operative in need of extraction. It may be one of our missing agents, and if not, we can still negotiate a suitable compensation from them once we get them out safely. \n\nBe careful, Operator - our telemetry suggests the facility is already alerted, and the alarm level will advance more quickly as a result.", --This can be quite lengthy.
 			INSET_TITLE = "OPERATIVE EXTRACTION", --unused
-			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
+			INSET_TXT = "We've detected an urgent distress call at this facility. It may be one of our agents attempting an escape, or some other operative who's stumbled onto our signal network. There's no time to waste, Operator. If you mean to extract them, do it now. We will not get a second chance if we delay.", --unused
 			INSET_VO = {""}, --{"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},			
 			DESCRIPTION = "Get the escaped operative safely to extraction and grab their confiscated gear on the way out. Alarm level will increase more quickly here.",
-			REWARD = "Agent or prisoner rescue with valuable items.\n<c:FC5603>URGENT:</c> This mission will disappear unless visited immediately.",
+			REWARD = "Agent or prisoner rescue with equipment.\n<c:FC5603>URGENT:</c> This mission will disappear unless visited immediately.",
 		},
 
 		WEAPONS_EXPO = {
 			NAME= "Tech Expo",
-			MORE_INFO = "This facility is hosting a world class tech exposition. The corporations and the industry finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nBut keep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
+			-- MORE_INFO = "This facility is hosting a world class tech exposition. The corporations and the industry finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nBut keep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
+			MORE_INFO = "A prestigious tech exhibition offers the chance to steal some powerful prototypes before they reach the wider market. \n\nYou will find advanced weapons as well as powerful single-use items here, but the security system should not be taken lightly - the more you steal, the greater the risk.", --This can be quite lengthy.
 			INSET_TITLE = "TECH EXPO", --unused
-			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused unless we actually get these voiced somehow
+			INSET_TXT = "This facility is hosting a top-tier tech exposition. The corporations and the industry's finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours. But keep your guard up - rumour has it their security system is every bit as experimental as the tech they're showcasing.", --unused unless we actually get these voiced somehow
 			INSET_VO = {""},
 			DESCRIPTION = "Locate the main exhibition center and steal at least one prototype.",
 			REWARD = "Advanced weapons and powerful single-use items you can sell or use as equipment.",
@@ -527,9 +570,9 @@ return {
 
 		MOLE_INSERTION = {
 			NAME = "Informant Rendezvous", -- thanks to jlaub for name idea
-			MORE_INFO = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. \n\nFirst, we'll need to get them on site and secure their cover. Make sure they remain unseen, or things will get complicated. Take measures to remove any witnesses to maximise the benefit from this mission.",
+			MORE_INFO = "We have an opportunity to plant an informant at this facility who will feed us intel from the inside. This mission grants no immediate reward, but you will start future missions with advance knowledge of the infiltration target. \n\nMake sure the mole remains unseen to maximise the duration of this reward.",
 			INSET_TITLE = "",
-			INSET_TXT = "",
+			INSET_TXT = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. \n\nFirst, we'll need to get them on site and secure their cover. Make sure the enemy doesn't spot them, or things will get complicated.",
 			INSET_VO = {""},
 			DESCRIPTION = "Plant an informant and secure their cover identity. For best results, informant must remain unseen.",
 			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or exit location.",
@@ -540,7 +583,7 @@ return {
 			NAME = "AI Terminal",
 			MORE_INFO = "We've located an AI Development Terminal with unusually high security clearance. We should be able to integrate some of this research to increase Incognita's processing efficiency.\n\nThe terminal has multiple redundant locks, so be prepared to be thorough.",
 			INSET_TITLE = "",
-			INSET_TXT = "",
+			INSET_TXT = "We've unearthed an off-the-books AI research facility. We may be able to use it to upgrade Incognita, but be sure to tread lightly, Operator. We can only assume there's a good reason they kept this place so well-hidden.",
 			INSET_VO = {""},
 			DESCRIPTION = "Unlock and access the AI Development Terminal using keycards and devices found on-site.",
 			-- REWARD = "An additional program slot for Incognita, or valuable tech if at upgrade cap (2 additional slots).",
@@ -556,8 +599,9 @@ return {
 		-- REASON = {
 			-- HYPERUNLOCKED = "Busted open by a blue keycard",
 		-- },
-		DISTRESS_OBJECTIVE = "Rescue the operative",
-		DISTRESS_OBJECTIVE_SECONDARY = "Find the confiscated gear",
+		DISTRESS_OBJECTIVE = "Rescue the Operative",
+		DISTRESS_OBJECTIVE_SECONDARY = "Find {1}'s equipment",
+		DISTRESS_OBJECTIVE_SECONDARY_OPERATIVE = "the Operative",
 		DISTRESS_AGENT_GEAR_CONTAINER = "SIGNAL DETECTED",
 		DISTRESS_AGENT_GEAR_CONTAINER_DESC = "VALUABLE EQUIPMENT", --should probably go under MISSIONS above but we can tidy things later...
 		WEAPONS_EXPO_OBJECTIVE = "Locate and steal tech prototypes",
@@ -611,6 +655,9 @@ return {
 				COOLDOWN = "{1} cooldown",
 				RANGE = "{1} range",
 			},
+			
+			HOSTILE_AI_WEAKEN = "AI TERMINAL SABOTAGE",
+			HOSTILE_AI_WEAKEN_DESC = "This AI has been disrupted and has {1} fewer subroutines than normal.",			
 		},	
 		
 	},
@@ -692,6 +739,11 @@ return {
 					{{"You found him. Don't let him get away.",
 						"moremissions/VoiceOver/Central/assassination/seen1",
 						"Central"}},
+				},
+				
+				OBJECTIVE_SIGHTED_HASWEAPON = {
+					{{"There's the target.",nil,"Central"					
+					}},
 				},
 				DOOR_SIGHTED = {
 					{
@@ -883,6 +935,9 @@ return {
 					{{"Get them to a guard elevator and off this floor, and stay out of sight. Our work is almost done.",nil,"Central"}},
 					-- {{"The informant is ready to go undercover now. Get them to a guard elevator and stay out of sight.",nil,"Central"}},
 				},
+				CAMERA_BOOTING = {
+					{{"They're booting this backup camera in response to our intrusion. Keep the informant out of its sights, or we'll have more work on our hands.",nil,"Central"}},
+				},
 				SEE_GUARD_EXIT = {
 					{{"There's a guard exit. Be careful, Operator. Make sure the informant doesn't run into any inbound reinforcements on the way.",nil,"Central"}},
 				},	
@@ -976,6 +1031,9 @@ return {
 					},
 					GOT_NOTHING = {
 						{{"I should have left you at the orphanage.", nil, "Central"}}, --will rewrite when feeling more creative
+					},
+					WEAKENED_COUNTER_AI = {
+						{{"The best defense is a good offense, as they say. Sabotage may be a dirty play, but hamstringing their AI research is sure to help us stay competitive. Well done.", nil, "Central"}}, --unvoiced?
 					},
 				},		
 			},
