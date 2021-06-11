@@ -42,7 +42,6 @@ local OPERATIVE_DESPAWNED =
 		end
 	end
 }
-
 -- This is the chance that an agent will load in the detention centre.  If not, a hostage
 -- will be placed there.
 local CHANCE_OF_AGENT_IN_DETENTION = 0.5 --make customisable param?
@@ -253,7 +252,7 @@ local function startAgentEscape( script, sim, mission )
 		newUnit:setFacing( unit:getFacing() )
 		newUnit:getTraits().rescued = true
         newUnit:getTraits().detention = true
-
+		
 		local cell = sim:getCell( unit:getLocation() )
         assert( cell )
 		sim:spawnUnit( newUnit )
@@ -292,8 +291,9 @@ local function startAgentEscape( script, sim, mission )
 		newOperative = newUnit
 
 	end
-
+	
 	if newOperative then
+			
 		sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/hostage/hostage_chair_move" )
 		local x0,y0 = newOperative:getLocation()
 		local unit_cell = sim:getCell(x0, y0)
@@ -375,17 +375,21 @@ local function startAgentEscape( script, sim, mission )
 			script:queue( { script=v, type="newOperatorMessage" } )
 			script:queue(0.5*cdefs.SECONDS)
 		end
-
-		-- custom oneliner from operative -----
+		
+		-- make objectives
+		sim:addObjective( util.sformat(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY,newOperative:getUnitData().name), "find_agent_gear" )	--get gear	
+				
 		local agent_id
 		if newOperative:getUnitData().agentID then
 			agent_id = newOperative:getUnitData().agentID
-			sim:removeObjective( "rescue_agent" )
-			sim:addObjective( string.format(STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_AGENT,newOperative:getUnitData().name), "rescue_agent" )--rename objective
+			-- sim:removeObjective( "rescue_agent" )
+			sim:addObjective( string.format(STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_AGENT,newOperative:getUnitData().name), "rescue_agent" )
 		else
 			agent_id = "agent009"
+			sim:addObjective( string.format(STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_AGENT,newOperative:getUnitData().name), "rescue_agent" )
 		end
-		-- script:queue( { type="hideHUDInstruction" } )
+		
+		-- custom oneliner from operative -----
 		if STRINGS.MOREMISSIONS.AGENT_LINES.DISTRESS_CALL[agent_id] ~= nil then
 			local anim = newOperative:getUnitData().profile_anim
 			local build = newOperative:getUnitData().profile_anim
@@ -479,10 +483,9 @@ function mission:init( scriptMgr, sim )
     escape_mission.init( self, scriptMgr, sim )
 	activateCam( sim )
 
+	-- sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE, "rescue_agent" )
 	scriptMgr:addHook( "START_AGENT_ESCAPE", startAgentEscape, nil, self )
-    sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE, "rescue_agent" )
-
-	sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY, "find_agent_gear" )	--get gear
+	-- sim:addObjective( util.sformat(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY,sim.MM_distressedName), "find_agent_gear" )	--get gear --> moved to startAgentEscape
 	scriptMgr:addHook( "GEAR SAFE REACTION", gearSafeReaction, nil, self)
 	scriptMgr:addHook( "GOT_OPERATIVE", got_operative, nil, self )
     --This picks a reaction rant from Central on exit based upon whether or not an agent has escaped with the loot yet.
