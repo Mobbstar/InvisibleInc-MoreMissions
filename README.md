@@ -1,7 +1,7 @@
 # More Missions
 ### A mod for "Invisible, Inc." by Klei Entertainment
 
-![MM_mod_preview2](https://user-images.githubusercontent.com/39839566/118572232-3c484c00-b780-11eb-9ad3-687b14c74fce.png)
+![image](https://user-images.githubusercontent.com/39839566/121773747-1e52e900-cb7e-11eb-9b3e-f6dd4cc40d39.png)
 
 The aim of this mod is to add new kinds of missions to the game. 
 
