@@ -30,7 +30,7 @@ local function init( modApi )
     -- KLEIResourceMgr.MountPackage( dataPath .. "/characters.kwad", "data/anims" )
     -- KLEIResourceMgr.MountPackage( dataPath .. "/anims.kwad", "data" )
    	KLEIResourceMgr.MountPackage( dataPath .. "/moremissions_anims.kwad", "data" )
-	KLEIResourceMgr.MountPackage( dataPath .. "/pedler_oil.kwad", "data" ) --taken from Shirsh's mod combo	
+	KLEIResourceMgr.MountPackage( dataPath .. "/pedler_oil.kwad", "data" ) --taken from Shirsh's mod combo
 
 	modApi:addGenerationOption("executive_terminals",  STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL , STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("ceo_office",  STRINGS.MOREMISSIONS.OPTIONS.CFO_OFFICE , STRINGS.MOREMISSIONS.OPTIONS.CFO_OFFICE_TIP, {noUpdate=true} )
@@ -50,17 +50,17 @@ local function init( modApi )
 	modApi:addGenerationOption("distress_call",  STRINGS.MOREMISSIONS.OPTIONS.DISTRESSCALL, STRINGS.MOREMISSIONS.OPTIONS.DISTRESSCALL_TIP, {noUpdate=true, enabled = true} )
 	modApi:addGenerationOption("weapons_expo",  STRINGS.MOREMISSIONS.OPTIONS.WEAPONSEXPO, STRINGS.MOREMISSIONS.OPTIONS.WEAPONSEXPO_TIP, {noUpdate=true, enabled = true} )
 	modApi:addGenerationOption("mole_insertion",  STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION, STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION_TIP, {noUpdate=true, enabled = true} )
-	modApi:addGenerationOption("ai_terminal",  STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL, STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL_TIP, {noUpdate=true, enabled = true} )	
-	
+	modApi:addGenerationOption("ai_terminal",  STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL, STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL_TIP, {noUpdate=true, enabled = true} )
+
 	modApi:addGenerationOption("MM_sidemissions",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_TIP, {noUpdate=true} ) --doesn't do anything yet
-	
-	modApi:addGenerationOption("MM_newday", STRINGS.MOREMISSIONS.OPTIONS.NEWDAY, STRINGS.MOREMISSIONS.OPTIONS.NEWDAY_DESC, 
+
+	modApi:addGenerationOption("MM_newday", STRINGS.MOREMISSIONS.OPTIONS.NEWDAY, STRINGS.MOREMISSIONS.OPTIONS.NEWDAY_DESC,
 	{
 		values = {0,1,2,3,4,5,6,7,8,9,10},
 		value=5,
 		noUpdate = true,
-	})		
-	
+	})
+
 	modApi:addGenerationOption("MM_easy_mode",  STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE , STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE_TIP, {enabled = false, noUpdate=true, difficulties = {{simdefs.NORMAL_DIFFICULTY, true}} } )
 
 	-- abilities, for now simple override (I'm not smart enough to...)
@@ -84,13 +84,13 @@ local function init( modApi )
 		end
 	end
 
-	
+
 	-- for Assassination mission: ensure lethal laser grids in saferoom prefab
 	local simengine = include("sim/engine")
 	local oldInit = simengine.init
-	
+
 	function simengine.init( self, params, levelData, ... )
-		self._levelOutput = levelData:parseBoard( params.seed, params )	
+		self._levelOutput = levelData:parseBoard( params.seed, params )
 		if params.situationName == "assassination" then
 			for i, unit in pairs(self._levelOutput.units) do
 				if unit.template and unit.unitData and unit.unitData.traits and unit.unitData.traits.lethal_laser then
@@ -98,20 +98,20 @@ local function init( modApi )
 				end
 			end
 		end
-		oldInit( self, params, levelData, ... )	
-	end	
+		oldInit( self, params, levelData, ... )
+	end
 
 	--cannot set display string... local variable only -M
 	table.insert(modApi.mod_manager.credit_sources, "assassinationreward")
-  
+
 	-- SIDE MISSIONS
 	local showItemStore = abilitydefs.lookupAbility( "showItemStore")
 	local showItemStore_executeOld = showItemStore.executeAbility
-	
+
 	showItemStore.executeAbility = function( self, sim, unit, userUnit, ... )
 	-- note: unit is nanofab, userUnit is agent
 		if unit:getTraits().storeType and (unit:getTraits().storeType == "large") and unit:getTraits().luxuryNanofab and sim.luxuryNanofabItemType then
-			
+
 			local strings_screens = include( "strings_screens" )
 			sim.old_augmenttip, sim.old_weapontip, sim.old_itemtip = strings_screens.STR_346165218, strings_screens.STR_2618909495, strings_screens.STR_590530336
 			local itemType = sim.luxuryNanofabItemType
@@ -123,16 +123,16 @@ local function init( modApi )
 			elseif itemType == 3 then
 				new_tooltip = [[WEAPONS]]
 			end
-			
+
 			strings_screens.STR_346165218 = new_tooltip
 			strings_screens.STR_2618909495 = new_tooltip
-			strings_screens.STR_590530336 = new_tooltip		
-		
+			strings_screens.STR_590530336 = new_tooltip
+
 		end
-		
+
 		showItemStore_executeOld(self, sim, unit, userUnit, ...)
-	end	
-				
+	end
+
 	-- inverted spawn fitness check allows existing generatePrefabs worldgen functions to maximise distance to a prefab tag specified in mission.
 	local prefabs = include("sim/prefabs")
 	local generatePrefabs_old = prefabs.generatePrefabs
@@ -153,8 +153,8 @@ local function init( modApi )
 		generatePrefabs_old( cxt, candidates, tag, maxCount, fitnessFn, fitnessSelect, ... )
 	end
 
-	-- END OF MOLE INSERTION	
-	
+	-- END OF MOLE INSERTION
+
 	include( scriptPath .. "/simquery" )
 	include( scriptPath .. "/engine" )
 	include( scriptPath .. "/idle" )
@@ -165,13 +165,13 @@ local function init( modApi )
 	include( scriptPath .. "/btree/actions" )
 	include( scriptPath .. "/btree/conditions" )
 	include( scriptPath .. "/btree/bountytargetbrain" )
-	
+
 	include( scriptPath.."/simdefs" ) -- copied from Interactive Events & expanded to support up to 8 buttons
 	include( scriptPath.."/hud" )--from Interactive Events, required for modal dialog choice menu to work properly
-	
+
 	-- AI TERMINAL
 	local modifyPrograms = include( scriptPath .. "/abilities/mainframe_abilities" )
-	modifyPrograms()	
+	modifyPrograms()
 	-- double-included here in init and in lateLoad to catch both vanilla overrides and mod additions. Upgraded programs with abilityOverride such as Fusion DO NOT WORK without this line!
 end
 
@@ -187,7 +187,7 @@ local function lateInit( modApi )
 	local DoFinishMission_old = mission_scoring.DoFinishMission
 	mission_scoring.DoFinishMission = function( sim, campaign, ... )
 		local agency = sim:getParams().agency
-	
+
 		--update existing informant bonuses
 		-- bonus doesn't apply in Omni missions so don't tick down
 		if not ((sim:getParams().world == "omni") or (sim:getParams().world == "omni2")) then
@@ -209,7 +209,7 @@ local function lateInit( modApi )
 				end
 			end
 		end
-		
+
 		-- remove existing Distress Call missions, THEN run the old function that might add new ones.
 		for i = #campaign.situations, 1, -1 do
 			local situation = campaign.situations[i]
@@ -232,19 +232,19 @@ local function lateInit( modApi )
 			-- add new mole bonus
 			table.insert(agency.MM_informant_bonus, intel_bonus)
 		end
-		
+
 		-- ASSASSINATION
 		if (sim:getParams().situationName == "assassination") and sim:getTags().MM_assassination_success then -- or some other mission type check, as well as a mission success check
-		
+
 			-- this is for modifying the difficulty of newly-spawned ones, in case we also want this
 			campaign.MM_assassination  = campaign.MM_assassination or {}
 			local world = sim:getParams().world
 			if campaign.MM_assassination[world] == nil then
 				campaign.MM_assassination[world] = 0
 			end
-			
+
 			campaign.MM_assassination[world] = campaign.MM_assassination[world] + 1
-			
+
 			-- this is for modifying the difficulty of existing ones
 			local situations = campaign.situations
 
@@ -257,7 +257,7 @@ local function lateInit( modApi )
 				end
 			end
 		end
-		
+
 		local returnvalue = DoFinishMission_old( sim, campaign, ... )
 
 		if sim._assassinationReward then
@@ -269,7 +269,7 @@ local function lateInit( modApi )
 
 		return returnvalue
 	end
-	
+
 	--other part in load
 
 	local spawn_mole_bonus = include( scriptPath .. "/spawn_mole_bonus" )
@@ -286,7 +286,7 @@ local function lateInit( modApi )
 	-- Similar edit is done in Load to mid_1!
 
 	-- setAlerted edit to allow un-alerting for Amnesiac function
-	local simunit = include("sim/simunit")	
+	local simunit = include("sim/simunit")
 	local simunit_setAlerted_old = simunit.setAlerted
 	simunit.setAlerted = function( self, alerted, ... )
 		if self and self:getTraits().MM_amnesiac and self._sim then
@@ -295,8 +295,8 @@ local function lateInit( modApi )
 		else
 			return simunit_setAlerted_old( self, alerted, ... )
 		end
-	end	
-	
+	end
+
 	-- for clearing mainframe witnesses
 	local processEMP_old = simunit.processEMP
 	simunit.processEMP = function( self, bootTime, noEmpFX, ... )
@@ -309,7 +309,7 @@ local function lateInit( modApi )
 			end
 		end
 	end
-	
+
 	local simdrone = include("sim/units/simdrone")
 	local simdrone_processEMP_old = simdrone.processEMP
 	simdrone.processEMP = function(self, empTime, noEmpFx, noAttack)
@@ -321,23 +321,23 @@ local function lateInit( modApi )
 			if x0 and y0 then
 				self._sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
 			end
-		end		
+		end
 	end
 
 	-- update stopHacking to refresh database hacking state
 	local stopHacking_old = simunit.stopHacking
 	simunit.stopHacking = function(self, sim, ... ) --refreshes the hacking anim state for the mole's database hack. we don't care about legit uses of monster_hacking because that's handled by ending_1
 		stopHacking_old( self, sim, ... )
-		if self:getTraits().monster_hacking then 
+		if self:getTraits().monster_hacking then
 			local target = sim:getUnit(self:getTraits().monster_hacking)
 			if target:getTraits().MM_personneldb or target:getTraits().MM_camera_core then
 				self:getTraits().data_hacking = nil
 				self:getSounds().spot = nil
 				sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = self })
 			end
-		end	
+		end
 	end
-	
+
 	-- this keeps the personnel DB hack from erroneously triggering actual data bank hacking scripts
 	local simunit_progressHack_old = simunit.progressHack
 	simunit.progressHack = function( self, ... )
@@ -345,7 +345,7 @@ local function lateInit( modApi )
 			return
 		end
 		return simunit_progressHack_old( self, ... )
-	end	
+	end
 
 	-- Amnesiac function as append of paralyze
 	local paralyze = abilitydefs.lookupAbility("paralyze")
@@ -367,10 +367,10 @@ local function lateInit( modApi )
 			targetUnit:getTraits().witness = nil
 			sim:triggerEvent( "used_amnesiac", { userUnit = userUnit, targetUnit = targetUnit } )
 			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=0,a=1}} )
-		end		
+		end
 		--Funky Library takes care of impair AP stuff
 	end
-	
+
 	-- ASSASSINATION bodyguard
 	local simunit_onDamage_old = simunit.onDamage
 	simunit.onDamage = function( self, damage, ... )
@@ -381,12 +381,12 @@ local function lateInit( modApi )
 			end
 		end
 	end
-	
+
 	local simengine = include("sim/engine")
 	local simengine_tryShootAt_old = simengine.tryShootAt
 	simengine.tryShootAt = function( self, sourceUnit, targetUnit, dmgt0, equipped, ... )
-		if targetUnit:getTraits().MM_bounty_disguise 
-		-- and not equipped:getTraits().canTag 
+		if targetUnit:getTraits().MM_bounty_disguise
+		-- and not equipped:getTraits().canTag
 		then
 			local newTarget = assassination_mission.getOpposite( self, targetUnit )
 			if newTarget then
@@ -397,8 +397,8 @@ local function lateInit( modApi )
 			end
 		end
 		simengine_tryShootAt_old( self, sourceUnit, targetUnit, dmgt0, equipped, ... )
-	end	
-	
+	end
+
 	local simengine_hitUnit_old = simengine.hitUnit
 	simengine.hitUnit = function( self, sourceUnit, targetUnit, dmgt, ... )
 		--hitUnit is called as part of tryShootAt but it's also called in other cases so we need to cover those as well
@@ -408,11 +408,11 @@ local function lateInit( modApi )
 				assassination_mission.bodyguardSwap( self )
 				targetUnit = newTarget
 			-- we want the swap to happen no matter who is attacked or what kind of attack it is
-			end			
+			end
 		end
-		simengine_hitUnit_old( self, sourceUnit, targetUnit, dmgt, ... )			
+		simengine_hitUnit_old( self, sourceUnit, targetUnit, dmgt, ... )
 	end
-	
+
 
 	local simunit_setKO_old = simunit.setKO --for flash grenade
 	simunit.setKO = function( self, sim, ticks, fx, ... )
@@ -424,24 +424,24 @@ local function lateInit( modApi )
 			end
 		end
 		return simunit_setKO_old( self, sim, ticks, fx, ... )
-	end	
-		
+	end
+
 	-- FOR TECH EXPO CUSTOM ITEM
 	local icebreak = abilitydefs.lookupAbility("icebreak")
 	local icebreak_executeAbility_old = icebreak.executeAbility
 	icebreak.executeAbility = function( self, sim, unit, userUnit, target, ... ) --this might be worth moving to FuncLib...
 		if unit:getTraits().killDaemon then
-			local targetUnit = sim:getUnit(target)	
+			local targetUnit = sim:getUnit(target)
 			targetUnit:getTraits().mainframe_program = nil
-			sim:dispatchEvent( simdefs.EV_KILL_DAEMON, {unit = targetUnit})	
+			sim:dispatchEvent( simdefs.EV_KILL_DAEMON, {unit = targetUnit})
 			if targetUnit:getTraits().daemonHost then
 				sim:getUnit(targetUnit:getTraits().daemonHost):killUnit(sim)
 				targetUnit:getTraits().daemonHost =nil
 			end
-		end	
+		end
 		icebreak_executeAbility_old( self, sim, unit, userUnit, target, ... )
 	end
-	
+
 	local use_stim = abilitydefs.lookupAbility( "use_stim" )
 	local use_stim_executeAbitlity_old = use_stim.executeAbility
 	use_stim.executeAbility = function( self, sim, unit, userUnit, target )
@@ -449,9 +449,9 @@ local function lateInit( modApi )
 		local targetUnit = sim:getUnit(target)
 		if unit:getTraits().impair_agent_AP and targetUnit:getTraits().mpMax then
 			targetUnit:getTraits().mpMax = math.max(targetUnit:getTraits().mpMax - unit:getTraits().impair_agent_AP, 4)
-		end	
+		end
 	end
-	
+
 end
 
 --The implementation of array.removeAllElements is not optimal for our purposes, and we also need something to remove dupes, so might as well combine it all. -M
@@ -512,7 +512,7 @@ local function load( modApi, options, params )
 			rawset(simdefs,"NUM_MISSIONS_TO_SPAWN",4)
 		end
 	end
-	
+
 	local itemdefs = include( scriptPath .. "/itemdefs" )
 	for name, itemDef in pairs(itemdefs) do
 		modApi:addItemDef( name, itemDef )
@@ -533,29 +533,29 @@ local function load( modApi, options, params )
 	for name, agentDef in pairs(agentdefs) do
 	modApi:addAgentDef( name, agentDef )
 	end
-	
+
 	local commondefs = include( scriptPath .. "/commondefs" )
 	modApi:addTooltipDef( commondefs )
-	
+
 	local side_missions = include( scriptPath .. "/side_missions" )
 	if options["MM_sidemissions"].enabled then
 		modApi:addEscapeScripts(side_missions.escape_scripts)
-		modApi:addSideMissions(scriptPath, side_missions.SIDEMISSIONS )	
-	end	
-	
+		modApi:addSideMissions(scriptPath, side_missions.SIDEMISSIONS )
+	end
+
 	modApi:addAbilityDef( "MM_hack_personneldb", scriptPath .."/abilities/MM_hack_personneldb" )
 	modApi:addAbilityDef( "MM_escape_guardelevator", scriptPath .."/abilities/MM_escape_guardelevator" )
-	modApi:addAbilityDef( "MM_scrubcameradb", scriptPath .."/abilities/MM_scrubcameradb" )	
+	modApi:addAbilityDef( "MM_scrubcameradb", scriptPath .."/abilities/MM_scrubcameradb" )
 	modApi:addAbilityDef( "MM_W93_incogRoom_unlock", scriptPath .."/abilities/MM_W93_incogRoom_unlock" )
 	modApi:addAbilityDef( "MM_W93_incogRoom_upgrade", scriptPath .."/abilities/MM_W93_incogRoom_upgrade" )
-	
+
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
 	local assassination = include( scriptPath .. "/missions/assassination" )
-	include( scriptPath .. "/missions/ea_hostage" )	
+	include( scriptPath .. "/missions/ea_hostage" )
 	-- include( scriptPath .. "/missions/mole_insertion" ) -- mole_insertion included in init instead
 	include( scriptPath .. "/missions/mission_util" )
-	
+
 	assassination_mission.bodyguardSwap = assassination.bodyguardSwap
 	assassination_mission.getOpposite = assassination.getOpposite
 
@@ -582,7 +582,7 @@ local function load( modApi, options, params )
 	include(scriptPath.."/simKOcloud")
 	include(scriptPath.."/MM_simemppack_pulse")
 	include(scriptPath.."/MM_simfraggrenade")
-	
+
 	-- modApi:setCampaignEvent_setCampaignParam(nil,"contingency_plan",true)
 
 	--mod_api:addTooltipDef( commondef ) --Lets us append all onTooltip functions
@@ -592,7 +592,7 @@ local function load( modApi, options, params )
 	for id,situation in pairs(serverdefs_mod.SITUATIONS) do
 		modApi:addSituation( situation, id, scriptPath .."/missions" )
 	end
-	
+
 	--remove vanilla tags if disabled
 	for i = #serverdefs.ESCAPE_MISSION_TAGS, 1, -1 do
 		if options[serverdefs.ESCAPE_MISSION_TAGS[i]] and not options[serverdefs.ESCAPE_MISSION_TAGS[i]].enabled then
@@ -644,7 +644,7 @@ local function load( modApi, options, params )
 	local moleInsertionPrefabs = include( scriptPath .. "/prefabs/mole_insertion/prefabt" )
 	modApi:addPrefabt(moleInsertionPrefabs)
 	local cameraDB = include( scriptPath .. "/prefabs/mole_insertion/prefabt_cameradb" )
-	modApi:addPrefabt(cameraDB)	
+	modApi:addPrefabt(cameraDB)
 	local weaponsExpoPrefabs = include( scriptPath .. "/prefabs/weaponsexpo/prefabt" )
     modApi:addPrefabt(weaponsExpoPrefabs)
 	local aiTerminalPrefabs = include( scriptPath .. "/prefabs/ai_terminal/prefabt" )
@@ -716,7 +716,7 @@ local function load( modApi, options, params )
 	-----
 	--Tech Expo hack0rz -Hek
 	local stealCreditsAbility = abilitydefs.lookupAbility("stealCredits")
-	local stealCredits_canUse_old = stealCreditsAbility.canUseAbility	
+	local stealCredits_canUse_old = stealCreditsAbility.canUseAbility
 	--need custom hack here because the vanilla emp_safe trait does nothing for vault boxes
 	abilitydefs._abilities.stealCredits.canUseAbility = function(self, sim, unit, userUnit, ...)
 		local result = stealCredits_canUse_old (self,sim,unit,userUnit,...)
@@ -724,7 +724,7 @@ local function load( modApi, options, params )
 			return false, STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_EMP_SAFE
 		end
 		return result
-	end	
+	end
 
 	------ These four appends are necessary because vanilla weapons never have skill requirements or anything that checks for them before use
 	local shootSingle = abilitydefs.lookupAbility("shootSingle")
@@ -734,10 +734,10 @@ local function load( modApi, options, params )
 		local weaponUnit = simquery.getEquippedGun( unit )
 		if weaponUnit and weaponUnit:getRequirements() and (result == true) then
 			for skill,level in pairs( weaponUnit:getRequirements() ) do
-				if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+				if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then
 
 					local skilldefs = include( "sim/skilldefs" )
-					local skillDef = skilldefs.lookupSkill( skill )            	
+					local skillDef = skilldefs.lookupSkill( skill )
 
 					return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
 				end
@@ -745,26 +745,26 @@ local function load( modApi, options, params )
 		end
 		return result, reason1, reason2, reason3
 	end
-			
+
 	local overwatch = abilitydefs.lookupAbility("overwatch")
 	local overwatch_canUse_old = overwatch.canUseAbility
 	overwatch.canUseAbility = function(self, sim, unit, ... )
 		local result, reason1, reason2, reason3 = overwatch_canUse_old(self, sim, unit, ... )
 		local weaponUnit = simquery.getEquippedGun(unit)
-		if (result == true) and weaponUnit and weaponUnit:getRequirements()then		
+		if (result == true) and weaponUnit and weaponUnit:getRequirements()then
 			for skill,level in pairs( weaponUnit:getRequirements() ) do
-				if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+				if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then
 
 					local skilldefs = include( "sim/skilldefs" )
-					local skillDef = skilldefs.lookupSkill( skill )            	
+					local skillDef = skilldefs.lookupSkill( skill )
 
 					return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
 				end
-			end	
+			end
 		end
 		return result, reason1, reason2, reason3
 	end
-	
+
 	local overwatchMelee = abilitydefs.lookupAbility("overwatchMelee")
 	local overwatchMelee_canUse_old = overwatchMelee.canUseAbility
 	overwatchMelee.canUseAbility = function( self, sim, unit, ... )
@@ -775,16 +775,16 @@ local function load( modApi, options, params )
 			if not unit:getPlayerOwner():isNPC() and tazerUnit then
 				if tazerUnit:getRequirements() then
 					for skill,level in pairs( tazerUnit:getRequirements() ) do
-						if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+						if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then
 
 							local skilldefs = include( "sim/skilldefs" )
-							local skillDef = skilldefs.lookupSkill( skill )            	
+							local skillDef = skilldefs.lookupSkill( skill )
 
 							return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
 						end
 					end
-				end			
-			
+				end
+
 			end
 		end
 		return result, reason1, reason2, reason3
@@ -800,18 +800,18 @@ local function load( modApi, options, params )
 
 			if tazerUnit:getRequirements() then
 				for skill,level in pairs( tazerUnit:getRequirements() ) do
-					if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then 
+					if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then
 
 						local skilldefs = include( "sim/skilldefs" )
-						local skillDef = skilldefs.lookupSkill( skill )            	
+						local skillDef = skilldefs.lookupSkill( skill )
 
 						return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
 					end
 				end
-			end					
+			end
 		end
 		return result, reason1, reason2, reason3
-	end	
+	end
 	-- Assassination
 	local melee_executeOld = melee.executeAbility
 	melee.executeAbility = function( self, sim, unit, userUnit, target, ... )
@@ -826,7 +826,7 @@ local function load( modApi, options, params )
 		end
 		return melee_executeOld( self, sim, unit, userUnit, target, ... )
 	end
-		
+
 	--------
 	-- MOLE INSERTION
 	local mole_insertion = include( scriptPath .. "/missions/mole_insertion" )
@@ -860,21 +860,21 @@ local function load( modApi, options, params )
 					scriptMgr:addHook( "MID_1", newStartPhase )--append hookFn by removing and readding the hook
 
 				end
-			end	
+			end
 		end
-	end	
-	
-	-- default weight for missions with no weight is 1, but the function doesn't accept weight less than 1. Set it to 100 instead so we can make missions both less frequent and more frequent than the vanilla unweighted ones without overriding the rest of the function. 
+	end
+
+	-- default weight for missions with no weight is 1, but the function doesn't accept weight less than 1. Set it to 100 instead so we can make missions both less frequent and more frequent than the vanilla unweighted ones without overriding the rest of the function.
 	local serverdefs_chooseSituation_old = serverdefs.chooseSituation
 	serverdefs.chooseSituation = function( campaign, tags, gen, ... )
 		for name, situationData in pairs( serverdefs.SITUATIONS ) do
 			if situationData.weight == nil then
 				situationData.weight = 100
 			end
-		end 
+		end
 		return serverdefs_chooseSituation_old( campaign, tags, gen, ... )
 	end
-	
+
 	--ASSASSINATION
 	local serverdefs_createNewSituation_old = serverdefs.createNewSituation
 	serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )
@@ -885,7 +885,7 @@ local function load( modApi, options, params )
 			if campaign.MM_assassination and campaign.MM_assassination[corp] then
 				-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
 				newSituation.difficulty = newSituation.difficulty + campaign.MM_assassination[corp]
-				
+
 				-- for Secure Holding Facility: check if there is a viable location. If not, lift the requirement for proximity.
 				if array.find(tags, "close_by") then
 					local availableLocationsTemp = {}
@@ -894,18 +894,18 @@ local function load( modApi, options, params )
 						if serverdefs.defaultMapSelector( campaign, tags, location ) then
 							table.insert( availableLocationsTemp, i )
 						end
-					end		
+					end
 					if not (#availableLocationsTemp > 0) then
 						table.insert(tags, "close_by_nevermind")
 					end
 				end
 			end
 		end
-		
+
 		return newSituation
-	end	
-	
-	--SECURE HOLDING FACILITY	
+	end
+
+	--SECURE HOLDING FACILITY
 	local serverdefs_defaultMapSelector_old = serverdefs.defaultMapSelector
 	serverdefs.defaultMapSelector = function( campaign, tags, tempLocation )
 		if array.find(tags, "close_by") and not array.find(tags, "close_by_nevermind") then
@@ -914,13 +914,13 @@ local function load( modApi, options, params )
 			-- log:write(tostring(dist))
 			if dist > MAX_DIST then
 				return false
-			end		
+			end
 		end
 
 		return serverdefs_defaultMapSelector_old( campaign, tags, tempLocation)
-	
-	end	
-	
+
+	end
+
 end
 
 local function lateLoad( modApi, options, params )
