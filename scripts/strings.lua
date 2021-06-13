@@ -68,8 +68,11 @@ return {
 		ITEMS_IN_STORE = "ITEMS IN STORES",
 		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",
 		
+		NEWDAY = "NEW DAY MISSIONS",
+		NEWDAY_DESC = "<c:FF8411>NEW DAY MISSIONS</c>\nNumber of missions that appear when there's a new day. By default, this is increased to 5 to work better with the increased variety. \nOverrides Generation Options+ mod settings.",
+		
 		EASY_MODE = "EASY MODE",
-		EASY_MODE_TIP = "Some security measures in the custom missions are disabled or more forgiving.",
+		EASY_MODE_TIP = "<c:FF8411>EASY MODE</c>\nSome security measures in the custom missions are disabled or more forgiving.",
 	},
 
 	PROPS =
