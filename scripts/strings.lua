@@ -56,21 +56,21 @@ return {
 		WEAPONSEXPO = "TECH EXPO",
 		WEAPONSEXPO_TIP = "<c:FF8411>TECH EXPO</c>\nProvides powerful weapons protected by advanced security measures.",
 		MOLE_INSERTION = "INFORMANT RENDEZVOUS",
-		MOLE_INSERTION_TIP = "<c:FF8411>INFORMANT RENDEZVOUS</c>\nPlant an informant who will feed you intel for the next few missions.",	
+		MOLE_INSERTION_TIP = "<c:FF8411>INFORMANT RENDEZVOUS</c>\nPlant an informant who will feed you intel for the next few missions.",
 		AI_TERMINAL = "AI TERMINAL",
 		AI_TERMINAL_TIP = "<c:FF8411>AI TERMINAL</c>\nUpgrade a program or gain a new program slot for Incognita.",
 		EA_HOSTAGE = "SECURE HOLDING FACILITY",
 		EA_HOSTAGE_TIP = "<c:FF8411>SECURE HOLDING FACILITY</c>\nRescue the Courier in the limited time before he dies, to gain access to more infiltration sites.",
-		
+
 		SIDEMISSIONS = "SIDE MISSIONS",
-		SIDEMISSIONS_TIP = "Enable new side missions",		
+		SIDEMISSIONS_TIP = "Enable new side missions",
 
 		ITEMS_IN_STORE = "ITEMS IN STORES",
 		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",
-		
+
 		NEWDAY = "NEW DAY MISSIONS",
 		NEWDAY_DESC = "<c:FF8411>NEW DAY MISSIONS</c>\nNumber of missions that appear when there's a new day. By default, this is increased to 5 to work better with the increased variety. \nOverrides Generation Options+ mod settings.",
-		
+
 		EASY_MODE = "EASY MODE",
 		EASY_MODE_TIP = "<c:FF8411>EASY MODE</c>\nSome security measures in the custom missions are disabled or more forgiving.",
 	},
@@ -116,12 +116,12 @@ return {
 				},
 			},
 		},
-		
-		EA_HOSTAGE = 
+
+		EA_HOSTAGE =
 		{
 			NAME = "Johnny W.",
 		},
-		MOLE = 
+		MOLE =
 		{
 			NAME = "INFORMANT",
 			FULLNAME = "Natalie Formaunte",
@@ -131,14 +131,14 @@ return {
 				START = {
 					"",
 				},
-				FINAL_WORDS = 
+				FINAL_WORDS =
 				{
 					"Well, this was a wild ride.",
 					"This is all a huge mistake. Come on, I'll show you my ID...",
 					"I've got friends in high places. You sure you want to take that shot?",
 				},
-			},		
-		},		
+			},
+		},
 	},
 
 	ITEMS =
@@ -166,22 +166,22 @@ return {
 		DISCARDED_MANACLES = "Discarded Manacles",
 		DISCARDED_MANACLES_TOOLTIP = "Secured in place. Alerts the Captain when seen.",
 		DISCARDED_MANACLES_FLAVOR = "An empty space, where a prisoner is supposed to be restrained.",
-		
+
 		AMNESIAC = "Amnesiac",
 		AMNESIAC_TOOLTIP = "Use on pinned targets. Removes WITNESS status. Reduces vision range by 2 tiles. Target will be alerted on waking up.",
 		AMNESIAC_FLAVOR = "A mind-scrambling mix of chemicals straight off the seedy underbelly of the black market. The target wakes up sluggish, disoriented, and unable to recall certain pertinent details, such as any faces they might have recently seen.",
 
 		MOLE_CLOAK = "Custom Cloaking Rig I",
-		MOLE_CLOAK_FLAVOR = "Some cloaking rig models have increased efficiency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",		
-		
+		MOLE_CLOAK_FLAVOR = "Some cloaking rig models have increased efficiency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",
+
 		-- TECH EXPO CUSTOM ITEMS
 		GRENADE_FRAG = "Frag Grenade",
 		GRENADE_FRAG_TOOLTIP = "Detonates in an area. Lethal damage to humans and fragile mainframe devices. Friendly damage.",
 		GRENADE_FRAG_FLAVOR = "Practically a living fossil of military technology. Dating back to the early 20th century, this concussive IED causes extreme property damage and was outlawed by the Physplant Integrity Act of 2058.",
-		
+
 		SMOKE_FRAG_GRENADE = "Occlusive Frag Grenade",
 		SMOKE_FRAG_GRENADE_TOOLTIP = "Detonates in an area and occludes sight with smoke cover. Lethal damage to humans and fragile mainframe devices. Friendly damage.",
-		SMOKE_FRAG_GRENADE_FLAVOR = "The Swiss Army knife of grenades, for when you can't choose between deadly force and subterfuge and want a little bit of both.",		
+		SMOKE_FRAG_GRENADE_FLAVOR = "The Swiss Army knife of grenades, for when you can't choose between deadly force and subterfuge and want a little bit of both.",
 
 		CLOAK_1 = "Fragile Cloaking Zone Rig",
 		CLOAK_1_TOOLTIP = "Renders the user and anyone in range invisible for 2 turns, as long as they don't move or attack.",
@@ -205,7 +205,7 @@ return {
 		SHOCK_TRAP = "Experimental Shock Trap",
 		SHOCK_TRAP_TOOLTIP = "Place on a door. Triggers when opened. Has an area of effect. One time use. Ignores Armor.",
 		SHOCK_TRAP_FLAVOR = "This experimental shock trap has a particularly impressive range, and extra large buttons for ease of operating.",
-		
+
 		SHOCK_TRAP2 = "Penetrative Shock Trap",
 		SHOCK_TRAP2_TOOLTIP = "Place on a door. Triggers when opened. Has an area of effect. One time use. Ignores Armor. Ignores Magnetic Reinforcements.",
 		SHOCK_TRAP2_FLAVOR = "A more localised, efficient model of shock trap developed by Sankaku as a security countermeasure, bypassing magnetic reinforcements. Hidden compartments with emergency buster chips sometimes just don't cut it for a rogue drone.",
@@ -213,7 +213,7 @@ return {
 		EMP = "Multi-Pulse EMP Pack",
 		EMP_TOOLTIP = "Detonates at the end of the turn when primed. Disables all Mainframe devices and drones for 4 turns. Emits 3 pulses.",
 		EMP_FLAVOR = "A high-end EMP pack which couples multiple consecutive pulses, effectively disabling even most devices with magnetic reinforcements.",
-		
+
 		EMP2 = "Penetrative EMP Pack",
 		EMP2_TOOLTIP = "Detonates at the end of the turn when primed. Disables all Mainframe devices and drones for 8 turns. Ignores Magnetic Reinforcements.",
 		EMP2_FLAVOR = "A high-end EMP pack which bypasses magnetic reinforcements entirely, but has a fairly small range.",
@@ -223,49 +223,49 @@ return {
 		GRENADE_CRY_BABY_FLAVOR = "An extra loud, extra annoying version of the run-of-the-mill Cry Baby tech, sure to draw security personnel from far and wide.",
 		GRENADE_CRY_BABY_USE = "Activate Cry Baby",
 		GRENADE_CRY_BABY_USE_TIP = "Device will emit a large sound.",
-		
+
 		GRENADE_CRY_BABY_DEAD = "Deployed Cry Baby",
 		GRENADE_CRY_BABY_DEAD_TOOLTIP = "Cannot be picked up again, only activated.",
 
 		FLASH_PACK = "Experimental Flash Pack",
 		FLASH_PACK_TOOLTIP = "Place on the ground. Detonate it using the mainframe. Requires 3 PWR to activate. KO all guards for 4 turns in a radius of 5 tiles.",
-		FLASH_PACK_FLAVOR = "The power of a flash bomb married to the wireless magic of mainframe technology.",		
+		FLASH_PACK_FLAVOR = "The power of a flash bomb married to the wireless magic of mainframe technology.",
 		FLASH_PACK_USE = "Detonate Flash Pack",
 		FLASH_PACK_USE_TIP = "KO guards in a 5 tile radius for 4 turns.",
-		
+
 		TECHEXPO_FLAVOR = "\n\nThis model is an experimental prototype.",
-		
+
 		AUGMENTS = {
-		
+
 			TITANIUM_RODS = "Experimental Titanium Rods",
 			TITANIUM_RODS_TIP = "Melee weapons deal +2 KO damage",
 			TITANIUM_RODS_FLAVOR = "Sometimes the simplest things are the most effective. Metal bones let you hit things really hard.\n\nThis model is an experimental prototype.",
 
 
 			PIERCING_SCANNER = "Experimental Piercing Scanner",
-			PIERCING_SCANNER_TIP = "Gives +2 armor piercing to ranged weapons.", 
+			PIERCING_SCANNER_TIP = "Gives +2 armor piercing to ranged weapons.",
 			PIERCING_SCANNER_FLAVOR = "A suite of sensors and AI routines that analyze weaknesses in ballistic armor.\n\nThis model is an experimental prototype.",
 
 			PENETRATION_SCANNER = "Experimental Penetration Scanner",
-			PENETRATION_SCANNER_TIP = "Gives +2 armor piercing to melee weapons.", 
+			PENETRATION_SCANNER_TIP = "Gives +2 armor piercing to melee weapons.",
 			PENETRATION_SCANNER_FLAVOR = "A suite of sensors and AI routines that analyze weaknesses in blunt trauma armor.\n\nThis model is an experimental prototype.",
 
 			SKILL_CHIP_SPEED = "Experimental Kinesiology Brain Chip",
 			SKILL_CHIP_SPEED_TIP = "Sets the agents SPEED skill to 4. This skill can not be upgraded",
 			SKILL_CHIP_SPEED_FLAVOR = 'The term "chip" is used as a euphemism in this case. In fact, these devices are a growth of tendrils that wholly replace synaptic regions of the brain.\n\nThis model is an experimental prototype.',
-			
+
 			SKILL_CHIP_HACKING = "Experimental Cryptology Brain Chip",
 			SKILL_CHIP_HACKING_TIP = "Sets the agents HACKING skill to 4. This skill can not be upgraded",
 			SKILL_CHIP_HACKING_FLAVOR = 'The term "chip" is used as a euphemism in this case. In fact, these devices are a growth of tendrils that wholly replace synaptic regions of the brain.\n\nThis model is an experimental prototype.',
-			
+
 			SKILL_CHIP_STRENGTH = "Experimental Physiology Brain Chip",
 			SKILL_CHIP_STRENGTH_TIP = "Sets the agents STRENGTH skill to 4. This skill can not be upgraded",
 			SKILL_CHIP_STRENGTH_FLAVOR = 'The term "chip" is used as a euphemism in this case. In fact, these devices are a growth of tendrils that wholly replace synaptic regions of the brain.\n\nThis model is an experimental prototype.',
 
 			SKILL_CHIP_ANARCHY = "Legerdemain Brain Chip",
 			SKILL_CHIP_ANARCHY_TIP = "Sets the agents ANARCHY skill to 4. This skill can not be upgraded",
-			SKILL_CHIP_ANARCHY_FLAVOR = 'The term "chip" is used as a euphemism in this case. In fact, these devices are a growth of tendrils that wholly replace synaptic regions of the brain.\n\nThis model is an experimental prototype.',		
-		
+			SKILL_CHIP_ANARCHY_FLAVOR = 'The term "chip" is used as a euphemism in this case. In fact, these devices are a growth of tendrils that wholly replace synaptic regions of the brain.\n\nThis model is an experimental prototype.',
+
 		},
 
 	},
@@ -281,12 +281,12 @@ return {
 		-- ESCAPE_GUARD = "Escape",
 		ESCAPE_GUARD_DESC = "Undercover Informant teleports out",
 		ESCAPE_GUARD_POWER_CELL = "Informant must drop the {1} before leaving!",
-		
+
 		INCOGROOM_UNLOCK = "REMOVE LOCK",
 		INCOGROOM_UNLOCK_DESC = "Unlocks 1 of 4 locks to the AI Development Terminal.",
 
 		INCOGROOM_UPGRADE = "UPGRADE INCOGNITA",
-		INCOGROOM_UPGRADE_DESC = "Use this terminal to add 1 program slot to Incognita.",	
+		INCOGROOM_UPGRADE_DESC = "Use this terminal to add 1 program slot to Incognita.",
 
 		DEACTIVATE_LOCKS = "DEACTIVATE LOCKS",
 
@@ -323,7 +323,7 @@ return {
 			MOLE_DAEMON_HEAD = "E S P I O N A G E   B O N U S",
 			MOLE_DAEMON_TITLE = "INFORMANT INTEL",
 			MOLE_DAEMON_TXT = "Your informant has provided you with the following intel on this facility:\n\n",
-		},	
+		},
 
 		WITNESS_WARNING = {
 			NAME = "{1} {1:WITNESS|WITNESSES} REMAINING",--"WITNESS WARNING", --looks less cluttered when this string is empty
@@ -340,7 +340,7 @@ return {
 			WITNESSES_LEFT_DRONES_WE = "{1} {1:witness|witnesses} remaining. Remove by destroying or Data Scrubbing a Drone Uplink.", --Worldgen Extended
 			WITNESSES_ESCAPED = "{1} {1:witness has|witnesses have} escaped the level and can no longer be removed.",
 
-		},	
+		},
 	},
 
 	-- PROGRAMS =
@@ -395,56 +395,56 @@ return {
 			OBJECTIVE2 = "Activate AI Development Terminal",
 			OBJ_FIND = "Locate the AI Development Terminal",
 			EXIT_WARNING = "Are you sure you want to leave? You haven't accessed the AI Dev Terminal yet.",
-			
+
 			DIALOG = { --this needs to be rewritten to be nicer and fluffier
 				OPTIONS1 = {  --do not edit these strings! --> ai_terminal.lua
 					"CANCEL",
 					"UPGRADE PROGRAM",
 					"NEW PROGRAM SLOT",
 				},
-				
+
 				OPTIONS1_PE = { --do not edit these strings! --> ai_terminal.lua
 					"CANCEL",
 					"DISRUPT HOSTILE AI",
 					"UPGRADE PROGRAM",
-					"NEW PROGRAM SLOT",				
+					"NEW PROGRAM SLOT",
 				},
-				
+
 				OPTIONS1_TXT = "This terminal has months of AI research data on it, but due to a security failsafe, you can only access one subset of it at a time. You can increase Incognita's program capacity or upgrade an existing program.\n\n<c:FC5603>AVAILABLE UPGRADES:\n{1}\n{2}</c>",
 				OPTIONS1_TXT_PE = "This terminal has months of AI research data on it, but due to a security failsafe, you can only access one subset of it at a time. You can increase Incognita's program capacity, upgrade an existing program, or sabotage the research and weaken this corporation's Counterintelligence AI.\n\n<c:FC5603>AVAILABLE UPGRADES:\n{1}\n{2}</c>",
 				-- OPTIONS1_TXT = "Choose between new slot and upgraded program",
 				OPTIONS1_TITLE = "AI TERMINAL ACCESS",
-				
+
 				OPTIONS2_SLOTS_TITLE = "NEW PROGRAM SLOT",
 				OPTIONS2_SLOTS_TXT = "You can use this research to add an empty program slot to Incognita, allowing you to install more programs. The slot will become available in the next mission.\n\nCurrent slots: {1}\nMax slots: {2}",
-				
+
 				OPTIONS2_SLOTSFULL_TITLE = "SLOTS FULL",
 				OPTIONS2_SLOTSFULL_TXT = "You can use this research to add an empty program slot to Incognita, allowing you to install more programs. The slot will become available in the next mission.\n\nCurrent slots: {1}\nMax slots: {2}\n\nMaximal number of program slots reached.\nReturning to root.",
-				
+
 				OPTIONS2_RESULT1_TITLE = "NEW SLOT ACQUIRED",
 				OPTIONS2_RESULT1_TXT = "New program slot acquired. Will become available after this mission.",
-				
+
 				OPTIONS2_CANCEL_CONFIRM = {
 					"Cancel",
 					"Confirm"
 				},
-				
+
 				OPTIONS2_PE_TXT = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with (to a minimum of 1), as well as the selection pool.",
 				OPTIONS2_PE_TXT_PREEXISTING = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with (to a minimum of 1), as well as the selection pool.\n\nYou have previously already weakened the {1} AI by {2} {2:level|levels}.",
 				OPTIONS2_PE_TITLE = "DISRUPT HOSTILE AI",
-				
+
 				OPTIONS_PE_RESULT_TITLE = "SABOTAGE SUCCESSFUL",
 				OPTIONS2_PE_RESULT_TXT = "A nasty virus or two slipped into the right place can do a lot of damage. Starting with the next mission, the {1} AI should be weaker now.",
-				
+
 				OPTIONS2_TXT = "Select a program to upgrade. \n\n<c:FC5603>WARNING: Cannot upgrade the same program twice.\n\nAVAILABLE UPGRADES:\n{1}\n{2}</c>",
 				OPTIONS2_TXT_COMPACT = "Select a program to upgrade. \n<c:FC5603>WARNING: Cannot upgrade the same program twice.\nAVAILABLE UPGRADES: {1}, {2}.</c>", --more compact, for full program slots/many buttons
 				-- OPTIONS2_TXT = "Select a program to upgrade. <c:FC5603>Cannot upgrade the same program twice. AVAILABLE UPGRADES:{1}, {2}</c>",
 				OPTIONS2_TITLE = "SELECT PROGRAM",
-				
+
 				OPTIONS3_TXT = "Select a parameter to upgrade.",
 				OPTIONS3_TITLE = "SELECT PARAMETER",
 				OPTIONS3 = { --do not edit these strings! --> ai_terminal.lua
-					"Firewalls broken", 
+					"Firewalls broken",
 					"PWR cost",
 					"Cooldown",
 					"Range",
@@ -452,46 +452,46 @@ return {
 				OPTIONS3_PARASITE = {
 					"Parasite strength",
 					"PWR cost",
-					"Cooldown",	
+					"Cooldown",
 					"Range",
 				},
-				
+
 				OPTIONS4_INC = {
 					"Start over",
 					"Decrease by 1",
 					"Increase by 1",
 				},
 				OPTIONS4_TXT = "How do you want to modify this parameter?\n\n<c:FC5603>WARNING: Cannot decrease a parameter below 1.\nCannot upgrade if parameter is 0 or NOT APPLICABLE.</c>",
-				
+
 				OPTIONS_FIREWALLS_TITLE = "FIREWALLS BROKEN",
 				OPTIONS_FIREWALLS_INCREASE = "Icebreaking power increased by 1.",
 				OPTIONS_FIREWALLS_DECREASE = "Icebreaking power decreased by 1.",
-				
+
 				INVALID = "NOT APPLICABLE",
 				FIREWALLS_TIP = "{1} currently has a firewall-breaking strength of {2}.\n\n",
 				PWRCOST_TIP = "{1} currently has a PWR cost of {2}.\n\n",
 				COOLDOWN_TIP = "{1} currently has a cooldown of {2}.\n\n",
 				RANGE_TIP = "{1} currently has a range of {2}.\n\n",
-				
+
 				OPTIONS_PWRCOST_TITLE = "PWR COST",
 				OPTIONS_PWRCOST_INCREASE = "PWR cost increased by 1",
 				OPTIONS_PWRCOST_DECREASE = "PWR cost decreased by 1",
-				
+
 				OPTIONS_COOLDOWN_TITLE = "COOLDOWN",
 				OPTIONS_COOLDOWN_INCREASE = "Cooldown increased by 1",
 				OPTIONS_COOLDOWN_DECREASE = "Cooldown decreased by 1",
-				
+
 				OPTIONS_RANGE_TITLE = "RANGE",
 				OPTIONS_RANGE_INCREASE = "Range increased by 1 tile",
 				OPTIONS_RANGE_DECREASE = "Range decreased by 1 tile",
-				
+
 				PROGRAM_UPGRADED_SUCCESS = "PROGRAM UPGRADED",
 				PROGRAM_UPGRADE_FAIL_TXT = "Could not upgrade this parameter. Returning to root.", --needs to be implemented
 				PROGRAM_UPGRADE_FAIL_TITLE = "INVALID UPGRADE",
-				
+
 				START_OVER = "Start over",
-				
-				
+
+
 			},
 		},
 	},
@@ -528,13 +528,13 @@ return {
 			REWARD = "A range of heavily discounted items.",
 		},
 		-- EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
-		EA_HOSTAGE = {			
+		EA_HOSTAGE = {
 			NAME= "Secure Holding Facility",
 			-- MORE_INFO = "The corp has intercepted a courier of one of our former clients. He's got important site intel stored in a cerebral implant, intel we could use. Your task is to break in, locate the courier, and recover the information.\n\nOne final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",
 			MORE_INFO = "Data couriers traffic valuable information for their clients, but are easy targets for the corps if they get caught. This courier has detailed knowledge of the corp's facilities and can provide us with more targets nearby.\n\nAs a security precaution, the exit elevator is locked until further notice, but the courier should have a backdoor sequence for it.",
 			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
 			INSET_TXT = "The corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we might be able to persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
-			INSET_VO = {""}, 
+			INSET_VO = {""},
 			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.\nTelepad locked, courier has the key.",
 			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby.",
 			BANTER = {
@@ -546,7 +546,7 @@ return {
 					"I can't go back in there. I can't.",
 					"I just want to lie down...",
 					"Don't shoot! I don't even know these people!",
-				},			
+				},
 			},
 		},
 
@@ -555,7 +555,7 @@ return {
 			MORE_INFO = "We've intercepted a signal from an operative in need of extraction. It may be one of our missing agents, and if not, we can still negotiate a suitable compensation from them once we get them out safely. \n\nBe careful, Operator - our telemetry suggests the facility is already alerted, and the alarm level will advance more quickly as a result.", --This can be quite lengthy.
 			INSET_TITLE = "OPERATIVE EXTRACTION", --unused
 			INSET_TXT = "We've detected an urgent distress call at this facility. It may be one of our agents attempting an escape, or some other operative who's stumbled onto our signal network. There's no time to waste, Operator. If you mean to extract them, do it now. We will not get a second chance if we delay.", --unused
-			INSET_VO = {""}, --{"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},			
+			INSET_VO = {""}, --{"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
 			DESCRIPTION = "Get the escaped operative safely to extraction and grab their confiscated gear on the way out. Alarm level will increase more quickly here.",
 			REWARD = "Agent or prisoner rescue with equipment.\n<c:FC5603>URGENT:</c> This mission will disappear unless visited immediately.",
 		},
@@ -580,7 +580,7 @@ return {
 			DESCRIPTION = "Plant an informant and secure their cover identity. For best results, informant must remain unseen.",
 			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or exit location.",
 
-		},	
+		},
 
 		AI_TERMINAL = {
 			NAME = "AI Terminal",
@@ -592,7 +592,7 @@ return {
 			-- REWARD = "An additional program slot for Incognita, or valuable tech if at upgrade cap (2 additional slots).",
 			REWARD = "An additional program slot for Incognita, or a program upgrade.",
 
-		},			
+		},
 
 	},
 
@@ -623,7 +623,7 @@ return {
 		MOLE_EXIT_WARNING = "Are you sure you want to leave? You haven't located the Personnel Database yet.",
 		MOLE_EXIT_WARNING2 = "Are you sure you want to leave? The Informant needs to escape through the GUARD elevator.",
 		INCOGROOM_TEXT1 = "High-Security Door Detected",
-		
+
 		TOOLTIPS = {
 			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
 			WEAPONS_EXPO_RESALE_DESC = "This prototype is not market-ready and can only be sold at half price.",
@@ -646,9 +646,9 @@ return {
 			NO_PATROL_CHANGE_DESC = "This unit will not respond to patrol changes.",
 			NO_ALERT = "NO ALERT ON WAKE-UP",
 			NO_ALERT_DESC = "This unit will not become alerted when they wake up.",
-			
+
 			WEAPONS_EXPO_LOOT_CONTENT = "DISPLAY PLAQUE",
-			
+
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
 				UPGRADED_LONG = "AI TERMINAL UPGRADE",
@@ -658,11 +658,11 @@ return {
 				COOLDOWN = "{1} cooldown",
 				RANGE = "{1} range",
 			},
-			
+
 			HOSTILE_AI_WEAKEN = "AI TERMINAL SABOTAGE",
-			HOSTILE_AI_WEAKEN_DESC = "This AI has been disrupted and has {1} fewer subroutines than normal.",			
-		},	
-		
+			HOSTILE_AI_WEAKEN_DESC = "This AI has been disrupted and has {1} fewer subroutines than normal.",
+		},
+
 	},
 
 	AGENT_LINES =
@@ -687,7 +687,7 @@ return {
 		},
 		MOLE_INSERTION = {
 			MOLE_MISSION_START = "I'm in. Two things to remember: Nobody sees me, and don't get me killed. Stick to that, and we'll be the best of friends.",
-		},			
+		},
 	},
 
 	BANTER = {
@@ -743,9 +743,9 @@ return {
 						"moremissions/VoiceOver/Central/assassination/seen1",
 						"Central"}},
 				},
-				
+
 				OBJECTIVE_SIGHTED_HASWEAPON = {
-					{{"There's the target.",nil,"Central"					
+					{{"There's the target.",nil,"Central"
 					}},
 				},
 				DOOR_SIGHTED = {
@@ -863,12 +863,12 @@ return {
 			WEAPONS_EXPO = {
 				FOUND_EXPO = {{{"Not so fast, Operator. Our scans show this room has advanced security failsafes.",nil,"Central"}},
 				{{"The system will boost nearby firewalls if even one exhibit is compromised. See if you can find a way to disable it.",nil,"Central"}}},
-				FOUND_EXPO_DISABLED_SEC = {{{"There's the exhibit. Their main failsafe should be offline now. Let's get to work.",nil,"Central"}}},				
+				FOUND_EXPO_DISABLED_SEC = {{{"There's the exhibit. Their main failsafe should be offline now. Let's get to work.",nil,"Central"}}},
 				SAW_SWITCH = {{{"This security switch controls the failsafes protecting the exhibit. Find the other switch and activate both at the same time.",nil,"Central"}}},
 				DISABLED_SWITCH = {{{"You've deactivated the firewall boost, but don't let your guard down. There may still be failsafes in place we don't know about.", nil, "Central"}}},
 				LOOTED_CASE_DROIDS_BOOTING = {
 				{{"Heads up, Operator. Those android prototypes are coming online.",nil,"Central"}},
-				{{"Looks like the expo is providing its own security. Get out while you still can.",nil,"Central"}},				
+				{{"Looks like the expo is providing its own security. Get out while you still can.",nil,"Central"}},
 				},
 				CENTRAL_JUDGEMENT = {
 					NO_LOOT = {{{"This was a waste of time, Operator. If you cannot pull off a simple museum heist, then what good are you?",nil,"Central"}},
@@ -882,7 +882,7 @@ return {
 					{{"Commendable work, Operator. We've expanded our arsenal and put a dent in their research all at once.",nil,"Central"}}},
 				},
 			},
-	
+
 			MOLE_INSERTION = {
 				MOLE_ESCAPED_NOWITNESSES = {
 					{{"The informant is out, and their cover identity is secure. Extract the rest of the team, Operator. We're done here.", nil, "Central"}},
@@ -943,7 +943,7 @@ return {
 				},
 				SEE_GUARD_EXIT = {
 					{{"There's a guard exit. Be careful, Operator. Make sure the informant doesn't run into any inbound reinforcements on the way.",nil,"Central"}},
-				},	
+				},
 				WITNESS_FLED_LEVEL = {
 					{{"Damn it! Someone who's seen our informant has just escaped from this floor. We can't get to them now, and our contact is already inside.", nil, "Central"}},
 					{{"If you left any other witnesses, don't bother cleaning that up. Just focus on getting out. Let us hope our mole can give us at least something before they get burned.",nil, "Central"}},
@@ -951,7 +951,7 @@ return {
 				WITNESS_FLED_LEVEL_RETRY = {
 					{{"Damn it! Someone who's seen our informant has just escaped from this floor. We can't get to them now.", nil, "Central"}},
 					{{"We can abort this mission, extract the informant normally and try elsewhere, or send them in now knowing their cover will be blown soon. Make your choice, Operator.",nil,"Central",}},
-				},				
+				},
 				CENTRAL_JUDGEMENT = {
 					MOLE_JET_ESCAPE = {
 					{{"We cannot afford to keep wasting our time like this, Operator. Luckily, we may just have a second shot at this. Make it count.", nil,"Central"}},
@@ -973,57 +973,57 @@ return {
 					{{"We'll have advance intel on the next few infiltrations now. A shadow of our former prep work, but invaluable in these dire times. Excellent work.",nil,"Central"}},
 					{{"A difficult task well performed. The informant is in, and you made sure there were no witnesses. Nice work.",nil,"Central"}},
 					{{"Well done, Operator. With that informant in place, our job will be that much easier.",nil,"Central"}},
-					},					
+					},
 
 				},
 			},
-			
+
 			AI_TERMINAL = {
 				CENTRAL_DOOR_SPOTTED = {
 					-- {{"A scan of that door shows unusually high security measures. Whatever is behind it, must be very valuable. Shall we take a look, Operator?", nil, "Central"}}, --old WE version
 					{{"A scan of that door shows unusually high security measures. This must be the AI research center we've been looking for. Shall we take a look, Operator?", nil, "Central"}},
 					{{"You'll need to disable a lock behind each of those four doors. You should be able to find measures to unlock them on site. Take a look around.", nil, "Central"}},
 				},
-				CENTRAL_UNLOCKED_SUBDOOR = 
+				CENTRAL_UNLOCKED_SUBDOOR =
 				{
 					{{"That Console just sent a signal to another part of the facility. One of the previously locked doors should be open now.", nil, "Central"}},
 				},
 
 				CENTRAL_UNLOCKED_MAINDOOR_OMNI_UNSEEN =
 				{
-					-- {{"Aha! Looks like we stumbled upon an AI development site. Get data from the terminal inside, and it should provide some useful information for Incognita.", nil, "Central"}},-- old WE version 
+					-- {{"Aha! Looks like we stumbled upon an AI development site. Get data from the terminal inside, and it should provide some useful information for Incognita.", nil, "Central"}},-- old WE version
 					{{"That's the main AI development terminal. Finally. Let's access the data and see if there is anything worthwhile for Incognita.", nil, "Central"}},
 					{{"Something strange is going on here. The equipment at this research site is like nothing I've seen before. Certainly not at this corporation.", nil, "Monster"}},
 					{{"Something to puzzle over later. For now, we need to finish the job and get out of here.", nil, "Central"}},
 				},
-				
+
 				CENTRAL_UNLOCKED_MAINDOOR_OMNI_SEEN =
 				{
 					{{"That's the main AI development terminal. Finally. Let's access the data and see if there is anything worthwhile for Incognita.", nil, "Central"}},
 					{{"This must be one of Omni Corp's covert research sites - only they have tech quite this advanced. The decor is a bit of a giveaway, too.", nil, "Monster"}},
 					{{"There must be hundreds of such facilities scattered across the globe. How on Earth did we not run into one of these before?", nil, "Central"}},
 					{{"I confess I have my suspicions, although you may not like hearing them...",nil,"Monster"}}, --it's because you're a bad mom, Central
-				},				
-				
+				},
+
 				INCOGNITA_DATA_ACQUIRED = {
 					{{"Acquired new data. High probability of increasing efficiency in coroutine execution. Processing... Estimated finish time is 1 hour, 21 minutes and 48 seconds.", nil, "Incognita"}},
 					-- {{"Excelent job, Operator. Incognita will be able to install one additional program after we're finished here.",nil,"Central"}},
 				},
-				
+
 				INCOGNITA_PROG_UPGRADED = {
 					{{"Acquired new data. High probability of increasing effectiveness in coroutine execution. Processing... Integration complete.", nil, "Incognita"}},
 				},
-				
+
 				INCOGNITA_TECH_ACQUIRED = { --unused?
 					{{"Excelent job, Operator. Monst3r will certainly be interested in selling this data. Get it back to the jet.", nil, "Central"}},
 					{{"Quite so, I already have half a dozen buyers in mind for something like this. We should do this more often.", nil, "Monster"}},
 				},
-				
+
 				SMOKE_WARNING = {
 					{{"We've tripped a failsafe. The room is rapidly filling with knockout gas. Get your agent out of there, now.",nil, "Central"}},
 					{{"It could be worse. At least they're not flooding the research center with deadly neurotoxin.", nil, "Monster"}},
 				},
-				
+
 				CENTRAL_JUDGEMENT = {
 					GOT_SLOT = {
 						{{"Excellent job, Operator. Incognita will be able to install one additional program soon.",nil,"Central"}},
@@ -1038,9 +1038,9 @@ return {
 					WEAKENED_COUNTER_AI = {
 						{{"The best defense is a good offense, as they say. Sabotage may be a dirty play, but hamstringing their AI research is sure to help us stay competitive. Well done.", nil, "Central"}}, --unvoiced?
 					},
-				},		
+				},
 			},
-				
+
 		},
 		-- CAMPAIGN_MAP = {
 			-- MISSIONS = {
