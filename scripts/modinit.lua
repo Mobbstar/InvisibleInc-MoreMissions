@@ -13,7 +13,7 @@ local assassination_mission = {}
 local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 
 local function earlyInit( modApi )
-	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Advanced Guard Protocol", "Items Evacuation", "New Items And Augments","Advanced Cyberwarfare","Programs Extended","Offbrand Programs","Switch Content Mod", "Interactive Events" }
+	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Advanced Guard Protocol", "Items Evacuation", "New Items And Augments","Advanced Cyberwarfare","Programs Extended","Offbrand Programs","Switch Content Mod", "Interactive Events","Generation Options+" }
 end
 
 local function init( modApi )
@@ -52,9 +52,17 @@ local function init( modApi )
 	modApi:addGenerationOption("mole_insertion",  STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION, STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION_TIP, {noUpdate=true, enabled = true} )
 	modApi:addGenerationOption("ai_terminal",  STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL, STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL_TIP, {noUpdate=true, enabled = true} )	
 	
-	modApi:addGenerationOption("MM_easy_mode",  STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE , STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE_TIP, {enabled = false, noUpdate=true} )
-	
 	modApi:addGenerationOption("MM_sidemissions",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_TIP, {noUpdate=true} ) --doesn't do anything yet
+	
+	modApi:addGenerationOption("MM_newday", STRINGS.MOREMISSIONS.OPTIONS.NEWDAY, STRINGS.MOREMISSIONS.OPTIONS.NEWDAY_DESC, 
+	{
+		values = {0,1,2,3,4,5,6,7,8,9,10},
+		value=5,
+		noUpdate = true,
+	})		
+	
+	modApi:addGenerationOption("MM_easy_mode",  STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE , STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE_TIP, {enabled = false, noUpdate=true, difficulties = {{simdefs.NORMAL_DIFFICULTY, true}} } )
+
 	-- abilities, for now simple override (I'm not smart enough to...)
 	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
 
@@ -276,7 +284,7 @@ local function lateInit( modApi )
 		spawn_mole_bonus( sim, mole_insertion )
 	end
 	-- Similar edit is done in Load to mid_1!
-	
+
 	-- setAlerted edit to allow un-alerting for Amnesiac function
 	local simunit = include("sim/simunit")	
 	local simunit_setAlerted_old = simunit.setAlerted
@@ -305,7 +313,7 @@ local function lateInit( modApi )
 	local simdrone = include("sim/units/simdrone")
 	local simdrone_processEMP_old = simdrone.processEMP
 	simdrone.processEMP = function(self, empTime, noEmpFx, noAttack)
-		log:write("LOG custom process EMP drone")
+		-- log:write("LOG custom process EMP drone")
 		simdrone_processEMP_old(self, empTime, noEmpFx, noAttack)
 		if self:getTraits().witness then
 			self:getTraits().witness = nil
@@ -314,7 +322,7 @@ local function lateInit( modApi )
 				self._sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
 			end
 		end		
-	end	
+	end
 
 	-- update stopHacking to refresh database hacking state
 	local stopHacking_old = simunit.stopHacking
@@ -495,6 +503,16 @@ local function load( modApi, options, params )
 		end
 	end
 
+	if options.MM_newday then --cribbed from GenOpts+
+		rawset(simdefs,"NUM_MISSIONS_TO_SPAWN",options.MM_newday.value)
+	else
+		if options.newday then
+			rawset(simdefs,"NUM_MISSIONS_TO_SPAWN",options.newday.value) --Generation Options+ value
+		else
+			rawset(simdefs,"NUM_MISSIONS_TO_SPAWN",4)
+		end
+	end
+	
 	local itemdefs = include( scriptPath .. "/itemdefs" )
 	for name, itemDef in pairs(itemdefs) do
 		modApi:addItemDef( name, itemDef )
@@ -893,7 +911,7 @@ local function load( modApi, options, params )
 		if array.find(tags, "close_by") and not array.find(tags, "close_by_nevermind") then
 			local MAX_DIST = 6 -- 6 hour distance
 			local dist = serverdefs.trueCalculateTravelTime( serverdefs.MAP_LOCATIONS[ campaign.location ], tempLocation, campaign )
-			--log:write(tostring(dist))
+			-- log:write(tostring(dist))
 			if dist > MAX_DIST then
 				return false
 			end		
@@ -901,8 +919,8 @@ local function load( modApi, options, params )
 
 		return serverdefs_defaultMapSelector_old( campaign, tags, tempLocation)
 	
-	end		
-
+	end	
+	
 end
 
 local function lateLoad( modApi, options, params )
