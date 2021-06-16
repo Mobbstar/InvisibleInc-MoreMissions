@@ -216,7 +216,7 @@ local function upgradeDialog( script, sim )
 	local title = dialogPath.OPTIONS1_TITLE
 	local options = dialogPath.OPTIONS1 --choose between slot and program upgrade
 	
-	if sim:getParams().difficultyOptions.W93_AI > 0 then
+	if (sim:getParams().difficultyOptions.W93_AI or 0) > 0 then
 		--display alternate menu with option to disrupt hostile AI
 		options = dialogPath.OPTIONS1_PE
 		txt = util.sformat(dialogPath.OPTIONS1_TXT_PE, options3_temp[2],options3_temp[1])
