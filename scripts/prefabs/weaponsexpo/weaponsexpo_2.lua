@@ -327,6 +327,7 @@ local tiles =
         zone = [[solid]],
         variant = 0,
         impass = 1,
+        cover = 1,
     },
     {
         x = 11,
@@ -352,8 +353,6 @@ local tiles =
         y = 9,
         zone = [[vault]],
         variant = 0,
-        impass = 1,
-        cover = 1,
     },
     {
         x = 11,
@@ -587,8 +586,6 @@ local tiles =
         y = 7,
         zone = [[vault]],
         variant = 0,
-        impass = 1,
-        cover = 1,
     },
     {
         x = 2,
@@ -826,14 +823,13 @@ local tiles =
         zone = [[solid]],
         variant = 0,
         impass = 1,
+        cover = 1,
     },
     {
         x = 9,
         y = 9,
         zone = [[vault]],
         variant = 0,
-        impass = 1,
-        cover = 1,
     },
     {
         x = 7,
@@ -2195,15 +2191,9 @@ local decos =
 {
     {
         x = 10,
-        y = 9,
+        y = 8,
         kanim = [[ftm_office_2x1_couch]],
         facing = 2,
-    },
-    {
-        x = 1,
-        y = 7,
-        kanim = [[ftm_security_1x1woodenstool]],
-        facing = 0,
     },
     {
         x = 4,
@@ -2975,14 +2965,6 @@ local export =
                 id1 = 100,
                 x1 = 5,
                 y1 = 1,
-            },
-            {
-                id0 = 39,
-                x0 = 0,
-                y0 = 7,
-                id1 = 100,
-                x1 = 1,
-                y1 = 7,
             },
             {
                 id0 = 28,
