@@ -386,6 +386,28 @@ local prop_templates =
 		kanim = "kanim_smoke_plume",
         -- traits = { radius = 4, lifetime = 3, noghost = true, gasColor = {r = 0.5, g = 1, b = 1, a = 0.25} }
 		traits = { radius = 4, lifetime = 2, noghost = true, KOgasdispersal = true, gasColor = {r=197/255,g=227/255,b=107/255, a = 0.05} }	
+    },	
+
+	MM_smoke_cloud = --for Tech Expo smoke grenade
+    {
+        type = "smoke_cloud",
+        name = STRINGS.PROPS.SMOKE,
+        rig = "smokerig",
+		kanim = "kanim_smoke_plume",
+        traits = { radius = 6, lifetime = 4, noghost = true, 
+		-- gasColor = {r=85/255,g=41/255,b=38/255}, 
+		}
+    },	
+	
+	MM_smoke_cloud_frag = 
+   {
+        type = "smoke_cloud",
+        name = STRINGS.PROPS.SMOKE,
+        rig = "smokerig",
+		kanim = "kanim_smoke_plume",
+        traits = { radius = 2, lifetime = 2, noghost = true, 
+		-- gasColor = {r=85/255,g=41/255,b=38/255}, 
+		}
     },		
 
 }
