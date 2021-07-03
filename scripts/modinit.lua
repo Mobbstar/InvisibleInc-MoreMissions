@@ -173,6 +173,9 @@ local function init( modApi )
 	local modifyPrograms = include( scriptPath .. "/abilities/mainframe_abilities" )
 	modifyPrograms()
 	-- double-included here in init and in lateLoad to catch both vanilla overrides and mod additions. Upgraded programs with abilityOverride such as Fusion DO NOT WORK without this line!
+
+	util.tmerge( STRINGS.LOADING_TIPS, STRINGS.MOREMISSIONS.LOADING_TIPS  ) --add new loading screen tooltips
+
 end
 
 
