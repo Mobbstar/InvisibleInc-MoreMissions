@@ -218,7 +218,7 @@ local tool_templates =
 		profile_icon_100 = "gui/icons/item_icons/icon-item_flash_grenade.png",
 		kanim = "kanim_flashgrenade",
 		sounds = {explode="SpySociety/Grenades/flashbang_explo", bounce="SpySociety/Grenades/bounce"},
-		traits = { baseDamage = 2, range=2, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, createsSmoke = true, on_spawn = "smoke_cloud" }, --lethal damage
+		traits = { baseDamage = 2, range=2, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, createsSmoke = true, on_spawn = "MM_smoke_cloud_frag" }, --lethal damage
 		value = 600,
 		locator=true,
 	},
@@ -226,14 +226,14 @@ local tool_templates =
 	MM_techexpo_smokegrenade = util.extend( commondefs.grenade_template )
 	{
         type = "smoke_grenade",
-		name = STRINGS.ITEMS.GRENADE_SMOKE,
-		desc = STRINGS.ITEMS.GRENADE_SMOKE_TOOLTIP,
-		flavor = STRINGS.ITEMS.GRENADE_SMOKE_FLAVOR,
+		name = STRINGS.MOREMISSIONS.ITEMS.SMOKE_GRENADE_CLASSIC,
+		desc = STRINGS.MOREMISSIONS.ITEMS.SMOKE_GRENADE_CLASSIC_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.SMOKE_GRENADE_CLASSIC_FLAVOR,
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_smoke_grenade_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_smoke_grenade.png",
 		kanim = "kanim_stickycam",
 		sounds = {explode="SpySociety/Grenades/smokegrenade_explo", bounce="SpySociety/Grenades/bounce_smokegrenade"},
-		traits = { on_spawn = "smoke_cloud" , range=6, noghost = true, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		traits = { on_spawn = "MM_smoke_cloud" , range=6, noghost = true, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
 		value = 300,
 		locator=true,
 	},
