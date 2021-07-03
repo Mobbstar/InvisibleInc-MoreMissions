@@ -74,6 +74,22 @@ return {
 		EASY_MODE = "EASY MODE",
 		EASY_MODE_TIP = "<c:FF8411>EASY MODE</c>\nSome security measures in the custom missions are disabled or more forgiving.",
 	},
+	
+	LOADING_TIPS = {
+		"MORE MISSIONS: Distress Call missions only appear briefly on the map. The CFO works late every night, but an agent is only on the run right now.",
+		"MORE MISSIONS: Don't despair if you go into an Assassination mission unarmed. The facility offers more than one way to complete the job.",
+		"MORE MISSIONS: Enemy-controlled laser grids turn off if you drag an enemy through them. This comes in handy in more than one mission.",
+		"MORE MISSIONS: The Distress Call mission has a safe in it somewhere with the agent's equipment. If you're rescuing that agent for the first time, this means their starting equipment.",
+		"MORE MISSIONS: The alarm level will advance twice as quickly in the Distress Call mission. You'll have to move fast to extract the detainee",
+		"MORE MISSIONS: The Tech Expo offers great rewards at increasing risk. Try to manage your greed, or your campaign may end prematurely.",
+		"MORE MISSIONS: The tooltip for a Tech Expo exhibit will tell you what's inside. Only hack and open the cases with items you actually want.",
+		"MORE MISSIONS: The Relay Switches at a Tech Expo will disable the exhibit cases boosting each other's firewalls when broken. Skip this if you can only afford to steal one or two items.",
+		"MORE MISSIONS: Unlike a Security Dispatch, a Tech Expo will have up to five items, most of them weapons. They are powerful but won't last long.",
+		"MORE MISSIONS: The AI Terminal lets you increase Incognita's slot size or upgrade a program you own.",
+		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt that corporation's Counterintelligence AI.",		
+		"MORE MISSIONS: It is a good idea to have leftover AP on your agents when you complete an objective. You may want to move them after the security measures kick in.",
+		"MORE MISSIONS: You can enable the mod's EASY MODE to make the new missions' challenges easier to deal with.",
+	},
 
 	PROPS =
 	{
@@ -175,6 +191,10 @@ return {
 		MOLE_CLOAK_FLAVOR = "Some cloaking rig models have increased efficiency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",
 
 		-- TECH EXPO CUSTOM ITEMS
+		SMOKE_GRENADE_CLASSIC = "Experimental Smoke Grenade",
+		SMOKE_GRENADE_CLASSIC_TOOLTIP = "Throw to create a cloud of smoke that occludes vision in an area. Persists for 2 turns.",
+		SMOKE_GRENADE_CLASSIC_FLAVOR = "An alternate aerosol mix that disperses over a larger area, and stays suspended in the air for longer than standard smoke grenades. Try not to breathe it in.",
+		
 		GRENADE_FRAG = "Frag Grenade",
 		GRENADE_FRAG_TOOLTIP = "Detonates in an area. Lethal damage to humans and fragile mainframe devices. Friendly damage.",
 		GRENADE_FRAG_FLAVOR = "Practically a living fossil of military technology. Dating back to the early 20th century, this concussive IED causes extreme property damage and was outlawed by the Physplant Integrity Act of 2058.",
@@ -429,8 +449,8 @@ return {
 					"Confirm"
 				},
 
-				OPTIONS2_PE_TXT = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with (to a minimum of 1), as well as the selection pool.",
-				OPTIONS2_PE_TXT_PREEXISTING = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with (to a minimum of 1), as well as the selection pool.\n\nYou have previously already weakened the {1} AI by {2} {2:level|levels}.",
+				OPTIONS2_PE_TXT = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with by 2 (to a minimum of 1), as well as reduce the selection pool.",
+				OPTIONS2_PE_TXT_PREEXISTING = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with by 2 (to a minimum of 1), as well as reduce the selection pool.\n\nYou have previously already weakened the {1} AI by {2} {2:level|levels}.",
 				OPTIONS2_PE_TITLE = "DISRUPT HOSTILE AI",
 
 				OPTIONS_PE_RESULT_TITLE = "SABOTAGE SUCCESSFUL",
