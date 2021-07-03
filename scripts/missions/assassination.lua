@@ -15,7 +15,7 @@ local mathutil = include( "modules/mathutil" )
 ---------------------------------------------------------------------------------------------
 -- Local helpers
 
-local CHANCE_OF_DECOY = 0.5
+local CHANCE_OF_DECOY = 0.75 --0.5
 local DECLOAK_RANGE = 1.5
 local bodyguard_unit --file-wide variable for ease of checking
 local bounty_target_unit
