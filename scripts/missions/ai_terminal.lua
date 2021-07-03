@@ -701,7 +701,7 @@ local function upgradeIncognita( script, sim )
 		local corp = sim:getParams().world
 		agency.MM_hostileAInerf = agency.MM_hostileAInerf or {}
 		agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] or 0
-		agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] + 1	--FuncLib or PE should do the rest
+		agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] + 2	--FuncLib or PE should do the rest
 	end
 end
 
