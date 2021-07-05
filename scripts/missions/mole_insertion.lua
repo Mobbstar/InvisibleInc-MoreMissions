@@ -53,7 +53,7 @@ local worldgen = include( "sim/worldgen" )--------------------------------------
 local mission = class( escape_mission )
 
 -- Local helpers
-local MOLE_BONUS_FULL = 3		--how many missions you get the bonus if no witnesses
+local MOLE_BONUS_FULL = 5--3		--how many missions you get the bonus if no witnesses
 local MOLE_BONUS_PARTIAL = 1	--how many missions you get the bonus if witnesses
 local PATROLS_REVEALED = 0.75	--which % of guards is revealed by that bonus
 
