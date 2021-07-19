@@ -9,7 +9,10 @@ local function onMainframeTooltip( tooltip, unit )
 	end
 	if unit:getTraits().MM_tech_expo_contents then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_LOOT_CONTENT, "\""..tostring(unit:getTraits().MM_tech_expo_contents).."\"",
-		"gui/icons/item_icons/items_icon_small/icon_plaque.png" )			
+		"gui/icons/item_icons/items_icon_small/icon_plaque.png" )
+	end
+	if unit:hasTag("MM_topGear") and unit:getSim() and not unit:getSim().MM_security_disabled then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_FAILSAFE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_FAILSAFE_DESC, "gui/icons/item_icons/items_icon_small/icon-item_personal_shield_small.png")
 	end
 end
 
