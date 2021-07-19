@@ -79,11 +79,11 @@ return {
 		"MORE MISSIONS: Distress Call missions only appear briefly on the map. The CFO works late every night, but an agent is only on the run right now.",
 		"MORE MISSIONS: Don't despair if you go into an Assassination mission unarmed. The facility offers more than one way to complete the job.",
 		"MORE MISSIONS: Enemy-controlled laser grids turn off if you drag an enemy through them. This comes in handy in more than one mission.",
-		"MORE MISSIONS: The Distress Call mission has a safe in it somewhere with the agent's equipment. If you're rescuing that agent for the first time, this means their starting equipment.",
+		"MORE MISSIONS: The Distress Call mission has a safe in it somewhere with the agent's equipment. If you're rescuing that agent for the first time, this means their starting gear.",
 		"MORE MISSIONS: The alarm level will advance twice as quickly in the Distress Call mission. You'll have to move fast to extract the detainee",
 		"MORE MISSIONS: The Tech Expo offers great rewards at increasing risk. Try to manage your greed, or your campaign may end prematurely.",
 		"MORE MISSIONS: The tooltip for a Tech Expo exhibit will tell you what's inside. Only hack and open the cases with items you actually want.",
-		"MORE MISSIONS: The Relay Switches at a Tech Expo will disable the exhibit cases boosting each other's firewalls when broken. Skip this if you can only afford to steal one or two items.",
+		"MORE MISSIONS: The Relay Switches at a Tech Expo will disable the exhibit cases boosting each other's firewalls when broken. Skip this if you only plan to steal one or two items.",
 		"MORE MISSIONS: Unlike a Security Dispatch, a Tech Expo will have up to five items, most of them weapons. They are powerful but won't last long.",
 		"MORE MISSIONS: The AI Terminal lets you increase Incognita's slot size or upgrade a program you own.",
 		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt that corporation's Counterintelligence AI.",		
@@ -534,7 +534,7 @@ return {
 			INSET_TITLE = "MARKED FOR DEATH", --unused
 			INSET_TXT = "I would't normally stoop to assassination contracts, but the payday on this one is too tempting to ignore. The target is highly placed, so we can expect heightened security at this corporation if you complete the job. Ready to get your hands dirty, Operator?", --unused
 			INSET_VO = {""},
-			DESCRIPTION = "Kill or knock out the VIP, then extract him.",
+			DESCRIPTION = "Kill the VIP.",
 			REWARD = "A hefty cash reward, at the cost of a permanent security increase at this corporation.",
 		},
 		LANDFILL = {
@@ -668,6 +668,8 @@ return {
 			NO_ALERT_DESC = "This unit will not become alerted when they wake up.",
 
 			WEAPONS_EXPO_LOOT_CONTENT = "DISPLAY PLAQUE",
+			WEAPONS_EXPO_FAILSAFE = "FAILSAFE",
+			WEAPONS_EXPO_FAILSAFE_DESC = "When captured, boosts firewalls of remaining Secure Cases.",
 
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
