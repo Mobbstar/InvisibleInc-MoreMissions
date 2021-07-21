@@ -740,11 +740,25 @@ local function tryDecoy( sim )
 	end
 end
 
+local function activateCam( sim )
+	for i, unit in pairs(sim:getAllUnits()) do
+		if unit:getTraits().MM_camera and (unit:getTraits().mainframe_status ~= "active") then
+			unit:getTraits().mainframe_status = "active"
+			unit:getTraits().hasSight = true
+			sim:refreshUnitLOS( unit )
+			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = unit } )	
+			sim:addTrigger( simdefs.TRG_OVERWATCH, unit )	
+		end
+	end
+
+end
+
 function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
 	sim.TA_mission_success = false
 	despawnRedundantCameraDB( sim )
 	tryDecoy( sim )
+	activateCam( sim )
 	-- Base credit value for a successful kill
 	self.BOUNTY_VALUE = 1000
 
