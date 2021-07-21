@@ -2589,7 +2589,7 @@ local units =
                 template = [[security_camera_1x1]],
                 unitData =
                 {
-                    facing = 7,
+                    facing = 7, traits = { MM_camera = true, },
                 },
             },
             1,
@@ -2601,7 +2601,7 @@ local units =
                 template = [[security_camera_1x1]],
                 unitData =
                 {
-                    facing = 3,
+                    facing = 3, traits = { MM_camera = true, },
                 },
             },
             1,
