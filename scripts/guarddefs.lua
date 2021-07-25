@@ -67,6 +67,7 @@ local npc_templates =
 			recap_icon = "executive",
 			MM_bounty_target = true,
 			-- woundsMax = 2, --EXPERIMENTAL
+			MM_alertlink = true,
 		},
 		dropTable =
 		{
@@ -109,6 +110,7 @@ local npc_templates =
 			sightable = true,
 			woundsMax = 2,
 			MM_bodyguard = true,
+			MM_alertlink = true,
 		},
 		speech = speechdefs.NPC,
 		voices = {"KO_Heavy"},
