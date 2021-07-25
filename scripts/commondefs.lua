@@ -51,6 +51,18 @@ local function onGuardTooltip(tooltip, unit)
 	if unit:getTraits().MM_amnesiac then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT_DESC, "gui/icons/arrow_small.png" )	
 	end
+	if unit:getTraits().MM_alertlink then
+		if unit:getTraits().MM_bodyguard then
+			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_ALERT_DESC, "gui/icons/arrow_small.png" ) --need custom icon
+		end
+		if unit:getTraits().MM_bounty_target then
+			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_ALERT_DESC, "gui/icons/arrow_small.png" )
+		end
+	end
+	if unit:getTraits().MM_bodyguard then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE_DESC, "gui/icons/arrow_small.png" ) --need custom icon
+		
+	end
 end
 
 return 
