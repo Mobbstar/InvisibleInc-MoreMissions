@@ -667,9 +667,18 @@ return {
 			NO_ALERT = "NO ALERT ON WAKE-UP",
 			NO_ALERT_DESC = "This unit will not become alerted when they wake up.",
 
+			-- tech expo
 			WEAPONS_EXPO_LOOT_CONTENT = "DISPLAY PLAQUE",
 			WEAPONS_EXPO_FAILSAFE = "FAILSAFE",
 			WEAPONS_EXPO_FAILSAFE_DESC = "When captured, boosts firewalls of remaining Secure Cases.",
+			
+			--assassination
+			TARGET_ALERT = "VIP LINK",
+			TARGET_ALERT_DESC = "The first time this unit is alerted or attacked, the Bodyguard or nearest conscious guard becomes alerted.",
+			BODYGUARD_ALERT = "BODYGUARD LINK",
+			BODYGUARD_ALERT_DESC = "The first time this unit is alerted or attacked, the Bounty Target becomes alerted.",
+			BODYGUARD_KEEPCLOSE = "BODYGUARD",
+			BODYGUARD_KEEPCLOSE_DESC = "This unit will stray far from the Bounty Target, and will share their interest points.",
 
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
@@ -758,14 +767,14 @@ return {
 
 			ASSASSINATION = {
 				OBJECTIVE_SIGHTED = {
-					{{"That's the target. Get them.",
+					{{"That's the target. Get them. ",
 						"moremissions/VoiceOver/Central/assassination/seen0",
 						"Central"}},
 					{{"You found him. Don't let him get away.",
 						"moremissions/VoiceOver/Central/assassination/seen1",
 						"Central"}},
+					{{"But watch out for his bodyguard. He seems to have some sort of dermal plating implant, and won't go down as easily as your average security."}},
 				},
-
 				OBJECTIVE_SIGHTED_HASWEAPON = {
 					{{"There's the target.",nil,"Central"
 					}},
