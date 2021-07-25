@@ -238,6 +238,7 @@ local function doAlertCeo( sim, fromBodyguard )
 			-- Don't send alerts back and forth
 			ceo:getTraits().hasSentAlert = true
 		end
+		ceo:getTraits().MM_alertlink = nil --for tooltip
 		-- Senses:addInterest: Create an ephemeral interest to be forgotten later
 		local x,y = ceo:getLocation()
 		ceo:getBrain():getSenses():addInterest( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
@@ -460,6 +461,8 @@ local function bodyguardAlertsCeo( script, sim )
 		if ev == mission_util.PC_END_TURN then
 			script:waitFor( mission_util.PC_START_TURN, BODYGUARD_ALERTED )
 		end
+	else
+		bodyguard:getTraits().MM_alertlink = nil --for tooltip
 	end
 
 	local bodyguardIsAwake = not bodyguard:isDown() and not bodyguard:getTraits().iscorpse
