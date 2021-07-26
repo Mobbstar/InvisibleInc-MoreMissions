@@ -150,7 +150,7 @@ local function init( modApi )
 			-- end
 		end
 
-		generatePrefabs_old( cxt, candidates, tag, maxCount, fitnessFn, fitnessSelect, ... )
+		return generatePrefabs_old( cxt, candidates, tag, maxCount, fitnessFn, fitnessSelect, ... )
 	end
 
 	-- END OF MOLE INSERTION
