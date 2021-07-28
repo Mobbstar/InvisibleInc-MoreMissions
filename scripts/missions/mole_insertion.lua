@@ -53,7 +53,7 @@ local worldgen = include( "sim/worldgen" )--------------------------------------
 local mission = class( escape_mission )
 
 -- Local helpers
-local MOLE_BONUS_FULL = 5--3		--how many missions you get the bonus if no witnesses
+local MOLE_BONUS_FULL = 5		--how many missions you get the bonus if no witnesses
 local MOLE_BONUS_PARTIAL = 1	--how many missions you get the bonus if witnesses
 local PATROLS_REVEALED = 0.75	--which % of guards is revealed by that bonus
 
@@ -351,8 +351,10 @@ local function spawnMole( script, sim )
 	
 	local agent_cells = {}
 	for i, agent in pairs(sim:getPC():getUnits()) do
-		local cell = sim:getCell(agent:getLocation())
-		table.insert(agent_cells, cell)
+		if agent:getUnitData().agentID then
+			local cell = sim:getCell(agent:getLocation())
+			table.insert(agent_cells, cell)
+		end
 	end
 
 	local adjacent_cells = {}
@@ -437,6 +439,10 @@ local function activateCamera(script, sim)
 			local x0, y0 = cameraUnit:getLocation()
 			cameraUnit:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB ) 
 			script:queue( { type="pan", x=x0, y=y0, zoom=0.25 } )
+			
+			local scripts = SCRIPTS.INGAME.MOLE_INSERTION.CAMERA_BOOTING
+			queueCentral( script, scripts )
+			
 			script:waitFor( util.extend( mission_util.NPC_START_TURN ){ priority = -1 } )
 			cameraUnit:destroyTab()
 		end
