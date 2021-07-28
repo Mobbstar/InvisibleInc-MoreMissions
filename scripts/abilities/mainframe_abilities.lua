@@ -11,6 +11,8 @@ local mission_util = include( "sim/missions/mission_util" )
 local serverdefs = include("modules/serverdefs")
 
 --there is weird stuff going on in mission_scoring and other places with programs with an abilityOverride trait that's messing with the upgrade. To compensate, we'll just do the upgrade based on name instead of ID. Take that, game. That's what happens when you make the ID USELESS to me! I mean, can't even use the abilityID to keep track of the SAME program owned by the player between missions? What?!
+
+-- for program modification: self.MM_upgrade[1] contains type of upgrade as string, self.MM_upgrade[2] has intensity of upgrade as integer
 local programModifier = function()
 
 for i, program in pairs(mainframe_abilities) do
@@ -90,19 +92,25 @@ for i, program in pairs(mainframe_abilities) do
 			if self.MM_upgrade then
 				local desc = ""
 				local path = STRINGS.MOREMISSIONS.UI.TOOLTIPS.PROGRAM_UPGRADE
+				local upgradeStrength = self.MM_upgrade[2] --for UI only
 				if self.MM_upgrade[2] == 1 then
-					self.MM_upgrade[2] = "+1"
+					upgradeStrength = "+1"
 				end
 				if self.MM_upgrade[1] == "parasite" then
-					desc = util.sformat( path.PARASITE, self.MM_upgrade[2] )
+					desc = util.sformat( path.PARASITE, upgradeStrength )
 				elseif self.MM_upgrade[1] == "firewalls" then
-					desc = util.sformat( path.FIREWALLS, self.MM_upgrade[2] )
+					desc = util.sformat( path.FIREWALLS, upgradeStrength )
 				elseif self.MM_upgrade[1] == "PWRcost" then
-					desc = util.sformat( path.PWRCOST, self.MM_upgrade[2] )	
+					desc = util.sformat( path.PWRCOST, upgradeStrength )	
 				elseif self.MM_upgrade[1] == "cooldown" then
-					desc = util.sformat( path.COOLDOWN, self.MM_upgrade[2] )
+					desc = util.sformat( path.COOLDOWN, upgradeStrength )
 				elseif self.MM_upgrade[1] == "range" then
-					desc = util.sformat( path.RANGE, self.MM_upgrade[2] )
+					desc = util.sformat( path.RANGE, upgradeStrength )
+				end
+				
+				-- special tooltip for rapier
+				if (i == "rapier") and (self.MM_upgrade[1] == "PWRcost")and (self.MM_upgrade[2] == -1) then
+					desc = util.sformat( path.PWRCOST_Rapier, upgradeStrength )
 				end
 				
 				local section = tooltip:addSection()
@@ -110,6 +118,21 @@ for i, program in pairs(mainframe_abilities) do
 				section:addAbility( path.UPGRADED, desc, "gui/icons/item_icons/items_icon_small/icon-item_chargeweapon_small.png" )
 			end
 			return tooltip
+		end
+		
+		--add in a special block to make Rapier PWR upgrades functional
+		if i == "rapier" then
+			local rapier_getCost_old = program.getCpuCost
+			program.getCpuCost = function( self, ... )
+				local oldcost = rapier_getCost_old(self, ...) --returns PWR cost based on alarm level, a minimum of 1
+				if self.MM_upgrade and self.MM_upgrade[1] == "PWRcost" then
+					local change = self.MM_upgrade[2]
+					if oldcost + change > 0 then
+						oldcost = oldcost + change
+					end	
+				end
+				return oldcost
+			end
 		end
 	end
 end
