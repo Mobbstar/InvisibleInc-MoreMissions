@@ -165,25 +165,27 @@ local MM_escape_guardelevator =
 				end
 			end			
 			
-			if simquery.isUnitUnderOverwatch(unit) then
-				return --interrupt action if overwatched by whoever's inside the elevator
-			end
-			
-			local reverse = math.abs(facing - unit:getFacing()) == 4
-			sim:dispatchEvent( simdefs.EV_UNIT_START_WALKING, { unit = unit, reverse = reverse } )
-			
-			sim:warpUnit( unit, end_cell, unit:getFacing(), reverse ) 
-			sim:dispatchEvent( simdefs.EV_UNIT_STOP_WALKING, { unit = unit  } )
-			sim:processReactions(unit) -- this check is probably unnecessary, return line when overwatched prevents you from etting this far...
-			if unit:isValid() then
-				sim:dispatchEvent( simdefs.EV_TELEPORT, { units={unit}, warpOut =true } )	
-				sim:warpUnit( unit, nil)
-				sim:despawnUnit(unit)			
-				sim:triggerEvent( "mole_final_escape" )
-				for dir, exit in pairs( start_cell.exits ) do
-					if exit.door and (exit.keybits == simdefs.DOOR_KEYS.GUARD) then
-						-- log:write("LOG closing door")
-						sim:modifyExit( start_cell, dir, simdefs.EXITOP_CLOSE )
+			if unit and unit:isValid() and unit:getLocation() then
+				if simquery.isUnitUnderOverwatch(unit) then
+					return --interrupt action if overwatched by whoever's inside the elevator
+				end
+				
+				local reverse = math.abs(facing - unit:getFacing()) == 4
+				sim:dispatchEvent( simdefs.EV_UNIT_START_WALKING, { unit = unit, reverse = reverse } )
+				
+				sim:warpUnit( unit, end_cell, unit:getFacing(), reverse ) 
+				sim:dispatchEvent( simdefs.EV_UNIT_STOP_WALKING, { unit = unit  } )
+				sim:processReactions(unit) -- this check is probably unnecessary, return line when overwatched prevents you from etting this far...
+				if unit:isValid() then
+					sim:dispatchEvent( simdefs.EV_TELEPORT, { units={unit}, warpOut =true } )	
+					sim:warpUnit( unit, nil)
+					sim:despawnUnit(unit)			
+					sim:triggerEvent( "mole_final_escape" )
+					for dir, exit in pairs( start_cell.exits ) do
+						if exit.door and (exit.keybits == simdefs.DOOR_KEYS.GUARD) then
+							-- log:write("LOG closing door")
+							sim:modifyExit( start_cell, dir, simdefs.EXITOP_CLOSE )
+						end
 					end
 				end
 			end
