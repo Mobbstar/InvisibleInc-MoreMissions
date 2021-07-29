@@ -211,12 +211,13 @@ function frag_grenade:onExplode( cells )
 					damage = cellUnit:processKOresist( damage )
 				end		
 
-				cellUnit:setKO(sim, damage)
+				-- cellUnit:setKO(sim, damage)
 				table.insert(killedUnits, cellUnit)
 			end
 		end
 	end
 	
+	sim:dispatchEvent( simdefs.EV_KO_GROUP, false )
 	for i, cellUnit in pairs(killedUnits) do
 		-- log:write("LOG damaging unit")
 		if cellUnit:getTraits().woundsMax or cellUnit:getTraits().canBeShot then
@@ -225,7 +226,6 @@ function frag_grenade:onExplode( cells )
 		end
 	end
 
-    sim:dispatchEvent( simdefs.EV_KO_GROUP, false )
 	sim:startTrackerQueue(false)				
 	sim:processDaemonQueue()		
 end
