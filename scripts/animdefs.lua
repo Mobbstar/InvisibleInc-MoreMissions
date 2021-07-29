@@ -13,6 +13,28 @@ local FLOAT_DRONE_TANK_ANIMS = commondefs.FLOAT_DRONE_TANK_ANIMS
 local Layer = commondefs.Layer
 local BoundType = commondefs.BoundType
 
+-- unarmed anim fix from Cyberboy
+local anims_sysadmin_panic = util.tconcat( {
+        "data/anims/characters/anims_male/shared_basic_a_01.adef",
+        "data/anims/characters/anims_male/shared_basic_c_01.adef",
+        "data/anims/characters/anims_male/shared_basic_c_02.adef",
+        "data/anims/characters/anims_male/shared_basic_c_03.adef",
+        "data/anims/characters/anims_male/shared_basic_c_04.adef",
+        "data/anims/characters/anims_male/shared_basic_c_05.adef",
+        "data/anims/characters/anims_male/shared_basic_c_06.adef",
+        "data/anims/characters/anims_male/shared_basic_c_07.adef",
+        --"data/anims/characters/anims_male/unarmed_basic_a_01.adef",
+        "data/anims/characters/anims_male/unarmed_basic_a_02.adef",
+        "data/anims/characters/anims_male/unarmed_basic_a_03.adef",
+        "data/anims/characters/anims_male/unarmed_basic_a_04.adef",
+    },
+    
+    commonanims.male.anims,
+    commonanims.male.anims_panic
+)
+
+util.tclear(commonanims.male.default_anims_panic)
+util.tmerge(commonanims.male.default_anims_panic, anims_sysadmin_panic)
 
 local animdefs =
 {
@@ -32,7 +54,7 @@ local animdefs =
 		{
 			"data/anims/characters/corp_neutral/grp_mm_ceotarget.abld",
 		},
-		anims = commonanims.male.default_anims_1h,
+		anims = commonanims.male.default_anims_unarmed,
 		anims_1h = commonanims.male.default_anims_1h,
 		anims_2h = commonanims.male.default_anims_2h,
 		anims_panic = commonanims.male.default_anims_panic,
@@ -253,7 +275,8 @@ local animdefs =
 		},		
 		grp_anims = commonanims.male.grp_anims,
 		
-		anims = commonanims.male.default_anims_1h,
+		anims = commonanims.male.default_anims_unarmed,
+		-- anims = commonanims.male.default_anims_1h,
 		anims_1h = commonanims.male.default_anims_1h,
 		anims_2h = commonanims.male.default_anims_2h,
 		animMap = GUARD_ANIMS,
@@ -506,7 +529,44 @@ local animdefs =
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
 		},		
 		peekBranchSet =  2,
-	},		
+	},	
+
+	kanim_transparent =
+	{
+		wireframe =
+		{
+			"data/anims/characters/agents/agent_male_empty.abld",
+		},
+		build = 
+		{ 
+			"data/anims/characters/agents/agent_male_empty.abld",
+			"data/anims/characters/anims_male/shared_hits_01.abld",	
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+		},
+		grp_build = 
+		{
+			"data/anims/characters/agents/grp_MM_agent009.abld",
+		},
+		grp_anims = commonanims.male.grp_anims,
+
+		anims = commonanims.male.default_anims_unarmed,
+		anims_1h = commonanims.male.default_anims_1h,
+		anims_2h = commonanims.male.default_anims_2h,
+		animMap = AGENT_ANIMS,
+
+		symbol = "character",
+		anim = "idle",
+		shouldFlip = true,
+		scale = 0.25,
+		layer = Layer.Unit,
+		boundType = BoundType.Character,
+		boundTypeOverrides = {			
+			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
+			{anim="dead" ,boundType= BoundType.CharacterFloor},
+		},		
+		peekBranchSet = 1,	
+	},
+	
 }
 
 return animdefs
