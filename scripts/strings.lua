@@ -59,8 +59,8 @@ return {
 		MOLE_INSERTION_TIP = "<c:FF8411>INFORMANT RENDEZVOUS</c>\nPlant an informant who will feed you intel for the next few missions.",
 		AI_TERMINAL = "AI TERMINAL",
 		AI_TERMINAL_TIP = "<c:FF8411>AI TERMINAL</c>\nUpgrade a program or gain a new program slot for Incognita.",
-		EA_HOSTAGE = "SECURE HOLDING FACILITY",
-		EA_HOSTAGE_TIP = "<c:FF8411>SECURE HOLDING FACILITY</c>\nRescue the Courier in the limited time before he dies, to gain access to more infiltration sites.",
+		EA_HOSTAGE = "COURIER RESCUE",
+		EA_HOSTAGE_TIP = "<c:FF8411>COURIER RESCUE</c>\nRescue the Courier in the limited time before he dies, to gain access to more infiltration sites.",
 
 		SIDEMISSIONS = "SIDE MISSIONS",
 		SIDEMISSIONS_TIP = "Enable new side missions",
@@ -87,7 +87,7 @@ return {
 		"MORE MISSIONS: Unlike a Security Dispatch, a Tech Expo will have up to five items, most of them weapons. They are powerful but won't last long.",
 		"MORE MISSIONS: The AI Terminal lets you increase Incognita's slot size or upgrade a program you own.",
 		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt that corporation's Counterintelligence AI.",		
-		"MORE MISSIONS: It is a good idea to have leftover AP on your agents when you complete an objective. You may want to move them after the security measures kick in.",
+		"MORE MISSIONS: It's a good idea to have leftover AP on your agents when you complete an objective. You may want to move them after the security measures kick in.",
 		"MORE MISSIONS: You can enable the mod's EASY MODE to make the new missions' challenges easier to deal with.",
 	},
 
@@ -106,11 +106,12 @@ return {
 
 	GUARDS =
 	{
-		BOUNTY_TARGET = "Bounty Target",
+		BOUNTY_TARGET = "VIP",
 		BODYGUARD = "Bodyguard",
 		PROTOTYPE_DROID = "Prototype Android",
 		PROTOTYPE_DROID_SPEC = "Prototype SpecDroid",
 		SCIENTIST = "Scientist",
+		HOLOGRAM_DROID = "Holodroid Decoy",
 	},
 
 
@@ -406,7 +407,7 @@ return {
 			NOT_SEEN = "Informant must not be seen",
 			NOT_SEEN_FAILED = "Informant must not be seen (FAILED)",
 			CAMERADB = "CAMERA DATABASE",
-			CAMERADB_TIP = "Scrub to clear mainframe witnesses",
+			CAMERADB_TIP = "Scrub to clear camera witnesses",
 		},
 		AI_TERMINAL = {
 			AI_OBJECTIVE = "Access the AI Terminal",
@@ -549,14 +550,14 @@ return {
 		},
 		-- EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
 		EA_HOSTAGE = {
-			NAME= "Secure Holding Facility",
+			NAME= "Courier Rescue",
 			-- MORE_INFO = "The corp has intercepted a courier of one of our former clients. He's got important site intel stored in a cerebral implant, intel we could use. Your task is to break in, locate the courier, and recover the information.\n\nOne final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",
 			MORE_INFO = "Data couriers traffic valuable information for their clients, but are easy targets for the corps if they get caught. This courier has detailed knowledge of the corp's facilities and can provide us with more targets nearby.\n\nAs a security precaution, the exit elevator is locked until further notice, but the courier should have a backdoor sequence for it.",
 			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
 			INSET_TXT = "The corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we might be able to persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
 			INSET_VO = {""},
 			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.\nTelepad locked, courier has the key.",
-			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby.",
+			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby, and with reduced travel time.",
 			BANTER = {
 				START = {
 				"",
@@ -618,7 +619,7 @@ return {
 
 	UI = {
 		HUD_WARN_EXIT_MISSION_HOLOSTUDIO = "Are you sure you want to leave? You don't have the holographic tool yet.",
-		HUD_WARN_EXIT_MISSION_ASSASSINATION = "Are you sure you want to leave? You don't have the target body.",
+		HUD_WARN_EXIT_MISSION_ASSASSINATION = "Are you sure you want to leave? You haven't killed the target.",
 		-- REASON = {
 			-- HYPERUNLOCKED = "Busted open by a blue keycard",
 		-- },
@@ -629,7 +630,7 @@ return {
 		DISTRESS_AGENT_GEAR_CONTAINER_DESC = "VALUABLE EQUIPMENT", --should probably go under MISSIONS above but we can tidy things later...
 		WEAPONS_EXPO_OBJECTIVE = "Locate and steal tech prototypes",
 		WEAPONS_EXPO_EMP_SAFE = "Cannot loot while device is disabled",
-		WEAPONS_EXPO_WARN_EXIT = "Are you sure you want to leave? You haven't stolen any of the weapon prototypes yet.",
+		WEAPONS_EXPO_WARN_EXIT = "Are you sure you want to leave? You haven't stolen any of the prototypes yet.",
 		WEAPONS_EXPO_FIREWALLS = "SECURITY FAILSAFE: FIREWALL BOOST",
 		WEAPONS_EXPO_DROIDS_WARNING = "NEW THREAT",
 		WEAPONS_EXPO_DROIDS_WARNING_SUB = "BOOTING...",
@@ -676,9 +677,13 @@ return {
 			TARGET_ALERT = "VIP LINK",
 			TARGET_ALERT_DESC = "The first time this unit is alerted or attacked, the Bodyguard or nearest conscious guard becomes alerted.",
 			BODYGUARD_ALERT = "BODYGUARD LINK",
-			BODYGUARD_ALERT_DESC = "The first time this unit is alerted or attacked, the Bounty Target becomes alerted.",
+			BODYGUARD_ALERT_DESC = "The first time this unit is alerted or attacked, the VIP becomes alerted.",
 			BODYGUARD_KEEPCLOSE = "BODYGUARD",
-			BODYGUARD_KEEPCLOSE_DESC = "This unit will stray far from the Bounty Target, and will share their interest points.",
+			BODYGUARD_KEEPCLOSE_DESC = "While not alerted, this unit will not stray far from the VIP and will investigate the VIP's interest points for him.",
+			TARGET_PARANOID = "PARANOID",
+			TARGET_PARANOID_DESC = "Will delegate interest point investigations to the Bodyguard, if nearby.",
+			AUTHORIZED_BODY = "AUTHORIZED",
+			AUTHORIZED_BODY_DESC = "If dragged, this unit's body will unlock the Panic Room.",
 
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
@@ -688,6 +693,7 @@ return {
 				PWRCOST = "{1} PWR cost",
 				COOLDOWN = "{1} cooldown",
 				RANGE = "{1} range",
+				PWRCOST_Rapier = "{1} PWR cost. Rapier will retain a PWR cost of 1 for an additional alarm level.", --special case for -1 PWR cost on Rapier
 			},
 
 			HOSTILE_AI_WEAKEN = "AI TERMINAL SABOTAGE",
@@ -767,21 +773,24 @@ return {
 
 			ASSASSINATION = {
 				OBJECTIVE_SIGHTED = {
-					{{"That's the target. Get them. ",
+					{{"There's our target. Watch your step, Operator.",
 						"moremissions/VoiceOver/Central/assassination/seen0",
-						"Central"}},
-					{{"You found him. Don't let him get away.",
+						"Central"},
+						-- {"But watch out for his bodyguard. He seems to have some sort of dermal plating implant, and won't go down as easily as your average security.", nil, "Central"},
+						},
+			
+					{{"You've found him. Don't let him get away, but approach carefully. This woudn't be the first attempt on his life, and his paranoia is notorious.",
 						"moremissions/VoiceOver/Central/assassination/seen1",
 						"Central"}},
-					{{"But watch out for his bodyguard. He seems to have some sort of dermal plating implant, and won't go down as easily as your average security."}},
 				},
-				OBJECTIVE_SIGHTED_HASWEAPON = {
-					{{"There's the target.",nil,"Central"
-					}},
+				OBJECTIVE_SIGHTED_NO_WEAPONS = {
+					{{"You've found the target. You didn't bring anything lethal, so you'll have to improvise.",nil,"Central"
+					},
+					{"His records show he's recently had new K&O security installed. We may be able to use that to our advantage. Get creative, Operator.",nil,"Central"},},
 				},
 				DOOR_SIGHTED = {
 					{
-						{"Interesting. Our target has prepared a secure room. Both the target and his bodyguard should have the codes to this door.",
+						{"Interesting. Our target has prepared a panic room. Both the target and his bodyguard should have the codes to this door.",
 							nil,
 							"Central"},
 						{"We don't have time to extract the codes, so you'll need to drag one of them up to the door. Their bodies should also deactivate the lasers as you pass.",
@@ -799,6 +808,18 @@ return {
 						nil,
 						"Central"}},
 				},
+				
+				DECOY_REVEALED = { --discovered decoy the hard way
+					{{"Damn it! We've been duped, Operator. The holo tech on that decoy is advanced enough to fool even Incognita's scans. The real target must be secured somewhere nearby.", nil, "Central"},
+					{"See if you can track him down; if not, we'll have to pull the plug on this mess.",nil,"Central"}},
+				},
+				FOUND_REAL_TARGET_LATE = { --found real target after bumping into decoy
+					{{"There's our real target, finally. Get to it, Operator, this job is alerady messier than I'd like.", nil, "Central"}},	
+				},
+				FOUND_REAL_TARGET = { --found real target before decoy was busted
+					{{"Would you look at that, Operator. That does appear to be our real target, all holed up in his saferoom already.", nil, "Central"},
+					{"Pity we need him dead; I would almost admire this level of paranoia, if it didn't stand in our way.", nil, "Central"}},			
+				},				
 				AFTERMATH = {
 					-- "Now make sure not to bump into any rival assassins on your way out."
 					{{"So far, so good. Get our agents out of there and we can collect from the client.",
@@ -826,10 +847,10 @@ return {
 					-- },
 					GOTNOTHING = {
 						{{"You didn't get what we came for. Perhaps you would like to offer your own head to our client?",
-							"moremissions/VoiceOver/Central/assassination/judge/noloot0",
+							nil,
 							"Central"}},
 						{{"Now somebody else is going to get the bounty. Quit wasting precious time, Operator!",
-							"moremissions/VoiceOver/Central/assassination/judge/noloot1",
+							nil,
 							"Central"}},
 					},
 				},
@@ -940,19 +961,19 @@ return {
 					},
 				},
 				MOLE_SEEN_BY_GUARD = {
-					{{"Operator, our mole is as good as dead unless we secure their cover. If anyone sees them before they leave, make sure to clean up those loose ends.",nil,"Central"}},
+					{{"Operator, our informant is as good as dead unless we secure their cover. If anyone sees them before they leave, make sure to clean up those loose ends.",nil,"Central"}},
 					{{"And by \"clean up\", she means...",nil,"Monster"}},
-					{{"Not necessarily. If you can find a nonlethal solution, use it. The mole should have something on them for that.",nil,"Central"}},
+					{{"Not necessarily. If you can find a nonlethal solution, use it. The informant should have something on them for that.",nil,"Central"}},
 					},
 				MOLE_SEEN_BY_CAMERA = {
-					{{"You'll want to keep an eye out for any cameras that caught a glimpse of our informant. Their visual feeds are synched to the nearest Camera Database. See if you can find one on this level.",nil,"Monster"}},
-					{{"Scrub the database to clear all cameras at once. A bullet or an EMP should do the trick, too.",nil,"Monster"}},
-					{{"They really don't use the most robust tech, I'm afraid. Now, if they had purchased those from me-",nil,"Monster"}},
+					{{"You'll want to take care of any cameras that caught a glimpse of our Informant. Their visual feeds are synched to the nearest Camera Database.",nil,"Monster"}},
+					{{"Scrub the database to clear all cameras at once. Of course, you can also simply destroy or EMP the camera to scramble its data, I'm sure that will work just fine.",nil,"Monster"}},
+					{{"They really don't use the most robust tech, I'm afraid. Now, if they had used a more reputable vendor-",nil,"Monster"}},
 					{{"Derek, this is not the time.",nil,"Central"}},
 					{{"Right, yes, of course. Carry on.",nil,"Monster"}},
 					},
 				MOLE_SEEN_BY_DRONE = {
-					{{"You'll want to take care of any drones that saw the informant. Unlike cameras, they're not linked to a central feed.",nil,"Monster"}},
+					{{"That drone that just saw you could compromise the informant's cover. You'll need to do something about that. Unlike cameras, they're not linked to a central feed.",nil,"Monster"}},
 					{{"You'll have to scramble each one with an EMP, or destroy it entirely. I'm sure you're up to the task.",nil,"Monster"}},
 				},
 				SEE_CAMERADB = {
