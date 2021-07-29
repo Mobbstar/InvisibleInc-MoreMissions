@@ -15,12 +15,66 @@ local mathutil = include( "modules/mathutil" )
 ---------------------------------------------------------------------------------------------
 -- Local helpers
 
-local CHANCE_OF_DECOY = 0.75 --0.5
-local DECLOAK_RANGE = 1.5
+local CHANCE_OF_DECOY = 0.3
 local bodyguard_unit --file-wide variable for ease of checking
 local bounty_target_unit
+
+local function queueCentral(script, scripts)
+	for k, v in pairs(scripts) do
+		script:queue( { script=v, type="newOperatorMessage" } )
+		script:queue(0.5*cdefs.SECONDS)
+	end	
+end
+
 ----
 -- Trigger Definitions
+--interest triggers so bodyguard can investigate instead VIP
+local DECOY_REVEALED = 
+{
+	trigger = "MM_decoy_revealed",
+	fn = function( sim, evData )
+		if evData.unit and evData.unit:getTraits().MM_decoy then
+			return evData.unit
+		end
+	end,
+}
+
+local NEW_INTEREST = 
+{
+	trigger = simdefs.TRG_NEW_INTEREST,
+	fn = function( sim, evData )
+		if evData.interest.sourceUnit and evData.interest.sourceUnit:getTraits().MM_bounty_target and not evData.interest.sourceUnit:getTraits().MM_realtarget then
+			if evData.interest.reason == nil or (evData.interest.reason and not (evData.interest.reason == "REASON_MM_ASSASSINATION") ) then
+				return evData.interest
+			end
+		end
+	end,
+}
+
+local NEW_UNIT_INTEREST = 
+{
+	trigger = simdefs.TRG_UNIT_NEWINTEREST,
+	fn = function( sim, evData )
+		if evData.unit and evData.unit:getTraits().MM_bounty_target and not evData.unit:getTraits().MM_realtarget then
+			if evData.interest.reason == nil or (evData.interest.reason and not (evData.interest.reason == "REASON_MM_ASSASSINATION")) then
+				local interest = { sourceUnit = evData.unit, x = evData.interest.x, y = evData.interest.y }
+				-- log:write("LOG interest")
+				-- log:write(util.stringize(evData.unit:getUnitData().name,2))
+				return interest
+			end
+		end
+	end,
+}
+
+local TRIED_TO_STEAL_FROM_DECOY = 
+{
+	trigger = "MM_usedFakeSteal",
+	fn = function( sim, evData )
+		if evData.targetUnit:getTraits().MM_decoy then
+			return evData.targetUnit
+		end
+	end
+}
 
 local CEO_DEAD =
 {
@@ -59,15 +113,7 @@ local CEO_ARMING =
 		end
 	end,
 }
-local CEO_ESCAPED =
-{
-	trigger = "vip_escaped",
-	fn = function( sim, evData )
-		if evData.unit:hasTag("assassination") then
-			return true
-		end
-	end,
-}
+
 local BODYGUARD_ALERTED =
 {
 	trigger = simdefs.TRG_UNIT_ALERTED,
@@ -123,6 +169,17 @@ local UNIT_USE_DOOR =
 	end
 }
 
+local function playerHasLethalWeapons( sim )
+	for i, unit in pairs( sim:getPC():getUnits() ) do
+		for k, item in pairs(unit:getChildren()) do
+			if ((item:getTraits().baseDamage or 0 > 0) and not item:getTraits().canSleep) or item:getTraits().lethal or item:getTraits().lethalMelee then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 local function isSaferoomKey( unit )
 	return (unit:isDown() or unit:getTraits().iscorpse) and (unit:hasTag("assassination") or unit:hasTag("bodyguard"))
 end
@@ -167,7 +224,6 @@ local ESCAPE_WITH_BODY =
 		end
 	end,
 }
-
 ----
 -- Utility Functions
 
@@ -231,35 +287,53 @@ local function initCeoTraits( sim )
 end
 
 -- Alert the CEO
-local function doAlertCeo( sim, fromBodyguard )
-	ceo = safeFindUnitByTag( sim, "assassination" )
-	if ceo and ceo:isValid() and not ceo:isDown() and not ceo:getTraits().iscorpse and not ceo:isAlerted() then
-		if fromBodyguard then
-			-- Don't send alerts back and forth
-			ceo:getTraits().hasSentAlert = true
+local function doAlertCeo( sim, fromBodyguard, mission )
+	local ceofake = safeFindUnitByTag( sim, "assassination_fake" )
+	local ceoreal = safeFindUnitByTag( sim, "assassination_real" )
+	local ceos = { ceofake, ceoreal }
+	for i, ceo in pairs(ceos) do
+		if ceo and ceo:isValid() and not ceo:isDown() and not ceo:getTraits().iscorpse and not ceo:isAlerted() then
+			ceo:getTraits().MM_alertlink = nil --for tooltip
+			if fromBodyguard then
+				-- Don't send alerts back and forth
+				ceo:getTraits().hasSentAlert = true
+			end
+			-- Senses:addInterest: Create an ephemeral interest to be forgotten later
+			local x,y = ceo:getLocation()
+			ceo:getBrain():getSenses():addInterest( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
+			sim:processReactions( ceo )
 		end
-		ceo:getTraits().MM_alertlink = nil --for tooltip
-		-- Senses:addInterest: Create an ephemeral interest to be forgotten later
-		local x,y = ceo:getLocation()
-		ceo:getBrain():getSenses():addInterest( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
-		sim:processReactions( ceo )
 	end
+	mission.revealDecoy( sim, ceofake )
 end
 
 -- Alert the bodyguard and send him to the CEO's location
 -- If the bodyguard is indisposed, the nearest other guard responses to the call.
-local function doAlertBodyguard( sim, ceo )
+local function doAlertBodyguard( sim, ceo, mission )
 	local x,y = ceo:getLocation()
+	-- if ceo:getTraits().MM_decoy then
+		-- ceo:removeTag("assassination")
+	-- end
 	local bodyguard = safeFindUnitByTag( sim, "bodyguard" )
-	if bodyguard and bodyguard:isValid() and bodyguard:getBrain() and not bodyguard:isDown() then
-		-- Send the bodyguard to the CEO
-		-- Brain:spawnInterest: Create a remembered interest
-		bodyguard:getBrain():spawnInterest( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
-	else
-		-- Bodyguard unavailable. Send the nearest other guard to the CEO.
-		sim:getNPC():spawnInterestWithReturn( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED, nil, { ceo:getID() } )
+	if bodyguard then
+		bodyguard:getTraits().MM_alertlink = nil
 	end
-	ceo:getTraits().hasSentAlert = true
+	if x and y and ceo then
+		if bodyguard and bodyguard:isValid() and bodyguard:getBrain() and not bodyguard:isDown() then
+			-- Send the bodyguard to the CEO
+			-- Brain:spawnInterest: Create a remembered interest
+			bodyguard:getBrain():spawnInterest( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
+		else
+			-- Bodyguard unavailable. Send the nearest other guard to the CEO.
+			sim:getNPC():spawnInterestWithReturn( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED, nil, { ceo:getID() } )
+		end
+		ceo:getTraits().hasSentAlert = true
+	end
+	
+	-- if the alerted unit was a decoy, reveal the decoy
+	if ceo:getTraits().MM_decoy then
+		mission.revealDecoy( sim, ceo )
+	end
 end
 
 local function doUnlockSaferoom( sim, agent )
@@ -317,6 +391,9 @@ local function playerSeesCeo( script, sim, mission )
 
 	-- Report on "objective sighted" by default. If the target was KOed/killed outside LOS, then play that script instead.
 	local report = SCRIPTS.INGAME.ASSASSINATION.OBJECTIVE_SIGHTED
+	if not playerHasLethalWeapons( sim ) then
+		report = SCRIPTS.INGAME.ASSASSINATION.OBJECTIVE_SIGHTED_NO_WEAPONS
+	end
 
 	sim:removeObjective( "find" )
 	if ceo:getTraits().iscorpse then
@@ -341,8 +418,24 @@ local function playerSeesCeo( script, sim, mission )
 
 	local x,y = ceo:getLocation()
 	script:queue( { type="pan", x=x, y=y } )
-	script:queue( .25*cdefs.SECONDS )
+	script:queue( 1*cdefs.SECONDS )
 	script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )
+end
+
+local function playerSeesRealCEO( script, sim, mission ) --only in use if decoy is in place)
+	script:waitFor( mission_util.PC_SAW_CELL_WITH_TAG( script, "saferoom_hide" ) )
+	local hidingCell = findCell( sim, "saferoom_hide" )
+	if sim.MM_bounty_disguise_active then
+		local x,y = hidingCell.x, hidingCell.y
+		script:queue( { type="pan", x=x, y=y } )
+		script:queue( 1*cdefs.SECONDS )
+		local report = SCRIPTS.INGAME.ASSASSINATION.FOUND_REAL_TARGET
+		if sim:getTags().MM_decoyrevealed then
+			report = SCRIPTS.INGAME.ASSASSINATION.FOUND_REAL_TARGET_LATE
+		end	
+		script:queue( 1*cdefs.SECONDS )
+		script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )		
+	end
 end
 
 -- Update the player when the CEO is KOed/killed after seen
@@ -371,7 +464,7 @@ local function ceoDown( script, sim, mission )
 
 		sim:dispatchEvent( simdefs.EV_SCRIPT_EXIT_MAINFRAME ) -- In case the kill was via laser grid.
 		script:waitFrames( .5*cdefs.SECONDS )
-		doAlertBodyguard( sim, ceo )
+		doAlertBodyguard( sim, ceo, mission )
 
 		if not ceo:getTraits().iscorpse and mission.reportedCeoSeen and not mission.reportedCeoKOed then
 			mission.reportedCeoKOed = true
@@ -409,7 +502,7 @@ local function playerSeesSaferoom(script, sim)
 	labelCarrier:createTab( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.SECUREDOOR_TIP, "" )
 
 	script:queue( { type="pan", x=doorCell.x, y=doorCell.y } )
-	script:queue( .25*cdefs.SECONDS )
+	script:queue( 1*cdefs.SECONDS )
 	script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.DOOR_SIGHTED ), type="newOperatorMessage" } )
 end
 
@@ -442,7 +535,7 @@ local function trackBodyguardDead( script, sim )
 	-- The trigger ensures the corpse has the original tag
 end
 
-local function bodyguardAlertsCeo( script, sim )
+local function bodyguardAlertsCeo( script, sim, mission )
 	local _, bodyguard = script:waitFor( BODYGUARD_DEAD, BODYGUARD_KO, BODYGUARD_ALERTED )
 
 	if not bodyguard:getTraits().iscorpse then
@@ -466,7 +559,7 @@ local function bodyguardAlertsCeo( script, sim )
 	end
 
 	local bodyguardIsAwake = not bodyguard:isDown() and not bodyguard:getTraits().iscorpse
-	doAlertCeo( sim, bodyguardIsAwake )
+	doAlertCeo( sim, bodyguardIsAwake, mission )
 end
 
 -- Behavior once the CEO becomes alerted
@@ -474,11 +567,11 @@ end
 -- Stage 2: Randomly search the room.
 -- Stage 2b: If spooked run to a corner of the room.
 -- In both 1 & 2b, the destination is set as a stationary patrol point.
-local function ceoAlerted(script, sim)
+local function ceoAlerted(script, sim, mission)
 	local _, ceo = script:waitFor( CEO_ALERTED )
 	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
-
-	-- Send the CEO to the safe
+	ceo:getTraits().MM_alertlink = nil
+	-- Send the CEO to the safes
 	local xSafe,ySafe = safe:getLocation()
 	local finalCell = findCell( sim, "saferoom_flee" )
 	assert( finalCell )
@@ -488,21 +581,29 @@ local function ceoAlerted(script, sim)
 	-- Alert the bodyguard, unless we have already sent an alert
 	-- (No double interest for KO and first wakeup)
 	if not ceo:getTraits().hasSentAlert then
-		doAlertBodyguard(sim, ceo)
+		doAlertBodyguard(sim, ceo, mission)
 	end
-
+	if sim.MM_bounty_disguise_active then
+		ceo = safeFindUnitByTag(sim, "assassination_real")
+		doAlertCeo( sim, nil, mission )
+	end
+	
 	-- Tell the player (using the vanilla CFO running line)
-	if not ceo:isDown() then
+	if ceo and not ceo:isDown() then
 		script:queue( { script=SCRIPTS.INGAME.CENTRAL_CFO_RUNNING, type="newOperatorMessage" } )
 		sim:getPC():glimpseUnit(sim, ceo:getID() )
 	end
 
 	-- Wait for the CEO to reach the safe
 	_, ceo = script:waitFor( CEO_ARMING )
-
+	
 	-- New "patrol" destination: corner of the room, hidden from the door by tall cover.
 	-- This is the CEO's fallback when spooked.
 	local hidingCell = findCell( sim, "saferoom_hide" )
+	
+	--hotfix for bug that causes CEO to leave the room after getting gun: give him a new investigation point immediately after he arms himself
+	ceo:getBrain():spawnInterest(hidingCell.x, hidingCell.y, sim:getDefs().SENSE_DEBUG, "REASON_MM_ASSASSINATION") --vip stays put and investigates in place	
+	
 	ceo:getTraits().patrolPath = { { x = hidingCell.x, y = hidingCell.y, facing = calculateBestFacing( sim, hidingCell, ceo ) } }
 
 	-- Fully armed and operational.
@@ -512,67 +613,18 @@ local function ceoAlerted(script, sim)
 		--sound = "SpySociety/Objects/securitysafe_open" --is there a difference?
 		safe:getTraits().open = true --this is a flag for anim, not sure if setting it to open and then closed again before/after the event will look good but worth a try -Hek
 		sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR, { unitID = ceo:getID(), facing = finalFacing, sound = sound, soundFrame = 1 } )
+		sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR_PST, { unitID = ceo:getID(), facing = finalFacing } )
 		safe:getTraits().open = false		
 		inventory.giveItem( safe, ceo, weapon )
 		sim:emitSound( { path = weapon:getUnitData().sounds.reload, range = simdefs.SOUND_RANGE_0 }, finalCell.x, finalCell.y, ceo )
 		ceo:getTraits().pacifist = false
+		ceo:getTraits().MM_ceo_armed = true
 	end
 end
 
 local function exitWarning(mission)
 	if not mission.killedTarget then
 		return STRINGS.MOREMISSIONS.UI.HUD_WARN_EXIT_MISSION_ASSASSINATION
-	end
-end
-
-local function judgement(sim, mission)
-	local scripts =
-		mission.killedTarget and SCRIPTS.INGAME.ASSASSINATION.CENTRAL_JUDGEMENT.GOTBODY or
-		SCRIPTS.INGAME.ASSASSINATION.CENTRAL_JUDGEMENT.NOTHING
-	return scripts[sim:nextRand(1, #scripts)]
-end
-
-local function centralReactionDecloak( sim )
-	local script = sim:getLevelScript()
-	script:queue( 2 * cdefs.SECONDS )
-	-- blah blah
-end
-
-local function disguiseRange( script, sim, mission ) --UNUSED
-	while sim.MM_bounty_disguise_active and bodyguard_unit and bounty_target_unit do
-		script:waitFor( UNIT_WARP )	
-		for i, enemy in pairs(sim:getNPC():getUnits()) do
-			if enemy:getTraits().MM_bounty_disguise then
-				for k, agent in pairs(sim:getPC():getUnits()) do
-					local x0, y0 = enemy:getLocation()
-					local x1, y1 = agent:getLocation()
-					local distance = mathutil.dist2d( x0, y0, x1, y1)
-					if sim:canUnitSeeUnit( agent, enemy ) and (distance <= DECLOAK_RANGE ) then
-						-- log:write("LOG decloaking")
-						mission.bodyguardSwap( sim )
-					end
-				end
-			end
-		end
-	end
-end
-
-local function disguiseRangeDoor( script, sim, mission ) --UNUSED
-	while sim.MM_bounty_disguise_active and bodyguard_unit and bounty_target_unit do
-		script:waitFor( UNIT_USE_DOOR )
-		for i, enemy in pairs(sim:getNPC():getUnits()) do
-			if enemy:getTraits().MM_bounty_disguise then
-				for k, agent in pairs(sim:getPC():getUnits()) do
-					local x0, y0 = enemy:getLocation()
-					local x1, y1 = agent:getLocation()
-					local distance = mathutil.dist2d( x0, y0, x1, y1)
-					if sim:canUnitSeeUnit( agent, enemy ) and (distance <= DECLOAK_RANGE ) then
-						log:write("LOG decloaking")
-						mission.bodyguardSwap( sim )
-					end
-				end
-			end
-		end
 	end
 end
 
@@ -602,55 +654,114 @@ local function bodyguardShotAt( script, sim )
 	end
 end
 
-local function dropDisguises( sim, ceo, guard )
-
-	local x0, y0 = ceo:getLocation()
-	local x1, y1 = guard:getLocation()
-	
-	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, {sound="SpySociety/Actions/holocover_deactivate", x=x1,y=y1} )
-	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, {sound="SpySociety/Actions/holocover_deactivate", x=x0,y=y0} )
-	
-	sim:dispatchEvent( simdefs.EV_UNIT_ADD_FX, { unit = ceo, kanim = "fx/agent_cloak_fx", symbol = "effect", anim="out", above=true, params={} } )		
-	sim:dispatchEvent( simdefs.EV_UNIT_ADD_FX, { unit = guard, kanim = "fx/agent_cloak_fx", symbol = "effect", anim="out", above=true, params={} } )		
-
-	local ceo_kanim = ceo:getUnitData().kanim
-	local guard_kanim = guard:getUnitData().kanim
-	
-	ceo:changeKanim(  nil , 0.05 )
-	guard:changeKanim(  nil , 0.05 )
-	
-	ceo:changeKanim(  guard_kanim , 0.1 )
-	guard:changeKanim(  ceo_kanim , 0.1 )
-	
-	ceo:changeKanim(  nil , 0.05 )
-	guard:changeKanim(  nil , 0.05 )
-	
-	ceo:changeKanim(  guard_kanim , 0.05 )
-	guard:changeKanim(  ceo_kanim , 0.05 )
-	
-	ceo:changeKanim(  nil , 0.1 )
-	guard:changeKanim(  nil , 0.1 )
-	
-	ceo:changeKanim(  guard_kanim , 0.05 )
-	guard:changeKanim(  ceo_kanim , 0.05 )
-	
-	ceo:changeKanim(  nil )
-	guard:changeKanim(  nil )		
-	
-end
-
-local function checkBodyguardAlert( script, sim, mission )
-	local _, guard = script:waitFor( BODYGUARD_ALERTED )
-	if guard:getTraits().MM_bounty_disguise then
-		mission.bodyguardSwap( sim )
+-- bodyguard behaviour: keeping within vision range of VIP, investigating in his stead
+local function keepClose( script, sim )
+	while true do
+		local bodyguard = nil
+		local vip = nil
+		script:waitFor( mission_util.PC_START_TURN )
+		for i, unit in pairs(sim:getNPC():getUnits()) do
+			if unit:getTraits().MM_bodyguard then
+				bodyguard = unit
+			end
+			if sim.MM_bounty_disguise_active then
+				if unit:getTraits().MM_decoy then
+					vip = unit
+				end
+			else
+				if unit:getTraits().MM_bounty_target then
+					vip = unit
+				end
+			end
+		end
+		if bodyguard and vip and bodyguard:getBrain() and not bodyguard:isKO() then
+			if not simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) and not (bodyguard:getTraits().lostVIP or bodyguard:getTraits().previouslyLostVIP) then
+				bodyguard:getTraits().previouslyLostVIP = nil
+				local x1,y1 = vip:getLocation()
+				bodyguard:getBrain():spawnInterest(x1, y1, simdefs.SENSE_RADIO, simdefs.REASON_NOTICED, vip) -- give persistent interest point to VIP's location
+				bodyguard:getTraits().lostVIP = true
+			elseif simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) and bodyguard:getTraits().lostVIP then
+				bodyguard:getTraits().lostVIP = nil
+				bodyguard:getTraits().previouslyLostVIP = true
+				local x1,y1 = vip:getLocation()
+				bodyguard:getBrain():spawnInterest(x1, y1, simdefs.SENSE_RADIO, simdefs.REASON_NOTICED, vip) 		
+			end
+		end
 	end
 end
 
-local function checkBountyAlert( script, sim, mission )
-	local _, ceo = script:waitFor( CEO_ALERTED )
+-- when VIP is distracted, bodyguard investigates distraction instead if in sight, while VIP investigates on the spot
+local function transferInterest( sim, interest )
+	local bodyguard = nil
+	local vip = interest.sourceUnit
+	for i, unit in pairs(sim:getNPC():getUnits()) do
+		if unit:getTraits().MM_bodyguard and unit:getBrain() and not unit:isKO() then
+			bodyguard = unit
+		end
+	end
+	if bodyguard and vip and not vip:getTraits().MM_ceo_armed and (simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) or sim.MM_bounty_disguise_active ) then
+		local x0, y0 = vip:getLocation()
+		local x1, y1 = interest.x, interest.y
+		vip:getBrain():spawnInterest(x0,y0, sim:getDefs().SENSE_DEBUG, "REASON_MM_ASSASSINATION") --vip stays put and investigates in place	
+		if simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) then
+			bodyguard:getBrain():spawnInterest(x1,y1, simdefs.SENSE_RADIO, "REASON_MM_ASSASSINATION") --bodyguard investigates distraction
+		end
+	end
+end
+
+local function waitForInterest( script, sim )
+	while true do
+		local _, interest = script:waitFor( NEW_INTEREST )
+		transferInterest( sim, interest)	
+	end
+end
+
+local function waitForUnitInterest( script, sim )
+	while true do
+		local _, interest = script:waitFor( NEW_UNIT_INTEREST )
+		transferInterest( sim, interest)		
+	end
+end
+
+local function waitForSteal( script, sim, mission )
+	local _, decoy = script:waitFor( TRIED_TO_STEAL_FROM_DECOY )
+	mission.revealDecoy( sim, decoy )
+end
+
+local function despawnDecoy( script, sim )
+	local _, decoyUnit = script:waitFor( DECOY_REVEALED )
+	local x, y = decoyUnit:getLocation()
+	script:waitFor( mission_util.PC_ANY )
+	sim:warpUnit( decoyUnit, nil ) -- remove the original
+	sim:despawnUnit( decoyUnit ) 	
 	
-	if ceo:getTraits().MM_bounty_disguise then
-		mission.bodyguardSwap( sim )
+	if x and y then
+		script:queue( { type="pan", x=x, y=y } )
+	end
+	script:queue( 1*cdefs.SECONDS )
+	local report = SCRIPTS.INGAME.ASSASSINATION.DECOY_REVEALED
+	script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )	
+end
+
+local 	PC_WON =
+	{		
+        priority = 10,
+
+        trigger = simdefs.TRG_GAME_OVER,
+        fn = function( sim, evData )
+            if sim:getWinner() then
+                return sim:getPlayers()[sim:getWinner()]:isPC()
+            else
+                return false
+            end
+        end,
+	}
+
+local function updateAgency( script, sim, mission ) --UNUSED
+	script:waitFor( PC_WON )
+		if mission.killedTarget then
+		sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations or 0
+		sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations + 1
 	end
 end
 ---------------------------------------------------------------------------------------------
@@ -658,88 +769,128 @@ end
 
 local mission = class( escape_mission )
 
-mission.getOpposite = function( sim, unit )
-	-- outputs ceo if you input bodyguard and vice versa
-	local opposite = nil
-	for i, u in pairs(sim:getAllUnits()) do
-		if u:getTraits().MM_bounty_disguise and not (u == unit) then
-			opposite = u
-		end
+-- "reveal" decoy, but actually despawn it and replace it with an android
+mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
+	if sim:getTags().MM_decoyrevealed or (sim.MM_bounty_disguise_active == nil) then
+		return
 	end
-	return opposite
-end
-
-mission.bodyguardSwap = function( sim )
-	local bodyguard
-	local ceo 
-	for i, unit in pairs(sim:getNPC():getUnits()) do
-		if unit:getTraits().MM_bodyguard then
-			bodyguard = unit
-		end
-		if unit:getTraits().MM_bounty_target then
-			ceo = unit
-		end
+	sim:getTags().MM_decoyrevealed = true
+	local x0, y0 = decoyUnit:getLocation()
+	local cell = sim:getCell(x0, y0)
+	local facing = decoyUnit:getFacing()
+	local newDecoyTemplate = unitdefs.lookupTemplate( "MM_bounty_target_android" )
+	local newDecoy = simfactory.createUnit( newDecoyTemplate, sim )
+	newDecoy:setPlayerOwner(sim:getNPC())
+	sim:spawnUnit( newDecoy )
+	newDecoy:setFacing( facing )
+	local oldKanim = decoyUnit:getUnitData().kanim
+	sim:warpUnit( newDecoy, cell )
+	newDecoy:changeKanim( oldKanim )
+	newDecoy:setPather(sim:getNPC().pather)
+	newDecoy:getBrain():setSituation(sim:getNPC():getIdleSituation() )
+	sim:getNPC():getIdleSituation():generatePatrolPath( newDecoy, newDecoy:getLocation() )
+	newDecoy:getTraits().patrolPath = { { x = cell.x, y = cell.y, facing = facing } }
+	if decoyUnit:getTraits().tagged then
+		newDecoy:getTraits().tagged = true
 	end	
-
-	if bodyguard and ceo then
-		local bodyguard_cell = sim:getCell(bodyguard:getLocation())	local bodyguard_facing = bodyguard:getFacing()	
-		local bodyguard_patrol = bodyguard:getTraits().patrolPath
-		local bodyguard_tagged = bodyguard:getTraits().tagged or nil
-		local bodyguard_observed = bodyguard:getTraits().patrolObserved or nil		
-		local bodyguard_heart = bodyguard:getTraits().heartMonitor -- <3 <3 <3
-		
-		local ceo_patrol = ceo:getTraits().patrolPath
-		local ceo_facing = ceo:getFacing()
-		local ceo_cell = sim:getCell(ceo:getLocation())
-		local ceo_tagged = ceo:getTraits().tagged or nil
-		local ceo_observed = ceo:getTraits().patrolObserved or nil
-		local ceo_heart = ceo:getTraits().heartMonitor -- <3 <3 <3
-		
-		-- synchronise inventories?
-		
-		bodyguard:setFacing(ceo_facing)		
-		ceo:setFacing( bodyguard_facing )	
-
-		sim:warpUnit( bodyguard, ceo_cell )
-		
-		sim:warpUnit( ceo, bodyguard_cell )	
-		dropDisguises( sim, ceo, bodyguard )
-
-		-- can't predict all possible alterations to the 'pre-decloak' unit, but this should cover most of them
-		bodyguard:getTraits().MM_bounty_disguise = nil
-		bodyguard:getTraits().tagged = ceo_tagged
-		bodyguard:getTraits().patrolObserved = ceo_observed
-		bodyguard:getTraits().heartMonitor = ceo_heart
-		
-		ceo:getTraits().MM_bounty_disguise = nil
-		ceo:getTraits().tagged = bodyguard_tagged
-		ceo:getTraits().patrolObserved = bodyguard_observed
-		ceo:getTraits().heartMonitor = bodyguard_heart
-		
-		sim.MM_bounty_disguise_active = nil
-		sim:processReactions()
-		if bounty_target_unit then --have central comment on the disguise if target is still alive
-			centralReactionDecloak( sim )
-		end
-
-	end		
+	-- removing original now is a problem because aiplayer may still be processing reactions for this unit. So we'll delay the despawn until later and just make the original disappear
+	decoyUnit:changeKanim( "kanim_transparent" )
+	decoyUnit:getTraits().canBeCritical = true
+	decoyUnit:getTraits().sightable = nil
+	
+	-- cosmetic stuff
+	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, {sound="SpySociety/Actions/holocover_deactivate", x=x0,y=y0} )
+	sim:dispatchEvent( simdefs.EV_UNIT_ADD_FX, { unit = newDecoy, kanim = "fx/agent_cloak_fx", symbol = "effect", anim="out", above=true, params={} } )	
+	-- hologram drops, revealing decoy to be a robot!
+	newDecoy:changeKanim(  nil , 0.05 )
+	newDecoy:changeKanim(  oldKanim , 0.1 )
+	newDecoy:changeKanim(  nil , 0.05 )
+	newDecoy:changeKanim(  oldKanim , 0.05 )
+	newDecoy:changeKanim(  nil , 0.1 )
+	newDecoy:changeKanim(  oldKanim , 0.05 )
+	newDecoy:changeKanim(  nil )
+	
+	-- implement effect of player actions on despawned original
+	newDecoy:getBrain():getSenses():addInterest( cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
+	doAlertBodyguard( sim, newDecoy, mission )
+	sim:processReactions( newDecoy )
+	if newDecoy and stagger then
+		sim:dispatchEvent( simdefs.EV_UNIT_HIT, {unit = newDecoy, result = 0} ) --stagger FX
+	end
+	if EMP and newDecoy then
+		local bootTime = EMP.bootTime or 1
+		local noEmpFX = EMP.noEmpFX or nil
+		newDecoy:processEMP( bootTime, noEmpFX )
+	end
+	
+	sim:triggerEvent("MM_decoy_revealed", { unit = decoyUnit })
+	return newDecoy
 end
 
+--spawns dupe of CEO with empty inventory and custom traits
+local function spawnDecoy( sim, cell, facing )
+	local decoyTemplate = unitdefs.lookupTemplate( "npc_bounty_target_fake" )
+	local decoyUnit = simfactory.createUnit( decoyTemplate, sim )
+	decoyUnit:setPlayerOwner(sim:getNPC())
+	sim:spawnUnit( decoyUnit )
+	decoyUnit:setFacing( facing )
+	sim:refreshUnitLOS( decoyUnit )
+	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = decoyUnit } )
+	sim:warpUnit( decoyUnit, cell )	
+	decoyUnit:setPather(sim:getNPC().pather)
+	decoyUnit:getBrain():setSituation(sim:getNPC():getIdleSituation() )
+	sim:getNPC():getIdleSituation():generatePatrolPath( decoyUnit, decoyUnit:getLocation() )
+	decoyUnit:getTraits().patrolPath = { { x = cell.x, y = cell.y, facing = facing } }
+	decoyUnit:getTraits().MM_decoy = true
+	decoyUnit:getTraits().MM_unsearchable = true
+	decoyUnit:addTag("assassination")
+	decoyUnit:addTag("assassination_fake")
+end
+
+--NEW decoy mechanic: real VIP in saferoom, replaced with disguised android
 local function tryDecoy( sim )
-	bodyguard_unit = nil
-	bounty_target_unit = nil -- resetting for save file edge cases
-	if sim:nextRand() < CHANCE_OF_DECOY then --0.5 -- memo: comment back in after testing
-		-- this determines whether decoy/disguise mechanic will be in place this mission.
-		for i, unit in pairs(sim:getNPC():getUnits()) do
+	-- log:write("LOG trying decoy")
+	local vip = nil -- resetting for save file edge cases
+	local no_decoy = nil
+	-- if sim:getParams().agency.MM_assassinations == nil then
+		-- no_decoy = true -- guarantee no decoy on first campaign assassination
+	-- end
+	local security_level = sim:getParams().difficulty
+	local decoy_chance_bonus = 0.1 * security_level
+	local FINAL_CHANCE_OF_DECOY = CHANCE_OF_DECOY + decoy_chance_bonus
+	if FINAL_CHANCE_OF_DECOY > 1 then
+		FINAL_CHANCE_OF_DECOY = 0.9
+	end
+	if (sim:nextRand() < FINAL_CHANCE_OF_DECOY) then
+		log:write("LOG implementing decoy")	
+		for i, unit in pairs(sim:getNPC():getUnits()) do 
 			if unit:getTraits().MM_bounty_target then
-				bounty_target_unit = unit
+				vip = unit 		--locate VIP	
 				unit:getTraits().MM_bounty_disguise = true
-			elseif unit:getTraits().MM_bodyguard then
-				bodyguard_unit = unit
-				unit:getTraits().MM_bounty_disguise = true --gets applied to both target and bodyguard
 			end
 		end
-		sim.MM_bounty_disguise_active = true
+		local hidingCell = findCell( sim, "saferoom_hide" )
+		if vip and hidingCell then
+			local oldCell = sim:getCell(vip:getLocation())
+			sim:warpUnit( vip, hidingCell ) 
+			local oldFacing = vip:getFacing()
+			vip:setFacing( calculateBestFacing( sim, hidingCell, vip ) )
+			vip:getTraits().MM_realtarget = true
+			vip:getTraits().mpMax = vip:getTraits().mpMax - 4
+			vip:getTraits().patrolPath = nil
+			sim:getNPC():getIdleSituation():generatePatrolPath( vip, vip:getLocation() )
+			vip:getTraits().mpMax = vip:getTraits().mpMax + 4
+			vip:addTag("assassination_real")
+			sim:refreshUnitLOS( vip )
+			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = vip } )
+			spawnDecoy( sim, oldCell, oldFacing )
+			sim.MM_bounty_disguise_active = true
+		end
+		
+		--now give all agents the ability to "steal" from the decoy
+		for i, agent in pairs(sim:getPC():getUnits()) do --edge cases? do we need to worry about agents being added mid-mission?
+			agent:giveAbility("MM_fakesteal")
+		end
 	end
 end
 
@@ -753,7 +904,6 @@ local function activateCam( sim )
 			sim:addTrigger( simdefs.TRG_OVERWATCH, unit )	
 		end
 	end
-
 end
 
 function mission:init( scriptMgr, sim )
@@ -775,36 +925,34 @@ function mission:init( scriptMgr, sim )
 	scriptMgr:addHook( "KILL", ceoDown, nil, self )
 	scriptMgr:addHook( "SEEDOOR", playerSeesSaferoom, nil, self )
 	scriptMgr:addHook( "UNLOCK", playerUnlocksSaferoom, nil, self )
-
 	scriptMgr:addHook( "BODYGUARD", bodyguardAlertsCeo, nil, self )
 	scriptMgr:addHook( "CEO", ceoAlerted, nil, self )
 	scriptMgr:addHook( "bodyguardShotAt", bodyguardShotAt )
-	
-	scriptMgr:addHook( "checkBodyguardAlert", checkBodyguardAlert, nil, self )
-	scriptMgr:addHook( "checkBountyAlert", checkBountyAlert, nil, self )	
-	-- scriptMgr:addHook( "disguiseRange", disguiseRange, nil, self )
-	-- scriptMgr:addHook( "disguiseRangeDoor", disguiseRangeDoor, nil, self ) --currently disabling the auto-decloak when at close range
-
+	scriptMgr:addHook( "bodyguardShotAt", bodyguardShotAt )
+	scriptMgr:addHook( "waitForInterest", waitForInterest )
+	scriptMgr:addHook( "waitForUnitInterest", waitForUnitInterest )
+	scriptMgr:addHook( "keepClose", keepClose )
+	scriptMgr:addHook( "SEE_REAL", playerSeesRealCEO, nil, self )
+	scriptMgr:addHook( "waitForSteal", waitForSteal, nil, self )
+	scriptMgr:addHook( "despawnDecoy", despawnDecoy )
+	-- scriptMgr:addHook( "updateAgency", updateAgency, nil, self )
 	--This picks a reaction rant from Central on exit based upon whether or not the target is dead yet.
-	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(function() judgement(sim, self) end))
+	local scriptfn = function()
+
+        local scripts = SCRIPTS.INGAME.ASSASSINATION.CENTRAL_JUDGEMENT.GOTNOTHING
+		if self.killedTarget then
+			scripts = SCRIPTS.INGAME.ASSASSINATION.CENTRAL_JUDGEMENT.GOTBODY
+		end
+        local scr = scripts[sim:nextRand(1, #scripts)]
+        return scr
+    end	
+	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))	
 end
 
 
 function mission.pregeneratePrefabs( cxt, tagSet )
 	escape_mission.pregeneratePrefabs( cxt, tagSet )
 	table.insert( tagSet[1], "assassination" )
-
-
-	-- local prefabs = include( "sim/prefabs" )
-
-	-- table.insert( tagSet, { "entry_hotel_ground", makeTags( "struct", cxt.params.difficultyOptions.roomCount ) })
-	-- -- table.insert( tagSet, { "entry", makeTags( "struct", cxt.params.difficultyOptions.roomCount ) })
-	-- tagSet[1].fitnessSelect = prefabs.SELECT_HIGHEST
-
-	-- --table.insert( tagSet, { "research_lab" })
-
-	-- table.insert( tagSet, { "struct_small", "struct_small" })
-	-- table.insert( tagSet, { { "exit", exitFitnessFn } })
 end
 
 function mission.generatePrefabs( cxt, candidates )
