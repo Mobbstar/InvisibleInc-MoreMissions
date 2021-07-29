@@ -40,6 +40,24 @@ local SHARP_SOUNDS =
 	hit = "SpySociety/HitResponse/hitby_ballistic_cyborg",
 }
 
+local android_traits = util.extend( commondefs.basic_agent_traits )
+{
+	canBeCritical = false,
+	woundsMax = 1, 
+	isGuard = true,
+    cleanup = true, 	
+	-- cashOnHand = 80,
+	LOSrange = 8,
+	LOSarc = math.pi / 4,
+	LOSperipheralRange = 10,
+	LOSperipheralArc = math.pi / 2,
+	closedoors = true,
+
+	patrolObserved = nil, 
+	observablePatrol = true,
+	noLoopOverwatch = true,
+}
+
 local npc_templates =
 {
 
@@ -66,7 +84,6 @@ local npc_templates =
 			pacifist = true,
 			recap_icon = "executive",
 			MM_bounty_target = true,
-			-- woundsMax = 2, --EXPERIMENTAL
 			MM_alertlink = true,
 		},
 		dropTable =
@@ -89,6 +106,105 @@ local npc_templates =
 		sounds = SOUNDS.GUARD,
 		brain = "mmBountyTargetBrain",
 	},
+	
+	npc_bounty_target_fake = --DECOY! when attacked, stolen from, EMP'd or alerted, will be replaced with MM_bounty_target_android
+	{
+		type = "simunit",
+		name = STRINGS.MOREMISSIONS.GUARDS.BOUNTY_TARGET,
+		profile_anim = "portraits/portrait_animation_template",
+		profile_build = "portraits/mm_ceotarget_face",
+		profile_image = "executive.png",
+		onWorldTooltip = onGuardTooltip,
+		kanim = "kanim_mm_ceotarget",
+		traits = util.extend( commondefs.basic_guard_traits )   
+		{
+			walk=true,
+			heartMonitor = "enabled",
+			enforcer = false,
+			dashSoundRange = 8,
+			cashOnHand = 0,
+			-- PWROnHand = 2,
+			ko_trigger = "intimidate_guard",
+			kill_trigger = "guard_dead",
+			vip = true, --This flag is important for the panic behaviour
+			pacifist = true,
+			recap_icon = "executive",
+			MM_bounty_target = true,
+			MM_alertlink = true,
+			mm_fixnopatrolfacing = true,
+			mm_nopatrolchange = true,
+		},
+		dropTable = 
+		{
+			{nil, 100}
+		},		
+		speech = speechdefs.NPC,
+		voices = {"Executive"},
+		skills = {},
+		abilities = {"shootOverwatch", "overwatch", "consciousness_monitor_passive"},
+		children = {},
+		idles = DEFAULT_IDLES,
+		sounds = SOUNDS.GUARD,
+		brain = "mmBountyTargetBrain",
+	},	
+	
+	MM_bounty_target_android =
+	{
+		type = "simdrone",
+		name = STRINGS.MOREMISSIONS.GUARDS.HOLOGRAM_DROID or "Hologram Android",
+		profile_anim = "portraits/portrait_animation_template",
+		profile_build = "portraits/MM_bot_pink_face",	
+		profile_image = "enforcer_2.png",
+		profile_icon_36x36= "gui/profile_icons/security_36.png",
+    	onWorldTooltip = onGuardTooltip,
+		kanim = "kanim_MM_android",
+		traits = util.extend( android_traits )   
+		{
+			-- walk=true,
+			heartMonitor="disabled",
+			kill_trigger = "guard_dead",
+			enforcer = false,
+			dashSoundRange = 8, 
+			sightable = true,
+			empKO = 2,
+			empDeath = true,
+			-- cashOnHand = 0,
+			PWROnHand = 2,
+			controlTimer = 0, 
+			controlTimerMax = 1, 
+			hits = "spark",
+			isMetal = true,
+			LOSrange = 8,
+			LOSarc = math.pi / 4,
+			LOSperipheralRange = 10,
+			LOSperipheralArc = math.pi / 2,
+			mainframe_item = true,
+			mainframe_ice = 2,
+			mainframe_iceMax = 4,
+			mainframe_status = "active",
+			mainframe_no_recapture = true,
+			canKO = false,
+			isDrone = true,
+			closedoors = false,
+			pacifist = true,
+
+			
+		},
+		speech = speechdefs.NPC,
+		voices = {"Drone"},
+		skills = {},
+		abilities = util.extend(DEFAULT_ABILITIES){},
+		children = { },
+		sounds = SHARP_SOUNDS, --sneaky clue
+		brain = "PacifistBrain",
+		dropTable = 
+		{
+			{ "item_hologrenade", 15 },
+			{ "item_icebreaker_2", 13 },
+			{ "item_icebreaker_3", 5 },
+			{nil, 67}
+		},			
+	},		
 	
 	MM_bodyguard =
 	{
@@ -132,7 +248,7 @@ local npc_templates =
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
 		kanim = "kanim_MM_android",
-		traits = util.extend( commondefs.basic_guard_traits )   
+		traits = util.extend( android_traits )   
 		{
 			-- walk=true,
 			heartMonitor="disabled",
@@ -143,8 +259,8 @@ local npc_templates =
 			scanSweeps = true,
 			empKO = 4, -- 4 ticks KO when EMP'd.
 			--empDeath = true,
-			cashOnHand = 0,
-			-- PWROnHand = 3, --you'd expect PWR to be lootable but it leads to a weird issue where you have to click on it twice to lookt it \o/
+			-- cashOnHand = 0,
+			PWROnHand = 3, --you'd expect PWR to be lootable but it leads to a weird issue where you have to click on it twice to lookt it \o/
 			controlTimer = 0, 
 			controlTimerMax = 1, 
 			hits = "spark",
@@ -192,7 +308,7 @@ local npc_templates =
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
 		kanim = "kanim_MM_android_elite", 
-		traits = util.extend( commondefs.basic_guard_traits )   
+		traits = util.extend( android_traits )   
 		{
 			-- walk=true,
 			MM_nullFX = true, --for unitrig
@@ -204,8 +320,8 @@ local npc_templates =
 			scanSweeps = true,
 			empKO = 4, -- 4 ticks KO when EMP'd.
 			empDeath = true,
-			-- PWROnHand = 4,
-			cashOnHand = 0,		
+			PWROnHand = 4,
+			-- cashOnHand = 0,		
 			controlTimer = 0, 
 			controlTimerMax = 1, 
 			hits = "spark",
