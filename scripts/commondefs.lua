@@ -51,6 +51,12 @@ local function onGuardTooltip(tooltip, unit)
 	if unit:getTraits().MM_amnesiac then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT_DESC, "gui/icons/arrow_small.png" )	
 	end
+	if unit:getTraits().MM_bodyguard and not unit:getTraits().MM_alertlink then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE_DESC, "gui/icons/arrow_small.png" ) --need custom icon	
+	end	
+	if unit:getTraits().MM_bounty_target and not unit:getTraits().MM_ceo_armed then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_PARANOID, STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_PARANOID_DESC, "gui/icons/arrow_small.png" ) --need custom icon
+	end
 	if unit:getTraits().MM_alertlink then
 		if unit:getTraits().MM_bodyguard then
 			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_ALERT_DESC, "gui/icons/arrow_small.png" ) --need custom icon
@@ -59,9 +65,8 @@ local function onGuardTooltip(tooltip, unit)
 			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_ALERT_DESC, "gui/icons/arrow_small.png" )
 		end
 	end
-	if unit:getTraits().MM_bodyguard then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE_DESC, "gui/icons/arrow_small.png" ) --need custom icon
-		
+	if unit:getTraits().MM_bodyguard or unit:getTraits().MM_bounty_target or unit:getTraits().MM_decoy then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.AUTHORIZED_BODY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.AUTHORIZED_BODY_DESC, "gui/icons/arrow_small.png" )
 	end
 end
 
