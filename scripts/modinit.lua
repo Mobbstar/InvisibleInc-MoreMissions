@@ -173,9 +173,9 @@ local function init( modApi )
 	local modifyPrograms = include( scriptPath .. "/abilities/mainframe_abilities" )
 	modifyPrograms()
 	-- double-included here in init and in lateLoad to catch both vanilla overrides and mod additions. Upgraded programs with abilityOverride such as Fusion DO NOT WORK without this line!
-
+	
 	util.tmerge( STRINGS.LOADING_TIPS, STRINGS.MOREMISSIONS.LOADING_TIPS  ) --add new loading screen tooltips
-
+	
 end
 
 
@@ -311,6 +311,14 @@ local function lateInit( modApi )
 				self._sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
 			end
 		end
+		if self:getTraits().MM_decoy then
+			local newTarget = assassination_mission.revealDecoy( self:getSim(), self, nil, { bootTime = bootTime, noEmpFX = noEmpFX } )
+			if newTarget and newTarget:isValid() then
+				processEMP_old( newTarget, bootTime, noEmpFX, ... )
+			else
+				return
+			end
+		end		
 	end
 
 	local simdrone = include("sim/units/simdrone")
@@ -387,30 +395,33 @@ local function lateInit( modApi )
 
 	local simengine = include("sim/engine")
 	local simengine_tryShootAt_old = simengine.tryShootAt
-	simengine.tryShootAt = function( self, sourceUnit, targetUnit, dmgt0, equipped, ... )
-		if targetUnit:getTraits().MM_bounty_disguise
-		-- and not equipped:getTraits().canTag
+	simengine.tryShootAt = function( self, sourceUnit, targetUnit, dmgt, equipped, ... )
+		if targetUnit:getTraits().MM_decoy
+		and not equipped:getTraits().canTag
 		then
-			local newTarget = assassination_mission.getOpposite( self, targetUnit )
-			if newTarget then
-				assassination_mission.bodyguardSwap( self ) --this clears MM_bounty_disguise trait on both!
-				log:write("LOG swapping")
-				targetUnit = newTarget
-			-- we want the swap to happen no matter who is attacked or what kind of attack it is
+			local newTarget = assassination_mission.revealDecoy( sourceUnit:getSim(), targetUnit )
+			if newTarget and newTarget:isValid() then
+				if dmgt.ko then
+					return
+				else
+					targetUnit = newTarget
+				end
+			else
+				return
 			end
 		end
-		simengine_tryShootAt_old( self, sourceUnit, targetUnit, dmgt0, equipped, ... )
+		simengine_tryShootAt_old( self, sourceUnit, targetUnit, dmgt, equipped, ... )
 	end
 
 	local simengine_hitUnit_old = simengine.hitUnit
 	simengine.hitUnit = function( self, sourceUnit, targetUnit, dmgt, ... )
 		--hitUnit is called as part of tryShootAt but it's also called in other cases so we need to cover those as well
-		if targetUnit:getTraits().MM_bounty_disguise then
-			local newTarget = assassination_mission.getOpposite( self, targetUnit )
-			if newTarget then
-				assassination_mission.bodyguardSwap( self )
+		if targetUnit:getTraits().MM_decoy and not dmgt.canTag then
+			local newTarget = assassination_mission.revealDecoy( sourceUnit:getSim(), targetUnit )
+			if newTarget and newTarget:isValid() then
 				targetUnit = newTarget
-			-- we want the swap to happen no matter who is attacked or what kind of attack it is
+			else
+				return
 			end
 		end
 		simengine_hitUnit_old( self, sourceUnit, targetUnit, dmgt, ... )
@@ -419,12 +430,9 @@ local function lateInit( modApi )
 
 	local simunit_setKO_old = simunit.setKO --for flash grenade
 	simunit.setKO = function( self, sim, ticks, fx, ... )
-		if self:getTraits().MM_bounty_disguise then
-			local newTarget = assassination_mission.getOpposite( sim, self )
-			if newTarget then
-				assassination_mission.bodyguardSwap( sim )
-				self = newTarget
-			end
+		if self:getTraits().MM_decoy then
+			assassination_mission.revealDecoy( sim, self )
+			return
 		end
 		return simunit_setKO_old( self, sim, ticks, fx, ... )
 	end
@@ -454,7 +462,21 @@ local function lateInit( modApi )
 			targetUnit:getTraits().mpMax = math.max(targetUnit:getTraits().mpMax - unit:getTraits().impair_agent_AP, 4)
 		end
 	end
-
+	
+	local sim_damageUnit_old = simengine.damageUnit
+	simengine.damageUnit = function( self,  targetUnit, srcDamage, kodamage, fx, sourceUnit, ... )
+		local x1,y1 = targetUnit:getLocation()
+		local damage = srcDamage	
+		if targetUnit:getTraits().MM_decoy then
+			local newTarget = assassination_mission.revealDecoy( self, targetUnit )
+			if newTarget and newTarget:isValid() then
+				targetUnit = newTarget
+			else
+				return
+			end
+		end
+		sim_damageUnit_old( self,  targetUnit, srcDamage, kodamage, fx, sourceUnit, ... )
+	end
 end
 
 --The implementation of array.removeAllElements is not optimal for our purposes, and we also need something to remove dupes, so might as well combine it all. -M
@@ -551,6 +573,7 @@ local function load( modApi, options, params )
 	modApi:addAbilityDef( "MM_scrubcameradb", scriptPath .."/abilities/MM_scrubcameradb" )
 	modApi:addAbilityDef( "MM_W93_incogRoom_unlock", scriptPath .."/abilities/MM_W93_incogRoom_unlock" )
 	modApi:addAbilityDef( "MM_W93_incogRoom_upgrade", scriptPath .."/abilities/MM_W93_incogRoom_upgrade" )
+	modApi:addAbilityDef( "MM_fakesteal", scriptPath .. "/abilities/MM_fakesteal" )
 
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
@@ -559,8 +582,7 @@ local function load( modApi, options, params )
 	-- include( scriptPath .. "/missions/mole_insertion" ) -- mole_insertion included in init instead
 	include( scriptPath .. "/missions/mission_util" )
 
-	assassination_mission.bodyguardSwap = assassination.bodyguardSwap
-	assassination_mission.getOpposite = assassination.getOpposite
+	assassination_mission.revealDecoy = assassination.revealDecoy
 
 	-- local mainframe_abilities = include( scriptPath .. "/mainframe_abilities" )
 	-- for name, ability in pairs(mainframe_abilities) do
@@ -819,13 +841,20 @@ local function load( modApi, options, params )
 	local melee_executeOld = melee.executeAbility
 	melee.executeAbility = function( self, sim, unit, userUnit, target, ... )
 		local targetUnit = sim:getUnit(target)
-		if targetUnit:getTraits().MM_bounty_disguise then
-			local newTarget = assassination_mission.getOpposite( sim, targetUnit )
-			if newTarget then
-				sim:dispatchEvent( simdefs.EV_UNIT_STOP_WALKING, { unit = targetUnit  } ) --interrupt old target, without this old target glides to new target's location during swap XD
-				assassination_mission.bodyguardSwap( sim )
-				target = newTarget:getID()
+		if targetUnit:getTraits().MM_decoy then
+			-- punch animation, un-disguise, stagger
+			local x0,y0 = unit:getLocation()
+			local x1,y1 = targetUnit:getLocation()	
+			local facing = simquery.getDirectionFromDelta(x1-x0,y1-y0)
+			local pinning, pinnee = simquery.isUnitPinning(sim, unit)
+			if pinning and pinnee ~= targetUnit then
+				pinning = false
 			end
+			-- sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR, { unitID = unit:getID(), facing = facing } )
+			sim:dispatchEvent( simdefs.EV_UNIT_MELEE, { unit = unit, targetUnit = targetUnit, grapple = false, pinning = pinning, lethal = true} )	
+			assassination_mission.revealDecoy( sim, targetUnit, true )
+			-- sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR_PST, { unitID = unit:getID(), facing = facing } )	
+			return
 		end
 		return melee_executeOld( self, sim, unit, userUnit, target, ... )
 	end
