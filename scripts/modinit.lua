@@ -57,9 +57,12 @@ local function init( modApi )
 	modApi:addGenerationOption("MM_newday", STRINGS.MOREMISSIONS.OPTIONS.NEWDAY, STRINGS.MOREMISSIONS.OPTIONS.NEWDAY_DESC,
 	{
 		values = {0,1,2,3,4,5,6,7,8,9,10},
-		value=5,
+		value=4,
 		noUpdate = true,
 	})
+	
+	modApi:addGenerationOption("MM_exec_terminals", STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS, STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS_DESC,
+	{ noUpdate = true,})	
 
 	modApi:addGenerationOption("MM_easy_mode",  STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE , STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE_TIP, {enabled = false, noUpdate=true, difficulties = {{simdefs.NORMAL_DIFFICULTY, true}} } )
 
@@ -526,7 +529,17 @@ local function load( modApi, options, params )
 		elseif options["MM_easy_mode"] and not options["MM_easy_mode"].enabled then
 			params.MM_difficulty = "hard"
 		end
+		if options["MM_exec_terminals"] and options["MM_exec_terminals"].enabled then
+			params.MM_exec_terminals = true
+		end		
 	end
+	
+	local simdefs_executive_terminals = include( scriptPath .. "/simdefs_executive_terminals" )
+	if options["MM_exec_terminals"] and options["MM_exec_terminals"].enabled then
+		simdefs_executive_terminals.overrideExecDialog()
+	else
+		simdefs_executive_terminals.resetExecDialog()
+	end		
 
 	if options.MM_newday then --cribbed from GenOpts+
 		rawset(simdefs,"NUM_MISSIONS_TO_SPAWN",options.MM_newday.value)
@@ -581,6 +594,7 @@ local function load( modApi, options, params )
 	include( scriptPath .. "/missions/ea_hostage" )
 	-- include( scriptPath .. "/missions/mole_insertion" ) -- mole_insertion included in init instead
 	include( scriptPath .. "/missions/mission_util" )
+	include( scriptPath .. "/missions/mission_executive_terminals" ) --override mission choice window
 
 	assassination_mission.revealDecoy = assassination.revealDecoy
 
@@ -952,6 +966,8 @@ local function load( modApi, options, params )
 		return serverdefs_defaultMapSelector_old( campaign, tags, tempLocation)
 
 	end
+	
+	--
 
 end
 
