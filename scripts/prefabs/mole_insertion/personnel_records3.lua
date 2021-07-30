@@ -284,7 +284,6 @@ local tiles =
         },
         impass = 1,
         cover = 1,
-        sightblock = 1,
     },
     {
         x = 10,
