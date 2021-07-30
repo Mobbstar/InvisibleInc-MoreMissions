@@ -291,7 +291,7 @@ local prop_templates =
 		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
 		traits = { cantdrop = true, pickupOnly="INFORMANT", disposable = false, duration = 1,cooldown = 0, cooldownMax = 6,  cloakDistanceMax=5, cloakInVision = false, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}},
 		abilities = { "carryable","recharge","useInvisiCloak" },
-		value = 0,
+		value = 1,
 		floorWeight = 1,
 		soldAfter = NEVER_SOLD,
 	},	
