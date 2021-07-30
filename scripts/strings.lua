@@ -69,7 +69,10 @@ return {
 		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",
 
 		NEWDAY = "NEW DAY MISSIONS",
-		NEWDAY_DESC = "<c:FF8411>NEW DAY MISSIONS</c>\nNumber of missions that appear when there's a new day. By default, this is increased to 5 to work better with the increased variety. \nOverrides Generation Options+ mod settings.",
+		NEWDAY_DESC = "<c:FF8411>NEW DAY MISSIONS</c>\nNumber of missions that appear when there's a new day. \nOverrides Generation Options+ mod settings.",
+		
+		EXEC_TERMINALS = "MORE EXEC TERMINAL OPTIONS",
+		EXEC_TERMINALS_DESC = "<c:FF8411>MORE EXEC TERMINAL OPTIONS</c>\nExecutive Terminals will allow you to choose from a pool of six missions, instead of four.",
 
 		EASY_MODE = "EASY MODE",
 		EASY_MODE_TIP = "<c:FF8411>EASY MODE</c>\nSome security measures in the custom missions are disabled or more forgiving.",
@@ -89,6 +92,7 @@ return {
 		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt that corporation's Counterintelligence AI.",		
 		"MORE MISSIONS: It's a good idea to have leftover AP on your agents when you complete an objective. You may want to move them after the security measures kick in.",
 		"MORE MISSIONS: You can enable the mod's EASY MODE to make the new missions' challenges easier to deal with.",
+		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
 	},
 
 	PROPS =
