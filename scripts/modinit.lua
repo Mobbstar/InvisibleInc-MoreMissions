@@ -376,9 +376,10 @@ local function lateInit( modApi )
 		paralyze_executeAbility_old( self, sim, unit, userUnit, target, ... )
 		local targetUnit = sim:getUnit(target)
 		local x0, y0 = targetUnit:getLocation()
-		if x0 and y0 and targetUnit:getTraits().witness then
+		if x0 and y0 then
 			targetUnit:getTraits().MM_amnesiac = true
 			targetUnit:getTraits().witness = nil
+			targetUnit:getTraits().MM_impairedVision = true
 			sim:triggerEvent( "used_amnesiac", { userUnit = userUnit, targetUnit = targetUnit } )
 			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=0,a=1}} )
 		end
@@ -966,8 +967,6 @@ local function load( modApi, options, params )
 		return serverdefs_defaultMapSelector_old( campaign, tags, tempLocation)
 
 	end
-	
-	--
 
 end
 
