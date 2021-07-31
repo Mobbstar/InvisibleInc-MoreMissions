@@ -30,6 +30,10 @@ local INTERNATIONALE_SOUNDS =
 	hit = "SpySociety/HitResponse/hitby_ballistic_flesh",		
 }
 
+local INFORMANT_ABILITIES = 
+{
+"jackin", "peek", "escape", "disarmtrap" , "observePath", "moveBody", "lastWords","sprint","MM_escape_guardelevator",
+}
 
 local agent_templates =
 {
@@ -140,11 +144,11 @@ local agent_templates =
 			"gui/agents/team_select_1_central.png",
 		},
 		kanim = "kanim_MM_mole_dark",
-		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=8,  mpMax = 8, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false},	
-		tags = {"MM_mole","INFORMANT"},
-		children = { "MM_mole_cloak", "MM_paralyzer_amnesiac"}, -- Dont add items here, add them to the upgrades table in createDefaultAgency()
-		startingSkills = { anarchy = 2},
-		abilities = util.tconcat( {  "sprint","MM_escape_guardelevator" }, commondefs.DEFAULT_AGENT_ABILITIES ),
+		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=7,  mpMax = 7, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false, inventoryMaxSize = 2, },	
+		tags = {"MM_mole","Informant"},
+		children = { "MM_mole_cloak", "MM_paralyzer_amnesiac"},
+		startingSkills = {},
+		abilities = INFORMANT_ABILITIES,
 		sounds = INTERNATIONALE_SOUNDS,
 		speech = STRINGS.MOREMISSIONS.AGENTS.MOLE.BANTER,
 		blurb = "",
