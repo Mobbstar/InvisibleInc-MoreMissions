@@ -35,6 +35,9 @@ local function onAgentTooltip(tooltip, unit)
 			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS_DESC, "gui/icons/item_icons/items_icon_small/icon-item_toxic_smokel.png" )
 		end
 	end
+	if unit:getTraits().MM_mole then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN_DESC, "gui/icons/thought_icons/status_run_lrg.png" )	
+	end
 end
 
 local function onGuardTooltip(tooltip, unit)
@@ -52,21 +55,25 @@ local function onGuardTooltip(tooltip, unit)
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT_DESC, "gui/icons/arrow_small.png" )	
 	end
 	if unit:getTraits().MM_bodyguard and not unit:getTraits().MM_alertlink then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE_DESC, "gui/icons/arrow_small.png" ) --need custom icon	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE_DESC, "gui/icons/skills_icons/skills_icon_small/icon-item_reflex_small.png" )
 	end	
 	if unit:getTraits().MM_bounty_target and not unit:getTraits().MM_ceo_armed then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_PARANOID, STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_PARANOID_DESC, "gui/icons/arrow_small.png" ) --need custom icon
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_PARANOID, STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_PARANOID_DESC, "gui/icons/action_icons/Action_icon_Small/icon-item_hide_small.png" )
 	end
 	if unit:getTraits().MM_alertlink then
 		if unit:getTraits().MM_bodyguard then
-			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_ALERT_DESC, "gui/icons/arrow_small.png" ) --need custom icon
+			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_ALERT_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action_augment.png" )
 		end
 		if unit:getTraits().MM_bounty_target then
-			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_ALERT_DESC, "gui/icons/arrow_small.png" )
+			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_ALERT_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action_augment.png" )
 		end
 	end
 	if unit:getTraits().MM_bodyguard or unit:getTraits().MM_bounty_target or unit:getTraits().MM_decoy then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.AUTHORIZED_BODY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.AUTHORIZED_BODY_DESC, "gui/icons/arrow_small.png" )
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.AUTHORIZED_BODY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.AUTHORIZED_BODY_DESC, "gui/items/icon-action_open-safe.png" )
+		-- icon-action_door-open
+	end
+	if unit:getTraits().MM_impairedVision then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.IMPAIRED_VISION, STRINGS.MOREMISSIONS.UI.TOOLTIPS.IMPAIRED_VISION_DESC, "gui/items/icon-action_peek.png" )
 	end
 end
 
