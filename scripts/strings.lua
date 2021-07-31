@@ -93,6 +93,7 @@ return {
 		"MORE MISSIONS: It's a good idea to have leftover AP on your agents when you complete an objective. You may want to move them after the security measures kick in.",
 		"MORE MISSIONS: You can enable the mod's EASY MODE to make the new missions' challenges easier to deal with.",
 		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
+		"MORE MISSIONS: The Assassination target is marked as Paranoid, but is it paranoia if someone really is out to kill you?",
 	},
 
 	PROPS =
@@ -189,7 +190,7 @@ return {
 		DISCARDED_MANACLES_FLAVOR = "An empty space, where a prisoner is supposed to be restrained.",
 
 		AMNESIAC = "Amnesiac",
-		AMNESIAC_TOOLTIP = "Use on pinned targets. Removes WITNESS status. Reduces vision range by 2 tiles. Target will be alerted on waking up.",
+		AMNESIAC_TOOLTIP = "Use on pinned targets. Removes WITNESS status. Reduces vision range by 2 tiles. Target will not be alerted on waking up.",
 		AMNESIAC_FLAVOR = "A mind-scrambling mix of chemicals straight off the seedy underbelly of the black market. The target wakes up sluggish, disoriented, and unable to recall certain pertinent details, such as any faces they might have recently seen.",
 
 		MOLE_CLOAK = "Custom Cloaking Rig I",
@@ -561,7 +562,7 @@ return {
 			INSET_TXT = "The corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we might be able to persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
 			INSET_VO = {""},
 			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.\nTelepad locked, courier has the key.",
-			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby, and with reduced travel time.",
+			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby.",
 			BANTER = {
 				START = {
 				"",
@@ -681,13 +682,17 @@ return {
 			TARGET_ALERT = "VIP LINK",
 			TARGET_ALERT_DESC = "The first time this unit is alerted or attacked, the Bodyguard or nearest conscious guard becomes alerted.",
 			BODYGUARD_ALERT = "BODYGUARD LINK",
-			BODYGUARD_ALERT_DESC = "The first time this unit is alerted or attacked, the VIP becomes alerted.",
+			BODYGUARD_ALERT_DESC = "The first time this unit is alerted or attacked, the VIP becomes alerted the next turn.",
 			BODYGUARD_KEEPCLOSE = "BODYGUARD",
 			BODYGUARD_KEEPCLOSE_DESC = "While not alerted, this unit will not stray far from the VIP and will investigate the VIP's interest points for him.",
 			TARGET_PARANOID = "PARANOID",
 			TARGET_PARANOID_DESC = "Will delegate interest point investigations to the Bodyguard, if nearby.",
 			AUTHORIZED_BODY = "AUTHORIZED",
 			AUTHORIZED_BODY_DESC = "If dragged, this unit's body will unlock the Panic Room.",
+			IMPAIRED_VISION = "IMPAIRED VISION",
+			IMPAIRED_VISION_DESC = "This unit's vision range is reduced.",
+			MOLE_CIVILIAN = "CIVILIAN",
+			MOLE_CIVILIAN_DESC = "Cannot use weapons.",
 
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
