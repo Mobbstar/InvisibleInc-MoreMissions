@@ -658,6 +658,12 @@ local function startPhase( script, sim )
 	-- Spawn two new missions in the same corp but otherwise unspecified
 	local serverdefs = include( "modules/serverdefs" )
 	local tags = util.tmerge( { sim:getParams().world, "2max", "close_by", }, serverdefs.ESCAPE_MISSION_TAGS )
+	if array.find( tags, "executive_terminals" ) then
+		array.removeIf( tags, function(v) return v == "executive_terminals" end )
+	end
+	if array.find( tags, "ea_hostage" ) then
+		array.removeIf( tags, function(v) return v == "ea_hostage" end )
+	end	
 
 	sim:addNewLocation( tags )
 	sim:addNewLocation( tags )
