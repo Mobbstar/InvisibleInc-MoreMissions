@@ -17,7 +17,7 @@ local serverdefs = include("modules/serverdefs")
 ---------------------------------------------------------------------------------------------
 -- Port of AI Terminal side mission from Worldgen Extended by wodzu93.
 -- Design summary: Unlock AI terminal by opening four doors. Reward is either a new program slot for Incognita or upgrading an existing program!
--- Security measures: facility-wide blackout after you get the reward, all agents and enemies have limited vision. (Remember to fix hacked drones!) Knockout gas released into the objective starting with the terminal, guard investigates.
+-- Security measures: Knockout gas released into the objective starting with the terminal, guard investigates.
 -- Functionality of adding new slot handled by Function Library.
 
 -- Local helpers
@@ -205,7 +205,7 @@ local function upgradeDialog( script, sim )
 	local _, triggerData = script:waitFor( INCOGNITA_UPGRADED )
 	
 	local dialogPath = STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.DIALOG
-	
+
 	-- check available upgrade types for display purposes
 	local pos1, pos2 = sim.MM_AI_terminal_parameters[1], sim.MM_AI_terminal_parameters[2]	
 	local options3_temp = {}
@@ -248,13 +248,17 @@ local function upgradeDialog( script, sim )
 		local doneUpgrades = sim:getParams().agency.W93_aiTerminals or 0 
 		local remainingUpgrades = 2 - doneUpgrades
 		local maxSlots = currentSlots + remainingUpgrades
+		local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
 		
-		if sim:getParams().agency.W93_aiTerminals and (sim:getParams().agency.W93_aiTerminals) >= 2 then --max slots reached
+		if sim:getParams().agency.W93_aiTerminals and ((sim:getParams().agency.W93_aiTerminals) >= 2) and not isEndless then --max slots reached
 			local slotsfull_txt = util.sformat(dialogPath.OPTIONS2_SLOTSFULL_TXT, currentSlots, maxSlots )
 			mission_util.showBadResult( sim, dialogPath.OPTIONS2_SLOTSFULL_TITLE, slotsfull_txt )
 			option = nil
 			triggerData.abort = true	
 		else
+			if isEndless then
+				maxSlots = dialogPath.SLOTS_UNLIMITED
+			end
 			local slots_txt = util.sformat(dialogPath.OPTIONS2_SLOTS_TXT,currentSlots, maxSlots)
 			local slots_title = dialogPath.OPTIONS2_SLOTS_TITLE
 			local slots_options = dialogPath.OPTIONS2_CANCEL_CONFIRM
@@ -611,6 +615,7 @@ local function makeSmoke( script, sim )
 	end
 	local cell = sim:getCell(terminal:getLocation())
 	local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud_harmless, sim ) -- will produce more toxic gas after 1 turn
+	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Grenades/smokegrenade_explo" )
 	sim:spawnUnit( KOcloud )
 	sim:warpUnit( KOcloud, cell )
 	script:queue( { type="pan", x=cell.x, y=cell.y, zoom=0.27 } )
