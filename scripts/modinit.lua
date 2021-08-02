@@ -401,7 +401,7 @@ local function lateInit( modApi )
 	local simengine_tryShootAt_old = simengine.tryShootAt
 	simengine.tryShootAt = function( self, sourceUnit, targetUnit, dmgt, equipped, ... )
 		if targetUnit:getTraits().MM_decoy
-		and not equipped:getTraits().canTag
+		and not equipped:getTraits().noTargetAlert and not equipped:getTraits().targetNotAlerted 
 		then
 			local newTarget = assassination_mission.revealDecoy( sourceUnit:getSim(), targetUnit )
 			if newTarget and newTarget:isValid() then
@@ -413,6 +413,9 @@ local function lateInit( modApi )
 			else
 				return
 			end
+		end
+		if targetUnit:getTraits().MM_bodyguard then
+			sim:triggerEvent("MM_shotAtBodyguard", {sourceUnit = sourceUnit, targetUnit = targetUnit, dmgt = dmgt, equipped = equipped })
 		end
 		simengine_tryShootAt_old( self, sourceUnit, targetUnit, dmgt, equipped, ... )
 	end
