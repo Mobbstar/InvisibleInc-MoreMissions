@@ -414,10 +414,10 @@ local function lateInit( modApi )
 				return
 			end
 		end
-		if targetUnit:getTraits().MM_bodyguard then
-			self:triggerEvent("MM_shotAtBodyguard", {sourceUnit = sourceUnit, targetUnit = targetUnit, dmgt = dmgt, equipped = equipped })
-		end
 		simengine_tryShootAt_old( self, sourceUnit, targetUnit, dmgt, equipped, ... )
+		if targetUnit and targetUnit:isValid() and not targetUnit:isKO() and targetUnit:getTraits().MM_bodyguard then
+			self:triggerEvent("MM_shotAtBodyguard", {sourceUnit = sourceUnit, targetUnit = targetUnit, dmgt = dmgt, equipped = equipped })
+		end		
 	end
 
 	local simengine_hitUnit_old = simengine.hitUnit
