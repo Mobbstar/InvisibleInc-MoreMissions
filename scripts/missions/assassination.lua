@@ -145,10 +145,13 @@ local BODYGUARD_KO =
 
 local BODYGUARD_SHOT_AT =
 {
-	trigger = simdefs.TRG_UNIT_SHOT,
+	trigger = "MM_shotAtBodyguard",
 	fn = function( sim, evData )
 		if evData.targetUnit:getTraits().MM_bodyguard then
-			return evData.targetUnit, evData.sourceUnit
+			local equipped = evData.equipped
+			if equipped and not (equipped:getTraits().canSleep or equipped:getTraits().targetNotAlerted or equipped:getTraits().noTargetAlert then)
+				return evData.targetUnit, evData.sourceUnit
+			end
 		end
 	end,
 }
