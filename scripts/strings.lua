@@ -685,7 +685,7 @@ return {
 			BODYGUARD_ALERT = "BODYGUARD LINK",
 			BODYGUARD_ALERT_DESC = "The first time this unit is alerted or attacked, the VIP becomes alerted the next turn.",
 			BODYGUARD_KEEPCLOSE = "BODYGUARD",
-			BODYGUARD_KEEPCLOSE_DESC = "While not alerted, this unit will not stray far from the VIP and will investigate the VIP's interest points for him.",
+			BODYGUARD_KEEPCLOSE_DESC = "While unalerted, this unit will not stray far from the VIP and will investigate the VIP's interest points.",
 			TARGET_PARANOID = "PARANOID",
 			TARGET_PARANOID_DESC = "Will delegate interest point investigations to the Bodyguard, if nearby.",
 			AUTHORIZED_BODY = "AUTHORIZED",
