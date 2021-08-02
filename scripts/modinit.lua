@@ -415,7 +415,7 @@ local function lateInit( modApi )
 			end
 		end
 		if targetUnit:getTraits().MM_bodyguard then
-			sim:triggerEvent("MM_shotAtBodyguard", {sourceUnit = sourceUnit, targetUnit = targetUnit, dmgt = dmgt, equipped = equipped })
+			self:triggerEvent("MM_shotAtBodyguard", {sourceUnit = sourceUnit, targetUnit = targetUnit, dmgt = dmgt, equipped = equipped })
 		end
 		simengine_tryShootAt_old( self, sourceUnit, targetUnit, dmgt, equipped, ... )
 	end
