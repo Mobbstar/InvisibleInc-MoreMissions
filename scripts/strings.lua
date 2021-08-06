@@ -107,6 +107,9 @@ return {
 		INCOGROOM_AI_TERMINAL = "AI Development Terminal",
 		ITEMLOCKER = "Secure Tech Case",
 		WEAPONSLOCKER = "Secure Weapon Case",
+		CRATE = "Storage Container",
+		CRATE_DESC = "Monst3r is always interested in fencing goods like these.\n\nUse 'DELIVER' to teleport all Storage Containers inside the elevator to the Jet.",
+		
 	},
 
 	GUARDS =
@@ -315,6 +318,10 @@ return {
 		INCOGROOM_UPGRADE_DESC = "Use this terminal to add 1 program slot to Incognita.",
 
 		DEACTIVATE_LOCKS = "DEACTIVATE LOCKS",
+		
+		W93_ESCAPE = "DELIVER",
+		W93_ESCAPE_DESC = "Teleport all Storage Containers inside the elevator to the jet.",
+		
 
 	},
 
@@ -521,6 +528,20 @@ return {
 
 			},
 		},
+		
+		SIDEMISSIONS = {
+			STEAL_STORAGE =
+			{
+				OBJECTIVE1 = "Find all storage rooms",
+				OBJECTIVE2 = "Steal as many containers as possible",
+				TEXT1 = "VALUABLE CONTENTS DETECTED",		
+			},
+			PERSONNEL_HIJACK = -- I can finally fix this typo!!!!
+			{
+				OBJECTIVE1 = "Bring target to the Jet",
+				TEXT1 = "OPPORTUNITY TARGET DETECTED",			
+			},
+		},
 	},
 
 	LOCATIONS = {
@@ -690,11 +711,14 @@ return {
 			TARGET_PARANOID_DESC = "Will delegate interest point investigations to the Bodyguard, if nearby.",
 			AUTHORIZED_BODY = "AUTHORIZED",
 			AUTHORIZED_BODY_DESC = "If dragged, this unit's body will unlock the Panic Room.",
+			AUTHORIZED_BODY_DESC2 = "If dragged or controlled, this unit's body will unlock the Panic Room.",
 			IMPAIRED_VISION = "IMPAIRED VISION",
 			IMPAIRED_VISION_DESC = "This unit's vision range is reduced.",
 			MOLE_CIVILIAN = "CIVILIAN",
 			MOLE_CIVILIAN_DESC = "Cannot use weapons.",
 
+			BOSSUNIT = "Opportunity Target",
+			BOSSUNIT_DESC = "Bring this unit to the Jet. Successful extraction adds Detention Center location to the map.",			
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
 				UPGRADED_LONG = "AI TERMINAL UPGRADE",
@@ -1102,7 +1126,44 @@ return {
 					},
 				},
 			},
-
+			
+			SIDEMISSIONS = {
+				STEAL_STORAGE = {
+					STORAGE_SPOTTED_1 = {
+					{{"Our telemetry data suggests there are two other rooms like this somewhere in the facility. If we can spare the time, it would be a shame to leave these valuables without stopping by.",nil,"Central"},
+					{"Do try not to drop them. My clients are incredibly particular about the number of pieces they prefer their merchandise to be in.",nil,"Monster"}},
+					},
+					STORAGE_SPOTTED_2 = {
+					{{"You found the second storage room. Get to work.",nil,"Central"},
+					{"Just remember: the more you steal, the more I'll make it worth your while.",nil,"Monster"},
+					{"We are not your delivery service. Operator, take only what our team can safely carry out.",nil,"Central"}}
+					},
+					STORAGE_SPOTTED_3 = {
+					{{"There it is! The last room. Get all of that back on board with you, and I promise you, you will be swimming in credits. Maybe if you leave some by the exit and make two trips-",nil,"Monster"},
+					{"That's enough. It is your choice, Operator. Make sure it's not one we come to regret.",nil,"Central"}},
+					},
+					CENTRAL_LOCKER_ROBBED = {
+					{{"Be careful, Operator. The locker's internal sensors triggered a daemon the moment you took that gear. Perhaps their security is not as shoddy as we thought.",nil,"Central"}},
+					},
+				},
+					
+				PERSONNEL_HIJACK = {
+					SPOTTED_BOSS = {
+					{{"Curious. The facial ID on that guard... Monst3r, do you recognise him?",nil,"Central"},
+					{"Goodness me. A little reminder of the bad old days, isn't it?",nil,"Monster"},
+					{"It has been a while. Operator, I would very much like to have a chat with him on the jet. See to it.",nil,"Central"}},					
+					},
+					KO_BOSS = {
+					{{"Excellent. Now take him back to the jet. Remember: I want this man alive when we interrogate him.",nil,"Central"}},
+					},
+					KILL_BOSS = {
+					{{"Were you not listening when I told you we needed him alive? Still, at least he's finally got what he deserved. Carry on with the mission.",nil,"Central"}},
+					},
+					ESCAPE_BOSS = {
+					{{"Good work, Operator. I'll see if we can get some intel out of him, ask him how the old firm has been.",nil,"Central"}},
+					},					
+				},
+			},
 		},
 		-- CAMPAIGN_MAP = {
 			-- MISSIONS = {
