@@ -68,8 +68,12 @@ local function onGuardTooltip(tooltip, unit)
 			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_ALERT_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action_augment.png" )
 		end
 	end
-	if unit:getTraits().MM_bodyguard or unit:getTraits().MM_bounty_target or unit:getTraits().MM_decoy then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.AUTHORIZED_BODY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.AUTHORIZED_BODY_DESC, "gui/items/icon-action_open-safe.png" )
+	if unit:getTraits().MM_bodyguard or unit:getTraits().MM_bounty_target or unit:getTraits().MM_decoy or unit:hasTag("MM_decoy_droid") then
+		local desc = STRINGS.MOREMISSIONS.UI.TOOLTIPS.AUTHORIZED_BODY_DESC
+		if unit:hasTag("MM_decoy_droid") then
+			desc = STRINGS.MOREMISSIONS.UI.TOOLTIPS.AUTHORIZED_BODY_DESC2
+		end
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.AUTHORIZED_BODY, desc, "gui/items/icon-action_open-safe.png" )
 		-- icon-action_door-open
 	end
 	if unit:getTraits().MM_impairedVision then
