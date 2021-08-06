@@ -191,6 +191,7 @@ local npc_templates =
 			
 		},
 		speech = speechdefs.NPC,
+		tags = {"MM_decoy_droid"},
 		voices = {"Drone"},
 		skills = {},
 		abilities = util.extend(DEFAULT_ABILITIES){},
