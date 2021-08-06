@@ -185,13 +185,13 @@ local function playerHasLethalWeapons( sim )
 end
 
 local function isSaferoomKey( unit )
-	return (unit:isDown() or unit:getTraits().iscorpse) and (unit:hasTag("assassination") or unit:hasTag("bodyguard"))
+	return ((unit:isDown() or unit:getTraits().iscorpse) and (unit:hasTag("assassination") or unit:hasTag("bodyguard"))) or unit:hasTag("MM_decoy_droid")
 end
 local function playerCanUnlockSaferoom( sim )
 	-- Any player non-drone unit is at the door and standing over an authorized body.
 	for _,unit in ipairs( sim:getPC():getUnits() ) do
 		local cell = sim:getCell( unit:getLocation() )
-		if not unit:isDown() and not unit:getTraits().isDrone and simquery.cellHasTag( sim, cell, "saferoom_unlock" ) then
+		if not unit:isDown() and (not unit:getTraits().isDrone or unit:hasTag("MM_decoy_droid")) and simquery.cellHasTag( sim, cell, "saferoom_unlock" ) then
 			for _,cellUnit in ipairs( cell.units ) do
 				if cellUnit and isSaferoomKey( cellUnit ) then
 					return unit, cellUnit
