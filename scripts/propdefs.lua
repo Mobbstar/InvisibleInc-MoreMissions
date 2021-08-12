@@ -410,6 +410,35 @@ local prop_templates =
 		}
     },		
 
+	--------------- SIDE MISSIONS ---------------------
+	MM_W93_crate = --24 BRIEFCASES
+	{
+		type = "simunit",
+		name = STRINGS.MOREMISSIONS.PROPS.CRATE,
+        	onWorldTooltip = commondefs.onItemWorldTooltip,
+        	onTooltip = commondefs.onItemTooltip,	
+		desc = STRINGS.MOREMISSIONS.PROPS.CRATE_DESC,
+		icon = "itemrigs/floor_prop_tech_loot.png",		
+		profile_icon = "gui/icons/skills_icons/skills_icon_small/icon-item_inventory_small.png",
+		profile_icon_100 = "gui/icons/skills_icons/icon-skill_inventory.png",
+		kanim = "kanim_laptop",
+		traits = { artifact=true, selectpriority=0, showOnce="corp_intel", cashInReward=200, mainframe_status = "off", noDeploy=true, agent_filter=true, sightable = true, hidesInCover = true },
+		abilities = { "carryable", "deployable", "MM_W93_escape" },
+		rig = "consolerig",
+		locator=true,
+	},	
+
+	MM_luxury_store = 
+	{ 
+		type = "store", 
+		name =  STRINGS.PROPS.STORE_LARGE, 
+		onWorldTooltip = onStoreTooltip,
+		kanim = "kanim_printer", 
+		rig ="corerig",
+		traits = util.extend( MAINFRAME_TRAITS ) { moveToDevice=true, cover = true, impass = {0,0}, storeType="large", sightable = true, largenano=true, luxuryNanofab = true,},
+		abilities = { "showItemStore" },
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", }
+	},	
 }
 
 

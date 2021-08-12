@@ -417,27 +417,27 @@ function init( scriptMgr, sim )
 	fixNoPatrolFacing( sim )
 	--sidemission stuff
     local params = sim:getParams()
-	-- if params.side_mission then
-	-- params.side_mission = "MM_luxuryNanofab"
-		-- log:write("LOG side mission")
-		-- log:write(util.stringize(params.side_mission,2))
-        -- if params.side_mission == "MM_luxuryNanofab" then
-		    -- scriptMgr:addHook( "FANCYFAB", boughtItemAtFancyFab, nil  )
-			-- scriptMgr:addHook( "CLOSED_FANCYFAB", closedFancyFab, nil )
-			-- -- testNanofab(sim)
-			-- populateFancyFab(sim)
-		-- elseif params.side_mission == "MM_w93_storageroom" then
-			-- briefcasifyStorageUnits(sim)
-			-- scriptMgr:addHook( "spottedStorage", spottedStorage )
-			-- scriptMgr:addHook( "lootedStorage", lootedStorage )
-		-- elseif params.side_mission == "MM_w93_personelHijack" then
-			-- createBossUnit(sim)
-			-- scriptMgr:addHook( "spottedBoss", spottedBoss )
-			-- scriptMgr:addHook( "KoBoss", KoBoss )
-			-- scriptMgr:addHook( "KillBoss", KillBoss )
-			-- scriptMgr:addHook( "escapeBoss", escapeBoss )
-		-- end
-	-- end	
+	if params.side_mission then
+	params.side_mission = "MM_luxuryNanofab"
+		log:write("LOG side mission")
+		log:write(util.stringize(params.side_mission,2))
+        if params.side_mission == "MM_luxuryNanofab" then
+		    scriptMgr:addHook( "FANCYFAB", boughtItemAtFancyFab, nil  )
+			scriptMgr:addHook( "CLOSED_FANCYFAB", closedFancyFab, nil )
+			-- testNanofab(sim)
+			populateFancyFab(sim)
+		elseif params.side_mission == "MM_w93_storageroom" then
+			briefcasifyStorageUnits(sim)
+			scriptMgr:addHook( "spottedStorage", spottedStorage )
+			scriptMgr:addHook( "lootedStorage", lootedStorage )
+		elseif params.side_mission == "MM_w93_personelHijack" then
+			createBossUnit(sim)
+			scriptMgr:addHook( "spottedBoss", spottedBoss )
+			scriptMgr:addHook( "KoBoss", KoBoss )
+			scriptMgr:addHook( "KillBoss", KillBoss )
+			scriptMgr:addHook( "escapeBoss", escapeBoss )
+		end
+	end	
 end
 
 return {
