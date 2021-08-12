@@ -86,7 +86,7 @@ local function spottedStorage( script, sim )
 		end
 		script:addHook( spottedStorage )
 	elseif sim:getPC():getTraits().W93_spottedStorage == 2 then
-		script:waitFor( PC_SAW_UNIT_WITH_MARKER2( script, "w93_storage_1", STRINGS.WORLDEXTEND.SIDEOBJECTIVES.STEAL_STORAGE.TEXT1 ))
+		script:waitFor( PC_SAW_UNIT_WITH_MARKER2( script, "w93_storage_1", STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.STEAL_STORAGE.TEXT1 ))
 		if not safeUnit:getTraits().W93_safe_spotted then
 			safeUnit:getTraits().W93_safe_spotted = true
 			sim:getPC():getTraits().W93_spottedStorage = sim:getPC():getTraits().W93_spottedStorage + 1
