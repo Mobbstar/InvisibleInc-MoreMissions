@@ -1,12 +1,12 @@
 return {
 	EA_HOSTAGE = {			
 			NAME= "Secure Holding Facility",
-			MORE_INFO = "Corporation has intercepted one of our client's couriers.\nHe's got important intel stored in a cerebral implant.\nYour task is to break in, locate the courier, and recover the information.\n\nOne final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",
+			MORE_INFO = "The corp has intercepted a courier of one of our former clients. He's got important site intel stored in a cerebral implant, intel we could use. Your task is to break in, locate the courier, and recover the information.\n\nOne final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",
 			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
-			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
-			DESCRIPTION = "Rescue missing courier, and escape with him in time limited from the moment you free him.\nTelepad locked, courier possesses the key.",
-			REWARD = "Courier rescue reward.",
+			INSET_VO = {""}, 
+			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.\nTelepad locked, courier has the key.",
+			REWARD = "Two new infiltration targets at the same corporation as this facility.",
 			BANTER = {
 				START = {
 				"",
@@ -65,7 +65,7 @@ return {
 
 	MISSIONS = {
 	HOSTAGE = {
-		MISSION_TITLE = "INSOMNIAC",
+		MISSION_TITLE = "HOSTAGE EXTRACTION",
 		MISSION_DESCRIPTION = "<Corporation> has intercepted one of our client's couriers. He's got important intel stored in a cerebral implant.",
 		MISSION_GOAL = "Your task is to break in, locate the courier, and recover the information. ",
 		MISSION_ENDER = "One final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",

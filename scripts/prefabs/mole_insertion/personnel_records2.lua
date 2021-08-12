@@ -940,19 +940,35 @@ local walls =
 local units =
 {
     {
-        maxCount = 1,
+        maxCount = 2,
         spawnChance = 1,
         {
             {
                 x = 2,
                 y = 1,
-                template = [[diagnostic_terminal]],
+                template = [[MM_personneldb]],
                 unitData =
                 {
                     facing = 2,
                     tags =
                     {
                         "personneldb",
+                    },
+                },
+            },
+            1,
+        },
+        {
+            {
+                x = 1,
+                y = 4,
+                template = [[security_camera_1x1]],
+                unitData =
+                {
+                    facing = 7,
+                    tags =
+                    {
+                        "MM_personneldb_camera",
                     },
                 },
             },

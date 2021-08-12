@@ -10,6 +10,7 @@ local simfactory = include( "sim/simfactory" )
 local itemdefs = include( "sim/unitdefs/itemdefs" )
 local serverdefs = include( "modules/serverdefs" )
 local cdefs = include( "client_defs" )
+local modifiers = include( "sim/modifiers" )
 
 local SCRIPTS = include('client/story_scripts')
 
@@ -103,17 +104,35 @@ end
 	
 local function spawnAndroids(script,sim)
 	local enemy = mission_util.findUnitByTag( sim, "spawningDroid" ) 
-	enemy:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB) 
+	local enemies = {}
+	for i,unit in pairs(sim:getAllUnits()) do
+		if unit:hasTag("spawningDroid") then
+			table.insert(enemies, unit)
+			unit:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB) 
+		end
+	end
+	assert (#enemies > 0)
+	for i, unit in pairs(enemies) do
+		if sim:canPlayerSeeUnit( sim:getPC(), unit ) then --for camera pan, pick one currently visible to the player if possible
+			enemy = unit
+		end
+	end
 	local x1,y1 = enemy:getLocation()
 	script:queue( {type = "pan", x=x1, y=y1 } )
+	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/reboot_initiated_scanner" )
 	script:queue(1*cdefs.SECONDS )  
 	local scripts = SCRIPTS.INGAME.WEAPONS_EXPO.LOOTED_CASE_DROIDS_BOOTING
 	queueCentral(script, scripts)
 
-	script:waitFor( mission_util.PC_START_TURN )
-	enemy:destroyTab()
+	script:waitFor( mission_util.PC_END_TURN )
+	for i, unit in pairs(enemies) do
+		unit:destroyTab()
+	end
+	
+	script:waitFor( mission_util.PC_START_TURN )	
 
 	local droid_props = sim.androidSpawnedPool
+	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/reboot_complete_scanner" )
 	for i=#droid_props, 1, -1 do
 		local unit = droid_props[i]
 		local facing = unit:getFacing()
@@ -125,15 +144,26 @@ local function spawnAndroids(script,sim)
 		local cell = sim:getCell( unit:getLocation() )
 		sim:warpUnit( unit, nil )
 		sim:despawnUnit( unit )
-		
+
+		newUnit:setPlayerOwner(sim:getNPC())		
 		sim:spawnUnit( newUnit )
 		newUnit:setFacing(facing)			
 		sim:warpUnit( newUnit, cell )
-		newUnit:setPlayerOwner(sim:getNPC())
+		sim:dispatchEvent( simdefs.EV_UNIT_OVERWATCH_MELEE, { unit = newUnit, cancel=true})
 		newUnit:setPather(sim:getNPC().pather)
 		sim:dispatchEvent( simdefs.EV_UNIT_APPEARED, { unitID = newUnit:getID() } )	--no idea what this does but vanilla code has it so....
-		newUnit:setAlerted(true)
-		sim:getNPC():createOrJoinHuntSituation(newUnit)
+		if (sim:getParams().difficultyOptions.MM_difficulty == nil) or sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
+			newUnit:setAlerted(true)
+			sim:getNPC():createOrJoinHuntSituation(newUnit)
+		end
+		if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+			if newUnit:getTraits().range then
+				newUnit:getTraits().range = newUnit:getTraits().range - 1
+			end
+			newUnit:getModifiers():add("LOSrange","MM_easymode", modifiers.ADD, -1 )
+			newUnit:getBrain():setSituation(sim:getNPC():getIdleSituation() )
+			sim:getNPC():getIdleSituation():generatePatrolPath( newUnit, newUnit:getLocation() )
+		end
 		sim:getPC():glimpseCell(sim, cell)
 		sim:processReactions( newUnit )
 		
@@ -212,6 +242,9 @@ local function boost_firewalls(script, sim)
 	local _, vaultcase = script:waitFor( SAFE_HACKED )
 	local units_left = false
 	if not sim.MM_security_disabled then
+		if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+			ice_boost = 1
+		end
 		sim:dispatchEvent( simdefs.EV_SHOW_WARNING, {txt=STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_FIREWALLS, color=cdefs.COLOR_CORP_WARNING, sound = "SpySociety/Actions/mainframe_deterrent_action" } )
 		for i, unit in pairs(sim:getAllUnits()) do
 			if unit:hasTag("MM_topGear") and (vaultcase ~= unit) and unit:getTraits().mainframe_ice and (unit:getTraits().mainframe_ice > 0) and (unit:getTraits().mainframe_status == "active") then
@@ -231,9 +264,13 @@ end
 local function MM_checkTopGearSafes( sim )
 	-- log:write("spawning special gear")
 	local itemList = {}
+	local techList = {}
 	for k,v in pairs(itemdefs) do
-		if v.traits and v.traits.MM_tech_expo_item then
+		if v.traits and v.traits.MM_tech_expo_weapon then
 			table.insert(itemList,v)				
+		end
+		if v.traits and v.traits.MM_tech_expo_nonweapon then
+			table.insert(techList, v)
 		end
 	end
 	
@@ -245,15 +282,31 @@ local function MM_checkTopGearSafes( sim )
 		end
 	end
 	for i, unit in pairs(safes) do
+		unit:getTraits().safeUnit = true --for Authority
 		-- Add a random item to unit (presumably a safe)
-		local item = itemList[ sim:nextRand( 1, #itemList ) ]
-		local newItem = simfactory.createUnit( item, sim )						
-		newItem:addTag("MM_topGearItem") -- For the UI loot hook
-		sim:spawnUnit( newItem )
-		newItem:getTraits().artifact = true --for safe to display the loot symbol
-		unit:addChild( newItem )	
-		sim.totalTopGear = sim.totalTopGear or 0 
-		sim.totalTopGear = sim.totalTopGear + 1 
+		local item = nil
+		if unit:getTraits().MM_loot == "weapon" then
+			-- log:write("LOG choosing weapon")
+			item = itemList[ sim:nextRand( 1, #itemList ) ]
+		end
+		if unit:getTraits().MM_loot == "item" then
+			-- log:write("LOG choosing item")
+			item = techList[ sim:nextRand( 1, #techList ) ]
+		end
+		if item then
+			local newItem = simfactory.createUnit( item, sim )						
+			sim:spawnUnit( newItem )
+			-- log:write("LOG newItem")
+			-- log:write(util.stringize(newItem:getUnitData().name,2))
+			newItem:getTraits().artifact = true --for safe to display the loot symbol
+			unit:addChild( newItem )	
+			local itemName = newItem:getUnitData().name
+			unit:getTraits().MM_tech_expo_contents = itemName
+			newItem:addTag("MM_topGearItem") -- For the UI loot hook	
+			sim.totalTopGear = sim.totalTopGear or 0 
+			sim.totalTopGear = sim.totalTopGear + 1 
+		end
+		-- log:write(util.stringize(newItem._tags,3))
 	end
 	-- log:write("LOG sim.totalTopGear " ..tostring(sim.totalTopGear))
 end
@@ -275,9 +328,10 @@ local function MM_checkTopGearItem( script, sim )
     
 	sim:setClimax(true)
     script:waitFor( mission_util.UI_LOOT_CLOSED )
-    sim:removeObjective( OBJECTIVE_ID )        
+    sim:removeObjective( OBJECTIVE_ID )    
+	sim:getNPC():addMainframeAbility( sim, "authority", nil, 0 ) --add Authority daemon (with no reversal) after first one looted
     script:waitFrames( .5*cdefs.SECONDS )
-
+	sim.exit_warning = nil
 	androidFX(script,sim)
 	script:addHook(spawnAndroids)
 	
@@ -317,22 +371,32 @@ local function countUnstolenTech(script,sim)
 		script:addHook(countUnstolenTech)
 	else
 		local not_stolen = {}
-		for i,unit in pairs(sim:getAllUnits()) do
-			if (unit:getLocation() or unit:getUnitOwner()) and unit:hasTag("MM_topGearItem") then
+		for i, unit in pairs(sim:getAllUnits()) do
+			if unit:hasTag("MM_topGearItem") then
+				local stolen_item = true
 				local owner = unit:getUnitOwner()
 				local owner_cell = owner and owner:getLocation() and sim:getCell(owner:getLocation())
-				if (owner == nil) or --on the floor
-				( owner and --in someone's inventory or in a container
-				(owner:getPlayerOwner() == sim:getNPC()) or
-				((owner:getPlayerOwner() == sim:getPC()) and owner_cell and not owner_cell.exitID)
-				) then --any lootables not in an escaping unit's inventory
-					table.insert(not_stolen, unit)
+				if owner == nil then --on the floor
+					stolen_item = false
+				elseif owner then
+					if owner:getPlayerOwner() == sim:getPC() then
+						if not owner:getTraits().isAgent then
+							stolen_item = false
+						elseif owner_cell and not owner_cell.exitID then
+							stolen_item = false
+						end
+					else
+						stolen_item = false
+					end
+				end
+				if stolen_item == false then
+					table.insert(not_stolen, unit )
 				end
 			end
-		end
+		end				
 		local stolen = sim.totalTopGear -(#not_stolen)  --sim.totalTopGear should always be 5 with these prefabs
+		log:write("LOG stolen" .. tostring(stolen))
 		if stolen > 0 then 
-			sim.exit_warning = nil
 			sim.TA_mission_success = true -- flag for Talkative Agents
 			sim.MM_got_partial_tech = true
 		end
@@ -351,6 +415,7 @@ end
 local mission = class( escape_mission )
 
 function mission:init( scriptMgr, sim )
+	sim.TA_mission_success = false
     local params = sim:getParams()
     if params.side_mission then
 		if params.side_mission == "transformer" then

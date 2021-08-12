@@ -13,6 +13,28 @@ local FLOAT_DRONE_TANK_ANIMS = commondefs.FLOAT_DRONE_TANK_ANIMS
 local Layer = commondefs.Layer
 local BoundType = commondefs.BoundType
 
+-- unarmed anim fix from Cyberboy
+local anims_sysadmin_panic = util.tconcat( {
+        "data/anims/characters/anims_male/shared_basic_a_01.adef",
+        "data/anims/characters/anims_male/shared_basic_c_01.adef",
+        "data/anims/characters/anims_male/shared_basic_c_02.adef",
+        "data/anims/characters/anims_male/shared_basic_c_03.adef",
+        "data/anims/characters/anims_male/shared_basic_c_04.adef",
+        "data/anims/characters/anims_male/shared_basic_c_05.adef",
+        "data/anims/characters/anims_male/shared_basic_c_06.adef",
+        "data/anims/characters/anims_male/shared_basic_c_07.adef",
+        --"data/anims/characters/anims_male/unarmed_basic_a_01.adef",
+        "data/anims/characters/anims_male/unarmed_basic_a_02.adef",
+        "data/anims/characters/anims_male/unarmed_basic_a_03.adef",
+        "data/anims/characters/anims_male/unarmed_basic_a_04.adef",
+    },
+    
+    commonanims.male.anims,
+    commonanims.male.anims_panic
+)
+
+util.tclear(commonanims.male.default_anims_panic)
+util.tmerge(commonanims.male.default_anims_panic, anims_sysadmin_panic)
 
 local animdefs =
 {
@@ -32,7 +54,7 @@ local animdefs =
 		{
 			"data/anims/characters/corp_neutral/grp_mm_ceotarget.abld",
 		},
-		anims = commonanims.male.default_anims_1h,
+		anims = commonanims.male.default_anims_unarmed,
 		anims_1h = commonanims.male.default_anims_1h,
 		anims_2h = commonanims.male.default_anims_2h,
 		anims_panic = commonanims.male.default_anims_panic,
@@ -155,6 +177,28 @@ local animdefs =
 		boundType = BoundType.bound_1x1_tall_med,
 		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
 	},	
+	
+	kanim_MM_techsafe_1 =
+	{
+		build = "data/anims/props/MM_techsafe1.abld",
+		anims = { "data/anims/Unique_Vault/vault_1x1_podium1.adef" },
+		symbol = "character",		
+		scale = 0.25,
+		layer = Layer.Decor,
+		boundType = BoundType.bound_1x1_tall_med,
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
+	},	
+
+	kanim_MM_techsafe_2 =
+	{
+		build = "data/anims/props/MM_techsafe2.abld",
+		anims = { "data/anims/Unique_Vault/vault_1x1_podium1.adef" },
+		symbol = "character",		
+		scale = 0.25,
+		layer = Layer.Decor,
+		boundType = BoundType.bound_1x1_tall_med,
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
+	},		
 
 	kanim_MM_prototype_drone =
 	{
@@ -213,7 +257,7 @@ local animdefs =
 		filterSymbols = {{symbol="fire",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},
 	},		
 
-	mm_kanim_guard_male_dummy =
+	kanim_MM_android = 
 	{
 		wireframe =
 		{
@@ -221,13 +265,53 @@ local animdefs =
 		},
 		build = 
 		{ 
-			"data/anims/characters/corp_neutral/bot_male.abld",
+			"data/anims/characters/corp_neutral/MM_bot_male_pink.abld",
 			"data/anims/characters/anims_male/shared_male_robot_hits_01.abld",	
 			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
 		},
 		grp_build = 
 		{
-			"data/anims/characters/corp_neutral/grp_bot_male.abld",
+			"data/anims/characters/corp_neutral/grp_MM_bot_male_pink.abld",
+		},		
+		grp_anims = commonanims.male.grp_anims,
+		
+		anims = commonanims.male.default_anims_unarmed,
+		-- anims = commonanims.male.default_anims_1h,
+		anims_1h = commonanims.male.default_anims_1h,
+		anims_2h = commonanims.male.default_anims_2h,
+		animMap = GUARD_ANIMS,
+
+		symbol = "character",
+		anim = "idle",
+		shouldFlip = true,
+		shouldFlipOverrides = {
+			{anim="peek_fwrd", shouldFlip=false},
+			{anim="peek_pst_fwrd", shouldFlip=false},
+		},
+		scale = 0.25,
+		layer = Layer.Unit,
+		boundType = BoundType.Character,
+		boundTypeOverrides = {			
+			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
+			{anim="dead" ,boundType= BoundType.CharacterFloor},
+		},		
+	},	
+
+	kanim_MM_android_elite = 
+	{
+		wireframe =
+		{
+			"data/anims/characters/corp_FTM/ftm_med_overlay.abld",--"data/anims/characters/corp_neutral/bot_male.abld",
+		},
+		build = 
+		{ 
+			"data/anims/characters/corp_neutral/MM_bot_male_purple.abld",
+			"data/anims/characters/anims_male/shared_male_robot_hits_01.abld",	
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+		},
+		grp_build = 
+		{
+			"data/anims/characters/corp_neutral/grp_MM_bot_male_purple.abld",
 		},		
 		grp_anims = commonanims.male.grp_anims,
 		
@@ -251,7 +335,6 @@ local animdefs =
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
 		},		
 	},	
-	-- will need second version for specdroid variant
 	
 	--these two are used for the two droid variant PROPS, not guards
 	mm_kanim_guard_male_dummy1 =
@@ -262,13 +345,13 @@ local animdefs =
 		},
 		build = 
 		{ 
-			"data/anims/characters/corp_neutral/bot_male.abld",
+			"data/anims/characters/corp_neutral/MM_bot_male_pink.abld",
 			"data/anims/characters/anims_male/shared_hits_01.abld",	
 			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
 		},
 		grp_build = 
 		{
-			"data/anims/characters/corp_neutral/grp_bot_male.abld",
+			"data/anims/characters/corp_neutral/grp_MM_bot_male_pink.abld",
 		},		
 		grp_anims = commonanims.male.grp_anims,
 		
@@ -293,13 +376,13 @@ local animdefs =
 		},
 		build = 
 		{ 
-			"data/anims/characters/corp_neutral/bot_male.abld",
+			"data/anims/characters/corp_neutral/MM_bot_male_purple.abld",
 			"data/anims/characters/anims_male/shared_hits_01.abld",	
 			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
 		},
 		grp_build = 
 		{
-			"data/anims/characters/corp_neutral/grp_bot_male.abld",
+			"data/anims/characters/corp_neutral/grp_MM_bot_male_purple.abld",
 		},		
 		grp_anims = commonanims.male.grp_anims,
 		
@@ -337,6 +420,152 @@ local animdefs =
 		-- layer = Layer.Unit,
 		-- boundType = BoundType.Character, -- this doesn't really apply to HUD stuff...
 	-- },	
+	
+	kanim_MM_agent009 =
+	{
+		wireframe =
+		{
+			"data/anims/characters/agents/agent_male_empty.abld",
+		},
+		build = 
+		{ 
+			"data/anims/characters/agents/MM_agent009.abld",
+			"data/anims/characters/anims_male/shared_hits_01.abld",	
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+		},
+		grp_build = 
+		{
+			"data/anims/characters/agents/grp_MM_agent009.abld",
+		},
+		grp_anims = commonanims.male.grp_anims,
+
+		anims = commonanims.male.default_anims_unarmed,
+		anims_1h = commonanims.male.default_anims_1h,
+		anims_2h = commonanims.male.default_anims_2h,
+		animMap = AGENT_ANIMS,
+
+		symbol = "character",
+		anim = "idle",
+		shouldFlip = true,
+		scale = 0.25,
+		layer = Layer.Unit,
+		boundType = BoundType.Character,
+		boundTypeOverrides = {			
+			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
+			{anim="dead" ,boundType= BoundType.CharacterFloor},
+		},		
+		peekBranchSet = 1,	
+	},	
+	
+	kanim_MM_mole_light =
+	{
+		wireframe =
+		{
+			"data/anims/characters/agents/agent_male_empty.abld",
+		},
+		build = 
+		{ 			
+			"data/anims/characters/anims_female/shared_female_hits_01.abld",		 
+			"data/anims/characters/anims_female/shared_female_attacks_a_01.abld",	
+			"data/anims/characters/agents/lady_mole_light.abld",
+		},
+		grp_build = 
+		{
+			"data/anims/characters/agents/grp_lady_mole_light.abld",
+		},
+		grp_anims = commonanims.female.grp_anims,
+
+		anims = commonanims.female.default_anims_unarmed,
+		anims_1h = commonanims.female.default_anims_1h,
+		anims_2h = commonanims.female.default_anims_2h,
+
+		animMap = AGENT_ANIMS,
+
+		symbol = "character",
+		anim = "idle",
+		shouldFlip = true,
+		scale = 0.25,
+		layer = Layer.Unit,
+		boundType = BoundType.Character,
+		boundTypeOverrides = {			
+			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
+			{anim="dead" ,boundType= BoundType.CharacterFloor},
+		},		
+		peekBranchSet =  2,
+	},	
+	
+	kanim_MM_mole_dark =
+	{
+		wireframe =
+		{
+			"data/anims/characters/agents/agent_male_empty.abld",
+		},
+		build = 
+		{ 			
+			"data/anims/characters/anims_female/shared_female_hits_01.abld",		 
+			"data/anims/characters/anims_female/shared_female_attacks_a_01.abld",	
+			"data/anims/characters/agents/lady_mole_dark.abld",
+		},
+		grp_build = 
+		{
+			"data/anims/characters/agents/grp_lady_mole_dark.abld",
+		},
+		grp_anims = commonanims.female.grp_anims,
+
+		anims = commonanims.female.default_anims_unarmed,
+		anims_1h = commonanims.female.default_anims_1h,
+		anims_2h = commonanims.female.default_anims_2h,
+
+		animMap = AGENT_ANIMS,
+
+		symbol = "character",
+		anim = "idle",
+		shouldFlip = true,
+		scale = 0.25,
+		layer = Layer.Unit,
+		boundType = BoundType.Character,
+		boundTypeOverrides = {			
+			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
+			{anim="dead" ,boundType= BoundType.CharacterFloor},
+		},		
+		peekBranchSet =  2,
+	},	
+
+	kanim_transparent =
+	{
+		wireframe =
+		{
+			"data/anims/characters/agents/agent_male_empty.abld",
+		},
+		build = 
+		{ 
+			"data/anims/characters/agents/agent_male_empty.abld",
+			"data/anims/characters/anims_male/shared_hits_01.abld",	
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+		},
+		grp_build = 
+		{
+			"data/anims/characters/agents/grp_MM_agent009.abld",
+		},
+		grp_anims = commonanims.male.grp_anims,
+
+		anims = commonanims.male.default_anims_unarmed,
+		anims_1h = commonanims.male.default_anims_1h,
+		anims_2h = commonanims.male.default_anims_2h,
+		animMap = AGENT_ANIMS,
+
+		symbol = "character",
+		anim = "idle",
+		shouldFlip = true,
+		scale = 0.25,
+		layer = Layer.Unit,
+		boundType = BoundType.Character,
+		boundTypeOverrides = {			
+			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
+			{anim="dead" ,boundType= BoundType.CharacterFloor},
+		},		
+		peekBranchSet = 1,	
+	},
 	
 }
 

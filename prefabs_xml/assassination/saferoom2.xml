@@ -3048,6 +3048,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_hide</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -3090,6 +3091,7 @@
         <Tags>
           <string>noguard</string>
           <string>saferoom</string>
+          <string>saferoom_hide_facing</string>
         </Tags>
         <MatchTags />
         <BurnTags />
@@ -4377,17 +4379,10 @@
         <Facing>4</Facing>
       </MapDeco>
       <MapDeco>
-        <X>3</X>
+        <X>2</X>
         <Y>2</Y>
         <Anim>decor_ko_barracks_fridge1</Anim>
         <DecoKey>KO barracks fridge 1 1x1</DecoKey>
-        <Facing>2</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>2</X>
-        <Y>2</Y>
-        <Anim>decor_ko_barracks_vendingmachine1</Anim>
-        <DecoKey>KO barracks vending machine 1 1x1</DecoKey>
         <Facing>2</Facing>
       </MapDeco>
       <MapDeco>
@@ -4426,13 +4421,6 @@
         <Facing>4</Facing>
       </MapDeco>
       <MapDeco>
-        <X>1</X>
-        <Y>2</Y>
-        <Anim>decor_ko_lab_tallcase1</Anim>
-        <DecoKey>KO lab tall case 1 1x1</DecoKey>
-        <Facing>4</Facing>
-      </MapDeco>
-      <MapDeco>
         <X>2</X>
         <Y>8</Y>
         <Anim>decor_ko_barracks_bunk1</Anim>
@@ -4452,6 +4440,13 @@
         <Anim>guardoffice_1x1_floorpanel1</Anim>
         <DecoKey>guardoffice_1x1_floorpanel1</DecoKey>
         <Facing>4</Facing>
+      </MapDeco>
+      <MapDeco>
+        <X>3</X>
+        <Y>2</Y>
+        <Anim>decor_ko_barracks_vendingmachine1</Anim>
+        <DecoKey>KO barracks vending machine 1 1x1</DecoKey>
+        <Facing>2</Facing>
       </MapDeco>
     </Decos>
     <Lights />

@@ -1635,10 +1635,8 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_hide",
         },
-        impass = 1,
-        cover = 1,
-        sightblock = 1,
     },
     {
         x = 2,
@@ -1663,6 +1661,7 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_hide_facing",
         },
     },
     {
@@ -2797,7 +2796,7 @@ local units =
                 template = [[security_camera_1x1]],
                 unitData =
                 {
-                    facing = 7,
+                    facing = 7, traits = { MM_camera = true, },
                 },
             },
             1,
@@ -2809,7 +2808,7 @@ local units =
                 template = [[security_camera_1x1]],
                 unitData =
                 {
-                    facing = 2,
+                    facing = 2, traits = { MM_camera = true, },
                 },
             },
             1,
@@ -2823,7 +2822,7 @@ local units =
             {
                 x = 16,
                 y = 5,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 0, traits={mm_nopatrolchange = true,},
@@ -2839,7 +2838,7 @@ local units =
             {
                 x = 10,
                 y = 7,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 0, traits={mm_nopatrolchange = true,},
@@ -2855,7 +2854,7 @@ local units =
             {
                 x = 10,
                 y = 3,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 0, traits={mm_nopatrolchange = true,},
@@ -3136,15 +3135,9 @@ local decos =
         facing = 4,
     },
     {
-        x = 3,
-        y = 2,
-        kanim = [[decor_ko_barracks_fridge1]],
-        facing = 2,
-    },
-    {
         x = 2,
         y = 2,
-        kanim = [[decor_ko_barracks_vendingmachine1]],
+        kanim = [[decor_ko_barracks_fridge1]],
         facing = 2,
     },
     {
@@ -3178,12 +3171,6 @@ local decos =
         facing = 4,
     },
     {
-        x = 1,
-        y = 2,
-        kanim = [[decor_ko_lab_tallcase1]],
-        facing = 4,
-    },
-    {
         x = 2,
         y = 8,
         kanim = [[decor_ko_barracks_bunk1]],
@@ -3200,6 +3187,12 @@ local decos =
         y = 6,
         kanim = [[guardoffice_1x1_floorpanel1]],
         facing = 4,
+    },
+    {
+        x = 3,
+        y = 2,
+        kanim = [[decor_ko_barracks_vendingmachine1]],
+        facing = 2,
     },
 }
 local lights =
@@ -3842,22 +3835,6 @@ local export =
                 id1 = 101,
                 x1 = 2,
                 y1 = 8,
-            },
-            {
-                id0 = 54,
-                x0 = 1,
-                y0 = 1,
-                id1 = 101,
-                x1 = 1,
-                y1 = 2,
-            },
-            {
-                id0 = 53,
-                x0 = 0,
-                y0 = 2,
-                id1 = 101,
-                x1 = 1,
-                y1 = 2,
             },
             {
                 id0 = 55,

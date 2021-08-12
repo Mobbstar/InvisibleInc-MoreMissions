@@ -1,4 +1,6 @@
 name = More Missions
-author = Mobbstar
-version = 0.1
+
+author = Mobbstar, Hekateras, qoalaty_engineering
+
+version = 0.12.0
 icon = gui/icons/modicon_moremissions.png

@@ -2231,7 +2231,7 @@ local PREFABT0 =
             },
         },
         facing = 0,
-        weight = 204,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/weaponsexpo/weaponsexpo_1",
@@ -4458,7 +4458,7 @@ local PREFABT0 =
             },
         },
         facing = 2,
-        weight = 204,
+        weight = 100,
     },
     {
        filename = SCRIPT_PATHS.more_missions .. "/prefabs/weaponsexpo/weaponsexpo_1",
@@ -6685,7 +6685,7 @@ local PREFABT0 =
             },
         },
         facing = 4,
-        weight = 204,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/weaponsexpo/weaponsexpo_1",
@@ -8912,7 +8912,7 @@ local PREFABT0 =
             },
         },
         facing = 6,
-        weight = 204,
+        weight = 100,
     },
 	--end of weapons_expo1
 	--start of weapons_expo2
@@ -10649,7 +10649,7 @@ local PREFABT0 =
             },
         },
         facing = 0,
-        weight = 143,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/weaponsexpo/weaponsexpo_2",
@@ -12384,7 +12384,7 @@ local PREFABT0 =
             },
         },
         facing = 2,
-        weight = 143,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/weaponsexpo/weaponsexpo_2",
@@ -14119,7 +14119,7 @@ local PREFABT0 =
             },
         },
         facing = 4,
-        weight = 143,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/weaponsexpo/weaponsexpo_2",
@@ -15854,7 +15854,7 @@ local PREFABT0 =
             },
         },
         facing = 6,
-        weight = 143,
+        weight = 100,
     },
 --end of weapons_expo2	
 --start of weapons_expo3
@@ -17462,7 +17462,7 @@ local PREFABT0 =
             },
         },
         facing = 0,
-        weight = 121,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/weaponsexpo/weaponsexpo_3",
@@ -19068,7 +19068,7 @@ local PREFABT0 =
             },
         },
         facing = 2,
-        weight = 121,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/weaponsexpo/weaponsexpo_3",
@@ -20674,7 +20674,7 @@ local PREFABT0 =
             },
         },
         facing = 4,
-        weight = 121,
+        weight = 100,
     },
     {
         filename = SCRIPT_PATHS.more_missions .. "/prefabs/weaponsexpo/weaponsexpo_3",
@@ -22280,7 +22280,7 @@ local PREFABT0 =
             },
         },
         facing = 6,
-        weight = 121,
+        weight = 100,
     },
 	--end of weapons_expo3
 	-- start of MM_lock_switch

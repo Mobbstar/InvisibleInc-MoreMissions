@@ -284,7 +284,6 @@ local tiles =
         },
         impass = 1,
         cover = 1,
-        sightblock = 1,
     },
     {
         x = 10,
@@ -1188,19 +1187,35 @@ local walls =
 local units =
 {
     {
-        maxCount = 1,
+        maxCount = 2,
         spawnChance = 1,
         {
             {
                 x = 9,
                 y = 5,
-                template = [[diagnostic_terminal]],
+                template = [[MM_personneldb]],
                 unitData =
                 {
                     facing = 6,
                     tags =
                     {
                         "personneldb",
+                    },
+                },
+            },
+            1,
+        },
+        {
+            {
+                x = 10,
+                y = 1,
+                template = [[security_camera_1x1]],
+                unitData =
+                {
+                    facing = 3,
+                    tags =
+                    {
+                        "MM_personneldb_camera",
                     },
                 },
             },

@@ -8,6 +8,13 @@ gui.kwad
 sound.kwad
 scripts.zip
 
+# Automated build output
+anims/**/*.anim
+out/
+# Automated build local configs
+batconfig.bat
+makeconfig.mk
+
 # Mobb
 testmod.py
 pull.bat

@@ -460,6 +460,9 @@ local function calculateHostageVitalSigns( sim )
 	if isEndless then
 		extraSigns = 2
 	end
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+		extraSigns = 3
+	end
 
 	local hostage = nil
 	sim:forEachUnit(
@@ -640,8 +643,9 @@ local function startPhase( script, sim )
 
 	script:waitFor( HOSTAGE_ESCAPED )
 	sim.TA_mission_success = true -- flag for Talkative Agents
+	sim:getTags().EA_hostage_rescued = true
 	--sim:setMissionReward( MISSION_REWARD )
-	sim:setMissionReward ( simquery.scaleCredits( sim, MISSION_REWARD ))		
+	-- sim:setMissionReward ( simquery.scaleCredits( sim, MISSION_REWARD ))		--removed for now as we want the two new sites to be the only reward from this. 
 	sim:removeObjective( "hostage_3" )
 
 	sim:getTags().delayPostGame = true
@@ -650,6 +654,20 @@ local function startPhase( script, sim )
 
 	script:queue( { type="clearOperatorMessage" } )
 	sim:getTags().delayPostGame = false
+
+	-- Spawn two new missions in the same corp but otherwise unspecified
+	local serverdefs = include( "modules/serverdefs" )
+	local tags = util.tmerge( { sim:getParams().world, "2max", "close_by", }, serverdefs.ESCAPE_MISSION_TAGS )
+	if array.find( tags, "executive_terminals" ) then
+		array.removeIf( tags, function(v) return v == "executive_terminals" end )
+	end
+	if array.find( tags, "ea_hostage" ) then
+		array.removeIf( tags, function(v) return v == "ea_hostage" end )
+	end	
+
+	sim:addNewLocation( tags )
+	sim:addNewLocation( tags )
+	sim:addNewLocation( tags )
 end
 
 ---------------------------------------------------------------------------------------------
@@ -659,6 +677,7 @@ local hostage_mission = class( mission_util.campaign_mission )
 --local hostage_mission = class( escape_mission )
 
 function hostage_mission:init( scriptMgr, sim )
+	sim.TA_mission_success = true
 	escape_mission.init( self, scriptMgr, sim ) --let vanilla escape_mission.init run but follow it up with custom version of the sim:closeElevator code which doesn't set a 2 turn timer
 
 	sim:forEachCell(

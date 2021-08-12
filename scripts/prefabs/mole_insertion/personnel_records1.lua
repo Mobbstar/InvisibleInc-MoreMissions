@@ -195,8 +195,6 @@ local tiles =
         {
             "personneldb_nearby",
         },
-        impass = 1,
-        cover = 1,
     },
     {
         x = 7,
@@ -1024,19 +1022,35 @@ local walls =
 local units =
 {
     {
-        maxCount = 1,
+        maxCount = 2,
         spawnChance = 1,
         {
             {
                 x = 4,
                 y = 1,
-                template = [[diagnostic_terminal]],
+                template = [[MM_personneldb]],
                 unitData =
                 {
                     facing = 2,
                     tags =
                     {
                         "personneldb",
+                    },
+                },
+            },
+            1,
+        },
+        {
+            {
+                x = 7,
+                y = 4,
+                template = [[security_camera_1x1]],
+                unitData =
+                {
+                    facing = 5,
+                    tags =
+                    {
+                        "MM_personneldb_camera",
                     },
                 },
             },
@@ -1065,7 +1079,7 @@ local decos =
         facing = 2,
     },
     {
-        x = 6,
+        x = 7,
         y = 5,
         kanim = [[publicterminal_1x1_wallterminal1]],
         facing = 2,
@@ -1083,7 +1097,7 @@ local decos =
         facing = 0,
     },
     {
-        x = 6,
+        x = 7,
         y = 5,
         kanim = [[publicterminal_glasswall1]],
         facing = 0,

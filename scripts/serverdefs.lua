@@ -12,43 +12,46 @@ local ESCAPE_MISSION_TAGS = {}
 
 local SITUATIONS =
 {
-	holostudio =
-	{
-        ui = {
-			insetImg = "gui/mission_debrief/unknown.png",
-			icon = "gui/mission_previews/unknown.png",
-			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_SECURITY ),
-		},
-	},
+--	holostudio =
+--	{
+--        ui = {
+--			insetImg = "gui/mission_debrief/unknown.png",
+--			icon = "gui/mission_previews/unknown.png",
+--			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_SECURITY ),
+--		},
+--	},
+
+-- Note: see modinit, default weight for all missions including vanilla ones is 100! so we can set custom missions to have more or less weight than that.
 	assassination =
 	{
         ui = {
-			insetImg = "gui/mission_debrief/unknown.png",
-			icon = "gui/mission_previews/unknown.png",
+			insetImg = "gui/icons/mission_icons/mission_assassination.png",
+			icon = "gui/icons/mission_icons/mission_assassination_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL ),
 		},
+		-- weight = 100,
 	},
-	landfill =
-	{
-        ui = {
-			insetImg = "gui/mission_debrief/unknown.png",
-			icon = "gui/mission_previews/unknown.png",
-			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_NANO_FAB ),
-		},
-	},
+--	landfill =
+--	{
+--        ui = {
+--			insetImg = "gui/mission_debrief/unknown.png",
+--			icon = "gui/mission_previews/unknown.png",
+--			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_NANO_FAB ),
+--		},
+--	},
 	ea_hostage =
 	{
         ui = {
-			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
-			icon = "gui/mission_previews/ea_hostage.png",
+			insetImg = "gui/icons/mission_icons/mission_EA_hostage.png",
+			icon = "gui/icons/mission_icons/mission_EA_hostage_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_HOSTAGE ),
 		},
 	},
 	weapons_expo =
 	{
         ui = {
-			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
-			icon = "gui/mission_previews/ea_hostage.png", --gun icon
+			insetImg = "gui/icons/mission_icons/mission_tech_expo.png",
+			icon = "gui/icons/mission_icons/mission_weapons_expo_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_OBJECTIVE ),
 		},
 	},	
@@ -56,12 +59,34 @@ local SITUATIONS =
 	distress_call =
 	{
         ui = {
-			insetImg = "gui/menu pages/corp_select/New_mission_icons/10005.png",
-			icon = "gui/mission_previews/ea_hostage.png", --gun icon
+			insetImg = "gui/icons/mission_icons/mission_distress_call_v5.png",
+			icon = "gui/icons/mission_icons/mission_distress_call_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY),
 		},
-	},				
+		weight = 70, 
+	},
+	
+	mole_insertion =
+	{
+        ui = {
+			insetImg = "gui/icons/mission_icons/mission_mole_insertion.png",
+			icon = "gui/icons/mission_icons/mission_mole_insertion_small.png",
+			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE ),
+			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE_SECONDARY),
+		},
+	},	
+
+	ai_terminal = -- ported from Worldgen Extended by wodzu! with some extra features
+	{
+        ui = {
+			insetImg = "gui/icons/mission_icons/mission_ai_terminal.png",
+			icon = "gui/icons/mission_icons/mission_ai_terminal_small.png",
+			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE ),
+			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE_SECONDARY),
+		},
+		weight = 80, -- 80% as common as default
+	},			
 }
 
 --automated processing

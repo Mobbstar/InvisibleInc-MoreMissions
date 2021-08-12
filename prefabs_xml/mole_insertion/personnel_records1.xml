@@ -1580,6 +1580,19 @@
         </Tags>
         <BStates />
       </MapUnit>
+      <MapUnit>
+        <X>7</X>
+        <Y>4</Y>
+        <UnitKey>Camera</UnitKey>
+        <Template>security_camera_1x1</Template>
+        <UnitData>facing = 5</UnitData>
+        <SpawnWeight>1</SpawnWeight>
+        <SpawnTag />
+        <Tags>
+          <string>MM_personneldb_camera</string>
+        </Tags>
+        <BStates />
+      </MapUnit>
     </Units>
     <Decos>
       <MapDeco>
@@ -1604,7 +1617,7 @@
         <Facing>2</Facing>
       </MapDeco>
       <MapDeco>
-        <X>6</X>
+        <X>7</X>
         <Y>5</Y>
         <Anim>publicterminal_1x1_wallterminal1</Anim>
         <DecoKey>Unique Public Terminal 1x1 wall terminal1</DecoKey>
@@ -1625,7 +1638,7 @@
         <Facing>0</Facing>
       </MapDeco>
       <MapDeco>
-        <X>6</X>
+        <X>7</X>
         <Y>5</Y>
         <Anim>publicterminal_glasswall1</Anim>
         <DecoKey>Unique Public Terminal Glasswall1</DecoKey>

@@ -1,0 +1,66 @@
+<Build name="Plastech_psi_build.fla">
+  <Symbol name="chest_back">
+    <Frame framenum="0" duration="1" image="chest_back-0" w="300" h="248" x="-2.699493" y="-12.82449" />
+  </Symbol>
+  <Symbol name="strap_2">
+    <Frame framenum="0" duration="1" image="strap_2-0" w="152" h="228" x="9.725502" y="20.5755" />
+  </Symbol>
+  <Symbol name="eye_white">
+    <Frame framenum="0" duration="1" image="eye_white-0" w="68" h="44" x="0.0004997253" y="-0.02449989" />
+  </Symbol>
+  <Symbol name="eyeball">
+    <Frame framenum="0" duration="1" image="eyeball-0" w="32" h="32" x="0.0004997253" y="0.0004997253" />
+  </Symbol>
+  <Symbol name="chest_front">
+    <Frame framenum="0" duration="1" image="chest_front-0" w="292" h="252" x="-19.6745" y="-10.44949" />
+  </Symbol>
+  <Symbol name="strap_1">
+    <Frame framenum="0" duration="1" image="strap_1-0" w="200" h="280" x="16.8255" y="12.1005" />
+  </Symbol>
+ <Symbol name="eye_2">
+    <Frame framenum="0" duration="1" image="eye_2-0" w="48" h="60" x="0.02549934" y="0.5755005" />
+    <Frame framenum="1" duration="1" image="eye_2-0" w="48" h="60" x="0.02549934" y="0.4505005" />
+    <Frame framenum="2" duration="1" image="eye_2-0" w="48" h="60" x="0.02549934" y="0.3505001" />
+    <Frame framenum="3" duration="1" image="eye_2-0" w="48" h="60" x="0.02549934" y="0.3505001" />
+    <Frame framenum="4" duration="1" image="eye_2-0" w="48" h="60" x="0.02549934" y="0.4505005" />
+    <Frame framenum="5" duration="1" image="eye_2-0" w="48" h="60" x="0.02549934" y="0.5755005" />
+  </Symbol>
+  <Symbol name="eye_1">
+    <Frame framenum="0" duration="1" image="eye_1-0" w="88" h="68" x="0.02550125" y="2.4755" />
+    <Frame framenum="1" duration="1" image="eye_1-0" w="88" h="68" x="0.02550125" y="2.4755" />
+    <Frame framenum="2" duration="1" image="eye_1-0" w="88" h="68" x="0.02550125" y="2.5755" />
+    <Frame framenum="3" duration="1" image="eye_1-0" w="88" h="68" x="0.02550125" y="2.525499" />
+    <Frame framenum="4" duration="1" image="eye_1-0" w="88" h="68" x="0.02550125" y="2.5755" />
+    <Frame framenum="5" duration="1" image="eye_1-0" w="88" h="68" x="0.02550125" y="2.4755" />
+  </Symbol>
+  <Symbol name="head">
+    <Frame framenum="0" duration="1" image="head-0" w="176" h="110" x="0.2505035" y="-9.749496" />
+  </Symbol>
+  <Symbol name="collar_back">
+    <Frame framenum="0" duration="1" image="collar_back-0" w="212" h="114" x="-21.8995" y="-48.52451" />
+  </Symbol>
+  <Symbol name="collar_front">
+    <Frame framenum="0" duration="1" image="collar_front-0" w="216" h="120" x="-22.1245" y="-50.77451" />
+  </Symbol>
+  <Symbol name="neck">
+    <Frame framenum="0" duration="1" image="neck-0" w="156" h="344" x="4.2005" y="-119.6995" />
+  </Symbol>
+  <Symbol name="chin">
+    <Frame framenum="0" duration="1" image="chin-0" w="180" h="224" x="-7.324501" y="0.00050354" />
+  </Symbol>
+  <Symbol name="nose">
+    <Frame framenum="0" duration="1" image="nose-0" w="56" h="140" x="4.0755" y="2.900497" />
+  </Symbol>
+  <Symbol name="hair_side">
+    <Frame framenum="0" duration="1" image="hair_side-0" w="60" h="110" x="-0.7994995" y="4.225502" />
+  </Symbol>
+  <Symbol name="hair_top">
+    <Frame framenum="0" duration="1" image="hair_top-0" w="136" h="44" x="4.650501" y="-0.02449989" />
+  </Symbol>
+  <Symbol name="ear">
+    <Frame framenum="0" duration="1" image="ear-0" w="200" h="200" x="-0.4494991" y="-0.02449989" />
+  </Symbol>
+  <Symbol name="mouth">
+    <Frame framenum="0" duration="1" image="mouth-0" w="88" h="52" x="-2.849499" y="-4.6495" />
+  </Symbol>
+</Build>

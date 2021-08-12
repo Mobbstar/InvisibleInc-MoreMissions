@@ -129,6 +129,7 @@ local tiles =
             "bountyhunt_office",
         },
         impass = 1,
+        cover = 1,
     },
     {
         x = 5,
@@ -1568,6 +1569,7 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_hide_facing",
         },
     },
     {
@@ -1579,10 +1581,8 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_hide",
         },
-        impass = 1,
-        cover = 1,
-        sightblock = 1,
     },
     {
         x = 5,
@@ -1632,6 +1632,7 @@ local tiles =
             "saferoom",
         },
         impass = 1,
+        cover = 1,
     },
     {
         x = 4,
@@ -2989,7 +2990,7 @@ local units =
                 template = [[security_camera_1x1]],
                 unitData =
                 {
-                    facing = 7,
+                    facing = 7, traits = { MM_camera = true, },
                 },
             },
             1,
@@ -3001,7 +3002,7 @@ local units =
                 template = [[security_camera_1x1]],
                 unitData =
                 {
-                    facing = 1,
+                    facing = 1, traits = { MM_camera = true, },
                 },
             },
             1,
@@ -3015,7 +3016,7 @@ local units =
             {
                 x = 7,
                 y = 11,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 2, traits={mm_nopatrolchange = true,},
@@ -3031,7 +3032,7 @@ local units =
             {
                 x = 9,
                 y = 12,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 0, traits={mm_nopatrolchange = true,},
@@ -3047,7 +3048,7 @@ local units =
             {
                 x = 13,
                 y = 9,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 2, traits={mm_nopatrolchange = true,},
@@ -3063,7 +3064,7 @@ local units =
             {
                 x = 13,
                 y = 14,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 6, traits={mm_nopatrolchange = true,},
@@ -3132,12 +3133,6 @@ local decos =
         y = 1,
         kanim = [[decor_ko_barracks_walllight1]],
         facing = 2,
-    },
-    {
-        x = 10,
-        y = 1,
-        kanim = [[decor_ko_barracks_vendingmachine1]],
-        facing = 4,
     },
     {
         x = 4,
@@ -4024,22 +4019,6 @@ local export =
                 y0 = 0,
                 id1 = 101,
                 x1 = 8,
-                y1 = 1,
-            },
-            {
-                id0 = 28,
-                x0 = 11,
-                y0 = 1,
-                id1 = 101,
-                x1 = 10,
-                y1 = 1,
-            },
-            {
-                id0 = 21,
-                x0 = 10,
-                y0 = 0,
-                id1 = 101,
-                x1 = 10,
                 y1 = 1,
             },
             {

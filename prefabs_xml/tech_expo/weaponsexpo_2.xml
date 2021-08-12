@@ -3590,13 +3590,6 @@
         <Facing>2</Facing>
       </MapDeco>
       <MapDeco>
-        <X>1</X>
-        <Y>7</Y>
-        <Anim>ftm_security_1x1woodenstool</Anim>
-        <DecoKey>FTM security woodenstool</DecoKey>
-        <Facing>0</Facing>
-      </MapDeco>
-      <MapDeco>
         <X>4</X>
         <Y>9</Y>
         <Anim>ftm_security_1x1watercooler</Anim>

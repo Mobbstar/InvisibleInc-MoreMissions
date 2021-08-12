@@ -1,6 +1,6 @@
 -- local SCRIPTS = include('client/story_scripts')
 local util = include( "modules/util" )
-local message_time = 10 --8 --use the same message delay for all messages for now
+local message_time = 8 --use the same message delay for all messages for now
 
 local MakeLine = {
 	Central = function(t, text, voice, timing)
@@ -16,12 +16,14 @@ local MakeLine = {
         t.anim = "portraits/monst3r_face"
         t.name = STRINGS.UI.MONST3R_TITLE
 		t.voice = voice
+		t.delay = 0.25
 	end,
 	Incognita = function(t, text, voice)
 		t.text = text
 		t.anim = "portraits/incognita_face"
 		t.name = STRINGS.UI.INCOGNITA_TITLE
 		t.voice = voice
+		t.delay = 0.25
 	end,
 }
 

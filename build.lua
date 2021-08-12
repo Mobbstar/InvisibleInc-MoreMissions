@@ -50,12 +50,19 @@ end )
 package:Save( build_options.outputpath, "gui.kwad" )
 
 -- AUDIO
-package = Package:new( "sounds", MaxPackageSize, options )
-PackageFolder( package, "./sound", true, function(srcpath)
-	return string.find(srcpath, ".fev", -4) ~= nil
-		or string.find(srcpath, ".fsb", -4) ~= nil
+-- package = Package:new( "sounds", MaxPackageSize, options )
+-- PackageFolder( package, "./sound", true, function(srcpath)
+-- 	return string.find(srcpath, ".fev", -4) ~= nil
+-- 		or string.find(srcpath, ".fsb", -4) ~= nil
+-- end )
+-- package:Save( build_options.outputpath, "sound.kwad" )
+
+-- ANIMS
+local package = Package:new( "moremissions_anims", MaxPackageSize, options )
+PackageFolder( package, "./anims", true, function(srcpath)
+	return string.find(srcpath, ".anim", -5) ~= nil
 end )
-package:Save( build_options.outputpath, "sound.kwad" )
+package:Save( build_options.outputpath, "moremissions_anims.kwad" )
 
 
 

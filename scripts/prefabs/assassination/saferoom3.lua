@@ -579,6 +579,7 @@ local tiles =
             "bountyhunt_office",
         },
         impass = 1,
+        cover = 1,
     },
     {
         x = 12,
@@ -974,6 +975,7 @@ local tiles =
             "bountyhunt_office",
         },
         impass = 1,
+        cover = 1,
     },
     {
         x = 13,
@@ -1165,6 +1167,7 @@ local tiles =
         },
         impass = 1,
         cover = 1,
+        sightblock = 1,
     },
     {
         x = 4,
@@ -1227,6 +1230,9 @@ local tiles =
             "noguard",
             "saferoom",
         },
+        impass = 1,
+        cover = 1,
+        sightblock = 1,
     },
     {
         x = 3,
@@ -1238,6 +1244,8 @@ local tiles =
             "noguard",
             "saferoom",
         },
+        impass = 1,
+        cover = 1,
     },
     {
         x = 2,
@@ -1396,6 +1404,8 @@ local tiles =
             "noguard",
             "saferoom",
         },
+        impass = 1,
+        cover = 1,
     },
     {
         x = 1,
@@ -1481,10 +1491,8 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_hide_facing",
         },
-        impass = 1,
-        cover = 1,
-        sightblock = 1,
     },
     {
         x = 1,
@@ -1495,10 +1503,8 @@ local tiles =
         {
             "noguard",
             "saferoom",
+            "saferoom_hide",
         },
-        impass = 1,
-        cover = 1,
-        sightblock = 1,
     },
     {
         x = 1,
@@ -2583,7 +2589,7 @@ local units =
                 template = [[security_camera_1x1]],
                 unitData =
                 {
-                    facing = 7,
+                    facing = 7, traits = { MM_camera = true, },
                 },
             },
             1,
@@ -2595,7 +2601,7 @@ local units =
                 template = [[security_camera_1x1]],
                 unitData =
                 {
-                    facing = 3,
+                    facing = 3, traits = { MM_camera = true, },
                 },
             },
             1,
@@ -2633,7 +2639,7 @@ local units =
             {
                 x = 5,
                 y = 9,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 0, traits={mm_nopatrolchange = true,},
@@ -2649,7 +2655,7 @@ local units =
             {
                 x = 6,
                 y = 6,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 2, traits={mm_nopatrolchange = true,},
@@ -2665,7 +2671,7 @@ local units =
             {
                 x = 11,
                 y = 7,
-                template = [[important_guard]],
+                template = [[MM_bodyguard]],
                 unitData =
                 {
                     facing = 2, traits={mm_nopatrolchange = true,},
@@ -2904,12 +2910,6 @@ local decos =
         facing = 4,
     },
     {
-        x = 4,
-        y = 1,
-        kanim = [[decor_ko_barracks_armourlocker1]],
-        facing = 4,
-    },
-    {
         x = 1,
         y = 4,
         kanim = [[decor_ko_barracks_walldividerguns1]],
@@ -2923,27 +2923,15 @@ local decos =
     },
     {
         x = 1,
-        y = 1,
-        kanim = [[decor_ko_barracks_fridge1]],
-        facing = 0,
-    },
-    {
-        x = 1,
         y = 6,
         kanim = [[decor_ko_lab_wallbox1]],
         facing = 0,
     },
     {
-        x = 1,
-        y = 3,
+        x = 4,
+        y = 7,
         kanim = [[decor_ko_lab_case1]],
         facing = 6,
-    },
-    {
-        x = 1,
-        y = 2,
-        kanim = [[decor_ko_lab_tallcase1]],
-        facing = 0,
     },
     {
         x = 2,
@@ -2958,16 +2946,34 @@ local decos =
         facing = 6,
     },
     {
-        x = 2,
-        y = 1,
-        kanim = [[decor_ko_barracks_walllight1]],
-        facing = 2,
-    },
-    {
         x = 4,
         y = 4,
         kanim = [[guardoffice_1x1_floorpanel2]],
         facing = 2,
+    },
+    {
+        x = 2,
+        y = 1,
+        kanim = [[decor_ko_barracks_fridge1]],
+        facing = 2,
+    },
+    {
+        x = 1,
+        y = 3,
+        kanim = [[decor_ko_barracks_armourlocker1]],
+        facing = 0,
+    },
+    {
+        x = 4,
+        y = 1,
+        kanim = [[decor_ko_lab_tallcase1]],
+        facing = 6,
+    },
+    {
+        x = 3,
+        y = 1,
+        kanim = [[decor_ko_lab_case1]],
+        facing = 0,
     },
 }
 local lights =
@@ -3468,6 +3474,22 @@ local export =
                 y1 = 2,
             },
             {
+                id0 = 27,
+                x0 = 2,
+                y0 = 0,
+                id1 = 100,
+                x1 = 2,
+                y1 = 1,
+            },
+            {
+                id0 = 26,
+                x0 = 3,
+                y0 = 0,
+                id1 = 100,
+                x1 = 3,
+                y1 = 1,
+            },
+            {
                 id0 = 35,
                 x0 = 0,
                 y0 = 7,
@@ -3506,30 +3528,6 @@ local export =
                 id1 = 100,
                 x1 = 1,
                 y1 = 3,
-            },
-            {
-                id0 = 30,
-                x0 = 0,
-                y0 = 2,
-                id1 = 100,
-                x1 = 1,
-                y1 = 2,
-            },
-            {
-                id0 = 28,
-                x0 = 1,
-                y0 = 0,
-                id1 = 100,
-                x1 = 1,
-                y1 = 1,
-            },
-            {
-                id0 = 29,
-                x0 = 0,
-                y0 = 1,
-                id1 = 100,
-                x1 = 1,
-                y1 = 1,
             },
             {
                 id0 = 41,

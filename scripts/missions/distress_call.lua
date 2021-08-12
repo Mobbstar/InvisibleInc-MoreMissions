@@ -42,7 +42,6 @@ local OPERATIVE_DESPAWNED =
 		end
 	end
 }
-
 -- This is the chance that an agent will load in the detention centre.  If not, a hostage
 -- will be placed there.
 local CHANCE_OF_AGENT_IN_DETENTION = 0.5 --make customisable param?
@@ -60,7 +59,7 @@ local ALARM_INCREASE =
 
 local AGENT_CONNECTION =
 {
-	trigger = simdefs.TRG_UNIT_DROPPED, --custom 'hook' in makeAgentConnection append in modinit
+	trigger = "agentConnectionDone", --custom 'hook' in makeAgentConnection append in modinit
 	fn = function( sim, evData )
 		return true
 	end,
@@ -110,18 +109,29 @@ local function make_gear( sim, newUnit, agentTemplate )
 	"item_light_pistol",
 	}
 	local new_items = {}
+	local captured_items = {} --separate table for these as they're already spawned
 	if newUnit:getUnitData().agentID then
 
 		local items = newUnit:getChildren() or {}
 			for i = #items, 1, -1 do
 				if not items[i]:getTraits().installed then
-					table.remove(items,i) --this will empty their inventory even if they would normally have it at detention centers
+					-- table.remove(items,i) --this will empty their inventory even if they would normally have it at detention centers
 					if items[i] then
-						sim:despawnUnit( items[i] )
+						if newUnit:getTraits().MM_captureTime then
+							-- log:write("LOG MM_captureTime")
+							if items[i]:getTraits().equipped then 
+								items[i]:getTraits().equipped = false
+							end
+							table.insert(captured_items, items[i])
+							newUnit:removeChild( items[i] )
+						else
+							newUnit:removeChild( items[i] )
+							--sim:despawnUnit( items[i] )
+						end
 					end
 				end
 			end
-			if agentTemplate then
+			if agentTemplate and not newUnit:getTraits().MM_captureTime then
 				for k,v in pairs(agentTemplate.upgrades) do
 					local itemdef = unitdefs.lookupTemplate( v )
 					if itemdef.traits.installed == nil then
@@ -137,11 +147,17 @@ local function make_gear( sim, newUnit, agentTemplate )
 	end
 
 	items_output = {}
-
-	for k,template in pairs(new_items) do
-		local newItem = simfactory.createUnit( unitdefs.lookupTemplate( template ), sim )
-		sim:spawnUnit( newItem )
-		table.insert(items_output, newItem)
+	
+	if newUnit:getTraits().MM_captureTime then
+		for k, item in pairs(captured_items) do
+			table.insert(items_output, item) --these already existed in the inventory and don't need to be spawned in
+		end
+	else
+		for k,template in pairs(new_items) do
+			local newItem = simfactory.createUnit( unitdefs.lookupTemplate( template ), sim )
+			sim:spawnUnit( newItem )
+			table.insert(items_output, newItem)
+		end
 	end
 
 	return items_output
@@ -162,26 +178,18 @@ local function checkGuard( unit )
 end
 
 local function makeGuardInvestigate( script, sim )
-	local objInc = 1
-	while objInc < 3 do
-		script:waitFor( mission_util.PC_START_TURN )
-		objInc = objInc + 1
-		if objInc == 2 then
-			local cell = findCell( sim, "distressSpawn")
-			if cell then
-				script:queue( { type="pan", x=cell.x, y=cell.y } )
-				local guard, closestDistance = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, function( u ) return not u:isKO() end )
-				local guard = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, checkGuard )
-				local agent = mission_util.findUnitByTag( sim, "escapedAgent" )
-				if agent and guard and guard:getBrain() then
-					guard:getBrain():getSenses():addInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_HUNTING, agent)
-					-- sim:processReactions()
-					sim:setClimax(true)
-				end
+		local cell = findCell( sim, "distressSpawn")
+		if cell then
+			--script:queue( { type="pan", x=cell.x, y=cell.y } )
+			local guard, closestDistance = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, function( u ) return not u:isKO() end )
+			local guard = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, checkGuard )
+			local agent = mission_util.findUnitByTag( sim, "escapedAgent" )
+			if agent and guard and guard:getBrain() then
+				guard:getBrain():getSenses():addInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_HUNTING, agent)
+				-- sim:processReactions()
+				sim:setClimax(true)
 			end
 		end
-	end
-
 end
 
 local function getLostAgent( agency )
@@ -215,7 +223,7 @@ local function startAgentEscape( script, sim, mission )
 	if agentDef == nil and #agency.unitDefsPotential > 0 then
 
         if (sim:nextRand() < CHANCE_OF_AGENT_IN_DETENTION or sim:getParams().foundPrisoner == true ) or 
-           (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY and sim:getParams().agentsFound == 0) then
+           (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY and sim:getParams().agentsFound == 0) then		
     		local wt = util.weighted_list()
             for i, agentDef in ipairs(agency.unitDefsPotential) do
                 wt:addChoice( agentDef, 1 )
@@ -244,7 +252,7 @@ local function startAgentEscape( script, sim, mission )
 		newUnit:setFacing( unit:getFacing() )
 		newUnit:getTraits().rescued = true
         newUnit:getTraits().detention = true
-
+		
 		local cell = sim:getCell( unit:getLocation() )
         assert( cell )
 		sim:spawnUnit( newUnit )
@@ -257,10 +265,14 @@ local function startAgentEscape( script, sim, mission )
 
 		newOperative = sim:getPC():hireUnit( sim, newUnit, cell, facing )
 		newOperative:addTag("escapedAgent")
+		newOperative:addTag("MM_distressCallAgent") --used by TA
+		if agentDef.captureTime then
+			newOperative:getTraits().MM_captureTime = true
+		end
 
 	else
 		mission.operative_distressed = true
-		local new_template = unitdefs.lookupTemplate( "agent_009" )
+		local new_template = unitdefs.lookupTemplate( "MM_agent_009" )
 		local newUnit = simfactory.createUnit(new_template, sim)
 		-- newUnit._traits.template = new_template.template
 		-- newUnit._unitData.kanim = new_template.kanim
@@ -268,21 +280,23 @@ local function startAgentEscape( script, sim, mission )
 		newUnit:getTraits().rescued = true
         newUnit:getTraits().detention = true
 		newUnit:addTag("escapedAgent")
+		newUnit:addTag("MM_distressCallAgent") --used by TA
 		local cell = sim:getCell( unit:getLocation() )
         assert( cell )
 		sim:warpUnit( unit, nil )
 		sim:despawnUnit( unit )
 		sim:spawnUnit( newUnit )
+		newUnit:setPlayerOwner(sim:getPC()) --needs to be before warp or causes agentrig yield error
 		sim:warpUnit( newUnit, cell, facing )
-		newUnit:setPlayerOwner(sim:getPC())
 		newOperative = newUnit
 
 	end
-
+	
 	if newOperative then
+			
+		sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/hostage/hostage_chair_move" )
 		local x0,y0 = newOperative:getLocation()
 		local unit_cell = sim:getCell(x0, y0)
-
 		local guardTemplate = unitdefs.lookupTemplate( "important_guard" )
 		local newGuard = simfactory.createUnit( guardTemplate, sim ) --captain
 		sim:spawnUnit( newGuard )
@@ -310,7 +324,7 @@ local function startAgentEscape( script, sim, mission )
 			--log:write("found safe")
 		end
 
-		local gear = make_gear( sim, newOperative, agentTemplate ) --handles inventory wrangling
+		local gear = make_gear( sim, newOperative, agentTemplate ) --handles inventory wrangling & spawning
 
 		if safeUnit then
 			--log:write("putting stuff in safe")
@@ -342,12 +356,16 @@ local function startAgentEscape( script, sim, mission )
 			end
 
 		end
-
-
+		script:queue(0.2*cdefs.SECONDS)
+		sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/hostage/free_hostage" )
 		script:queue(1*cdefs.SECONDS)
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
 		script:queue(2*cdefs.SECONDS) --without this Central's message gets "skipped" for some reason because of the agent stating oneliner still playing
 
+		if (sim:getParams().difficultyOptions.MM_difficulty == nil ) or sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
+			makeGuardInvestigate(script, sim)
+		end
+		
 		local scripts = SCRIPTS.INGAME.DISTRESS_CALL.SAW_AGENT
 		if not newOperative:getUnitData().agentID then
 			scripts = SCRIPTS.INGAME.DISTRESS_CALL.SAW_OTHER
@@ -357,15 +375,21 @@ local function startAgentEscape( script, sim, mission )
 			script:queue( { script=v, type="newOperatorMessage" } )
 			script:queue(0.5*cdefs.SECONDS)
 		end
-
-		-- custom oneliner from operative -----
+		
+		-- make objectives
+		sim:addObjective( util.sformat(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY,newOperative:getUnitData().name), "find_agent_gear" )	--get gear	
+				
 		local agent_id
 		if newOperative:getUnitData().agentID then
 			agent_id = newOperative:getUnitData().agentID
+			-- sim:removeObjective( "rescue_agent" )
+			sim:addObjective( string.format(STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_AGENT,newOperative:getUnitData().name), "rescue_agent" )
 		else
 			agent_id = "agent009"
+			sim:addObjective( string.format(STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_AGENT,newOperative:getUnitData().name), "rescue_agent" )
 		end
-		-- script:queue( { type="hideHUDInstruction" } )
+		
+		-- custom oneliner from operative -----
 		if STRINGS.MOREMISSIONS.AGENT_LINES.DISTRESS_CALL[agent_id] ~= nil then
 			local anim = newOperative:getUnitData().profile_anim
 			local build = newOperative:getUnitData().profile_anim
@@ -384,13 +408,10 @@ local function startAgentEscape( script, sim, mission )
 			script:queue( { type="clearEnemyMessage" } )
 		end
 		--------
-
 		--script:addHook( increaseAlarm, true )
 		sim.missionTrackerBoost = 1 --rest is in modinit.lua/init()
 
 		script:waitFor( OPERATIVE_DESPAWNED )
-
-		script:removeHook( makeGuardInvestigate ) --in case player somehow manages to teleport rescuee out on turn 1
 
 	end
 end
@@ -427,6 +448,20 @@ local function gearSafeReaction( script, sim, mission )
 
 end
 
+local function activateCam( sim )
+	for i, unit in pairs(sim:getAllUnits()) do
+		if unit:getTraits().MM_camera and (unit:getTraits().mainframe_status ~= "active") then
+			-- unit:activate( sim )
+			unit:getTraits().mainframe_status = "active"
+			unit:getTraits().hasSight = true
+			sim:refreshUnitLOS( unit )
+			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = unit } )	
+			sim:addTrigger( simdefs.TRG_OVERWATCH, unit )	
+		end
+	end
+
+end
+
 local function detentionFitness( cxt, prefab, x, y )
     local tileCount = cxt:calculatePrefabLinkage( prefab, x, y )
     if tileCount == 0 then
@@ -437,20 +472,20 @@ local function detentionFitness( cxt, prefab, x, y )
     local maxDist = mission_util.calculatePrefabDistance( cxt, x, y, "entry", "exit" )
     return tileCount + maxDist^2
 end
-
 ---------------------------------------------------------------------------------------------
 -- Begin!
 
 local mission = class( escape_mission )
 
 function mission:init( scriptMgr, sim )
+    sim:getTags().skipBanter = true
+	sim.TA_mission_success = false
     escape_mission.init( self, scriptMgr, sim )
+	activateCam( sim )
 
+	-- sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE, "rescue_agent" )
 	scriptMgr:addHook( "START_AGENT_ESCAPE", startAgentEscape, nil, self )
-    sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE, "rescue_agent" )
-
-	sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY, "find_agent_gear" )	--get gear
-	scriptMgr:addHook( "MAKE_GUARD_INVESTIGATE", makeGuardInvestigate, nil, self )
+	-- sim:addObjective( util.sformat(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY,sim.MM_distressedName), "find_agent_gear" )	--get gear --> moved to startAgentEscape
 	scriptMgr:addHook( "GEAR SAFE REACTION", gearSafeReaction, nil, self)
 	scriptMgr:addHook( "GOT_OPERATIVE", got_operative, nil, self )
     --This picks a reaction rant from Central on exit based upon whether or not an agent has escaped with the loot yet.

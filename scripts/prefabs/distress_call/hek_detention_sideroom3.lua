@@ -228,6 +228,10 @@ local tiles =
         y = 2,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
         impass = 1,
         cover = 1,
     },
@@ -236,6 +240,10 @@ local tiles =
         y = 2,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
         impass = 1,
         cover = 1,
     },
@@ -254,6 +262,10 @@ local tiles =
         y = 3,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
         impass = 1,
         cover = 1,
     },
@@ -262,6 +274,10 @@ local tiles =
         y = 3,
         zone = [[guard_room_1]],
         variant = 0,
+        tags =
+        {
+            "noguard",
+        },
         impass = 1,
         cover = 1,
     },
@@ -342,7 +358,6 @@ local tiles =
         variant = 0,
         tags =
         {
-            "noguard",
             "distressSpawn",
         },
     },
@@ -377,80 +392,50 @@ local tiles =
         y = 3,
         zone = [[guard_room_2]],
         variant = 0,
-        tags =
-        {
-            "noguard",
-        },
     },
     {
         x = 5,
         y = 2,
         zone = [[guard_room_2]],
         variant = 0,
-        tags =
-        {
-            "noguard",
-        },
+        impass = 1,
+        cover = 1,
     },
     {
         x = 6,
         y = 2,
         zone = [[guard_room_2]],
         variant = 0,
-        tags =
-        {
-            "noguard",
-        },
-        impass = 1,
-        cover = 1,
     },
     {
         x = 6,
         y = 1,
         zone = [[guard_room_2]],
         variant = 0,
-        impass = 1,
-        cover = 1,
     },
     {
         x = 5,
         y = 1,
         zone = [[guard_room_2]],
         variant = 0,
-        tags =
-        {
-            "noguard",
-        },
     },
     {
         x = 7,
         y = 1,
         zone = [[guard_room_2]],
         variant = 0,
-        tags =
-        {
-            "noguard",
-        },
     },
     {
         x = 7,
         y = 2,
         zone = [[guard_room_2]],
         variant = 0,
-        tags =
-        {
-            "noguard",
-        },
     },
     {
         x = 7,
         y = 3,
         zone = [[guard_room_2]],
         variant = 0,
-        tags =
-        {
-            "noguard",
-        },
     },
     {
         x = 7,
@@ -469,10 +454,6 @@ local tiles =
         y = 3,
         zone = [[guard_room_2]],
         variant = 0,
-        tags =
-        {
-            "noguard",
-        },
     },
     {
         x = 3,
@@ -952,13 +933,13 @@ local walls =
     {
         x = 6,
         y = 3,
-        wallIndex = [[security_door]],
+        wallIndex = [[office_door]],
         dir = 2,
     },
     {
         x = 6,
         y = 4,
-        wallIndex = [[security_door]],
+        wallIndex = [[office_door]],
         dir = 6,
     },
     {
@@ -1141,10 +1122,34 @@ local walls =
         wallIndex = [[default_wall]],
         dir = 0,
     },
+    {
+        x = 5,
+        y = 9,
+        wallIndex = [[default_wall]],
+        dir = 2,
+    },
+    {
+        x = 5,
+        y = 10,
+        wallIndex = [[default_wall]],
+        dir = 6,
+    },
+    {
+        x = 3,
+        y = 9,
+        wallIndex = [[default_wall]],
+        dir = 2,
+    },
+    {
+        x = 3,
+        y = 10,
+        wallIndex = [[default_wall]],
+        dir = 6,
+    },
 }
 local units =
 {
-    scientist =
+    hostage =
     {
         spawnChance = 1,
         maxCount = 1,
@@ -1152,7 +1157,7 @@ local units =
             {
                 x = 4,
                 y = 2,
-                template = [[scientist]],
+                template = [[hostage_capture]],
                 unitData =
                 {
                     facing = 4,
@@ -1167,7 +1172,7 @@ local units =
         },
     },
     {
-        maxCount = 1,
+        maxCount = 2,
         spawnChance = 1,
         {
             {
@@ -1177,6 +1182,18 @@ local units =
                 unitData =
                 {
                     facing = 0, traits = { startOn = true },
+                },
+            },
+            1,
+        },
+        {
+            {
+                x = 5,
+                y = 1,
+                template = [[security_camera_1x1]],
+                unitData =
+                {
+                    facing = 1, traits = { MM_camera = true },
                 },
             },
             1,
@@ -1319,13 +1336,13 @@ local decos =
     },
     {
         x = 5,
-        y = 2,
+        y = 3,
         kanim = [[guardoffice_walllight1]],
         facing = 0,
     },
     {
         x = 7,
-        y = 2,
+        y = 3,
         kanim = [[guardoffice_walllight1]],
         facing = 4,
     },
@@ -1486,12 +1503,6 @@ local decos =
         facing = 0,
     },
     {
-        x = 6,
-        y = 1,
-        kanim = [[holdingcell_2x1_bunk1]],
-        facing = 0,
-    },
-    {
         x = 4,
         y = 11,
         kanim = [[holdingcell_2x1_securecell1]],
@@ -1568,6 +1579,54 @@ local decos =
         y = 9,
         kanim = [[ftm_lab_sink1]],
         facing = 6,
+    },
+    {
+        x = 3,
+        y = 12,
+        kanim = [[publicterminal_glasswall1]],
+        facing = 6,
+    },
+    {
+        x = 4,
+        y = 12,
+        kanim = [[publicterminal_glasswall1]],
+        facing = 6,
+    },
+    {
+        x = 3,
+        y = 9,
+        kanim = [[publicterminal_glasswall1]],
+        facing = 6,
+    },
+    {
+        x = 7,
+        y = 3,
+        kanim = [[guardoffice_walllight1]],
+        facing = 6,
+    },
+    {
+        x = 5,
+        y = 3,
+        kanim = [[guardoffice_walllight1]],
+        facing = 6,
+    },
+    {
+        x = 7,
+        y = 2,
+        kanim = [[ftm_lab_sink1]],
+        facing = 4,
+    },
+    {
+        x = 5,
+        y = 2,
+        kanim = [[guardoffice_1x1_chair1]],
+        facing = 0,
+    },
+    {
+        x = 7,
+        y = 7,
+        kanim = [[ftm_security_bulletinboard1]],
+        facing = 4,
     },
 }
 local lights =
@@ -1925,14 +1984,6 @@ local export =
                 id1 = 100,
                 x1 = 7,
                 y1 = 9,
-            },
-            {
-                id0 = 22,
-                x0 = 6,
-                y0 = 0,
-                id1 = 100,
-                x1 = 6,
-                y1 = 1,
             },
             {
                 id0 = 34,

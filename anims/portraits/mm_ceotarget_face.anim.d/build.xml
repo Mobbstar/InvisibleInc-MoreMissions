@@ -1,0 +1,60 @@
+<Build name="executive_build.fla">
+  <Symbol name="chest_back">
+    <Frame framenum="0" duration="1" image="chest_back-0" w="296" h="252" x="7.275497" y="-15.9995" />
+  </Symbol>
+  <Symbol name="collar_back">
+    <Frame framenum="0" duration="1" image="collar_back-0" w="236" h="118" x="-7.9245" y="-46.5745" />
+  </Symbol>
+  <Symbol name="neck">
+    <Frame framenum="0" duration="1" image="neck-0" w="140" h="344" x="-2.874496" y="-119.6995" />
+  </Symbol>
+  <Symbol name="chin">
+    <Frame framenum="0" duration="1" image="chin-0" w="160" h="208" x="-2.599503" y="-8.0495" />
+  </Symbol>
+  <Symbol name="head">
+    <Frame framenum="0" duration="1" image="head-0" w="176" h="132" x="0.00050354" y="-0.02449799" />
+  </Symbol>
+  <Symbol name="eye_white">
+    <Frame framenum="0" duration="1" image="eye_white-0" w="64" h="40" x="2.2255" y="3.150499" />
+  </Symbol>
+  <Symbol name="eyeball">
+    <Frame framenum="0" duration="1" image="eyeball-0" w="28" h="28" x="-2.0245" y="1.8005" />
+  </Symbol>
+  <Symbol name="eye_2">
+    <Frame framenum="0" duration="1" image="eye_2-0" w="48" h="52" x="0.1504993" y="3.7005" />
+    <Frame framenum="1" duration="1" image="eye_2-1" w="48" h="52" x="0.1504993" y="3.7005" />
+    <Frame framenum="2" duration="1" image="eye_2-2" w="48" h="52" x="0.1504993" y="3.7005" />
+    <Frame framenum="3" duration="1" image="eye_2-3" w="52" h="52" x="-0.1744995" y="3.7005" />
+    <Frame framenum="4" duration="1" image="eye_2-4" w="52" h="52" x="-0.1744995" y="3.7005" />
+    <Frame framenum="5" duration="1" image="eye_2-5" w="52" h="52" x="-0.1744995" y="3.7005" />
+  </Symbol>
+  <Symbol name="nose">
+    <Frame framenum="0" duration="1" image="nose-0" w="78" h="96" x="-3.7995" y="-2.8745" />
+  </Symbol>
+  <Symbol name="eye_1">
+    <Frame framenum="0" duration="1" image="eye_1-0" w="80" h="60" x="2.5005" y="9.925499" />
+    <Frame framenum="1" duration="1" image="eye_1-1" w="80" h="60" x="2.5005" y="9.925499" />
+    <Frame framenum="2" duration="1" image="eye_1-2" w="80" h="60" x="2.5005" y="10.0505" />
+    <Frame framenum="3" duration="1" image="eye_1-3" w="80" h="60" x="2.5005" y="10.0005" />
+    <Frame framenum="4" duration="1" image="eye_1-4" w="80" h="60" x="2.5005" y="10.0505" />
+    <Frame framenum="5" duration="1" image="eye_1-0" w="80" h="60" x="2.5005" y="9.925499" />
+  </Symbol>
+  <Symbol name="hair_side">
+    <Frame framenum="0" duration="1" image="hair_side-0" w="64" h="124" x="2.7505" y="-3.399498" />
+  </Symbol>
+  <Symbol name="hair_top">
+    <Frame framenum="0" duration="1" image="hair_top-0" w="140" h="72" x="10.5005" y="5.775499" />
+  </Symbol>
+  <Symbol name="ear">
+    <Frame framenum="0" duration="1" image="ear-0" w="44" h="56" x="-0.02449989" y="-0.02449989" />
+  </Symbol>
+  <Symbol name="mouth">
+    <Frame framenum="0" duration="1" image="mouth-0" w="56" h="24" x="7.050499" y="-20.599" />
+  </Symbol>
+  <Symbol name="collar_front">
+    <Frame framenum="0" duration="1" image="collar_front-0" w="244" h="124" x="-8.849503" y="-50.4745" />
+  </Symbol>
+  <Symbol name="chest_front">
+    <Frame framenum="0" duration="1" image="chest_front-0" w="312" h="292" x="-18.57449" y="-30.57449" />
+  </Symbol>
+</Build>
