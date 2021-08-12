@@ -188,7 +188,7 @@ local tool_templates =
 	-- },
 
 	-- TECH EXPO NON-WEAPONS: manually-created rather than procedurally
-	-- Powerful, single-use items!
+	-- Powerful, limited-use items!
 	--MM_tech_expo_item trait added in tech_expo_itemdefs.lua
 
 	MM_techexpo_fraggrenade = util.extend( commondefs.grenade_template)
@@ -202,7 +202,8 @@ local tool_templates =
 		profile_icon_100 = "gui/icons/item_icons/icon-item_flash_grenade.png",
 		kanim = "kanim_flashgrenade",
 		sounds = {explode="SpySociety/Grenades/flashbang_explo", bounce="SpySociety/Grenades/bounce"},
-		traits = { baseDamage = 2, range=2, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, }, --lethal damage
+		traits = { baseDamage = 2, range=2, explodes = 0, usesLeft = 3, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, disposable = false, throwUnit = "MM_techexpo_fraggrenade", noReload = true, ammo = 3, maxAmmo = 3, }, --lethal damage
+		abilities = { "carryable", "throw","recharge" },
 		value = 600,
 		locator=true,
 	},
@@ -218,9 +219,10 @@ local tool_templates =
 		profile_icon_100 = "gui/icons/item_icons/icon-item_flash_grenade.png",
 		kanim = "kanim_flashgrenade",
 		sounds = {explode="SpySociety/Grenades/flashbang_explo", bounce="SpySociety/Grenades/bounce"},
-		traits = { baseDamage = 2, range=2, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, createsSmoke = true, on_spawn = "MM_smoke_cloud_frag" }, --lethal damage
+		traits = { baseDamage = 2, range=2, explodes = 0, usesLeft = 3, disposable = false, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, createsSmoke = true, on_spawn = "MM_smoke_cloud_frag", throwUnit = "MM_techexpo_frag_smoke_grenade", noReload = true, ammo = 3, maxAmmo = 3, }, --lethal damage
 		value = 600,
 		locator=true,
+		abilities = { "carryable", "throw","recharge" },
 	},
 
 	MM_techexpo_smokegrenade = util.extend( commondefs.grenade_template )
@@ -233,9 +235,10 @@ local tool_templates =
 		profile_icon_100 = "gui/icons/item_icons/icon-item_smoke_grenade.png",
 		kanim = "kanim_stickycam",
 		sounds = {explode="SpySociety/Grenades/smokegrenade_explo", bounce="SpySociety/Grenades/bounce_smokegrenade"},
-		traits = { on_spawn = "MM_smoke_cloud" , range=6, noghost = true, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		traits = { on_spawn = "MM_smoke_cloud" , range=6, noghost = true, explodes = 0, usesLeft = 3, disposable = false, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, throwUnit = "MM_techexpo_smokegrenade", noReload = true, ammo = 3, maxAmmo = 3,},
 		value = 300,
 		locator=true,
+		abilities = { "carryable", "throw","recharge" },
 	},
 
 	MM_techexpo_cloakingrig = util.extend(commondefs.item_template)
@@ -248,9 +251,10 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-cloak.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
-		traits = { disposable = true, duration = 2, cloakDistanceMax=1, cloakInVision = true, range = 2, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		-- traits = { usesLeft = 3, duration = 2, cloakDistanceMax=1, cloakInVision = true, range = 2, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 6, },
+		traits = { usesLeft = 3, duration = 2, cloakDistanceMax=1, cloakInVision = true, range = 2, cooldown = 0, cooldownMax = 6, }, --retire this item by removing it from tech expo spawn pool
 		requirements = { stealth = 3 },
-		abilities = { "carryable","useInvisiCloak" },
+		abilities = { "carryable","useInvisiCloak","recharge", },
 		value = 400,
 	},
 
@@ -263,11 +267,26 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-cloak.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
-		traits = { disposable = true, duration = 3, cloakDistanceMax=0, cloakInVision = false, MM_tech_expo_nonweapon = true, pwrCost = 5, MM_tech_expo_item = true},
+		traits = { usesLeft = 3, duration = 3, cloakInVision = false, MM_tech_expo_nonweapon = true, pwrCost = 5, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 6,},
 		requirements = { stealth = 3 },
-		abilities = { "carryable","useInvisiCloak" },
+		abilities = { "carryable","useInvisiCloak","recharge" },
 		value = 400,
 	},
+	
+	MM_techexpo_cloakingrig3 = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.CLOAK_3,
+		desc = STRINGS.MOREMISSIONS.ITEMS.CLOAK_3_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.CLOAK_3_FLAVOR,
+		icon = "itemrigs/FloorProp_InvisiCloakTimed.png",
+		--profile_icon = "gui/items/icon-cloak.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
+		traits = { usesLeft = 3, duration = 1, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 6, MM_attackproof_cloak = true,},
+		requirements = { stealth = 3 },
+		abilities = { "carryable","useInvisiCloak","recharge" },
+		value = 400,
+	},	
 
 	MM_techexpo_icebreaker = util.extend(commondefs.item_template)
 	{
@@ -278,9 +297,9 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-action_crack-safe.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_chip_hyper_buster_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_chip_ice_breaker.png",
-		traits = { icebreak = 8, disposable = true, MM_tech_expo_nonweapon = true, killDaemon = true, MM_tech_expo_item = true },
+		traits = { icebreak = 8, usesLeft = 3, MM_tech_expo_nonweapon = true, killDaemon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 4, },
 		requirements = { anarchy = 3, },
-		abilities = { "icebreak","carryable" },
+		abilities = { "icebreak","carryable","recharge" },
 		value = 600,
 	},
 
@@ -293,9 +312,9 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-action_crack-safe.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_chip_econ_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_chip_econ.png",
-		traits = { PWR_conversion = 100, disposable = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		traits = { PWR_conversion = 100, usesLeft = 3, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 3, },
 		requirements = { stealth = 3, },
-		abilities = { "carryable","jackin" },
+		abilities = { "carryable","jackin","recharge" },
 		value = 800,
 	},
 
@@ -308,9 +327,9 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-stims.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_stim_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_stim.png",
-		traits = { mpRestored = 12, impair_agent_AP = 3, combatRestored = true, disposable = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		traits = { mpRestored = 12, impair_agent_AP = 3, unlimitedAttacks = true, usesLeft = 3, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 4, },
 		requirements = { stealth = 3 },
-		abilities = { "carryable","use_stim" },
+		abilities = { "carryable","use_stim","recharge" },
 		value = 1000,
 	},
 
@@ -323,9 +342,9 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-shocktrap-.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_shocktrap_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_shock trap.png",
-		traits = { damage = 5, stun = 5, range = 7, applyFn = "isClosedDoor", doorDevice = "simtrap", pwrCost = 3, disposable = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		traits = { damage = 5, stun = 5, range = 7, applyFn = "isClosedDoor", doorDevice = "simtrap", pwrCost = 3, usesLeft = 3, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 5, },
 		requirements = { anarchy = 3 },
-		abilities = { "doorMechanism","carryable" },
+		abilities = { "doorMechanism","carryable","recharge" },
 		value = 1000,
 	},
 
@@ -338,9 +357,9 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-shocktrap-.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_shocktrap_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_shock trap.png",
-		traits = { damage = 3, stun = 3, range = 3, applyFn = "isClosedDoor", doorDevice = "simtrap", pwrCost = 2, disposable = true, ignoreMagReinf = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true },
+		traits = { damage = 3, stun = 3, range = 3, applyFn = "isClosedDoor", doorDevice = "simtrap", pwrCost = 2, usesLeft = 3, ignoreMagReinf = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 5, },
 		requirements = { anarchy = 3 },
-		abilities = { "doorMechanism","carryable" },
+		abilities = { "doorMechanism","carryable","recharge" },
 		value = 1000,
 	},
 
@@ -354,9 +373,9 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-emp.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_emp_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_emp.png",
-		abilities = { "carryable","prime_emp", },
+		abilities = { "carryable","prime_emp","recharge"},
 		requirements = { hacking = 3 },
-		traits = { range = 7, emp_duration = 4, disposable = true, multiPulse = 3, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, },
+		traits = { range = 7, emp_duration = 4, usesLeft = 3, multiPulse = 3, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 6, },
 		value = 1200,
 	},
 
@@ -370,9 +389,9 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-emp.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_emp_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_emp.png",
-		abilities = { "carryable","prime_emp", },
+		abilities = { "carryable","prime_emp","recharge" },
 		requirements = { hacking = 3 },
-		traits = { range = 3, emp_duration = 8, disposable = true, ignoreMagReinf = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, },
+		traits = { range = 3, emp_duration = 8, usesLeft = 3, ignoreMagReinf = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 6, },
 		value = 1200,
 	},
 
@@ -385,9 +404,9 @@ local tool_templates =
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-crybaby_small.png",
 		profile_icon_100 = "gui/icons/item_icons/crybaby.png",
 		kanim = "kanim_stickycam",
-		abilities ={"carryable" , "throw"},
+		abilities ={"carryable" , "throw","recharge"},
 		sounds = {activate="SpySociety/Grenades/stickycam_deploy", bounce="SpySociety/Grenades/bounce", cry_baby="SpySociety_DLC001/Actions/crybaby_activate"},
-		traits = { MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, throwUnit = "MM_techexpo_crybaby_throwUnit", disposable = true},
+		traits = { MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, throwUnit = "MM_techexpo_crybaby_throwUnit", usesLeft = 3,range = 15,  disposable = false},
 		value = 300,
 		locator=true,
 	},
@@ -428,7 +447,7 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-emp.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_flashpack_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_flashpack.png",
-		abilities = { "carryable","prime_emp", },
+		abilities = { "carryable","prime_emp","recharge" },
 		requirements = { anarchy = 2 },
 		uses_mainframe =
 		{
@@ -445,7 +464,7 @@ local tool_templates =
 				end
 			}
 		},
-		traits = { range = 5, attackNeedsLOS=true, canSleep = true, baseDamage = 4, flash_pack = true, trigger_mainframe=true, MM_tech_expo_nonweapon = true, disposable = true, MM_tech_expo_item = true},
+		traits = { range = 5, attackNeedsLOS=true, canSleep = true, baseDamage = 4, flash_pack = true, trigger_mainframe=true, MM_tech_expo_nonweapon = true, usesLeft = 3, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 8,},
 		value = 900,
 	},
 	-- special scientist loot

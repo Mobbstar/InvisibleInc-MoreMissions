@@ -79,6 +79,10 @@ local function onGuardTooltip(tooltip, unit)
 	if unit:getTraits().MM_impairedVision then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.IMPAIRED_VISION, STRINGS.MOREMISSIONS.UI.TOOLTIPS.IMPAIRED_VISION_DESC, "gui/items/icon-action_peek.png" )
 	end
+	--sidemission
+	if unit:getTraits().bossUnit then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BOSSUNIT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BOSSUNIT_DESC,  "gui/icons/skills_icons/skills_icon_small/icon-item_accuracy_small.png" )
+	end
 end
 
 return 

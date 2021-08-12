@@ -91,7 +91,7 @@ return {
 		"MORE MISSIONS: The AI Terminal lets you increase Incognita's slot size or upgrade a program you own.",
 		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt that corporation's Counterintelligence AI.",		
 		"MORE MISSIONS: It's a good idea to have leftover AP on your agents when you complete an objective. You may want to move them after the security measures kick in.",
-		"MORE MISSIONS: You can enable the mod's EASY MODE to make the new missions' challenges easier to deal with.",
+		"MORE MISSIONS: You can enable the mod's EASY MODE to make the new missions' security measures more forgiving.",
 		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
 		"MORE MISSIONS: The Assassination target is marked as Paranoid, but is it paranoia if someone really is out to kill you?",
 	},
@@ -201,63 +201,67 @@ return {
 
 		-- TECH EXPO CUSTOM ITEMS
 		SMOKE_GRENADE_CLASSIC = "Experimental Smoke Grenade",
-		SMOKE_GRENADE_CLASSIC_TOOLTIP = "Throw to create a cloud of smoke that occludes vision in an area. Persists for 2 turns.",
+		SMOKE_GRENADE_CLASSIC_TOOLTIP = "Throw to create a cloud of smoke that occludes vision in an area. Persists for 2 turns. Limited uses.",
 		SMOKE_GRENADE_CLASSIC_FLAVOR = "An alternate aerosol mix that disperses over a larger area, and stays suspended in the air for longer than standard smoke grenades. Try not to breathe it in.",
 		
 		GRENADE_FRAG = "Frag Grenade",
-		GRENADE_FRAG_TOOLTIP = "Detonates in an area. Lethal damage to humans and fragile mainframe devices. Friendly damage.",
+		GRENADE_FRAG_TOOLTIP = "Detonates in an area. Lethal damage to humans and fragile mainframe devices. Friendly damage. Limited uses.",
 		GRENADE_FRAG_FLAVOR = "Practically a living fossil of military technology. Dating back to the early 20th century, this concussive IED causes extreme property damage and was outlawed by the Physplant Integrity Act of 2058.",
 
 		SMOKE_FRAG_GRENADE = "Occlusive Frag Grenade",
-		SMOKE_FRAG_GRENADE_TOOLTIP = "Detonates in an area and occludes sight with smoke cover. Lethal damage to humans and fragile mainframe devices. Friendly damage.",
+		SMOKE_FRAG_GRENADE_TOOLTIP = "Detonates in an area and occludes sight with smoke cover. Lethal damage to humans and fragile mainframe devices. Friendly damage. Limited uses.",
 		SMOKE_FRAG_GRENADE_FLAVOR = "The Swiss Army knife of grenades, for when you can't choose between deadly force and subterfuge and want a little bit of both.",
 
 		CLOAK_1 = "Fragile Cloaking Zone Rig",
-		CLOAK_1_TOOLTIP = "Renders the user and anyone in range invisible for 2 turns, as long as they don't move or attack.",
+		CLOAK_1_TOOLTIP = "Renders the user and anyone in range invisible for 2 turns, as long as they don't move or attack. Limited uses.",
 		CLOAK_1_FLAVOR = "Cloaking rigs use an array of holographic projectors to bend light around a small area, rendering it almost invisible. This one creates a large but easily-disrupted holographic field extending far beyond the initial user.",
 
 		CLOAK_2 = "Extended Cloaking Rig",
-		CLOAK_2_TOOLTIP = "Renders the user invisible for 3 turns, or until they attack.\n\nCannot use while sighted.",
+		CLOAK_2_TOOLTIP = "Renders the user invisible for 3 turns, or until they attack.\n\nCannot use while sighted. Limited uses.",
 		CLOAK_2_FLAVOR = "This cloaking rig benefits from cutting edge efficiency and ease of use, but requires a hefty initial surge of PWR to activate.",
+		
+		CLOAK_3 = "Fortified Cloaking Rig",
+		CLOAK_3_TOOLTIP = "Renders the user invisible for 1 turn. Is not disrupted by attacking. Limited uses.",
+		CLOAK_3_FLAVOR = "This fortified cloaking rig model can withstand energetic fluctuations that would collapse a regular cloak, even from firearms or neural disrupters.",
 
 		BUSTER = "Experimental Buster Chip",
-		BUSTER_TOOLTIP = "Use this to manually break through 8 firewalls, destroying any installed daemon.",
+		BUSTER_TOOLTIP = "Use this to manually break through 8 firewalls, destroying any installed daemon. Limited uses.",
 		BUSTER_FLAVOR = "An advanced Buster Chip model designed for taking down high-security, high-priority targets with no fuss.",
 
 		ECON_CHIP = "Experimental Econ Chip",
-		ECON_CHIP_TOOLTIP = "Collects credits from consoles instead of PWR. 100 credit per PWR point.",
+		ECON_CHIP_TOOLTIP = "Collects credits from consoles instead of PWR. 100 credit per PWR point. Limited uses.",
 
 		STIM = "Experimental Stim",
-		STIM_TOOLTIP = "Refreshes an agent's attack and restores 12 AP, but reduces max AP by 3 for the rest of the mission.",
+		STIM_TOOLTIP = "Grants unlimited attacks for one turn and restores 12 AP, but reduces max AP by 3 for the rest of the mission. Limited uses.",
 		STIM_FLAVOR = "This experimental chemical cocktail has proven reasonably sublethal in most rats.\n\nYou'll probably be fine.",
 
 		SHOCK_TRAP = "Experimental Shock Trap",
-		SHOCK_TRAP_TOOLTIP = "Place on a door. Triggers when opened. Has an area of effect. One time use. Ignores Armor.",
+		SHOCK_TRAP_TOOLTIP = "Place on a door. Triggers when opened. Has an area of effect. Ignores Armor. Limited uses.",
 		SHOCK_TRAP_FLAVOR = "This experimental shock trap has a particularly impressive range, and extra large buttons for ease of operating.",
 
 		SHOCK_TRAP2 = "Penetrative Shock Trap",
-		SHOCK_TRAP2_TOOLTIP = "Place on a door. Triggers when opened. Has an area of effect. One time use. Ignores Armor. Ignores Magnetic Reinforcements.",
+		SHOCK_TRAP2_TOOLTIP = "Place on a door. Triggers when opened. Has an area of effect. Ignores Armor. Ignores Magnetic Reinforcements. Limited uses.",
 		SHOCK_TRAP2_FLAVOR = "A more localised, efficient model of shock trap developed by Sankaku as a security countermeasure, bypassing magnetic reinforcements. Hidden compartments with emergency buster chips sometimes just don't cut it for a rogue drone.",
 
 		EMP = "Multi-Pulse EMP Pack",
-		EMP_TOOLTIP = "Detonates at the end of the turn when primed. Disables all Mainframe devices and drones for 4 turns. Emits 3 pulses.",
+		EMP_TOOLTIP = "Detonates at the end of the turn when primed. Disables all Mainframe devices and drones for 4 turns. Emits 3 pulses. Limited uses.",
 		EMP_FLAVOR = "A high-end EMP pack which couples multiple consecutive pulses, effectively disabling even most devices with magnetic reinforcements.",
 
 		EMP2 = "Penetrative EMP Pack",
-		EMP2_TOOLTIP = "Detonates at the end of the turn when primed. Disables all Mainframe devices and drones for 8 turns. Ignores Magnetic Reinforcements.",
+		EMP2_TOOLTIP = "Detonates at the end of the turn when primed. Disables all Mainframe devices and drones for 8 turns. Ignores Magnetic Reinforcements. Limited uses.",
 		EMP2_FLAVOR = "A high-end EMP pack which bypasses magnetic reinforcements entirely, but has a fairly small range.",
 
 		GRENADE_CRY_BABY = "Experimental Cry Baby",
-		GRENADE_CRY_BABY_TOOLTIP = "Throw to place. Activate in the mainframe to create a noise. Will not be ignored even if seen.",
+		GRENADE_CRY_BABY_TOOLTIP = "Throw to place. Activate in the mainframe to create a noise. Will not be ignored even if seen. Limited uses.",
 		GRENADE_CRY_BABY_FLAVOR = "An extra loud, extra annoying version of the run-of-the-mill Cry Baby tech, sure to draw security personnel from far and wide.",
 		GRENADE_CRY_BABY_USE = "Activate Cry Baby",
-		GRENADE_CRY_BABY_USE_TIP = "Device will emit a large sound.",
+		GRENADE_CRY_BABY_USE_TIP = "Device will emit a loud sound.",
 
 		GRENADE_CRY_BABY_DEAD = "Deployed Cry Baby",
 		GRENADE_CRY_BABY_DEAD_TOOLTIP = "Cannot be picked up again, only activated.",
 
 		FLASH_PACK = "Experimental Flash Pack",
-		FLASH_PACK_TOOLTIP = "Place on the ground. Detonate it using the mainframe. Requires 3 PWR to activate. KO all guards for 4 turns in a radius of 5 tiles.",
+		FLASH_PACK_TOOLTIP = "Place on the ground. Detonate it using the mainframe. Requires 3 PWR to activate. KO all guards for 4 turns in a radius of 5 tiles. Limited uses.",
 		FLASH_PACK_FLAVOR = "The power of a flash bomb married to the wireless magic of mainframe technology.",
 		FLASH_PACK_USE = "Detonate Flash Pack",
 		FLASH_PACK_USE_TIP = "KO guards in a 5 tile radius for 4 turns.",
@@ -1127,40 +1131,40 @@ return {
 				},
 			},
 			
-			SIDEMISSIONS = {
+			MM_SIDEMISSIONS = {
 				STEAL_STORAGE = {
 					STORAGE_SPOTTED_1 = {
-					{{"Our telemetry data suggests there are two other rooms like this somewhere in the facility. If we can spare the time, it would be a shame to leave these valuables without stopping by.",nil,"Central"},
-					{"Do try not to drop them. My clients are incredibly particular about the number of pieces they prefer their merchandise to be in.",nil,"Monster"}},
+					{"Our telemetry data suggests there are two other rooms like this somewhere in the facility. If we can spare the time, it would be a shame to leave these valuables without stopping by.",nil,"Central"},
+					{"Do try not to drop them. My clients are incredibly particular about the number of pieces they prefer their merchandise to be in.",nil,"Monster"},
 					},
 					STORAGE_SPOTTED_2 = {
-					{{"You found the second storage room. Get to work.",nil,"Central"},
+					{"You found the second storage room. Get to work.",nil,"Central"},
 					{"Just remember: the more you steal, the more I'll make it worth your while.",nil,"Monster"},
-					{"We are not your delivery service. Operator, take only what our team can safely carry out.",nil,"Central"}}
+					{"We are not your delivery service. Operator, take only what our team can safely carry out.",nil,"Central"}
 					},
 					STORAGE_SPOTTED_3 = {
-					{{"There it is! The last room. Get all of that back on board with you, and I promise you, you will be swimming in credits. Maybe if you leave some by the exit and make two trips-",nil,"Monster"},
-					{"That's enough. It is your choice, Operator. Make sure it's not one we come to regret.",nil,"Central"}},
+					{"There it is! The last room. Get all of that back on board with you, and I promise you, you will be swimming in credits. Maybe if you leave some by the exit and make two trips-",nil,"Monster"},
+					{"That's enough. It is your choice, Operator. Make sure it's not one we come to regret.",nil,"Central"},
 					},
 					CENTRAL_LOCKER_ROBBED = {
-					{{"Be careful, Operator. The locker's internal sensors triggered a daemon the moment you took that gear. Perhaps their security is not as shoddy as we thought.",nil,"Central"}},
+					{"Be careful, Operator. The locker's internal sensors triggered a daemon the moment you took that gear. Perhaps their security is not as shoddy as we thought.",nil,"Central"},
 					},
 				},
 					
 				PERSONNEL_HIJACK = {
 					SPOTTED_BOSS = {
-					{{"Curious. The facial ID on that guard... Monst3r, do you recognise him?",nil,"Central"},
+					{"Curious. The facial ID on that guard... Monst3r, do you recognise him?",nil,"Central"},
 					{"Goodness me. A little reminder of the bad old days, isn't it?",nil,"Monster"},
-					{"It has been a while. Operator, I would very much like to have a chat with him on the jet. See to it.",nil,"Central"}},					
+					{"It has been a while. Operator, I would very much like to have a chat with him on the jet. See to it.",nil,"Central"},					
 					},
 					KO_BOSS = {
-					{{"Excellent. Now take him back to the jet. Remember: I want this man alive when we interrogate him.",nil,"Central"}},
+					{"Excellent. Now take him back to the jet. Remember: I want this man alive when we interrogate him.",nil,"Central"},
 					},
-					KILL_BOSS = {
-					{{"Were you not listening when I told you we needed him alive? Still, at least he's finally got what he deserved. Carry on with the mission.",nil,"Central"}},
+					BOSS_KILLED = {
+					{"Were you not listening when I told you we needed him alive? Still, at least he's finally got what he deserved. Carry on with the mission.",nil,"Central"},
 					},
-					ESCAPE_BOSS = {
-					{{"Good work, Operator. I'll see if we can get some intel out of him, ask him how the old firm has been.",nil,"Central"}},
+					BOSS_TAKEN = {
+					{"Good work, Operator. I'll see if we can get some intel out of him, ask him how the old firm has been.",nil,"Central"},
 					},					
 				},
 			},

@@ -70,7 +70,7 @@ local SITUATIONS =
 	mole_insertion =
 	{
         ui = {
-			insetImg = "gui/icons/mission_icons/mission_mole_insertion.png",
+			insetImg = "gui/icons/mission_icons/mission_mole_insertion_old.png",
 			icon = "gui/icons/mission_icons/mission_mole_insertion_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE_SECONDARY),

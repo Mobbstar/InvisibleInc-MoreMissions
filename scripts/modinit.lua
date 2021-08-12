@@ -376,14 +376,15 @@ local function lateInit( modApi )
 		paralyze_executeAbility_old( self, sim, unit, userUnit, target, ... )
 		local targetUnit = sim:getUnit(target)
 		local x0, y0 = targetUnit:getLocation()
-		if x0 and y0 then
+		if x0 and y0 and unit:getTraits().amnesiac then
 			targetUnit:getTraits().MM_amnesiac = true
 			targetUnit:getTraits().witness = nil
-			targetUnit:getTraits().MM_impairedVision = true
 			sim:triggerEvent( "used_amnesiac", { userUnit = userUnit, targetUnit = targetUnit } )
 			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=0,a=1}} )
 		end
-		--Funky Library takes care of impair AP stuff
+		if unit:getTraits().impare_sight then
+			targetUnit:getTraits().MM_impairedVision = unit:getTraits().impare_sight
+		end
 	end
 
 	-- ASSASSINATION bodyguard
@@ -433,8 +434,7 @@ local function lateInit( modApi )
 		end
 		simengine_hitUnit_old( self, sourceUnit, targetUnit, dmgt, ... )
 	end
-
-
+	
 	local simunit_setKO_old = simunit.setKO --for flash grenade
 	simunit.setKO = function( self, sim, ticks, fx, ... )
 		if self:getTraits().MM_decoy then
@@ -484,6 +484,30 @@ local function lateInit( modApi )
 		end
 		sim_damageUnit_old( self,  targetUnit, srcDamage, kodamage, fx, sourceUnit, ... )
 	end
+	
+	--attack-proof cloak
+	local useInvisiCloak = abilitydefs.lookupAbility( "useInvisiCloak" )
+	local useInvisiCloak_executeOld = useInvisiCloak.executeAbility
+	useInvisiCloak.executeAbility = function( self, sim, unit, ... )
+		local userUnit = unit:getUnitOwner()
+		if unit:getTraits().MM_attackproof_cloak then
+			userUnit:getTraits().MM_attackproof_cloak = true
+		end
+		return useInvisiCloak_executeOld( self, sim, unit, ... )
+	end
+
+	local simunit_setInvisible_old = simunit.setInvisible
+	simunit.setInvisible = function( self, state, duration, ... )
+		if (state == false) and self:getTraits().MM_attackproof_cloak then
+			if self:getTraits().invisDuration then
+				return --prevent premature decloaking while cloak is active
+			else --cloak has expired!
+				self:getTraits().MM_attackproof_cloak = nil --remove trait and let rest of decloaking function run as normal
+			end
+
+		end
+		return simunit_setInvisible_old( self, state, duration, ... )
+	end	
 end
 
 --The implementation of array.removeAllElements is not optimal for our purposes, and we also need something to remove dupes, so might as well combine it all. -M
@@ -579,10 +603,10 @@ local function load( modApi, options, params )
 	local commondefs = include( scriptPath .. "/commondefs" )
 	modApi:addTooltipDef( commondefs )
 
-	local side_missions = include( scriptPath .. "/side_missions" )
 	if options["MM_sidemissions"].enabled then
-		modApi:addEscapeScripts(side_missions.escape_scripts)
-		modApi:addSideMissions(scriptPath, side_missions.SIDEMISSIONS )
+		modApi:addSideMissions(scriptPath, { "MM_w93_storageroom" } )
+		modApi:addSideMissions(scriptPath, { "MM_w93_personelHijack" } )
+		-- modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } ) --not done yet		
 	end
 
 	modApi:addAbilityDef( "MM_hack_personneldb", scriptPath .."/abilities/MM_hack_personneldb" )
@@ -591,6 +615,7 @@ local function load( modApi, options, params )
 	modApi:addAbilityDef( "MM_W93_incogRoom_unlock", scriptPath .."/abilities/MM_W93_incogRoom_unlock" )
 	modApi:addAbilityDef( "MM_W93_incogRoom_upgrade", scriptPath .."/abilities/MM_W93_incogRoom_upgrade" )
 	modApi:addAbilityDef( "MM_fakesteal", scriptPath .. "/abilities/MM_fakesteal" )
+	modApi:addAbilityDef( "MM_W93_escape", scriptPath .. "/abilities/MM_W93_escape" )
 
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
@@ -622,9 +647,9 @@ local function load( modApi, options, params )
 	modApi:addEscapeScripts(escape_mission)
 
 	-- custom SIMUNITS
-	include(scriptPath.."/simKOcloud")
-	include(scriptPath.."/MM_simemppack_pulse")
-	include(scriptPath.."/MM_simfraggrenade")
+	include(scriptPath.."/units/MM_simKOcloud")
+	include(scriptPath.."/units/MM_simemppack_pulse")
+	include(scriptPath.."/units/MM_simfraggrenade")
 
 	-- modApi:setCampaignEvent_setCampaignParam(nil,"contingency_plan",true)
 
@@ -692,6 +717,8 @@ local function load( modApi, options, params )
     modApi:addPrefabt(weaponsExpoPrefabs)
 	local aiTerminalPrefabs = include( scriptPath .. "/prefabs/ai_terminal/prefabt" )
     modApi:addPrefabt(aiTerminalPrefabs)
+	local sidemissionPrefabs = include( scriptPath .. "/prefabs/sidemissions/prefabt" )
+    modApi:addPrefabt(sidemissionPrefabs)
 
 	--local koPrefabs = include( scriptPath .. "/prefabs/ko/prefabt" )
  	--modApi:addWorldPrefabt(scriptPath, "ko", koPrefabs)
