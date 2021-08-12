@@ -11,9 +11,9 @@ local inventory = include( "sim/inventory" )
 
 local MM_W93_escape =
 {
-	name = STRINGS.WORLDEXTEND.ABILITIES.W93_ESCAPE,
+	name = STRINGS.MOREMISSIONS.ABILITIES.W93_ESCAPE,
 	onTooltip = function( self, hud, sim, abilityOwner, abilityUser )
-		return abilityutil.hotkey_tooltip( self, sim, abilityOwner, STRINGS.WORLDEXTEND.ABILITIES.W93_ESCAPE_DESC )
+		return abilityutil.hotkey_tooltip( self, sim, abilityOwner, STRINGS.MOREMISSIONS.ABILITIES.W93_ESCAPE_DESC )
 	end,
 		
 	profile_icon = "gui/actions/escape1.png",
