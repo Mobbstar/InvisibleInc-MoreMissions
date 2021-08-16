@@ -198,12 +198,12 @@ local tool_templates =
 		desc = STRINGS.MOREMISSIONS.ITEMS.GRENADE_FRAG_TOOLTIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.GRENADE_FRAG_FLAVOR,
 		icon = "itemrigs/Crybaby.png",
-		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_flash_grenade_small.png",
-		profile_icon_100 = "gui/icons/item_icons/icon-item_flash_grenade.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_frag_grenade_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_frag_grenade.png",
 		kanim = "kanim_flashgrenade",
 		sounds = {explode="SpySociety/Grenades/flashbang_explo", bounce="SpySociety/Grenades/bounce"},
-		traits = { baseDamage = 2, range=2, explodes = 0, usesLeft = 3, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, disposable = false, throwUnit = "MM_techexpo_fraggrenade", noReload = true, ammo = 3, maxAmmo = 3, }, --lethal damage
-		abilities = { "carryable", "throw","recharge" },
+		traits = { baseDamage = 2, range=2, explodes = 0, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, disposable = true,}, --lethal damage
+		abilities = { "carryable", "throw", },
 		value = 600,
 		locator=true,
 	},
@@ -215,14 +215,14 @@ local tool_templates =
 		desc = STRINGS.MOREMISSIONS.ITEMS.SMOKE_FRAG_GRENADE_TOOLTIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.SMOKE_FRAG_GRENADE_FLAVOR,
 		icon = "itemrigs/Crybaby.png",
-		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_flash_grenade_small.png",
-		profile_icon_100 = "gui/icons/item_icons/icon-item_flash_grenade.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_frag_grenade_smoke_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_frag_grenade_smoke.png",
 		kanim = "kanim_flashgrenade",
 		sounds = {explode="SpySociety/Grenades/flashbang_explo", bounce="SpySociety/Grenades/bounce"},
-		traits = { baseDamage = 2, range=2, explodes = 0, usesLeft = 3, disposable = false, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, createsSmoke = true, on_spawn = "MM_smoke_cloud_frag", throwUnit = "MM_techexpo_frag_smoke_grenade", noReload = true, ammo = 3, maxAmmo = 3, }, --lethal damage
+		traits = { baseDamage = 2, range=2, explodes = 0, disposable = true, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, createsSmoke = true, on_spawn = "MM_smoke_cloud_frag", }, --lethal damage
 		value = 600,
 		locator=true,
-		abilities = { "carryable", "throw","recharge" },
+		abilities = { "carryable", "throw", },
 	},
 
 	MM_techexpo_smokegrenade = util.extend( commondefs.grenade_template )
@@ -280,8 +280,8 @@ local tool_templates =
 		flavor = STRINGS.MOREMISSIONS.ITEMS.CLOAK_3_FLAVOR,
 		icon = "itemrigs/FloorProp_InvisiCloakTimed.png",
 		--profile_icon = "gui/items/icon-cloak.png",
-		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",
-		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_strong_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak_strong.png",
 		traits = { usesLeft = 3, duration = 1, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 6, MM_attackproof_cloak = true,},
 		requirements = { stealth = 3 },
 		abilities = { "carryable","useInvisiCloak","recharge" },
@@ -467,6 +467,24 @@ local tool_templates =
 		traits = { range = 5, attackNeedsLOS=true, canSleep = true, baseDamage = 4, flash_pack = true, trigger_mainframe=true, MM_tech_expo_nonweapon = true, usesLeft = 3, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 8,},
 		value = 900,
 	},
+	
+	MM_techexpo_hologrenadeHD = util.extend( commondefs.grenade_template )
+	{
+		type = "MM_simfraggrenade", --this works, but need some kind of proximity disruption mechanic by guards who run up to it but can't pick it up because an agent is inside
+		name = STRINGS.MOREMISSIONS.ITEMS.HOLOGRENADE_HD,
+		desc = STRINGS.MOREMISSIONS.ITEMS.HOLOGRENADE_HD_TIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.HOLOGRENADE_HD_FLAVOR,
+		--icon = "itemrigs/FloorProp_Bandages.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_holo_grenade_HD_small.png",	
+		profile_icon_100 = "gui/icons/item_icons/icon-item_holo_grenade_HD.png",	
+		kanim = "kanim_MM_hologrenade_tall",
+		sounds = {activate="SpySociety/Actions/holocover_activate", deactivate="SpySociety/Actions/holocover_deactivate", activeSpot="SpySociety/Actions/holocover_run_LP", bounce="SpySociety/Grenades/bounce"},
+		traits = { cooldown = 0, cooldownMax = 2, cover=false, holoProjector=true, disposable = false, agent_filter=true, deploy_cover=true, deploySightblock = true, MM_tech_expo_item = true, MM_tech_expo_nonweapon = true,},	
+		abilities = { "recharge","carryable", "throw" },
+		value = 600,	
+		locator=true,
+	},
+	
 	-- special scientist loot
 	MM_augment_skill_chip_speed = util.extend( commondefs.augment_template )
 	{

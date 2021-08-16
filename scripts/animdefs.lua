@@ -566,7 +566,18 @@ local animdefs =
 		},		
 		peekBranchSet = 1,	
 	},
-	
+		
+	kanim_MM_hologrenade_tall =
+	{
+		build = "data/anims/fx/MM_hologrenade_tall.abld",
+		anims = { "data/anims/fx/hologrenade_cart.adef" },
+		symbol = "character",
+		shouldFlip = true,
+		scale = 0.3,
+		layer = Layer.Object,
+		boundType = BoundType.bound_1x1_med_med,
+		filterSymbols = {{symbol="outline",filter="default"},{symbol="tile_outline",filter="default"},{symbol="teal",filter="default"},{symbol="red",filter="default"},{symbol="Highlight",filter="default"}},
+	},	
 }
 
 return animdefs
