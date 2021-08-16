@@ -172,9 +172,11 @@ return {
 		-- KEYCARD_BLUE_TIP = "Unlocks blue doors.",
 		-- KEYCARD_BLUE_FLAVOR = "Created using only state-of-the-art technology, this piece of plastic has a deep marine hue.",
 
-		HOLOGRENADE_HD = "HD Projector",
-		HOLOGRENADE_HD_TIP = "Throw to place a tall fake cover item. Activate in mainframe. Uses charge every turn. Can be recovered.",
-		HOLOGRENADE_HD_FLAVOR = "Circus acts and theatre make up for the lack of postproduction by using convincing High-Density Holograms.",
+		HOLOGRENADE_HD = "HD Holoprojector",
+		-- HOLOGRENADE_HD_TIP = "Throw to place a tall fake cover item. Activate in mainframe. Uses charge every turn. Can be recovered.",
+		-- HOLOGRENADE_HD_FLAVOR = "Circus acts and theatre make up for the lack of postproduction by using convincing High-Density Holograms.",
+		HOLOGRENADE_HD_TIP = "Throw to place a tall fake cover item. Blocks sight. Can be recovered. Can be heard 1 tile away.",
+		HOLOGRENADE_HD_FLAVOR = "This Inconspicuous Ficus holoprojector presents a lightweight alternative to carrying around your own theater background decor.",		
 
 		LAPTOP_HOLO = "VFX Laptop",
 		LAPTOP_HOLO_TIP = "Deploy to place a fake cover item. Generates 1 PWR per turn while deployed. The projector can be heard 1 tile away.",
@@ -205,11 +207,11 @@ return {
 		SMOKE_GRENADE_CLASSIC_FLAVOR = "An alternate aerosol mix that disperses over a larger area, and stays suspended in the air for longer than standard smoke grenades. Try not to breathe it in.",
 		
 		GRENADE_FRAG = "Frag Grenade",
-		GRENADE_FRAG_TOOLTIP = "Detonates in an area. Lethal damage to humans and fragile mainframe devices. Friendly damage. Limited uses.",
+		GRENADE_FRAG_TOOLTIP = "Detonates in an area. Lethal damage to humans and fragile mainframe devices. Friendly damage.",
 		GRENADE_FRAG_FLAVOR = "Practically a living fossil of military technology. Dating back to the early 20th century, this concussive IED causes extreme property damage and was outlawed by the Physplant Integrity Act of 2058.",
 
 		SMOKE_FRAG_GRENADE = "Occlusive Frag Grenade",
-		SMOKE_FRAG_GRENADE_TOOLTIP = "Detonates in an area and occludes sight with smoke cover. Lethal damage to humans and fragile mainframe devices. Friendly damage. Limited uses.",
+		SMOKE_FRAG_GRENADE_TOOLTIP = "Detonates in an area and occludes sight with smoke cover. Lethal damage to humans and fragile mainframe devices. Friendly damage.",
 		SMOKE_FRAG_GRENADE_FLAVOR = "The Swiss Army knife of grenades, for when you can't choose between deadly force and subterfuge and want a little bit of both.",
 
 		CLOAK_1 = "Fragile Cloaking Zone Rig",
@@ -615,12 +617,12 @@ return {
 		WEAPONS_EXPO = {
 			NAME= "Tech Expo",
 			-- MORE_INFO = "This facility is hosting a world class tech exposition. The corporations and the industry finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nBut keep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
-			MORE_INFO = "A prestigious tech exhibition offers the chance to steal some powerful prototypes before they reach the wider market. \n\nYou will find advanced weapons as well as powerful single-use items here, but the security system should not be taken lightly - the more you steal, the greater the risk.", --This can be quite lengthy.
+			MORE_INFO = "A prestigious tech exhibition offers the chance to steal some powerful prototypes before they reach the wider market. \n\nYou will find advanced weapons as well as powerful limited-use items here, but the security system should not be taken lightly - the more you steal, the greater the risk.", --This can be quite lengthy.
 			INSET_TITLE = "TECH EXPO", --unused
 			INSET_TXT = "This facility is hosting a top-tier tech exposition. The corporations and the industry's finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours. But keep your guard up - rumour has it their security system is every bit as experimental as the tech they're showcasing.", --unused unless we actually get these voiced somehow
 			INSET_VO = {""},
 			DESCRIPTION = "Locate the main exhibition center and steal at least one prototype.",
-			REWARD = "Advanced weapons and powerful single-use items you can sell or use as equipment.",
+			REWARD = "Advanced weapons and powerful limited-use items you can sell or use as equipment.",
 		},
 
 		MOLE_INSERTION = {
@@ -1120,13 +1122,13 @@ return {
 						-- {{"",nil,"Central"}},
 					},
 					GOT_UPGRADE = {
-						{{"Have a cookie, Operator.", nil, "Central"}},
+						{{"Impressive field performance. Have a cookie, Operator.", nil, "Central"}},
 					},
 					GOT_NOTHING = {
 						{{"I should have left you at the orphanage.", nil, "Central"}}, --will rewrite when feeling more creative
 					},
 					WEAKENED_COUNTER_AI = {
-						{{"The best defense is a good offense, as they say. Sabotage may be a dirty play, but hamstringing their AI research is sure to help us stay competitive. Well done.", nil, "Central"}}, --unvoiced?
+						{{"The best defense is a good offense, as they say. Sabotage may be a dirty game, but hamstringing their AI research is sure to help us stay competitive. Well done.", nil, "Central"}}, --unvoiced?
 					},
 				},
 			},
