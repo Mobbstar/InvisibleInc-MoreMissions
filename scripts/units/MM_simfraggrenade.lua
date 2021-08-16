@@ -9,7 +9,7 @@ local simfactory = include( "sim/simfactory" )
 -----------------------------------------------------
 
 local frag_grenade = { ClassType = "MM_simfraggrenade" }
-
+--but also an HD hologrenade so \o/
 
 function frag_grenade:throw(throwingUnit, targetCell)
 	local sim = self:getSim()
@@ -80,6 +80,30 @@ function frag_grenade:getExplodeCells()
     return cells
 end
 
+function frag_grenade:createTallCover()
+	local sim = self:getSim()
+	local cell = sim:getCell(self:getLocation())
+	local segments = {}
+	local cells = { cell }
+	for _, dir in ipairs( simdefs.DIR_SIDES ) do
+		local dx, dy = simquery.getDeltaFromDirection( dir )
+		local tocell = sim:getCell( cell.x + dx, cell.y + dy )
+		if tocell and array.find( cells, tocell ) == nil then
+			table.insert( segments, tocell )
+			table.insert( segments, simquery.getReverseDirection( dir ) )
+		end
+		table.insert( segments, cell )
+		table.insert( segments, dir )
+	end
+	sim:getLOS():insertSegments( unpack( segments ))
+	self._segments = segments
+	self._cells = cells
+    for i, unit in pairs(sim:getAllUnits()) do
+        sim:refreshUnitLOS( unit )
+    end
+    sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED )
+end
+
 function frag_grenade:activate()
     assert( not self:getTraits().deployed )
 
@@ -92,11 +116,14 @@ function frag_grenade:activate()
 	end
 
 	if self:getTraits().holoProjector then
+		local cell = sim:getCell(self:getLocation())
 		if self:getTraits().deploy_cover then
-			local cell = sim:getCell(self:getLocation())
 			sim:warpUnit( self )
 			self:getTraits().cover = true			
 			sim:warpUnit( self, cell)
+			if self:getTraits().deploySightblock then
+				self:createTallCover()
+			end	
 		end		
 		self:getTraits().hologram=true
 		self:getSounds().spot = self:getSounds().activeSpot
@@ -119,9 +146,31 @@ function frag_grenade:activate()
             self:getTraits().timer = self:getTraits().explodes
         	sim:addTrigger( simdefs.TRG_START_TURN, self ) -- Explodes later
         end
-        sim:addTrigger( simdefs.TRG_UNIT_PICKEDUP, self )
+		sim:addTrigger( simdefs.TRG_UNIT_PICKEDUP, self )
         sim:triggerEvent( simdefs.TRG_UNIT_DEPLOYED, { unit = self })
     end
+end
+
+function frag_grenade:onTrigger( sim, evType, evData )
+	if evType == simdefs.TRG_UNIT_PICKEDUP and evData.item == self then
+		self:deactivate()
+
+	elseif evType == simdefs.TRG_UNIT_WARP and evData.unit ~= self then
+		local x0,y0 = self:getLocation()
+
+		if evData.to_cell == sim:getCell(self:getLocation()) or evData.from_cell == sim:getCell(self:getLocation()) then
+			if evData.unit:getTraits().isAgent then
+				sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = self } )
+			end
+		end
+	elseif evType == simdefs.TRG_START_TURN then
+		if evData:isNPC() then
+            self:getTraits().timer = self:getTraits().timer - 1
+            if self:getTraits().timer <= 0 then
+                self:explode()
+            end
+		end
+	end
 end
 
 function frag_grenade:deactivate()
@@ -146,12 +195,20 @@ function frag_grenade:deactivate()
 		if self:getTraits().deploy_cover then
 			local cell = sim:getCell(self:getLocation())	
 			sim:warpUnit( self )
-			self:getTraits().cover = false					
+			self:getTraits().cover = false
 			sim:warpUnit( self, cell)
 		end			
 		sim:dispatchEvent( simdefs.EV_UNIT_UPDATE_SPOTSOUND, { unit = self, stop = true } )
 		self:getSounds().spot = nil
 		self:getTraits().hologram=false
+		if self._segments then --remove sightblock from HD hologram
+			sim:getLOS():removeSegments( unpack( self._segments ))
+			sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED ) -- Update shadow map.
+			-- sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = self } )
+			-- sim:dispatchEvent( sim:getDefs().EV_LOS_REFRESH, { player = sim:getPC(), cells = self._cells } )
+			-- sim:dispatchEvent( sim:getDefs().EV_LOS_REFRESH, { player = sim:getNPC(), cells = self._cells } )
+			self._segments, self._cells = nil, nil
+		end			
 	end
 
     self:getTraits().deployed = nil
@@ -173,6 +230,28 @@ end
 		-- sim:removeTrigger( simdefs.TRG_UNIT_WARP, self )
 	-- end
 -- end
+
+function frag_grenade:onWarp(sim, oldcell, cell)
+    if self._segments then
+        sim:getLOS():removeSegments( unpack( self._segments ))
+        self._segments, self._cells = nil, nil
+        for i, unit in pairs(sim:getAllUnits()) do
+            sim:refreshUnitLOS( unit )
+        end
+        sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED ) -- Update shadow map.
+    end
+    -- if cell then
+        -- self._cells, self._segments, self._interestUnits = occludeSight( sim, cell, self:getTraits().radius )
+        -- for i, cell in ipairs(self._cells) do
+            -- for i, unit in ipairs(cell.units) do
+                -- if unit:getBrain() and unit:getTraits().hasSight then
+                    -- unit:getBrain():getSenses():addInterest(cell.x, cell.y, simdefs.SENSE_SIGHT, simdefs.REASON_SMOKE)
+                -- end
+            -- end
+        -- end
+        -- sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = self } )     
+    -- end
+end
 
 function frag_grenade:onExplode( cells )
     local sim, player = self:getSim(), self:getPlayerOwner()
