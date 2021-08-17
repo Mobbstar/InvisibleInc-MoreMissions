@@ -507,7 +507,23 @@ local function lateInit( modApi )
 
 		end
 		return simunit_setInvisible_old( self, state, duration, ... )
-	end	
+	end
+	
+	-- for Tech Expo androids visual glitch
+	local simunit_takeControl_old = simunit.takeControl
+	simunit.takeControl = function( self, player, ... )
+		if self:getTraits().LOSperipheralRange then
+			self:getTraits().hasSight = false
+			self:getTraits().hadSight = true
+			self:getSim():refreshUnitLOS( self )
+		end
+		simunit_takeControl_old( self, player, ... )
+		if self:getTraits().hadSight then
+			self:getTraits().hasSight = true
+			self:getTraits().hadSight = nil
+		end
+	end
+	
 end
 
 --The implementation of array.removeAllElements is not optimal for our purposes, and we also need something to remove dupes, so might as well combine it all. -M
