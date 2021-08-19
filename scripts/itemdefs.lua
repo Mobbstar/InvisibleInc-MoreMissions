@@ -479,7 +479,7 @@ local tool_templates =
 		profile_icon_100 = "gui/icons/item_icons/icon-item_holo_grenade_HD.png",	
 		kanim = "kanim_MM_hologrenade_tall",
 		sounds = {activate="SpySociety/Actions/holocover_activate", deactivate="SpySociety/Actions/holocover_deactivate", activeSpot="SpySociety/Actions/holocover_run_LP", bounce="SpySociety/Grenades/bounce"},
-		traits = { cooldown = 0, cooldownMax = 2, cover=false, holoProjector=true, disposable = false, agent_filter=true, deploy_cover=true, deploySightblock = true, MM_tech_expo_item = true, MM_tech_expo_nonweapon = true, usesLeft = 5,},	
+		traits = { cooldown = 0, cooldownMax = 2, cover=false, usesLeft = 5, holoProjector=true, disposable = false, agent_filter=true, deploy_cover=true, deploySightblock = true, MM_tech_expo_item = true, MM_tech_expo_nonweapon = true, usesLeft = 5,},	
 		abilities = { "recharge","carryable", "throw" },
 		value = 600,	
 		locator=true,
