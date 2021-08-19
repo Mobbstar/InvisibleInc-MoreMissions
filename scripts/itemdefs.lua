@@ -431,7 +431,7 @@ local tool_templates =
 		},
 		abilities = {"throw"},
 		sounds = {activate="SpySociety/Grenades/stickycam_deploy", bounce="SpySociety/Grenades/bounce", cry_baby="SpySociety_DLC001/Actions/crybaby_activate"},
-		traits = { cryBaby=true, range=15, agent_filter=true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true,},
+		traits = { cryBaby=true, range=15, agent_filter=true,},
 		value = 300,
 		locator=true,
 	},
