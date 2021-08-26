@@ -587,7 +587,7 @@ return {
 			-- MORE_INFO = "The corp has intercepted a courier of one of our former clients. He's got important site intel stored in a cerebral implant, intel we could use. Your task is to break in, locate the courier, and recover the information.\n\nOne final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",
 			MORE_INFO = "Data couriers traffic valuable information for their clients, but are easy targets for the corps if they get caught. This courier has detailed knowledge of the corp's facilities and can provide us with more targets nearby.\n\nAs a security precaution, the exit elevator is locked until further notice, but the courier should have a backdoor sequence for it.",
 			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
-			INSET_TXT = "The corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we might be able to persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
+			INSET_TXT = "This corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we might be able to persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
 			INSET_VO = {""},
 			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.\nTelepad locked, courier has the key.",
 			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby.",
@@ -619,7 +619,7 @@ return {
 			-- MORE_INFO = "This facility is hosting a world class tech exposition. The corporations and the industry finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nBut keep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
 			MORE_INFO = "A prestigious tech exhibition offers the chance to steal some powerful prototypes before they reach the wider market. \n\nYou will find advanced weapons as well as powerful limited-use items here, but the security system should not be taken lightly - the more you steal, the greater the risk.", --This can be quite lengthy.
 			INSET_TITLE = "TECH EXPO", --unused
-			INSET_TXT = "This facility is hosting a top-tier tech exposition. The corporations and the industry's finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours. But keep your guard up - rumour has it their security system is every bit as experimental as the tech they're showcasing.", --unused unless we actually get these voiced somehow
+			INSET_TXT = "This facility is hosting a world class tech exposition. The corporations and the industry's finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours. But keep your guard up - rumour has it their security system is every bit as experimental as the tech they're showcasing.", --unused unless we actually get these voiced somehow
 			INSET_VO = {""},
 			DESCRIPTION = "Locate the main exhibition center and steal at least one prototype.",
 			REWARD = "Advanced weapons and powerful limited-use items you can sell or use as equipment.",
@@ -640,11 +640,11 @@ return {
 			NAME = "AI Terminal",
 			MORE_INFO = "We've located an AI Development Terminal with unusually high security clearance. We should be able to integrate some of this research to increase Incognita's processing efficiency.\n\nThe terminal has multiple redundant locks, so be prepared to be thorough.",
 			INSET_TITLE = "",
-			INSET_TXT = "We've unearthed an off-the-books AI research facility. We may be able to use it to upgrade Incognita, but be sure to tread lightly, Operator. We can only assume there's a good reason they kept this place so well-hidden.",
+			INSET_TXT = "We've unearthed an off-the-books AI research facility. We may be able to use it to upgrade Incognita, but be sure to tread lightly, Operator. We can only assume there's a good reason they've kept this place so well-hidden.",
 			INSET_VO = {""},
 			DESCRIPTION = "Unlock and access the AI Development Terminal using keycards and devices found on-site.",
 			-- REWARD = "An additional program slot for Incognita, or valuable tech if at upgrade cap (2 additional slots).",
-			REWARD = "An additional program slot for Incognita, or a program upgrade.",
+			REWARD = "An additional program slot for Incognita, or an upgrade to an existing program.",
 
 		},
 
@@ -672,6 +672,7 @@ return {
 		DOORS_REVEALED = "DOORS REVEALED",
 		EXIT_REVEALED = "EXIT REVEALED",
 		NO_GUARD_ESCAPE = "Must access Personnel Database first",
+		NO_ESCAPE_OVERWATCHED = "Cannot exit while overwatched",
 		CAMERADB_SCRUBBED = "CAMERAS CLEARED",
 		WITNESS_CLEARED = "WITNESS REMOVED",
 		MOLE_EXIT_WARNING = "Are you sure you want to leave? You haven't located the Personnel Database yet.",
@@ -721,7 +722,7 @@ return {
 			IMPAIRED_VISION = "IMPAIRED VISION",
 			IMPAIRED_VISION_DESC = "This unit's vision range is reduced.",
 			MOLE_CIVILIAN = "CIVILIAN",
-			MOLE_CIVILIAN_DESC = "Cannot use weapons.",
+			MOLE_CIVILIAN_DESC = "Cannot use weapons or be revived.",
 
 			BOSSUNIT = "Opportunity Target",
 			BOSSUNIT_DESC = "Bring this unit to the Jet. Successful extraction adds Detention Center location to the map.",			
@@ -767,6 +768,7 @@ return {
 		},
 	},
 
+	-- STORY SCRIPTS BEGIN HERE
 	BANTER = {
 		--automatically compiled by story_scripts.lua
 		INGAME = {
@@ -819,14 +821,14 @@ return {
 						-- {"But watch out for his bodyguard. He seems to have some sort of dermal plating implant, and won't go down as easily as your average security.", nil, "Central"},
 						},
 			
-					{{"You've found him. Don't let him get away, but approach carefully. This woudn't be the first attempt on his life, and his paranoia is notorious.",
+					{{"You've found the target. Best approach carefully. This wouldn't be the first attempt on his life, and his paranoia is notorious.",
 						"moremissions/VoiceOver/Central/assassination/seen1",
 						"Central"}},
 				},
 				OBJECTIVE_SIGHTED_NO_WEAPONS = {
 					{{"You've found the target. You didn't bring anything lethal, so you'll have to improvise.",nil,"Central"
 					},
-					{"His records show he's recently had new K&O security installed. We may be able to use that to our advantage. Get creative, Operator.",nil,"Central"},},
+					{"From our client's intel, the target has recently had new K&O security installed. We may be able to use that to our advantage. Get creative, Operator.",nil,"Central"},},
 				},
 				DOOR_SIGHTED = {
 					{
@@ -857,8 +859,8 @@ return {
 					{{"There's our real target, finally. Get to it, Operator, this job is alerady messier than I'd like.", nil, "Central"}},	
 				},
 				FOUND_REAL_TARGET = { --found real target before decoy was busted
-					{{"Would you look at that, Operator. That does appear to be our real target, all holed up in his saferoom already.", nil, "Central"},
-					{"Pity we need him dead; I would almost admire this level of paranoia, if it didn't stand in our way.", nil, "Central"}},			
+					{{"Would you look at that, Operator. That appears to be our real target, holed up in his saferoom already.", nil, "Central"},
+					{"A pity we need him dead; I would almost admire this level of paranoia, if it didn't stand in our way.", nil, "Central"}},			
 				},				
 				AFTERMATH = {
 					-- "Now make sure not to bump into any rival assassins on your way out."
@@ -963,7 +965,7 @@ return {
 				{{"Looks like the expo is providing its own security. Get out while you still can.",nil,"Central"}},
 				},
 				CENTRAL_JUDGEMENT = {
-					NO_LOOT = {{{"This was a waste of time, Operator. If you cannot pull off a simple museum heist, then what good are you?",nil,"Central"}},
+					NO_LOOT = {{{"This was a waste of time, Operator. If you cannot pull off a simple museum heist, then what good are you to me?",nil,"Central"}},
 					{{"I expected better results from you, Operator. We've lost our previous firepower, and opportunities like this don't come knocking every day.",nil,"Central"}},
 					{{"Outstanding work, Operator. I trust you'll remember this moment the next time our agents enter the field armed with toothpicks and BB guns.",nil,"Central"}}},
 					GOT_PARTIAL = {{{"I trust you've made the right call, Operator. Pity we couldn't clean them out completely, but the reward is not always worth the risk.",nil,"Central"}},
@@ -1118,14 +1120,16 @@ return {
 
 				CENTRAL_JUDGEMENT = {
 					GOT_SLOT = {
-						{{"Excellent job, Operator. Incognita will be able to install one additional program soon.",nil,"Central"}},
+						{{"Excellent job, Operator. Incognita will be able to install an additional program soon.",nil,"Central"}},
 						-- {{"",nil,"Central"}},
 					},
 					GOT_UPGRADE = {
-						{{"Impressive field performance. Have a cookie, Operator.", nil, "Central"}},
+						{{"An impressive performance, Operator. Have a cookie.", nil, "Central"}},
 					},
 					GOT_NOTHING = {
 						{{"I should have left you at the orphanage.", nil, "Central"}}, --will rewrite when feeling more creative
+						{{"We had a rare opportunity to enhance Incognita here, and you've wasted it. How disappointing.",nil,"Central"}},
+						{{"Operator, Incognita is the one advantage we still have over the corps. We cannot keep wasting such opportunities. Keep that in mind for next time.",nil,"Central"}},
 					},
 					WEAKENED_COUNTER_AI = {
 						{{"The best defense is a good offense, as they say. Sabotage may be a dirty game, but hamstringing their AI research is sure to help us stay competitive. Well done.", nil, "Central"}}, --unvoiced?
