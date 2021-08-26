@@ -161,7 +161,7 @@ local function init( modApi )
 	include( scriptPath .. "/simquery" )
 	include( scriptPath .. "/engine" )
 	include( scriptPath .. "/idle" )
-	include( scriptPath .. "/laser" )
+	include( scriptPath .. "/units/laser" )
 	include( scriptPath .. "/pcplayer" )
 	include( scriptPath .. "/unitrig" )
 
@@ -507,7 +507,23 @@ local function lateInit( modApi )
 
 		end
 		return simunit_setInvisible_old( self, state, duration, ... )
-	end	
+	end
+	
+	-- for Tech Expo androids visual glitch
+	local simunit_takeControl_old = simunit.takeControl
+	simunit.takeControl = function( self, player, ... )
+		if self:getTraits().LOSperipheralRange then
+			self:getTraits().hasSight = false
+			self:getTraits().hadSight = true
+			self:getSim():refreshUnitLOS( self )
+		end
+		simunit_takeControl_old( self, player, ... )
+		if self:getTraits().hadSight then
+			self:getTraits().hasSight = true
+			self:getTraits().hadSight = nil
+		end
+	end
+	
 end
 
 --The implementation of array.removeAllElements is not optimal for our purposes, and we also need something to remove dupes, so might as well combine it all. -M
@@ -611,6 +627,7 @@ local function load( modApi, options, params )
 
 	modApi:addAbilityDef( "MM_hack_personneldb", scriptPath .."/abilities/MM_hack_personneldb" )
 	modApi:addAbilityDef( "MM_escape_guardelevator", scriptPath .."/abilities/MM_escape_guardelevator" )
+	modApi:addAbilityDef( "MM_escape_guardelevator2", scriptPath .."/abilities/MM_escape_guardelevator2" )
 	modApi:addAbilityDef( "MM_scrubcameradb", scriptPath .."/abilities/MM_scrubcameradb" )
 	modApi:addAbilityDef( "MM_W93_incogRoom_unlock", scriptPath .."/abilities/MM_W93_incogRoom_unlock" )
 	modApi:addAbilityDef( "MM_W93_incogRoom_upgrade", scriptPath .."/abilities/MM_W93_incogRoom_upgrade" )

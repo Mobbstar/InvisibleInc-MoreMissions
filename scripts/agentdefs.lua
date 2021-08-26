@@ -32,7 +32,7 @@ local INTERNATIONALE_SOUNDS =
 
 local INFORMANT_ABILITIES = 
 {
-"jackin", "peek", "escape", "disarmtrap" , "observePath", "moveBody", "lastWords","sprint","MM_escape_guardelevator",
+"jackin", "peek", "escape", "disarmtrap" , "observePath", "moveBody", "lastWords","sprint","MM_escape_guardelevator","MM_escape_guardelevator2",
 }
 
 local agent_templates =

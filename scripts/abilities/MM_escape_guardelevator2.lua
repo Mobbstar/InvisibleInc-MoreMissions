@@ -8,6 +8,7 @@ local unitdefs = include( "sim/unitdefs" )
 
 -------------------------------------------------------------------
 --
+--a near identical copy for teleporting when you're already on the guard tile somehow, for edge cases (like getting into an elevator through a door left open)
 
 local function isKO( unit )
     return unit:isKO()
@@ -41,13 +42,7 @@ local MM_escape_guardelevator =
 
 			local cell = sim:getCell( abilityOwner:getLocation() )
 			local units = {}
-			local guarddoor = false
-			for i, exit in pairs(cell.exits) do
-				if exit.keybits and (exit.keybits == simdefs.DOOR_KEYS.GUARD) and sim:getQuery().cellHasTag(sim, cell, "door_front") then
-					guarddoor = true
-				end
-			end
-			if guarddoor == true then
+			if sim:getQuery().cellHasTag(sim, cell, "guard_spawn") then
 				table.insert( units, abilityOwner )	
 			end
 
@@ -97,19 +92,6 @@ local MM_escape_guardelevator =
 
 		canUseAbility = function( self, sim, unit )
 			local cell = sim:getCell( unit:getLocation() )
-			local guard_spawn_cell = nil
-			for dir, exit in pairs(cell.exits) do
-				if sim:getQuery().cellHasTag(sim, exit.cell, "guard_spawn") then
-					guard_spawn_cell = exit.cell
-				end
-			end
-			
-			if guard_spawn_cell == nil then 
-				return false
-			end
-			if guard_spawn_cell.impass > 0 or sim:getQuery().checkDynamicImpass(sim, guard_spawn_cell) then
-				return false, "Elevator occupied"
-			end
 		
 			if not sim:hasTag( "MM_DBhack_finished" ) then
 				return false, STRINGS.UI.REASON.CANT_ESCAPE --"Hack Personnel Database first"
@@ -146,52 +128,13 @@ local MM_escape_guardelevator =
 		executeAbility = function( self, sim, abilityOwner )
 			--manually move through the guard elevator door and teleports out
 			local unit = abilityOwner
-			local start_cell = sim:getCell(abilityOwner:getLocation())
-			local endcell
-			for dir, exit in pairs(start_cell.exits) do
-				if sim:getQuery().cellHasTag(sim, exit.cell, "guard_spawn") then
-					end_cell = exit.cell
-					break
-				end
-			end
-				
-			local facing = simquery.getDirectionFromDelta( end_cell.x - start_cell.x, end_cell.y - start_cell.y )
-			
-			for dir,exit in pairs(start_cell.exits) do
-				if exit.cell == end_cell then
-					if exit.door and exit.closed and (exit.keybits == simdefs.DOOR_KEYS.GUARD) then
-						local stealth  = unit:getTraits().sneaking
-						sim:modifyExit( start_cell, dir, simdefs.EXITOP_OPEN, unit , stealth )
-						door = {cell=start_cell, dir=dir, stealth=stealth}
-						door.forceClose = true
-					end
-					break
-				end
-			end			
+			local start_cell = sim:getCell(abilityOwner:getLocation())	
 			
 			if unit and unit:isValid() and unit:getLocation() and not unit:isDown() then
-				if simquery.isUnitUnderOverwatch(unit) then
-					return --interrupt action if overwatched by whoever's inside the elevator
-				end
-				
-				local reverse = math.abs(facing - unit:getFacing()) == 4
-				sim:dispatchEvent( simdefs.EV_UNIT_START_WALKING, { unit = unit, reverse = reverse } )
-				
-				sim:warpUnit( unit, end_cell, unit:getFacing(), reverse ) 
-				sim:dispatchEvent( simdefs.EV_UNIT_STOP_WALKING, { unit = unit  } )
-				sim:processReactions(unit) -- this check is probably unnecessary, return line when overwatched prevents you from etting this far...
-				if unit:isValid() then
-					sim:dispatchEvent( simdefs.EV_TELEPORT, { units={unit}, warpOut =true } )	
-					sim:warpUnit( unit, nil)
-					sim:despawnUnit(unit)			
-					sim:triggerEvent( "mole_final_escape" )
-					for dir, exit in pairs( start_cell.exits ) do
-						if exit.door and (exit.keybits == simdefs.DOOR_KEYS.GUARD) then
-							-- log:write("LOG closing door")
-							sim:modifyExit( start_cell, dir, simdefs.EXITOP_CLOSE )
-						end
-					end
-				end
+				sim:dispatchEvent( simdefs.EV_TELEPORT, { units={unit}, warpOut =true } )	
+				sim:warpUnit( unit, nil)
+				sim:despawnUnit(unit)			
+				sim:triggerEvent( "mole_final_escape" )			
 			end
 		end,
 	}
