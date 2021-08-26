@@ -70,7 +70,7 @@ local MM_hack_personneldb = --tweaked version of monster root hub hack
 				return false, STRINGS.ABILITIES.HACK_ONLY_MOLE --only mole
 			end
 
-			if abilityOwner:getTraits().mainframe_ice > 0 then
+			if unit:getPlayerOwner() ~= abilityOwner:getPlayerOwner() and unit:getTraits().mainframe_status == "active" then 
 				return false, STRINGS.ABILITIES.TOOLTIPS.UNLOCK_WITH_INCOGNITA
 			end
 
