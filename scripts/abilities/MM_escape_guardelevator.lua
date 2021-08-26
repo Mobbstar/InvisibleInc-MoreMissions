@@ -123,6 +123,10 @@ local MM_escape_guardelevator =
 				return false, STRINGS.MOREMISSIONS.UI.NO_GUARD_ESCAPE
 			end
 			
+			if simquery.isUnitUnderOverwatch(unit) then
+				return false, STRINGS.MOREMISSIONS.UI.NO_ESCAPE_OVERWATCHED
+			end
+			
 			if sim:getTags().exit_reqiuired_item then --drop power cell before leaving...
 				local hasItem = false
 				for i,item in ipairs(unit:getChildren()) do
@@ -165,7 +169,7 @@ local MM_escape_guardelevator =
 				end
 			end			
 			
-			if unit and unit:isValid() and unit:getLocation() then
+			if unit and unit:isValid() and unit:getLocation() and not unit:isDown() then
 				if simquery.isUnitUnderOverwatch(unit) then
 					return --interrupt action if overwatched by whoever's inside the elevator
 				end
