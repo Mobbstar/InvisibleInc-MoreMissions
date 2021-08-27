@@ -103,7 +103,15 @@ local function init( modApi )
 		end
 		oldInit( self, params, levelData, ... )
 	end
-
+	
+	local sim_canPlayerSeeUnit_old = simengine.canPlayerSeeUnit
+	simengine.canPlayerSeeUnit = function( self, player, unit, ... )
+		if (player == self:getPC()) and unit:getTraits().MM_invisible_to_PC then
+			return false
+		end
+		return sim_canPlayerSeeUnit_old( self, player, unit, ... )
+	end
+	
 	--cannot set display string... local variable only -M
 	table.insert(modApi.mod_manager.credit_sources, "assassinationreward")
 
