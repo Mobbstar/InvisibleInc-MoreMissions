@@ -34,7 +34,7 @@ local DECOY_REVEALED =
 	trigger = "MM_decoy_revealed",
 	fn = function( sim, evData )
 		if evData.unit and evData.unit:getTraits().MM_decoy then
-			return evData.unit
+			return evData.unit, evData.newDecoy
 		end
 	end,
 }
@@ -133,6 +133,18 @@ local BODYGUARD_DEAD =
 		end
 	end,
 }
+
+local DROID_DEAD =
+{
+	trigger = simdefs.TRG_UNIT_KILLED,
+	fn = function( sim, evData )
+		if evData.unit:hasTag("MM_decoy_droid") then
+			evData.corpse:addTag("MM_decoy_droid")
+			return evData.corpse
+		end
+	end,
+}
+
 local BODYGUARD_KO =
 {
 	trigger = simdefs.TRG_UNIT_KO,
@@ -185,7 +197,7 @@ local function playerHasLethalWeapons( sim )
 end
 
 local function isSaferoomKey( unit )
-	return ((unit:isDown() or unit:getTraits().iscorpse) and (unit:hasTag("assassination") or unit:hasTag("bodyguard"))) or unit:hasTag("MM_decoy_droid")
+	return ((unit:isDown() or unit:getTraits().iscorpse) and (unit:hasTag("assassination") or unit:hasTag("bodyguard") or unit:hasTag("MM_decoy_droid"))) or unit:hasTag("MM_decoy_droid")
 end
 local function playerCanUnlockSaferoom( sim )
 	-- Any player non-drone unit is at the door and standing over an authorized body.
@@ -361,24 +373,40 @@ local function doUnlockSaferoom( sim, agent )
 	end
 end
 
+local function isHeatSigTarget( sim, unit )
+	if unit:getTraits().MM_bounty_target then
+	-- log:write("LOG 1")
+		if not sim.MM_bounty_disguise_active then
+			return true
+		else
+			if ((sim:getTags().MM_decoyrevealed or sim:getTags().MM_sawRealCEO) and unit:hasTag("assassination_real")) or (not sim:getTags().MM_decoyrevealed and unit:hasTag("assassination_fake")) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 --full circle to the CFO mission followHeatSig
 local function followHeatSig( script, sim )
 	sim:forEachUnit(
 	function(unit)
-		if unit:getTraits().MM_bounty_target then 
+		if isHeatSigTarget( sim, unit ) then 
 			local x, y = unit:getLocation()
-			script:queue( { type="displayHUDInstruction", text=STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, x=x, y=y } )
+			-- log:write("LOG spawning heatsig")
+			-- script:queue( { type="displayHUDInstruction", text=STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, x=x, y=y } )
 			script:queue( { type="pan", x=x, y=y } )
 		end
 	end)
 
 	while true do 
 		local ev, triggerData = script:waitFor( mission_util.UNIT_WARP )
-		if triggerData.unit:getTraits().MM_bounty_target then
-			script:queue( { type="hideHUDInstruction" } ) 
+		if isHeatSigTarget( sim, triggerData.unit ) then
+			-- script:queue( { type="hideHUDInstruction" } ) 
 			local x, y = triggerData.unit:getLocation()
             if x and y then
-			    script:queue( { type="displayHUDInstruction", text=STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, x=x, y=y } )
+				-- log:write("LOG warp updating heatsig")
+			    -- script:queue( { type="displayHUDInstruction", text=STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, x=x, y=y } )
 			    script:queue( { type="pan", x=x, y=y } )
             end
 		end 
@@ -427,8 +455,9 @@ local function playerSeesCeo( script, sim, mission )
 end
 
 local function playerSeesRealCEO( script, sim, mission ) --only in use if decoy is in place)
-	script:waitFor( mission_util.PC_SAW_CELL_WITH_TAG( script, "saferoom_hide" ) )
-	local hidingCell = findCell( sim, "saferoom_hide" )
+	local _, ceo, agent = script:waitFor(  mission_util.PC_SAW_UNIT("assassination_real")  )
+	-- local hidingCell = findCell( sim, "saferoom_hide" )
+	local hidingCell = sim:getCell( ceo:getLocation() )
 	if sim.MM_bounty_disguise_active then
 		local x,y = hidingCell.x, hidingCell.y
 		script:queue( { type="pan", x=x, y=y } )
@@ -438,7 +467,9 @@ local function playerSeesRealCEO( script, sim, mission ) --only in use if decoy 
 			report = SCRIPTS.INGAME.ASSASSINATION.FOUND_REAL_TARGET_LATE
 		end	
 		script:queue( 1*cdefs.SECONDS )
-		script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )		
+		script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )	
+		sim:getTags().MM_sawRealCEO = true
+		script:queue( { type="hideHUDInstruction" } ) 
 	end
 end
 
@@ -536,6 +567,11 @@ end
 
 local function trackBodyguardDead( script, sim )
 	local _, bodyguard = script:waitFor( BODYGUARD_DEAD )
+	-- The trigger ensures the corpse has the original tag
+end
+
+local function trackDroidDead( script, sim )
+	local _, droid = script:waitFor( DROID_DEAD )
 	-- The trigger ensures the corpse has the original tag
 end
 
@@ -733,11 +769,17 @@ local function waitForSteal( script, sim, mission )
 end
 
 local function despawnDecoy( script, sim )
-	local _, decoyUnit = script:waitFor( DECOY_REVEALED )
+	local _, decoyUnit,newDecoy = script:waitFor( DECOY_REVEALED )
 	local x, y = decoyUnit:getLocation()
+
+	if newDecoy:getTraits().wounds > newDecoy:getTraits().woundsMax then
+		newDecoy:killUnit( sim ) --now kill decoy droid if it was damaged.
+	end
+	
+	script:queue( { type="hideHUDInstruction" } ) 
 	script:waitFor( mission_util.PC_ANY )
 	sim:warpUnit( decoyUnit, nil ) -- remove the original
-	sim:despawnUnit( decoyUnit ) 	
+	sim:despawnUnit( decoyUnit ) 
 	
 	if x and y then
 		script:queue( { type="pan", x=x, y=y } )
@@ -775,7 +817,8 @@ local mission = class( escape_mission )
 
 -- "reveal" decoy, but actually despawn it and replace it with an android
 mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
-	if sim:getTags().MM_decoyrevealed or (sim.MM_bounty_disguise_active == nil) then
+	log:write("LOG reveal decoy1")
+	if sim:getTags().MM_decoyrevealed or (sim.MM_bounty_disguise_active == nil) or (not decoyUnit) then
 		return
 	end
 	sim:getTags().MM_decoyrevealed = true
@@ -788,7 +831,9 @@ mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
 	sim:spawnUnit( newDecoy )
 	newDecoy:setFacing( facing )
 	local oldKanim = decoyUnit:getUnitData().kanim
-	sim:warpUnit( newDecoy, cell )
+	newDecoy:getTraits().canBeCritical = true --delay killing of unit until later, due to laser nonsense
+	sim:warpUnit( newDecoy, cell ) --warping straight into lethal laser beams and dying = error!!
+	newDecoy:getTraits().canBeCritical = false
 	newDecoy:changeKanim( oldKanim )
 	newDecoy:setPather(sim:getNPC().pather)
 	newDecoy:getBrain():setSituation(sim:getNPC():getIdleSituation() )
@@ -801,6 +846,7 @@ mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
 	decoyUnit:changeKanim( "kanim_transparent" )
 	decoyUnit:getTraits().canBeCritical = true
 	decoyUnit:getTraits().sightable = nil
+	decoyUnit:getTraits().MM_invisible_to_PC = true
 	
 	-- cosmetic stuff
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, {sound="SpySociety/Actions/holocover_deactivate", x=x0,y=y0} )
@@ -827,7 +873,7 @@ mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
 		newDecoy:processEMP( bootTime, noEmpFX )
 	end
 	
-	sim:triggerEvent("MM_decoy_revealed", { unit = decoyUnit })
+	sim:triggerEvent("MM_decoy_revealed", { unit = decoyUnit, newDecoy = newDecoy })
 	return newDecoy
 end
 
@@ -874,16 +920,14 @@ local function tryDecoy( sim )
 			end
 		end
 		local hidingCell = findCell( sim, "saferoom_hide" )
+		local safeCell = findCell( sim, "saferoom_flee" )
 		if vip and hidingCell then
 			local oldCell = sim:getCell(vip:getLocation())
 			sim:warpUnit( vip, hidingCell ) 
 			local oldFacing = vip:getFacing()
 			vip:setFacing( calculateBestFacing( sim, hidingCell, vip ) )
 			vip:getTraits().MM_realtarget = true
-			vip:getTraits().mpMax = vip:getTraits().mpMax - 4
-			vip:getTraits().patrolPath = nil
-			sim:getNPC():getIdleSituation():generatePatrolPath( vip, vip:getLocation() )
-			vip:getTraits().mpMax = vip:getTraits().mpMax + 4
+			vip:getTraits().patrolPath = { { x = safeCell.x, y = safeCell.y }, { x = hidingCell.x, y = hidingCell.y } }
 			vip:addTag("assassination_real")
 			sim:refreshUnitLOS( vip )
 			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = vip } )
@@ -939,6 +983,7 @@ function mission:init( scriptMgr, sim )
 	scriptMgr:addHook( "SEE_REAL", playerSeesRealCEO, nil, self )
 	scriptMgr:addHook( "waitForSteal", waitForSteal, nil, self )
 	scriptMgr:addHook( "despawnDecoy", despawnDecoy )
+	scriptMgr:addHook( "trackDroidDead", trackDroidDead )
 	-- scriptMgr:addHook( "updateAgency", updateAgency, nil, self )
 	--This picks a reaction rant from Central on exit based upon whether or not the target is dead yet.
 	local scriptfn = function()
