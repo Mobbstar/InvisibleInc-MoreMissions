@@ -52,8 +52,6 @@ local MM_hack_personneldb = --tweaked version of monster root hub hack
 		end,
 
 		canUseAbility = function( self, sim, abilityOwner, unit, targetUnitID )
-			local targetUnit = sim:getUnit( targetUnitID )
-			local userUnit = abilityOwner:getUnitOwner()
 
 			if abilityOwner:getTraits().cooldown and abilityOwner:getTraits().cooldown > 0 then
 				return false,  util.sformat(STRINGS.UI.REASON.COOLDOWN,abilityOwner:getTraits().cooldown)
@@ -70,11 +68,11 @@ local MM_hack_personneldb = --tweaked version of monster root hub hack
 				return false, STRINGS.ABILITIES.HACK_ONLY_MOLE --only mole
 			end
 
-			if unit:getPlayerOwner() ~= abilityOwner:getPlayerOwner() and unit:getTraits().mainframe_status == "active" then 
+			if (abilityOwner:getTraits().mainframe_status == "active") and not (unit:getPlayerOwner() == abilityOwner:getPlayerOwner() ) then 
 				return false, STRINGS.ABILITIES.TOOLTIPS.UNLOCK_WITH_INCOGNITA
 			end
 
-			return abilityutil.checkRequirements( abilityOwner, userUnit )
+			return true
 		end,
 
 		executeAbility = function( self, sim, abilityOwner, unit, targetUnitID )
