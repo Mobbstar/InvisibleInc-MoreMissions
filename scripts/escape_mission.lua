@@ -418,7 +418,6 @@ function init( scriptMgr, sim )
 	--sidemission stuff
     local params = sim:getParams()
 	if params.side_mission then
-	params.side_mission = "MM_luxuryNanofab"
 		log:write("LOG side mission")
 		log:write(util.stringize(params.side_mission,2))
         if params.side_mission == "MM_luxuryNanofab" then
