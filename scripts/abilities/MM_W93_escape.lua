@@ -54,7 +54,7 @@ local MM_W93_escape =
 				if unit:getUnitOwner() then
 					c = sim:getCell( unit:getUnitOwner():getLocation() )
 				end
-				if c and c.exitID and unit:hasAbility( "W93_escape" ) then
+				if c and c.exitID and unit:hasAbility( "MM_W93_escape" ) then
 					table.insert(units,unit)						
 				end
 			end
