@@ -538,6 +538,7 @@ mission.revealMoleBonus = function(sim, bonusType) --need to call on this from m
 				end
 			end
 		end	
+		sim.MM_mole_bonus_tag = tagged_guards
 	elseif bonusType == "consoles" then
 		sim:forEachUnit(
 			function ( u )
