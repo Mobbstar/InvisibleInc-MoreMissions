@@ -442,5 +442,5 @@ end
 return {
 	init = init,
 	pregeneratePrefabs = pregeneratePrefabs,
-	generatePrefabs = generatePrefabs,
+	--generatePrefabs = generatePrefabs,
 }
