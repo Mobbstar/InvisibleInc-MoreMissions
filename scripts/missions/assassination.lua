@@ -879,7 +879,7 @@ end
 
 --spawns dupe of CEO with empty inventory and custom traits
 local function spawnDecoy( sim, cell, facing )
-	local decoyTemplate = unitdefs.lookupTemplate( "npc_bounty_target_fake" )
+	local decoyTemplate = unitdefs.lookupTemplate( "MM_bounty_target_fake" )
 	local decoyUnit = simfactory.createUnit( decoyTemplate, sim )
 	decoyUnit:setPlayerOwner(sim:getNPC())
 	sim:spawnUnit( decoyUnit )

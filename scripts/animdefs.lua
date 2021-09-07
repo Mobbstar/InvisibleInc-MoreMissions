@@ -336,6 +336,46 @@ local animdefs =
 		},		
 	},	
 	
+	kanim_MM_android_decoy = 
+	{
+		wireframe =
+		{
+			"data/anims/characters/corp_FTM/ftm_med_overlay.abld",--"data/anims/characters/corp_neutral/bot_male.abld",
+		},
+		build = 
+		{ 
+			"data/anims/characters/corp_neutral/MM_bot_male_pink_decoy.abld",
+			"data/anims/characters/anims_male/shared_male_robot_hits_01.abld",	
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+		},
+		grp_build = 
+		{
+			"data/anims/characters/corp_neutral/grp_MM_bot_male_pink_decoy.abld",
+		},		
+		grp_anims = commonanims.male.grp_anims,
+		
+		anims = commonanims.male.default_anims_unarmed,
+		-- anims = commonanims.male.default_anims_1h,
+		anims_1h = commonanims.male.default_anims_1h,
+		anims_2h = commonanims.male.default_anims_2h,
+		animMap = GUARD_ANIMS,
+
+		symbol = "character",
+		anim = "idle",
+		shouldFlip = true,
+		shouldFlipOverrides = {
+			{anim="peek_fwrd", shouldFlip=false},
+			{anim="peek_pst_fwrd", shouldFlip=false},
+		},
+		scale = 0.25,
+		layer = Layer.Unit,
+		boundType = BoundType.Character,
+		boundTypeOverrides = {			
+			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
+			{anim="dead" ,boundType= BoundType.CharacterFloor},
+		},		
+	},	
+	
 	--these two are used for the two droid variant PROPS, not guards
 	mm_kanim_guard_male_dummy1 =
 	{
