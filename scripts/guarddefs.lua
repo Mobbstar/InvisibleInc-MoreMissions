@@ -17,6 +17,37 @@ local onGuardTooltip = commondefs.onGuardTooltip
 
 local DEFAULT_DRONE = commondefs.DEFAULT_DRONE
 
+local DROID_SOUNDS = { 
+	appeared="SpySociety/HUD/gameplay/peek_negative", 
+	alert ="SpySociety/Actions/guard/guard_alerted", 
+	speech="SpySociety/Agents/dialogue_KO", 
+	stealthstep = simdefs.SOUNDPATH_FOOTSTEP_GUARD_HARDWOOD_NORMAL, 
+	step = simdefs.SOUNDPATH_FOOTSTEP_GUARD_HARDWOOD_NORMAL,
+
+	getup = "SpySociety/Movement/foley_cyborg/getup",
+	fall = "SpySociety/Movement/foley_cyborg/fall",
+	fall_knee = "SpySociety/Movement/bodyfall_agent_knee_hardwood",
+	fall_kneeframe = 9,
+	fall_hand = "SpySociety/Movement/bodyfall_agent_hand_hardwood",
+	fall_handframe = 20,
+	land = "SpySociety/Movement/deathfall_agent_hardwood",
+	land_frame = 34,					
+	grabbed = "SpySociety/Movement/foley_guard/grabbed",
+	pin = "SpySociety/Movement/foley_cyborg/pin_guard",
+	pinned = "SpySociety/Movement/foley_cyborg/pinned",
+	move = "SpySociety/Movement/foley_cyborg/move",
+	hit = "SpySociety/HitResponse/hitby_ballistic_cyborg",	
+	
+	die = "die",
+	hurt_small = "SpySociety/Agents/<voice>/hurt_small",	
+	hurt_large = "SpySociety/Agents/<voice>/hurt_large",
+	-- move_loop = "SpySociety/Objects/drone/drone_move_LP",
+	reboot_end="SpySociety/Agents/Drone/Agitated/Wakeup",
+	scan="SpySociety/Actions/Engineer/wireless_emitter",
+	explode2 = "SpySociety/Objects/drone/drone_shutdown",
+	explode2_frame =1,	
+}
+
 local SHARP_SOUNDS =
 {
     bio = "SpySociety/VoiceOver/Missions/Bios/Sharp",
@@ -56,19 +87,20 @@ local android_traits = util.extend( commondefs.basic_agent_traits )
 	patrolObserved = nil, 
 	observablePatrol = true,
 	noLoopOverwatch = true,
+	lookaroundRange = 5,
 }
 
 local npc_templates =
 {
 
 	-- ASSASSINATION
-	npc_bounty_target =
+	MM_bounty_target =
 	{
 		type = "simunit",
 		name = STRINGS.MOREMISSIONS.GUARDS.BOUNTY_TARGET,
 		profile_anim = "portraits/portrait_animation_template",
 		profile_build = "portraits/mm_ceotarget_face",
-		profile_image = "executive.png",
+		profile_image = "MM_vip.png",
 		onWorldTooltip = onGuardTooltip,
 		kanim = "kanim_mm_ceotarget",
 		traits = util.extend( commondefs.basic_guard_traits )   
@@ -107,13 +139,13 @@ local npc_templates =
 		brain = "mmBountyTargetBrain",
 	},
 	
-	npc_bounty_target_fake = --DECOY! when attacked, stolen from, EMP'd or alerted, will be replaced with MM_bounty_target_android
+	MM_bounty_target_fake = --DECOY! when attacked, stolen from, EMP'd or alerted, will be replaced with MM_bounty_target_android
 	{
 		type = "simunit",
 		name = STRINGS.MOREMISSIONS.GUARDS.BOUNTY_TARGET,
 		profile_anim = "portraits/portrait_animation_template",
 		profile_build = "portraits/mm_ceotarget_face",
-		profile_image = "executive.png",
+		profile_image = "MM_vip.png",
 		onWorldTooltip = onGuardTooltip,
 		kanim = "kanim_mm_ceotarget",
 		traits = util.extend( commondefs.basic_guard_traits )   
@@ -133,6 +165,7 @@ local npc_templates =
 			MM_alertlink = true,
 			mm_fixnopatrolfacing = true,
 			mm_nopatrolchange = true,
+			recap_icon = "executive",
 		},
 		dropTable = 
 		{
@@ -144,7 +177,7 @@ local npc_templates =
 		abilities = {"shootOverwatch", "overwatch", "consciousness_monitor_passive"},
 		children = {},
 		idles = DEFAULT_IDLES,
-		sounds = SOUNDS.GUARD,
+		sounds = DROID_SOUNDS,
 		brain = "mmBountyTargetBrain",
 	},	
 	
@@ -152,12 +185,13 @@ local npc_templates =
 	{
 		type = "simdrone",
 		name = STRINGS.MOREMISSIONS.GUARDS.HOLOGRAM_DROID or "Hologram Android",
+		rig = "dronerig",
 		profile_anim = "portraits/portrait_animation_template",
-		profile_build = "portraits/MM_bot_pink_face",	
-		profile_image = "enforcer_2.png",
+		profile_build = "portraits/MM_bot_pink_decoy_face",	
+		profile_image = "MM_droid_decoy.png",
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
-		kanim = "kanim_MM_android",
+		kanim = "kanim_MM_android_decoy",
 		traits = util.extend( android_traits )   
 		{
 			-- walk=true,
@@ -187,6 +221,7 @@ local npc_templates =
 			isDrone = true,
 			closedoors = false,
 			pacifist = true,
+			recap_icon = "executive",
 
 			
 		},
@@ -196,7 +231,7 @@ local npc_templates =
 		skills = {},
 		abilities = util.extend(DEFAULT_ABILITIES){},
 		children = { },
-		sounds = SHARP_SOUNDS, --sneaky clue
+		sounds = DROID_SOUNDS,
 		brain = "PacifistBrain",
 		dropTable = 
 		{
@@ -213,7 +248,7 @@ local npc_templates =
 		name = STRINGS.MOREMISSIONS.GUARDS.BODYGUARD,
 		profile_anim = "portraits/portrait_animation_template",
 		profile_build = "portraits/mm_bodyguard_face",	
-		profile_image = "enforcer_2.png",
+		profile_image = "MM_bodyguard.png",
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
 		kanim = "kanim_mm_bodyguard",
@@ -228,6 +263,7 @@ local npc_templates =
 			woundsMax = 2,
 			MM_bodyguard = true,
 			MM_alertlink = true,
+			recap_icon = "executive",
 		},
 		speech = speechdefs.NPC,
 		voices = {"KO_Heavy"},
@@ -243,9 +279,10 @@ local npc_templates =
 	{
 		type = "simdrone",--"simunit", --simdrone, surprisingly, works well
 		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_DROID or "Prototype Android",
+		rig = "dronerig",
 		profile_anim = "portraits/portrait_animation_template",
 		profile_build = "portraits/MM_bot_pink_face",	
-		profile_image = "enforcer_2.png",
+		profile_image = "MM_android.png",
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
 		kanim = "kanim_MM_android",
@@ -279,6 +316,7 @@ local npc_templates =
 			canKO = false,
 			isDrone = true,
 			closedoors = false,
+			recap_icon = "executive",
 
 			
 		},
@@ -287,7 +325,7 @@ local npc_templates =
 		skills = {},
 		abilities = util.extend(DEFAULT_ABILITIES){},
 		children = {itemdefs.item_npc_smg_drone},
-		sounds = SHARP_SOUNDS, --SOUNDS.GUARD,
+		sounds = DROID_SOUNDS, --SOUNDS.GUARD,
 		brain = "GuardBrain",
 		dropTable = 
 		{
@@ -305,7 +343,7 @@ local npc_templates =
 		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_DROID_SPEC or "Prototype Android",
 		profile_anim = "portraits/portrait_animation_template",
 		profile_build = "portraits/MM_bot_purple_face",
-		profile_image = "enforcer_2.png",
+		profile_image = "MM_android_spec.png",
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
 		kanim = "kanim_MM_android_elite", 
@@ -344,20 +382,20 @@ local npc_templates =
 			magnetic_reinforcement = true,			
 			pulseScan = true,
 			range =5,
-			lookaroundRange = 1,
 			armor = 1,
 			isDrone = true,
 			pulse_sound = "SpySociety_DLC001/Actions/scandrone_scan",
 			-- relayInterest = true,
 			-- recap_icon = "sankaku_drone_null2",	
-			closedoors = false,			
+			closedoors = false,	
+			recap_icon = "executive",
 		},
 		speech = speechdefs.NPC,
 		voices = {"Drone"},--nil, --{"KO_Heavy"},
 		skills = {},
 		abilities = util.extend(DEFAULT_ABILITIES){},
 		children = {itemdefs.item_npc_smg_drone},
-		sounds = SHARP_SOUNDS, --SOUNDS.GUARD,
+		sounds = DROID_SOUNDS, --SOUNDS.GUARD,
 		brain = "GuardBrain",
 		dropTable = 
 		{
