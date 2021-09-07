@@ -274,7 +274,7 @@ local prop_templates =
 		kanim = "kanim_serverTerminal", 
 		abilities = { "MM_hack_personneldb" },
 		traits = util.extend( MAINFRAME_TRAITS )
-			{ moveToDevice=true, cover = true, impass = {0,0}, sightable=true, MM_personneldb = true, MMprogressMax = 5, MMprogress = 0, },
+			{ moveToDevice=true, cover = true, impass = {0,0}, sightable=true, MM_personneldb = true, MMprogressMax = 5, MMprogress = 0, mainframe_no_recapture = true},
 		tags = { "personneldb" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator", stageAdvance="SpySociety_DLC001/Actions/DLCswitch_ready" }		
 		-- sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator" }
