@@ -2847,7 +2847,7 @@ local units =
             {
                 x = 2,
                 y = 13,
-                template = [[npc_bounty_target]],
+                template = [[MM_bounty_target]],
                 unitData =
                 {
                     facing = 0, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
@@ -2863,7 +2863,7 @@ local units =
             {
                 x = 4,
                 y = 15,
-                template = [[npc_bounty_target]],
+                template = [[MM_bounty_target]],
                 unitData =
                 {
                     facing = 7, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
@@ -2879,7 +2879,7 @@ local units =
             {
                 x = 10,
                 y = 15,
-                template = [[npc_bounty_target]],
+                template = [[MM_bounty_target]],
                 unitData =
                 {
                     facing = 5, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
@@ -2895,7 +2895,7 @@ local units =
             {
                 x = 8,
                 y = 10,
-                template = [[npc_bounty_target]],
+                template = [[MM_bounty_target]],
                 unitData =
                 {
                     facing = 3, traits={nopatrol=true, mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
@@ -2911,7 +2911,7 @@ local units =
             {
                 x = 6,
                 y = 10,
-                template = [[npc_bounty_target]],
+                template = [[MM_bounty_target]],
                 unitData =
                 {
                     facing = 1, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
@@ -2927,7 +2927,7 @@ local units =
             {
                 x = 10,
                 y = 11,
-                template = [[npc_bounty_target]],
+                template = [[MM_bounty_target]],
                 unitData =
                 {
                     facing = 3, traits={nopatrol=true,mm_fixnopatrolfacing = true, mm_nopatrolchange = true,},
