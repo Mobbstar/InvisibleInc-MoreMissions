@@ -348,14 +348,11 @@ return {
 
 		MOLE_DAEMON_EVENT = {
 			INTEL_TYPES = {
-			["layout"] = "Facility layout revealed",
 			["patrols"] = "Some guard patrols revealed",
-			["consoles"] = "Consoles revealed",
-			["safes"] = "Safes revealed",
-			["cameras"] = "Cameras & turrets revealed",
+			["safes_consoles"] = "Safes & consoles revealed",
+			["cameras_turrets"] = "Cameras & turrets revealed",
 			["daemons"] = "Daemons revealed",
 			["doors"] = "Doors revealed",
-			["exit"] = "Exit revealed",
 			},
 
 			-- for event notification
