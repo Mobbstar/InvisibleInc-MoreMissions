@@ -351,7 +351,7 @@ return {
 			["patrols"] = "Some guard patrols revealed",
 			["safes_consoles"] = "Safes & consoles revealed",
 			["cameras_turrets"] = "Cameras & turrets revealed",
-			["daemons"] = "Daemons revealed",
+			["daemons_layout"] = "Facility layout & daemons revealed",
 			["doors"] = "Doors revealed",
 			},
 
