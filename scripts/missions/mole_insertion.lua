@@ -509,7 +509,7 @@ mission.bonus_types = {
 	[1] = "patrols",
 	[2] = "safes_consoles",
 	[3] = "cameras_turrets",
-	[4] = "daemons",	
+	[4] = "daemons_layout",	
 	[5] = "doors",
 }
 
@@ -569,6 +569,12 @@ mission.revealMoleBonus = function(sim, bonusType) --need to call on this from m
 					u:getTraits().daemon_sniffed = true 
 				end
 			end )
+			sim._showOutline = true
+			sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
+			if x0 and y0 then
+				local color = {r=1,g=1,b=41/255,a=1}
+				sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.UI.FLY_TXT.FACILITY_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
+			end			
 	elseif bonusType == "doors" then
 			sim:forEachCell(
 			function ( cell )
