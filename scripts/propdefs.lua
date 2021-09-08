@@ -314,6 +314,7 @@ local prop_templates =
 			mainframe_no_daemon_spawn = false,
 			mainframe_always_daemon_spawn = true,
 			mainframe_ice = 3,
+			mainframe_iceMax = 5,
 		},
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", spot="SpySociety/Objects/computer_types_occlude", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator",activate="SpySociety/Actions/holocover_activate", deactivate="SpySociety/Actions/holocover_deactivate", activeSpot="SpySociety/Actions/holocover_run_LP"},
 		rig = "corerig",
