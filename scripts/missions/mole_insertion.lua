@@ -562,7 +562,7 @@ mission.revealMoleBonus = function(sim, bonusType) --need to call on this from m
 					currentPlayer:glimpseUnit( sim, u:getID() )				
 				end
 			end )	
-	elseif bonusType == "daemons" then
+	elseif bonusType == "daemons_layout" then
 			sim:forEachUnit(
 			function ( u )
 				if u:getTraits().mainframe_program ~= nil then
@@ -613,6 +613,7 @@ local function moleDied( script, sim )
 	sim:removeObjective("mole_escape")	
 	sim:removeObjective("kill_witness")
 	sim:getTags().MM_mole_died = true
+	sim.exit_warning = nil
 	sim:getNPC():removeAbility(sim, "MM_informant_witness")
 	-- log:write("LOG mole died")
 	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_DIED[sim:nextRand(1,#SCRIPTS.INGAME.MOLE_INSERTION.MOLE_DIED)]
