@@ -283,13 +283,13 @@ local prop_templates =
 	MM_mole_cloak = util.extend(commondefs.item_template)
 	{
 		name = STRINGS.MOREMISSIONS.ITEMS.MOLE_CLOAK,
-		desc = STRINGS.ITEMS.CLOAK_1_TOOLTIP .. "\n\nCannot use while sighted.",
+		desc = STRINGS.ITEMS.CLOAK_1_TOOLTIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.MOLE_CLOAK_FLAVOR,
 		icon = "itemrigs/FloorProp_InvisiCloakTimed.png",
 		--profile_icon = "gui/items/icon-cloak.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",			
 		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
-		traits = { cantdrop = true, pickupOnly="INFORMANT", disposable = false, duration = 1,cooldown = 0, cooldownMax = 6,  cloakDistanceMax=5, cloakInVision = false, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}},
+		traits = { cantdrop = true, pickupOnly="INFORMANT", disposable = false, duration = 1,cooldown = 0, cooldownMax = 6,  cloakDistanceMax=5, cloakInVision = true, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}},
 		abilities = { "carryable","recharge","useInvisiCloak" },
 		value = 1,
 		floorWeight = 1,
