@@ -172,7 +172,6 @@ local function init( modApi )
 	include( scriptPath .. "/units/laser" )
 	include( scriptPath .. "/pcplayer" )
 	include( scriptPath .. "/unitrig" )
-
 	include( scriptPath .. "/btree/actions" )
 	include( scriptPath .. "/btree/conditions" )
 	include( scriptPath .. "/btree/bountytargetbrain" )
@@ -205,7 +204,7 @@ local function lateInit( modApi )
 		--update existing informant bonuses
 		-- bonus doesn't apply in Omni missions so don't tick down
 		-- don't use up bonus if PC lost > might still Retry level
-		if sim:getPlayers()[sim:getWinner()]:isPC() and (not ((sim:getParams().world == "omni") or (sim:getParams().world == "omni2"))) then
+		if (sim:getWinner() and sim:getPlayers()[sim:getWinner()]:isPC()) and (not ((sim:getParams().world == "omni") or (sim:getParams().world == "omni2"))) then
 			agency.MM_informant_bonus = agency.MM_informant_bonus or {}
 			-- tick duration on existing mole bonuses
 			for i=#agency.MM_informant_bonus, 1, -1 do --do not modify agency during serialisation, doFinishMission is fine because no more serialisable player actions are possible
