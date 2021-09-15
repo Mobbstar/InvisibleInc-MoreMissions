@@ -262,7 +262,7 @@ local prop_templates =
 		kanim = "kanim_celldoor1", 
 		traits = {  impass = {0,0}, sightable=true, cell_door=true },
 		sounds = { }
-	},		
+	},			
 	
 	-- for Informant mission
 	MM_personneldb = 
@@ -274,7 +274,7 @@ local prop_templates =
 		kanim = "kanim_serverTerminal", 
 		abilities = { "MM_hack_personneldb" },
 		traits = util.extend( MAINFRAME_TRAITS )
-			{ moveToDevice=true, cover = true, impass = {0,0}, sightable=true, MM_personneldb = true, MMprogressMax = 5, MMprogress = 0, mainframe_no_recapture = true},
+			{ moveToDevice=true, cover = true, impass = {0,0}, sightable=true, MM_personneldb = true, MMprogressMax = 5, MMprogress = 0, mainframe_no_recapture = true },
 		tags = { "personneldb" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator", stageAdvance="SpySociety_DLC001/Actions/DLCswitch_ready" }		
 		-- sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator" }
@@ -283,13 +283,13 @@ local prop_templates =
 	MM_mole_cloak = util.extend(commondefs.item_template)
 	{
 		name = STRINGS.MOREMISSIONS.ITEMS.MOLE_CLOAK,
-		desc = STRINGS.ITEMS.CLOAK_1_TOOLTIP .. "\n\nCannot use while sighted.",
+		desc = STRINGS.ITEMS.CLOAK_1_TOOLTIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.MOLE_CLOAK_FLAVOR,
 		icon = "itemrigs/FloorProp_InvisiCloakTimed.png",
 		--profile_icon = "gui/items/icon-cloak.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",			
 		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
-		traits = { cantdrop = true, pickupOnly="INFORMANT", disposable = false, duration = 1,cooldown = 0, cooldownMax = 6,  cloakDistanceMax=5, cloakInVision = false, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}},
+		traits = { cantdrop = true, pickupOnly="INFORMANT", disposable = false, duration = 1,cooldown = 0, cooldownMax = 6,  cloakDistanceMax=5, cloakInVision = true, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}},
 		abilities = { "carryable","recharge","useInvisiCloak" },
 		value = 1,
 		floorWeight = 1,
@@ -311,6 +311,10 @@ local prop_templates =
 			impass = {0,0},
 			sightable = true,
 			MM_incogRoom_unlock = true,
+			mainframe_no_daemon_spawn = false,
+			mainframe_always_daemon_spawn = true,
+			mainframe_ice = 3,
+			mainframe_iceMax = 5,
 		},
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", spot="SpySociety/Objects/computer_types_occlude", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator",activate="SpySociety/Actions/holocover_activate", deactivate="SpySociety/Actions/holocover_deactivate", activeSpot="SpySociety/Actions/holocover_run_LP"},
 		rig = "corerig",

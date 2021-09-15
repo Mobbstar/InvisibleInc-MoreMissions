@@ -54,6 +54,7 @@ local animdefs =
 		{
 			"data/anims/characters/corp_neutral/grp_mm_ceotarget.abld",
 		},
+		grp_anims = commonanims.male.grp_anims,
 		anims = commonanims.male.default_anims_unarmed,
 		anims_1h = commonanims.male.default_anims_1h,
 		anims_2h = commonanims.male.default_anims_2h,

@@ -365,8 +365,21 @@ local function spawnMole( script, sim )
 			end
 		end
 	end
-				
-	local spawn_cell = adjacent_cells[sim:nextRand(1, #adjacent_cells)]
+	
+	--super niche case for That One Sankaku Starting Room where you can spawn in surrounded by cover ona ll sides
+	if #adjacent_cells < 1 then
+		for i, cell in ipairs(agent_cells) do
+			for dir, exit in pairs(cell.exits) do
+				for dir2, exit2 in pairs( exit.cell.exits) do
+					if not (tablelength(exit2.cell.units) > 0) and exit2.cell.impass == 0  and not exit2.closed and not simquery.isCellWatched(sim, sim:getPC(), cell.x, cell.y) then
+						table.insert(adjacent_cells, exit2.cell)
+					end
+				end
+			end
+		end
+	end
+	
+	local spawn_cell = adjacent_cells[sim:nextRand(1, #adjacent_cells)]		
 	local unitData = unitdefs.lookupTemplate("MM_mole")
 	if sim:nextRand() < 0.5 then
 		unitData = unitdefs.lookupTemplate("MM_mole2") --alt skin
@@ -493,14 +506,11 @@ local function moleEscaped( script, sim)
 end	
 
 mission.bonus_types = {
-	[1] = "layout",
-	[2] = "patrols",
-	[3] = "consoles",
-	[4] = "safes",
-	[5] = "cameras",
-	[6] = "daemons",	
-	[7] = "doors",
-	[8] = "exit",
+	[1] = "patrols",
+	[2] = "safes_consoles",
+	[3] = "cameras_turrets",
+	[4] = "daemons_layout",	
+	[5] = "doors",
 }
 
 mission.revealMoleBonus = function(sim, bonusType) --need to call on this from modinit
@@ -510,14 +520,7 @@ mission.revealMoleBonus = function(sim, bonusType) --need to call on this from m
 	local currentPlayer = sim:getPC()
 	local script = sim:getLevelScript()
 	
-	if bonusType == "layout" then
-		sim._showOutline = true
-		sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
-		if x0 and y0 then
-			local color = {r=1,g=1,b=41/255,a=1}
-			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.UI.FLY_TXT.FACILITY_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
-		end
-	elseif bonusType == "patrols" then
+	if bonusType == "patrols" then
 		local total_guards = 0
 		for _, unit in pairs(sim:getAllUnits() ) do
 			if (unit:getPlayerOwner() ~= currentPlayer) and unit:getTraits().isGuard then
@@ -539,24 +542,19 @@ mission.revealMoleBonus = function(sim, bonusType) --need to call on this from m
 			end
 		end	
 		sim.MM_mole_bonus_tag = tagged_guards
-	elseif bonusType == "consoles" then
+	elseif bonusType == "safes_consoles" then
 		sim:forEachUnit(
 			function ( u )
 				if u:getTraits().mainframe_console ~= nil then
 					table.insert(unitlist,u:getID())		
 					currentPlayer:glimpseUnit( sim, u:getID() )				
 				end
-			end )
-		
-	elseif bonusType == "safes" then
-		sim:forEachUnit(
-			function ( u )
 				if u:getTraits().safeUnit ~= nil then
 					table.insert(unitlist,u:getID())		
 					currentPlayer:glimpseUnit( sim, u:getID() )				
-				end
-			end )	
-	elseif bonusType == "cameras" then --also turrets
+				end --reveal one, then the other				
+			end )
+	elseif bonusType == "cameras_turrets" then --also turrets
 		sim:forEachUnit(
 			function ( u )
 				if (u:getTraits().mainframe_camera ~= nil) or (u:getTraits().mainframe_turret ~= nil) then
@@ -564,18 +562,24 @@ mission.revealMoleBonus = function(sim, bonusType) --need to call on this from m
 					currentPlayer:glimpseUnit( sim, u:getID() )				
 				end
 			end )	
-	elseif bonusType == "daemons" then
+	elseif bonusType == "daemons_layout" then
 			sim:forEachUnit(
 			function ( u )
 				if u:getTraits().mainframe_program ~= nil then
 					u:getTraits().daemon_sniffed = true 
 				end
 			end )
+			sim._showOutline = true
+			sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
+			if x0 and y0 then
+				local color = {r=1,g=1,b=41/255,a=1}
+				sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.UI.FLY_TXT.FACILITY_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
+			end			
 	elseif bonusType == "doors" then
 			sim:forEachCell(
 			function ( cell )
 				for dir, exit in pairs( cell.exits ) do
-					if (simquery.isDoorExit(exit)) and not cell.exitID and not (exit.keybits == simdefs.DOOR_KEYS.GUARD) and not (exit.keybits == simdefs.DOOR_KEYS.ELEVATOR) then -- deliberately exempt exits, make that a separate bonus
+					if (simquery.isDoorExit(exit)) then
 						sim:getPC():glimpseCell(sim, cell)
 					end
 				end
@@ -584,30 +588,6 @@ mission.revealMoleBonus = function(sim, bonusType) --need to call on this from m
 				local color = {r=1,g=1,b=41/255,a=1}
 				sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.MOREMISSIONS.UI.DOORS_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
 			end	
-			sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
-	elseif bonusType == "exit" then
-			local exit_procGen = nil
-			sim:forEachCell(
-			function ( cell )
-				if cell.exitID then
-					exit_procGen = cell.procgenRoom
-				end
-			end )
-			sim:forEachCell(
-			function ( cell )
-				if exit_procGen and (cell.procgenRoom == exit_procGen) then
-					sim:getPC():glimpseCell(sim, cell)
-					if cell.units then
-						for i, unit in pairs(cell.units) do
-							sim:getPC():glimpseUnit( sim, unit:getID() )
-						end
-					end
-				end
-			end )
-			if x0 and y0 then
-				local color = {r=1,g=1,b=41/255,a=1}
-				sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.MOREMISSIONS.UI.EXIT_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
-			end		
 			sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
 	end
 	if #unitlist > 0 then --for any bonuses that reveal units
@@ -633,6 +613,7 @@ local function moleDied( script, sim )
 	sim:removeObjective("mole_escape")	
 	sim:removeObjective("kill_witness")
 	sim:getTags().MM_mole_died = true
+	sim.exit_warning = nil
 	sim:getNPC():removeAbility(sim, "MM_informant_witness")
 	-- log:write("LOG mole died")
 	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_DIED[sim:nextRand(1,#SCRIPTS.INGAME.MOLE_INSERTION.MOLE_DIED)]
@@ -770,22 +751,34 @@ local function spawnEliteGuard( sim ) --spawns a high-tier stationary guard at t
 
 	if (sim:getParams().difficultyOptions.MM_difficulty == nil) or sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
 	
+		local isHumanGuard = false
+		local guardTemplate = unitdefs.lookupTemplate( "important_guard" )
+
 		local templateName = "important_guard"
 		local door_cell = findCell( sim, "personneldb_door" )
 		local world = worldgen[sim:getParams().world:upper()]
 		local list = world.THREAT_FIX or world.THREAT
-		local wt = util.weighted_list( list )
-		if list then
-			templateName = wt:getChoice( sim:nextRand( 1, wt:getTotalWeight() ) )
-		end
-		local guardTemplate = unitdefs.lookupTemplate( templateName )
-		local newGuard = simfactory.createUnit( guardTemplate, sim ) 
+		local wt = util.weighted_list( list )	
+		repeat
+			if list then
+				templateName = wt:getChoice( sim:nextRand( 1, wt:getTotalWeight() ) )
+			end
+			guardTemplate = unitdefs.lookupTemplate( templateName )
+			if not guardTemplate.traits.isDrone then
+				isHumanGuard = true
+			end
+		until (isHumanGuard == true)
+		
+		local newGuard = simfactory.createUnit( guardTemplate, sim )
 		sim:spawnUnit( newGuard )
 		newGuard:setPlayerOwner( sim:getNPC() )
 		newGuard:setPather(sim:getNPC().pather)
 		newGuard:getTraits().nopatrol = true
 		newGuard:getTraits().patrolPath = { { x = door_cell.x, y = door_cell.y } }
 		newGuard:getTraits().mm_nopatrolchange = true
+		local item_passcard = simfactory.createUnit( unitdefs.lookupTemplate( "passcard" ), sim )
+		sim:spawnUnit( item_passcard )
+		newGuard:addChild( item_passcard )
 		
 		local facing = 0
 		-- make him face away from the door

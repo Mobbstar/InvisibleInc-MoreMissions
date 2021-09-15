@@ -228,8 +228,6 @@ local function escapeBoss( script, sim )
 	sim:removeObjective( "KO_Boss" )
 	script:queue( { type="hideHUDInstruction" } )
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.PERSONNEL_HIJACK.BOSS_TAKEN, type="newOperatorMessage" } )
-
-	script:waitFor( mission_util.PC_WON )
 	sim:setMissionReward( simquery.scaleCredits( sim, 300 ))
 	sim:getPC():getTraits().W93_BossUnitHijacked = true
 end
