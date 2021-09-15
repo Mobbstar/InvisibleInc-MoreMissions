@@ -94,6 +94,9 @@ local tool_templates =
 		value = 800,
 		-- floorWeight = 2,
 		locator=true,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end
 	},
 
 	item_disguise_charged = util.extend(commondefs.item_template)
@@ -206,6 +209,9 @@ local tool_templates =
 		abilities = { "carryable", "throw", },
 		value = 600,
 		locator=true,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_frag_smoke_grenade = util.extend( commondefs.grenade_template)
@@ -223,6 +229,9 @@ local tool_templates =
 		value = 600,
 		locator=true,
 		abilities = { "carryable", "throw", },
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_smokegrenade = util.extend( commondefs.grenade_template )
@@ -239,6 +248,9 @@ local tool_templates =
 		value = 300,
 		locator=true,
 		abilities = { "carryable", "throw","recharge" },
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_cloakingrig = util.extend(commondefs.item_template)
@@ -256,6 +268,9 @@ local tool_templates =
 		requirements = { stealth = 3 },
 		abilities = { "carryable","useInvisiCloak","recharge", },
 		value = 400,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_cloakingrig2 = util.extend(commondefs.item_template)
@@ -271,6 +286,9 @@ local tool_templates =
 		requirements = { stealth = 3 },
 		abilities = { "carryable","useInvisiCloak","recharge" },
 		value = 400,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 	
 	MM_techexpo_cloakingrig3 = util.extend(commondefs.item_template)
@@ -286,6 +304,9 @@ local tool_templates =
 		requirements = { stealth = 3 },
 		abilities = { "carryable","useInvisiCloak","recharge" },
 		value = 400,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},	
 
 	MM_techexpo_icebreaker = util.extend(commondefs.item_template)
@@ -301,6 +322,9 @@ local tool_templates =
 		requirements = { anarchy = 3, },
 		abilities = { "icebreak","carryable","recharge" },
 		value = 600,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_econchip = util.extend(commondefs.item_template)
@@ -316,6 +340,9 @@ local tool_templates =
 		requirements = { stealth = 3, },
 		abilities = { "carryable","jackin","recharge" },
 		value = 800,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_stim = util.extend(commondefs.item_template)
@@ -331,6 +358,9 @@ local tool_templates =
 		requirements = { stealth = 3 },
 		abilities = { "carryable","use_stim","recharge" },
 		value = 1000,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_shocktrap = util.extend(commondefs.item_template)
@@ -346,6 +376,9 @@ local tool_templates =
 		requirements = { anarchy = 3 },
 		abilities = { "doorMechanism","carryable","recharge" },
 		value = 1000,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_shocktrap2 = util.extend(commondefs.item_template)
@@ -361,6 +394,9 @@ local tool_templates =
 		requirements = { anarchy = 3 },
 		abilities = { "doorMechanism","carryable","recharge" },
 		value = 1000,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_emp_pack = util.extend(commondefs.item_template)
@@ -377,11 +413,14 @@ local tool_templates =
 		requirements = { hacking = 3 },
 		traits = { range = 7, emp_duration = 4, usesLeft = 5, multiPulse = 3, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 6, },
 		value = 1200,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_emp_pack2 = util.extend(commondefs.item_template)
 	{
-		type = "MM_simemppack_pulse",
+		type = "simemppack",
 		name = STRINGS.MOREMISSIONS.ITEMS.EMP2,
 		desc = STRINGS.MOREMISSIONS.ITEMS.EMP2_TOOLTIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.EMP2_FLAVOR,
@@ -393,6 +432,9 @@ local tool_templates =
 		requirements = { hacking = 3 },
 		traits = { range = 3, emp_duration = 8, usesLeft = 5, ignoreMagReinf = true, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 6, },
 		value = 1200,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_crybaby = util.extend( commondefs.grenade_template)
@@ -409,6 +451,9 @@ local tool_templates =
 		traits = { MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, throwUnit = "MM_techexpo_crybaby_throwUnit", usesLeft = 5,range = 15,  disposable = false},
 		value = 300,
 		locator=true,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 
 	MM_techexpo_crybaby_throwUnit = util.extend( commondefs.grenade_template)
@@ -466,6 +511,9 @@ local tool_templates =
 		},
 		traits = { range = 5, attackNeedsLOS=true, canSleep = true, baseDamage = 4, flash_pack = true, trigger_mainframe=true, MM_tech_expo_nonweapon = true, usesLeft = 5, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 8,},
 		value = 900,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 	
 	MM_techexpo_hologrenadeHD = util.extend( commondefs.grenade_template )
@@ -483,6 +531,9 @@ local tool_templates =
 		abilities = { "recharge","carryable", "throw" },
 		value = 600,	
 		locator=true,
+		createUpgradeParams = function( self, unit )
+			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		end		
 	},
 	
 	-- special scientist loot
