@@ -249,6 +249,7 @@ local function upgradeDialog( script, sim )
 		local remainingUpgrades = 2 - doneUpgrades
 		local maxSlots = currentSlots + remainingUpgrades
 		local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
+		isEndless = true --this lifts the slot cap for non-endless campaigns as well
 		
 		if sim:getParams().agency.W93_aiTerminals and ((sim:getParams().agency.W93_aiTerminals) >= 2) and not isEndless then --max slots reached
 			local slotsfull_txt = util.sformat(dialogPath.OPTIONS2_SLOTSFULL_TXT, currentSlots, maxSlots )
