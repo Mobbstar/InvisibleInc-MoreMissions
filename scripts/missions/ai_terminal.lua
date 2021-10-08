@@ -756,6 +756,33 @@ local function chooseUpgrades( sim )
 	sim.MM_AI_terminal_parameters[2] = pos2
 
 end
+
+local function spawnDaemons( sim )
+	local PROGRAM_LIST = serverdefs.PROGRAM_LIST
+	local locks = {}
+	for i, unit in pairs(sim:getAllUnits()) do
+		if unit:hasAbility("MM_W93_incogRoom_unlock") then
+			table.insert(locks, unit)
+		end
+	end
+	local difficulty = sim:getParams().difficulty
+	local num_daemons = difficulty
+	if num_daemons > 4 then
+		num_daemons = 4
+	end
+	local ice_boosted = false
+	for i, unit in pairs(locks) do
+		if not ice_boosted then
+			unit:getTraits().mainframe_ice = unit:getTraits().mainframe_ice + 2
+			ice_boosted = true
+		end
+		unit:getTraits().mainframe_program = PROGRAM_LIST[ sim:nextRand(1, #PROGRAM_LIST) ]
+		num_daemons = num_daemons - 1
+		if num_daemons <= 0 then
+			break
+		end
+	end
+end
 ---------------------------------------------------------------------------------------------
 -- Begin!
 
@@ -767,6 +794,7 @@ function mission:init( scriptMgr, sim )
 	
 	addKeys( sim )
 	chooseUpgrades( sim ) --randomly choose 2 out of 4 possible parameters available for program upgrade in AI terminal
+	spawnDaemons(sim) --spawn daemons on some of the lock devices
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.OBJ_FIND, "find" )
 
 	scriptMgr:addHook( "spottedDoor", spottedDoor )
