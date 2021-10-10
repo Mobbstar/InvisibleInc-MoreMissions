@@ -10,6 +10,8 @@ local unitdefs = include( "sim/unitdefs" )
 local itemdefs = include( "sim/unitdefs/itemdefs" )
 local SCRIPTS = include('client/story_scripts')
 local level = include( "sim/level" )
+local astar = include ("modules/astar" )
+local astar_handlers = include("sim/astar_handlers")
 
 ---------------------------------------------------------------------------------------------
 -- Local helpers
@@ -20,6 +22,32 @@ local level = include( "sim/level" )
 --Agent's non-augment inventory is emptied and deposited into a random safe on the map, but they start with a custom disrupter.
 --If no safe available, their stuff stays on them.
 -- -Hek
+
+local function findClosestUnitByPath( units, x0, y0, fn ) --edit of vanilla fn to reflect path length rather than absolute distance on grid
+	local closestRange = math.huge
+	local closestUnit = nil
+	for i,unit in pairs(units) do
+		if fn == nil or fn( unit ) then
+			local x1, y1 = unit:getLocation()
+			if x1 then
+				local sim = unit:getSim()
+				local start_cell = sim:getCell(x0, y0)
+				local end_cell = sim:getCell(unit:getLocation())
+				local pather = astar.AStar:new(astar_handlers.aihandler:new(unit) )
+				local path = pather:findPath( start_cell, end_cell )
+				if path then
+					local range = path:getTotalMoveCost()
+					if range < closestRange then
+						closestRange = range
+						closestUnit = unit
+					end
+				end
+			end
+		end
+	end
+
+	return closestUnit, math.sqrt( closestRange )
+end
 
 local OPERATIVE_ESCAPED =
 {
@@ -181,8 +209,7 @@ local function makeGuardInvestigate( script, sim )
 		local cell = findCell( sim, "distressSpawn")
 		if cell then
 			--script:queue( { type="pan", x=cell.x, y=cell.y } )
-			local guard, closestDistance = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, function( u ) return not u:isKO() end )
-			local guard = simquery.findClosestUnit( sim:getNPC():getUnits(), cell.x, cell.y, checkGuard )
+			local guard = findClosestUnitByPath( sim:getNPC():getUnits(), cell.x, cell.y, checkGuard )
 			local agent = mission_util.findUnitByTag( sim, "escapedAgent" )
 			if agent and guard and guard:getBrain() then
 				guard:getBrain():getSenses():addInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_HUNTING, agent)
@@ -294,7 +321,6 @@ local function startAgentEscape( script, sim, mission )
 	
 	if newOperative then
 			
-		sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/hostage/hostage_chair_move" )
 		local x0,y0 = newOperative:getLocation()
 		local unit_cell = sim:getCell(x0, y0)
 		local guardTemplate = unitdefs.lookupTemplate( "important_guard" )
