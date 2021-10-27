@@ -19,7 +19,20 @@ local escape_mission = include( "sim/missions/escape_mission" ) -- in case if  w
 
 ---------------------------------------------------------------------------------------------
 -- Local helpers
+local 	PC_WON =
+	{		
+        priority = 10,
 
+        trigger = simdefs.TRG_GAME_OVER,
+        fn = function( sim, evData )
+            if sim:getWinner() then
+                return sim:getPlayers()[sim:getWinner()]:isPC()
+            else
+                return false
+            end
+        end,
+	}
+	
 local MISSION_REWARD = 800 -- base reward, getting through "sim:setMissionReward ( simquery.scaleCredits( sim, MISSION_REWARD ))" 
 				-- With 1x multiplier it's: 800 at 1st security level, 1000 at second, 1200 at third, 1400 at fourth and later
 				-- With 0.75x it's: 600, 750, 900, 1050
@@ -165,7 +178,7 @@ end
 
 
 local function checkNoHostageGameOver( script, sim )
-	script:waitFor( mission_util.PC_WON )
+	script:waitFor( PC_WON )
 
 	script:removeAllHooks( script )
 	sim:getTags().delayPostGame = true
