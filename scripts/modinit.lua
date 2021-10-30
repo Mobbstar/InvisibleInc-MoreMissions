@@ -186,8 +186,13 @@ local function init( modApi )
 	
 	util.tmerge( STRINGS.LOADING_TIPS, STRINGS.MOREMISSIONS.LOADING_TIPS  ) --add new loading screen tooltips
 	
+	-- adding datalogs
+	local logs = include( scriptPath .. "/logs" )
+	for i,log in ipairs(logs) do      
+		modApi:addLog(log)
+	end
+	
 end
-
 
 local function lateInit( modApi )
 	local dataPath = modApi:getDataPath()
