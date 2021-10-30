@@ -20,6 +20,20 @@ local escape_mission = include("sim/missions/escape_mission")
 -- Local helpers
 local safeUnit = nil
 
+local 	PC_WON =
+	{		
+        priority = 10,
+
+        trigger = simdefs.TRG_GAME_OVER,
+        fn = function( sim, evData )
+            if sim:getWinner() then
+                return sim:getPlayers()[sim:getWinner()]:isPC()
+            else
+                return false
+            end
+        end,
+	}
+	
 local function PC_SAW_UNIT_WITH_MARKER2( script, tag, marker )
 	return
 	{
@@ -218,7 +232,7 @@ local function KillBoss( script, sim )
 	script:queue( { type="hideHUDInstruction" } )
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.PERSONNEL_HIJACK.BOSS_KILLED, type="newOperatorMessage" } )
 
-	script:waitFor( mission_util.PC_WON )
+	script:waitFor( PC_WON )
 	sim:setMissionReward( simquery.scaleCredits( sim, 200 ))
 end
 
@@ -440,5 +454,5 @@ end
 return {
 	init = init,
 	pregeneratePrefabs = pregeneratePrefabs,
-	--generatePrefabs = generatePrefabs,
+	-- generatePrefabs = generatePrefabs,
 }

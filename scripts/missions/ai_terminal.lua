@@ -21,7 +21,20 @@ local serverdefs = include("modules/serverdefs")
 -- Functionality of adding new slot handled by Function Library.
 
 -- Local helpers
+local 	PC_WON =
+	{		
+        priority = 10,
 
+        trigger = simdefs.TRG_GAME_OVER,
+        fn = function( sim, evData )
+            if sim:getWinner() then
+                return sim:getPlayers()[sim:getWinner()]:isPC()
+            else
+                return false
+            end
+        end,
+	}
+	
 local function queueCentral(script, scripts) --really informative huh
 	script:queue( { type="clearOperatorMessage" } )
 	for k, v in pairs(scripts) do
@@ -249,6 +262,7 @@ local function upgradeDialog( script, sim )
 		local remainingUpgrades = 2 - doneUpgrades
 		local maxSlots = currentSlots + remainingUpgrades
 		local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
+		-- isEndless = true --this lifts the slot cap for non-endless campaigns as well
 		
 		if sim:getParams().agency.W93_aiTerminals and ((sim:getParams().agency.W93_aiTerminals) >= 2) and not isEndless then --max slots reached
 			local slotsfull_txt = util.sformat(dialogPath.OPTIONS2_SLOTSFULL_TXT, currentSlots, maxSlots )
@@ -679,7 +693,7 @@ local function upgradeIncognita( script, sim )
 	sim.exit_warning = nil
 	sim.TA_mission_success = true
 
-	script:waitFor( mission_util.PC_WON ) -- to think I could have been doing agency changes like wodzu all this time instead of putting things in DoFinishMission
+	script:waitFor( PC_WON ) -- to think I could have been doing agency changes like wodzu all this time instead of putting things in DoFinishMission
 	local agency = sim:getParams().agency
 	
 	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
@@ -756,6 +770,33 @@ local function chooseUpgrades( sim )
 	sim.MM_AI_terminal_parameters[2] = pos2
 
 end
+
+local function spawnDaemons( sim )
+	local PROGRAM_LIST = serverdefs.PROGRAM_LIST
+	local locks = {}
+	for i, unit in pairs(sim:getAllUnits()) do
+		if unit:hasAbility("MM_W93_incogRoom_unlock") then
+			table.insert(locks, unit)
+		end
+	end
+	local difficulty = sim:getParams().difficulty
+	local num_daemons = difficulty
+	if num_daemons > 4 then
+		num_daemons = 4
+	end
+	local ice_boosted = false
+	for i, unit in pairs(locks) do
+		if not ice_boosted then
+			unit:getTraits().mainframe_ice = unit:getTraits().mainframe_ice + 2
+			ice_boosted = true
+		end
+		unit:getTraits().mainframe_program = PROGRAM_LIST[ sim:nextRand(1, #PROGRAM_LIST) ]
+		num_daemons = num_daemons - 1
+		if num_daemons <= 0 then
+			break
+		end
+	end
+end
 ---------------------------------------------------------------------------------------------
 -- Begin!
 
@@ -767,6 +808,7 @@ function mission:init( scriptMgr, sim )
 	
 	addKeys( sim )
 	chooseUpgrades( sim ) --randomly choose 2 out of 4 possible parameters available for program upgrade in AI terminal
+	spawnDaemons(sim) --spawn daemons on some of the lock devices
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.OBJ_FIND, "find" )
 
 	scriptMgr:addHook( "spottedDoor", spottedDoor )

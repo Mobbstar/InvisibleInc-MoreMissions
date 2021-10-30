@@ -256,9 +256,9 @@ local prop_templates =
 		type = "simunit", 
 		name =  "Exhibit Case",--STRINGS.PROPS.CELL_DOOR,
 		rig ="corerig",
-		onWorldTooltip = function( tooltip, unit )
-			tooltip:addLine( unit:getName() )
-		end,
+		-- onWorldTooltip = function( tooltip, unit )
+			-- tooltip:addLine( unit:getName() )
+		-- end,
 		kanim = "kanim_celldoor1", 
 		traits = {  impass = {0,0}, sightable=true, cell_door=true },
 		sounds = { }
@@ -311,10 +311,10 @@ local prop_templates =
 			impass = {0,0},
 			sightable = true,
 			MM_incogRoom_unlock = true,
-			mainframe_no_daemon_spawn = false,
-			mainframe_always_daemon_spawn = true,
+			mainframe_no_daemon_spawn = true,
+			-- mainframe_always_daemon_spawn = true,
 			mainframe_ice = 3,
-			mainframe_iceMax = 5,
+			mainframe_iceMax = 3,
 		},
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", spot="SpySociety/Objects/computer_types_occlude", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator",activate="SpySociety/Actions/holocover_activate", deactivate="SpySociety/Actions/holocover_deactivate", activeSpot="SpySociety/Actions/holocover_run_LP"},
 		rig = "corerig",
