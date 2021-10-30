@@ -94,6 +94,7 @@ return {
 		"MORE MISSIONS: You can enable the mod's EASY MODE to make the new missions' security measures more forgiving.",
 		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
 		"MORE MISSIONS: The Assassination target is marked as Paranoid, but is it paranoia if someone really is out to kill you?",
+		"MORE MISSIONS: A huge thank you to the voiceover fund contributors: <c:F47932>Cyberboy2000, jlaub, TornadoFive, Zorlock Darksoul, Dwarlen, amalloy,	Datsdabeat,	Mobbstar, Waldenburger,	alpacalypse, magnificentophat, Zaman, 	Alexander S., Datapuncher, Jeysie, Linenpixel, WMGreywind,  Puppetsquid, qoala</>",
 	},
 
 	PROPS =
@@ -626,7 +627,7 @@ return {
 			NAME = "Informant Rendezvous", -- thanks to jlaub for name idea
 			MORE_INFO = "We have an opportunity to plant an informant at this facility who will feed us intel from the inside. This mission grants no immediate reward, but you will start future missions with advance knowledge of the infiltration target. \n\nMake sure the mole remains unseen to maximise the duration of this reward.",
 			INSET_TITLE = "",
-			INSET_TXT = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. \n\nFirst, we'll need to get them on site and secure their cover. Make sure the enemy doesn't spot them, or things will get complicated.",
+			INSET_TXT = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. \n\nFirst, we'll need to get them on site and secure their cover. Make sure the enemy doesn't spot them, or the job gets complicated.",
 			INSET_VO = {""},
 			DESCRIPTION = "Plant an informant and secure their cover identity. For best results, informant must remain unseen.",
 			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or exit location.",
@@ -812,13 +813,13 @@ return {
 
 			ASSASSINATION = {
 				OBJECTIVE_SIGHTED = {
-					{{"There's our target. Watch your step, Operator.",
-						"moremissions/VoiceOver/Central/assassination/seen0",
-						"Central"},
-						-- {"But watch out for his bodyguard. He seems to have some sort of dermal plating implant, and won't go down as easily as your average security.", nil, "Central"},
-						},
+					-- {{"There's our target. Watch your step, Operator.",
+						-- "moremissions/VoiceOver/Central/assassination/seen0",
+						-- "Central"},
+						-- -- {"But watch out for his bodyguard. He seems to have some sort of dermal plating implant, and won't go down as easily as your average security.", nil, "Central"},
+						-- },
 			
-					{{"You've found the target. Best approach carefully. This wouldn't be the first attempt on his life, and his paranoia is notorious.",
+					{{"You've found the target. Best approach carefully, Operator. This wouldn't be the first attempt on his life, and his paranoia is notorious.",
 						"moremissions/VoiceOver/Central/assassination/seen1",
 						"Central"}},
 				},
@@ -850,7 +851,7 @@ return {
 				
 				DECOY_REVEALED = { --discovered decoy the hard way
 					{{"Damn it! We've been duped, Operator. The holo tech on that decoy is advanced enough to fool even Incognita's scans. The real target must be secured somewhere nearby.", nil, "Central"},
-					{"See if you can track him down; if not, we'll have to pull the plug on this mess.",nil,"Central"}},
+					{"See if you can track him down, or we'll have to pull the plug on this mess.",nil,"Central"}},
 				},
 				FOUND_REAL_TARGET_LATE = { --found real target after bumping into decoy
 					{{"There's our real target, finally. Get to it, Operator, this job is alerady messier than I'd like.", nil, "Central"}},	
@@ -885,7 +886,7 @@ return {
 						-- "Make good use of that equipment, it's the only thing we got from all this.",
 					-- },
 					GOTNOTHING = {
-						{{"You didn't get what we came for. Perhaps you would like to offer your own head to our client?",
+						{{"You didn't get what we came for. Perhaps you would like to offer your own head to the client?",
 							nil,
 							"Central"}},
 						{{"Now somebody else is going to get the bounty. Quit wasting precious time, Operator!",
@@ -925,7 +926,7 @@ return {
 				{{"But be careful - that little stunt won't have gone unnoticed. Their security level should start rising rapidly now.",nil,		"Central"}},
 				},
 				SAW_GEAR_CONTAINER = {
-				{{"Incognita's heuristic model suggests they might have stashed our rescuee's equipment here. Let's have a look.",	nil,"Central"}},
+				{{"Heads up, Operator. Incognita's heuristic model suggests they might have stashed our rescuee's equipment here. Let's have a look.",	nil,"Central"}},
 				},
 				CENTRAL_JUDGEMENT = {
 					GOT_AGENT = {
@@ -940,12 +941,12 @@ return {
 					{{"This one is going on your permanent record.", nil, "Central"}}
 					},
 					GOT_OTHER = {
-					{{"Extraction complete. We can find out on the jet who he works for and just how much he's worth to his employer.",nil, "Central"}},
+					{{"Extraction complete. Now we can find out who he works for and just how much he's worth to his employer.",nil, "Central"}},
 					{{"Our mystery man is out. With any luck, we can negotiate a reward for the rescue.",nil,"Central"}},
 					{{"A pity the operative wasn't one of ours, but we'll keep looking. Good work, Operator.",nil,"Central"}},
 					},
 					LOST_OTHER = {
-					{{"Another opportunity squandered. You had better step up your game, Operator. You're lucky that wasn't one of our people you just abandoned.",nil,"Central"}},
+					{{"Another opportunity squandered. You had better step up your game, Operator. You're lucky that wasn't one of our own people you just abandoned.",nil,"Central"}},
 					{{"We went in there for nothing. You better have a good explanation for this in debriefing.",nil,"Central"}},
 					{{"A fruitless endeavour. That operative could have been of use to us in some manner. Too late for that now.",nil,"Central"}},
 					},
@@ -956,7 +957,7 @@ return {
 				{{"The system will boost nearby firewalls if even one exhibit is compromised. See if you can find a way to disable it.",nil,"Central"}}},
 				FOUND_EXPO_DISABLED_SEC = {{{"There's the exhibit. Their main failsafe should be offline now. Let's get to work.",nil,"Central"}}},
 				SAW_SWITCH = {{{"This security switch controls the failsafes protecting the exhibit. Find the other switch and activate both at the same time.",nil,"Central"}}},
-				DISABLED_SWITCH = {{{"You've deactivated the firewall boost, but don't let your guard down. There may still be failsafes in place we don't know about.", nil, "Central"}}},
+				DISABLED_SWITCH = {{{"You've deactivated the firewall boost, but don't let your guard down. There may still be security in place we don't know about.", nil, "Central"}}},
 				LOOTED_CASE_DROIDS_BOOTING = {
 				{{"Heads up, Operator. Those android prototypes are coming online.",nil,"Central"}},
 				{{"Looks like the expo is providing its own security. Get out while you still can.",nil,"Central"}},
@@ -969,7 +970,7 @@ return {
 					{{"Acceptable work. You didn't get the entire arsenal, but this should tide us over for now.",nil,"Central"}},
 					{{"This should give our people an edge in the field. Let's just hope the enemy won't be armed with those prototypes you chose to leave behind.",nil,"Central"}}},
 					GOT_FULL = {{{"I hope you dusted the shelves on your way out. We wouldn't want their cleaners to think we've missed a spot. Excellent work.",nil,"Central"}},
-					{{"This should do quite nicely. It won't put us on par with the corps, but we're no longer as catastrophically outmatched as we were before.",nil,"Central"}},
+					{{"This should do quite nicely. It won't put us on par with the corps, but we're no longer as disastrously outmatched as we were before.",nil,"Central"}},
 					{{"Commendable work, Operator. We've expanded our arsenal and put a dent in their research all at once.",nil,"Central"}}},
 				},
 			},
@@ -979,7 +980,7 @@ return {
 					{{"The informant is out, and their cover identity is secure. Extract the rest of the team, Operator. We're done here.", nil, "Central"}},
 				},
 				MOLE_ESCAPED_WITNESSES = {
-					{{"The informant is out, but they won't last long unless we secure their cover. If anyone saw them before they were out, be sure to take care of it before you leave.", nil, "Central"}},
+					{{"The informant is out, but they won't last long unless we secure their cover. Remember your objectives, Operator. No witnesses.", nil, "Central"}},
 				},
 				MOLE_ESCAPED_TO_JET = {
 					{{"You were supposed to get that informant into the enemy camp, not back on board, Operator. I trust you had good reason to abort the mission.", nil, "Central"}},
@@ -1055,8 +1056,8 @@ return {
 					{{"Don't let this kind of failure become a pattern, Operator. It would not be in your best interest.",nil,"Central"}},
 					},
 					WIN_WITH_WITNESSES = {
-					{{"You weren't supposed to leave witnesses. Our mole on the inside won't be able to feed us intel for long before their cover is blown. Still, it's better than nothing.",nil,"Central"}},
-					{{"Next time, try to make sure the mole is unseen. They'll be useful to us for that much longer if their cover is secure.",nil,"Central"}},
+					{{"You weren't supposed to leave witnesses. Our informant won't be able to feed us intel for long before their cover is blown. Still, it's better than nothing.",nil,"Central"}},
+					{{"Next time, make sure the informant is unseen. They'll be useful to us for that much longer if their cover is secure.",nil,"Central"}},
 					{{"A job half done. We won't be able to use their intel for long, not with the witnesses you left behind. Be more careful next time.",nil,"Central"}},
 					},
 					WIN_NO_WITNESSES = {
@@ -1092,7 +1093,7 @@ return {
 				{
 					{{"That's the main AI development terminal. Finally. Let's access the data and see if there is anything worthwhile for Incognita.", nil, "Central"}},
 					{{"This must be one of Omni Corp's covert research sites - only they have tech quite this advanced. The decor is a bit of a giveaway, too.", nil, "Monster"}},
-					{{"There must be hundreds of such facilities scattered across the globe. How on Earth did we not run into one of these before?", nil, "Central"}},
+					{{"There must be hundreds of such facilities scattered around the globe. How on Earth did we not run into one of these before?", nil, "Central"}},
 					{{"I confess I have my suspicions, although you may not like hearing them...",nil,"Monster"}}, --it's because you're a bad mom, Central
 				},
 
@@ -1123,10 +1124,16 @@ return {
 					GOT_UPGRADE = {
 						{{"An impressive performance, Operator. Have a cookie.", nil, "Central"}},
 					},
+					
+					GOT_SUCCESS = {
+						{{"Expertly done, Operator. The stronger we make Incognita, the greater our collective chances of survival.", nil, "Central"}},
+						{{"This was a triumph, Operator. Incognita is our best shot at surviving this mess. The more upgrades we can give her, the better off we'll be.", nil, "Central"}}, -- obligatory portal ref
+						{{"Incognita seems happy with her enhancements. Have a cookie. You've earned it.", nil, "Central"}},
+					},
 					GOT_NOTHING = {
 						{{"I should have left you at the orphanage.", nil, "Central"}}, --will rewrite when feeling more creative
-						{{"We had a rare opportunity to enhance Incognita here, and you've wasted it. How disappointing.",nil,"Central"}},
-						{{"Operator, Incognita is the one advantage we still have over the corps. We cannot keep wasting such opportunities. Keep that in mind for next time.",nil,"Central"}},
+						{{"We had a rare opportunity to enhance Incognita here, and you've squandered it. How disappointing.",nil,"Central"}},
+						{{"Operator, Incognita is the one advantage we still have over the corps. We cannot keep wasting such opportunities. Try to keep that in mind for next time.",nil,"Central"}},
 					},
 					WEAKENED_COUNTER_AI = {
 						{{"The best defense is a good offense, as they say. Sabotage may be a dirty game, but hamstringing their AI research is sure to help us stay competitive. Well done.", nil, "Central"}}, --unvoiced?
@@ -1177,5 +1184,95 @@ return {
 			-- },
 		-- },
 	},
+	
+	LOGS = {
+		-- Informant datalog: doubles as acknowledgemt for VA contributors
+		log_informant_filename = "INFORMANT INTEL",
+		log_informant_title = "UNDERCOVER AGENT REPORT",
+		log_informant = [[INFORMANT COMMUNIQUÉ - NATALIE FORMAUNT
+			
+			[decryption complete]
+			
+			<c:9d7faa>Operator. I remember how much you prefer business before pleasure, so I'll get straight to it. I've identified the key funding sources for Project MesMerize (see attachment). Some are names, others are aliases. Once we figure out what connects these people, we'll have more data on the scope of the project.
 
+			I have a hunch you were right. These contacts are from all over the globe, with deep roots in every corp. The digging I've done so far seems to match up with your theory, but full details will have to wait until my next report. If this checks out, it could change everything we thought we knew about how the corps operate.
+
+			I should be able to squeeze at least two more days out of this identity before I get burned. As per the usual: If you don't hear from me again, it's been nice working with you.
+
+			xoxo,
+			
+			"Natalie"</>
+
+			[attachment]
+			
+			--------------------
+			<c:62B3B3>Cyberboy2000
+			jlaub
+			TornadoFive
+			Zorlock Darksoul
+			Dwarlen
+			amalloy
+			Datsdabeat
+			Mobbstar
+			Waldenburger
+			alpacalypse
+			magnificentophat
+			Zaman
+			Alexander S.
+			Datapuncher
+			Jeysie
+			Linenpixel
+			WMGreywind
+			Puppetsquid
+			qoala</>
+			--------------------
+
+			(A huge thanks to everyone who donated to fund voice acting for the More Missions mod, and an equally huge thanks to Veena Sood for her work in voicing the lines!
+			
+			- The More Missions dev team)
+		]],
+		log_techexpo_filename = "LETTER OF INVITATION",
+		log_techexpo_title = "MWC LETTER OF INVITATION",
+		log_techexpo = 
+		[[INVITATION, 2074 MEGACORP WARE CONGRESS (MWC)
+
+		<c:62B3B3>Dear Mr. Richardson,
+
+		Congratulations! Based on your application and longstanding relationships within Factory-To-Market Wholesalers Ltd. and Kelfried & Odin Weapons Foundry, you have been selected as our guest at the 2074 Megacorp Ware Congress. This exclusive annual event showcases the best technology our partners and their subsidiaries have to offer - the “cream of the corps”, as we like to say. Please review the below information regarding the event. We will be in touch with further details as the expo approaches.</>
+
+		<c:db65ba>About MWC</> - <c:eca35b>“NEXT YEAR'S TECHNOLOGY, TODAY!”</>
+
+		<c:62B3B3>For two days in late September, a group of trailblazing scientists, senior executives, key shareholders, top developers, downstream vendors and trusted market consultants (such as yourself) will come together from around the globe to catch a glimpse of the future. In an exhibit hall nestled within a corporate R&D facility, the corporations' greatest minds will share their state-of-the-art work in lethal and non-lethal weaponry, network interface systems, and human augmentation and enhancement technologies. Prototypes of all kinds will be available for close inspection, scheduled demonstrations and region-specific pre-orders, in accordance with current treaties.
+		Spearheaded in 2061 by FTM’s then-Chief Product Officer, now Chief Executive Officer, Sophie Woodbridge, the first Megacorp Ware Congress in San Francisco featured little more than a barely working experimental accelerator chip, the first gunpowder-free sidearm and a low-friction gel with vague augmentation applications. As you no doubt know, the expo soon gained notoriety within the upper echelons of intercorp society when the first functional scanning amp was unveiled to stunned attendees in 2065. Since then, it has expanded beyond FTM’s product line to encompass groundbreaking applied science and industrial design by all megacorps and their subsidiaries, as well as thought leadership and exclusive networking events. Today, the MWC stands unrivalled as *the* annual global technology exposition.</>
+
+		<c:db65ba>Location & Venue</>
+
+		<c:62B3B3>The host of the expo rotates between the corps as a matter of tradition. Due to security breaches in 2073, the location of the 2074 MWC is a closely guarded secret available only to the event’s VIP invitees. We will provide transport beam coordinates shortly before the exhibit hall opens. We remind you that by applying to be a guest, you have accepted the standard nondisclosure agreement regarding corporate facility locations.</>
+		
+		
+		
+		<c:db65ba>Agenda Highlights</>
+
+		<c:eca35b>SAT, 8:00 AM:</> Exhibit Hall Opens
+		<c:eca35b>SAT, 9:00 AM:</> Keynote, “Scaling the Firewall: The Future of Quantum Network Security”
+		<c:eca35b>SAT, 12:00 PM:</> Lunch Reception at the Koi Pond
+		<c:eca35b>SAT, 1:00 PM to 5:30 PM:</> Product Demonstrations 
+		<c:eca35b>SAT, 5:30 PM:</> Exhibit Hall Closes, Networking Receptions Begin
+		<c:eca35b>SAT, 7:00 PM:</> Holovid Screening, “The Istanbul Four”
+		<c:eca35b>SAT, 9:00 PM:</> Speed Dating Session, “Vali-Dates: Time Attack Edition”
+		<c:eca35b>SUN, 9:00 AM:</> Q&A Session, “A Conversation with Sophie Woodbridge” 
+		<c:eca35b>SUN, 12:00 PM:</> Lunch Reception at Facility Restaurant “The Ramen Database”
+		<c:eca35b>SUN, 3:00 PM:</> Panel Discussion, “Why So Secure? Countering The Anti-Corp Menace”
+		<c:eca35b>SUN, 5:30 PM:</> Closing Ceremonies
+
+		<c:62B3B3>We look forward to hosting you in September! Do not hesitate to reach out with any questions or concerns.
+
+		Sincerely,
+		Victor Doubleday
+		Director, Marketing Events Operations
+		Megacorp Ware Congress
+
+		P.S.: Please be aware that your presence after the closing of the expo will trigger an alarm response. We thank you in advance for your cooperation with security enforcement personnel.</>
+		]],
+	},
 }
