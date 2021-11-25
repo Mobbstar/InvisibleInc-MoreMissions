@@ -773,6 +773,9 @@ end
 
 local function spawnDaemons( sim )
 	local PROGRAM_LIST = serverdefs.PROGRAM_LIST
+	if sim:isVersion("0.17.5") then
+		PROGRAM_LIST = sim:getIcePrograms()
+	end		
 	local locks = {}
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:hasAbility("MM_W93_incogRoom_unlock") then
