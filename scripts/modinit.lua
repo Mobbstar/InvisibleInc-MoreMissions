@@ -197,9 +197,13 @@ end
 local function lateInit( modApi )
 	local dataPath = modApi:getDataPath()
 	local scriptPath = modApi:getScriptPath()
+	
+	-- include( scriptPath .. "/talkingheadfix") -- prevent Operator messages during mainframe mode, if we want this
+	
 	-- MOLE_INSERTION
 	-- custom intelligence benefit
 	-- DoFinishMission: tick and despawn existing intel bonuses if needed
+	
 	local mole_insertion = include( scriptPath .. "/missions/mole_insertion" ) -- included in init so function appends can already reference it
 	local mission_scoring = include("mission_scoring")
 	local DoFinishMission_old = mission_scoring.DoFinishMission
