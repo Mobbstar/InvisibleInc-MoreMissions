@@ -85,10 +85,17 @@ local function onGuardTooltip(tooltip, unit)
 	end
 end
 
+local function onItemWorldTooltip( tooltip, unit )
+	if unit:getTraits().MM_destroyedNotCarryable then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NOT_CARRYABLE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NOT_CARRYABLE_DESC, "gui/icons/arrow_small.png" )	
+	end
+end
+
 return 
 {
 	onMainframeTooltip = onMainframeTooltip,
 	onItemTooltip = onItemTooltip,
 	onAgentTooltip = onAgentTooltip,
 	onGuardTooltip = onGuardTooltip,
+	onItemWorldTooltip = onItemWorldTooltip,
 }
