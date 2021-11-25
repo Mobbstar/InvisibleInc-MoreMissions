@@ -177,7 +177,7 @@ return {
 		-- HOLOGRENADE_HD_TIP = "Throw to place a tall fake cover item. Activate in mainframe. Uses charge every turn. Can be recovered.",
 		-- HOLOGRENADE_HD_FLAVOR = "Circus acts and theatre make up for the lack of postproduction by using convincing High-Density Holograms.",
 		HOLOGRENADE_HD_TIP = "Throw to place a tall fake cover item. Blocks sight. Can be recovered. Can be heard 1 tile away.",
-		HOLOGRENADE_HD_FLAVOR = "This Inconspicuous Ficus holoprojector presents a lightweight alternative to carrying around your own theater background decor.",		
+		HOLOGRENADE_HD_FLAVOR = "This Inconspicuous Ficus holo projector presents a lightweight alternative to carrying around your own theater background decor.",		
 
 		LAPTOP_HOLO = "VFX Laptop",
 		LAPTOP_HOLO_TIP = "Deploy to place a fake cover item. Generates 1 PWR per turn while deployed. The projector can be heard 1 tile away.",
@@ -737,6 +737,9 @@ return {
 
 			HOSTILE_AI_WEAKEN = "AI TERMINAL SABOTAGE",
 			HOSTILE_AI_WEAKEN_DESC = "This AI has been disrupted and has {1} fewer subroutines than normal.",
+			
+			NOT_CARRYABLE = "NOT CARRYABLE",
+			NOT_CARRYABLE_DESC = "This item is broken and can't be picked up again.",
 		},
 
 	},
@@ -1007,13 +1010,12 @@ return {
 					},
 				MOLE_SEEN_BY_CAMERA = {
 					{{"You'll want to take care of any cameras that caught a glimpse of our Informant. Their visual feeds are synched to the nearest Camera Database.",nil,"Monster"}},
-					{{"Scrub the database to clear all cameras at once. Of course, you can also simply destroy or EMP the camera to scramble its data, I'm sure that will work just fine.",nil,"Monster"}},
-					{{"They really don't use the most robust tech, I'm afraid. Now, if they had used a more reputable vendor-",nil,"Monster"}},
+					{{"Scrub the database or destroy the camera - a bullet or an EMP ought do the trick. They really don't use the most robust tech, I'm afraid. Now, if they had the benefit of a reliable vendor-",nil,"Monster"}},
 					{{"Derek, this is not the time.",nil,"Central"}},
 					{{"Right, yes, of course. Carry on.",nil,"Monster"}},
 					},
 				MOLE_SEEN_BY_DRONE = {
-					{{"That drone that just saw you could compromise the informant's cover. You'll need to do something about that. Unlike cameras, they're not linked to a central feed.",nil,"Monster"}},
+					{{"That drone just compromised the informant's cover. You'll need to do something about that. Unlike cameras, they're not linked to a central feed.",nil,"Monster"}},
 					{{"You'll have to scramble each one with an EMP, or destroy it entirely. I'm sure you're up to the task.",nil,"Monster"}},
 				},
 				SEE_CAMERADB = {
@@ -1113,7 +1115,7 @@ return {
 
 				SMOKE_WARNING = {
 					{{"We've tripped a failsafe. The room is rapidly filling with knockout gas. Get your agent out of there, now.",nil, "Central"}},
-					{{"It could be worse. At least they're not flooding the research center with deadly neurotoxin.", nil, "Monster"}},
+					{{"It could be worse. At least they're not flooding the research center with a deadly neurotoxin.", nil, "Monster"}},
 				},
 
 				CENTRAL_JUDGEMENT = {
