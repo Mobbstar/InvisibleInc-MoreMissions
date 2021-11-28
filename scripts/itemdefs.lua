@@ -191,6 +191,23 @@ local tool_templates =
 	-- {
 	-- },
 
+	-- for rebalanced Compile Room sidemission
+	MM_compiler_USB = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.ITEMS.USB_DRIVE,
+		desc = STRINGS.MOREMISSIONS.ITEMS.USB_DRIVE_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.USB_DRIVE_FLAVOR,
+		icon = "itemrigs/FloorProp_DataDisc.png",		
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_compile_key_USB_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_compile_key_USB.png",
+		abilities = { "carryable","MM_installprogram" },
+		traits = {MM_installedProgram = "lockpick_1", disposable = true,}, 
+		value = 500,
+       createUpgradeParams = function( self, unit )
+            return { traits = { MM_installedProgram = unit:getTraits().MM_installedProgram } }
+        end,		
+	},
+	
 	-- TECH EXPO NON-WEAPONS: manually-created rather than procedurally
 	-- Powerful, limited-use items!
 	--MM_tech_expo_item trait added in tech_expo_itemdefs.lua

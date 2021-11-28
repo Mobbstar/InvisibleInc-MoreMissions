@@ -53,6 +53,8 @@ local function init( modApi )
 	modApi:addGenerationOption("ai_terminal",  STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL, STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL_TIP, {noUpdate=true, enabled = true} )
 
 	modApi:addGenerationOption("MM_sidemissions",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_TIP, {noUpdate=true} ) --doesn't do anything yet
+	
+	modApi:addGenerationOption("MM_sidemission_rebalance",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_REBALANCE , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_REBALANCE_TIP, {noUpdate=true} ) --doesn't do anything yet	
 
 	modApi:addGenerationOption("MM_newday", STRINGS.MOREMISSIONS.OPTIONS.NEWDAY, STRINGS.MOREMISSIONS.OPTIONS.NEWDAY_DESC,
 	{
@@ -65,9 +67,6 @@ local function init( modApi )
 	{ noUpdate = true,})	
 
 	modApi:addGenerationOption("MM_easy_mode",  STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE , STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE_TIP, {enabled = false, noUpdate=true, difficulties = {{simdefs.NORMAL_DIFFICULTY, true}} } )
-
-	-- abilities, for now simple override (I'm not smart enough to...)
-	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
 
 	do -- patch automatic tracker
 		local trackerBoost = 0
@@ -296,6 +295,7 @@ local function lateInit( modApi )
 	--other part in load
 
 	local spawn_mole_bonus = include( scriptPath .. "/spawn_mole_bonus" )
+	local spawn_refit_drone = include( scriptPath .. "/spawn_refit_drone" )
 	-- start of mission: spawn intel bonuses if player has completed a mole mission
 	--needs to run after FuncLib inits
 	local mission_util = include("sim/missions/mission_util")
@@ -305,6 +305,7 @@ local function lateInit( modApi )
 		log:write("LOG makeAgentConnection append")
 		makeAgentConnection_old(script, sim, ...)
 		spawn_mole_bonus( sim, mole_insertion )
+		spawn_refit_drone( script, sim )
 	end
 	-- Similar edit is done in Load to mid_1!
 
@@ -318,6 +319,14 @@ local function lateInit( modApi )
 		else
 			return simunit_setAlerted_old( self, alerted, ... )
 		end
+	end
+	
+	local oldGetname = simunit.getName
+	simunit.getName = function( self, ... )
+		if self:getTraits().customName then
+			return tostring(self:getTraits().customName)
+		end
+		return oldGetname ( self)
 	end
 
 	-- for clearing mainframe witnesses
@@ -592,7 +601,24 @@ local function load( modApi, options, params )
 		end
 		if options["MM_exec_terminals"] and options["MM_exec_terminals"].enabled then
 			params.MM_exec_terminals = true
-		end		
+		end	
+		if options["MM_sidemission_rebalance"] and options["MM_sidemission_rebalance"].enabled then
+			params.MM_sidemission_rebalance = true
+		end
+	end
+	
+	local animdefs_vanilla = include( "animdefs" ).defs
+	if animdefs_vanilla.kanim_drone_refit then
+		if options["MM_sidemission_rebalance"] and options["MM_sidemission_rebalance"].enabled then
+			if animdefs_vanilla.kanim_drone_refit.oldScale == nil then
+				animdefs_vanilla.kanim_drone_refit.oldScale = animdefs_vanilla.kanim_drone_refit.scale
+			end
+			animdefs_vanilla.kanim_drone_refit.scale = 0.2 --smollify
+		else
+			if animdefs_vanilla.kanim_drone_refit.oldScale then
+				animdefs_vanilla.kanim_drone_refit.scale = animdefs_vanilla.kanim_drone_refit.oldScale
+			end
+		end
 	end
 	
 	local simdefs_executive_terminals = include( scriptPath .. "/simdefs_executive_terminals" )
@@ -639,9 +665,14 @@ local function load( modApi, options, params )
 	if options["MM_sidemissions"].enabled then
 		modApi:addSideMissions(scriptPath, { "MM_w93_storageroom" } )
 		modApi:addSideMissions(scriptPath, { "MM_w93_personelHijack" } )
-		-- modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } ) --not done yet		
+		-- modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } ) --not done yet
+		-- for vanilla side missions
+		local transformer_terminal = abilitydefs.lookupAbility("transformer_terminal")
+		transformer_terminal.HUDpriority = 3		
+		transformer_terminal.profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small_15PWR.png"
 	end
 
+	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
 	modApi:addAbilityDef( "MM_hack_personneldb", scriptPath .."/abilities/MM_hack_personneldb" )
 	modApi:addAbilityDef( "MM_escape_guardelevator", scriptPath .."/abilities/MM_escape_guardelevator" )
 	modApi:addAbilityDef( "MM_escape_guardelevator2", scriptPath .."/abilities/MM_escape_guardelevator2" )
@@ -650,6 +681,10 @@ local function load( modApi, options, params )
 	modApi:addAbilityDef( "MM_W93_incogRoom_upgrade", scriptPath .."/abilities/MM_W93_incogRoom_upgrade" )
 	modApi:addAbilityDef( "MM_fakesteal", scriptPath .. "/abilities/MM_fakesteal" )
 	modApi:addAbilityDef( "MM_W93_escape", scriptPath .. "/abilities/MM_W93_escape" )
+	modApi:addAbilityDef( "MM_transformer_terminal_5PWR", scriptPath .. "/abilities/MM_transformer_terminal_5PWR" )
+	modApi:addAbilityDef( "MM_transformer_terminal_10PWR", scriptPath .. "/abilities/MM_transformer_terminal_10PWR" )
+	modApi:addAbilityDef( "MM_compileUSB", scriptPath .. "/abilities/MM_compileUSB" )
+	modApi:addAbilityDef( "MM_installprogram", scriptPath .. "/abilities/MM_installprogram" )
 
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
@@ -966,6 +1001,7 @@ local function load( modApi, options, params )
 						-- scriptMgr:queue( 5*cdefs.SECONDS ) --this does nothing...
 						spawn_mole_bonus( sim, mole_insertion )
 						-- log:write("LOG new mid1 start phase running")
+						spawn_refit_drone( scriptMgr, sim )
 					end
 					scriptMgr:removeHook( startPhase_old )
 					scriptMgr:addHook( "MID_1", newStartPhase )--append hookFn by removing and readding the hook

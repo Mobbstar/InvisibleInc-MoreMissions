@@ -1,4 +1,5 @@
 local util = include( "modules/util" )
+local abilitydefs = include( "sim/abilitydefs" )
 
 local function onMainframeTooltip( tooltip, unit )
 	if unit:getTraits().MM_emp_safe then
@@ -20,6 +21,10 @@ local function onItemTooltip(tooltip, unit)
 	if unit:getTraits().MM_tech_expo_item then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_RESALE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_RESALE_DESC, "gui/icons/arrow_small.png" )
 	end
+	if unit:getTraits().MM_installedProgram and unit:getSim() then
+		local mainframeDef = abilitydefs.lookupAbility(unit:getTraits().MM_installedProgram)
+		tooltip:addAbility( util.sformat(STRINGS.MOREMISSIONS.UI.TOOLTIPS.USB_PROGRAM_STORED,mainframeDef.name), mainframeDef.desc, mainframeDef.icon )
+	end
 end
 
 local function onAgentTooltip(tooltip, unit)
@@ -38,6 +43,16 @@ local function onAgentTooltip(tooltip, unit)
 	if unit:getTraits().MM_mole then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN_DESC, "gui/icons/thought_icons/status_run_lrg.png" )	
 	end
+	if unit:getTraits().empDeath then
+		tooltip:addAbility( string.format( STRINGS.UI.TOOLTIPS.EMP_VULNERABLE ), STRINGS.UI.TOOLTIPS.EMP_VULNERABLE_DESC, "gui/icons/arrow_small.png",nil,true )
+    end 	
+	if unit:getTraits().doesNotHideInCover then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_HIDING, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_HIDING_DESC, "gui/icons/arrow_small.png" )	
+	end
+	if unit:getTraits().refitDroneFriend then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED, STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED_DESC, "gui/icons/arrow_small.png" )	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END_DESC, "gui/icons/arrow_small.png" )				
+	end	
 end
 
 local function onGuardTooltip(tooltip, unit)
@@ -82,6 +97,9 @@ local function onGuardTooltip(tooltip, unit)
 	--sidemission
 	if unit:getTraits().bossUnit then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BOSSUNIT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BOSSUNIT_DESC,  "gui/icons/skills_icons/skills_icon_small/icon-item_accuracy_small.png" )
+	end
+	if unit:getTraits().MM_refitDroneRescue then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.OPPORTUNITY_ALLY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.OPPORTUNITY_ALLY_DESC,  "gui/icons/item_icons/items_icon_small/icon-item_heart.png" )	
 	end
 end
 

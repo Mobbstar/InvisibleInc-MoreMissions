@@ -619,6 +619,133 @@ local animdefs =
 		boundType = BoundType.bound_1x1_med_med,
 		filterSymbols = {{symbol="outline",filter="default"},{symbol="tile_outline",filter="default"},{symbol="teal",filter="default"},{symbol="red",filter="default"},{symbol="Highlight",filter="default"}},
 	},	
+
+	kanim_MM_drone_refit =
+	{
+		build = 
+		{ 
+			-- "data/anims/characters/enemy/sankaku_droid_proto.abld",	
+			"data/anims/characters/agents/MM_refit_drone_friend.abld",	 			
+		},
+		anims =
+		{		
+			"data/anims/characters/corp_SK/sankaku_droid_camera.adef",
+		},
+		anims_1h =
+		{
+			"data/anims/characters/corp_SK/sankaku_droid_camera.adef",
+		},
+		anims_2h =
+		{	
+			"data/anims/characters/corp_SK/sankaku_droid_camera.adef",
+		},
+		symbol = "character",
+		anim = "idle",
+		shouldFlip = true,
+		scale = 0.20,
+		layer = Layer.Unit,
+		boundType = BoundType.Character,
+		boundTypeOverrides = {			
+			{anim="idle_closed" ,boundType= BoundType.CharacterFloor},
+			{anim="dead" ,boundType= BoundType.CharacterFloor},
+		},		
+		-- animMap = FLOAT_DRONE_ANIMS,
+		filterSymbols = {{symbol="scan",filter="default"},{symbol="camera_ol_line",filter="default"}},
+		animMap = util.extend( FLOAT_DRONE_ANIMS )
+		{
+			-- idle_ko = "idle_closed",
+			cover = "idle",
+			-- pin = "idle",
+
+			-- walk_pre = "move_pre",
+			-- cover_run = "move_pre",
+			-- walk = "move",
+			-- walk180 = "move",
+			-- snk = "move",
+			-- run = "move",
+			-- walk_pst = "move_pst",
+			-- run_pst = "move_pst",
+			-- snk_pst = "move_pst",
+			-- pin_pre = "idle",
+
+			-- shoot1 = "idle",
+			-- shoot2 = "idle",
+			-- shoot3 = "idle",
+			-- overwatch_pre = "idle",
+			-- overwatch = "idle",
+			-- pinshoot_pre = "idle",
+			-- pinshoot = "idle",
+			-- pinshoot_pst = "idle",
+			-- pin_stand = "idle",
+			-- tinker = "idle",
+			-- tinker_loop = "idle",
+			-- tinker_pst = "idle",
+			-- hitfrt = "hit",
+			-- hitbck = "hit",
+			-- hitfrt_pst = "hit",
+			-- hitbck_pst = "hit",
+			cover_pre = "idle",
+			lean_pre = "idle",
+			lean = "idle",
+			lean_pst = "idle",
+			hide_pre = "idle",
+			hide = "idle",
+			hide_pst = "idle",
+
+			use_comp = "idle",
+
+			hide_peek_pre_L = "idle",
+			hide_peek_pre_R = "idle",
+			hide_peek = "idle",
+			peek_L = "idle",
+			peek_R = "idle",
+			hide_peek_pst_L = "idle",
+			hide_peek_pst_R = "idle",
+
+			door_peek_pre = "idle",
+			door_peek_pst = "idle",
+			peek_fwrd = "idle",
+			peek_bwrd = "idle",
+			peek_pst_fwrd = "idle",
+			peek_pst_bwrd = "idle",
+			lean_peek_pre_R = "idle",
+			lean_peek_pre_L = "idle",
+			lean_peek_R = "idle",
+			lean_peek_L = "idle",
+			lean_peek_pst_R = "idle",
+			lean_peek_pst_L = "idle",
+
+			overwatchcrouch_melee_idle = "idle",
+			overwatch_melee_pre = "idle",
+			overwatch_melee = "idle",
+
+			-- hide_throw_L = "idle",
+			-- hide_throw_R = "idle",
+			-- hide_throw_pst_L = "idle",
+			-- hide_throw_pst_R = "idle",
+
+			-- throw = "idle",
+			-- throw_pst = "idle",
+
+			-- lean_throw_L = "idle",
+			-- lean_throw_R = "idle",
+			-- lean_throw_pst_L = "idle",
+			-- lean_throw_pst_R = "idle",
+
+			-- pick_up = "idle",
+			use_door = "idle",
+			use_door_pst = "idle",
+
+			-- hide_reload = "idle",
+			-- lean_reload = "idle",
+			-- reload = "idle",
+
+			-- revive = "idle",
+
+			-- shrug = "idle",
+		},
+
+	},
 }
 
 return animdefs

@@ -16,10 +16,9 @@ local simability = include( "sim/simability" )
 local strings_screens = include( "strings_screens" )
 local escape_mission = include("sim/missions/escape_mission")
 ---------------------------------------------------------------------------
---SIDE MISSIONS
--- Local helpers
-local safeUnit = nil
+local DRONE_BANTER_CHANCE = 0.3
 
+--local helpers
 local 	PC_WON =
 	{		
         priority = 10,
@@ -33,6 +32,116 @@ local 	PC_WON =
             end
         end,
 	}
+	
+--VANILLA REBALANCES
+local REFIT_DRONE_SPAWNED = 
+{
+	trigger = simdefs.TRG_UNIT_WARP,
+	fn = function( sim, triggerData )
+		if triggerData.unit:getTraits().refit_drone and (triggerData.from_cell == nil) then
+			return triggerData.unit
+		end
+	end
+}
+
+local REFIT_DRONE_ESCAPED =
+{
+	trigger = simdefs.TRG_UNIT_ESCAPED,
+	fn = function( sim, triggerUnit )
+		if triggerUnit:getTraits().refit_drone then
+			return triggerUnit
+		end
+	end
+}
+
+local DRONE_BOOTED =
+{
+	trigger = simdefs.TRG_UNIT_KO,
+	fn = function( sim, triggerData )
+		if triggerData.unit:getTraits().refit_drone and (triggerData.ticks == nil) then
+			return triggerData.unit
+		end
+	end
+}
+
+local function doDroneBanter( script, sim, unit )
+	local drone_lines = STRINGS.MOREMISSIONS.AGENT_LINES.SIDE_MISSIONS.REFIT_DRONE
+	local drone_txt = drone_lines[sim:nextRand(1,#drone_lines)]
+	script:queue( { type="clearEnemyMessage" } )	
+	script:queue( {
+		body=drone_txt,
+		header = unit:getName(),
+		type = "enemyMessage",
+		profileAnim = unit:getUnitData().profile_anim,
+		profileBuild = unit:getUnitData().profile_build or unit:getUnitData().profile_anim,
+		} )
+	script:queue( 5 * cdefs.SECONDS )
+	script:queue( { type="clearEnemyMessage" } )	
+end
+
+local function updateRefitDrone( script, sim )
+	local _, drone = script:waitFor( REFIT_DRONE_SPAWNED )
+	local refit_drone_names = STRINGS.MOREMISSIONS.UI.REFIT_DRONE_NAMES
+	drone:getTraits().mpMax = drone:getTraits().mpMax + 2
+	local name = util.toupper(refit_drone_names[sim:nextRand(1,#refit_drone_names)])
+	drone:getTraits().customName = name
+	drone:getTraits().MM_refitDroneRescue = true
+end
+
+local function waitForDroneEscape( script, sim )
+	local _, drone = script:waitFor( REFIT_DRONE_ESCAPED )
+	local name = drone:getTraits().customName
+	local campaignHours = sim:getParams().campaignHours
+	
+	script:waitFor( PC_WON )
+	local agency = sim:getParams().agency
+	agency.MM_rescuedRefitDrone = agency.MM_rescuedRefitDrone or {}
+
+	local droneData = {name = name, campaignHours = campaignHours}
+	-- table.insert(agency.MM_rescuedRefitDrone, droneData)
+	agency.MM_rescuedRefitDrone[1] = droneData
+	log:write("LOG agency")
+	log:write(util.stringize(agency.MM_rescuedRefitDrone,2))
+end
+
+local function droneSpeech( script, sim )
+	local _, drone = script:waitFor( DRONE_BOOTED )
+	if drone then
+		doDroneBanter( script, sim, drone )
+		script:waitFor( mission_util.PC_START_TURN )
+	end
+	-- DRONE_BANTER_CHANCE = 1 --for testing
+	local drone_alive = true
+	while drone_alive do
+		script:waitFor( mission_util.PC_START_TURN )
+		if not drone or not drone:getLocation() then
+			drone_alive = false
+		elseif not drone:isKO() and drone:getPlayerOwner() and (drone:getPlayerOwner() == sim:getPC()) and (sim:nextRand() <= DRONE_BANTER_CHANCE) then
+			doDroneBanter( script, sim, drone )
+		end
+	end	
+end
+
+local function updatePWRTerminal( sim )
+	for i, unit in pairs(sim:getAllUnits()) do
+		if unit:hasAbility("transformer_terminal") then
+			unit:giveAbility("MM_transformer_terminal_10PWR")
+			unit:giveAbility("MM_transformer_terminal_5PWR")
+			break
+		end
+	end
+end
+
+local function updateCompileTerminal( sim )
+	for i, unit in pairs(sim:getAllUnits()) do
+		if unit:getTraits().research_program then
+			unit:giveAbility("MM_compileUSB")
+		end
+	end
+end
+---------------------------------------------------------
+
+local safeUnit = nil
 	
 local function PC_SAW_UNIT_WITH_MARKER2( script, tag, marker )
 	return
@@ -432,6 +541,7 @@ function init( scriptMgr, sim )
 	if params.side_mission then
 		log:write("LOG side mission")
 		log:write(util.stringize(params.side_mission,2))
+		-- CUSTOM MM SIDEMISSIONS
         if params.side_mission == "MM_luxuryNanofab" then
 		    scriptMgr:addHook( "FANCYFAB", boughtItemAtFancyFab, nil  )
 			scriptMgr:addHook( "CLOSED_FANCYFAB", closedFancyFab, nil )
@@ -447,6 +557,18 @@ function init( scriptMgr, sim )
 			scriptMgr:addHook( "KoBoss", KoBoss )
 			scriptMgr:addHook( "KillBoss", KillBoss )
 			scriptMgr:addHook( "escapeBoss", escapeBoss )
+		end
+		-- VANILLA SIDE MISSION REBALANCES
+		if params.difficultyOptions.MM_sidemission_rebalance then
+			if params.side_mission == "transformer" then
+				updatePWRTerminal(sim)
+			elseif params.side_mission == "drone_lab" then
+				scriptMgr:addHook("updateRefitDrone", updateRefitDrone )
+				scriptMgr:addHook("waitForDroneEscape", waitForDroneEscape )
+				scriptMgr:addHook("droneSpeech", droneSpeech)
+			elseif params.side_mission == "compile" then
+				updateCompileTerminal( sim )
+			end
 		end
 	end	
 end
