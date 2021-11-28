@@ -46,7 +46,7 @@ return {
 		VAULT_TIP = "<c:FF8411>VAULT</c>\nThis kind of mission is available in the base game. Feel free to disable it.",
 
 		ASSASSINATION = "ASSASSINATION",
-		ASSASSINATION_TIP = "<c:FF8411>ASSASSINATION</c>\nProvides credits. Similiar to research experiments in Vaults, except the object is heavier, and bleeding.",
+		ASSASSINATION_TIP = "<c:FF8411>ASSASSINATION</c>\nProvides credits at the cost of a corp-wide security increase. And your conscience.",
 		HOLOSTUDIO = "HOLOSTUDIO",
 		HOLOSTUDIO_TIP = "<c:FF8411>HOLOSTUDIO</c>\nProvides advanced Holo-Projectors. Similiar to Security Dispatch.",
 		LANDFILL = "SALVAGING PLANT",
@@ -60,10 +60,13 @@ return {
 		AI_TERMINAL = "AI TERMINAL",
 		AI_TERMINAL_TIP = "<c:FF8411>AI TERMINAL</c>\nUpgrade a program or gain a new program slot for Incognita.",
 		EA_HOSTAGE = "COURIER RESCUE",
-		EA_HOSTAGE_TIP = "<c:FF8411>COURIER RESCUE</c>\nRescue the Courier in the limited time before he dies, to gain access to more infiltration sites.",
+		EA_HOSTAGE_TIP = "<c:FF8411>COURIER RESCUE</c>\nRescue the Courier in the limited time before he dies to gain access to more infiltration sites.",
 
 		SIDEMISSIONS = "SIDE MISSIONS",
-		SIDEMISSIONS_TIP = "Enable new side missions",
+		SIDEMISSIONS_TIP = "<c:FF8411>SIDE MISSIONS</c>\nPERSONNEL HIJACK: blah\nCORPORATE WAREHOUSE: blah\nLUXURY NANOFAB: blah",
+		
+		SIDEMISSIONS_REBALANCE = "ENHANCED VANILLA SIDE MISSIONS",
+		SIDEMISSIONS_REBALANCE_TIP = "<c:FF8411>ENHANCED VANILLA SIDE MISSIONS</c>\nPWR RELAY: Sell 5, 10, or 15 PWR.\nREFIT DRONE: Drone has +2 AP and accompanies you on the next mission.\nCOMPILE ROOM: Install the program, or take it with you to sell or install later.", --include more detail here later
 
 		ITEMS_IN_STORE = "ITEMS IN STORES",
 		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",
@@ -83,7 +86,7 @@ return {
 		"MORE MISSIONS: Don't despair if you go into an Assassination mission unarmed. The facility offers more than one way to complete the job.",
 		"MORE MISSIONS: Enemy-controlled laser grids turn off if you drag an enemy through them. This comes in handy in more than one mission.",
 		"MORE MISSIONS: The Distress Call mission has a safe in it somewhere with the agent's equipment. If you're rescuing that agent for the first time, this means their starting gear.",
-		"MORE MISSIONS: The alarm level will advance twice as quickly in the Distress Call mission. You'll have to move fast to extract the detainee",
+		"MORE MISSIONS: The alarm level will advance twice as quickly in the Distress Call mission. You'll have to move fast to extract the detainee.",
 		"MORE MISSIONS: The Tech Expo offers great rewards at increasing risk. Try to manage your greed, or your campaign may end prematurely.",
 		"MORE MISSIONS: The tooltip for a Tech Expo exhibit will tell you what's inside. Only hack and open the cases with items you actually want.",
 		"MORE MISSIONS: The Relay Switches at a Tech Expo will disable the exhibit cases boosting each other's firewalls when broken. Skip this if you only plan to steal one or two items.",
@@ -177,7 +180,7 @@ return {
 		-- HOLOGRENADE_HD_TIP = "Throw to place a tall fake cover item. Activate in mainframe. Uses charge every turn. Can be recovered.",
 		-- HOLOGRENADE_HD_FLAVOR = "Circus acts and theatre make up for the lack of postproduction by using convincing High-Density Holograms.",
 		HOLOGRENADE_HD_TIP = "Throw to place a tall fake cover item. Blocks sight. Can be recovered. Can be heard 1 tile away.",
-		HOLOGRENADE_HD_FLAVOR = "This Inconspicuous Ficus holoprojector presents a lightweight alternative to carrying around your own theater background decor.",		
+		HOLOGRENADE_HD_FLAVOR = "This Inconspicuous Ficus holo projector presents a lightweight alternative to carrying around your own theater background decor.",		
 
 		LAPTOP_HOLO = "VFX Laptop",
 		LAPTOP_HOLO_TIP = "Deploy to place a fake cover item. Generates 1 PWR per turn while deployed. The projector can be heard 1 tile away.",
@@ -270,6 +273,10 @@ return {
 		FLASH_PACK_USE_TIP = "KO guards in a 5 tile radius for 4 turns.",
 
 		TECHEXPO_FLAVOR = "\n\nThis model is an experimental prototype.",
+		
+		USB_DRIVE = "FLASH DRIVE",
+		USB_DRIVE_TOOLTIP = "Stores a mainframe program. Install the program or sell the drive for profit.",
+		USB_DRIVE_FLAVOR = "These humble-looking floppy disks are used extensively to traffic black market software, while non-fungible tokenization ensures the same program can't be sold twice.",		
 
 		AUGMENTS = {
 
@@ -329,6 +336,13 @@ return {
 		W93_ESCAPE = "DELIVER",
 		W93_ESCAPE_DESC = "Teleport all Storage Containers inside the elevator to the jet.",
 		
+		COMPILE_ROOM_USB = "EXTRACT PROGRAM",
+		COMPILE_ROOM_USB_DESC = "Move program to flash drive",
+		COMPILE_ROOM_USB_UNCOMPILED = "Program not yet compiled",
+		
+		USB_PROGRAM_INSTALL = "INSTALL PROGRAM",
+		USB_PROGRAM_INSTALL_SHORT = "INSTALL ",
+		USB_PROGRAM_INSTALL_DESC = "Install {1} program from drive",
 
 	},
 
@@ -737,7 +751,47 @@ return {
 
 			HOSTILE_AI_WEAKEN = "AI TERMINAL SABOTAGE",
 			HOSTILE_AI_WEAKEN_DESC = "This AI has been disrupted and has {1} fewer subroutines than normal.",
+			
+			NOT_CARRYABLE = "NOT CARRYABLE",
+			NOT_CARRYABLE_DESC = "This item is broken and can't be picked up again.",
+			
+			NO_HIDING = "DOESN'T HIDE IN COVER",
+			NO_HIDING_DESC = "Not protected by cover.",
+			
+			USB_PROGRAM_STORED = "PROGRAM STORED: {1}",
+			
+			REPROGRAMMED = "REPROGRAMMED",
+			REPROGRAMMED_DESC = "This Refit Drone is under Agency control.",
+			
+			LEAVES_AT_END = "FRAGILE",
+			LEAVES_AT_END_DESC = "Will be retired after this mission.",
+			
+			OPPORTUNITY_ALLY = "OPPORTUNITY ALLY",
+			OPPORTUNITY_ALLY_DESC = "Bring this drone to the jet for a cash reward and to reprogram it for your own temporary use.",		
 		},
+		
+		REFIT_DRONE_NAMES = {
+			"Cyberbot3000",
+			"Floaty1337",
+			"The Zwebster",
+			"Android Kay",
+			"Droni",
+			"Beeps",
+			"Chip",
+			"Qoalabot",
+			"R30hedrone",
+			"Tim",
+			"iLaub",
+			"Cheeto-So-Robo",
+			"Autonahton",
+			"Hal",
+			"Kirbii",
+			"Pipp",
+			"MechBirb",
+			"Shiny",
+			"Plinky",
+			"Gunmetal-Greywind",			
+		},		
 
 	},
 
@@ -763,6 +817,17 @@ return {
 		},
 		MOLE_INSERTION = {
 			MOLE_MISSION_START = "I'm in. Two things to remember: Nobody sees me, and don't get me killed. Stick to that, and we'll be the best of friends.",
+		},
+		
+		SIDE_MISSIONS = {
+			REFIT_DRONE = {
+				"Bzzzzt.",
+				" < Beepity-boop > ",
+				" < Bzz-beep? > ",
+				" < Boop-boop-boop > ",
+				" < Bzzzz-beep > ",
+				" < Boop-bzeep. > ",
+			},
 		},
 	},
 
@@ -1007,13 +1072,12 @@ return {
 					},
 				MOLE_SEEN_BY_CAMERA = {
 					{{"You'll want to take care of any cameras that caught a glimpse of our Informant. Their visual feeds are synched to the nearest Camera Database.",nil,"Monster"}},
-					{{"Scrub the database to clear all cameras at once. Of course, you can also simply destroy or EMP the camera to scramble its data, I'm sure that will work just fine.",nil,"Monster"}},
-					{{"They really don't use the most robust tech, I'm afraid. Now, if they had used a more reputable vendor-",nil,"Monster"}},
+					{{"Scrub the database or destroy the camera - a bullet or an EMP ought do the trick. They really don't use the most robust tech, I'm afraid. Now, if they had the benefit of a reliable vendor-",nil,"Monster"}},
 					{{"Derek, this is not the time.",nil,"Central"}},
 					{{"Right, yes, of course. Carry on.",nil,"Monster"}},
 					},
 				MOLE_SEEN_BY_DRONE = {
-					{{"That drone that just saw you could compromise the informant's cover. You'll need to do something about that. Unlike cameras, they're not linked to a central feed.",nil,"Monster"}},
+					{{"That drone just compromised the informant's cover. You'll need to do something about that. Unlike cameras, they're not linked to a central feed.",nil,"Monster"}},
 					{{"You'll have to scramble each one with an EMP, or destroy it entirely. I'm sure you're up to the task.",nil,"Monster"}},
 				},
 				SEE_CAMERADB = {
@@ -1113,7 +1177,7 @@ return {
 
 				SMOKE_WARNING = {
 					{{"We've tripped a failsafe. The room is rapidly filling with knockout gas. Get your agent out of there, now.",nil, "Central"}},
-					{{"It could be worse. At least they're not flooding the research center with deadly neurotoxin.", nil, "Monster"}},
+					{{"It could be worse. At least they're not flooding the research center with a deadly neurotoxin.", nil, "Monster"}},
 				},
 
 				CENTRAL_JUDGEMENT = {
@@ -1193,9 +1257,9 @@ return {
 			
 			[decryption complete]
 			
-			<c:9d7faa>Operator. I remember how much you prefer business before pleasure, so I'll get straight to it. I've identified the key funding sources for Project MesMerize (see attachment). Some are names, others are aliases. Once we figure out what connects these people, we'll have more data on the scope of the project.
+			<c:9d7faa>Operator. I recall how much you prefer business before pleasure, so I'll get straight to it. I've identified the key funding sources for Project MesMerize (see attachment). Some are names, others are aliases. Once we figure out what connects these people, we'll have more data on the scope of the project.
 
-			I have a hunch you were right. These contacts are from all over the globe, with deep roots in every corp. The digging I've done so far seems to match up with your theory, but full details will have to wait until my next report. If this checks out, it could change everything we thought we knew about how the corps operate.
+			I have a hunch you were right. These contacts are from all over the globe, with deep roots in every corp. The digging I've done so far seems to match up with your conglomerate theory, but full details will have to wait until my next report. If this checks out, it could change everything we thought we knew about how the corps operate.
 
 			I should be able to squeeze at least two more days out of this identity before I get burned. As per the usual: If you don't hear from me again, it's been nice working with you.
 

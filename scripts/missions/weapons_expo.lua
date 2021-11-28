@@ -321,6 +321,7 @@ local function MM_checkTopGearItem( script, sim )
 	if not sim:getTags().MM_transformer_start then --only add objective if we have not seen the switches yet
 		sim:addObjective( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_FIND_SWITCHES, "find_switches" )
 	end
+	script:queue(1*cdefs.SECONDS )
 	queueCentral(script, scripts)
 	topGearSafe:destroyTab()
 	
@@ -376,8 +377,10 @@ local function countUnstolenTech(script,sim)
 				local stolen_item = true
 				local owner = unit:getUnitOwner()
 				local owner_cell = owner and owner:getLocation() and sim:getCell(owner:getLocation())
-				if owner == nil then --on the floor
-					stolen_item = false
+				if owner == nil then
+					if owner_cell ~= nil then --on the floor. items sold at nanofab are ownerless but also cell-less
+						stolen_item = false
+					end
 				elseif owner then
 					if owner:getPlayerOwner() == sim:getPC() then
 						if not owner:getTraits().isAgent then
@@ -395,12 +398,14 @@ local function countUnstolenTech(script,sim)
 			end
 		end				
 		local stolen = sim.totalTopGear -(#not_stolen)  --sim.totalTopGear should always be 5 with these prefabs
-		log:write("LOG stolen" .. tostring(stolen))
-		if stolen > 0 then 
+		log:write("LOG stolen " .. tostring(stolen))
+		if (stolen > 0) and (stolen < sim.totalTopGear) then
+			log:write("LOG MM got some gear")
 			sim.TA_mission_success = true -- flag for Talkative Agents
 			sim.MM_got_partial_tech = true
 		end
 		if stolen >= sim.totalTopGear then
+			log:write("LOG MM got all gear")
 			sim.MM_got_all_tech = true
 			sim.TA_mission_success = true
 		end

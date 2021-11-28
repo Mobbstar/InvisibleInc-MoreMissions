@@ -64,6 +64,12 @@ local function chooseRandomLocations( count, sim )
     local tags = {}
     -- newLocation data is used in mission_complete, passing through to servers.createCampaignSituations
     local missionTags = util.tcopy( serverdefs.ESCAPE_MISSION_TAGS )
+	-- log:write("LOG missionTags")
+	-- log:write(util.stringize(missionTags,2))
+	if array.find( missionTags, "distress_call" ) then
+		array.removeIf( missionTags, function(v) return v == "distress_call" end )
+	end		
+	-- log:write(util.stringize(missionTags,2))
     for i = 1, count do
         local corpName = serverdefs.CORP_NAMES[ sim:nextRand( 1, #serverdefs.CORP_NAMES )]
         local missionTag = table.remove( missionTags, sim:nextRand( 1, #missionTags ))

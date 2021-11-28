@@ -109,6 +109,15 @@ function frag_grenade:activate()
 
     local sim = self:getSim()
 
+	if self:getTraits().usesLeft then
+		self:getTraits().usesLeft = self:getTraits().usesLeft - 1
+	end
+
+	if self:getTraits().usesLeft and (self:getTraits().usesLeft <= 0) and self:hasAbility("carryable") then
+		self:removeAbility(sim, "carryable")
+		self:getTraits().MM_destroyedNotCarryable = true
+	end
+		
 	if self:getTraits().camera then
 		self:getTraits().hasSight = true
 		sim:getLOS():registerSeer(self:getID() )
@@ -127,7 +136,7 @@ function frag_grenade:activate()
 		end		
 		self:getTraits().hologram=true
 		self:getSounds().spot = self:getSounds().activeSpot
-		sim:dispatchEvent( simdefs.EV_UNIT_UPDATE_SPOTSOUND, { unit = self,  stop = false } )
+		sim:dispatchEvent( simdefs.EV_UNIT_UPDATE_SPOTSOUND, { unit = self,  stop = false } )										 
 	end
 
 	if self:getTraits().cryBaby or self:getTraits().transporterBeacon then

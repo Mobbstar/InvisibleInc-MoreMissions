@@ -365,7 +365,7 @@ local function spawnMole( script, sim )
 			end
 		end
 	end
-	
+		
 	--super niche case for That One Sankaku Starting Room where you can spawn in surrounded by cover ona ll sides
 	if #adjacent_cells < 1 then
 		for i, cell in ipairs(agent_cells) do
@@ -378,6 +378,8 @@ local function spawnMole( script, sim )
 			end
 		end
 	end
+	
+	sim:triggerEvent("MM_spawned_mole")	
 	
 	local spawn_cell = adjacent_cells[sim:nextRand(1, #adjacent_cells)]		
 	local unitData = unitdefs.lookupTemplate("MM_mole")

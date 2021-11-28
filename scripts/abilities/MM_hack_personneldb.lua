@@ -60,9 +60,9 @@ local MM_hack_personneldb = --tweaked version of monster root hub hack
 				return false, util.sformat(STRINGS.UI.REASON.CHARGES)
 			end
 
-			-- if unit:getTraits().monster_hacking ~= nil then
-				-- return false, STRINGS.UI.REASON.ALREADY_HACKING
-			-- end
+			if unit:getTraits().monster_hacking and (unit:getTraits().monster_hacking ~= true) then
+				return false, STRINGS.UI.REASON.ALREADY_HACKING
+			end
 
 			if unit:getTraits().MM_mole ~= true then
 				return false, STRINGS.ABILITIES.HACK_ONLY_MOLE --only mole
