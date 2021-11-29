@@ -9,6 +9,7 @@ local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local unitdefs = include( "sim/unitdefs" )
 local simfactory = include( "sim/simfactory" )
+local mission_util = include("sim/missions/mission_util")
 
 --local helpers
 local 	PC_WON =
@@ -24,7 +25,7 @@ local 	PC_WON =
 		end
 	end,
 }
-	
+
 local MOLE_SPAWNED =
 {
 	trigger = "MM_spawned_mole",
@@ -33,6 +34,32 @@ local MOLE_SPAWNED =
 	end
 }
 	
+
+local REFIT_DRONE_ESCAPED =
+{
+	trigger = simdefs.TRG_UNIT_ESCAPED,
+	fn = function( sim, triggerUnit )
+		if triggerUnit:getTraits().refitDroneFriend then
+			return triggerUnit
+		end
+	end
+}
+
+local DRONE_MOVED =
+{
+	trigger = simdefs.TRG_UNIT_WARP,
+	fn = function( sim, evData )
+		if evData.unit:getTraits().refitDroneFriend then
+			return evData.unit
+		end
+	end
+}
+
+local function hideDrone( script, sim )
+	local _, drone = script:waitFor( DRONE_MOVED )
+	drone:getTraits().hidesInCover = true
+end
+
 local function spawnDroney( sim, cell, name )
 	local template = "MM_refit_drone_friend"
 	local unitData = unitdefs.lookupTemplate( template )
@@ -40,9 +67,18 @@ local function spawnDroney( sim, cell, name )
 	local player = sim:getPC()
 	newUnit:setPlayerOwner(player)
 	newUnit:getTraits().customName = name
-	-- newUnit:giveAbility("MM_renameDrone")
 	sim:spawnUnit( newUnit )
+	newUnit:getTraits().hidesInCover = false --this prevents the drone anim from being invisible when spawning into cover
 	sim:warpUnit( newUnit, cell )
+	sim:dispatchEvent( simdefs.EV_TELEPORT, { units={newUnit}, warpOut =false } )
+	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newUnit } )
+	-- newUnit:getTraits().hidesInCover = true
+	return newUnit
+end
+
+local function droneFriendSurvived( script, sim )
+	script:waitFor( REFIT_DRONE_ESCAPED )
+	sim:getTags().MM_refitDroneFriendEscaped = true
 end
 
 local function spawnDroneFriend( script, sim )
@@ -65,13 +101,17 @@ local function spawnDroneFriend( script, sim )
 			end
 		end
 		if agent and cell then
-			spawnDroney(sim, cell, name)
+			local droney = spawnDroney(sim, cell, name)
+			script:addHook( hideDrone )
 		end
 	end
 	
 	-- remove old drone
 	local agency = sim:getParams().agency
 	script:waitFor ( PC_WON )
+	if sim:getTags().MM_refitDroneFriendEscaped then
+		agency.MM_droneFriendSurvived = true --can be used by Additional Banter
+	end
 	if agency.MM_rescuedRefitDrone then
 		for i = #agency.MM_rescuedRefitDrone, 1, -1 do
 			local droneFriend = agency.MM_rescuedRefitDrone[i]
@@ -79,12 +119,13 @@ local function spawnDroneFriend( script, sim )
 			if sim:getParams().campaignHours > gotDroneWhen then
 				table.remove(agency.MM_rescuedRefitDrone,i)
 			end
-		end		
+		end
 	end
 end
 
 local function spawnDroneFn( script, sim )
-	script:addHook(spawnDroneFriend) 
+	script:addHook( spawnDroneFriend )
+	script:addHook( droneFriendSurvived )
 end
 
 return spawnDroneFn
