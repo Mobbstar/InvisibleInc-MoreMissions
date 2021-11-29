@@ -51,7 +51,8 @@ local function onAgentTooltip(tooltip, unit)
 	end
 	if unit:getTraits().refitDroneFriend then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED, STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED_DESC, "gui/icons/arrow_small.png" )	
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END_DESC, "gui/icons/arrow_small.png" )				
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END_DESC, "gui/icons/arrow_small.png" )
+		tooltip:addAbility(STRINGS.MOREMISSIONS.UI.TOOLTIPS.CAN_JACKIN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.CAN_JACKIN_DESC, "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png")
 	end	
 end
 

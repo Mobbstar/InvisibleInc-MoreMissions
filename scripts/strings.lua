@@ -145,6 +145,24 @@ return {
 				},
 			},
 		},
+		
+		REFIT_DRONE =
+		{
+			NAME = "REFIT DRONE",
+			TOOLTIP = "REFIT DRONE",
+			BANTER = 
+			{
+				START = {
+					"",
+				},
+				FINAL_WORDS =
+				{
+					" < Beep-boop... > ",
+					" < Bzz-beeep!!! > ",
+					" < Beep? Bzz-boop?? Bz-beep!!! > ",
+				},
+			},
+		},
 
 		EA_HOSTAGE =
 		{
@@ -343,6 +361,11 @@ return {
 		USB_PROGRAM_INSTALL = "INSTALL PROGRAM",
 		USB_PROGRAM_INSTALL_SHORT = "INSTALL ",
 		USB_PROGRAM_INSTALL_DESC = "Install {1} program from drive",
+		
+		RENAME = "RENAME ",
+		RENAME_DRONE = "RENAME DRONE",
+		RENAME_DRONE_DESC = "Rename refit drone",
+		RENAME_DRONE_CONFIRM = "CONFIRM",
 
 	},
 
@@ -763,11 +786,14 @@ return {
 			REPROGRAMMED = "REPROGRAMMED",
 			REPROGRAMMED_DESC = "This Refit Drone is under Agency control.",
 			
-			LEAVES_AT_END = "FRAGILE",
-			LEAVES_AT_END_DESC = "Will be retired after this mission.",
+			LEAVES_AT_END = "FRAGILE CASING",
+			LEAVES_AT_END_DESC = "Will be retired to the jet after this mission.",
 			
 			OPPORTUNITY_ALLY = "OPPORTUNITY ALLY",
-			OPPORTUNITY_ALLY_DESC = "Bring this drone to the jet for a cash reward and to reprogram it for your own temporary use.",		
+			OPPORTUNITY_ALLY_DESC = "Bring this drone to the jet for a cash reward and to reprogram it for your own temporary use.",
+
+			CAN_JACKIN = "BLUETOOTH SIPHON",
+			CAN_JACKIN_DESC = "Can hijack Consoles for PWR.",
 		},
 		
 		REFIT_DRONE_NAMES = {
@@ -777,6 +803,8 @@ return {
 			"Android Kay",
 			"Droni",
 			"Beeps",
+			"Wodzu",
+			"The Wod Bot",
 			"Chip",
 			"Qoalabot",
 			"R30hedrone",

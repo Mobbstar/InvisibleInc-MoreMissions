@@ -14,14 +14,17 @@ local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 
 local function earlyInit( modApi )
 	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Advanced Guard Protocol", "Items Evacuation", "New Items And Augments","Advanced Cyberwarfare","Programs Extended","Offbrand Programs","Switch Content Mod", "Interactive Events","Generation Options+" }
+
+	local scriptPath = modApi:getScriptPath()
+	rawset(_G,"SCRIPT_PATHS",rawget(_G,"SCRIPT_PATHS") or {})
+    SCRIPT_PATHS.more_missions = scriptPath	
+	SCRIPT_PATHS.name_dialog = include( scriptPath .. "/name_dialog" )
+    include( scriptPath .. "/hud" )
 end
 
 local function init( modApi )
 	-- Path for custom prefabs
 	local scriptPath = modApi:getScriptPath()
-	rawset(_G,"SCRIPT_PATHS",rawget(_G,"SCRIPT_PATHS") or {})
-    	SCRIPT_PATHS.more_missions = scriptPath
-
 	local dataPath = modApi:getDataPath()
 	KLEIResourceMgr.MountPackage( dataPath .. "/gui.kwad", "data" )
     -- KLEIResourceMgr.MountPackage( dataPath .. "/images.kwad", "data" )
@@ -303,9 +306,9 @@ local function lateInit( modApi )
 	mission_util.makeAgentConnection = function( script, sim, ... )
 		-- spawn bonus
 		log:write("LOG makeAgentConnection append")
+		spawn_refit_drone( script, sim )
 		makeAgentConnection_old(script, sim, ...)
 		spawn_mole_bonus( sim, mole_insertion )
-		spawn_refit_drone( script, sim )
 	end
 	-- Similar edit is done in Load to mid_1!
 
@@ -685,6 +688,7 @@ local function load( modApi, options, params )
 	modApi:addAbilityDef( "MM_transformer_terminal_10PWR", scriptPath .. "/abilities/MM_transformer_terminal_10PWR" )
 	modApi:addAbilityDef( "MM_compileUSB", scriptPath .. "/abilities/MM_compileUSB" )
 	modApi:addAbilityDef( "MM_installprogram", scriptPath .. "/abilities/MM_installprogram" )
+	modApi:addAbilityDef( "MM_renameDrone", scriptPath .. "/abilities/MM_renameDrone" )
 
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
