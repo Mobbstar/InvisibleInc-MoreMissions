@@ -35,6 +35,13 @@ local INFORMANT_ABILITIES =
 "jackin", "peek", "escape", "disarmtrap" , "observePath", "moveBody", "lastWords","sprint","MM_escape_guardelevator","MM_escape_guardelevator2",
 }
 
+local function onRefitDroneTooltip( tooltip, unit )
+	if unit:getTraits().customName and unit:getTraits().refitDroneFriend then
+		unit:getUnitData().name = unit:getTraits().customName
+	end
+	return commondefs.onAgentTooltip(tooltip, unit)
+end
+
 local agent_templates =
 {
 	--NPCs
@@ -193,12 +200,13 @@ local agent_templates =
 		name = STRINGS.DLC1.GUARDS.REFIT_DRONE,
 		kanim = "kanim_MM_drone_refit",
 		sounds = SOUNDS.DRONE_HOVER, 
+		agentID = "MM_refitDroneFriend",
 		toolTip = STRINGS.DLC1.GUARDS.REFIT_DRONE,
 		profile_anim = "portraits/sankaku_drone_camera_new",
 		profile_build = "portraits/sankaku_proto_drone",
 		profile_image = "sankaku_drone_camera.png",		
 		children = { },
-		abilities = { "observePath","peek","escape" },
+		abilities = { "observePath","peek","escape","MM_renameDrone","jackin","lastWords" },
 		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS )
 		{
 			LOSrange = nil,
@@ -236,10 +244,10 @@ local agent_templates =
 		yearsOfService = STRINGS.AGENTS.HOSTAGE.YEARS_OF_SERVICE,
 		age = STRINGS.AGENTS.HOSTAGE.AGE,
 		homeTown = STRINGS.AGENTS.HOSTAGE.HOMETOWN,
-		onWorldTooltip = commondefs.onAgentTooltip,
+		onWorldTooltip = onRefitDroneTooltip,
 		profile_icon_36x36= "gui/icons/agent_icons/MM_refitdrone_36.png",
 		splash_image = "gui/agents/agentDeckard_768.png",
-		speech = speechdefs.stealth_1,
+		speech = STRINGS.MOREMISSIONS.AGENTS.REFIT_DRONE.BANTER,
 		blurb = "",		
 	},
 
