@@ -793,7 +793,8 @@ local function spawnDaemons( sim )
 			unit:getTraits().mainframe_ice = unit:getTraits().mainframe_ice + 2
 			ice_boosted = true
 		end
-		unit:getTraits().mainframe_program = PROGRAM_LIST[ sim:nextRand(1, #PROGRAM_LIST) ]
+		local daemon = PROGRAM_LIST:getChoice( sim:nextRand( 1, PROGRAM_LIST:getTotalWeight() ))
+		unit:getTraits().mainframe_program = daemon
 		num_daemons = num_daemons - 1
 		if num_daemons <= 0 then
 			break

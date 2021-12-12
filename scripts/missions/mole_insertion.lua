@@ -608,6 +608,15 @@ end
 	-- return evData.unit, seer
 -- end
 
+local function abandonedMole( sim )
+	for i, unit in pairs(sim:getPC():getUnits()) do
+		if unit:getTraits().MM_mole and unit:isKO() then
+			return true
+		end
+	end
+	return false
+end
+
 local function moleDied( script, sim )
 	script:waitFor( MOLE_DEAD )
 	sim:removeObjective("hack_personnel_DB")
@@ -852,7 +861,7 @@ function mission:init( scriptMgr, sim )
 		if sim:getTags().MM_informant_success and mission.existsLivingWitness(sim) then
 			scripts = SCRIPTS.INGAME.MOLE_INSERTION.CENTRAL_JUDGEMENT.WIN_WITH_WITNESSES
 		end
-		if sim:getTags().MM_mole_died then
+		if sim:getTags().MM_mole_died or abandonedMole(sim) then
 			scripts = SCRIPTS.INGAME.MOLE_INSERTION.CENTRAL_JUDGEMENT.MOLE_DIED
 		end
 			
