@@ -19,7 +19,7 @@ local function earlyInit( modApi )
 	rawset(_G,"SCRIPT_PATHS",rawget(_G,"SCRIPT_PATHS") or {})
     SCRIPT_PATHS.more_missions = scriptPath	
 	SCRIPT_PATHS.name_dialog = include( scriptPath .. "/name_dialog" )
-    include( scriptPath .. "/hud" )
+    include( scriptPath .. "/hud_name_dialog" )
 end
 
 local function init( modApi )
