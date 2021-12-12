@@ -660,14 +660,7 @@ local function startPhase( script, sim )
 	--sim:setMissionReward( MISSION_REWARD )
 	-- sim:setMissionReward ( simquery.scaleCredits( sim, MISSION_REWARD ))		--removed for now as we want the two new sites to be the only reward from this. 
 	sim:removeObjective( "hostage_3" )
-
-	sim:getTags().delayPostGame = true
-	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_ESCAPE[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_ESCAPE)], type="newOperatorMessage" } )
-	script:waitFrames( 200 )
-
-	script:queue( { type="clearOperatorMessage" } )
-	sim:getTags().delayPostGame = false
-
+	
 	-- Spawn two new missions in the same corp but otherwise unspecified
 	local serverdefs = include( "modules/serverdefs" )
 	local tags = util.tmerge( { sim:getParams().world, "2max", "close_by", }, serverdefs.ESCAPE_MISSION_TAGS )
@@ -680,7 +673,14 @@ local function startPhase( script, sim )
 
 	sim:addNewLocation( tags )
 	sim:addNewLocation( tags )
-	sim:addNewLocation( tags )
+	sim:addNewLocation( tags )	
+
+	sim:getTags().delayPostGame = true
+	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_ESCAPE[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_ESCAPE)], type="newOperatorMessage" } )
+	script:waitFrames( 200 )
+
+	script:queue( { type="clearOperatorMessage" } )
+	sim:getTags().delayPostGame = false
 end
 
 ---------------------------------------------------------------------------------------------
