@@ -417,13 +417,13 @@ local animdefs =
 		},
 		build = 
 		{ 
-			"data/anims/characters/corp_neutral/MM_bot_male_purple.abld",
+			"data/anims/characters/corp_neutral/MM_bot_male_purple_v2.abld",
 			"data/anims/characters/anims_male/shared_hits_01.abld",	
 			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
 		},
 		grp_build = 
 		{
-			"data/anims/characters/corp_neutral/grp_MM_bot_male_purple.abld",
+			"data/anims/characters/corp_neutral/grp_MM_bot_male_purple_v2.abld",
 		},		
 		grp_anims = commonanims.male.grp_anims,
 		
