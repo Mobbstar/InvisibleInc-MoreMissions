@@ -342,7 +342,7 @@ local npc_templates =
 		rig = "dronerig",
 		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_DROID_SPEC or "Prototype Android",
 		profile_anim = "portraits/portrait_animation_template",
-		profile_build = "portraits/MM_bot_purple_face",
+		profile_build = "portraits/MM_bot_purple_face_v2",
 		profile_image = "MM_android_spec.png",
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
@@ -454,9 +454,7 @@ local npc_templates =
 		idles = DEFAULT_IDLES,
 		sounds = SOUNDS.GUARD,
 		brain = "WimpBrain",		
-	},
-	
-	
+	},	
 }
 
 return npc_templates
