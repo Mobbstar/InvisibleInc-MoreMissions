@@ -586,6 +586,9 @@ local function unloadCommon( modApi, options )
 			table.insert(simdefs.DEFAULT_MISSION_TAGS, tag)
 		end
 	end
+	
+	local simdefs_executive_terminals = include( scriptPath .. "/simdefs_executive_terminals" )
+	simdefs_executive_terminals.resetExecDialog()		
 
 end
 
