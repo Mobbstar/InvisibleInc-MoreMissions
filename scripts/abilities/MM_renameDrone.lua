@@ -11,7 +11,7 @@ local MM_renameDrone =
 
 		createToolTip = function( self, sim, unit )
 
-			local title = STRINGS.MOREMISSIONS.ABILITIES.RENAME..util.toupper(unit:getTraits().customName)
+			local title = STRINGS.MOREMISSIONS.ABILITIES.RENAME..util.toupper(unit:getTraits().customName or "Refit Drone")
 			local body = STRINGS.MOREMISSIONS.ABILITIES.RENAME_DRONE_DESC
 
 			if unit:getTraits().activate_txt_title then
