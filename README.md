@@ -5,10 +5,6 @@
 
 The aim of this mod is to add new kinds of missions to the game. Check the [Wiki](https://github.com/Mobbstar/InvisibleInc-MoreMissions/wiki) for mission descriptions, details, and screenshots.
 
-## NEW: Help us get voice acting!
-
-We're looking to get Central's lines voiced by Central's original voice actor, and you can help. More details [here](https://github.com/Mobbstar/InvisibleInc-MoreMissions/wiki/5.-Voice-acting).
-
 ## Installation
 
 If you're looking to playtest the mod, see the [Wiki/Installation](https://github.com/Mobbstar/InvisibleInc-MoreMissions/wiki/1.-Installation).
