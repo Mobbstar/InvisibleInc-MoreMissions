@@ -21,6 +21,28 @@ local serverdefs = include("modules/serverdefs")
 -- Functionality of adding new slot handled by Function Library.
 
 -- Local helpers
+
+local CARD_SAFE_LOOTED =
+{
+	trigger = simdefs.TRG_SAFE_LOOTED,
+	fn = function( sim, triggerData )
+		if triggerData.targetUnit and triggerData.targetUnit:getTraits().MM_hasAICard then
+			-- log:write("LOg safe looted1")
+			return triggerData.targetUnit
+		end
+	end,
+}
+
+local AI_CONSOLE_HIJACKED =
+{
+	trigger = simdefs.TRG_UNIT_HIJACKED,
+	fn = function( sim, triggerData )
+		if triggerData.unit and triggerData.unit:getTraits().MM_AIconsole then
+			return triggerData.unit
+		end
+	end,
+}
+
 local 	PC_WON =
 	{		
         priority = 10,
@@ -724,6 +746,30 @@ local function upgradeIncognita( script, sim )
 	end
 end
 
+local function cardSafeReaction( script, sim  )
+
+	local _, unit, seer = script:waitFor( mission_util.PC_SAW_UNIT_WITH_TRAIT("MM_hasAICard") )
+	local text = util.toupper(STRINGS.MOREMISSIONS.UI.INCOGROOM_SAWSAFE)
+	local x0, y0 = unit:getLocation()
+	script:queue( { type="pan", x=x0, y=y0} )
+	unit:createTab( text, "" )
+
+	script:waitFor(CARD_SAFE_LOOTED)
+	--log:write("LOG AI card safe looted!")
+
+    unit:destroyTab()
+end
+
+local function consoleReaction( script, sim  )
+	local _, unit, seer = script:waitFor( mission_util.PC_SAW_UNIT_WITH_TRAIT("MM_AIconsole") )
+	local x, y = unit:getLocation()
+	local text = util.toupper(STRINGS.MOREMISSIONS.UI.INCOGROOM_SAWCONSOLE)
+	unit:createTab(text,"")
+	script:queue( { type="pan", x=x, y=y } )
+	script:waitFor(AI_CONSOLE_HIJACKED)
+	unit:destroyTab()
+end
+
 local function addKeys( sim )
 
 	local safeAdded = false
@@ -734,12 +780,15 @@ local function addKeys( sim )
 			local item = simfactory.createUnit( propdefs.MM_W93_AiRoomPasscard, sim )
 			sim:spawnUnit(item)
 			unit:addChild(item)
+			unit:getTraits().MM_hasAICard = true
 			safeAdded = true
 		end
 		if unit:getTraits().mainframe_console and not consoleAdded then
 			unit:addTag("W93_INCOG_LOCK")
 			-- log:write("LOG console added!")
 			consoleAdded = true
+			unit:getTraits().MM_AIconsole = true
+			unit:getTraits().sightable = true --required for triggering on unit appeared
 			if not (unit:getPlayerOwner() == sim:getNPC()) then
 				-- log:write("reowning console")
 				-- this is necessary on the 0 consoles setting because consoles start out player-owned
@@ -820,6 +869,8 @@ function mission:init( scriptMgr, sim )
 	scriptMgr:addHook( "incrementLocks", incrementLocks )
 	scriptMgr:addHook( "upgradeIncognita", upgradeIncognita )
 	scriptMgr:addHook( "upgradeDialog", upgradeDialog )
+	scriptMgr:addHook( "cardSafeReaction", cardSafeReaction )
+	scriptMgr:addHook( "consoleReaction", consoleReaction )
 	
 	sim.exit_warning = STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.EXIT_WARNING
 
