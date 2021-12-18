@@ -1035,10 +1035,20 @@ local function load( modApi, options, params )
 	serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )
 		local newSituation =  serverdefs_createNewSituation_old(campaign, gen, tags, difficulty )
 
-		if not newSituation and array.find(tags, "close_by") and not array.find(tags, "close_by_nevermind") then
+		if not newSituation and array.find(tags, "close_by") then
 			-- Secure Holding Facility/Courier Rescue: if there was no viable location, lift the requirement for proximity.
-			table.insert(tags, "close_by_nevermind")
-			newSituation = serverdefs_createNewSituation_old( campaign, gen, tags, difficulty )
+			if not array.find(tags, "close_by_nevermind") then
+				table.insert(tags, "close_by_nevermind")
+				newSituation = serverdefs_createNewSituation_old( campaign, gen, tags, difficulty )
+			end
+			if not newSituation and not array.find(tags, "corp_nevermind") then
+				-- Still no viable location. Allow any corp.
+				-- (Presence of corp in the tags list is sufficient, no need to remove any existing corp tag)
+				table.insert(tags, "corp_nevermind")
+				array.concat(tags, serverdefs.CORP_NAMES)
+				newSituation = serverdefs_createNewSituation_old( campaign, gen, tags, difficulty )
+			end
+			-- If there's still no new situation, then there are no valid spawns (possibly from 2x of all mission types in endless). Give up.
 		end
 
 		if newSituation then
