@@ -713,6 +713,8 @@ return {
 		MOLE_EXIT_WARNING = "Are you sure you want to leave? You haven't located the Personnel Database yet.",
 		MOLE_EXIT_WARNING2 = "Are you sure you want to leave? The Informant needs to escape through the GUARD elevator.",
 		INCOGROOM_TEXT1 = "High-Security Door Detected",
+		INCOGROOM_SAWSAFE = "AI vault card located",
+		INCOGROOM_SAWCONSOLE = "Door lock access located",
 
 		TOOLTIPS = {
 			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
