@@ -45,7 +45,7 @@ local options = CreateOptionsTBL( TF.RGBA8, 1.0, true, true, false )
 local package = Package:new( "gui", MaxPackageSize, options )
 package:CreateAtlas( TF.BC3, MaxTextureWidth, MaxTextureHeight, AtlasStyle.Increasing ) 
 PackageFolder( package, "./gui", true, function(srcpath)
-	return string.find(srcpath, ".png", -4) ~= nil
+	return (string.find(srcpath, ".png", -4) ~= nil) or (string.find(srcpath, ".lua", -4) ~= nil)
 end )
 package:Save( build_options.outputpath, "gui.kwad" )
 
