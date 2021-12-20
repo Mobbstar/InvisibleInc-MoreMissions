@@ -29,6 +29,7 @@ local SCRIPTS = include('client/story_scripts')
 -- Local helpers
 local OBJECTIVE_ID = "tech_expo"
 local ice_boost = 2 --variable for firewall-boosting security measure
+local CHANCE_OF_GOOSE = 0.1
 
 local function queueCentral(script, scripts) --really informative huh
 	for k, v in pairs(scripts) do
@@ -139,6 +140,9 @@ local function spawnAndroids(script,sim)
 		local template = unitdefs.lookupTemplate("MM_prototype_droid") 
 		if unit:getTraits().spec_droid then
 			template = unitdefs.lookupTemplate("MM_prototype_droid_spec")
+			if unit:getTraits().spec_goose then
+				template = unitdefs.lookupTemplate("MM_prototype_goose_spec")
+			end
 		end
 		local newUnit = simfactory.createUnit(template,sim)
 		local cell = sim:getCell( unit:getLocation() )
@@ -412,8 +416,27 @@ local function countUnstolenTech(script,sim)
 	end
 
 end
-			
-
+		
+local function specGooseEasterEgg( sim )
+	if not (sim:nextRand() <= CHANCE_OF_GOOSE) then
+		return	
+	end
+	
+	for i, unit in pairs(sim:getAllUnits()) do
+		if unit:getTraits().MM_droid_dummy and unit:getTraits().spec_droid then
+			local facing = unit:getFacing()
+			local cell = sim:getCell(unit:getLocation())
+			sim:warpUnit( unit, nil )
+			sim:despawnUnit( unit )
+			local template = unitdefs.lookupTemplate("MM_prototype_specgoose_prop") 
+			local newUnit = simfactory.createUnit(template,sim)
+			sim:spawnUnit(newUnit)
+			newUnit:setFacing(facing)
+			sim:warpUnit( newUnit, cell )
+			break
+		end
+	end	
+end		
 ---------------------------------------------------------------------------------------------
 -- Mission
 
@@ -421,6 +444,7 @@ local mission = class( escape_mission )
 
 function mission:init( scriptMgr, sim )
 	sim.TA_mission_success = false
+	specGooseEasterEgg( sim )
     local params = sim:getParams()
     if params.side_mission then
 		if params.side_mission == "transformer" then
