@@ -122,6 +122,7 @@ return {
 		BODYGUARD = "Bodyguard",
 		PROTOTYPE_DROID = "Prototype Android",
 		PROTOTYPE_DROID_SPEC = "Prototype SpecDroid",
+		PROTOTYPE_GOOSE_SPEC = "Prototype Anseroid",
 		SCIENTIST = "Scientist",
 		HOLOGRAM_DROID = "Holodroid Decoy",
 	},
