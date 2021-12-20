@@ -71,7 +71,7 @@ local SHARP_SOUNDS =
 	hit = "SpySociety/HitResponse/hitby_ballistic_cyborg",
 }
 
-local android_traits = util.extend( commondefs.basic_agent_traits )
+local ANDROID_TRAITS = util.extend( commondefs.basic_agent_traits )
 {
 	canBeCritical = false,
 	woundsMax = 1, 
@@ -90,6 +90,50 @@ local android_traits = util.extend( commondefs.basic_agent_traits )
 	lookaroundRange = 5,
 }
 
+local SPECDROID_TRAITS = util.extend( ANDROID_TRAITS )   
+{
+	-- walk=true,
+	MM_nullFX = true, --for unitrig
+	heartMonitor="disabled",
+	kill_trigger = "guard_dead",
+	enforcer = false,
+	dashSoundRange = 8, 
+	sightable = true,
+	scanSweeps = true,
+	empKO = 4, -- 4 ticks KO when EMP'd.
+	empDeath = true,
+	PWROnHand = 4,
+	-- cashOnHand = 0,		
+	controlTimer = 0, 
+	controlTimerMax = 1, 
+	hits = "spark",
+	isMetal = true,
+	mainframe_item = true,
+	mainframe_ice = 4,
+	mainframe_iceMax = 4,
+	mainframe_status = "active",
+	canKO = false,	
+	LOSrange = 2.5,
+	LOSarc = 2 * math.pi,
+	LOSperipheralArc =  2 * math.pi,
+	LOSperipheralRange = 3,
+	lookaroundArc = 2 * math.pi,
+	lookaroundOffset = math.pi / 8,		
+	mainframe_no_daemon_spawn = false,
+	mainframe_always_daemon_spawn = true,
+	mainframe_no_recapture = true,	
+	magnetic_reinforcement = true,			
+	pulseScan = true,
+	range =5,
+	armor = 1,
+	isDrone = true,
+	pulse_sound = "SpySociety_DLC001/Actions/scandrone_scan",
+	-- relayInterest = true,
+	-- recap_icon = "sankaku_drone_null2",	
+	closedoors = false,	
+	recap_icon = "executive",
+}
+			
 local npc_templates =
 {
 
@@ -192,7 +236,7 @@ local npc_templates =
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
 		kanim = "kanim_MM_android_decoy",
-		traits = util.extend( android_traits )   
+		traits = util.extend( ANDROID_TRAITS )   
 		{
 			-- walk=true,
 			heartMonitor="disabled",
@@ -222,8 +266,6 @@ local npc_templates =
 			closedoors = false,
 			pacifist = true,
 			recap_icon = "executive",
-
-			
 		},
 		speech = speechdefs.NPC,
 		tags = {"MM_decoy_droid"},
@@ -286,7 +328,7 @@ local npc_templates =
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
 		kanim = "kanim_MM_android",
-		traits = util.extend( android_traits )   
+		traits = util.extend( ANDROID_TRAITS )   
 		{
 			-- walk=true,
 			heartMonitor="disabled",
@@ -347,49 +389,7 @@ local npc_templates =
 		profile_icon_36x36= "gui/profile_icons/security_36.png",
     	onWorldTooltip = onGuardTooltip,
 		kanim = "kanim_MM_android_elite", 
-		traits = util.extend( android_traits )   
-		{
-			-- walk=true,
-			MM_nullFX = true, --for unitrig
-			heartMonitor="disabled",
-			kill_trigger = "guard_dead",
-			enforcer = false,
-			dashSoundRange = 8, 
-			sightable = true,
-			scanSweeps = true,
-			empKO = 4, -- 4 ticks KO when EMP'd.
-			empDeath = true,
-			PWROnHand = 4,
-			-- cashOnHand = 0,		
-			controlTimer = 0, 
-			controlTimerMax = 1, 
-			hits = "spark",
-			isMetal = true,
-			mainframe_item = true,
-			mainframe_ice = 4,
-			mainframe_iceMax = 4,
-			mainframe_status = "active",
-			canKO = false,	
-			LOSrange = 2.5,
-			LOSarc = 2 * math.pi,
-			LOSperipheralArc =  2 * math.pi,
-			LOSperipheralRange = 3,
-            lookaroundArc = 2 * math.pi,
-            lookaroundOffset = math.pi / 8,		
-			mainframe_no_daemon_spawn = false,
-			mainframe_always_daemon_spawn = true,
-			mainframe_no_recapture = true,	
-			magnetic_reinforcement = true,			
-			pulseScan = true,
-			range =5,
-			armor = 1,
-			isDrone = true,
-			pulse_sound = "SpySociety_DLC001/Actions/scandrone_scan",
-			-- relayInterest = true,
-			-- recap_icon = "sankaku_drone_null2",	
-			closedoors = false,	
-			recap_icon = "executive",
-		},
+		traits = SPECDROID_TRAITS,
 		speech = speechdefs.NPC,
 		voices = {"Drone"},--nil, --{"KO_Heavy"},
 		skills = {},
@@ -403,8 +403,36 @@ local npc_templates =
 			{ "item_icebreaker_2", 5 },
 			{ "item_icebreaker_3", 3 },
 			{nil, 67}
-		},		
-	},	
+		},	
+	},
+	
+	MM_prototype_goose_spec = --copy of previous entry but with anim changes (maybe  make copy via util.extend instead...)
+	{
+		type = "simdrone",--"simunit", 
+		rig = "dronerig",
+		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_GOOSE_SPEC or "Prototype Anseroid",
+		profile_anim = "portraits/lady_stealth_face",
+		profile_build = "portraits/MM_specgoose_face",
+		profile_image = "MM_android_spec.png",
+		profile_icon_36x36= "gui/profile_icons/security_36.png",
+    	onWorldTooltip = onGuardTooltip,
+		kanim = "kanim_MM_spec_goose", 
+		traits = SPECDROID_TRAITS,
+		speech = speechdefs.NPC,
+		voices = {"Drone"},--nil, --{"KO_Heavy"},
+		skills = {},
+		abilities = util.extend(DEFAULT_ABILITIES){},
+		children = {itemdefs.item_npc_smg_drone},
+		sounds = DROID_SOUNDS, --SOUNDS.GUARD,
+		brain = "GuardBrain",
+		dropTable = 
+		{
+			{ "item_icebreaker", 25 },
+			{ "item_icebreaker_2", 5 },
+			{ "item_icebreaker_3", 3 },
+			{nil, 67}
+		},
+	},
 
 	MM_scientist = -- scientist dupe for Tech Expo, in case player has DLC installed but not enabled
 	{

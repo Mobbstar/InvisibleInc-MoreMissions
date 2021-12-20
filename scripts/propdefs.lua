@@ -113,6 +113,18 @@ local prop_templates =
 		kanim = "mm_kanim_guard_male_dummy2", 
 		traits = { impass = {0,0}, sightable = true, cover = true, staticAnim  = true, MM_droid_dummy = true, spec_droid = true},
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", },
+	},
+	
+	MM_prototype_specgoose_prop = 
+	{ 
+		type = "simunit", 
+		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_DROID, --"Android Prototype"
+		rig = "unitrig",
+		tooltip = nil,
+		tags = {"MM_droid_dummy"},
+		kanim = "kanim_MM_spec_goose_dummy", 
+		traits = { impass = {0,0}, sightable = true, cover = true, staticAnim  = true, MM_droid_dummy = true, spec_droid = true, spec_goose = true, },
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", },
 	},	
 	
 	MM_portal_turret =
