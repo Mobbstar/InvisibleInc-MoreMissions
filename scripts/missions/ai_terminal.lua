@@ -290,7 +290,8 @@ local function upgradeDialog( script, sim )
 			local slotsfull_txt = util.sformat(dialogPath.OPTIONS2_SLOTSFULL_TXT, currentSlots, maxSlots )
 			mission_util.showBadResult( sim, dialogPath.OPTIONS2_SLOTSFULL_TITLE, slotsfull_txt )
 			option = nil
-			triggerData.abort = true	
+			triggerData.abort = true
+			sim:triggerEvent( "cancelled_using_AI_terminal" )			
 		else
 			if isEndless then
 				maxSlots = dialogPath.SLOTS_UNLIMITED
@@ -303,6 +304,7 @@ local function upgradeDialog( script, sim )
 			if option_confirm == 1 then
 				option_confirm = nil
 				triggerData.abort = true
+				sim:triggerEvent( "cancelled_using_AI_terminal" )
 			else
 				mission_util.showGoodResult( sim, dialogPath.OPTIONS2_RESULT1_TITLE, dialogPath.OPTIONS2_RESULT1_TXT )
 				sim:getTags().used_AI_terminal = true
@@ -323,6 +325,7 @@ local function upgradeDialog( script, sim )
 		if option_pe == 1 then
 			option_confirm = nil
 			triggerData.abort = true
+			sim:triggerEvent( "cancelled_using_AI_terminal" )
 		else
 			local options_pe_result_txt = util.sformat(dialogPath.OPTIONS2_PE_RESULT_TXT, corpName )
 			mission_util.showGoodResult( sim, dialogPath.OPTIONS_PE_RESULT_TITLE, options_pe_result_txt )
@@ -333,6 +336,7 @@ local function upgradeDialog( script, sim )
 	elseif option == cancel_opt then
 		option = nil
 		triggerData.abort = true
+		sim:triggerEvent( "cancelled_using_AI_terminal" )
 	elseif option == upgrade_opt then
 		local txt2 = util.sformat(dialogPath.OPTIONS2_TXT,options3_temp[2],options3_temp[1])
 		
@@ -415,7 +419,8 @@ local function upgradeDialog( script, sim )
 				
 				if option3 == restart_opt then 
 					restart_opt = nil
-					triggerData.abort = true			
+					triggerData.abort = true	
+					sim:triggerEvent( "cancelled_using_AI_terminal" )					
 				elseif option3 == firewall_opt then
 					--increase/decrease firewalls broken
 					local txt_firewalls = util.sformat(dialogPath.FIREWALLS_TIP, upgradedProgram.name, (
@@ -436,6 +441,7 @@ local function upgradeDialog( script, sim )
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
 							option_firewalls = nil
 							triggerData.abort = true
+							sim:triggerEvent( "cancelled_using_AI_terminal" )
 						end
 						
 					elseif option_firewalls == 2 then
@@ -448,10 +454,12 @@ local function upgradeDialog( script, sim )
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
 							option_firewalls = nil
 							triggerData.abort = true
+							sim:triggerEvent( "cancelled_using_AI_terminal" )
 						end
 					else
 						option_firewalls = nil
 						triggerData.abort = true
+						sim:triggerEvent( "cancelled_using_AI_terminal" )
 					end
 					
 				elseif option3 == pwr_opt then
@@ -472,7 +480,8 @@ local function upgradeDialog( script, sim )
 						else
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
 							option_PWR = nil
-							triggerData.abort = true						
+							triggerData.abort = true
+							sim:triggerEvent( "cancelled_using_AI_terminal" )
 						end
 						
 					elseif option_PWR == 2 then
@@ -484,11 +493,13 @@ local function upgradeDialog( script, sim )
 						else
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
 							option_PWR = nil
-							triggerData.abort = true						
+							triggerData.abort = true
+							sim:triggerEvent( "cancelled_using_AI_terminal" )
 						end
 					else
 						option_PWR = nil
 						triggerData.abort = true
+						sim:triggerEvent( "cancelled_using_AI_terminal" )
 					end
 				elseif option3 == cd_opt then
 				
@@ -504,7 +515,9 @@ local function upgradeDialog( script, sim )
 						else
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
 							option_CD = nil
-							triggerData.abort = true						
+							triggerData.abort = true
+
+							sim:triggerEvent( "cancelled_using_AI_terminal" )
 						end
 						
 					elseif option_CD == 2 then
@@ -516,11 +529,13 @@ local function upgradeDialog( script, sim )
 						else
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
 							option_CD = nil
-							triggerData.abort = true						
+							triggerData.abort = true
+							sim:triggerEvent( "cancelled_using_AI_terminal" )
 						end
 					else
 						option_CD = nil
 						triggerData.abort = true
+						sim:triggerEvent( "cancelled_using_AI_terminal" )
 					end
 				elseif option3 == range_opt then
 					local txt_range = util.sformat( dialogPath.RANGE_TIP, upgradedProgram.name, (upgradedProgram.range or dialogPath.INVALID))..txt_increment
@@ -534,7 +549,9 @@ local function upgradeDialog( script, sim )
 						else
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
 							option_CD = nil
-							triggerData.abort = true						
+							triggerData.abort = true
+
+							sim:triggerEvent( "cancelled_using_AI_terminal" )
 						end
 					elseif option_RANGE == 2 then
 						local validUpgrade = upgradeRange( upgradedProgram, sim, -1 )
@@ -544,11 +561,13 @@ local function upgradeDialog( script, sim )
 						else
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
 							option_CD = nil
-							triggerData.abort = true						
+							triggerData.abort = true
+							sim:triggerEvent( "cancelled_using_AI_terminal" )
 						end
 					else
 						option_CD = nil
 						triggerData.abort = true
+						sim:triggerEvent( "cancelled_using_AI_terminal" )
 					end
 				end
 			end
