@@ -76,6 +76,10 @@ return {
 		
 		EXEC_TERMINALS = "MORE EXEC TERMINAL OPTIONS",
 		EXEC_TERMINALS_DESC = "<c:FF8411>MORE EXEC TERMINAL OPTIONS</c>\nExecutive Terminals will allow you to choose from a pool of six missions, instead of four.",
+		
+		SPAWNTABLE_DROIDS = "ADD NEW ENEMIES (EARLIEST DIFFICULTY)",
+		SPAWNTABLE_DROIDS_DESC = "<c:FF8411>ADD NEW ENEMIES (EARLIEST DIFFICULTY)</c>\nUnique Tech Expo-only enemies may appear in other missions starting with this mission difficulty.",
+		SPAWNTABLE_DROIDS_VALUES = {"1","2","3","4","5","6","7","8","9","10","NEVER",},
 
 		EASY_MODE = "EASY MODE",
 		EASY_MODE_TIP = "<c:FF8411>EASY MODE</c>\nSome security measures in the custom missions are disabled or more forgiving.",
