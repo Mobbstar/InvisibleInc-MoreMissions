@@ -638,6 +638,9 @@ local function load( modApi, options, params )
 		if options["MM_sidemission_rebalance"] and options["MM_sidemission_rebalance"].enabled then
 			params.MM_sidemission_rebalance = true
 		end
+		if options["MM_spawnTable_droids"] and options["MM_spawnTable_droids"].value then
+			params.MM_spawnTable_droids = options["MM_spawnTable_droids"].value
+		end
 	end
 	
 	local animdefs_vanilla = include( "animdefs" ).defs
