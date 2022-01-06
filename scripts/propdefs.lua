@@ -319,7 +319,7 @@ local prop_templates =
     	profile_icon_100 = "gui/icons/item_icons/icon-item_holomesh_Prism.png",		
     	abilities = { "carryable" , "disguise" },
     	value = 500,
-    	traits = {  scan_vulnerable=true, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}, drop_dropdisguise=true },	
+    	traits = {  scan_vulnerable=true, cooldown = 0, cooldownMax = 6, disguise_duration = 1, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}, drop_dropdisguise=true },	
 	},
 	
 	-- AI TERMINAL
