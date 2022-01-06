@@ -308,6 +308,20 @@ local prop_templates =
 		soldAfter = NEVER_SOLD,
 	},	
 	
+	MM_mole_disguise = util.extend(commondefs.item_template)
+	{
+		type = "item_disguise",
+		name = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE,
+		desc = STRINGS.ITEMS.HOLO_MESH_TOOLTIP,
+		flavor = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE_FLAVOR,
+		icon = "itemrigs/disk.png",		
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_holomesh_Prism.png",
+    	profile_icon_100 = "gui/icons/item_icons/icon-item_holomesh_Prism.png",		
+    	abilities = { "carryable" , "disguise" },
+    	value = 500,
+    	traits = {  scan_vulnerable=true, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}, drop_dropdisguise=true },	
+	},
+	
 	-- AI TERMINAL
 	MM_W93_incogRoom_terminal =
 	{
