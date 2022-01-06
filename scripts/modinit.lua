@@ -8,7 +8,6 @@ local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 
-local assassination_mission = {}
 --for unloading
 local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 
@@ -18,8 +17,8 @@ local function earlyInit( modApi )
 	local scriptPath = modApi:getScriptPath()
 	rawset(_G,"SCRIPT_PATHS",rawget(_G,"SCRIPT_PATHS") or {})
     SCRIPT_PATHS.more_missions = scriptPath	
-	SCRIPT_PATHS.name_dialog = include( scriptPath .. "/name_dialog" )
-    include( scriptPath .. "/hud_name_dialog" )
+	SCRIPT_PATHS.name_dialog = include( scriptPath .. "/hud/name_dialog" )
+    include( scriptPath .. "/hud/hud_name_dialog" )
 end
 
 local function init( modApi )
@@ -73,115 +72,31 @@ local function init( modApi )
 	
 	modApi:addGenerationOption("MM_easy_mode",  STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE , STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE_TIP, {enabled = false, noUpdate=true, difficulties = {{simdefs.NORMAL_DIFFICULTY, true}} } )
 
-	do -- patch automatic tracker
-		local trackerBoost = 0
-		local aiplayer = include( "sim/aiplayer" )
-		local _onEndTurn = aiplayer.onEndTurn
-		function aiplayer:onEndTurn(sim)
-			trackerBoost = sim.missionTrackerBoost or 0
-			_onEndTurn(self, sim)
-			trackerBoost = 0
-		end
+	-- patch automatic tracker
+	include( scriptPath .. "/appended_functions/aiplayer" )
 
-		local simengine = include( "sim/engine" )
-		local _trackerAdvance = simengine.trackerAdvance
-		function simengine:trackerAdvance(delta, ...)
-			delta = delta + trackerBoost
-			return _trackerAdvance(self, delta, ...)
-		end
-	end
-
-
-	-- for Assassination mission: ensure lethal laser grids in saferoom prefab
-	local simengine = include("sim/engine")
-	local oldInit = simengine.init
-
-	function simengine.init( self, params, levelData, ... )
-		self._levelOutput = levelData:parseBoard( params.seed, params )
-		if params.situationName == "assassination" then
-			for i, unit in pairs(self._levelOutput.units) do
-				if unit.template and unit.unitData and unit.unitData.traits and unit.unitData.traits.lethal_laser then
-					unit.template = "security_laser_emitter_1x1"
-				end
-			end
-		end
-		oldInit( self, params, levelData, ... )
-	end
-	
-	local sim_canPlayerSeeUnit_old = simengine.canPlayerSeeUnit
-	simengine.canPlayerSeeUnit = function( self, player, unit, ... )
-		if (player == self:getPC()) and unit:getTraits().MM_invisible_to_PC then
-			return false
-		end
-		return sim_canPlayerSeeUnit_old( self, player, unit, ... )
-	end
-	
 	--cannot set display string... local variable only -M
 	table.insert(modApi.mod_manager.credit_sources, "assassinationreward")
 
 	-- SIDE MISSIONS
-	local showItemStore = abilitydefs.lookupAbility( "showItemStore")
-	local showItemStore_executeOld = showItemStore.executeAbility
+	include( scriptPath .. "/appended_functions/abilities/showItemStore" )
 
-	showItemStore.executeAbility = function( self, sim, unit, userUnit, ... )
-	-- note: unit is nanofab, userUnit is agent
-		if unit:getTraits().storeType and (unit:getTraits().storeType == "large") and unit:getTraits().luxuryNanofab and sim.luxuryNanofabItemType then
-
-			local strings_screens = include( "strings_screens" )
-			sim.old_augmenttip, sim.old_weapontip, sim.old_itemtip = strings_screens.STR_346165218, strings_screens.STR_2618909495, strings_screens.STR_590530336
-			local itemType = sim.luxuryNanofabItemType
-			local new_tooltip = [[]]
-			if itemType == 1 then
-				new_tooltip = [[ITEMS]]
-			elseif itemType ==2 then
-				new_tooltip = [[AUGMENTS]]
-			elseif itemType == 3 then
-				new_tooltip = [[WEAPONS]]
-			end
-
-			strings_screens.STR_346165218 = new_tooltip
-			strings_screens.STR_2618909495 = new_tooltip
-			strings_screens.STR_590530336 = new_tooltip
-
-		end
-
-		showItemStore_executeOld(self, sim, unit, userUnit, ...)
-	end
-
-	-- inverted spawn fitness check allows existing generatePrefabs worldgen functions to maximise distance to a prefab tag specified in mission.
-	local prefabs = include("sim/prefabs")
-	local generatePrefabs_old = prefabs.generatePrefabs
-	prefabs.generatePrefabs = function( cxt, candidates, tag, maxCount, fitnessFn, fitnessSelect, ... )
-		if not fitnessFn and cxt.defaultFitnessFn and cxt.defaultFitnessSelect and cxt.defaultFitnessFn[tag] and cxt.defaultFitnessSelect[tag] then
-			fitnessFn = cxt.defaultFitnessFn[tag]
-			fitnessSelect = cxt.defaultFitnessSelect[tag]
-			if cxt.maxCountOverride[tag] then
-				maxCount = cxt.maxCountOverride[tag]
-			end
-			-- local oldMaxCount = maxCount
-			-- maxCount = 1
-			-- for i = (oldMaxCount - 1), 1, -1 do
-				-- generatePrefabs_old( cxt, candidates, tag, maxCount, fitnessFn, fitnessSelect, ... ) --needed so BOTH guard exits spawn far from mole prefab. Re-run function as many times as original maxCount
-			-- end
-		end
-
-		return generatePrefabs_old( cxt, candidates, tag, maxCount, fitnessFn, fitnessSelect, ... )
-	end
-
+	-- MOLE INSERTION
+	include( scriptPath .. "/appended_functions/prefabs" )
 	-- END OF MOLE INSERTION
 
-	include( scriptPath .. "/simquery" )
-	include( scriptPath .. "/engine" )
-	include( scriptPath .. "/idle" )
-	include( scriptPath .. "/units/laser" )
-	include( scriptPath .. "/pcplayer" )
-	include( scriptPath .. "/unitrig" )
+	include( scriptPath .. "/appended_functions/simquery" )
+	include( scriptPath .. "/appended_functions/engine_init" )
+	include( scriptPath .. "/appended_functions/idle" )
+	include( scriptPath .. "/appended_functions/laser" )
+	include( scriptPath .. "/appended_functions/pcplayer" )
+	include( scriptPath .. "/appended_functions/unitrig" )
 	include( scriptPath .. "/btree/actions" )
 	include( scriptPath .. "/btree/conditions" )
 	include( scriptPath .. "/btree/bountytargetbrain" )
 
 	include( scriptPath.."/simdefs" ) -- copied from Interactive Events & expanded to support up to 8 buttons
-	include( scriptPath.."/hud" )--from Interactive Events, required for modal dialog choice menu to work properly
+	include( scriptPath.."/hud/hud" )--from Interactive Events, required for modal dialog choice menu to work properly
 
 	-- AI TERMINAL
 	local modifyPrograms = include( scriptPath .. "/abilities/mainframe_abilities" )
@@ -202,383 +117,30 @@ local function lateInit( modApi )
 	local dataPath = modApi:getDataPath()
 	local scriptPath = modApi:getScriptPath()
 	
-	-- include( scriptPath .. "/talkingheadfix") -- prevent Operator messages during mainframe mode, if we want this
+	-- include( scriptPath .. "/appended_functions/talkingheadfix") -- prevent Operator messages during mainframe mode, if we want this
 	
 	-- MOLE_INSERTION
 	-- custom intelligence benefit
 	-- DoFinishMission: tick and despawn existing intel bonuses if needed
-	
-	local mole_insertion = include( scriptPath .. "/missions/mole_insertion" ) -- included in init so function appends can already reference it
-	local mission_scoring = include("mission_scoring")
-	local DoFinishMission_old = mission_scoring.DoFinishMission
-	mission_scoring.DoFinishMission = function( sim, campaign, ... )
-		local agency = sim:getParams().agency
+	local mod_mission_scoring = include( scriptPath .. "/appended_functions/mission_scoring")
+	mod_mission_scoring.runAppend( modApi ) --other part in load
 
-		--update existing informant bonuses
-		-- bonus doesn't apply in Omni missions so don't tick down
-		-- don't use up bonus if PC lost > might still Retry level
-		if (sim:getWinner() and sim:getPlayers()[sim:getWinner()]:isPC()) and (not ((sim:getParams().world == "omni") or (sim:getParams().world == "omni2"))) then
-			agency.MM_informant_bonus = agency.MM_informant_bonus or {}
-			-- tick duration on existing mole bonuses
-			for i=#agency.MM_informant_bonus, 1, -1 do --do not modify agency during serialisation, doFinishMission is fine because no more serialisable player actions are possible
-				local mole_bonus = agency.MM_informant_bonus[i]
-				log:write("LOG DoFinishMission mole bonus")
-				log:write(util.stringize(mole_bonus,2))
-				if mole_bonus.missions_left then
-					if mole_bonus.missions_left then
-						log:write("LOG ticking down missions_left")
-						mole_bonus.missions_left = mole_bonus.missions_left - 1
-					end
-					if mole_bonus.missions_left <= 0 then
-						log:write("LOG removing bonus")
-						table.remove(agency.MM_informant_bonus, i)
-					end
-				end
-			end
-		end
-
-		-- remove existing Distress Call missions, THEN run the old function that might add new ones.
-		for i = #campaign.situations, 1, -1 do
-			local situation = campaign.situations[i]
-			if situation.name == "distress_call" then
-				table.remove( campaign.situations, i )
-			end
-		end
-
-		-- add new bonus from mission just completed, if relevant
-		if sim:getTags().MM_informantMission and sim:getTags().MM_informant_success then
-			local missions_left = sim.MM_mole_duration_full or 3	-- maybe make customisable?
-			if mole_insertion.existsLivingWitness(sim) then
-				missions_left = sim.MM_mole_duration_partial or 1
-			end
-			local id = sim:getParams().campaignHours
-			local intel_bonus = {
-				id = id,
-				missions_left = missions_left,
-			}
-			-- add new mole bonus
-			table.insert(agency.MM_informant_bonus, intel_bonus)
-		end
-
-		-- ASSASSINATION
-		if (sim:getParams().situationName == "assassination") and sim:getTags().MM_assassination_success then -- or some other mission type check, as well as a mission success check
-
-			-- this is for modifying the difficulty of newly-spawned ones, in case we also want this
-			campaign.MM_assassination  = campaign.MM_assassination or {}
-			local world = sim:getParams().world
-			if campaign.MM_assassination[world] == nil then
-				campaign.MM_assassination[world] = 0
-			end
-
-			campaign.MM_assassination[world] = campaign.MM_assassination[world] + 1
-
-			-- this is for modifying the difficulty of existing ones
-			local situations = campaign.situations
-
-			for i, sitch in pairs(situations) do
-				local corpData = serverdefs.getCorpData( sitch )
-				if corpData.world == sim:getParams().world then
-					-- if sitch.difficulty > 1 then
-						sitch.difficulty = sitch.difficulty + 1
-					-- end
-				end
-			end
-		end
-
-		local returnvalue = DoFinishMission_old( sim, campaign, ... )
-
-		if sim._assassinationReward then
-			-- if sim._resultTable.credits_gained.hostage then
-				-- sim._resultTable.credits_gained.hostage = sim._resultTable.credits_gained.hostage - sim._assassinationReward
-			-- end
-			sim._resultTable.credits_gained.assassinationreward = sim._assassinationReward
-		end
-
-		return returnvalue
-	end
-
-	--other part in load
-
-	local spawn_mole_bonus = include( scriptPath .. "/spawn_mole_bonus" )
-	local spawn_refit_drone = include( scriptPath .. "/spawn_refit_drone" )
 	-- start of mission: spawn intel bonuses if player has completed a mole mission
 	--needs to run after FuncLib inits
-	local mission_util = include("sim/missions/mission_util")
-	local makeAgentConnection_old = mission_util.makeAgentConnection
-	mission_util.makeAgentConnection = function( script, sim, ... )
-		-- spawn bonus
-		log:write("LOG makeAgentConnection append")
-		spawn_refit_drone( script, sim )
-		makeAgentConnection_old(script, sim, ...)
-		spawn_mole_bonus( sim, mole_insertion )
-	end
+	local mission_util_lateInit = include( scriptPath .. "/appended_functions/mission_util_lateInit")
 	-- Similar edit is done in Load to mid_1!
-
-	-- setAlerted edit to allow un-alerting for Amnesiac function
-	local simunit = include("sim/simunit")
-	local simunit_setAlerted_old = simunit.setAlerted
-	simunit.setAlerted = function( self, alerted, ... )
-		if self and self:getTraits().MM_amnesiac and self._sim then
-			self:getTraits().alerted = nil
-			self:getTraits().MM_amnesiac = nil --clear the trait after it's used
-		else
-			return simunit_setAlerted_old( self, alerted, ... )
-		end
-	end
+	mission_util_lateInit.runAppend( modApi )
 	
-	local oldGetname = simunit.getName
-	simunit.getName = function( self, ... )
-		if self:getTraits().customName then
-			return tostring(self:getTraits().customName)
-		end
-		return oldGetname ( self)
-	end
-
-	-- for clearing mainframe witnesses
-	local processEMP_old = simunit.processEMP
-	simunit.processEMP = function( self, bootTime, noEmpFX, ... )
-		processEMP_old( self, bootTime, noEmpFX, ... )
-		if self:getTraits().witness then
-			self:getTraits().witness = nil
-			local x0, y0 = self:getLocation()
-			if x0 and y0 then
-				self._sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
-			end
-		end
-		if self:getTraits().MM_decoy then
-			local newTarget = assassination_mission.revealDecoy( self:getSim(), self, nil, { bootTime = bootTime, noEmpFX = noEmpFX } )
-			if newTarget and newTarget:isValid() then
-				processEMP_old( newTarget, bootTime, noEmpFX, ... )
-			else
-				return
-			end
-		end		
-	end
-
-	local simdrone = include("sim/units/simdrone")
-	local simdrone_processEMP_old = simdrone.processEMP
-	simdrone.processEMP = function(self, empTime, noEmpFx, noAttack)
-		-- log:write("LOG custom process EMP drone")
-		simdrone_processEMP_old(self, empTime, noEmpFx, noAttack)
-		if self:getTraits().witness then
-			self:getTraits().witness = nil
-			local x0, y0 = self:getLocation()
-			if x0 and y0 then
-				self._sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
-			end
-		end
-	end
-
-	-- update stopHacking to refresh database hacking state
-	local stopHacking_old = simunit.stopHacking
-	simunit.stopHacking = function(self, sim, ... ) --refreshes the hacking anim state for the mole's database hack. we don't care about legit uses of monster_hacking because that's handled by ending_1
-		stopHacking_old( self, sim, ... )
-		if self:getTraits().monster_hacking then
-			local target = sim:getUnit(self:getTraits().monster_hacking)
-			if target:getTraits().MM_personneldb or target:getTraits().MM_camera_core then
-				self:getTraits().data_hacking = nil
-				self:getSounds().spot = nil
-				sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = self })
-			end
-		end
-	end
-
-	-- this keeps the personnel DB hack from erroneously triggering actual data bank hacking scripts
-	local simunit_progressHack_old = simunit.progressHack
-	simunit.progressHack = function( self, ... )
-		if self:getTraits().MM_personneldb then
-			return
-		end
-		return simunit_progressHack_old( self, ... )
-	end
-
-	-- Amnesiac function as append of paralyze
-	local paralyze = abilitydefs.lookupAbility("paralyze")
-	local paralyze_executeAbility_old = paralyze.executeAbility
-	local paralyze_createToolTip_old = paralyze.createToolTip
-	paralyze.createToolTip = function( self, sim, abilityOwner, ...)
-		if abilityOwner:getTraits().amnesiac then
-			return abilityutil.formatToolTip(STRINGS.MOREMISSIONS.UI.TOOLTIPS.PARALYZE_AMNESIAC, util.sformat(STRINGS.MOREMISSIONS.UI.TOOLTIPS.PARALYZE_AMNESIAC_DESC,abilityOwner:getTraits().impare_sight), simdefs.DEFAULT_COST) --impare_AP 2 [sic] in itemdef traits
-		end
-		return paralyze_createToolTip_old( self, sim, abilityOwner, ... )
-	end
-
-	paralyze.executeAbility = function( self, sim, unit, userUnit, target, ... )
-		paralyze_executeAbility_old( self, sim, unit, userUnit, target, ... )
-		local targetUnit = sim:getUnit(target)
-		local x0, y0 = targetUnit:getLocation()
-		if x0 and y0 and unit:getTraits().amnesiac then
-			targetUnit:getTraits().MM_amnesiac = true
-			targetUnit:getTraits().witness = nil
-			sim:triggerEvent( "used_amnesiac", { userUnit = userUnit, targetUnit = targetUnit } )
-			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=0,a=1}} )
-		end
-		if unit:getTraits().impare_sight then
-			targetUnit:getTraits().MM_impairedVision = unit:getTraits().impare_sight
-		end
-	end
-
-	-- ASSASSINATION bodyguard
-	local simunit_onDamage_old = simunit.onDamage
-	simunit.onDamage = function( self, damage, ... )
-		simunit_onDamage_old( self, damage, ... )
-		if self and self:isValid() and self:getLocation() and not self:getTraits().isDead and (self:getTraits().MM_bodyguard or self:getTraits().MM_bounty_target) then
-			if not self:isKO() then
-				self:getSim():dispatchEvent( simdefs.EV_UNIT_HIT, {unit = self, result = 0} ) --stagger FX
-			end
-		end
-	end
-
-	local simengine = include("sim/engine")
-	local simengine_tryShootAt_old = simengine.tryShootAt
-	simengine.tryShootAt = function( self, sourceUnit, targetUnit, dmgt, equipped, ... )
-		if targetUnit:getTraits().MM_decoy
-		and not equipped:getTraits().noTargetAlert and not equipped:getTraits().targetNotAlerted 
-		then
-			local newTarget = assassination_mission.revealDecoy( sourceUnit:getSim(), targetUnit )
-			if newTarget and newTarget:isValid() then
-				if dmgt.ko then
-					return
-				else
-					targetUnit = newTarget
-				end
-			else
-				return
-			end
-		end
-		simengine_tryShootAt_old( self, sourceUnit, targetUnit, dmgt, equipped, ... )
-		if targetUnit and targetUnit:isValid() and not targetUnit:isKO() and targetUnit:getTraits().MM_bodyguard then
-			self:triggerEvent("MM_shotAtBodyguard", {sourceUnit = sourceUnit, targetUnit = targetUnit, dmgt = dmgt, equipped = equipped })
-		end		
-	end
-
-	local simengine_hitUnit_old = simengine.hitUnit
-	simengine.hitUnit = function( self, sourceUnit, targetUnit, dmgt, ... )
-		--hitUnit is called as part of tryShootAt but it's also called in other cases so we need to cover those as well
-		if targetUnit:getTraits().MM_decoy and not dmgt.canTag then
-			local newTarget = assassination_mission.revealDecoy( sourceUnit:getSim(), targetUnit )
-			if newTarget and newTarget:isValid() then
-				targetUnit = newTarget
-			else
-				return
-			end
-		end
-		simengine_hitUnit_old( self, sourceUnit, targetUnit, dmgt, ... )
-	end
+	-- includes simunit as well as simdrone appends
+	include( scriptPath .. "/appended_functions/units_lateInit")
 	
-	local simunit_setKO_old = simunit.setKO --for flash grenade
-	simunit.setKO = function( self, sim, ticks, fx, ... )
-		if self:getTraits().MM_decoy then
-			assassination_mission.revealDecoy( sim, self )
-			return
-		end
-		return simunit_setKO_old( self, sim, ticks, fx, ... )
-	end
-
-	-- FOR TECH EXPO CUSTOM ITEM
-	local icebreak = abilitydefs.lookupAbility("icebreak")
-	local icebreak_executeAbility_old = icebreak.executeAbility
-	icebreak.executeAbility = function( self, sim, unit, userUnit, target, ... ) --this might be worth moving to FuncLib...
-		if unit:getTraits().killDaemon then
-			local targetUnit = sim:getUnit(target)
-			targetUnit:getTraits().mainframe_program = nil
-			sim:dispatchEvent( simdefs.EV_KILL_DAEMON, {unit = targetUnit})
-			if targetUnit:getTraits().daemonHost then
-				sim:getUnit(targetUnit:getTraits().daemonHost):killUnit(sim)
-				targetUnit:getTraits().daemonHost =nil
-			end
-		end
-		icebreak_executeAbility_old( self, sim, unit, userUnit, target, ... )
-	end
-
-	local use_stim = abilitydefs.lookupAbility( "use_stim" )
-	local use_stim_executeAbitlity_old = use_stim.executeAbility
-	use_stim.executeAbility = function( self, sim, unit, userUnit, target )
-		use_stim_executeAbitlity_old( self, sim, unit, userUnit, target )
-		local targetUnit = sim:getUnit(target)
-		if unit:getTraits().impair_agent_AP and targetUnit:getTraits().mpMax then
-			targetUnit:getTraits().mpMax = math.max(targetUnit:getTraits().mpMax - unit:getTraits().impair_agent_AP, 4)
-		end
-	end
+	include( scriptPath .. "/appended_functions/abilities/paralyze") -- Amnesiac functionality
+	include( scriptPath .. "/appended_functions/abilities/icebreak")
+	include( scriptPath .. "/appended_functions/abilities/useInvisiCloak")
+	include( scriptPath .. "/appended_functions/abilities/use_stim")	
 	
-	local sim_damageUnit_old = simengine.damageUnit
-	simengine.damageUnit = function( self,  targetUnit, srcDamage, kodamage, fx, sourceUnit, ... )
-		local x1,y1 = targetUnit:getLocation()
-		local damage = srcDamage	
-		if targetUnit:getTraits().MM_decoy then
-			local newTarget = assassination_mission.revealDecoy( self, targetUnit )
-			if newTarget and newTarget:isValid() then
-				targetUnit = newTarget
-			else
-				return
-			end
-		end
-		sim_damageUnit_old( self,  targetUnit, srcDamage, kodamage, fx, sourceUnit, ... )
-	end
-	
-	--attack-proof cloak
-	local useInvisiCloak = abilitydefs.lookupAbility( "useInvisiCloak" )
-	local useInvisiCloak_executeOld = useInvisiCloak.executeAbility
-	useInvisiCloak.executeAbility = function( self, sim, unit, ... )
-		local userUnit = unit:getUnitOwner()
-		if unit:getTraits().MM_attackproof_cloak then
-			userUnit:getTraits().MM_attackproof_cloak = true
-		end
-		return useInvisiCloak_executeOld( self, sim, unit, ... )
-	end
-
-	local simunit_setInvisible_old = simunit.setInvisible
-	simunit.setInvisible = function( self, state, duration, ... )
-		if (state == false) and self:getTraits().MM_attackproof_cloak then
-			if self:getTraits().invisDuration then
-				return --prevent premature decloaking while cloak is active
-			else --cloak has expired!
-				self:getTraits().MM_attackproof_cloak = nil --remove trait and let rest of decloaking function run as normal
-			end
-
-		end
-		return simunit_setInvisible_old( self, state, duration, ... )
-	end
-	
-	-- for Tech Expo androids visual glitch
-	local simunit_takeControl_old = simunit.takeControl
-	simunit.takeControl = function( self, player, ... )
-		if self:getTraits().LOSperipheralRange then
-			self:getTraits().hasSight = false
-			self:getTraits().hadSight = true
-			self:getSim():refreshUnitLOS( self )
-		end
-		simunit_takeControl_old( self, player, ... )
-		if self:getTraits().hadSight then
-			self:getTraits().hasSight = true
-			self:getTraits().hadSight = nil
-		end
-	end
-	
-	local worldgen = include("sim/worldgen")
-	local generateThreats_old = worldgen.generateThreats
-	worldgen.generateThreats = function( cxt, spawnTable, spawnList, ... )
-		local params = cxt.params
-		local unitdefs = include("sim/unitdefs")
-		if unitdefs.lookupTemplate("MM_prototype_droid") and unitdefs.lookupTemplate("MM_prototype_droid_spec") 
-		and not ((params.world == "omni") or (params.world == "omni2")) 
-		and params.difficulty >= (params.difficultyOptions.MM_spawnTable_droids or 99999) then
-		-- and params.difficulty >= 1 then	 --TEST	
-			local rand = rand_module.createGenerator( params.seed )
-			local randSpawn_COMMON = spawnTable.COMMON[rand:nextInt(1,#spawnTable.COMMON)]
-			local randSpawn_ELITE = spawnTable.ELITE[rand:nextInt(1,#spawnTable.ELITE)]
-			
-			if rand:nextInt(1,100) < 50 then
-				randSpawn_COMMON[1] = "MM_specdroid"
-			else
-				randSpawn_ELITE[1] = "MM_prototype_droid_spec"
-			end
-		end
-		-- log:write("LOG spawnTable")
-		-- log:write(util.stringize(spawnTable,3))
-		
-		return generateThreats_old( cxt, spawnTable, spawnList, ... )
-	end	
+	include( scriptPath .. "/appended_functions/engine_lateInit")
+	include( scriptPath .. "/appended_functions/worldgen")
 	
 end
 
@@ -703,11 +265,10 @@ local function load( modApi, options, params )
 		modApi:addSideMissions(scriptPath, { "MM_w93_personelHijack" } )
 		-- modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } ) --not done yet
 		-- for vanilla side missions
-		local transformer_terminal = abilitydefs.lookupAbility("transformer_terminal")
-		transformer_terminal.HUDpriority = 3		
-		transformer_terminal.profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small_15PWR.png"
+		include( scriptPath .. "/appended_functions/abilities/transformer_terminal")
 	end
 
+	-- add all the custom NEW abilities (not appends to existing ones)
 	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
 	modApi:addAbilityDef( "MM_hack_personneldb", scriptPath .."/abilities/MM_hack_personneldb" )
 	modApi:addAbilityDef( "MM_escape_guardelevator", scriptPath .."/abilities/MM_escape_guardelevator" )
@@ -725,26 +286,16 @@ local function load( modApi, options, params )
 
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
-	local assassination = include( scriptPath .. "/missions/assassination" )
+	include( scriptPath .. "/missions/assassination" )
 	include( scriptPath .. "/missions/ea_hostage" )
-	-- include( scriptPath .. "/missions/mole_insertion" ) -- mole_insertion included in init instead
-	include( scriptPath .. "/missions/mission_util" )
+	include( scriptPath .. "/missions/mole_insertion" )
+	include( scriptPath .. "/missions/mission_util" ) --mainly support for AI Terminal dialogue from Interactive Events
 	include( scriptPath .. "/missions/mission_executive_terminals" ) --override mission choice window
 
-	assassination_mission.revealDecoy = assassination.revealDecoy
-
-	-- local mainframe_abilities = include( scriptPath .. "/mainframe_abilities" )
-	-- for name, ability in pairs(mainframe_abilities) do
-		-- modApi:addMainframeAbility( name, ability )
-	-- end
 	local npc_abilities = include( scriptPath .. "/abilities/npc_abilities" )
 	for name, ability in pairs(npc_abilities) do
 		modApi:addDaemonAbility( name, ability )
 	end
-
-	-- modApi:addAbilityDef( "inject_lethal", scriptPath .."/abilities/inject_lethal" )
-
-	-- include( scriptPath .. "/simunits" )
 
 	-- local corpworldPrefabs = include( scriptPath .. "/prefabs/corpworld/prefabt" )
 	-- modApi:addWorldPrefabt(scriptPath, "corpworld", corpworldPrefabs)
@@ -808,7 +359,6 @@ local function load( modApi, options, params )
 	end
 
 	--add prefabs:
-
 	local hostagePrefabs = include( scriptPath .. "/prefabs/EA_hostage/prefabt" )
 	modApi:addPrefabt(hostagePrefabs)
 	local assassinationPrefabs = include( scriptPath .. "/prefabs/assassination/prefabt" )
@@ -839,274 +389,31 @@ local function load( modApi, options, params )
     	--modApi:addWorldPrefabt(scriptPath, "plastech", plastechPrefabs)
 
 	--and here comes the massive hacks! -M
-	do --This one has to be in load() because the item evac mod overrides the ability each load. (as of 20-2-2, -M)
-		local escape_ability = abilitydefs.lookupAbility("escape")
-		local executeAbility = escape_ability.executeAbility
-		escape_ability.executeAbility = function( self, sim, abilityOwner, ... )
-			local bounties = {}
-			local cell = sim:getCell( abilityOwner:getLocation() )
-			if cell.exitID then
-				for _, unit in pairs( sim:getAllUnits() ) do
-					local c = sim:getCell( unit:getLocation() )
-					if c and c.exitID and unit:getTraits().bounty and not unit:getTraits().bountyCollected then
-						table.insert(bounties,unit)
-						unit:getTraits().bountyCollected = true --flag to prevent double-counting (because we have to wrap the function on every load in case Item Evac is installed)
-						if unit:getTraits().isObjective and sim:getPC() then
-							sim:getPC():setEscapedWithObjective(true)
-						end
-					end
-				end
-			end
-
-			executeAbility( self, sim, abilityOwner, ... )
-
-			for i,unit in ipairs(bounties) do
-				unit:returnItemsToStash(sim)
-				sim:addMissionReward(simquery.scaleCredits( sim, unit:getTraits().bounty or 0 ))
-				sim:warpUnit( unit, nil )
-				sim:despawnUnit( unit )
-			end
-		end
-	end
+	include( scriptPath .. "/appended_functions/abilities/escape" ) --This one has to be in load() because the item evac mod overrides the ability each load. (as of 20-2-2, -M)
 
 	----- Distress Call mission hackz - Hek. They need to be in Load too
-	local mission_util = include("sim/missions/mission_util") --for Distress Call
-	local doAgentBanter_old = mission_util.doAgentBanter
-	mission_util.doAgentBanter = function(script,sim,cross_script,odds,returnIfFailed, ...)
-		--if sim:getParams().situationName == "distress_call" then
-		if sim:hasTag("skipBanter") then
-			--log:write("skipping banter")
-			return
-		end
-		doAgentBanter_old(script,sim,cross_script,odds,returnIfFailed, ...)
-	end
+	include( scriptPath .. "/appended_functions/mission_util_load" )
 
-	local old_mission_util_makeAgentConnection = mission_util.makeAgentConnection
-	mission_util.makeAgentConnection = function( script, sim, ... )
-			-- for Distress Call
-			old_mission_util_makeAgentConnection( script, sim, ... )
-			-- sim:triggerEvent(simdefs.TRG_UNIT_DROPPED, {item=nil, unit=nil})
-			sim:triggerEvent( "agentConnectionDone" )
-			--...
-	end
-	-----
 	--Tech Expo hack0rz -Hek
-	local stealCreditsAbility = abilitydefs.lookupAbility("stealCredits")
-	local stealCredits_canUse_old = stealCreditsAbility.canUseAbility
-	--need custom hack here because the vanilla emp_safe trait does nothing for vault boxes
-	abilitydefs._abilities.stealCredits.canUseAbility = function(self, sim, unit, userUnit, ...)
-		local result = stealCredits_canUse_old (self,sim,unit,userUnit,...)
-		if unit:getTraits().MM_emp_safe and (unit:getTraits().mainframe_status ~= "active") then
-			return false, STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_EMP_SAFE
-		end
-		return result
-	end
+	include( scriptPath .. "/appended_functions/abilities/stealCredits" )
 
 	------ These four appends are necessary because vanilla weapons never have skill requirements or anything that checks for them before use
-	local shootSingle = abilitydefs.lookupAbility("shootSingle")
-	local shootSingle_canUse_old = shootSingle.canUseAbility
-	shootSingle.canUseAbility = function( self, sim, ownerUnit, unit, targetUnitID, ... )
-		local result, reason1, reason2, reason3 = shootSingle_canUse_old( self, sim, ownerUnit, unit, targetUnitID, ... )
-		local weaponUnit = simquery.getEquippedGun( unit )
-		if weaponUnit and weaponUnit:getRequirements() and (result == true) then
-			for skill,level in pairs( weaponUnit:getRequirements() ) do
-				if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then
-
-					local skilldefs = include( "sim/skilldefs" )
-					local skillDef = skilldefs.lookupSkill( skill )
-
-					return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
-				end
-			end
-		end
-		return result, reason1, reason2, reason3
-	end
-
-	local overwatch = abilitydefs.lookupAbility("overwatch")
-	local overwatch_canUse_old = overwatch.canUseAbility
-	overwatch.canUseAbility = function(self, sim, unit, ... )
-		local result, reason1, reason2, reason3 = overwatch_canUse_old(self, sim, unit, ... )
-		local weaponUnit = simquery.getEquippedGun(unit)
-		if (result == true) and weaponUnit and weaponUnit:getRequirements()then
-			for skill,level in pairs( weaponUnit:getRequirements() ) do
-				if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then
-
-					local skilldefs = include( "sim/skilldefs" )
-					local skillDef = skilldefs.lookupSkill( skill )
-
-					return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
-				end
-			end
-		end
-		return result, reason1, reason2, reason3
-	end
-
-	local overwatchMelee = abilitydefs.lookupAbility("overwatchMelee")
-	local overwatchMelee_canUse_old = overwatchMelee.canUseAbility
-	overwatchMelee.canUseAbility = function( self, sim, unit, ... )
-
-		local result, reason1, reason2, reason3 = overwatchMelee_canUse_old(self, sim, unit, ... )
-		local tazerUnit = simquery.getEquippedMelee( unit )
-		if result == true then
-			if not unit:getPlayerOwner():isNPC() and tazerUnit then
-				if tazerUnit:getRequirements() then
-					for skill,level in pairs( tazerUnit:getRequirements() ) do
-						if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then
-
-							local skilldefs = include( "sim/skilldefs" )
-							local skillDef = skilldefs.lookupSkill( skill )
-
-							return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
-						end
-					end
-				end
-
-			end
-		end
-		return result, reason1, reason2, reason3
-	end
-
-	local melee = abilitydefs.lookupAbility("melee")
-	local melee_canUse_old = melee.canUseAbility
-	melee.canUseAbility = function(self, sim, unit, userUnit, targetID, ...)
-		local result, reason1, reason2, reason3 = melee_canUse_old(self, sim, unit, userUnit, targetID, ...)
-		local tazerUnit = simquery.getEquippedMelee( unit )
-		if (result == true) and targetID and tazerUnit then
-			local targetUnit = sim:getUnit(targetID)
-
-			if tazerUnit:getRequirements() then
-				for skill,level in pairs( tazerUnit:getRequirements() ) do
-					if not unit:hasSkill(skill, level) and not unit:getTraits().useAnyItem then
-
-						local skilldefs = include( "sim/skilldefs" )
-						local skillDef = skilldefs.lookupSkill( skill )
-
-						return false, string.format( STRINGS.UI.TOOLTIP_REQUIRES_SKILL_LVL, util.toupper(skillDef.name), level )
-					end
-				end
-			end
-		end
-		return result, reason1, reason2, reason3
-	end
-	-- Assassination
-	local melee_executeOld = melee.executeAbility
-	melee.executeAbility = function( self, sim, unit, userUnit, target, ... )
-		local targetUnit = sim:getUnit(target)
-		if targetUnit:getTraits().MM_decoy then
-			-- punch animation, un-disguise, stagger
-			local x0,y0 = unit:getLocation()
-			local x1,y1 = targetUnit:getLocation()	
-			local facing = simquery.getDirectionFromDelta(x1-x0,y1-y0)
-			local pinning, pinnee = simquery.isUnitPinning(sim, unit)
-			if pinning and pinnee ~= targetUnit then
-				pinning = false
-			end
-			-- sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR, { unitID = unit:getID(), facing = facing } )
-			sim:dispatchEvent( simdefs.EV_UNIT_MELEE, { unit = unit, targetUnit = targetUnit, grapple = false, pinning = pinning, lethal = true} )	
-			assassination_mission.revealDecoy( sim, targetUnit, true )
-			-- sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR_PST, { unitID = unit:getID(), facing = facing } )	
-			return
-		end
-		return melee_executeOld( self, sim, unit, userUnit, target, ... )
-	end
+	-- not in use anymore? keep the code anyway...
+	include( scriptPath .. "/appended_functions/abilities/shootSingle" )
+	include( scriptPath .. "/appended_functions/abilities/overwatch" )
+	include( scriptPath .. "/appended_functions/abilities/overwatchMelee" )
+	local melee_append = include( scriptPath .. "/appended_functions/abilities/melee" ) --also used for Assassination
+	melee_append.runAppend( modApi )
 
 	--------
 	-- MOLE INSERTION
-	local mole_insertion = include( scriptPath .. "/missions/mole_insertion" )
-	local spawn_mole_bonus = include( scriptPath .. "/spawn_mole_bonus" )
 	reinclude = include --necessary for tweaking mid_1
-	if serverdefs.SITUATIONS["mid_2"] then
-		local mid_1 = include(serverdefs.SITUATIONS["mid_2"].scriptPath.."mid_1")
-		local mid_1_initOld = mid_1.init
-		if not mid_1.MM_append then --lazy way to prevent double-appending in load
-			mid_1.MM_append = true
-			mid_1.init = function( self, scriptMgr, sim )
-				mid_1_initOld( self, scriptMgr, sim )
-				-- log:write("LOG new mid_1 init")
-				local startPhase_old = nil
-				for i, hook in ipairs(scriptMgr.hooks) do
-					if hook.name == "MID_1" then
-						-- log:write("LOG found MID_1 hook")
-						-- log:write(util.stringize(hook,3))
-						startPhase_old = hook
-					end
-				end
-				if startPhase_old then
-					-- log:write("LOG adding new hook")
-					local newStartPhase = function( scriptMgr, sim )
-						startPhase_old.hookFn( scriptMgr, sim )
-						-- scriptMgr:queue( 5*cdefs.SECONDS ) --this does nothing...
-						spawn_mole_bonus( sim, mole_insertion )
-						-- log:write("LOG new mid1 start phase running")
-						spawn_refit_drone( scriptMgr, sim )
-					end
-					scriptMgr:removeHook( startPhase_old )
-					scriptMgr:addHook( "MID_1", newStartPhase )--append hookFn by removing and readding the hook
-
-				end
-			end
-		end
-	end
-
-	-- default weight for missions with no weight is 1, but the function doesn't accept weight less than 1. Set it to 100 instead so we can make missions both less frequent and more frequent than the vanilla unweighted ones without overriding the rest of the function.
-	local serverdefs_chooseSituation_old = serverdefs.chooseSituation
-	serverdefs.chooseSituation = function( campaign, tags, gen, ... )
-		for name, situationData in pairs( serverdefs.SITUATIONS ) do
-			if situationData.weight == nil then
-				situationData.weight = 100
-			end
-		end
-		return serverdefs_chooseSituation_old( campaign, tags, gen, ... )
-	end
+	local mid_1_append = include( scriptPath .. "/missions/mid_1" )
+	mid_1_append.runAppend(  modApi )
 
 	--ASSASSINATION
 	-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
-	local serverdefs_createNewSituation_old = serverdefs.createNewSituation
-	serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )
-		local newSituation =  serverdefs_createNewSituation_old(campaign, gen, tags, difficulty )
-
-		if not newSituation and array.find(tags, "close_by") then
-			-- Secure Holding Facility/Courier Rescue: if there was no viable location, lift the requirement for proximity.
-			if not array.find(tags, "close_by_nevermind") then
-				table.insert(tags, "close_by_nevermind")
-				newSituation = serverdefs_createNewSituation_old( campaign, gen, tags, difficulty )
-			end
-			if not newSituation and not array.find(tags, "corp_nevermind") then
-				-- Still no viable location. Allow any corp.
-				-- (Presence of corp in the tags list is sufficient, no need to remove any existing corp tag)
-				table.insert(tags, "corp_nevermind")
-				array.concat(tags, serverdefs.CORP_NAMES)
-				newSituation = serverdefs_createNewSituation_old( campaign, gen, tags, difficulty )
-			end
-			-- If there's still no new situation, then there are no valid spawns (possibly from 2x of all mission types in endless). Give up.
-		end
-
-		if newSituation then
-			local corp = serverdefs.MAP_LOCATIONS[newSituation.mapLocation].corpName
-			if campaign.MM_assassination and campaign.MM_assassination[corp] then
-				-- Assassination: apply difficulty spike
-				newSituation.difficulty = newSituation.difficulty + campaign.MM_assassination[corp]
-			end
-		end
-
-		return newSituation
-	end
-
-	--SECURE HOLDING FACILITY/COURIER RESCUE
-	local serverdefs_defaultMapSelector_old = serverdefs.defaultMapSelector
-	serverdefs.defaultMapSelector = function( campaign, tags, tempLocation )
-		if array.find(tags, "close_by") and not array.find(tags, "close_by_nevermind") then
-			local MAX_DIST = 6 -- 6 hour distance
-			local dist = serverdefs.trueCalculateTravelTime( serverdefs.MAP_LOCATIONS[ campaign.location ], tempLocation, campaign )
-			-- log:write(tostring(dist))
-			if dist > MAX_DIST then
-				return false
-			end
-		end
-
-		return serverdefs_defaultMapSelector_old( campaign, tags, tempLocation)
-
-	end
+	include( scriptPath .. "/appended_functions/serverdefs" )
 
 end
 
@@ -1136,7 +443,6 @@ local function initStrings(modApi)
 
 	local MOD_STRINGS = include( scriptPath .. "/strings" )
 	modApi:addStrings( dataPath, "MOREMISSIONS", MOD_STRINGS)
-
 
 end
 
