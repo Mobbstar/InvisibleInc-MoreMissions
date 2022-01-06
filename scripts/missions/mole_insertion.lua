@@ -153,7 +153,7 @@ local GUARD_SAW_MOLE =
 			return false
 		end
 
-		if evData.unit:hasTag("MM_mole") then
+		if evData.unit:hasTag("MM_mole") and not evData.unit:getTraits().disguiseOn then
 			return evData.unit, seer
 		else
 			return false
@@ -174,7 +174,7 @@ local CAMERA_SAW_MOLE =
 			return false
 		end
 
-		if evData.unit:hasTag("MM_mole") then
+		if evData.unit:hasTag("MM_mole") and not evData.unit:getTraits().disguiseOn then
 			return evData.unit, seer
 		else
 			return false
