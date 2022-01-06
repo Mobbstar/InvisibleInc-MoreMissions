@@ -56,3 +56,27 @@ function simengine:processDaemonQueue( ... )
 
 	self:triggerEvent( 'MM-KOGROUP-END' )
 end
+
+-- for Assassination mission: ensure lethal laser grids in saferoom prefab
+local simengine = include("sim/engine")
+local oldInit = simengine.init
+
+function simengine.init( self, params, levelData, ... )
+	self._levelOutput = levelData:parseBoard( params.seed, params )
+	if params.situationName == "assassination" then
+		for i, unit in pairs(self._levelOutput.units) do
+			if unit.template and unit.unitData and unit.unitData.traits and unit.unitData.traits.lethal_laser then
+				unit.template = "security_laser_emitter_1x1"
+			end
+		end
+	end
+	oldInit( self, params, levelData, ... )
+end
+
+local sim_canPlayerSeeUnit_old = simengine.canPlayerSeeUnit
+simengine.canPlayerSeeUnit = function( self, player, unit, ... )
+	if (player == self:getPC()) and unit:getTraits().MM_invisible_to_PC then
+		return false
+	end
+	return sim_canPlayerSeeUnit_old( self, player, unit, ... )
+end
