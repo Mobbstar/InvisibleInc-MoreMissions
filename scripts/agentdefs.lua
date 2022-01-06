@@ -30,10 +30,12 @@ local INTERNATIONALE_SOUNDS =
 	hit = "SpySociety/HitResponse/hitby_ballistic_flesh",		
 }
 
-local INFORMANT_ABILITIES = 
-{
-"jackin", "peek", "escape", "disarmtrap" , "observePath", "moveBody", "lastWords","sprint","MM_escape_guardelevator","MM_escape_guardelevator2",
-}
+-- local INFORMANT_ABILITIES = --OLD: no attack abilities
+-- {
+-- "jackin", "peek", "escape", "disarmtrap" , "observePath", "moveBody", "lastWords","sprint","MM_escape_guardelevator","MM_escape_guardelevator2",
+-- }
+
+local INFORMANT_ABILITIES = util.tconcat( {  "sprint","MM_escape_guardelevator","MM_escape_guardelevator2"  }, commondefs.DEFAULT_AGENT_ABILITIES )
 
 local function onRefitDroneTooltip( tooltip, unit )
 	if unit:getTraits().customName and unit:getTraits().refitDroneFriend then
@@ -185,7 +187,7 @@ local agent_templates =
 		kanim = "kanim_MM_mole_light",
 		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=7,  mpMax = 7, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false, inventoryMaxSize = 2, },	
 		tags = {"MM_mole","Informant"},
-		children = { "MM_mole_cloak", "MM_paralyzer_amnesiac"},
+		children = { "MM_mole_disguise", "MM_paralyzer_amnesiac"},
 		startingSkills = {},
 		abilities = INFORMANT_ABILITIES,
 		sounds = INTERNATIONALE_SOUNDS,

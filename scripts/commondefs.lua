@@ -41,7 +41,7 @@ local function onAgentTooltip(tooltip, unit)
 		end
 	end
 	if unit:getTraits().MM_mole then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN_DESC, "gui/icons/thought_icons/status_run_lrg.png" )	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN_DESC, "gui/icons/item_icons/items_icon_small/icon-item_heart_monitor_small.png" )
 	end
 	if unit:getTraits().empDeath and unit:isPC() then
 		tooltip:addAbility( string.format( STRINGS.UI.TOOLTIPS.EMP_VULNERABLE ), STRINGS.UI.TOOLTIPS.EMP_VULNERABLE_DESC, "gui/icons/arrow_small.png",nil,true )

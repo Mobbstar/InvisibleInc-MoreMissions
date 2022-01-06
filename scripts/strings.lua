@@ -76,6 +76,10 @@ return {
 		
 		EXEC_TERMINALS = "MORE EXEC TERMINAL OPTIONS",
 		EXEC_TERMINALS_DESC = "<c:FF8411>MORE EXEC TERMINAL OPTIONS</c>\nExecutive Terminals will allow you to choose from a pool of six missions, instead of four.",
+		
+		SPAWNTABLE_DROIDS = "ADD NEW ENEMIES (EARLIEST DIFFICULTY)",
+		SPAWNTABLE_DROIDS_DESC = "<c:FF8411>ADD NEW ENEMIES (EARLIEST DIFFICULTY)</c>\nUnique Tech Expo-only enemies may appear in other missions starting with this mission difficulty.",
+		SPAWNTABLE_DROIDS_VALUES = {"1","2","3","4","5","6","7","8","9","10","NEVER",},
 
 		EASY_MODE = "EASY MODE",
 		EASY_MODE_TIP = "<c:FF8411>EASY MODE</c>\nSome security measures in the custom missions are disabled or more forgiving.",
@@ -223,6 +227,9 @@ return {
 
 		MOLE_CLOAK = "Custom Cloaking Rig I",
 		MOLE_CLOAK_FLAVOR = "Some cloaking rig models have increased efficiency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",
+		
+		MOLE_DISGUISE = "Custom Holo Projection Mesh",
+		MOLE_DISGUISE_FLAVOR = "Some holorig models have dispensed with PWR dependency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",		
 
 		-- TECH EXPO CUSTOM ITEMS
 		SMOKE_GRENADE_CLASSIC = "Experimental Smoke Grenade",
@@ -759,8 +766,8 @@ return {
 			AUTHORIZED_BODY_DESC2 = "If dragged or controlled, this unit's body will unlock the Panic Room.",
 			IMPAIRED_VISION = "IMPAIRED VISION",
 			IMPAIRED_VISION_DESC = "This unit's vision range is reduced.",
-			MOLE_CIVILIAN = "CIVILIAN",
-			MOLE_CIVILIAN_DESC = "Cannot use weapons or be revived.",
+			MOLE_CIVILIAN = "FRAGILE",--"CIVILIAN",
+			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
 
 			BOSSUNIT = "Opportunity Target",
 			BOSSUNIT_DESC = "Bring this unit to the Jet. Successful extraction adds Detention Center location to the map.",			
