@@ -12,6 +12,7 @@ local function runAppend( modApi )
 	local scriptPath = modApi:getScriptPath()
 	local mole_insertion = include( scriptPath .. "/missions/mole_insertion" )
 	local spawn_mole_bonus = include( scriptPath .. "/spawn_mole_bonus" )
+	local spawn_refit_drone = include( scriptPath .. "/spawn_refit_drone" )
 	if serverdefs.SITUATIONS["mid_1"] then
 		local mid_1 = include(serverdefs.SITUATIONS["mid_1"].scriptPath.."mid_1")
 		local mid_1_initOld = mid_1.init
