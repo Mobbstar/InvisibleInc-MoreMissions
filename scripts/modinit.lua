@@ -12,7 +12,7 @@ local simdefs = include( "sim/simdefs" )
 local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 
 local function earlyInit( modApi )
-	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Advanced Guard Protocol", "Items Evacuation", "New Items And Augments","Advanced Cyberwarfare","Programs Extended","Offbrand Programs","Switch Content Mod", "Interactive Events","Generation Options+" }
+	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Advanced Guard Protocol", "Items Evacuation", "New Items And Augments","Advanced Cyberwarfare","Programs Extended","Offbrand Programs","Switch Content Mod", "Interactive Events","Generation Options+", "Additional Banter" }
 
 	local scriptPath = modApi:getScriptPath()
 	rawset(_G,"SCRIPT_PATHS",rawget(_G,"SCRIPT_PATHS") or {})
@@ -391,9 +391,6 @@ local function load( modApi, options, params )
 	--and here comes the massive hacks! -M
 	include( scriptPath .. "/appended_functions/abilities/escape" ) --This one has to be in load() because the item evac mod overrides the ability each load. (as of 20-2-2, -M)
 
-	----- Distress Call mission hackz - Hek. They need to be in Load too
-	include( scriptPath .. "/appended_functions/mission_util_load" )
-
 	--Tech Expo hack0rz -Hek
 	include( scriptPath .. "/appended_functions/abilities/stealCredits" )
 
@@ -427,6 +424,9 @@ local function lateLoad( modApi, options, params )
 	-- AI TERMINAL
 	local modifyPrograms = include( scriptPath .. "/abilities/mainframe_abilities" )
 	modifyPrograms()
+	
+	----- Distress Call mission hackz - Hek. They need to be in Load too. make that lateLoad because of Additional Banter
+	include( scriptPath .. "/appended_functions/mission_util_lateLoad" )	
 end
 
 local function unload( modApi, options )
