@@ -36,7 +36,7 @@ local function onAgentTooltip(tooltip, unit)
 	if cell and cell.KOgas then
 		if unit:isKO() then
 			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS_PINNED, STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS_PINNED_DESC, "gui/icons/item_icons/items_icon_small/icon-item_toxic_smokel.png" )
-		else
+		elseif unit:getTraits().canKO then
 			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS_DESC, "gui/icons/item_icons/items_icon_small/icon-item_toxic_smokel.png" )
 		end
 	end
