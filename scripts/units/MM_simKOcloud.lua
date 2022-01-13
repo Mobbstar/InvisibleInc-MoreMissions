@@ -61,7 +61,9 @@ function simKOcloud:onWarp(sim, oldcell, cell)
 		sim:getLevelScript():queue( 2 * cdefs.SECONDS )
 		-- sim:dispatchEvent( simdefs.EV_KO_GROUP, true )
 		for i, agent in pairs(agents) do
-			agent:setKO( sim, 3 ) --will immediately tick down to 2
+			if agent:getTraits().canKO then
+				agent:setKO( sim, 3 ) --will immediately tick down to 2
+			end
 		end
 		-- sim:dispatchEvent( simdefs.EV_KO_GROUP, false )
 	end
@@ -92,10 +94,12 @@ function simKOcloud:onEndTurn( sim )
 				sim:getLevelScript():queue( 1 * cdefs.SECONDS )
 				sim:dispatchEvent( simdefs.EV_KO_GROUP, true )
 				for i, agent in pairs(agents) do
-					agent:setKO( sim, 3 )
-					if agent:getTraits().koTimer and (agent:getTraits().koTimer < 2) and not agent:getTraits().isDrone then
-						agent:getTraits().koTimer = 2
-					end					
+					if agent:getTraits().canKO then
+						agent:setKO( sim, 3 )
+						if agent:getTraits().koTimer and (agent:getTraits().koTimer < 2) and not agent:getTraits().isDrone then
+							agent:getTraits().koTimer = 2
+						end
+					end
 				end
 				sim:dispatchEvent( simdefs.EV_KO_GROUP, false )
 			end
