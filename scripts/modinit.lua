@@ -95,7 +95,6 @@ local function init( modApi )
 	include( scriptPath .. "/btree/conditions" )
 	include( scriptPath .. "/btree/bountytargetbrain" )
 
-	include( scriptPath.."/simdefs" ) -- copied from Interactive Events & expanded to support up to 8 buttons
 	include( scriptPath.."/hud/hud" )--from Interactive Events, required for modal dialog choice menu to work properly
 
 	-- AI TERMINAL
@@ -174,10 +173,7 @@ local function unloadCommon( modApi, options )
 		if not array.find(simdefs.DEFAULT_MISSION_TAGS, tag) then
 			table.insert(simdefs.DEFAULT_MISSION_TAGS, tag)
 		end
-	end
-	
-	local simdefs_executive_terminals = include( scriptPath .. "/simdefs_executive_terminals" )
-	simdefs_executive_terminals.resetExecDialog()		
+	end	
 
 end
 
@@ -219,12 +215,15 @@ local function load( modApi, options, params )
 		end
 	end
 	
-	local simdefs_executive_terminals = include( scriptPath .. "/simdefs_executive_terminals" )
 	if options["MM_exec_terminals"] and options["MM_exec_terminals"].enabled then
-		simdefs_executive_terminals.overrideExecDialog()
-	else
-		simdefs_executive_terminals.resetExecDialog()
-	end		
+		-- new SC functions for Executive Terminal window override
+		modApi:insertUIElements( include( scriptPath.."/screen_inserts" ).inserts_exec )
+		modApi:modifyUIElements( include( scriptPath.."/screen_modifications" ) )
+	end
+	
+	if options["ai_terminal"] and options["ai_terminal"].enabled then
+		modApi:insertUIElements( include( scriptPath.."/screen_inserts" ).inserts_ai_term )
+	end
 
 	if options.MM_newday then --cribbed from GenOpts+
 		rawset(simdefs,"NUM_MISSIONS_TO_SPAWN",options.MM_newday.value)
@@ -263,7 +262,7 @@ local function load( modApi, options, params )
 	if options["MM_sidemissions"].enabled then
 		modApi:addSideMissions(scriptPath, { "MM_w93_storageroom" } )
 		modApi:addSideMissions(scriptPath, { "MM_w93_personelHijack" } )
-		-- modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } ) --not done yet
+		modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } ) --not done yet
 		-- for vanilla side missions
 		include( scriptPath .. "/appended_functions/abilities/transformer_terminal")
 	end
@@ -395,11 +394,10 @@ local function load( modApi, options, params )
 	include( scriptPath .. "/appended_functions/abilities/stealCredits" )
 
 	------ These four appends are necessary because vanilla weapons never have skill requirements or anything that checks for them before use
-	-- not in use anymore? keep the code anyway...
-	include( scriptPath .. "/appended_functions/abilities/shootSingle" )
-	include( scriptPath .. "/appended_functions/abilities/overwatch" )
-	include( scriptPath .. "/appended_functions/abilities/overwatchMelee" )
-	local melee_append = include( scriptPath .. "/appended_functions/abilities/melee" ) --also used for Assassination
+	include( scriptPath .. "/appended_functions/abilities/shootSingle" ) --unused
+	include( scriptPath .. "/appended_functions/abilities/overwatch" ) --unused
+	include( scriptPath .. "/appended_functions/abilities/overwatchMelee" ) --unused
+	local melee_append = include( scriptPath .. "/appended_functions/abilities/melee" ) --used for Assassination
 	melee_append.runAppend( modApi )
 
 	--------
@@ -411,7 +409,7 @@ local function load( modApi, options, params )
 	--ASSASSINATION
 	-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
 	include( scriptPath .. "/appended_functions/serverdefs" )
-
+	
 end
 
 local function lateLoad( modApi, options, params )
