@@ -72,6 +72,9 @@ local function chooseRandomLocations( count, sim )
 	if count > #missionTags then
 		repeat
 			local missionTags2 = util.tcopy( serverdefs.ESCAPE_MISSION_TAGS )
+			if array.find( missionTags2, "distress_call" ) then
+				array.removeIf( missionTags2, function(v) return v == "distress_call" end )
+			end			
 			util.tmerge(missionTags, missionTags2)
 		until not (count > #missionTags)
 	end
