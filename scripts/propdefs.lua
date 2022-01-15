@@ -461,14 +461,44 @@ local prop_templates =
 	MM_luxury_store = 
 	{ 
 		type = "store", 
-		name =  STRINGS.PROPS.STORE_LARGE, 
+		name =  STRINGS.MOREMISSIONS.PROPS.STORE_LARGE, 
 		onWorldTooltip = onStoreTooltip,
 		kanim = "kanim_printer", 
 		rig ="corerig",
 		traits = util.extend( MAINFRAME_TRAITS ) { moveToDevice=true, cover = true, impass = {0,0}, storeType="large", sightable = true, largenano=true, luxuryNanofab = true,},
 		abilities = { "showItemStore" },
+		tags = {"MM_luxuryNanofab"},
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", }
-	},	
+	},
+
+	MM_luxury_store_console = 
+	{
+		type = "simunit", 
+		name = STRINGS.MOREMISSIONS.PROPS.NANOFAB_PROCESSOR,
+		rig ="corerig",
+		onWorldTooltip = onDeviceTooltip,
+		kanim = "kanim_serverTerminal", 
+		abilities = { "MM_summonGuard" },
+		traits = util.extend( MAINFRAME_TRAITS )
+			{ moveToDevice=true, cover = true, impass = {0,0}, sightable=true, luxuryNanofab_console = true, },
+		tags = { "MM_luxuryNanofab_console" },
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator", stageAdvance="SpySociety_DLC001/Actions/DLCswitch_ready" }		
+		-- sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator" }
+	},
+	
+	MM_luxuryNanofab_key = util.extend(commondefs.item_template)
+	{
+		name = STRINGS.MOREMISSIONS.PROPS.NANOFAB_KEY,
+		desc = STRINGS.MOREMISSIONS.PROPS.NANOFAB_KEY_DESC,
+		flavor = STRINGS.MOREMISSIONS.PROPS.NANOFAB_KEY_FLAVOR,
+		icon = "itemrigs/disk.png",		
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_compile_key_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_compile_key.png",
+		abilities = { "carryable","MM_activateLuxuryNanofab" },
+		traits = {disposable=true, luxuryNanofabKey = true}, 
+		value = 300, --keep?
+	},
+	
 }
 
 
