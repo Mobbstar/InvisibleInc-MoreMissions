@@ -262,7 +262,7 @@ local function load( modApi, options, params )
 	if options["MM_sidemissions"].enabled then
 		modApi:addSideMissions(scriptPath, { "MM_w93_storageroom" } )
 		modApi:addSideMissions(scriptPath, { "MM_w93_personelHijack" } )
-		modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } ) --not done yet
+		modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } )
 		-- for vanilla side missions
 		include( scriptPath .. "/appended_functions/abilities/transformer_terminal")
 	end
@@ -282,6 +282,8 @@ local function load( modApi, options, params )
 	modApi:addAbilityDef( "MM_compileUSB", scriptPath .. "/abilities/MM_compileUSB" )
 	modApi:addAbilityDef( "MM_installprogram", scriptPath .. "/abilities/MM_installprogram" )
 	modApi:addAbilityDef( "MM_renameDrone", scriptPath .. "/abilities/MM_renameDrone" )
+	modApi:addAbilityDef( "MM_activateLuxuryNanofab", scriptPath .. "/abilities/MM_activateLuxuryNanofab" )
+	modApi:addAbilityDef( "MM_summonGuard", scriptPath .. "/abilities/MM_summonGuard" )
 
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
