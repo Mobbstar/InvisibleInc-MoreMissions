@@ -100,8 +100,8 @@ local function waitForDroneEscape( script, sim )
 	local droneData = {name = name, campaignHours = campaignHours}
 	-- table.insert(agency.MM_rescuedRefitDrone, droneData)
 	agency.MM_rescuedRefitDrone[1] = droneData
-	log:write("LOG agency")
-	log:write(util.stringize(agency.MM_rescuedRefitDrone,2))
+	-- log:write("LOG agency")
+	-- log:write(util.stringize(agency.MM_rescuedRefitDrone,2))
 end
 
 local function droneSpeech( script, sim )
@@ -407,15 +407,155 @@ local CLOSED_NANOFAB =
 	end,
 }
 
-local function boughtItemAtFancyFab( script, sim )
-    local _, shop = script:waitFor( BOUGHT_ITEM )
-	shop.items = {}
+local SUMMONED_GUARD =
+{
+	trigger = "MM_nanofab_summonedGuard",
+	fn = function( sim, triggerData )
+		if triggerData.unit and triggerData.consoleUnit then
+			return triggerData.unit and triggerData.consoleUnit
+		end
+	end	
+}
+
+local PC_LOOTED_ITEM_NANOFAB_KEY =
+{
+    trigger = "agentGotItem",
+    fn = function( sim, triggerData )
+        -- print("CHECK THE ITEM",triggerData.item:getName())
+        if triggerData.item:hasTrait("luxuryNanofabKey") then
+            return triggerData.item
+        end
+    end,
+}
+
+local UNLOCKED_NANOFAB =
+{
+    trigger = "MM_unlockedLuxuryNanoab",
+    fn = function( sim, triggerData )
+        if triggerData.unit and triggerData.targetUnit then
+            return triggerData.unit and triggerData.targetUnit
+        end
+    end,
+}
+
+local function findGuardWithKey( sim )
+	local guard = nil
+	for i, unit in pairs(sim:getNPC():getUnits()) do
+		if unit:getTraits().hasLuxuryNanofabKey and unit:getBrain() and not (unit:isKO() or unit:isDead() )then
+			guard = unit
+			break
+		end
+	end
+	return guard
+end
+
+local function PC_lootedKey( script, sim )
+	local _, item = script:waitFor( PC_LOOTED_ITEM_NANOFAB_KEY )
+	sim:getTags().haveNanofabKey = true
+	local agent = item:getUnitOwner()
+	script:queue(1*cdefs.SECONDS)
+	local x0, y0 = agent:getLocation()
+	if x0 and y0 then
+		script:queue( { type="pan", x=x0, y=y0 } )
+	end
+	sim:removeObjective( "findNanofabKey" )
+	if sim:getTags().sawLuxuryNanofab then
+		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.LUXURY_NANOFAB.UNLOCK_NANOFAB, "unlockLuxuryNanofab" )
+		script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.LOOTED_KEY_SAWNANOFAB, type="newOperatorMessage" } )
+	else
+		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.LUXURY_NANOFAB.FIND_NANOFAB, "findLuxuryNanofab" )
+		script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.LOOTED_KEY, type="newOperatorMessage" } )
+	end
+end
+
+local function sawConsole( script, sim )
+	local _, console = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "MM_luxuryNanofab_console", STRINGS.MOREMISSIONS.UI.FANCYFAB_CONSOLE, STRINGS.MOREMISSIONS.UI.FANCYFAB_CONSOLE_DESC ) )
+	script:queue(1*cdefs.SECONDS)
+	local x0, y0 = console:getLocation()
+	if x0 and y0 then
+		script:queue( { type="pan", x=x0, y=y0 } )
+	end
+	if sim:getTags().haveNanofabKey then
+		script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.SAW_CONSOLE_HAVE_KEY, type="newOperatorMessage" } )
+	else
+		script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.SAW_CONSOLE, type="newOperatorMessage" } )
+	end
+end
+
+local function sawNanofab( script, sim )
+	local _, nanofab = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "MM_luxuryNanofab", STRINGS.MOREMISSIONS.UI.FANCYFAB, STRINGS.MOREMISSIONS.UI.FANCYFAB_DESC ) )
+	sim:getTags().sawLuxuryNanofab = true
+	local x0, y0 = nanofab:getLocation()
+	script:queue( { type="pan", x=x0, y=y0 } )
+	script:queue(1*cdefs.SECONDS)
+	
+	if sim:getTags().haveNanofabKey then
+		sim:removeObjective( "findLuxuryNanofab" )
+		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.LUXURY_NANOFAB.UNLOCK_NANOFAB, "unlockLuxuryNanofab" )
+		script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.SAW_NANOFAB_HAVE_KEY, type="newOperatorMessage" } )
+	else
+		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.LUXURY_NANOFAB.FIND_KEY, "findNanofabKey" )
+		script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.SAW_NANOFAB, type="newOperatorMessage" } )
+	end
+	
+	script:waitFor( UNLOCKED_NANOFAB )
+	nanofab:destroyTab()
+	sim:removeObjective( "unlockLuxuryNanofab" )
+	script:queue(1*cdefs.SECONDS)
+	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.UNLOCKED_NANOFAB, type="newOperatorMessage" } )
+	
+	local _, shop = script:waitFor( BOUGHT_ITEM )
+	shop.items = {} -- this empties the nanofab stock and forces the shop dialogue to close
 	shop.weapons = {}
 	shop.augments = {}
 	
 	strings_screens.STR_346165218 = sim.old_augmenttip
 	strings_screens.STR_2618909495 = sim.old_weapontip
 	strings_screens.STR_590530336 = sim.old_itemtip
+
+	shop:getTraits().mainframe_status = "off"
+	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/mainframe_object_off" )
+	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = shop } )
+	
+	script:queue(1*cdefs.SECONDS)
+	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.BOUGHT_ITEM, type="newOperatorMessage" } )	
+	
+end
+
+local function summonedGuard( script, sim )
+	local _, console = script:waitFor( SUMMONED_GUARD )
+	console:destroyTab()
+	
+	local guard = findGuardWithKey(sim)
+	script:queue( { type="clearOperatorMessage" } )
+	if guard then
+		local x1,y1 = console:getLocation()
+		local interest = guard:getBrain():getSenses():addInterest( x1,  y1, simdefs.SENSE_HEARING, simdefs.REASON_ALARMEDSAFE, console)
+		interest.alwaysDraw = true
+		sim:processReactions()
+		
+		if not sim:getTags().haveNanofabKey then
+			script:queue(1*cdefs.SECONDS)
+			script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.SUMMONED_GUARD, type="newOperatorMessage" } )
+		end
+	elseif not sim:getTags().haveNanofabKey then
+		script:queue(1*cdefs.SECONDS)
+		script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.SUMMONED_GUARD_KO, type="newOperatorMessage" } )
+	end
+end
+
+local function createKeyCarrier( sim )
+	local keyAdded = false
+	for i, guardUnit in pairs(sim:getNPC():getUnits()) do
+		if guardUnit:getTraits().isGuard and not guardUnit:getTraits().isDrone and not guardUnit:getTraits().pacifist and not keyAdded then
+			log:write("LOG MM giving nanofab key to" .. guardUnit:getUnitData().name )
+			local item = simfactory.createUnit( propdefs.MM_luxuryNanofab_key, sim )
+			sim:spawnUnit( item )
+			guardUnit:addChild( item )
+			guardUnit:getTraits().hasLuxuryNanofabKey = true
+			keyAdded = true
+		end
+	end
 end
 
 local function closedFancyFab( script, sim)
@@ -425,19 +565,14 @@ local function closedFancyFab( script, sim)
 	strings_screens.STR_2618909495 = sim.old_weapontip
 	strings_screens.STR_590530336 = sim.old_itemtip
 	script:addHook(closedFancyFab)
-	if shop:getTraits().luxuryNanofab then
-		--power down sound effect
-		shop:getTraits().mainframe_status = "off"
-	end
 end
 
 local function populateFancyFab(sim)
     local simstore = include( "sim/units/store" )
     local computer = nil
-    for i,testUnit in pairs(sim:getAllUnits())do
-        if testUnit:getTraits().storeType and (testUnit:getTraits().storeType == "large") and testUnit:getTraits().luxuryNanofab and testUnit:hasAbility("showItemStore") and testUnit:getUnitData().id == "item_store" then
-			log:write("LOG found luxury nanofab")
-            computer = testUnit
+    for i, unit in pairs(sim:getAllUnits())do
+        if unit:getTraits().luxuryNanofab then
+            computer = unit
         end
     end   
 
@@ -450,13 +585,13 @@ local function populateFancyFab(sim)
 		[3] = {}, --weapons
 		}
 		
-		for i = 20, 1, -1 do --10 iterations should be enough to get 16 unique items
+		for i = 40, 1, -1 do --40 iterations should be enough to get 16 unique items
 			local items, weapons, augments = simstore.createStoreItems( simstore.STORE_ITEM, computer, sim )
 			util.tmerge(possible_merch[1], items)
 			util.tmerge(possible_merch[2], augments)
 			util.tmerge(possible_merch[3], weapons)
 		end
-
+		
 		local itemType = sim:nextRand(1,3) --randomly choose either items, augments or weapons to populate the shop
 		sim.luxuryNanofabItemType = itemType
 		local merch_candidates = possible_merch[itemType]
@@ -495,6 +630,17 @@ local function populateFancyFab(sim)
 			end
 			
 			computer.items, computer.weapons, computer.augments = total_items[1], total_items[2], total_items[3]
+			
+			computer:getTraits().mainframe_status = "off"
+			local itemTypeName
+			if itemType == 1 then
+				itemTypeName = "ITEMS"
+			elseif itemType == 2 then
+				itemTypeName = "AUGMENTS"
+			elseif itemType == 3 then
+				itemTypeName = "WEAPONS"
+			end
+			computer:getTraits().luxuryNanofab = itemTypeName -- doubly used for tooltip and scripts
 		end
 	end
 end
@@ -514,25 +660,11 @@ function pregeneratePrefabs( cxt, tagSet )
 			table.insert( tagSet, { "storageRoom2" } )
 			table.insert( tagSet, { "storageRoom1" } )
 			table.insert( tagSet, { "storageRoom3" } )
+		elseif cxt.params.side_mission == "MM_luxuryNanofab" then
+			table.insert( tagSet, { "luxuryNanofab" } )
 		end
 	end
 end
-
--- function generatePrefabs( cxt, candidates )
-    -- local prefabs = include( "sim/prefabs" ) 
-	-- prefabs.generatePrefabs( cxt, candidates, "store", 1)
--- end	
-
--- local function testNanofab(sim) --TEMPORARY
-	-- for i, unit in pairs(sim:getAllUnits()) do
-		-- if unit:getTraits().storeType and unit:hasAbility("showItemStore") and unit:getUnitData().id == "item_store" then
-			-- unit:getTraits().storeType = "large"
-			-- unit:getTraits().luxuryNanofab = true
-			-- unit:getTraits().largenano = true
-			-- break
-		-- end
-	-- end
--- end
 
 function init( scriptMgr, sim )
 	fixNoPatrolFacing( sim )
@@ -543,10 +675,13 @@ function init( scriptMgr, sim )
 		log:write(util.stringize(params.side_mission,2))
 		-- CUSTOM MM SIDEMISSIONS
         if params.side_mission == "MM_luxuryNanofab" then
-		    scriptMgr:addHook( "FANCYFAB", boughtItemAtFancyFab, nil  )
-			scriptMgr:addHook( "CLOSED_FANCYFAB", closedFancyFab, nil )
-			-- testNanofab(sim)
+			createKeyCarrier(sim)
 			populateFancyFab(sim)
+			scriptMgr:addHook( "sawNanofab", sawNanofab )
+			scriptMgr:addHook( "CLOSED_FANCYFAB", closedFancyFab, nil )
+			scriptMgr:addHook( "summonedGuard", summonedGuard ) 
+			scriptMgr:addHook( "PC_lootedKey", PC_lootedKey )
+			scriptMgr:addHook( "sawConsole" , sawConsole )
 		elseif params.side_mission == "MM_w93_storageroom" then
 			briefcasifyStorageUnits(sim)
 			scriptMgr:addHook( "spottedStorage", spottedStorage )
