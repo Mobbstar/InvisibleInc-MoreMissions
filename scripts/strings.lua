@@ -63,10 +63,10 @@ return {
 		EA_HOSTAGE_TIP = "<c:FF8411>COURIER RESCUE</c>\nRescue the Courier in the limited time before he dies to gain access to more infiltration sites.",
 
 		SIDEMISSIONS = "SIDE MISSIONS",
-		SIDEMISSIONS_TIP = "<c:FF8411>SIDE MISSIONS</c>\nPERSONNEL HIJACK: blah\nCORPORATE WAREHOUSE: blah\nLUXURY NANOFAB: blah",
+		SIDEMISSIONS_TIP = "<c:FF8411>SIDE MISSIONS</c>\n<c:ffeb7c>PERSONNEL HIJACK:</c> Abduct a specific guard to the jet for a site reward.\n<c:ffeb7c>CORPORATE WAREHOUSE:</c> Steal as many briefcases as you can.\n<c:ffeb7c>LUXURY NANOFAB:</c> Access a shop with a large selection of just one item type.",
 		
 		SIDEMISSIONS_REBALANCE = "ENHANCED VANILLA SIDE MISSIONS",
-		SIDEMISSIONS_REBALANCE_TIP = "<c:FF8411>ENHANCED VANILLA SIDE MISSIONS</c>\nPWR RELAY: Sell 5, 10, or 15 PWR.\nREFIT DRONE: Drone has +2 AP and accompanies you on the next mission.\nCOMPILE ROOM: Install the program, or take it with you to sell or install later.", --include more detail here later
+		SIDEMISSIONS_REBALANCE_TIP = "<c:FF8411>ENHANCED VANILLA SIDE MISSIONS</c>\n<c:ffeb7c>PWR RELAY:</c> Sell 5, 10, or 15 PWR.\n<c:ffeb7c>REFIT DRONE:</c> Drone has +2 AP and accompanies you on the next mission.\n<c:ffeb7c>COMPILE ROOM:</c> Install the program, or take it with you to sell or install later.", --include more detail here later
 
 		ITEMS_IN_STORE = "ITEMS IN STORES",
 		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",
