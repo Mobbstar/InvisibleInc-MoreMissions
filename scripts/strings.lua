@@ -101,7 +101,7 @@ return {
 		"MORE MISSIONS: You can enable the mod's EASY MODE to make the new missions' security measures more forgiving.",
 		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
 		"MORE MISSIONS: The Assassination target is marked as Paranoid, but is it paranoia if someone really is out to kill you?",
-		"MORE MISSIONS: A huge thank you to the voiceover fund contributors: <c:F47932>Cyberboy2000, jlaub, TornadoFive, Zorlock Darksoul, Dwarlen, amalloy,	Datsdabeat,	Mobbstar, Waldenburger,	alpacalypse, magnificentophat, Zaman, 	Alexander S., Datapuncher, Jeysie, Linenpixel, WMGreywind,  Puppetsquid, qoala</>",
+		"MORE MISSIONS: A huge thank you to the voiceover fund contributors: <c:F47932>Cyberboy2000, jlaub, TornadoFive, Zorlock Darksoul, Dwarlen, amalloy,	Datsdabeat,	Mobbstar, Waldenburger,	alpacalypse, magnificentophat, Zaman, 	Alexander S., Datapuncher, Jeysie, Linenpixel, WMGreywind,  Puppetsquid, qoala, kalec.gos</>",
 	},
 
 	PROPS =
@@ -117,6 +117,11 @@ return {
 		WEAPONSLOCKER = "Secure Weapon Case",
 		CRATE = "Storage Container",
 		CRATE_DESC = "Monst3r is always interested in fencing goods like these.\n\nUse 'DELIVER' to teleport all Storage Containers inside the elevator to the Jet.",
+		STORE_LARGE = "Luxury Nanofab",
+		NANOFAB_PROCESSOR = "Nanofab Processor",
+		NANOFAB_KEY = "Nanofab Key",
+		NANOFAB_KEY_DESC = "Use on a Luxury Nanofab to unlock it. Only usable in this facility.",
+		NANOFAB_KEY_FLAVOR = "Luxury Pass Members get exclusive deals on thousands of items. Get free two-day delivery and save up to 80% on prescriptions. Your unique coupon code: SINGLEORIGINCOFFEE74",
 		
 	},
 
@@ -359,6 +364,7 @@ return {
 
 		DEACTIVATE_LOCKS = "DEACTIVATE LOCKS",
 		
+		-- side missions
 		W93_ESCAPE = "DELIVER",
 		W93_ESCAPE_DESC = "Teleport all Storage Containers inside the elevator to the jet.",
 		
@@ -374,6 +380,11 @@ return {
 		RENAME_DRONE = "RENAME DRONE",
 		RENAME_DRONE_DESC = "Rename refit drone",
 		RENAME_DRONE_CONFIRM = "CONFIRM",
+		
+		ACTIVATE_NANOFAB_CONSOLE = "CALL SUPPORT",
+		ACTIVATE_NANOFAB_CONSOLE_DESC = "Summon the guard entrusted with the Nanofab Key.",
+		
+		UNLOCK_LUXURY_NANOFAB = "UNLOCK NANOFAB",
 
 	},
 
@@ -590,6 +601,12 @@ return {
 				OBJECTIVE1 = "Bring target to the Jet",
 				TEXT1 = "OPPORTUNITY TARGET DETECTED",			
 			},
+			LUXURY_NANOFAB =
+			{
+				FIND_KEY = "Find Luxury Nanofab key",
+				FIND_NANOFAB = "Find Luxury Nanofab",
+				UNLOCK_NANOFAB = "Unlock Luxury Nanofab",
+			},
 		},
 	},
 
@@ -723,6 +740,10 @@ return {
 		INCOGROOM_TEXT1 = "High-Security Door Detected",
 		INCOGROOM_SAWSAFE = "AI vault card located",
 		INCOGROOM_SAWCONSOLE = "Door lock access located",
+		FANCYFAB_CONSOLE = "TECH SUPPORT CONSOLE",
+		FANCYFAB_CONSOLE_DESC = "ACTIVATE TO SUMMON GUARD",
+		FANCYFAB = "LUXURY NANOFAB",
+		FANCYFAB_DESC = "UNLOCK WITH NANOFAB KEY",
 
 		TOOLTIPS = {
 			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
@@ -804,6 +825,12 @@ return {
 
 			CAN_JACKIN = "BLUETOOTH SIPHON",
 			CAN_JACKIN_DESC = "Can hijack Consoles for PWR.",
+			
+			FANCYFAB_WARNING = "RECALIBRATION PROTOCOL",
+			FANCYFAB_WARNING_DESC = "Will shut down after printing one (1) item.",
+			
+			NANOFAB_TYPE = "WIDE ITEM SELECTION",
+			NANOFAB_TYPE_DESC = "Stock type:",
 		},
 		
 		REFIT_DRONE_NAMES = {
@@ -828,7 +855,7 @@ return {
 			"MechBirb",
 			"Shiny",
 			"Plinky",
-			"Gunmetal-Greywind",			
+			"Greywind",			
 		},		
 
 	},
@@ -1279,6 +1306,41 @@ return {
 					{"Good work, Operator. I'll see if we can get some intel out of him, ask him how the old firm has been.",nil,"Central"},
 					},					
 				},
+				
+				LUXURY_NANOFAB = {
+					LOOTED_KEY = {
+						{"Operator, your agent just looted some kind of special access key. Keep an eye out for the matching Nanofab - we may have ourselves an opportunity here.",nil,"Central"},
+					},
+					LOOTED_KEY_SAWNANOFAB = {
+						{"That card you just stole must be the one we've been looking for. Get back to that nanofab and see what's for sale.",nil,"Central"},
+					},
+					SAW_NANOFAB = {
+						{"Operator, we've found ourselves a rare Nanofab model. It should hold a wide selection of a single item type, but it's locked down.",nil,"Central"},
+						{"There must be an activation key somewhere. See if you can find anything in the back room.",nil,"Central"},
+					},
+					SAW_NANOFAB_HAVE_KEY = {
+						{"Operator, we've found ourselves a rare Nanofab model. It should hold a wide selection of a single item type, but it's locked down.",nil,"Central"},
+						{"The key you looted off that guard should come in handy now. Time to see what the nanofab has in store for us.",nil,"Central"},
+					},
+					SAW_CONSOLE = {
+						{"Operator, look: that console is designated as nanofab tech support. This should summon whoever has the key, provided they're still conscious. Let's make a call to IT, shall we?",nil,"Central"},
+					},
+					SAW_CONSOLE_HAVE_KEY = {
+						{"Operator, look: that console is designated as nanofab tech support. We've already got the key, but in a pinch, this could still prove a useful distraction.",nil,"Central"},
+					},	
+					SUMMONED_GUARD = {
+						{"That did the trick. Keep an eye out for any guard making a beeline to this room, and we will soon have our key.",nil,"Central"},					
+					},
+					SUMMONED_GUARD_KO = {
+						{"No response from IT. We know they're on shift today - perhaps you should double check the pockets of any guards you've already taken out.",nil,"Central"},					
+					},		
+					UNLOCKED_NANOFAB = {
+						{"Good job, you've unlocked the nanofab. This model shuts down for recalibration after printing a single item, so choose wisely, Operator.",nil,"Central"},					
+					},
+					BOUGHT_ITEM = {
+						{"A spot of precision shopping can go a long way. Let's hope this little detour will prove itself worth the hassle.",nil,"Central"},
+					},
+				},
 			},
 		},
 		-- CAMPAIGN_MAP = {
@@ -1326,7 +1388,8 @@ return {
 			Linenpixel
 			WMGreywind
 			Puppetsquid
-			qoala</>
+			qoala
+			kalec.gos</>
 			--------------------
 
 			(A huge thanks to everyone who donated to fund voice acting for the More Missions mod, and an equally huge thanks to Veena Sood for her work in voicing the lines!
@@ -1340,7 +1403,7 @@ return {
 
 		<c:62B3B3>Dear Mr. Richardson,
 
-		Congratulations! Based on your application and longstanding relationships within Factory-To-Market Wholesalers Ltd. and Kelfried & Odin Weapons Foundry, you have been selected as our guest at the 2074 Megacorp Ware Congress. This exclusive annual event showcases the best technology our partners and their subsidiaries have to offer - the “cream of the corps”, as we like to say. Please review the below information regarding the event. We will be in touch with further details as the expo approaches.</>
+		Congratulations! Based on your application and longstanding relationships within Factory-To-Market Wholesalers Ltd. and Kelfried & Odin Weapons Foundry, you have been selected as our guest at the 2074 Megacorp Ware Congress. This exclusive annual event showcases the best technology our partners and their subsidiaries have to offer - the “cream of the corps”, as we like to say. Please review the following information regarding the event. We will be in touch with further details as the expo approaches.</>
 
 		<c:db65ba>About MWC</> - <c:eca35b>“NEXT YEAR'S TECHNOLOGY, TODAY!”</>
 
@@ -1360,7 +1423,7 @@ return {
 		<c:eca35b>SAT, 12:00 PM:</> Lunch Reception at the Koi Pond
 		<c:eca35b>SAT, 1:00 PM to 5:30 PM:</> Product Demonstrations 
 		<c:eca35b>SAT, 5:30 PM:</> Exhibit Hall Closes, Networking Receptions Begin
-		<c:eca35b>SAT, 7:00 PM:</> Holovid Screening, “The Istanbul Four”
+		<c:eca35b>SAT, 7:00 PM:</> Holovid Screening, “The Istanbul Four (Abridged Cut)”
 		<c:eca35b>SAT, 9:00 PM:</> Speed Dating Session, “Vali-Dates: Time Attack Edition”
 		<c:eca35b>SUN, 9:00 AM:</> Q&A Session, “A Conversation with Sophie Woodbridge” 
 		<c:eca35b>SUN, 12:00 PM:</> Lunch Reception at Facility Restaurant “The Ramen Database”
