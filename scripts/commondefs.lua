@@ -15,6 +15,19 @@ local function onMainframeTooltip( tooltip, unit )
 	if unit:hasTag("MM_topGear") and unit:getSim() and not unit:getSim().MM_security_disabled then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_FAILSAFE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_FAILSAFE_DESC, "gui/icons/item_icons/items_icon_small/icon-item_personal_shield_small.png")
 	end
+	if unit:getTraits().luxuryNanofab then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.FANCYFAB_WARNING, STRINGS.MOREMISSIONS.UI.TOOLTIPS.FANCYFAB_WARNING_DESC, "gui/icons/skills_icons/skills_icon_small/icon-item_technician_small.png")
+		local itemType_icon = ""
+		if unit:getTraits().luxuryNanofab == "ITEMS" then
+			itemType_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png"
+		elseif unit:getTraits().luxuryNanofab == "AUGMENTS" then
+			itemType_icon = "gui/icons/item_icons/items_icon_small/icon-item_generic_arm_small.png"
+		elseif	unit:getTraits().luxuryNanofab == "WEAPONS" then
+			itemType_icon = "gui/icons/item_icons/items_icon_small/icon-item_gun_dart_small.png"
+		end
+		
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_TYPE, (STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_TYPE_DESC .. " " .. unit:getTraits().luxuryNanofab), itemType_icon)
+	end
 end
 
 local function onItemTooltip(tooltip, unit)
@@ -36,7 +49,7 @@ local function onAgentTooltip(tooltip, unit)
 	if cell and cell.KOgas then
 		if unit:isKO() then
 			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS_PINNED, STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS_PINNED_DESC, "gui/icons/item_icons/items_icon_small/icon-item_toxic_smokel.png" )
-		else
+		elseif unit:getTraits().canKO then
 			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS_DESC, "gui/icons/item_icons/items_icon_small/icon-item_toxic_smokel.png" )
 		end
 	end
