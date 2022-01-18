@@ -7,6 +7,7 @@ local simquery = include ( "sim/simquery" )
 local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
+local rand_module = include( "modules/rand" )
 
 local worldgen = include("sim/worldgen")
 local generateThreats_old = worldgen.generateThreats
