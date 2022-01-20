@@ -584,6 +584,9 @@ return {
 				PROGRAM_UPGRADE_FAIL_TITLE = "INVALID UPGRADE",
 
 				START_OVER = "Start over",
+				
+				NO_PROGRAMS = "NO PROGRAMS",
+				NO_PROGRAMS_DESC = "No programs found. Returning to root.",
 
 
 			},

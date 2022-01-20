@@ -8,7 +8,9 @@ local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 
+local function runAppend()
 -- default weight for missions with no weight is 1, but the function doesn't accept weight less than 1. Set it to 100 instead so we can make missions both less frequent and more frequent than the vanilla unweighted ones without overriding the rest of the function.
+
 local serverdefs_chooseSituation_old = serverdefs.chooseSituation
 serverdefs.chooseSituation = function( campaign, tags, gen, ... )
 	for name, situationData in pairs( serverdefs.SITUATIONS ) do
@@ -67,3 +69,7 @@ serverdefs.defaultMapSelector = function( campaign, tags, tempLocation )
 	return serverdefs_defaultMapSelector_old( campaign, tags, tempLocation)
 
 end
+
+end
+
+return { runAppend = runAppend }

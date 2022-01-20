@@ -7,6 +7,7 @@ local simquery = include ( "sim/simquery" )
 local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
+local rand_module = include( "modules/rand" )
 
 local worldgen = include("sim/worldgen")
 local generateThreats_old = worldgen.generateThreats
@@ -22,7 +23,7 @@ worldgen.generateThreats = function( cxt, spawnTable, spawnList, ... )
 		local randSpawn_ELITE = spawnTable.ELITE[rand:nextInt(1,#spawnTable.ELITE)]
 		
 		if rand:nextInt(1,100) < 50 then
-			randSpawn_COMMON[1] = "MM_specdroid"
+			randSpawn_COMMON[1] = "MM_prototype_droid"
 		else
 			randSpawn_ELITE[1] = "MM_prototype_droid_spec"
 		end

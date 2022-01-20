@@ -407,10 +407,6 @@ local function load( modApi, options, params )
 	reinclude = include --necessary for tweaking mid_1
 	local mid_1_append = include( scriptPath .. "/missions/mid_1" )
 	mid_1_append.runAppend(  modApi )
-
-	--ASSASSINATION
-	-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
-	include( scriptPath .. "/appended_functions/serverdefs" )
 	
 end
 
@@ -427,6 +423,11 @@ local function lateLoad( modApi, options, params )
 	
 	----- Distress Call mission hackz - Hek. They need to be in Load too. make that lateLoad because of Additional Banter
 	include( scriptPath .. "/appended_functions/mission_util_lateLoad" )	
+	
+	--ASSASSINATION
+	-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
+	local serverdef_appends = include( scriptPath .. "/appended_functions/serverdefs" )
+	serverdef_appends.runAppend()	
 end
 
 local function unload( modApi, options )
