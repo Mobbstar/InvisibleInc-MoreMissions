@@ -23,7 +23,7 @@ worldgen.generateThreats = function( cxt, spawnTable, spawnList, ... )
 		local randSpawn_ELITE = spawnTable.ELITE[rand:nextInt(1,#spawnTable.ELITE)]
 		
 		if rand:nextInt(1,100) < 50 then
-			randSpawn_COMMON[1] = "MM_specdroid"
+			randSpawn_COMMON[1] = "MM_prototype_droid"
 		else
 			randSpawn_ELITE[1] = "MM_prototype_droid_spec"
 		end
