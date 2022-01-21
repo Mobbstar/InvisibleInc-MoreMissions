@@ -360,7 +360,7 @@ return {
 		INCOGROOM_UNLOCK_DESC = "Unlocks 1 of 4 locks to the AI Development Terminal.",
 
 		INCOGROOM_UPGRADE = "UPGRADE INCOGNITA",
-		INCOGROOM_UPGRADE_DESC = "Use this terminal to add 1 program slot to Incognita.",
+		INCOGROOM_UPGRADE_DESC = "Use this terminal to add 1 program slot or upgrade a program.",
 
 		DEACTIVATE_LOCKS = "DEACTIVATE LOCKS",
 		
