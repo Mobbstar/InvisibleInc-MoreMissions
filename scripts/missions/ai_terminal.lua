@@ -180,17 +180,29 @@ end
 
 local function upgradePWRcost( upgradedProgram, sim, boost )
 	local validUpgrade = false
+	local pwrCost = upgradedProgram.cpu_cost
+	if upgradedProgram.parasite_strength then
+		pwrCost = upgradedProgram.base_cpu_cost
+	end
 	local result = (upgradedProgram.cpu_cost or 0) + boost
 	if result > 0 then
-		if upgradedProgram.cpu_cost then
+		if upgradedProgram.cpu_cost and not (upgradedProgram.parasite_strength and upgradedProgram.parasite_strength == 1) then 
+		-- we don't want Parasite 1.0 pwr cost to be upgradable for both balance and bug prevention reasons.
 			validUpgrade = true
 			upgradedProgram.cpu_cost = upgradedProgram.cpu_cost + boost
 			if upgradedProgram.GOLEMCOST then
 				upgradedProgram.GOLEMCOST = upgradedProgram.GOLEMCOST + boost
 			end
+			-- store changes for agency
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
 			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost or 0
-			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost + boost			
+			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost + boost
+			
+			if upgradedProgram.parasite_strength and upgradedProgram.base_cpu_cost then -- Parasite V.2.0
+				upgradedProgram.MM_modifiers.base_cpu_cost = upgradedProgram.MM_modifiers.base_cpu_cost or 0
+				upgradedProgram.base_cpu_cost = upgradedProgram.base_cpu_cost + boost
+				upgradedProgram.MM_modifiers.base_cpu_cost = upgradedProgram.MM_modifiers.base_cpu_cost + boost
+			end			
 		end
 	end
 	return validUpgrade
@@ -469,10 +481,9 @@ local function upgradeDialog( script, sim )
 					end
 					
 				elseif option3 == pwr_opt then
-				
 					local txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (upgradedProgram.cpu_cost or dialogPath.INVALID))..txt_increment		
 
-					if upgradedProgram.parasiteV2 then --blargh, hardcoding
+					if upgradedProgram.parasite_strength and (upgradedProgram.parasite_strength == 1) then --blargh, hardcoding
 						txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (dialogPath.INVALID))..txt_increment
 					end
 					
