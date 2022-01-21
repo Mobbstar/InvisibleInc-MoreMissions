@@ -9,22 +9,20 @@ local mainframe = include( "sim/mainframe" )
 local modifiers = include( "sim/modifiers" )
 local mission_util = include( "sim/missions/mission_util" )
 local serverdefs = include("modules/serverdefs")
+local mainframe_common = include("sim/abilities/mainframe_common")
 
 --there is weird stuff going on in mission_scoring and other places with programs with an abilityOverride trait that's messing with the upgrade. To compensate, we'll just do the upgrade based on name instead of ID. Take that, game. That's what happens when you make the ID USELESS to me! I mean, can't even use the abilityID to keep track of the SAME program owned by the player between missions? What?!
 
 -- for program modification: self.MM_upgrade[1] contains type of upgrade as string, self.MM_upgrade[2] has intensity of upgrade as integer
+local DEFAULT_ABILITY = mainframe_common.DEFAULT_ABILITY
 local programModifier = function()
 
 for i, program in pairs(mainframe_abilities) do
-	-- log:write("LOG program")
-	-- log:write(util.stringize(program.name,2))
 	if not program.MM_modifier_applied then
 		program.MM_modifier_applied = true
 		local onSpawnAbility_old = program.onSpawnAbility
 		program.onSpawnAbility = function( self, sim, ... )
 			onSpawnAbility_old( self, sim, ... )
-			-- log:write("LOG onSpawn name")
-			-- log:write(util.stringize(self.name,2))
 			--check if AI terminal upgrades should apply to this program and apply this on spawn
 			if sim:getParams().agency.MM_upgradedPrograms and not self.MM_upgraded then
 				local upgrades = sim:getParams().agency.MM_upgradedPrograms
@@ -35,8 +33,6 @@ for i, program in pairs(mainframe_abilities) do
 				log:write(util.stringize(self.name,2))
 				local abilityID = self.name
 				if upgrades[abilityID] then
-					-- log:write("upgraded program")
-					-- log:write(util.stringize(upgrades,2))
 					if upgrades[abilityID].break_firewalls then
 						self.break_firewalls = self.break_firewalls + upgrades[abilityID].break_firewalls
 						self.MM_upgrade = {"firewalls", upgrades[abilityID].break_firewalls }
@@ -46,13 +42,14 @@ for i, program in pairs(mainframe_abilities) do
 						self.MM_upgrade = {"parasite", upgrades[abilityID].parasite_strength }
 					end
 					if upgrades[abilityID].cpu_cost then
-						-- log:write("LOG modifying PWR cost")
 						self.cpu_cost = self.cpu_cost + upgrades[abilityID].cpu_cost
 						self.MM_upgrade = {"PWRcost", upgrades[abilityID].cpu_cost }
 						if self.GOLEMCOST then --blargh, edge cases
-							-- log:write("LOG modifying Golemcost")
 							self.GOLEMCOST = self.GOLEMCOST + upgrades[abilityID].cpu_cost
-						end						
+						end
+						if upgrades[abilityID].base_cpu_cost then
+							self.base_cpu_cost = self.base_cpu_cost + upgrades[abilityID].base_cpu_cost 
+						end
 					end
 					if upgrades[abilityID].maxCooldown then
 						self.maxCooldown = self.maxCooldown + upgrades[abilityID].maxCooldown
@@ -132,6 +129,14 @@ for i, program in pairs(mainframe_abilities) do
 					end	
 				end
 				return oldcost
+			end
+		end
+		if i == "parasite_2" then
+			-- overwrite getCpuCost entirely to make it compatible with PWRcost upgrades
+			program.base_cpu_cost = mainframe_abilities.parasite_2.cpu_cost
+			program.getCpuCost = function( self )
+				self.cpu_cost = #self.parasite_hosts + self.base_cpu_cost
+				return DEFAULT_ABILITY.getCpuCost( self )
 			end
 		end
 	end
