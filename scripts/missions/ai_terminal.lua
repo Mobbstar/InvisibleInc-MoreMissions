@@ -175,6 +175,14 @@ local function upgradeIcebreak( upgradedProgram, sim, boost )
 			upgradedProgram.MM_modifiers.parasite_strength = upgradedProgram.MM_modifiers.parasite_strength + boost			
 		end	
 	end
+	if (upgradedProgram._abilityID == "dataBlast") and (boost > 0) then
+		log:write("LOG completing data blast upgrade")
+		validUpgrade = true
+		upgradedProgram.dataBlastStrength = 1
+		upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers or {}
+		upgradedProgram.MM_modifiers.break_firewalls = upgradedProgram.MM_modifiers.break_firewalls or 0
+		upgradedProgram.MM_modifiers.break_firewalls = upgradedProgram.MM_modifiers.break_firewalls + boost	
+	end
 	return validUpgrade
 end
 
@@ -449,6 +457,9 @@ local function upgradeDialog( script, sim )
 					or (((upgradedProgram.parasite_strength or 0) > 0) and upgradedProgram.parasite_strength)
 					or dialogPath.INVALID	))..txt_increment
 					
+					if upgradedProgram._abilityID == "dataBlast" then -- more special cases
+						txt_firewalls = util.sformat(dialogPath.FIREWALLS_TIP, upgradedProgram.name, 1)..txt_increment
+					end
 					local option_firewalls = mission_util.showDialog( sim, dialogPath.OPTIONS_FIREWALLS_TITLE, txt_firewalls, options_increment )
 					
 
