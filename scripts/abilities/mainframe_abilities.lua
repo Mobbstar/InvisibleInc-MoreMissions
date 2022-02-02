@@ -34,7 +34,9 @@ for i, program in pairs(mainframe_abilities) do
 				local abilityID = self.name
 				if upgrades[abilityID] then
 					if upgrades[abilityID].break_firewalls then
-						self.break_firewalls = self.break_firewalls + upgrades[abilityID].break_firewalls
+						if (self.break_firewalls or 0) > 0 then
+							self.break_firewalls = self.break_firewalls + upgrades[abilityID].break_firewalls
+						end --could be nil but we still potentially want the change for later (e.g. Datablast)
 						self.MM_upgrade = {"firewalls", upgrades[abilityID].break_firewalls }
 					end
 					if upgrades[abilityID].parasite_strength then
@@ -86,10 +88,10 @@ for i, program in pairs(mainframe_abilities) do
 					self.MM_upgrade = {"range", self.MM_modifiers.range }
 				end
 			end
-			if self.MM_upgrade then
+			if self.MM_upgrade then --FOR UI ONLY!
 				local desc = ""
 				local path = STRINGS.MOREMISSIONS.UI.TOOLTIPS.PROGRAM_UPGRADE
-				local upgradeStrength = self.MM_upgrade[2] --for UI only
+				local upgradeStrength = self.MM_upgrade[2] 
 				if self.MM_upgrade[2] == 1 then
 					upgradeStrength = "+1"
 				end
@@ -138,6 +140,60 @@ for i, program in pairs(mainframe_abilities) do
 				self.cpu_cost = #self.parasite_hosts + self.base_cpu_cost
 				return DEFAULT_ABILITY.getCpuCost( self )
 			end
+		end
+		if i == "dataBlast" then
+			local datablast_executeOld = program.executeAbility
+			program.executeAbility = function( self, sim, unit, userUnit, targetCell, ... )
+				if self.dataBlastStrength or (self.MM_upgrade and self.MM_upgrade[1] == "firewalls") then
+					local increase = self.dataBlastStrength or 1 --we only allow upgrading the program once, so...
+					for i = increase, 1, -1 do
+					-------------------
+					--copypaste of the executeAbility code but without PWR cost
+					local player = sim:getCurrentPlayer()
+					local currentProgram = player:getEquippedProgram()
+
+					-- player:equipProgram( sim, self:getID() )
+
+					local cellx, celly = unpack(targetCell)
+					-- sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/mainframe_datablast_use" )
+
+					local targetUnits = self:getTargetUnits( sim, cellx, celly )
+
+					-- sim:dispatchEvent( simdefs.EV_OVERLOAD_VIZ, {x = cellx, y = celly, units = targetUnits, range = self.range } )		
+
+					local daemonUnits = {}
+					for _, unit in ipairs(targetUnits) do
+						if unit:getTraits().mainframe_item or not sim:isVersion("0.17.15") then
+							-- Keep track of daemons that *Would* be invoked, so that we can invoke them only after
+							-- everything has been broken.
+							local daemonProgram = unit:getTraits().mainframe_program
+
+							unit:getTraits().mainframe_program = nil
+							mainframe.breakIce( sim, unit, 1 )
+							unit:getTraits().mainframe_program = daemonProgram
+
+							if daemonProgram and unit:getTraits().mainframe_ice <= 0 then
+								table.insert( daemonUnits, unit )
+							end
+						end
+					end
+
+					-- self:useCPUs( sim ) -- no!
+					-- player:equipProgram( sim, currentProgram and currentProgram:getID() )
+
+					for i, unit in ipairs( daemonUnits ) do
+						mainframe.invokeDaemon( sim, unit )
+					end
+
+					if sim:isVersion("0.17.6") then
+						self:setCooldown( sim ) 
+					end	
+					-------------------
+					end
+				end
+				datablast_executeOld( self, sim, unit, userUnit, targetCell, ... ) --this should run AFTER the modification block. Otherwise the "additional" firewall-breaking loop gets interrupted on player:equipProgram if, after the use of useCpus in the "old" ability, program no longer meets the PWR requirements
+			end
+						
 		end
 	end
 end
