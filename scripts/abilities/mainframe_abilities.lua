@@ -144,7 +144,7 @@ for i, program in pairs(mainframe_abilities) do
 		if i == "dataBlast" then
 			local datablast_executeOld = program.executeAbility
 			program.executeAbility = function( self, sim, unit, userUnit, targetCell, ... )
-				if self.dataBlastStrength or (self.MM_upgrade and self.MM_upgrade[1] == "firewalls") then
+				if self.dataBlastStrength or (self.MM_upgrade and self.MM_upgrade[1] == "firewalls") and not (sim:getPC():getTraits().firewallBreakPenalty or 0 > 0) then
 					local increase = self.dataBlastStrength or 1 --we only allow upgrading the program once, so...
 					for i = increase, 1, -1 do
 					-------------------
