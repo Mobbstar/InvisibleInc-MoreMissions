@@ -1354,7 +1354,7 @@ return {
 	
 	LOGS = {
 		-- Informant datalog: doubles as acknowledgemt for VA contributors
-		log_informant_filename = "INFORMANT INTEL",
+		log_informant_filename = "INFORMANT INTEL", --author: Hek
 		log_informant_title = "UNDERCOVER AGENT REPORT",
 		log_informant = [[INFORMANT COMMUNIQUÉ - NATALIE FORMAUNT
 			
@@ -1399,7 +1399,7 @@ return {
 			
 			- The More Missions dev team)
 		]],
-		log_techexpo_filename = "LETTER OF INVITATION",
+		log_techexpo_filename = "LETTER OF INVITATION", --author: jlaub
 		log_techexpo_title = "MWC LETTER OF INVITATION",
 		log_techexpo = 
 		[[INVITATION, 2074 MEGACORP WARE CONGRESS (MWC)
@@ -1443,7 +1443,7 @@ return {
 		P.S.: Please be aware that your presence after the closing of the expo will trigger an alarm response. We thank you in advance for your cooperation with security enforcement personnel.</>
 		]],
 		
-		log_assassination_filename = "CORPORATE CHATLOG",
+		log_assassination_filename = "CORPORATE CHATLOG", --author: jlaub
 		log_assassination_title = "DECRYPTED CHATLOG",
 		log_assassination = [[>>> CHAT INITIATED
 		
