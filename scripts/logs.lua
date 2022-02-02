@@ -22,7 +22,17 @@ local logs = {
 		profileImg = nil,
 		profileAnim = "portraits/portrait_animation_template",
 		profileBuild = "portraits/MM_bot_purple_face" or nil,
-	},	
+	},
+	
+	{
+		id="MoreMissionsLog03",
+		file = STRINGS.MOREMISSIONS.LOGS.log_assassination_filename,
+		title= STRINGS.MOREMISSIONS.LOGS.log_assassination_title,
+		body= STRINGS.MOREMISSIONS.LOGS.log_assassination,
+		profileImg = nil,
+		profileAnim = "portraits/portrait_animation_template",
+		profileBuild = "portraits/mm_ceotarget_face" or nil,
+	},		
 }
 
 

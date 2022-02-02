@@ -360,7 +360,7 @@ return {
 		INCOGROOM_UNLOCK_DESC = "Unlocks 1 of 4 locks to the AI Development Terminal.",
 
 		INCOGROOM_UPGRADE = "UPGRADE INCOGNITA",
-		INCOGROOM_UPGRADE_DESC = "Use this terminal to add 1 program slot to Incognita.",
+		INCOGROOM_UPGRADE_DESC = "Use this terminal to add 1 program slot or upgrade a program.",
 
 		DEACTIVATE_LOCKS = "DEACTIVATE LOCKS",
 		
@@ -1354,7 +1354,7 @@ return {
 	
 	LOGS = {
 		-- Informant datalog: doubles as acknowledgemt for VA contributors
-		log_informant_filename = "INFORMANT INTEL",
+		log_informant_filename = "INFORMANT INTEL", --author: Hek
 		log_informant_title = "UNDERCOVER AGENT REPORT",
 		log_informant = [[INFORMANT COMMUNIQUÉ - NATALIE FORMAUNT
 			
@@ -1399,7 +1399,7 @@ return {
 			
 			- The More Missions dev team)
 		]],
-		log_techexpo_filename = "LETTER OF INVITATION",
+		log_techexpo_filename = "LETTER OF INVITATION", --author: jlaub
 		log_techexpo_title = "MWC LETTER OF INVITATION",
 		log_techexpo = 
 		[[INVITATION, 2074 MEGACORP WARE CONGRESS (MWC)
@@ -1441,6 +1441,116 @@ return {
 		Megacorp Ware Congress
 
 		P.S.: Please be aware that your presence after the closing of the expo will trigger an alarm response. We thank you in advance for your cooperation with security enforcement personnel.</>
+		]],
+		
+		log_assassination_filename = "CORPORATE CHATLOG", --author: jlaub
+		log_assassination_title = "DECRYPTED CHATLOG",
+		log_assassination = [[>>> CHAT INITIATED
+		
+		>>> ENCRYPTION PROTOCOL CONFIRMED
+		
+		>>> Participants joined: Steve Hall, Chief Operating Officer, Special Projects; Sayid Madani, Regional Security Chief
+		
+		>>> Your friendly executive chat-bot is here to assist you. Just type <c:6bf7ff>"Hey Weebo..."</c> and your request. For instance, say <c:6bf7ff>"Hey Weebo, what were the division's quarterly earnings in Q2 2073."</c> Have a fantastic day!
+
+		<c:63ffca>STEVE:</c> <c:62B3B3>You there Sayid?</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Steve my man, how's the executive life treating you?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I've been better. Did you get my request?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>It's important.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Do you mean that upgraded security request?</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>What about it?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>....</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Is it approved?</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Well, you know it's not that simple. You haven't conclusively shown that there is increased risk to your person and from whom. Standard stuff.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I've gotten reports of chatter on the Subnet from *your* team.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Chatter is chatter, it could be nothing. Terrorists playing mindgames, trying to get us to stretch ourselves thin. Like, say, spending a small fortune on security based on the Subnet rumor mill.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I don't know about that. You heard about that high-clearance terminal hit recently? All of Gavin's location data, stolen. Something's going on.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Of course I heard about it.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>And?</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>And what?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Do I really have to spell it out? There could be a bullet out there right now with my  name on it.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>We don't know that for sure.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>"For sure"? Geez. It's almost like you're *trying* to get me killed.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Of course not! I'm just trying to do my job. This isn't personal.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Yeah right. You've had it out for me ever since I got promoted and you didn't. Now you're gonna hang me out to dry??? I could have you reported.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>You're being paranoid - I would never do that. Not lastly because keeping you safe is my goddamn job. But I have to answer for *every* expenditure, same as you. Finance is not gonna be happy with me if we install all that extra tech and nothing happens.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Isn't nothing happening the point???</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>You know what I mean.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I don't feel safe here.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Nobody does. But trust me, installing turrets in the corner of every room helps a lot less than you might think.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Can we do that???</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>No.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>We don't even have the finalized SecNet assessment yet.  It could be nothing. Could be a disgruntled janitor, or some idiot temp forgetting to lock the screen. You want to turn your C-suite into Fort Knox over *that*?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>A couple of security upgrades isn't exactly Fort Knox, and most of it is standard countermeasures we already use. I just want more of it. In my office.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Have you even read your own list? "Two Akuma drones with Seeker ammo"? Laser-grid guarded saferoom? Pressure plates? Tripwires? Half of that is experimental tech, and it'll endanger you and your colleagues more than Subnet "chatter" ever could. Not to mention put a serious dent in your leather couches.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Ha ha. So funny.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Look. I get that you're worried, but you've gotta admit it's probably just the stress of the new job. You're not the first exec to discover he's got a fear of heights. Book your PTO, spend a day on a yacht, and try to relax. And lay off the spy novels while you're at it. Alright?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I don't have a fear of heights. I go wingsuit flying every year.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>I was being metaphorical. </c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Sayid. Dude. We go way back, right? Just do this for me, and I'll owe you big. That's a huge chance for you, and you know it. A guy in your position can't be picky about opportunities like that.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Right...</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Well. Let me remind you that I take my job very seriously, and I would never engage in a quid-pro-quo scheme involving the misuse of corporate funding, especially not on a corp-owned messaging system.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I'll make it worth your while. We can worry about explaining it to management later, when I'm still alive</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>I really can't</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Look... If you're that worried... I'll see if I can get you a side-arm, okay? But anything more, you're going to have to pay for it out of your own pocket. Could try pitching it to the higher-ups as a facility upgrade, maybe they'll reimburse you for part of it. I'm sure you'll figure out a way - guy in your position and all.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I didn't mean it like that</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>I gotta go, alright? Ttyl, catch you on the flipside, be sure to give my regards to Katie</c>
+
+		>>> Sayid Madani has left the chat.
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Screw you too *amigo*.</c>
+		
+		<c:63ffca>STEVE:</c> <c:6bf7ff>Hey Weebo</c>, <c:62B3B3>please order items outlined in attached document "Security Upgrades" minus Sankaku imports and charge to my personal account as a rush order</c>
+		
+		<c:6bf7ff>WEEBO:</c> <c:62B3B3>Ordering...</c>
+		
+		<c:6bf7ff>WEEBO:</c> <c:62B3B3>Completed. Installation details have been forwarded to your wallet and calendar. Thank you for shopping with Weebo!</c>
+		
+		>>> Steve Hall has left the chat.
+		
+		>>> CHAT COMPLETE AND ARCHIVED
+		
 		]],
 	},
 }

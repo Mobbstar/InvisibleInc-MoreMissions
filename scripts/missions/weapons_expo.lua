@@ -31,6 +31,20 @@ local OBJECTIVE_ID = "tech_expo"
 local ice_boost = 2 --variable for firewall-boosting security measure
 local CHANCE_OF_GOOSE = 0.1
 
+local PC_WON =
+{		
+	priority = 10,
+
+	trigger = simdefs.TRG_GAME_OVER,
+	fn = function( sim, evData )
+		if sim:getWinner() then
+			return sim:getPlayers()[sim:getWinner()]:isPC()
+		else
+			return false
+		end
+	end,
+}
+
 local function queueCentral(script, scripts) --really informative huh
 	for k, v in pairs(scripts) do
 		script:queue( { script=v, type="newOperatorMessage" } )
@@ -179,6 +193,7 @@ local function spawnAndroids(script,sim)
 		sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newUnit } )	
 		sim.exit_warning = nil	
 	end
+	
 end
 
 -- TRANSFORMER SUB GOAL
@@ -344,7 +359,9 @@ local function MM_checkTopGearItem( script, sim )
 	
 	scripts = SCRIPTS.INGAME.WEAPONS_EXPO.LOOTED_CASE_DROIDS_BOOTING
 	
-
+	script:waitFor( PC_WON )
+	sim:getParams().agency.MM_techexpo_done = sim:getParams().agency.MM_techexpo_done or 0
+	sim:getParams().agency.MM_techexpo_done = sim:getParams().agency.MM_techexpo_done + 1
 end
 
 local UNIT_ESCAPE =
@@ -418,7 +435,8 @@ local function countUnstolenTech(script,sim)
 end
 		
 local function specGooseEasterEgg( sim )
-	if not (sim:nextRand() <= CHANCE_OF_GOOSE) then
+	if not sim:getParams().agency.MM_techexpo_done or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance on first tech expo per campaign
+		log:write("LOG MM suppressing tech expo easter egg")
 		return	
 	end
 	

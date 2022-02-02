@@ -175,22 +175,42 @@ local function upgradeIcebreak( upgradedProgram, sim, boost )
 			upgradedProgram.MM_modifiers.parasite_strength = upgradedProgram.MM_modifiers.parasite_strength + boost			
 		end	
 	end
+	if (upgradedProgram._abilityID == "dataBlast") and (boost > 0) then
+		log:write("LOG completing data blast upgrade")
+		validUpgrade = true
+		upgradedProgram.dataBlastStrength = 1
+		upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers or {}
+		upgradedProgram.MM_modifiers.break_firewalls = upgradedProgram.MM_modifiers.break_firewalls or 0
+		upgradedProgram.MM_modifiers.break_firewalls = upgradedProgram.MM_modifiers.break_firewalls + boost	
+	end
 	return validUpgrade
 end
 
 local function upgradePWRcost( upgradedProgram, sim, boost )
 	local validUpgrade = false
+	local pwrCost = upgradedProgram.cpu_cost
+	if upgradedProgram.parasite_strength then
+		pwrCost = upgradedProgram.base_cpu_cost
+	end
 	local result = (upgradedProgram.cpu_cost or 0) + boost
 	if result > 0 then
-		if upgradedProgram.cpu_cost then
+		if upgradedProgram.cpu_cost and not (upgradedProgram.parasite_strength and upgradedProgram.parasite_strength == 1) then 
+		-- we don't want Parasite 1.0 pwr cost to be upgradable for both balance and bug prevention reasons.
 			validUpgrade = true
 			upgradedProgram.cpu_cost = upgradedProgram.cpu_cost + boost
 			if upgradedProgram.GOLEMCOST then
 				upgradedProgram.GOLEMCOST = upgradedProgram.GOLEMCOST + boost
 			end
+			-- store changes for agency
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
 			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost or 0
-			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost + boost			
+			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost + boost
+			
+			if upgradedProgram.parasite_strength and upgradedProgram.base_cpu_cost then -- Parasite V.2.0
+				upgradedProgram.MM_modifiers.base_cpu_cost = upgradedProgram.MM_modifiers.base_cpu_cost or 0
+				upgradedProgram.base_cpu_cost = upgradedProgram.base_cpu_cost + boost
+				upgradedProgram.MM_modifiers.base_cpu_cost = upgradedProgram.MM_modifiers.base_cpu_cost + boost
+			end			
 		end
 	end
 	return validUpgrade
@@ -437,6 +457,9 @@ local function upgradeDialog( script, sim )
 					or (((upgradedProgram.parasite_strength or 0) > 0) and upgradedProgram.parasite_strength)
 					or dialogPath.INVALID	))..txt_increment
 					
+					if upgradedProgram._abilityID == "dataBlast" then -- more special cases
+						txt_firewalls = util.sformat(dialogPath.FIREWALLS_TIP, upgradedProgram.name, 1)..txt_increment
+					end
 					local option_firewalls = mission_util.showDialog( sim, dialogPath.OPTIONS_FIREWALLS_TITLE, txt_firewalls, options_increment )
 					
 
@@ -469,10 +492,9 @@ local function upgradeDialog( script, sim )
 					end
 					
 				elseif option3 == pwr_opt then
-				
 					local txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (upgradedProgram.cpu_cost or dialogPath.INVALID))..txt_increment		
 
-					if upgradedProgram.parasiteV2 then --blargh, hardcoding
+					if upgradedProgram.parasite_strength and (upgradedProgram.parasite_strength == 1) then --blargh, hardcoding
 						txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (dialogPath.INVALID))..txt_increment
 					end
 					

@@ -20,12 +20,20 @@ local function runAppend( modApi )
 	
 	mission_util.makeAgentConnection = function( script, sim, ... )
 		-- spawn bonus
-		log:write("LOG makeAgentConnection append")
+		-- log:write("LOG makeAgentConnection append")
 		spawn_refit_drone( script, sim )
 		makeAgentConnection_old(script, sim, ...)
 		spawn_mole_bonus( sim, mole_insertion )
 		sim:triggerEvent( "agentConnectionDone" ) --used by Distress Call to start doing the scripted intro
 	end
+	
+	local showAugmentInstallDialog_old = mission_util.showAugmentInstallDialog
+	mission_util.showAugmentInstallDialog = function( sim, item, unit )
+		if not item:getTraits().augment then
+			return
+		end
+		return showAugmentInstallDialog_old(sim, item, unit)
+	end	
 end
 
 return { runAppend = runAppend }
