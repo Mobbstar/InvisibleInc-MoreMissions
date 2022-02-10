@@ -24,6 +24,28 @@ local onSafeTooltip = commondefs.onSafeTooltip
 	-- tooltip:addAbility( STRINGS.ABILITIES.RESCUE, STRINGS.ABILITIES.RESCUE_HOSTAGE_DESC, "gui/items/icon-action_open-safe.png",nil,true )
 -- end,
 
+-- Fixed tooltip function that doesn't accidentally use the flavor text as a format string. Necessary to use a % in the luxury nanofab key tooltip.
+local ITEM_HEADER_COLOUR = "<ttheader>"
+local function onItemWorldTooltip( tooltip, unit )
+	tooltip:addLine( ITEM_HEADER_COLOUR..unit:getName().."</>" )
+
+	if unit:getUnitData().flavor then
+		tooltip:addDesc( "<c:61AAAA>"..unit:getUnitData().flavor.."</c>" )
+	end
+
+	if unit:getUnitData().desc then
+		tooltip:addDesc( unit:getUnitData().desc )
+	end
+
+	if unit:getTraits().pickupOnly then
+		tooltip:addDesc( util.sformat(STRINGS.UI.TOOLTIPS.PICK_UP_CONDITION_DESC, util.toupper(unit:getTraits().pickupOnly) ) )
+	end
+
+	for i,tooltipFunction in ipairs(mod_manager:getTooltipDefs().onItemWorldTooltips)do
+		tooltipFunction(tooltip, unit)
+	end
+end
+
 local prop_templates =
 {
 	-----------------------------------------------------
@@ -492,6 +514,7 @@ local prop_templates =
 		desc = STRINGS.MOREMISSIONS.PROPS.NANOFAB_KEY_DESC,
 		flavor = STRINGS.MOREMISSIONS.PROPS.NANOFAB_KEY_FLAVOR,
 		icon = "itemrigs/disk.png",		
+		onWorldTooltip = onItemWorldTooltip,
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_compile_key_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_compile_key.png",
 		abilities = { "carryable","MM_activateLuxuryNanofab" },
