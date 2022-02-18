@@ -55,7 +55,6 @@ local mission = class( escape_mission )
 -- Local helpers
 local MOLE_BONUS_FULL = 5		--how many missions you get the bonus if no witnesses
 local MOLE_BONUS_PARTIAL = 1	--how many missions you get the bonus if witnesses
-local PATROLS_REVEALED = 0.75	--which % of guards is revealed by that bonus
 
 local function queueCentral(script, scripts) --really informative huh
 	for k, v in pairs(scripts) do
@@ -506,96 +505,6 @@ local function moleEscaped( script, sim)
 	
 	sim:addNewLocation( {sim:getParams().world, "mole_insertion"} )
 end	
-
-mission.bonus_types = {
-	[1] = "patrols",
-	[2] = "safes_consoles",
-	[3] = "cameras_turrets",
-	[4] = "daemons_layout",	
-	[5] = "doors",
-}
-
-mission.revealMoleBonus = function(sim, bonusType) --need to call on this from modinit
-	local unitlist = {} --collect units to be revealed for relevant bonuses
-	local randomAgent = sim:getPC():getUnits()[sim:nextRand(1,#sim:getPC():getUnits())] --it's turn 1 so just pick any agent so we have somewhere to display the float text
-	local x0, y0 = randomAgent:getLocation()
-	local currentPlayer = sim:getPC()
-	local script = sim:getLevelScript()
-	
-	if bonusType == "patrols" then
-		local total_guards = 0
-		for _, unit in pairs(sim:getAllUnits() ) do
-			if (unit:getPlayerOwner() ~= currentPlayer) and unit:getTraits().isGuard then
-				total_guards = total_guards + 1
-			end
-		end
-		local to_tag = math.floor(PATROLS_REVEALED * total_guards)
-		local tagged_guards = 0
-		for _, unit in pairs( sim:getAllUnits() ) do 
-			-- if sim:nextRand() <= (PATROLS_REVEALED or 0.75) then --don't tag all the guards, just most of them
-			if tagged_guards < to_tag then
-				if unit:getPlayerOwner() ~= currentPlayer and unit:getTraits().isGuard and not unit:getTraits().tagged then 										
-					unit:setTagged() -- need to consider PE's hostile AI interaction..
-					sim:dispatchEvent( simdefs.EV_UNIT_TAGGED, {unit = unit} )
-					sim:getPC():glimpseUnit(sim, unit:getID())
-					tagged_guards = tagged_guards + 1
-					-- tag + glimpse may be OP... maybe just tag... keep uncertainty about which guards are on the level...
-				end
-			end
-		end	
-		sim.MM_mole_bonus_tag = tagged_guards
-	elseif bonusType == "safes_consoles" then
-		sim:forEachUnit(
-			function ( u )
-				if u:getTraits().mainframe_console ~= nil then
-					table.insert(unitlist,u:getID())		
-					currentPlayer:glimpseUnit( sim, u:getID() )				
-				end
-				if u:getTraits().safeUnit ~= nil then
-					table.insert(unitlist,u:getID())		
-					currentPlayer:glimpseUnit( sim, u:getID() )				
-				end --reveal one, then the other				
-			end )
-	elseif bonusType == "cameras_turrets" then --also turrets
-		sim:forEachUnit(
-			function ( u )
-				if (u:getTraits().mainframe_camera ~= nil) or (u:getTraits().mainframe_turret ~= nil) then
-					table.insert(unitlist,u:getID())		
-					currentPlayer:glimpseUnit( sim, u:getID() )				
-				end
-			end )	
-	elseif bonusType == "daemons_layout" then
-			sim:forEachUnit(
-			function ( u )
-				if u:getTraits().mainframe_program ~= nil then
-					u:getTraits().daemon_sniffed = true 
-				end
-			end )
-			sim._showOutline = true
-			sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
-			if x0 and y0 then
-				local color = {r=1,g=1,b=41/255,a=1}
-				sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.UI.FLY_TXT.FACILITY_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
-			end			
-	elseif bonusType == "doors" then
-			sim:forEachCell(
-			function ( cell )
-				for dir, exit in pairs( cell.exits ) do
-					if (simquery.isDoorExit(exit)) then
-						sim:getPC():glimpseCell(sim, cell)
-					end
-				end
-			end )
-			if x0 and y0 then
-				local color = {r=1,g=1,b=41/255,a=1}
-				sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.MOREMISSIONS.UI.DOORS_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
-			end	
-			sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
-	end
-	if #unitlist > 0 then --for any bonuses that reveal units
-		sim:dispatchEvent( simdefs.EV_UNIT_MAINFRAME_UPDATE, {units=unitlist,reveal = true} )
-	end
-end
 
 -- local function cameraSawMole( script, sim )
 -- GUARD_SAW_MOLE
