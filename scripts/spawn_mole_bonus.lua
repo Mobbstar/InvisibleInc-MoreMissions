@@ -1,21 +1,108 @@
 local util = include( "modules/util" )
-local serverdefs = include( "modules/serverdefs" )
 local simdefs = include( "sim/simdefs" )
-local array = include( "modules/array" )
-local abilitydefs = include( "sim/abilitydefs" )
 local simquery = include ( "sim/simquery" )
--- local itemdefs = include ("sim/unitdefs/itemdefs")
-local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 
+
+local PATROLS_REVEALED = 0.75
+local bonus_types = {
+	[1] = "patrols",
+	[2] = "safes_consoles",
+	[3] = "cameras_turrets",
+	[4] = "daemons_layout",	
+	[5] = "doors",
+}
+
+local revealMoleBonus = function(sim, bonusType) --need to call on this from modinit
+	local unitlist = {} --collect units to be revealed for relevant bonuses
+	local randomAgent = sim:getPC():getUnits()[sim:nextRand(1,#sim:getPC():getUnits())] --it's turn 1 so just pick any agent so we have somewhere to display the float text
+	local x0, y0 = randomAgent:getLocation()
+	local currentPlayer = sim:getPC()
+	local script = sim:getLevelScript()
+	
+	if bonusType == "patrols" then
+		local total_guards = 0
+		for _, unit in pairs(sim:getAllUnits() ) do
+			if (unit:getPlayerOwner() ~= currentPlayer) and unit:getTraits().isGuard then
+				total_guards = total_guards + 1
+			end
+		end
+		local to_tag = math.floor(PATROLS_REVEALED * total_guards)
+		local tagged_guards = 0
+		for _, unit in pairs( sim:getAllUnits() ) do 
+			-- if sim:nextRand() <= (PATROLS_REVEALED or 0.75) then --don't tag all the guards, just most of them
+			if tagged_guards < to_tag then
+				if unit:getPlayerOwner() ~= currentPlayer and unit:getTraits().isGuard and not unit:getTraits().tagged then 										
+					unit:setTagged() -- need to consider PE's hostile AI interaction..
+					sim:dispatchEvent( simdefs.EV_UNIT_TAGGED, {unit = unit} )
+					sim:getPC():glimpseUnit(sim, unit:getID())
+					tagged_guards = tagged_guards + 1
+					-- tag + glimpse may be OP... maybe just tag... keep uncertainty about which guards are on the level...
+				end
+			end
+		end	
+		sim.MM_mole_bonus_tag = tagged_guards
+	elseif bonusType == "safes_consoles" then
+		sim:forEachUnit(
+			function ( u )
+				if u:getTraits().mainframe_console ~= nil then
+					table.insert(unitlist,u:getID())		
+					currentPlayer:glimpseUnit( sim, u:getID() )				
+				end
+				if u:getTraits().safeUnit ~= nil then
+					table.insert(unitlist,u:getID())		
+					currentPlayer:glimpseUnit( sim, u:getID() )				
+				end --reveal one, then the other				
+			end )
+	elseif bonusType == "cameras_turrets" then --also turrets
+		sim:forEachUnit(
+			function ( u )
+				if (u:getTraits().mainframe_camera ~= nil) or (u:getTraits().mainframe_turret ~= nil) then
+					table.insert(unitlist,u:getID())		
+					currentPlayer:glimpseUnit( sim, u:getID() )				
+				end
+			end )	
+	elseif bonusType == "daemons_layout" then
+			sim:forEachUnit(
+			function ( u )
+				if u:getTraits().mainframe_program ~= nil then
+					u:getTraits().daemon_sniffed = true 
+				end
+			end )
+			sim._showOutline = true
+			sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
+			if x0 and y0 then
+				local color = {r=1,g=1,b=41/255,a=1}
+				sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.UI.FLY_TXT.FACILITY_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
+			end			
+	elseif bonusType == "doors" then
+			sim:forEachCell(
+			function ( cell )
+				for dir, exit in pairs( cell.exits ) do
+					if (simquery.isDoorExit(exit)) then
+						sim:getPC():glimpseCell(sim, cell)
+					end
+				end
+			end )
+			if x0 and y0 then
+				local color = {r=1,g=1,b=41/255,a=1}
+				sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.MOREMISSIONS.UI.DOORS_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
+			end	
+			sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
+	elseif bonusType == "armor" then
+		sim:getNPC():getTraits().boostArmor = (sim:getNPC():getTraits().boostArmor or 0) - 1
+	end
+	if #unitlist > 0 then --for any bonuses that reveal units
+		sim:dispatchEvent( simdefs.EV_UNIT_MAINFRAME_UPDATE, {units=unitlist,reveal = true} )
+	end
+end
 
 local function spawnMoleBonus( sim, mole_insertion )
 	-- log:write(util.stringize(sim:getParams().agency.MM_informant_bonus,2))
 	local MM_informant_bonus = sim:getParams().agency.MM_informant_bonus
 	if MM_informant_bonus and (#MM_informant_bonus > 0) then
-		local possible_bonuses = util.tcopy(mole_insertion.bonus_types)
+		local possible_bonuses = util.tcopy(bonus_types)
 		for k,v in pairs(MM_informant_bonus) do	
-		
 			if #possible_bonuses > 0 then
 				sim:getLevelScript():queue( 1.5*cdefs.SECONDS )
 				-- log:write("LOG possible bonus")
@@ -25,7 +112,11 @@ local function spawnMoleBonus( sim, mole_insertion )
 				local randBonus = sim:nextRand(1,#possible_bonuses)
 				-- log:write("LOG randBonus is"..tostring(randBonus))
 				local bonus_type = possible_bonuses[randBonus]
-				table.remove(possible_bonuses, randBonus) --don't spawn the same one
+				if not v.bonus then
+					table.remove(possible_bonuses, randBonus) --don't spawn the same one
+				else
+					bonus_type = v.bonus
+				end
 				mole_insertion.revealMoleBonus(sim, bonus_type) -- dispatch bonus
 				--handle UI event
 				local mole_head = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.MOLE_DAEMON_HEAD
@@ -55,7 +146,6 @@ local function spawnMoleBonus( sim, mole_insertion )
 					end
 				end
 			end
-			
 		end
 	end
 end
