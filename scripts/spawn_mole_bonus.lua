@@ -139,10 +139,12 @@ local function spawnMoleBonus( sim, mole_insertion )
 					if (ability._abilityID == "MM_informant_intel") and not ability.MM_mole_checked then
 						-- log:write("LOG editing bonus desc")
 						ability.MM_mole_checked = true
-						-- ability.desc = util.sformat(ability.desc, missionsLeft)
-						-- ability.shortdesc = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[bonus_type]
 						ability.missionsLeft = missionsLeft
 						ability.bonus_type = bonus_type
+						if v.bonus and v.bonus == "armor" then
+							ability.icon = "gui/icons/daemon_icons/Daemons_reverse_aces.png"
+							ability.name = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.NAME_ARMOR
+						end
 					end
 				end
 			end
