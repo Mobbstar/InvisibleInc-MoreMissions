@@ -63,6 +63,11 @@ local function runAppend( modApi )
 			table.insert(agency.MM_informant_bonus, intel_bonus)
 		end
 
+		-- Personnel Extraction side objective
+		if sim:getPC():getTraits().W93_BossUnitHijacked then
+			table.insert(agency.MM_informant_bonus, {id = sim:getParams().campaignHours, missions_left = 2, bonus = "armor"})
+		end
+
 		-- ASSASSINATION
 		if (sim:getParams().situationName == "assassination") and sim:getTags().MM_assassination_success then -- or some other mission type check, as well as a mission success check
 
