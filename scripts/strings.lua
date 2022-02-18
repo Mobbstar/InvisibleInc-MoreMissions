@@ -410,6 +410,7 @@ return {
 			["cameras_turrets"] = "Cameras & turrets revealed",
 			["daemons_layout"] = "Facility layout & daemons revealed",
 			["doors"] = "Doors revealed",
+			["armor"] = "Guard armor weakened",
 			},
 
 			-- for event notification
@@ -794,7 +795,7 @@ return {
 			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
 
 			BOSSUNIT = "Opportunity Target",
-			BOSSUNIT_DESC = "Bring this unit to the Jet. Successful extraction adds Detention Center location to the map.",			
+			BOSSUNIT_DESC = "Bring this unit to the Jet. Successful extraction reduces guard armor for 2 next infiltrations.",			
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
 				UPGRADED_LONG = "AI TERMINAL UPGRADE",
