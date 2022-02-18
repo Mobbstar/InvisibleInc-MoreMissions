@@ -398,7 +398,9 @@ return {
 	{
 		MOLE_DAEMON = {
 			NAME = "INFORMANT INTEL",
+			NAME_ARMOR = "GUARD EXTRACTION",
 			DESC = "Receive random intel at mission start. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
+			DESC_ARMOR = "Armor weaknesses identified for {1} more {1:mission|missions}. Not applicable in Omni facilities.",
 			SHORT_DESC = "",
 			ACTIVE_DESC = "INTEL PROVIDED BY INFORMANT",
 		},
