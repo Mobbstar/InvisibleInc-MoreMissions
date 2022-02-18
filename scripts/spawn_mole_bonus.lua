@@ -117,7 +117,7 @@ local function spawnMoleBonus( sim, mole_insertion )
 				else
 					bonus_type = v.bonus
 				end
-				mole_insertion.revealMoleBonus(sim, bonus_type) -- dispatch bonus
+				revealMoleBonus(sim, bonus_type) -- dispatch bonus
 				--handle UI event
 				local mole_head = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.MOLE_DAEMON_HEAD
 				local mole_title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.MOLE_DAEMON_TITLE
