@@ -122,13 +122,21 @@ local function spawnMoleBonus( sim, mole_insertion )
 				local mole_head = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.MOLE_DAEMON_HEAD
 				local mole_title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.MOLE_DAEMON_TITLE
 				local mole_text = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.MOLE_DAEMON_TXT .. STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[bonus_type]
+				local mole_icon_path = "gui/icons/UI_icons/icon_moleBonus.png"
+				
+				if bonus_type == "armor" then
+					mole_head = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.ARMOR_DAEMON_HEAD
+					mole_title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.ARMOR_DAEMON_TITLE
+					mole_text = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.ARMOR_DAEMON_TXT
+					mole_icon_path = "gui/icons/UI_icons/icon_armorDebuff_v2.png"
+				end
 				
 				local dialogParams = 
 				{
 					mole_head,
 					mole_title,
 					mole_text,
-					"gui/icons/UI_icons/icon_moleBonus.png",
+					mole_icon_path,
 					color = {r=0,g=0,b=1,a=1}				
 				}
 				
@@ -142,7 +150,7 @@ local function spawnMoleBonus( sim, mole_insertion )
 						ability.missionsLeft = missionsLeft
 						ability.bonus_type = bonus_type
 						if v.bonus and v.bonus == "armor" then
-							ability.icon = "gui/icons/daemon_icons/Daemons_reverse_aces.png"
+							ability.icon = "gui/icons/UI_icons/icon_armorDebuff_daemon.png"
 							ability.name = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.NAME_ARMOR
 						end
 					end
