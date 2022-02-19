@@ -63,7 +63,7 @@ return {
 		EA_HOSTAGE_TIP = "<c:FF8411>COURIER RESCUE</c>\nRescue the Courier in the limited time before he dies to gain access to more infiltration sites.",
 
 		SIDEMISSIONS = "SIDE MISSIONS",
-		SIDEMISSIONS_TIP = "<c:FF8411>SIDE MISSIONS</c>\n<c:ffeb7c>PERSONNEL HIJACK:</c> Abduct a specific guard to the jet for a site reward.\n<c:ffeb7c>CORPORATE WAREHOUSE:</c> Steal as many briefcases as you can.\n<c:ffeb7c>LUXURY NANOFAB:</c> Access a shop with a large selection of just one item type.",
+		SIDEMISSIONS_TIP = "<c:FF8411>SIDE MISSIONS</c>\n<c:ffeb7c>PERSONNEL EXTRACTION:</c> Abduct a specific guard to the jet to temporarily reduce enemy armor.\n<c:ffeb7c>CORPORATE WAREHOUSE:</c> Steal as many briefcases as you can.\n<c:ffeb7c>LUXURY NANOFAB:</c> Access a shop with a large selection of just one item type.",
 		
 		SIDEMISSIONS_REBALANCE = "ENHANCED VANILLA SIDE MISSIONS",
 		SIDEMISSIONS_REBALANCE_TIP = "<c:FF8411>ENHANCED VANILLA SIDE MISSIONS</c>\n<c:ffeb7c>PWR RELAY:</c> Sell 5, 10, or 15 PWR.\n<c:ffeb7c>REFIT DRONE:</c> Drone has +2 AP and accompanies you on the next mission.\n<c:ffeb7c>COMPILE ROOM:</c> Install the program, or take it with you to sell or install later.", --include more detail here later
@@ -234,6 +234,7 @@ return {
 		MOLE_CLOAK_FLAVOR = "Some cloaking rig models have increased efficiency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",
 		
 		MOLE_DISGUISE = "Custom Holo Projection Mesh",
+		MOLE_DISGUISE_TIP = "Generates a disguise for 1 turn.\nSprinting and attacking disables the effect.\nDisguise will fail if an enemy observes from 1 tile away.\nUses charge every turn.",
 		MOLE_DISGUISE_FLAVOR = "Some holorig models have dispensed with PWR dependency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",		
 
 		-- TECH EXPO CUSTOM ITEMS
@@ -398,9 +399,9 @@ return {
 	{
 		MOLE_DAEMON = {
 			NAME = "INFORMANT INTEL",
-			NAME_ARMOR = "GUARD EXTRACTION",
+			NAME_ARMOR = "ARMOR WEAKNESS REVEALED",
 			DESC = "Receive random intel at mission start. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
-			DESC_ARMOR = "Armor weaknesses identified for {1} more {1:mission|missions}. Not applicable in Omni facilities.",
+			DESC_ARMOR = "-1 to guard armor. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
 			SHORT_DESC = "",
 			ACTIVE_DESC = "INTEL PROVIDED BY INFORMANT",
 		},
@@ -419,6 +420,10 @@ return {
 			MOLE_DAEMON_HEAD = "E S P I O N A G E   B O N U S",
 			MOLE_DAEMON_TITLE = "INFORMANT INTEL",
 			MOLE_DAEMON_TXT = "Your informant has provided you with the following intel on this facility:\n\n",
+			
+			ARMOR_DAEMON_HEAD = "I N T E R R O G A T I O N  B O N U S",
+			ARMOR_DAEMON_TITLE = "INTERROGATION INTEL",
+			ARMOR_DAEMON_TXT = "Your guard interrogation has revealed armor weaknesses for this facility.\n\n-1 to enemy armor",
 		},
 
 		WITNESS_WARNING = {
@@ -797,7 +802,7 @@ return {
 			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
 
 			BOSSUNIT = "Opportunity Target",
-			BOSSUNIT_DESC = "Bring this unit to the Jet. Successful extraction reduces guard armor for 2 next infiltrations.",			
+			BOSSUNIT_DESC = "Bring this unit to the jet for interrogation. Reduces guard armor for the next 2 missions.",			
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
 				UPGRADED_LONG = "AI TERMINAL UPGRADE",
