@@ -12,7 +12,6 @@ local simdefs = include( "sim/simdefs" )
 
 local function runAppend( modApi )
 	local scriptPath = modApi:getScriptPath()
-	local mole_insertion = include( scriptPath .. "/missions/mole_insertion" )
 	local spawn_mole_bonus = include( scriptPath .. "/spawn_mole_bonus" )
 	local spawn_refit_drone = include( scriptPath .. "/spawn_refit_drone" )	
 	local mission_util = include("sim/missions/mission_util")
@@ -23,7 +22,7 @@ local function runAppend( modApi )
 		-- log:write("LOG makeAgentConnection append")
 		spawn_refit_drone( script, sim )
 		makeAgentConnection_old(script, sim, ...)
-		spawn_mole_bonus( sim, mole_insertion )
+		spawn_mole_bonus( sim )
 		sim:triggerEvent( "agentConnectionDone" ) --used by Distress Call to start doing the scripted intro
 	end
 	

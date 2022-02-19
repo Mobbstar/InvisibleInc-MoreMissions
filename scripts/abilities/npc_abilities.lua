@@ -45,7 +45,11 @@ local npc_abilities =
 			local section = tooltip:addSection()
 			
 			section:addLine( self.name )
-			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC, self.missionsLeft), "gui/icons/action_icons/Action_icon_Small/actionicon_talk.png" )		
+			if self.bonus_type == "armor" then
+				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC_ARMOR, self.missionsLeft), "gui/icons/action_icons/Action_icon_Small/actionicon_talk.png" )
+			else
+				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC, self.missionsLeft), "gui/icons/action_icons/Action_icon_Small/actionicon_talk.png" )
+			end		
 			if self.dlcFooter then
 				section:addFooter(self.dlcFooter[1],self.dlcFooter[2])
 			end
