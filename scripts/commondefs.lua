@@ -46,7 +46,7 @@ local function onAgentTooltip(tooltip, unit)
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.EA_HOSTAGE_VITAL_STATUS, util.sformat(STRINGS.MOREMISSIONS.UI.TOOLTIPS.EA_HOSTAGE_VITAL_STATUS_DESC, unit:getTraits().vitalSigns), "gui/icons/item_icons/items_icon_small/icon-item_heart_monitor_small.png" )
 	end
 	local cell = unit:getSim():getCell( unit:getLocation() )
-	if cell and cell.KOgas then
+	if cell and cell.KOgas and cell.KOgas > 0 then
 		if unit:isKO() then
 			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS_PINNED, STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS_PINNED_DESC, "gui/icons/item_icons/items_icon_small/icon-item_toxic_smokel.png" )
 		elseif unit:getTraits().canKO then

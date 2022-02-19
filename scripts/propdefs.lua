@@ -416,29 +416,23 @@ local prop_templates =
         name = STRINGS.PROPS.SMOKE,
         rig = "smokerig",
 		kanim = "kanim_smoke_plume",
-        -- traits = { radius = 4, lifetime = 3, noghost = true, gasColor = {r = 0.5, g = 1, b = 1, a = 0.25} }
-		traits = { radius = 4, lifetime = 4, noghost = true, KOgas = true, gasColor = {r=197/255,g=227/255,b=107/255, a = 0.35} }	
-    },	
-	
-	MM_gas_cloud_harmless = --spawns MM_gas_cloud at end of lifetime
-    {
-        type = "MM_simKOcloud",
-        name = STRINGS.PROPS.SMOKE,
-        rig = "smokerig",
-		kanim = "kanim_smoke_plume",
-        -- traits = { radius = 4, lifetime = 3, noghost = true, gasColor = {r = 0.5, g = 1, b = 1, a = 0.25} }
-		traits = { radius = 4, lifetime = 2, noghost = true, spawnKOgas = true, gasColor = {r=197/255,g=227/255,b=107/255, a = 0.15} }	
+		traits = { radius = 4, lifetime = 8, noghost = true, 
+			stages = { -- these get applied by MM_simKOcloud.lua
+				[8] = {
+					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.15},
+					KOgas = false,
+				},
+				[6] = {
+					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.35},
+					KOgas = true,
+				},
+				[2] = {
+					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.05},
+					KOgas = false,
+				},
+			}
+		}
     },
-
-	MM_gas_cloud_dispersal = 
-    {
-        type = "MM_simKOcloud",
-        name = STRINGS.PROPS.SMOKE,
-        rig = "smokerig",
-		kanim = "kanim_smoke_plume",
-        -- traits = { radius = 4, lifetime = 3, noghost = true, gasColor = {r = 0.5, g = 1, b = 1, a = 0.25} }
-		traits = { radius = 4, lifetime = 2, noghost = true, KOgasdispersal = true, gasColor = {r=197/255,g=227/255,b=107/255, a = 0.05} }	
-    },	
 
 	MM_smoke_cloud = --for Tech Expo smoke grenade
     {

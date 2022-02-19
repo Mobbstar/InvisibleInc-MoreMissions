@@ -687,7 +687,7 @@ local function makeSmoke( script, sim )
 		end
 	end
 	local cell = sim:getCell(terminal:getLocation())
-	local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud_harmless, sim ) -- will produce more toxic gas after 1 turn
+	local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud, sim )
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Grenades/smokegrenade_explo" )
 	sim:spawnUnit( KOcloud )
 	sim:warpUnit( KOcloud, cell )
@@ -703,9 +703,9 @@ local function makeSmoke( script, sim )
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().MM_incogRoom_unlock then
 			local lock_cell = sim:getCell(unit:getLocation())
-			local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud_harmless, sim )
+			local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud, sim )
 			sim:spawnUnit( KOcloud )
-			sim:warpUnit (KOcloud, lock_cell )
+			sim:warpUnit( KOcloud, lock_cell )
 		end
 	end
 	
@@ -724,9 +724,9 @@ local function makeSmoke( script, sim )
 		end
 	end )
 	for i, doorcell in pairs( cells ) do
-		local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud_harmless, sim )
+		local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud, sim )
 		sim:spawnUnit( KOcloud )
-		sim:warpUnit (KOcloud, doorcell )
+		sim:warpUnit( KOcloud, doorcell )
 	end	
 end
 
