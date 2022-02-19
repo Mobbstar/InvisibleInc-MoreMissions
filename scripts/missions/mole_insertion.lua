@@ -473,15 +473,17 @@ local function DBhack( script, sim )
 		local pcplayer = sim:getPC()
 		for i, agent in pairs( pcplayer:getUnits() ) do 
 			if agent:getTraits().monster_hacking and agent:getTraits().MM_mole then
-				mole = agent
-				-- if progress > 0 then
-					local x2,y2 = mole:getLocation()
-					sim:getNPC():spawnInterest(x2,y2, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, mole) --keep spawning interest for duration of hack
-				-- end		
 				local database = sim:getUnit(agent:getTraits().monster_hacking)
 				progressDBhack(sim, database, mole, script)
 				sim:incrementTimedObjective( "hack_personnel_DB" )
 				progress = progress + 1
+				if (progress == 1) then
+					mole = agent
+					-- if progress > 0 then
+						local x2,y2 = mole:getLocation()
+						sim:getNPC():spawnInterest(x2,y2, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, mole) --keep spawning interest for duration of hack
+					-- end
+				end				
 				if progress == 3 then
 					activateCamera(script, sim)
 				end
