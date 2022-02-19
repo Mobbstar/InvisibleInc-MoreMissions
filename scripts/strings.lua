@@ -234,7 +234,7 @@ return {
 		MOLE_CLOAK_FLAVOR = "Some cloaking rig models have increased efficiency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",
 		
 		MOLE_DISGUISE = "Custom Holo Projection Mesh",
-		MOLE_DISGUISE_TIP = "Generates a disguise for 1 turn.\nSprinting and attacking disables the effect.\nDisguise will fail if an enemy observes from 1 tile away.\nUses charge every turn.",
+		MOLE_DISGUISE_TIP = "Generates a disguise for 1 turn.\nSprinting and attacking disables the effect.\nDisguise will fail if an enemy observes from 1 tile away.",
 		MOLE_DISGUISE_FLAVOR = "Some holorig models have dispensed with PWR dependency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",		
 
 		-- TECH EXPO CUSTOM ITEMS
@@ -399,7 +399,7 @@ return {
 	{
 		MOLE_DAEMON = {
 			NAME = "INFORMANT INTEL",
-			NAME_ARMOR = "ARMOR WEAKNESS REVEALED",
+			NAME_ARMOR = "INTERROGATION INTEL",
 			DESC = "Receive random intel at mission start. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
 			DESC_ARMOR = "-1 to guard armor. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
 			SHORT_DESC = "",
