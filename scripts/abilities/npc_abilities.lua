@@ -46,7 +46,7 @@ local npc_abilities =
 			
 			section:addLine( self.name )
 			if self.bonus_type == "armor" then
-				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC_ARMOR, self.missionsLeft), "gui/icons/action_icons/Action_icon_Small/actionicon_talk.png" )
+				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC_ARMOR, self.missionsLeft), "gui/icons/item_icons/items_icon_small/icon-item_personal_shield_broken_small.png" )
 			else
 				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC, self.missionsLeft), "gui/icons/action_icons/Action_icon_Small/actionicon_talk.png" )
 			end		
