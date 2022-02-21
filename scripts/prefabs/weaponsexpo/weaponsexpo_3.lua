@@ -2043,13 +2043,13 @@ local decos =
     {
         x = 3,
         y = 10,
-        kanim = [[decor_sk_bay_cannontester1]],
+        kanim = [[MM_gun_tester]],
         facing = 4,
     },
     {
         x = 4,
         y = 8,
-        kanim = [[decor_sk_bay_cannontester1]],
+        kanim = [[MM_portalgun_tester]],
         facing = 0,
     },
     {
