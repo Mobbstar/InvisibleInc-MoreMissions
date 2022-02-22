@@ -366,9 +366,7 @@ local function upgradeDialog( script, sim )
 		local txt2 = util.sformat(dialogPath.OPTIONS2_TXT,options3_temp[2],options3_temp[1])
 		
 		local options2 = populateProgramList( sim ).options_list
-		if #options2 > 5 then
-			txt2 = util.sformat(dialogPath.OPTIONS2_TXT_COMPACT,options3_temp[2],options3_temp[1])
-		end
+
 		if #options2 <= 0 then
 			mission_util.showBadResult( sim, dialogPath.NO_PROGRAMS, dialogPath.NO_PROGRAMS_DESC )
 			option = nil
