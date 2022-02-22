@@ -196,111 +196,49 @@ end
 local _M = {}
 
 local function checkHostageKO( script, sim )
+	script:waitFor( HOSTAGE_KO )
+	log:write( "HOSTAGE KO!" )
+	_M.removeHostageHooks( script )
 
-	while true do
-		script:waitFor( HOSTAGE_KO )
-	        print( "HOSTAGE DEATH!" )
-		_M.removeHostageHooks( script )
-		local hostage = nil
-		local hostageID = nil
-		sim:forEachUnit(
-			function(unit)
-				if unit:getTraits().MM_hostage then 
-					hostage = unit
-					hostageID = hostage:getID()
-				end
+	script:waitFor( PC_HOSTAGE_HIT_END, mission_util.NPC_WARP, NPC_END_TURN, mission_util.PC_ANY )
+
+	local hostage = nil
+	local hostageID = nil
+	sim:forEachUnit(
+		function(unit)
+			if unit:getTraits().MM_hostage then
+				hostage = unit
+				hostageID = hostage:getID()
 			end
-		)
-
-		--local hostage = getHostage(sim)
-		local x, y = hostage:getLocation()
-		local text=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS
-		local subtext = STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS_SUBTEXT_DEATH
-		script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_flatline", type="operatorVO" } )
-		
-		sim:setMissionReward( 0 )
-		local missionReward = sim:getMissionReward()
-		print( "Mission reward: "..missionReward )
-		--script:waitFor( PC_ANY )
-		--script:waitFrames( 1*cdefs.SECONDS )
-		--sim:forEachUnit(
-		--	function(unit)
-		--		if unit:getTraits().iscorpse and unit:getID()== hostageID then 
-		--			hostage = unit
-		--		end
-		--	end
-		--)
-		
-		--hostage:createTab( text, subtext )  
-		script:waitFrames( 2*cdefs.SECONDS )
-		local agents = checkForAgents(sim)
-		if agents then 
-			script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH)], type="newOperatorMessage" })
-		else
-			script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH)], type="newOperatorMessage" })
- 		end
-
-		sim:removeObjective( "hostage_3" )
-		script:addHook( checkNoHostageGameOver )
-
-		script:waitFor( PC_HOSTAGE_HIT_END, mission_util.NPC_WARP, NPC_END_TURN, mission_util.PC_ANY )	
-		if hostage:isKO() then
-				local hostageID = hostage:getID()
-				hostage:killUnit( hostage._sim )
-				sim:getPC():glimpseUnit( sim, hostageID ) -- KO icon likes to stuck until an agents see corpse so...
-			end
-		script:queue( { type="clearOperatorMessage" } )
-		script:waitFrames( 2*cdefs.SECONDS )
-		--hostage:destroyTab()		
-		
-		
+		end
+	)
+	if hostage:isKO() then
+		local hostageID = hostage:getID()
+		hostage:killUnit( hostage._sim )
+		sim:getPC():glimpseUnit( sim, hostageID ) -- KO icon likes to stuck until an agents see corpse so...
 	end
-
 end
 
 local function checkHostageDeath( script, sim )
+	script:waitFor( HOSTAGE_DEAD )
+	log:write( "HOSTAGE DEATH!" )
+	_M.removeHostageHooks( script )
 
-	while true do
-		script:waitFor( HOSTAGE_DEAD )
-	        print( "HOSTAGE DEATH!" )
-		_M.removeHostageHooks( script )
-	--	local hostage = nil
-	--	sim:forEachUnit(
-	--		function(unit)
-	--			if unit:getTraits().hostage then 
-	--				hostage = unit
-	--			end
-	--		end
-	--	)
+	script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_flatline", type="operatorVO" } )
 
-		--local hostage = getHostage(sim)
-	--	local x, y = hostage:getLocation()
-	--	local subtext = STRINGS.MISSIONS.HOSTAGE.HOSTAGE_VITALS_SUBTEXT_DEATH
-		script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_flatline", type="operatorVO" } )
-	--	script:queue( { 
-	--		type="displayHUDInstruction", 
-	--		text=STRINGS.MISSIONS.HOSTAGE.HOSTAGE_VITALS, 
-	--		subtext=subtext,
-	--		x=x, y=y } )
-
-		--hostage:killUnit( sim )]]
-		
-		script:waitFrames( 2*cdefs.SECONDS )
-		local agents = checkForAgents(sim)
-		if agents then 
-			script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH)], type="newOperatorMessage" })
-		else
-			script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH)], type="newOperatorMessage" })
- 		end
-
-		sim:removeObjective( "hostage_3" )
-		script:waitFor( mission_util.PC_ANY )	
-		script:queue( { type="clearOperatorMessage" } )
-
-		script:addHook( checkNoHostageGameOver )
-		
+	script:waitFrames( 2*cdefs.SECONDS )
+	local agents = checkForAgents(sim)
+	if agents then
+		script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH)], type="newOperatorMessage" })
+	else
+		script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH)], type="newOperatorMessage" })
 	end
 
+	sim:removeObjective( "hostage_3" )
+	script:waitFor( mission_util.PC_ANY )
+	script:queue( { type="clearOperatorMessage" } )
+
+	script:addHook( checkNoHostageGameOver )
 end
 
 local function updateVitalStatus( script, sim, playSound )
