@@ -46,7 +46,7 @@ local function showDialog( sim, headerTxt, bodyTxt, options, t, result )
 
 	--simlog("FINAL CHOICE: %s", tostring(choice))
 
-	assert( options[ choice ] ~= nil, tostring(choice) .. ": " ..util.tostringl(options) )
+	--assert( options[ choice ] ~= nil, tostring(choice) .. ": " ..util.tostringl(options) )
 	return choice
 end
 
