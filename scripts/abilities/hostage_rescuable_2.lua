@@ -54,6 +54,7 @@ local hostage_rescuable =
 
 				if unit:getTraits().rescue_incident ~= nil then
 					sim:triggerEvent( unit:getTraits().rescue_incident, unit )
+					sim:processReactions()
 					return
 				end
 
