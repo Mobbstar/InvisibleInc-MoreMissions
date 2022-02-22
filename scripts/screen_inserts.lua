@@ -112,198 +112,128 @@ local inserts_ai_term = {
 		"modal-event.lua",
 		{ "widgets", 2, "children"},
 		{
-			name = [[optionBtn6]],
-			isVisible = true,
+			name = [[optionList]],
+			isVisible = false,
 			noInput = false,
 			anchor = 1,
 			rotation = 0,
-			x = 1,
+			x = -10,
 			xpx = true,
-			y = -48,
+			y = -190,
 			ypx = true,
 			w = 500,
 			wpx = true,
-			h = 38,
+			h = 240,
 			hpx = true,
 			sx = 1,
 			sy = 1,
-			ctor = [[button]],
-			clickSound = [[SpySociety/HUD/menu/click]],
-			hoverSound = [[SpySociety/HUD/menu/rollover]],
-			hoverScale = 1,
-			halign = MOAITextBox.CENTER_JUSTIFY,
-			valign = MOAITextBox.CENTER_JUSTIFY,
-			text_style = [[font1_16_r]],
+			ctor = [[listbox]],
+			item_template = [[optionListElement]],
+			scrollbar_template = [[listbox_vscroll]],
+			orientation = 2,
+			item_spacing = 48,
 			images =
 			{
-				{
-					file = [[white.png]],
-					name = [[inactive]],
-					color =
-					{
-						0.219607844948769,
-						0.376470595598221,
-						0.376470595598221,
-						1,
-					},
+			{
+				file = [[]],
+				name = [[inactive]],
 				},
 				{
-					file = [[white.png]],
-					name = [[hover]],
-					color =
-					{
-						0.39215686917305,
-						0.690196096897125,
-						0.690196096897125,
-						1,
-					},
+				file = [[]],
+				name = [[active]],
 				},
 				{
-					file = [[white.png]],
-					name = [[active]],
-					color =
-					{
-						0.39215686917305,
-						0.690196096897125,
-						0.690196096897125,
-						1,
-					},
+				file = [[]],
+				name = [[hover]],
 				},
-			},			--
-		},	
-	},	
+			},
+		},
+	},
 	{
 		"modal-event.lua",
-		{ "widgets", 2, "children"},
+		{ "skins" },
 		{
-			name = [[optionBtn7]],
+			name = [[optionListElement]],
 			isVisible = true,
 			noInput = false,
 			anchor = 1,
 			rotation = 0,
-			x = 1,
-			xpx = true,
+			x = 0,
 			y = 0,
-			ypx = true,
-			w = 500,
-			wpx = true,
-			h = 38,
-			hpx = true,
+			w = 0,
+			h = 0,
 			sx = 1,
 			sy = 1,
-			ctor = [[button]],
-			clickSound = [[SpySociety/HUD/menu/click]],
-			hoverSound = [[SpySociety/HUD/menu/rollover]],
-			hoverScale = 1,
-			halign = MOAITextBox.CENTER_JUSTIFY,
-			valign = MOAITextBox.CENTER_JUSTIFY,
-			text_style = [[font1_16_r]],
-			images =
+			ctor = [[group]],
+			children =
 			{
 				{
-					file = [[white.png]],
-					name = [[inactive]],
-					color =
+					name = [[optionListBtn]],
+					isVisible = true,
+					noInput = false,
+					anchor = 1,
+					rotation = 0,
+					x = 1,
+					xpx = true,
+					y = 0,
+					ypx = true,
+					w = 480,
+					wpx = true,
+					h = 38,
+					hpx = true,
+					sx = 1,
+					sy = 1,
+					ctor = [[button]],
+					clickSound = [[SpySociety/HUD/menu/click]],
+					hoverSound = [[SpySociety/HUD/menu/rollover]],
+					hoverScale = 1,
+					halign = MOAITextBox.CENTER_JUSTIFY,
+					valign = MOAITextBox.CENTER_JUSTIFY,
+					text_style = [[font1_16_r]],
+					images =
 					{
-						0.219607844948769,
-						0.376470595598221,
-						0.376470595598221,
-						1,
-					},
-				},
-				{
-					file = [[white.png]],
-					name = [[hover]],
-					color =
-					{
-						0.39215686917305,
-						0.690196096897125,
-						0.690196096897125,
-						1,
-					},
-				},
-				{
-					file = [[white.png]],
-					name = [[active]],
-					color =
-					{
-						0.39215686917305,
-						0.690196096897125,
-						0.690196096897125,
-						1,
+						{
+							file = [[white.png]],
+							name = [[inactive]],
+							color =
+							{
+								0.219607844948769,
+								0.376470595598221,
+								0.376470595598221,
+								1,
+							},
+						},
+						{
+							file = [[white.png]],
+							name = [[hover]],
+							color =
+							{
+								0.39215686917305,
+								0.690196096897125,
+								0.690196096897125,
+								1,
+							},
+						},
+						{
+							file = [[white.png]],
+							name = [[active]],
+							color =
+							{
+								0.39215686917305,
+								0.690196096897125,
+								0.690196096897125,
+								1,
+							},
+						},
 					},
 				},
 			},
-		},	
-	},	
-	{
-		"modal-event.lua",
-		{ "widgets", 2, "children"},
-		{
-			name = [[optionBtn8]],
-			isVisible = true,
-			noInput = false,
-			anchor = 1,
-			rotation = 0,
-			x = 1,
-			xpx = true,
-			y = 48,
-			ypx = true,
-			w = 500,
-			wpx = true,
-			h = 38,
-			hpx = true,
-			sx = 1,
-			sy = 1,
-			ctor = [[button]],
-			clickSound = [[SpySociety/HUD/menu/click]],
-			hoverSound = [[SpySociety/HUD/menu/rollover]],
-			hoverScale = 1,
-			halign = MOAITextBox.CENTER_JUSTIFY,
-			valign = MOAITextBox.CENTER_JUSTIFY,
-			text_style = [[font1_16_r]],
-			images =
-			{
-				{
-					file = [[white.png]],
-					name = [[inactive]],
-					color =
-					{
-						0.219607844948769,
-						0.376470595598221,
-						0.376470595598221,
-						1,
-					},
-				},
-				{
-					file = [[white.png]],
-					name = [[hover]],
-					color =
-					{
-						0.39215686917305,
-						0.690196096897125,
-						0.690196096897125,
-						1,
-					},
-				},
-				{
-					file = [[white.png]],
-					name = [[active]],
-					color =
-					{
-						0.39215686917305,
-						0.690196096897125,
-						0.690196096897125,
-						1,
-					},
-				},
-			},
-		},	
-	},	
+		},
+	},
 }
 
 return 
 { 
 inserts_exec = inserts_exec,
-inserts_ai_term = inserts_ai_term 
+inserts_ai_term = inserts_ai_term
 }
