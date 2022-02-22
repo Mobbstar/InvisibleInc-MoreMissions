@@ -192,12 +192,15 @@ local function checkNoHostageGameOver( script, sim )
 	sim:getTags().delayPostGame = false
 end
 
+-- TODO: refactor functions so that this isn't necessary (to provide back-references to functions defined later)
+local _M = {}
+
 local function checkHostageKO( script, sim )
 
 	while true do
 		script:waitFor( HOSTAGE_KO )
 	        print( "HOSTAGE DEATH!" )
-		script:removeAllHooks( script )
+		_M.removeHostageHooks( script )
 		local hostage = nil
 		local hostageID = nil
 		sim:forEachUnit(
@@ -260,7 +263,7 @@ local function checkHostageDeath( script, sim )
 	while true do
 		script:waitFor( HOSTAGE_DEAD )
 	        print( "HOSTAGE DEATH!" )
-		script:removeAllHooks( script )		
+		_M.removeHostageHooks( script )
 	--	local hostage = nil
 	--	sim:forEachUnit(
 	--		function(unit)
@@ -682,6 +685,23 @@ local function startPhase( script, sim )
 	script:queue( { type="clearOperatorMessage" } )
 	sim:getTags().delayPostGame = false
 end
+
+-- Remove continuous hooks
+function _M.removeHostageHooks( script )
+	script:removeHook( courier_guard_banter )
+	script:removeHook( clearHostageStatusAfterMove )
+	script:removeHook( clearHostageStatusAfterTeleport )
+	script:removeHook( clearStatusAfterEndTurn )
+	script:removeHook( updateHostageStatusAfterMove )
+
+	-- The following 1-time hooks are left active, in case they haven't triggered yet, or to ensure they finish cleanup
+	-- checkCaptainSeenFreeHostage
+	-- alertCaptainForMissingHostage
+	-- checkHostageKO
+	-- checkHostageDeath
+	-- hostageBanter
+end
+
 
 ---------------------------------------------------------------------------------------------
 -- Begin!
