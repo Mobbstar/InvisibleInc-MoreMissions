@@ -108,17 +108,20 @@ local function updateStage( self )
 	local lifetime = self:getTraits().lifetime
 	local stage = self:getTraits().stage
 	local new_data = {}
-	local best = 0
+	local best = stage
 
 	for lt, data in pairs( stages ) do
-		if lt < lifetime and (not stage or lt > best) then
+		if lt >= lifetime and (not best or lt <= best) then
 			best = lt
 			new_data = data
 		end
 	end
 
-	for k, v in pairs(new_data) do
-		self:getTraits()[k] = v
+	if stage ~= best then
+		-- log:write(self:getID() .." KOgas - stage ".. tostring(stage) .."->".. tostring(best))
+		for k, v in pairs(new_data) do
+			self:getTraits()[k] = v
+		end
 	end
 
 	self:getTraits().stage = best
