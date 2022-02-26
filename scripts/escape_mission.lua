@@ -322,6 +322,7 @@ local function spottedBoss( script, sim )
 	script:waitFor( mission_util.PC_SAW_UNIT("bossUnit") )
 
 	local cx, cy = bossUnit:getLocation()
+	bossUnit:createTab( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.PERSONNEL_HIJACK.TAB, STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.PERSONNEL_HIJACK.TAB_SUB )
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.PERSONNEL_HIJACK.OBJECTIVE1, "KO_Boss" )
 
 	script:queue( { type="pan", x=cx, y=cy } )

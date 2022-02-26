@@ -610,7 +610,8 @@ return {
 			PERSONNEL_HIJACK = -- I can finally fix this typo!!!!
 			{
 				OBJECTIVE1 = "Bring target to the Jet",
-				TEXT1 = "OPPORTUNITY TARGET DETECTED",			
+				TAB = "OPPORTUNITY TARGET IDENTIFIED",
+				TAB_SUB = "Probable intel",
 			},
 			LUXURY_NANOFAB =
 			{
