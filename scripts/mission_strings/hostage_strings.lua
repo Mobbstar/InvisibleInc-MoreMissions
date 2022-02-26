@@ -21,47 +21,86 @@ return {
 		},
 
 	INGAME = {
-		OPERATOR_OPEN = {{{
-					"Alright, you're in. Their automated system is beginning to track you, so time is not on your side.\nFind the courier, and get out.",
-					 nil, 
-					"Central" }},},		
-		HOSTAGE_SIGHTED = {{{
-					"There's the courier. It looks like they've been thorough. He won't last much longer.",
-					 nil, 
-					"Central" }},},			
+		OPERATOR_OPEN = {
+			{{"Alright, you're in. Their automated system is beginning to track you, so time is not on your side.\nFind the courier, and get out.",
+				nil, 
+				"Central" }},
+		},
+		HOSTAGE_SIGHTED = {
+			{{"There's the courier. It looks like they've been thorough. He won't last much longer.",
+				"moremissions/VoiceOver/Central/courierrescue/sighted/courier", 
+				"Central" }},
+		},
 	--	HOSTAGE_CONVO1 = "You. You're not one of them. Who are you?",
-		OPERATOR_CONVO1 = {{{
-					"We're here to help. Keep quiet and keep your head down, and you might get out alive.",
-					 nil, 
-					"Central" }},},			
+		OPERATOR_CONVO1 = {
+			{{"We're here to help. Keep quiet and keep your head down, and you might get out alive.",
+				nil, 
+				"Central" }},
+		},
 	--	HOSTAGE_CONVO2 = "We better hurry... I can't hold up much longer",
-		OPERATOR_CONVO2 = {{{
-					"Hmmmm. It looks like the drive was damaged. If we're going to get him out in one piece we had best do it quickly.",
-					 nil, 
-					"Central" }},},		
-		
-		OPERATOR_ESCAPE = {{{
-					"Good job, team. We should be able to stabilize him in the jet.", -- here was helicopter originally
+		OPERATOR_CONVO2 = {
+			{{"He's free, but it seems his cerebral drive was damaged. If we're going to get him out in one piece we had best do it quickly. Make your way to the telepad, it should be open now. ",
+				"moremissions/VoiceOver/Central/courierrescue/free", 
+				"Central" }},
+		},
+		OPERATOR_ESCAPE = {
+			{{"Good job, team. We should be able to stabilize him in the jet.", -- here was helicopter originally
+				nil, 
+				"Central"}},
+		},
+		DEATH_IMMINENT = {
+			{{"We are running out of time, Operator. If you don't get the courier out soon, we'll have one very displeased client on our hands, and no hopes of scavenging the data.",
+				"moremissions/VoiceOver/Central/courierrescue/urgent", 
+				"Central"}},
+		},
+		CENTRAL_PASS_OUT = {
+			{{"What part of 'quickly' did you misunderstand? Get to the elevator.",
+				"moremissions/VoiceOver/Central/courierrescue/timeout", 
+				"Central" }},
+		},
+		DEATH_SHOT = {
+			{{"Were you planning to scrape his brain off the wall to get the intel we came here for? Just get your team out of there. Not much we can do for him now.",
+				"moremissions/VoiceOver/Central/courierrescue/shot", 
+				"Central"}},
+		},
+		CENTRAL_HOSTAGE_DEATH = {
+			{{"Blast! There goes our bonus. Proceed to the extraction point.",
+				nil, 
+				"Central" }},
+		},
+		CENTRAL_HOSTAGE_LONE_DEATH = {
+			{{"Blast! There goes our bonus. You shouldn't have left him alone.",
+				nil, 
+				"Central" }},
+		},
+		CENTRAL_COMPLETE_MISSION_NO_COURIER = {
+			{{"At least you survived. We will discuss this further in debriefing.",
+				nil, 
+				"Central" }},
+		},
 
-					 nil, 
-					"Central" }},},
-		CENTRAL_PASS_OUT = {{{
-					"What part of 'quickly' did you misunderstand? Get to the elevator.",	
-					 nil, 
-					"Central" }},},	
-		CENTRAL_HOSTAGE_DEATH = {{{
-					"Blast! There goes our bonus. Proceed to the extraction point.",
-					 nil, 
-					"Central" }},},	
-		CENTRAL_HOSTAGE_LONE_DEATH = {{{
-					"Blast! There goes our bonus. You shouldn't have left him alone.",
-					 nil, 
-					"Central" }},},		
-		CENTRAL_COMPLETE_MISSION_NO_COURIER = {{{
-					"At least you survived. We will discuss this further in debriefing.",
-					 nil, 
-					"Central" }},},			
-		},	
+		CENTRAL_JUDGEMENT = {
+			COURIER_MIA = {
+				{{"Your mission was to bring back that cerebral implant and the asset who carries it, not let them fall back into enemy hands. What can I say, Operator? You had better improve your performance, and fast.",
+					"moremissions/VoiceOver/Central/courierrescue/judge/fail1", 
+					"Central"}},
+				{{"You are trying my patience, Operator. It's not every day we get the chance to pick the brain of a data courier. Would you like to be the one to explain this failure to our client?",
+					"moremissions/VoiceOver/Central/courierrescue/judge/fail2", 
+					"Central"}},
+			},
+			COURIER_ESCAPED = {
+				{{"This mission needed a delicate touch, and you delivered. If all goes well, we'll have our pick of nearby targets at this corporation. Excellent work.",
+					"moremissions/VoiceOver/Central/courierrescue/judge/out1", 
+					"Central"}},
+				{{"I know first hand just how dificult escort missions can be, Operator. Protecting a live asset is not an easy job, but you've shown me you are up to the task. Well done.",
+					"moremissions/VoiceOver/Central/courierrescue/judge/out2", 
+					"Central"}},
+				{{"The courier is on board, and receiving medical attention as we speak. I knew I could count on you, Operator. Keep up this level of competence, and we may yet get the agency back on its feet.",
+					"moremissions/VoiceOver/Central/courierrescue/judge/out3", 
+					"Central"}},
+			},
+		},
+	},	
 
 	MISSIONS = {
 	HOSTAGE = {

@@ -5,7 +5,7 @@
 int/*
 anim.kwad
 gui.kwad
-sound.kwad
+# sound.kwad
 scripts.zip
 
 # Automated build output

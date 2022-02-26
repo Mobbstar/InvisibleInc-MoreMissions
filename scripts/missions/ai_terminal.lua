@@ -914,9 +914,9 @@ function mission:init( scriptMgr, sim )
 
         local scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_NOTHING
 		if sim:getTags().upgradedPrograms then
-			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_UPGRADE
+			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_SUCCESS --GOT_UPGRADE
 		elseif sim:getPC():getTraits().W93_incognitaUpgraded then
-			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_SLOT
+			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_SUCCESS --GOT_SLOT
 		elseif sim:getTags().weakened_counterAI then
 			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.WEAKENED_COUNTER_AI
 		end
