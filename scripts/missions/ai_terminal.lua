@@ -867,21 +867,25 @@ local function spawnDaemons( sim )
 		end
 	end
 	local difficulty = sim:getParams().difficulty
-	local num_daemons = difficulty
-	if num_daemons > 4 then
-		num_daemons = 4
-	end
+	--local num_daemons = difficulty
+	--if num_daemons > 4 then
+		--num_daemons = 4
+	--end
+	local num_daemons = 1 -- easy mode
+	
 	local ice_boosted = false
-	for i, unit in pairs(locks) do
-		if not ice_boosted then
-			unit:getTraits().mainframe_ice = unit:getTraits().mainframe_ice + 2
-			ice_boosted = true
-		end
-		local daemon = PROGRAM_LIST:getChoice( sim:nextRand( 1, PROGRAM_LIST:getTotalWeight() ))
-		unit:getTraits().mainframe_program = daemon
-		num_daemons = num_daemons - 1
-		if num_daemons <= 0 then
-			break
+	if difficulty > 1 then
+		for i, unit in pairs(locks) do
+			if not ice_boosted then
+				unit:getTraits().mainframe_ice = unit:getTraits().mainframe_ice + 2
+				ice_boosted = true
+			end
+			local daemon = PROGRAM_LIST:getChoice( sim:nextRand( 1, PROGRAM_LIST:getTotalWeight() ))
+			unit:getTraits().mainframe_program = daemon
+			num_daemons = num_daemons - 1
+			if num_daemons <= 0 then
+				break
+			end
 		end
 	end
 end
