@@ -322,6 +322,7 @@ local function spottedBoss( script, sim )
 	script:waitFor( mission_util.PC_SAW_UNIT("bossUnit") )
 
 	local cx, cy = bossUnit:getLocation()
+	bossUnit:createTab( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.PERSONNEL_HIJACK.TAB, STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.PERSONNEL_HIJACK.TAB_SUB )
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.PERSONNEL_HIJACK.OBJECTIVE1, "KO_Boss" )
 
 	script:queue( { type="pan", x=cx, y=cy } )
@@ -331,6 +332,7 @@ end
 
 local function KoBoss( script, sim )
 	script:waitFor( PC_KNOCKOUT_BOSS )
+	script:queue(1*cdefs.SECONDS)
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.PERSONNEL_HIJACK.KO_BOSS, type="newOperatorMessage" } )
 end
 
@@ -338,7 +340,7 @@ local function KillBoss( script, sim )
 	script:waitFor( PC_KILL_BOSS )
 
 	sim:removeObjective( "KO_Boss" )
-	script:queue( { type="hideHUDInstruction" } )
+	script:queue(1*cdefs.SECONDS)
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.PERSONNEL_HIJACK.BOSS_KILLED, type="newOperatorMessage" } )
 
 	script:waitFor( PC_WON )
@@ -349,7 +351,7 @@ local function escapeBoss( script, sim )
 	script:waitFor( BOSS_ESCAPED )
 
 	sim:removeObjective( "KO_Boss" )
-	script:queue( { type="hideHUDInstruction" } )
+	script:queue(1*cdefs.SECONDS)
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.PERSONNEL_HIJACK.BOSS_TAKEN, type="newOperatorMessage" } )
 	sim:setMissionReward( simquery.scaleCredits( sim, 300 ))
 	sim:getPC():getTraits().W93_BossUnitHijacked = true
