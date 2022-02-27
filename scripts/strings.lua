@@ -609,7 +609,7 @@ return {
 			},
 			PERSONNEL_HIJACK = -- I can finally fix this typo!!!!
 			{
-				OBJECTIVE1 = "Bring target to the Jet",
+				OBJECTIVE1 = "Bring %s to jet",
 				TAB = "OPPORTUNITY TARGET IDENTIFIED",
 				TAB_SUB = "Probable intel",
 			},
