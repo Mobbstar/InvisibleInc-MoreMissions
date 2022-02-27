@@ -56,14 +56,17 @@ local function onAgentTooltip(tooltip, unit)
 	if unit:getTraits().MM_mole then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN_DESC, "gui/icons/item_icons/items_icon_small/icon-item_heart_monitor_small.png" )
 	end
+	if not unit:getTraits().canKO and unit:isPC() then
+		tooltip:addAbility( STRINGS.UI.TOOLTIPS.KO_IMMUNE, STRINGS.UI.TOOLTIPS.KO_IMMUNE_DESC, "gui/icons/arrow_small.png" )
+	end
 	if unit:getTraits().empDeath and unit:isPC() then
 		tooltip:addAbility( string.format( STRINGS.UI.TOOLTIPS.EMP_VULNERABLE ), STRINGS.UI.TOOLTIPS.EMP_VULNERABLE_DESC, "gui/icons/arrow_small.png",nil,true )
-    end 	
+	end
 	if unit:getTraits().doesNotHideInCover then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_HIDING, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_HIDING_DESC, "gui/icons/arrow_small.png" )	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_HIDING, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_HIDING_DESC, "gui/icons/arrow_small.png" )
 	end
 	if unit:getTraits().refitDroneFriend then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED, STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED_DESC, "gui/icons/arrow_small.png" )	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED, STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED_DESC, "gui/icons/arrow_small.png" )
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END_DESC, "gui/icons/arrow_small.png" )
 		tooltip:addAbility(STRINGS.MOREMISSIONS.UI.TOOLTIPS.CAN_JACKIN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.CAN_JACKIN_DESC, "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png")
 	end	
