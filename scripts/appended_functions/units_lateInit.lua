@@ -33,7 +33,7 @@ end
 local processEMP_old = simunit.processEMP
 simunit.processEMP = function( self, bootTime, noEmpFX, ... )
 	processEMP_old( self, bootTime, noEmpFX, ... )
-	if self:getTraits().witness then
+	if self:getTraits().witness and self:getTraits().mainframe_item then
 		self:getTraits().witness = nil
 		local x0, y0 = self:getLocation()
 		if x0 and y0 then
