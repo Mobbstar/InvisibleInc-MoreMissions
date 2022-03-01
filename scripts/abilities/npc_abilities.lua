@@ -111,6 +111,7 @@ local npc_abilities =
 			sim:addTrigger( "mole_final_escape", self )
 			sim:addTrigger( "vip_escaped", self )
 			sim:addTrigger( "used_amnesiac", self ) --trg_unit_paralyzed is firing too early, need this instead
+			sim:addTrigger("MM_processed_EMP_on_witness", self )
 			self.camera_witnesses = 0
 			self.guard_witnesses = 0
 			self.drone_witnesses = 0
@@ -127,6 +128,7 @@ local npc_abilities =
 			sim:removeTrigger( "mole_final_escape", self )
 			sim:removeTrigger( "vip_escaped", self )
 			sim:removeTrigger( "used_amnesiac", self )
+			sim:removeTrigger("MM_processed_EMP_on_witness", self )
 		end,
 		
 		onTrigger = function( self, sim, evType, evData, userUnit )
