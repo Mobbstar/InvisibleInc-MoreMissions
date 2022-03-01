@@ -843,6 +843,9 @@ return {
 			
 			NANOFAB_TYPE = "WIDE ITEM SELECTION",
 			NANOFAB_TYPE_DESC = "Stock type:",
+			
+			NANOFAB_CONSOLE = "TECH SUPPORT LINE",
+			NANOFAB_CONSOLE_DESC = "Summons personnel with Nanofab Key on activation.",
 		},
 		
 		REFIT_DRONE_NAMES = {
