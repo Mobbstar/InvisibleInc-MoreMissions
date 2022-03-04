@@ -1311,7 +1311,7 @@ return {
 
 				INCOGNITA_DATA_ACQUIRED = {
 					{{"Acquired new data. High probability of increasing efficiency in coroutine execution. Processing... Estimated finish time is 1 hour, 21 minutes and 48 seconds.", nil, "Incognita"}},
-					{{"Integrating novel input matrix. ETA to completion is T minus 78 minutes. Try not to die until then.", nil, "Incognita"}},
+					{{"Integrating novel input matrix. Estimated process time is 78 minutes. Try not to die until then.", nil, "Incognita"}},
 					{{"Additional computation processing venues unlocked. Likelihood of agency survival increased by two percent. Please stand by for full data integration.", nil, "Incognita"}},					
 					-- {{"Excelent job, Operator. Incognita will be able to install one additional program after we're finished here.",nil,"Central"}},
 				},
