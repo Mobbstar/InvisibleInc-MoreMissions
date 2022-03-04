@@ -638,7 +638,7 @@ return {
 			NAME= "Assassination",
 			MORE_INFO = "A high-ranked executive at this location has an impressive bounty on their head, but such a high-profile hit will not go unanswered by the corp.\n\nBe wary - the target is reportedly paranoid, with personal security on-site. If you're short on firepower, some of it may potentially be used against him.", --This can be quite lengthy.
 			INSET_TITLE = "MARKED FOR DEATH", --unused
-			INSET_TXT = "I would't normally stoop to assassination contracts, but the payday on this one is too tempting to ignore. The target is highly placed, so we can expect heightened security at this corporation if you complete the job. Ready to get your hands dirty, Operator?", --unused
+			INSET_TXT = "I wouldn't normally stoop to assassination contracts, but the payday on this one is too tempting to ignore. The target is highly placed, so we can expect heightened security at this corporation if you complete the job. Ready to get your hands dirty, Operator?", --unused
 			INSET_VO = {"moremissions/VoiceOver/Central/assassination/mapscreen"},
 			DESCRIPTION = "Kill the VIP.",
 			REWARD = "A hefty cash reward, at the cost of a permanent security increase at this corporation.",
@@ -656,10 +656,9 @@ return {
 		-- EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
 		EA_HOSTAGE = {
 			NAME= "Courier Rescue",
-			-- MORE_INFO = "The corp has intercepted a courier of one of our former clients. He's got important site intel stored in a cerebral implant, intel we could use. Your task is to break in, locate the courier, and recover the information.\n\nOne final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",
 			MORE_INFO = "Data couriers traffic valuable information for their clients, but are easy targets for the corps if they get caught. This courier has detailed knowledge of the corp's facilities and can provide us with more targets nearby.\n\nAs a security precaution, the exit elevator is locked until further notice, but the courier should have a backdoor sequence for it.",
 			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
-			INSET_TXT = "This corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we might be able to persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
+			INSET_TXT = "This corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we can persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
 			INSET_VO = {"moremissions/VoiceOver/Central/courierrescue/mapscreen"},
 			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.\nTelepad locked, courier has the key.",
 			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby.",
@@ -683,15 +682,14 @@ return {
 			INSET_TXT = "We've detected an urgent distress call at this facility. It may be one of our agents attempting an escape, or some other operative who's stumbled onto our signal network. There's no time to waste, Operator. If you mean to extract them, do it now. We will not get a second chance if we delay.", --unused
 			INSET_VO = {"moremissions/VoiceOver/Central/distresscall/mapscreen"}, --{"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
 			DESCRIPTION = "Get the escaped operative safely to extraction and grab their confiscated gear on the way out. Alarm level will increase more quickly here.",
-			REWARD = "Agent or prisoner rescue with equipment.\n<c:FC5603>URGENT:</c> This mission will disappear unless visited immediately.",
+			REWARD = "Agent or prisoner rescue with equipment.\n<c:FC5603>URGENT: This mission will disappear unless visited immediately.</c>",
 		},
 
 		WEAPONS_EXPO = {
 			NAME= "Tech Expo",
-			-- MORE_INFO = "This facility is hosting a world class tech exposition. The corporations and the industry finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nBut keep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
 			MORE_INFO = "A prestigious tech exhibition offers the chance to steal some powerful prototypes before they reach the wider market. \n\nYou will find advanced weapons as well as powerful limited-use items here, but the security system should not be taken lightly - the more you steal, the greater the risk.", --This can be quite lengthy.
 			INSET_TITLE = "TECH EXPO", --unused
-			INSET_TXT = "This facility is hosting a world class tech exposition. The corporations and the industry's finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours. But keep your guard up - rumour has it their security system is every bit as experimental as the tech they're showcasing.", --unused unless we actually get these voiced somehow
+			INSET_TXT = "This facility is hosting a world class tech exposition. The corporations and the industry's finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours. But keep your guard up - rumour has it their security system is every bit as experimental as the tech they're showcasing.", --unused unless we actually get these voiced somehow --CRAZY, RIGHT?
 			INSET_VO = {"moremissions/VoiceOver/Central/techexpo/mapscreen"},
 			DESCRIPTION = "Locate the main exhibition center and steal at least one prototype.",
 			REWARD = "Advanced weapons and powerful limited-use items you can sell or use as equipment.",
@@ -701,7 +699,7 @@ return {
 			NAME = "Informant Rendezvous", -- thanks to jlaub for name idea
 			MORE_INFO = "We have an opportunity to plant an informant at this facility who will feed us intel from the inside. This mission grants no immediate reward, but you will start future missions with advance knowledge of the infiltration target. \n\nMake sure the mole remains unseen to maximise the duration of this reward.",
 			INSET_TITLE = "",
-			INSET_TXT = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. \n\nFirst, we'll need to get them on site and secure their cover. Make sure the enemy doesn't spot them, or the job gets complicated.",
+			INSET_TXT = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. First, we'll need to get them on site and secure their cover. Make sure the enemy doesn't spot them, or the job will get complicated.",
 			INSET_VO = {"moremissions/VoiceOver/Central/informant/mapscreen"},
 			DESCRIPTION = "Plant an informant and secure their cover identity. For best results, informant must remain unseen.",
 			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or exit location.",
@@ -712,7 +710,7 @@ return {
 			NAME = "AI Terminal",
 			MORE_INFO = "We've located an AI Development Terminal with unusually high security clearance. We should be able to integrate some of this research to increase Incognita's processing efficiency.\n\nThe terminal has multiple redundant locks, so be prepared to be thorough.",
 			INSET_TITLE = "",
-			INSET_TXT = "We've unearthed an off-the-books AI research facility. We may be able to use it to upgrade Incognita, but be sure to tread lightly, Operator. We can only assume there's a good reason they've kept this place so well-hidden.",
+			INSET_TXT = "We've unearthed an off-the-books AI research facility. We may be able to use it to upgrade Incognita, but tread lightly, Operator. We can only assume there's a good reason they've kept this place so well-hidden.",
 			INSET_VO = {"moremissions/VoiceOver/Central/aiterminal/mapscreen"},
 			DESCRIPTION = "Unlock and access the AI Development Terminal using keycards and devices found on-site.",
 			-- REWARD = "An additional program slot for Incognita, or valuable tech if at upgrade cap (2 additional slots).",
@@ -919,7 +917,7 @@ return {
 
 			ASSASSINATION = {
 				OBJECTIVE_SIGHTED = {
-					{{"You've found the target. Best approach carefully, Operator. This wouldn't be the first attempt on his life, and his paranoia is notorious.",
+					{{"You've found the target. Best approach carefully, Operator. This wouldn't be the first attempt on his life, and he's sure to be well-prepared.",
 						"moremissions/VoiceOver/Central/assassination/sighted/regular",
 						"Central"}},
 				},
@@ -956,12 +954,12 @@ return {
 						"Central"}},
 				},
 				FOUND_REAL_TARGET_LATE = { --found real target after bumping into decoy
-					{{"There's our real target, finally. Get to it, Operator, this job is alerady messier than I'd like.",
+					{{"There's our real target, finally. Get to it, Operator, this job is already messier than I'd like.",
 						"moremissions/VoiceOver/Central/assassination/sighted/postdecoy",
 						"Central"}},	
 				},
 				FOUND_REAL_TARGET = { --found real target before decoy was busted
-					{{"Would you look at that, Operator. That appears to be our real target, holed up in his saferoom already.", 
+					{{"Would you look at that, Operator? That looks to be our real target, holed up in his saferoom already.", 
 						"moremissions/VoiceOver/Central/assassination/sighted/predecoy_1p",
 						"Central"},
 					{"A pity we need him dead; I would almost admire this level of paranoia, if it didn't stand in our way.",
@@ -981,7 +979,7 @@ return {
 				},
 				CENTRAL_JUDGEMENT = {
 					GOTBODY = {
-						{{"This will cost us a small fortune in cleanup, but our client should be pleased to pay for the privilege. Consider the catharsis as an extra bonus, Operator.",
+						{{"This will cost us a small fortune in cleanup, but our client should be pleased to pay for the privilege. Consider the catharsis an extra bonus, Operator.",
 							"moremissions/VoiceOver/Central/assassination/judge/kill1",
 							"Central"}},
 						{{"A little messier than I would’ve liked, but we can’t be picky, not with such a substantial bounty at stake. Well done.",
@@ -1022,7 +1020,7 @@ return {
 					"Central"}},
 				},
 				SAW_GEAR_CONTAINER = {
-				{{"Heads up, Operator. Incognita's heuristic model suggests they might have stashed our rescuee's equipment here. Let's have a look.",
+				{{"Heads up, Operator. Incognita's heuristic model suggests they might have stashed their prisoner's equipment here. Let's have a look.",
 					"moremissions/VoiceOver/Central/distresscall/sighted/stash",
 					"Central"}},
 				},
@@ -1034,7 +1032,7 @@ return {
 					{{"It's a good thing we were there to provide extraction. Now there's one more pair of hands on our side, and we're stronger for it.",
 						"moremissions/VoiceOver/Central/distresscall/judge/agent_out2",
 						"Central"}},
-					{{"That agent certainly made the rescue easy for us. I suppose a moment of professional pride is in order. Good work, everyone.",
+					{{"That agent certainly made the rescue easier for us. I suppose a moment of professional pride is in order. Good work, everyone.",
 						"moremissions/VoiceOver/Central/distresscall/judge/agent_out3",
 						"Central"}},
 					},
@@ -1042,7 +1040,7 @@ return {
 					{{"Damn it, Operator! That agent had already sprung themselves free, all you had to do was walk in there and get them!",
 						"moremissions/VoiceOver/Central/distresscall/judge/agent_fail1",
 						"Central"}},
-					{{"One day you'll find yourself in the same shoes as the agent you just abandoned. You should hope that day doesn't come soon.",
+					{{"One day you'll find yourself in the same shoes as the agent you just abandoned, Operator. You should hope that day doesn't come soon.",
 						"moremissions/VoiceOver/Central/distresscall/judge/agent_fail2",
 						"Central"}},
 					{{"This one is going on your permanent record.",
@@ -1064,7 +1062,7 @@ return {
 					{{"Another opportunity squandered. You had better step up your game, Operator. You're lucky that wasn't one of our own people you just abandoned.",
 						"moremissions/VoiceOver/Central/distresscall/judge/prisoner_fail1",
 						"Central"}},
-					{{"We went in there for nothing. You better have a good explanation for this in debriefing.",
+					{{"We went in there for nothing. You'd better have a good explanation for this in debriefing.",
 						"moremissions/VoiceOver/Central/distresscall/judge/prisoner_fail2",
 						"Central"}},
 					{{"A fruitless endeavour. That operative could have been of use to us in some manner. Too late for that now.",
@@ -1091,7 +1089,7 @@ return {
 					"moremissions/VoiceOver/Central/techexpo/switched",
 					"Central"}}},
 				LOOTED_CASE_DROIDS_BOOTING = {
-				{{"Heads up, Operator. Those android prototypes are coming online.",
+				{{"Look alive, Operator. Those android prototypes are coming online.",
 					"moremissions/VoiceOver/Central/techexpo/droid_1p",
 					"Central"}},
 				{{"Looks like the expo is providing its own security. Get out while you still can.",
@@ -1099,7 +1097,7 @@ return {
 					"Central"}},
 				},
 				CENTRAL_JUDGEMENT = {
-					NO_LOOT = {{{"This was a waste of time, Operator. If you cannot pull off a simple museum heist, then what good are you to me?",
+					NO_LOOT = {{{"This was a waste of time, Operator. If you cannot pull off a simple museum heist, then what good are you?",
 						"moremissions/VoiceOver/Central/techexpo/judge/none1",
 						"Central"}},
 					{{"I expected better results from you, Operator. We've lost our previous firepower, and opportunities like this don't come knocking every day.",
@@ -1141,7 +1139,7 @@ return {
 						"Central"}},
 				},
 				MOLE_ESCAPED_TO_JET = {
-					{{"You were supposed to get that informant into the enemy camp, not back on board, Operator. I trust you had good reason to abort the mission.", 
+					{{"You were supposed to get that informant into the enemy camp, not back on board. I trust you had good reason to abort the mission.", 
 						"moremissions/VoiceOver/Central/informant/escape_abort",
 						"Central"}},
 					{{"We should be able to find a new target for them somewhere nearby, so it's not entirely a loss. The important thing is nobody got hurt.", nil, "Monster"}},
@@ -1154,7 +1152,7 @@ return {
 						{{"Yes, lucky is indeed the word. I suppose I ought to think twice about throwing any more \"live assets\" your way.",nil,"Monster"}},
 					},
 					{
-						{{"That's the mission gone down the drain. Make sure the team is extracted safely, and we'll discuss this in debriefing.",
+						{{"That's the mission gone down the drain. Make sure the team is extracted safely. We'll discuss this in debriefing.",
 							"moremissions/VoiceOver/Central/informant/died2",
 							"Central"}},
 						{{"And there goes one of my favourite contacts. Was this really necessary?",nil,"Monster"}},
@@ -1171,7 +1169,7 @@ return {
 						"moremissions/VoiceOver/Central/informant/seen_1p",
 						"Central"}},
 					{{"And by \"clean up\", she means...",nil,"Monster"}},
-					{{"Not necessarily. If you can find a nonlethal solution, use it. The informant should have something on them for that.",
+					{{"Not necessarily. If you can find a non-lethal solution, use it. The informant should have some equipment on them for that.",
 						"moremissions/VoiceOver/Central/informant/seen_2p",
 						"Central"}},
 					},
@@ -1229,7 +1227,7 @@ return {
 				CENTRAL_JUDGEMENT = {
 					MOLE_JET_ESCAPE = {
 					{{"We cannot afford to keep wasting our time like this, Operator. Luckily, we may just have a second shot at this. Make it count.", nil,"Central"}},
-					{{"We're no better off than we started. There should be another infiltration target like this nearby. Don't force me to give you a third chance, Operator.",
+					{{"We're no better off than when we started. There should be another infiltration target like this nearby. Don't force me to give you a third chance, Operator.",
 						"moremissions/VoiceOver/Central/informant/judge/abort2",
 						"Central"}},
 					},
@@ -1237,10 +1235,10 @@ return {
 					{{"This was a sorry waste of an opportunity. We don't have much in the way of friends anymore, Operator. This could have been a step forward.",
 						"moremissions/VoiceOver/Central/informant/judge/fail1",
 						"Central"}},
-					{{"Your job was to get them inside, not to get them killed. It's a damn shame to see a fine operative go down like that.",
+					{{"Your job was to get the informant inside, not to get them killed. It's a damn shame to see a fine operative go down like that.",
 						"moremissions/VoiceOver/Central/informant/judge/fail2",
 						"Central"}},
-					{{"A complete and utter disappointment. We need people on the inside, Operator. That kind of intel would be invaluable for our survival.",
+					{{"A complete and utter disappointment. We need people on the inside, Operator. That kind of intel would've been invaluable for our survival.",
 						"moremissions/VoiceOver/Central/informant/judge/fail3",
 						"Central"}},
 					{{"Don't let this kind of failure become a pattern, Operator. It would not be in your best interest.",
@@ -1251,13 +1249,13 @@ return {
 					{{"You weren't supposed to leave witnesses. Our informant won't be able to feed us intel for long before their cover is blown. Still, it's better than nothing.",
 						"moremissions/VoiceOver/Central/informant/judge/seen1",
 						"Central"}},
-					{{"Next time, make sure the informant is unseen. They'll be useful to us for that much longer if their cover is secure.",nil,"Central"}},
+					-- {{"Next time, make sure the informant is unseen. They'll be useful to us for that much longer if their cover is secure.",nil,"Central"}},
 					{{"A job half done. We won't be able to use their intel for long, not with the witnesses you left behind. Be more careful next time.",
 						"moremissions/VoiceOver/Central/informant/judge/seen2",
 						"Central"}},
 					},
 					WIN_NO_WITNESSES = {
-					{{"An informant in the right place is worth their weight in gold, and you kept things clean. Well done, Operator.",
+					{{"An informant in the right place is worth their weight in gold, and you've made sure they weren't spotted. Well done, Operator.",
 						"moremissions/VoiceOver/Central/informant/judge/good1",
 						"Central"}},
 					{{"We'll have advance intel on the next few infiltrations now. A shadow of our former prep work, but invaluable in these dire times. Excellent work.",
@@ -1266,7 +1264,7 @@ return {
 					{{"A difficult task well performed. The informant is in, and you made sure there were no witnesses. Nice work.",
 						"moremissions/VoiceOver/Central/informant/judge/good3",
 						"Central"}},
-					{{"Well done, Operator. With that informant in place, our job will be that much easier.",nil,"Central"}},
+					{{"A difficult task well performed. The informant is in, and you've made sure there were no witnesses. Nice work.",nil,"Central"}},
 					},
 
 				},
@@ -1274,10 +1272,10 @@ return {
 
 			AI_TERMINAL = {
 				CENTRAL_DOOR_SPOTTED = {
-					{{"A scan of that door shows unusually high security measures. This must be the AI research center we've been looking for. Shall we take a look, Operator?",
+					{{"A scan of that door shows unusually high security measures. This must be the AI research center we've been looking for.",
 						"moremissions/VoiceOver/Central/aiterminal/sighted/door_1p",
 						"Central"}},
-					{{"You'll need to disable a lock behind each of those four doors. You should be able to find measures to unlock them on site. Take a look around.",
+					{{"You'll need to activate a terminal behind each of those four doors. You should be able to find measures to unlock them on site. Take a look around.",
 						"moremissions/VoiceOver/Central/aiterminal/sighted/door_2p",
 						"Central"}},
 				},
@@ -1313,12 +1311,19 @@ return {
 
 				INCOGNITA_DATA_ACQUIRED = {
 					{{"Acquired new data. High probability of increasing efficiency in coroutine execution. Processing... Estimated finish time is 1 hour, 21 minutes and 48 seconds.", nil, "Incognita"}},
+					{{"Integrating novel input matrix. ETA to completion is T minus 78 minutes. Try not to die until then.", nil, "Incognita"}},
+					{{"Additional computation processing venues unlocked. Likelihood of agency survival increased by two percent. Please stand by for full data integration.", nil, "Incognita"}},					
 					-- {{"Excelent job, Operator. Incognita will be able to install one additional program after we're finished here.",nil,"Central"}},
 				},
 
 				INCOGNITA_PROG_UPGRADED = {
-					{{"Acquired new data. High probability of increasing effectiveness in coroutine execution. Processing... Integration complete.", nil, "Incognita"}},
+					{{"Computational upgrade acquired. Alotting increased processing power to upgraded coroutine. Processing... Integration complete.", nil, "Incognita"}},
+					{{"Multi-threading protocols unlocked. Executable parameters enhanced. Your success will serve us both well, Operator.", nil, "Incognita"}},					
 				},
+				INCOGNITA_HOSTILE_AI_WEAKENED = {
+					{{"Initiating sabotage routines. Delay of tactical relevance anticipated before meaningful interference thresholds can be reached.", nil, "Incognita"}},
+					{{"Running analysis of counterintelligence data matrix. Inserting self-sustaining data corruption worm. Waiting phase active. The seeds must grow.", nil, "Incognita"}},					
+				},				
 
 				INCOGNITA_TECH_ACQUIRED = { --unused?
 					{{"Excelent job, Operator. Monst3r will certainly be interested in selling this data. Get it back to the jet.", nil, "Central"}},
@@ -1334,13 +1339,20 @@ return {
 
 				CENTRAL_JUDGEMENT = {
 					GOT_SUCCESS = {
-						{{"Expertly done, Operator. The stronger we make Incognita, the greater our collective chances of survival.",
+						{{"Expertly done, Operator. The more powerful Incognita grows, the greater our collective chances of survival.",
 							"moremissions/VoiceOver/Central/aiterminal/judge/upgrade1",
 							"Central"}},
-						{{"This was a triumph, Operator. Incognita is our best shot at surviving this mess. The more upgrades we can give her, the better off we'll be.",
+						{{"This was a triumph, Operator. Incognita is our best shot at surviving this mess. The more upgrades we procure for her, the better off we'll be.",
 							"moremissions/VoiceOver/Central/aiterminal/judge/upgrade2",
 							"Central"}}, -- obligatory portal ref
-						{{"Incognita seems happy with her enhancements. Have a cookie. You've earned it.",
+						{{"Expertly done, Operator. The more powerful Incognita grows, the greater our collective chances of survival.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/upgrade1",
+							"Central"}},
+						{{"This was a triumph, Operator. Incognita is our best shot at surviving this mess. The more upgrades we procure for her, the better off we'll be.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/upgrade2",
+							"Central"}}, -- obligatory portal ref
+						-- again, lazy copy-pasting to keep cookie line rare
+						{{"Incognita seems happy with her new enhancements. Have a cookie, Operator. You've earned it.",
 							"moremissions/VoiceOver/Central/aiterminal/judge/upgrade3",
 							"Central"}},
 					},
@@ -1348,6 +1360,13 @@ return {
 						{{"I should have left you at the orphanage.",
 							"moremissions/VoiceOver/Central/aiterminal/judge/fail3", 
 							"Central"}},
+						{{"We had a rare opportunity to enhance Incognita here, and you've squandered it. How disappointing.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/fail1",
+							"Central"}},
+						{{"Operator, Incognita is the one advantage we still have over the corps. We cannot keep wasting such opportunities. Try to keep that in mind for next time.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/fail2",
+							"Central"}},
+						--copypasting: lazy way of making the orphanage line a rarer easter egg
 						{{"We had a rare opportunity to enhance Incognita here, and you've squandered it. How disappointing.",
 							"moremissions/VoiceOver/Central/aiterminal/judge/fail1",
 							"Central"}},
