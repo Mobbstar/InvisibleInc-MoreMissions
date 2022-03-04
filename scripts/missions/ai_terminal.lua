@@ -738,8 +738,8 @@ local function upgradeIncognita( script, sim )
 		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED)], type="newOperatorMessage" } )
 	elseif sim:getTags().upgradedPrograms then
 		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED)], type="newOperatorMessage" } )
-	-- else
-		-- queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_TECH_ACQUIRED )	-- probably don't want this	
+	elseif sim:getTags().weakened_counterAI then
+		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_HOSTILE_AI_WEAKENED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_HOSTILE_AI_WEAKENED)], type="newOperatorMessage" } )
 	end
 	
 	--now for the security measures
