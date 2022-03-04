@@ -421,14 +421,17 @@ local prop_templates =
 				[8] = {
 					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.15},
 					KOgas = false,
+					KOgasTooltip = true,
 				},
 				[6] = {
 					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.35},
 					KOgas = true,
+					KOgasTooltip = true,
 				},
 				[2] = {
 					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.05},
 					KOgas = false,
+					KOgasTooltip = false,
 				},
 			}
 		}

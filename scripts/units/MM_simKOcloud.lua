@@ -46,16 +46,18 @@ local function updateSmoke( sim, targetCell, smokeRadius, self )
 	self._cells = self._cells or {}
 	self._vizcells = self._vizcells or {}
 
-	-- expand where possible
-	local cells = simquery.floodFill( sim, nil, targetCell, smokeRadius, simquery.getManhattanMoveCost, simquery.canPathBetween )
-	for i, cell in pairs(cells) do
-		if not array.find( self._cells, cell ) then
-			cell.KOgas = (cell.KOgas or 0) + 1
-			table.insert( self._cells, cell )
+	if self:getTraits().KOgasTooltip then
+		-- expand where possible
+		local cells = simquery.floodFill( sim, nil, targetCell, smokeRadius, simquery.getManhattanMoveCost, simquery.canPathBetween )
+		for i, cell in pairs(cells) do
+			if not array.find( self._cells, cell ) then
+				cell.KOgas = (cell.KOgas or 0) + 1
+				table.insert( self._cells, cell )
+			end
 		end
+	else
+		clearSmoke(self)
 	end
-
-	clearVizSmoke(self)
 
 	-- add visuals
 	-- local selfColor = self:getTraits().gasColor
