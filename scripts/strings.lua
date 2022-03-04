@@ -1321,7 +1321,7 @@ return {
 					{{"Multi-threading protocols unlocked. Executable parameters enhanced. Your success will serve us both well, Operator.", nil, "Incognita"}},					
 				},
 				INCOGNITA_HOSTILE_AI_WEAKENED = {
-					{{"Initiating sabotage routines. Delay of tactical relevance anticipated before meaningful interference thresholds can be reached.", nil, "Incognita"}},
+					{{"Initiating sabotage routines. Anticipating significant lag phase before meaningful interference thresholds can be reached.", nil, "Incognita"}},
 					{{"Running analysis of counterintelligence data matrix. Inserting self-sustaining data corruption worm. Waiting phase active. The seeds must grow.", nil, "Incognita"}},					
 				},				
 
