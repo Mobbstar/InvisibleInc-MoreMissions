@@ -735,9 +735,9 @@ local function upgradeIncognita( script, sim )
 	script:queue( 1*cdefs.SECONDS )
 	sim:removeObjective( "upgrade_incognita2" )
 	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
-		queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED )
+		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED)], type="newOperatorMessage" } )
 	elseif sim:getTags().upgradedPrograms then
-		queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED )
+		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED)], type="newOperatorMessage" } )
 	-- else
 		-- queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_TECH_ACQUIRED )	-- probably don't want this	
 	end
