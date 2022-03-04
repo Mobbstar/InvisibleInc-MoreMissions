@@ -33,8 +33,9 @@ end
 local processEMP_old = simunit.processEMP
 simunit.processEMP = function( self, bootTime, noEmpFX, ... )
 	processEMP_old( self, bootTime, noEmpFX, ... )
-	if self:getTraits().witness then
+	if self:getTraits().witness and self:getTraits().mainframe_item then
 		self:getTraits().witness = nil
+		sim:triggerEvent("MM_processed_EMP_on_witness")
 		local x0, y0 = self:getLocation()
 		if x0 and y0 then
 			self._sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
@@ -129,6 +130,7 @@ simdrone.processEMP = function(self, empTime, noEmpFx, noAttack)
 	simdrone_processEMP_old(self, empTime, noEmpFx, noAttack)
 	if self:getTraits().witness then
 		self:getTraits().witness = nil
+		sim:triggerEvent("MM_processed_EMP_on_witness")
 		local x0, y0 = self:getLocation()
 		if x0 and y0 then
 			self._sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )

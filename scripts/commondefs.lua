@@ -28,6 +28,9 @@ local function onMainframeTooltip( tooltip, unit )
 		
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_TYPE, (STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_TYPE_DESC .. " " .. unit:getTraits().luxuryNanofab), itemType_icon)
 	end
+	if unit:getTraits().luxuryNanofab_console then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_CONSOLE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_CONSOLE_DESC, "gui/icons/arrow_small.png" )
+	end
 end
 
 local function onItemTooltip(tooltip, unit)
