@@ -21,7 +21,7 @@ return {
 		},
 
 	INGAME = {
-		OPERATOR_OPEN = {
+		OPERATOR_OPEN = {--unused
 			{{"Alright, you're in. Their automated system is beginning to track you, so time is not on your side.\nFind the courier, and get out.",
 				nil, 
 				"Central" }},
@@ -44,17 +44,17 @@ return {
 				"Central" }},
 		},
 		OPERATOR_ESCAPE = {
-			{{"Good job, team. We should be able to stabilize him in the jet.", -- here was helicopter originally
-				nil, 
+			{{"Good job, team. We should be able to stabilize him in the jet. I'm sure his contractor will be rather thankful.", -- here was helicopter originally
+				"SpySociety/VoiceOver/Missions/Hostage/Operator_GoodJob", 
 				"Central"}},
 		},
-		DEATH_IMMINENT = {
+		CENTRAL_PASSOUT_WARNING = {
 			{{"We are running out of time, Operator. If you don't get the courier out soon, we'll have one very displeased client on our hands, and no hopes of scavenging the data.",
 				"moremissions/VoiceOver/Central/courierrescue/urgent", 
 				"Central"}},
 		},
-		CENTRAL_PASS_OUT = {
-			{{"What part of 'quickly' did you misunderstand? Get to the elevator.",
+		CENTRAL_HOSTAGE_PASSEDOUT = {
+			{{"What part of 'quickly' did you misunderstand? Get the team to the extraction point. What a waste.",
 				"moremissions/VoiceOver/Central/courierrescue/timeout", 
 				"Central" }},
 		},
@@ -81,7 +81,7 @@ return {
 
 		CENTRAL_JUDGEMENT = {
 			COURIER_MIA = {
-				{{"Your mission was to bring back that cerebral implant and the asset who carries it, not let them fall back into enemy hands. What can I say, Operator? You had better improve your performance, and fast.",
+				{{"Your mission was to bring back that cerebral implant and the asset who carries it, not let them fall back into enemy hands. You had better improve your performance, and fast.",
 					"moremissions/VoiceOver/Central/courierrescue/judge/fail1", 
 					"Central"}},
 				{{"You are trying my patience, Operator. It's not every day we get the chance to pick the brain of a data courier. Would you like to be the one to explain this failure to our client?",
@@ -142,6 +142,7 @@ return {
 			"The probes! They can see your dreams.",
 			"My head hurts. Like, really hurts.",
 			"Do you smell that?",
+			"", --lazy fix
 		},
 	
 		HOSTAGE_PASS_OUT = "Something's wrong. Oh God, something's wrong!",
