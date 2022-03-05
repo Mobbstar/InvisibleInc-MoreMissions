@@ -10,7 +10,7 @@ include makeconfig.mk
 
 .PHONY: build
 
-build: out/scripts.zip out/gui.kwad out/moremissions_anims.kwad out/modinfo.txt
+build: out/scripts.zip out/gui.kwad out/moremissions_anims.kwad out/sound.kwad out/modinfo.txt
 
 install: build
 	mkdir -p $(INSTALL_PATH)
@@ -19,6 +19,7 @@ install: build
 	cp out/scripts.zip $(INSTALL_PATH)/
 	cp out/gui.kwad $(INSTALL_PATH)/
 	cp out/moremissions_anims.kwad $(INSTALL_PATH)/
+	cp out/sound.kwad $(INSTALL_PATH)/
 	cp pedler_oil.kwad $(INSTALL_PATH)/
 ifneq ($(INSTALL_PATH2),)
 	mkdir -p $(INSTALL_PATH2)
@@ -28,6 +29,7 @@ ifneq ($(INSTALL_PATH2),)
 	cp pedler_oil.kwad $(INSTALL_PATH2)/
 	cp out/gui.kwad $(INSTALL_PATH2)/
 	cp out/moremissions_anims.kwad $(INSTALL_PATH2)/
+	cp out/sound.kwad $(INSTALL_PATH2)/
 endif
 
 rar: build
@@ -47,11 +49,17 @@ rar: build
 #
 
 anims := $(patsubst %.anim.d,%.anim,$(shell find anims -type d -name "*.anim.d"))
+# Omit "menu pages" folder. Make doesn't support spaces in filenames
+guis := $(shell find gui -type f -name "*.lua") \
+        $(shell find gui -not -path "gui/images/gui/menu pages/*" -type f -name "*.png" )
+sounds := $(shell find sound -type f -name "*.fdp") \
+          $(shell find sound -type f -name "*.fev") \
+					$(shell find sound -type f -name "*.fsb")
 
 $(anims): %.anim: $(wildcard %.anim.d/*.xml $.anim.d/*.png)
 	cd $*.anim.d && zip ../$(notdir $@) *.xml *.png
 
-out/gui.kwad out/moremissions_anims.kwad: $(anims)
+out/gui.kwad out/moremissions_anims.kwad out/sound.kwad: $(anims) $(guis) $(sounds)
 	mkdir -p out
 	$(KWAD_BUILDER) -i build.lua -o out
 
