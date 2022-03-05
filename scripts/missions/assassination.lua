@@ -28,6 +28,14 @@ end
 
 ----
 -- Trigger Definitions
+
+-- Like mission_util.PC_ANY, but after the action completes instead of before.
+-- Allows triggering before returning to player control.
+local PC_AFTER_ANY =
+{
+	action = "", -- Any action
+}
+
 --interest triggers so bodyguard can investigate instead VIP
 local DECOY_REVEALED = 
 {
@@ -777,7 +785,7 @@ local function despawnDecoy( script, sim )
 	end
 	
 	script:queue( { type="hideHUDInstruction" } ) 
-	script:waitFor( mission_util.PC_ANY )
+	script:waitFor( mission_util.PC_ANY, PC_AFTER_ANY )
 	sim:warpUnit( decoyUnit, nil ) -- remove the original
 	sim:despawnUnit( decoyUnit ) 
 	

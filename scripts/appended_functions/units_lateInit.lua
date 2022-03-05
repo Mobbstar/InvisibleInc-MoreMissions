@@ -8,6 +8,8 @@ local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 
+local assassination_mission = include( SCRIPT_PATHS.more_missions .. "/missions/assassination" )
+
 -- SIMUNIT ------------------------------------------------
 -- setAlerted edit to allow un-alerting for Amnesiac function
 local simunit = include("sim/simunit")
