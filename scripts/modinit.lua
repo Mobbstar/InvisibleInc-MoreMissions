@@ -73,8 +73,8 @@ local function init( modApi )
 	modApi:addGenerationOption("MM_easy_mode",  STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE , STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE_TIP, {enabled = false, noUpdate=true, difficulties = {{simdefs.NORMAL_DIFFICULTY, true}} } )
 
 	-- patch automatic tracker
-	include( scriptPath .. "/appended_functions/aiplayer" )
-
+	include( scriptPath .. "/appended_functions/simplayer" )
+	
 	--cannot set display string... local variable only -M
 	table.insert(modApi.mod_manager.credit_sources, "assassinationreward")
 
