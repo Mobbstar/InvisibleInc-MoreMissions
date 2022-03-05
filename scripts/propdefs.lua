@@ -334,7 +334,7 @@ local prop_templates =
 	{
 		type = "item_disguise",
 		name = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE,
-		desc = STRINGS.ITEMS.HOLO_MESH_TOOLTIP,
+		desc = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE_TIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE_FLAVOR,
 		icon = "itemrigs/disk.png",		
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_holomesh_Prism.png",
