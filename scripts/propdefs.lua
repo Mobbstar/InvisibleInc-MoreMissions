@@ -334,14 +334,14 @@ local prop_templates =
 	{
 		type = "item_disguise",
 		name = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE,
-		desc = STRINGS.ITEMS.HOLO_MESH_TOOLTIP,
+		desc = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE_TIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE_FLAVOR,
 		icon = "itemrigs/disk.png",		
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_holomesh_Prism.png",
     	profile_icon_100 = "gui/icons/item_icons/icon-item_holomesh_Prism.png",		
     	abilities = { "carryable" , "disguise" },
     	value = 500,
-    	traits = {  scan_vulnerable=true, cooldown = 0, cooldownMax = 5, disguise_duration = 1, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}, drop_dropdisguise=true },	
+    	traits = {  cantdrop = true, pickupOnly="INFORMANT", scan_vulnerable=true, cooldown = 0, cooldownMax = 5, disguise_duration = 1, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}, drop_dropdisguise=true },	
 	},
 	
 	-- AI TERMINAL
