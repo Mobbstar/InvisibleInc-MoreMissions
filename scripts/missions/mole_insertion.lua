@@ -63,6 +63,14 @@ local function queueCentral(script, scripts) --really informative huh
 	end	
 end
 
+local function JetEscapeReminder(sim, script) --run this once after the first time informant gets spotted and default lines play
+	if not sim:getTags().MM_mole_escape_reminder then
+		local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_INTERJECTION
+		script:queue( 1.5 * cdefs.SECONDS )
+		queueCentral( script, scripts )
+		sim:getTags().MM_mole_escape_reminder = true
+	end
+end
 
 local STARTED_DBHACK = 
 {
@@ -283,6 +291,7 @@ local function guardWitnessesAgent(script, sim)
 				local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_DRONE
 				script:queue( 2 * cdefs.SECONDS )
 				queueCentral( script, scripts )
+				JetEscapeReminder( sim, script )
 				
 			end
 		else
@@ -291,6 +300,7 @@ local function guardWitnessesAgent(script, sim)
 				local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_GUARD
 				script:queue( 2 * cdefs.SECONDS )
 				queueCentral( script, scripts )
+				JetEscapeReminder(sim, script)
 			end
 		end
 		
@@ -316,6 +326,7 @@ local function cameraWitnessesAgent(script, sim)
 			local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_CAMERA
 			script:queue( 2 * cdefs.SECONDS )
 			queueCentral( script, scripts )
+			JetEscapeReminder( sim, script )
 		end
 		seer:createTab( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.WITNESS_DETECTED, "" ) -- keep this for now even though it's inconsistent with the lack of tab on moving witnesses
 
