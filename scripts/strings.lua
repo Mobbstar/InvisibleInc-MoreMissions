@@ -1173,10 +1173,9 @@ return {
 					{{"Operator, our informant is as good as dead unless we secure their cover. If anyone sees them before they leave, make sure to clean up those loose ends.",
 						"moremissions/VoiceOver/Central/informant/seen_1p",
 						"Central"}},
-					{{"And by \"clean up\", she means...",nil,"Monster"}},
-					{{"Not necessarily. If you can find a non-lethal solution, use it. The informant should have some equipment on them for that.",
-						"moremissions/VoiceOver/Central/informant/seen_2p",
-						"Central"}},
+					-- {{"And by \"clean up\", she means...",nil,"Monster"}},
+					-- {{"Not necessarily. If you can find a non-lethal solution, use it. The informant should have some equipment on them for that.",						"moremissions/VoiceOver/Central/informant/seen_2p", "Central"}},
+					{{"If you can find a non-lethal solution, use it. The informant should have some equipment on them for that.",						"moremissions/VoiceOver/Central/informant/seen_2p", "Central"}}, --NEED TO EDIT FILE
 					},
 				MOLE_SEEN_BY_CAMERA = {
 					{{"You'll want to take care of any cameras that caught a glimpse of our Informant. Their visual feeds are synched to the nearest Camera Database.",nil,"Monster"}},
