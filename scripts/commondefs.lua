@@ -58,6 +58,7 @@ local function onAgentTooltip(tooltip, unit)
 	end
 	if unit:getTraits().MM_mole then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN_DESC, "gui/icons/item_icons/items_icon_small/icon-item_heart_monitor_small.png" )
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_JET_ESCAPE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_JET_ESCAPE_DESC, "gui/actions/escape1.png" )
 	end
 	if not unit:getTraits().canKO and unit:isPC() then
 		tooltip:addAbility( STRINGS.UI.TOOLTIPS.KO_IMMUNE, STRINGS.UI.TOOLTIPS.KO_IMMUNE_DESC, "gui/icons/arrow_small.png" )
