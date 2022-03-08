@@ -799,6 +799,8 @@ return {
 			IMPAIRED_VISION_DESC = "This unit's vision range is reduced.",
 			MOLE_CIVILIAN = "FRAGILE",--"CIVILIAN",
 			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
+			MOLE_JET_ESCAPE = "FLEXIBLE EXTRACTION",
+			MOLE_JET_ESCAPE_DESC = "Escaping with this unit to the jet will fail the objective, but put another Informant Rendezvous mission on the map.",
 
 			BOSSUNIT = "Opportunity Target",
 			BOSSUNIT_DESC = "Bring this unit to the jet for interrogation. Reduces guard armor for the next 2 missions.",			
@@ -1163,6 +1165,9 @@ return {
 							"Central"}},
 						{{"I suppose this particular death is on me. I put them in touch with you, after all.",nil,"Monster"}},
 					},
+				},
+				MOLE_SEEN_INTERJECTION = { --should play dynamically after the first time mole is spotted, no matter who spots them
+					{{"Bear in mind, there's no shame in walking away from this if things go sideways. Get my freelancer safely back to your jet, and we can give this another go at a different facility.", nil, "Monster"}},
 				},
 				MOLE_SEEN_BY_GUARD = {
 					{{"Operator, our informant is as good as dead unless we secure their cover. If anyone sees them before they leave, make sure to clean up those loose ends.",
