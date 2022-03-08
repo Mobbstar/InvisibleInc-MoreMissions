@@ -297,7 +297,7 @@ local function spawnCeoWeapon( sim )
 end
 
 local function initCeoTraits( sim )
-	local ceo = mission_util.findUnitByTag( sim, "assassination" )
+	local ceo = mission_util.findUnitByTag( sim, "assassination_real" )
 
 	-- CEO is allowed to walk in and out of the saferoom
 	if ceo:getTraits().npcPassiveKeybits then
