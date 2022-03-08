@@ -1167,7 +1167,7 @@ return {
 					},
 				},
 				MOLE_SEEN_INTERJECTION = { --should play dynamically after the first time mole is spotted, no matter who spots them
-					{{"Bear in mind, there's no shame in walking away from this if things go sideways. Get my freelancer safely back to your jet, and we can give this another go at a different facility.", nil, "Monster"}},
+					{{"Bear in mind, there's no shame in walking away from this job if it goes belly-up. Get my freelancer safely back to your jet, and we can give this another go at a different facility.", nil, "Monster"}},
 				},
 				MOLE_SEEN_BY_GUARD = {
 					{{"Operator, our informant is as good as dead unless we secure their cover. If anyone sees them before they leave, make sure to clean up those loose ends.",
