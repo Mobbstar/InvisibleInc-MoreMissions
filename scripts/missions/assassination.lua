@@ -969,7 +969,7 @@ function mission:init( scriptMgr, sim )
 	tryDecoy( sim )
 	activateCam( sim )
 	-- Base credit value for a successful kill
-	self.BOUNTY_VALUE = 1000
+	self.BOUNTY_VALUE = 1500
 
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_FIND, "find" )
 	spawnCeoWeapon( sim )
