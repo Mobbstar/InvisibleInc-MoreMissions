@@ -308,6 +308,14 @@ local function initCeoTraits( sim )
 
 	-- No penalty for killing this one.
 	ceo:getTraits().cleanup = nil
+	
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+		local bodyguard = mission_util.findUnitByTag( sim, "bodyguard" )
+		bodyguard:getTraits().woundsMax = 1
+		bodyguard:getTraits().MM_alertlink = nil
+		
+		ceo:getTraits().MM_alertlink = nil
+	end
 end
 
 -- Alert the CEO
@@ -316,7 +324,7 @@ local function doAlertCeo( sim, fromBodyguard, mission )
 	local ceoreal = safeFindUnitByTag( sim, "assassination_real" )
 	local ceos = { ceofake, ceoreal }
 	for i, ceo in pairs(ceos) do
-		if ceo and ceo:isValid() and not ceo:isDown() and not ceo:getTraits().iscorpse and not ceo:isAlerted() then
+		if ceo and ceo:isValid() and ceo:getTraits().MM_alertlink and not ceo:isDown() and not ceo:getTraits().iscorpse and not ceo:isAlerted() then
 			ceo:getTraits().MM_alertlink = nil --for tooltip
 			if fromBodyguard then
 				-- Don't send alerts back and forth
@@ -342,7 +350,7 @@ local function doAlertBodyguard( sim, ceo, mission )
 	if bodyguard then
 		bodyguard:getTraits().MM_alertlink = nil
 	end
-	if x and y and ceo then
+	if x and y and ceo and ceo:getTraits().MM_alertlink then
 		if bodyguard and bodyguard:isValid() and bodyguard:getBrain() and not bodyguard:isDown() then
 			-- Send the bodyguard to the CEO
 			-- Brain:spawnInterest: Create a remembered interest
@@ -973,7 +981,7 @@ function mission:init( scriptMgr, sim )
 
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_FIND, "find" )
 	spawnCeoWeapon( sim )
-	initCeoTraits( sim )
+	initCeoTraits( sim ) --includes Easy Mode nerfing
 
 	sim.exit_warning = function() return exitWarning(self) end
 
