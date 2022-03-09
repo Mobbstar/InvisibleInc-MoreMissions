@@ -263,6 +263,8 @@ local function boost_firewalls(script, sim)
 	if not sim.MM_security_disabled then
 		if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
 			ice_boost = 1
+		else
+			ice_boost = 2
 		end
 		sim:dispatchEvent( simdefs.EV_SHOW_WARNING, {txt=STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_FIREWALLS, color=cdefs.COLOR_CORP_WARNING, sound = "SpySociety/Actions/mainframe_deterrent_action" } )
 		for i, unit in pairs(sim:getAllUnits()) do
