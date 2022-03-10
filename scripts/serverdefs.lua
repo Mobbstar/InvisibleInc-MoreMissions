@@ -21,7 +21,7 @@ local SITUATIONS =
 --		},
 --	},
 
--- Note: see modinit, default weight for all missions including vanilla ones is 100! so we can set custom missions to have more or less weight than that.
+-- Note: see appended_functions/serverdefs, all mission weights are multiplied with 100 (and set to 1 first if nil). Choose situation code doesn't accept weights under 1, but this lets us make situations either more or less common than default.
 	assassination =
 	{
         ui = {
@@ -29,7 +29,7 @@ local SITUATIONS =
 			icon = "gui/icons/mission_icons/mission_assassination_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL ),
 		},
-		-- weight = 100,
+		-- weight = 1,
 	},
 --	landfill =
 --	{
@@ -64,7 +64,7 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY),
 		},
-		weight = 70, 
+		weight = 0.7, --Weights <1 do NOT work without this mod's extra changes to serverdefs.chooseSituation
 	},
 	
 	mole_insertion =
@@ -85,7 +85,7 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE_SECONDARY),
 		},
-		weight = 80, -- 80% as common as default
+		weight = 0.8, -- 80% as common as default
 	},			
 }
 

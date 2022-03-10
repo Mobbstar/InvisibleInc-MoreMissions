@@ -15,8 +15,9 @@ local serverdefs_chooseSituation_old = serverdefs.chooseSituation
 serverdefs.chooseSituation = function( campaign, tags, gen, ... )
 	for name, situationData in pairs( serverdefs.SITUATIONS ) do
 		if situationData.weight == nil then
-			situationData.weight = 100
+			situationData.weight = 1
 		end
+		situationData.weight = situationData.weight * 100
 	end
 	return serverdefs_chooseSituation_old( campaign, tags, gen, ... )
 end

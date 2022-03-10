@@ -63,6 +63,14 @@ local function queueCentral(script, scripts) --really informative huh
 	end	
 end
 
+local function JetEscapeReminder(sim, script) --run this once after the first time informant gets spotted and default lines play
+	if not sim:getTags().MM_mole_escape_reminder then
+		local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_INTERJECTION
+		script:queue( 1 * cdefs.SECONDS )
+		queueCentral( script, scripts )
+		sim:getTags().MM_mole_escape_reminder = true
+	end
+end
 
 local STARTED_DBHACK = 
 {
@@ -283,6 +291,7 @@ local function guardWitnessesAgent(script, sim)
 				local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_DRONE
 				script:queue( 2 * cdefs.SECONDS )
 				queueCentral( script, scripts )
+				-- JetEscapeReminder( sim, script )
 				
 			end
 		else
@@ -291,6 +300,7 @@ local function guardWitnessesAgent(script, sim)
 				local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_GUARD
 				script:queue( 2 * cdefs.SECONDS )
 				queueCentral( script, scripts )
+				JetEscapeReminder(sim, script)
 			end
 		end
 		
@@ -316,6 +326,7 @@ local function cameraWitnessesAgent(script, sim)
 			local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_CAMERA
 			script:queue( 2 * cdefs.SECONDS )
 			queueCentral( script, scripts )
+			-- JetEscapeReminder( sim, script )
 		end
 		seer:createTab( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.WITNESS_DETECTED, "" ) -- keep this for now even though it's inconsistent with the lack of tab on moving witnesses
 
@@ -474,15 +485,18 @@ local function DBhack( script, sim )
 		for i, agent in pairs( pcplayer:getUnits() ) do 
 			if agent:getTraits().monster_hacking and agent:getTraits().MM_mole then
 				local database = sim:getUnit(agent:getTraits().monster_hacking)
+				mole = agent
 				progressDBhack(sim, database, mole, script)
 				sim:incrementTimedObjective( "hack_personnel_DB" )
 				progress = progress + 1
+				
 				if (progress == 1) then
-					mole = agent
-					-- if progress > 0 then
-						local x2,y2 = mole:getLocation()
-						sim:getNPC():spawnInterest(x2,y2, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, mole) --keep spawning interest for duration of hack
-					-- end
+					if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
+						-- if progress > 0 then
+							local x2,y2 = mole:getLocation()
+							sim:getNPC():spawnInterest(x2,y2, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, mole) --keep spawning interest for duration of hack
+						-- end
+					end
 				end				
 				if progress == 3 then
 					activateCamera(script, sim)
@@ -622,8 +636,12 @@ local function moleMission( script, sim )
 	queueCentral( script, scripts )
 	sim:removeObjective( "findDB" )
 	-- log:write("LOG pc saw db")
-	
-	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.HACK_DB, "hack_personnel_DB", 5 )
+	local turnsToHack = 5
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+		turnsToHack = 4
+		hackConsole:getTraits().MMprogressMax = 4
+	end
+	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.HACK_DB, "hack_personnel_DB", turnsToHack )
 	script:waitFor( STARTED_DBHACK )
 	script:addHook( DBhack )
 	script:waitFor( FINISHED_DBHACK )
@@ -636,7 +654,6 @@ local function moleMission( script, sim )
 	scripts = SCRIPTS.INGAME.MOLE_INSERTION.FINISHED_DB_HACK
 	script:queue( 1*cdefs.SECONDS )
 	queueCentral( script, scripts )
-	
 	script:addHook( investigateMole )
 	script:addHook( seeGuardExit )
 	script:waitFor( MOLE_ESCAPED_GUARD_ELEVATOR )	
@@ -671,7 +688,7 @@ local function spawnEliteGuard( sim ) --spawns a high-tier stationary guard at t
 		end
 	end
 
-	if (sim:getParams().difficultyOptions.MM_difficulty == nil) or sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
+	-- if (sim:getParams().difficultyOptions.MM_difficulty == nil) or sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
 	
 		local isHumanGuard = false
 		local guardTemplate = unitdefs.lookupTemplate( "important_guard" )
@@ -714,7 +731,7 @@ local function spawnEliteGuard( sim ) --spawns a high-tier stationary guard at t
 		newGuard:setFacing(facing)
 		sim:warpUnit( newGuard, door_cell )
 		sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newGuard } )
-	end
+	-- end
 end
 ----------------
 local function despawnRedundantCameraDB(sim)
