@@ -51,6 +51,7 @@ local function runAppend( modApi )
 			sim:dispatchEvent( simdefs.EV_UNIT_MELEE, { unit = unit, targetUnit = targetUnit, grapple = false, pinning = pinning, lethal = true} )	
 			assassination_mission.revealDecoy( sim, targetUnit, true )
 			-- sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR_PST, { unitID = unit:getID(), facing = facing } )	
+			unit:useAP( sim )
 			return
 		end
 		return melee_executeOld( self, sim, unit, userUnit, target, ... )
