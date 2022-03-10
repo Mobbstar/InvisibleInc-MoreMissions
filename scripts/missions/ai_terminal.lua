@@ -691,12 +691,13 @@ local function makeSmoke( script, sim )
 	sim:warpUnit( KOcloud, cell )
 	script:queue( { type="pan", x=cell.x, y=cell.y, zoom=0.27 } )
 	queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.SMOKE_WARNING )
-	sim:getNPC():spawnInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, terminal) 
-	
-	script:waitFor( mission_util.PC_START_TURN )
-	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
-		script:waitFor( mission_util.PC_START_TURN )
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
+		sim:getNPC():spawnInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, terminal) 
 	end
+	script:waitFor( mission_util.PC_START_TURN )
+	-- if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+		-- script:waitFor( mission_util.PC_START_TURN )
+	-- end
 	
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().MM_incogRoom_unlock then
@@ -856,35 +857,37 @@ local function chooseUpgrades( sim )
 end
 
 local function spawnDaemons( sim )
-	local PROGRAM_LIST = serverdefs.PROGRAM_LIST
-	if sim:isVersion("0.17.5") then
-		PROGRAM_LIST = sim:getIcePrograms()
-	end		
-	local locks = {}
-	for i, unit in pairs(sim:getAllUnits()) do
-		if unit:hasAbility("MM_W93_incogRoom_unlock") then
-			table.insert(locks, unit)
-		end
-	end
-	local difficulty = sim:getParams().difficulty
-	--local num_daemons = difficulty
-	--if num_daemons > 4 then
-		--num_daemons = 4
-	--end
-	local num_daemons = 1 -- easy mode
-	
-	local ice_boosted = false
-	if difficulty > 1 then
-		for i, unit in pairs(locks) do
-			if not ice_boosted then
-				unit:getTraits().mainframe_ice = unit:getTraits().mainframe_ice + 2
-				ice_boosted = true
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
+		local PROGRAM_LIST = serverdefs.PROGRAM_LIST
+		if sim:isVersion("0.17.5") then
+			PROGRAM_LIST = sim:getIcePrograms()
+		end		
+		local locks = {}
+		for i, unit in pairs(sim:getAllUnits()) do
+			if unit:hasAbility("MM_W93_incogRoom_unlock") then
+				table.insert(locks, unit)
 			end
-			local daemon = PROGRAM_LIST:getChoice( sim:nextRand( 1, PROGRAM_LIST:getTotalWeight() ))
-			unit:getTraits().mainframe_program = daemon
-			num_daemons = num_daemons - 1
-			if num_daemons <= 0 then
-				break
+		end
+		local difficulty = sim:getParams().difficulty
+		--local num_daemons = difficulty
+		--if num_daemons > 4 then
+			--num_daemons = 4
+		--end
+		local num_daemons = 1 -- easy mode
+		
+		local ice_boosted = false
+		if difficulty > 1 then
+			for i, unit in pairs(locks) do
+				if not ice_boosted then
+					unit:getTraits().mainframe_ice = unit:getTraits().mainframe_ice + 2
+					ice_boosted = true
+				end
+				local daemon = PROGRAM_LIST:getChoice( sim:nextRand( 1, PROGRAM_LIST:getTotalWeight() ))
+				unit:getTraits().mainframe_program = daemon
+				num_daemons = num_daemons - 1
+				if num_daemons <= 0 then
+					break
+				end
 			end
 		end
 	end
