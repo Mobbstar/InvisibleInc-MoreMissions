@@ -438,10 +438,10 @@ end
 		
 local function specGooseEasterEgg( sim )
 	if not sim:getParams().agency.MM_techexpo_done or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance on first tech expo per campaign
-		log:write("LOG MM suppressing tech expo easter egg")
+		-- log:write("LOG MM suppressing tech expo easter egg")
 		return	
 	end
-	
+	log:write("LOG MM tech expo easter egg")
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().MM_droid_dummy and unit:getTraits().spec_droid then
 			local facing = unit:getFacing()
