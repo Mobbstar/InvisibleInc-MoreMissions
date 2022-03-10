@@ -52,7 +52,7 @@ return {
 		LANDFILL = "SALVAGING PLANT",
 		LANDFILL_TIP = "<c:FF8411>SALVAGING PLANT</c>\nProvides disliked items at heavy discounts. Similiar to Nanofab Vestibule.",
 		DISTRESSCALL = "DISTRESS CALL",
-		DISTRESSCALL_TIP = "<c:FF8411>DISTRESS CALL</c>\nProvides a chance at an agent and their gear but the alarm rises quickly.",
+		DISTRESSCALL_TIP = "<c:FF8411>DISTRESS CALL</c>\nProvides a chance at an agent and their gear, but the alarm rises quickly.",
 		WEAPONSEXPO = "TECH EXPO",
 		WEAPONSEXPO_TIP = "<c:FF8411>TECH EXPO</c>\nProvides powerful weapons protected by advanced security measures.",
 		MOLE_INSERTION = "INFORMANT RENDEZVOUS",
@@ -87,6 +87,7 @@ return {
 	
 	LOADING_TIPS = {
 		"MORE MISSIONS: Distress Call missions only appear briefly on the map. The CFO works late every night, but an agent is only on the run right now.",
+		"MORE MISSIONS: Read the tooltips carefully for any enemies and devices relevant to the new objectives.",
 		"MORE MISSIONS: Don't despair if you go into an Assassination mission unarmed. The facility offers more than one way to complete the job.",
 		"MORE MISSIONS: The Assassination bounty target is exempt from cleanup costs.",
 		"MORE MISSIONS: Enemy-controlled laser grids turn off if you drag an enemy through them. This comes in handy in more than one mission type.",
@@ -177,7 +178,7 @@ return {
 
 		EA_HOSTAGE =
 		{
-			NAME = "Johnny W.",
+			NAME = "Johnny Wique",
 		},
 		MOLE =
 		{
@@ -192,8 +193,9 @@ return {
 				FINAL_WORDS =
 				{
 					"Well, this was a wild ride.",
-					"This is all a huge mistake. Come on, I'll show you my ID...",
+					"This is all a huge misunderstanding. Come on, boys, I'll show you my ID...",
 					"I've got friends in high places. You sure you want to take that shot?",
+					"I suppose this is where my lucky streak ends.",
 				},
 			},
 		},
@@ -1231,7 +1233,7 @@ return {
 				},
 				CENTRAL_JUDGEMENT = {
 					MOLE_JET_ESCAPE = {
-					{{"We cannot afford to keep wasting our time like this, Operator. Luckily, we may just have a second shot at this. Make it count.", nil,"Central"}},
+					-- {{"We cannot afford to keep wasting our time like this, Operator. Luckily, we may just have a second shot at this. Make it count.", nil,"Central"}},
 					{{"We're no better off than when we started. There should be another infiltration target like this nearby. Don't force me to give you a third chance, Operator.",
 						"moremissions/VoiceOver/Central/informant/judge/abort2",
 						"Central"}},
@@ -1266,10 +1268,9 @@ return {
 					{{"We'll have advance intel on the next few infiltrations now. A shadow of our former prep work, but invaluable in these dire times. Excellent work.",
 						"moremissions/VoiceOver/Central/informant/judge/good2",
 						"Central"}},
-					{{"A difficult task well performed. The informant is in, and you made sure there were no witnesses. Nice work.",
+					{{"A difficult task well performed. The informant is in, and you've made sure there were no witnesses. Nice work.",
 						"moremissions/VoiceOver/Central/informant/judge/good3",
 						"Central"}},
-					{{"A difficult task well performed. The informant is in, and you've made sure there were no witnesses. Nice work.",nil,"Central"}},
 					},
 
 				},
