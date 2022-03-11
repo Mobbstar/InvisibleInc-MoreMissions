@@ -404,6 +404,9 @@ local function spawnMole( script, sim )
 	sim:warpUnit( newUnit, spawn_cell )
 	sim:dispatchEvent( simdefs.EV_TELEPORT, { units={newUnit}, warpOut =false } )
 	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newUnit } )
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+		newUnit:getTraits().mpMax = newUnit:getTraits().mpMax + 1
+	end
 	
 	--banter
 	local newOperative = newUnit
