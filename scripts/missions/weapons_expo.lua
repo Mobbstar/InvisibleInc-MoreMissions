@@ -350,8 +350,10 @@ local function MM_checkTopGearItem( script, sim )
     
 	sim:setClimax(true)
     script:waitFor( mission_util.UI_LOOT_CLOSED )
-    sim:removeObjective( OBJECTIVE_ID )    
-	sim:getNPC():addMainframeAbility( sim, "authority", nil, 0 ) --add Authority daemon (with no reversal) after first one looted
+    sim:removeObjective( OBJECTIVE_ID )
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then	
+		sim:getNPC():addMainframeAbility( sim, "authority", nil, 0 ) --add Authority daemon (with no reversal) after first one looted
+	end
     script:waitFrames( .5*cdefs.SECONDS )
 	sim.exit_warning = nil
 	androidFX(script,sim)
