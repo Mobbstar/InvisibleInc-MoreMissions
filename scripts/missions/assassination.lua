@@ -653,7 +653,7 @@ local function playerUnlocksSaferoom( script, sim )
 	end
 
 	-- Cannot waitFrames in response to a TRG_UNIT_WARP. The walking animation ends up looping in place
-	script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.DOOR_UNLOCKED ), type="newOperatorMessage" } )
+	-- script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.DOOR_UNLOCKED ), type="newOperatorMessage" } )
 end
 
 local function trackBodyguardDead( script, sim )
@@ -783,7 +783,7 @@ end
 
 local function bodyguardShotAt( script, sim )
 	local _, guard, agent = script:waitFor( BODYGUARD_SHOT_AT )
-	if guard:isValid() and guard:getLocation() then
+	if guard:isValid() and guard:getLocation() and not guard:isKO() then
 		if simquery.couldUnitSee( sim, guard, agent, true, nil ) then
 			guard:turnToFace( agent:getLocation() )
 		end
