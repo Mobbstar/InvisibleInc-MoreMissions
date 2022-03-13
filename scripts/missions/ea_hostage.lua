@@ -444,7 +444,7 @@ local function courier_guard_banter(script, sim)
 			text = STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.COURIER_INTERROGATE1,
 			anim = "portraits/portrait_animation_template",
 			build = "portraits/courier_face",
-			name = hostage:getUnitData().name,
+			name = STRINGS.MOREMISSIONS.AGENTS.EA_HOSTAGE.NAME,
 			timing = 5,
 			voice = nil,
 		}}			

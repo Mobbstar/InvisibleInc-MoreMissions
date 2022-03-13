@@ -419,17 +419,17 @@ local prop_templates =
 		traits = { radius = 4, lifetime = 8, noghost = true, 
 			stages = { -- these get applied by MM_simKOcloud.lua
 				[8] = {
-					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.15},
+					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.15}, --cosmetic: warning
 					KOgas = false,
 					KOgasTooltip = true,
 				},
-				[6] = {
+				[6] = { --knocks you out
 					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.35},
 					KOgas = true,
 					KOgasTooltip = true,
 				},
-				[2] = {
-					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.05},
+				[2] = { --dispersal
+					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.10},
 					KOgas = false,
 					KOgasTooltip = false,
 				},

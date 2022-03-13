@@ -52,7 +52,7 @@ return {
 		LANDFILL = "SALVAGING PLANT",
 		LANDFILL_TIP = "<c:FF8411>SALVAGING PLANT</c>\nProvides disliked items at heavy discounts. Similiar to Nanofab Vestibule.",
 		DISTRESSCALL = "DISTRESS CALL",
-		DISTRESSCALL_TIP = "<c:FF8411>DISTRESS CALL</c>\nProvides a chance at an agent and their gear but the alarm rises quickly.",
+		DISTRESSCALL_TIP = "<c:FF8411>DISTRESS CALL</c>\nProvides a chance at an agent and their gear, but the alarm rises quickly.",
 		WEAPONSEXPO = "TECH EXPO",
 		WEAPONSEXPO_TIP = "<c:FF8411>TECH EXPO</c>\nProvides powerful weapons protected by advanced security measures.",
 		MOLE_INSERTION = "INFORMANT RENDEZVOUS",
@@ -81,24 +81,26 @@ return {
 		SPAWNTABLE_DROIDS_DESC = "<c:FF8411>ADD NEW ENEMIES (EARLIEST DIFFICULTY)</c>\nUnique Tech Expo-only enemies may appear in other missions starting with this mission difficulty.",
 		SPAWNTABLE_DROIDS_VALUES = {"1","2","3","4","5","6","7","8","9","10","NEVER",},
 
-		EASY_MODE = "EASY MODE",
-		EASY_MODE_TIP = "<c:FF8411>EASY MODE</c>\nSome security measures in the custom missions are disabled or more forgiving.",
+		HARD_MODE = "HARD MODE",
+		HARD_MODE_TIP = "<c:FF8411>HARD MODE</c>\nCustom missions' security measures are more challenging. Intended for veteran players comfortable with Expert Plus.",
 	},
 	
 	LOADING_TIPS = {
 		"MORE MISSIONS: Distress Call missions only appear briefly on the map. The CFO works late every night, but an agent is only on the run right now.",
+		"MORE MISSIONS: Read the tooltips carefully for any enemies and devices relevant to the new objectives.",
 		"MORE MISSIONS: Don't despair if you go into an Assassination mission unarmed. The facility offers more than one way to complete the job.",
-		"MORE MISSIONS: Enemy-controlled laser grids turn off if you drag an enemy through them. This comes in handy in more than one mission.",
+		"MORE MISSIONS: The Assassination bounty target is exempt from cleanup costs.",
+		"MORE MISSIONS: Enemy-controlled laser grids turn off if you drag an enemy through them. This comes in handy in more than one mission type.",
 		"MORE MISSIONS: The Distress Call mission has a safe in it somewhere with the agent's equipment. If you're rescuing that agent for the first time, this means their starting gear.",
 		"MORE MISSIONS: The alarm level will advance twice as quickly in the Distress Call mission. You'll have to move fast to extract the detainee.",
 		"MORE MISSIONS: The Tech Expo offers great rewards at increasing risk. Try to manage your greed, or your campaign may end prematurely.",
 		"MORE MISSIONS: The tooltip for a Tech Expo exhibit will tell you what's inside. Only hack and open the cases with items you actually want.",
 		"MORE MISSIONS: The Relay Switches at a Tech Expo will disable the exhibit cases boosting each other's firewalls when broken. Skip this if you only plan to steal one or two items.",
 		"MORE MISSIONS: Unlike a Security Dispatch, a Tech Expo will have up to five items, most of them weapons. They are powerful but won't last long.",
-		"MORE MISSIONS: The AI Terminal lets you increase Incognita's slot size or upgrade a program you own.",
+		"MORE MISSIONS: The AI Terminal lets you increase Incognita's slot number, or upgrade a program you own.",
 		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt that corporation's Counterintelligence AI.",		
 		"MORE MISSIONS: It's a good idea to have leftover AP on your agents when you complete an objective. You may want to move them after the security measures kick in.",
-		"MORE MISSIONS: You can enable the mod's EASY MODE to make the new missions' security measures more forgiving.",
+		"MORE MISSIONS: You can enable the mod's HARD MODE to experience the full challenge of the security measures.",
 		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
 		"MORE MISSIONS: The Assassination target is marked as Paranoid, but is it paranoia if someone really is out to kill you?",
 		"MORE MISSIONS: A huge thank you to the voiceover fund contributors: <c:F47932>Cyberboy2000, jlaub, TornadoFive, Zorlock Darksoul, Dwarlen, amalloy,	Datsdabeat,	Mobbstar, Waldenburger,	alpacalypse, magnificentophat, Zaman, 	Alexander S., Datapuncher, Jeysie, Linenpixel, WMGreywind,  Puppetsquid, qoala, kalec.gos</>",
@@ -176,7 +178,7 @@ return {
 
 		EA_HOSTAGE =
 		{
-			NAME = "Johnny W.",
+			NAME = "Johnny Wique",
 		},
 		MOLE =
 		{
@@ -191,8 +193,9 @@ return {
 				FINAL_WORDS =
 				{
 					"Well, this was a wild ride.",
-					"This is all a huge mistake. Come on, I'll show you my ID...",
+					"This is all a huge misunderstanding. Come on, boys, I'll show you my ID...",
 					"I've got friends in high places. You sure you want to take that shot?",
+					"I suppose this is where my lucky streak ends.",
 				},
 			},
 		},
@@ -799,6 +802,8 @@ return {
 			IMPAIRED_VISION_DESC = "This unit's vision range is reduced.",
 			MOLE_CIVILIAN = "FRAGILE",--"CIVILIAN",
 			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
+			MOLE_JET_ESCAPE = "FLEXIBLE EXTRACTION",
+			MOLE_JET_ESCAPE_DESC = "Escaping with this unit to the jet will fail the objective, but put another Informant Rendezvous mission on the map.",
 
 			BOSSUNIT = "Opportunity Target",
 			BOSSUNIT_DESC = "Bring this unit to the jet for interrogation. Reduces guard armor for the next 2 missions.",			
@@ -1164,14 +1169,16 @@ return {
 						{{"I suppose this particular death is on me. I put them in touch with you, after all.",nil,"Monster"}},
 					},
 				},
+				MOLE_SEEN_INTERJECTION = { --should play dynamically after the first time mole is spotted, no matter who spots them
+					{{"Bear in mind, there's no shame in walking away from this job if it goes belly-up. Get my freelancer safely back to your jet, and we can give this another go at a different facility.", nil, "Monster"}},
+				},
 				MOLE_SEEN_BY_GUARD = {
 					{{"Operator, our informant is as good as dead unless we secure their cover. If anyone sees them before they leave, make sure to clean up those loose ends.",
 						"moremissions/VoiceOver/Central/informant/seen_1p",
 						"Central"}},
-					{{"And by \"clean up\", she means...",nil,"Monster"}},
-					{{"Not necessarily. If you can find a non-lethal solution, use it. The informant should have some equipment on them for that.",
-						"moremissions/VoiceOver/Central/informant/seen_2p",
-						"Central"}},
+					-- {{"And by \"clean up\", she means...",nil,"Monster"}},
+					-- {{"Not necessarily. If you can find a non-lethal solution, use it. The informant should have some equipment on them for that.",						"moremissions/VoiceOver/Central/informant/seen_2p", "Central"}},
+					{{"If you can find a non-lethal solution, use it. The informant should have some equipment on them for that.",						"moremissions/VoiceOver/Central/informant/seen_2p", "Central"}}, --NEED TO EDIT FILE
 					},
 				MOLE_SEEN_BY_CAMERA = {
 					{{"You'll want to take care of any cameras that caught a glimpse of our Informant. Their visual feeds are synched to the nearest Camera Database.",nil,"Monster"}},
@@ -1226,7 +1233,7 @@ return {
 				},
 				CENTRAL_JUDGEMENT = {
 					MOLE_JET_ESCAPE = {
-					{{"We cannot afford to keep wasting our time like this, Operator. Luckily, we may just have a second shot at this. Make it count.", nil,"Central"}},
+					-- {{"We cannot afford to keep wasting our time like this, Operator. Luckily, we may just have a second shot at this. Make it count.", nil,"Central"}},
 					{{"We're no better off than when we started. There should be another infiltration target like this nearby. Don't force me to give you a third chance, Operator.",
 						"moremissions/VoiceOver/Central/informant/judge/abort2",
 						"Central"}},
@@ -1261,10 +1268,9 @@ return {
 					{{"We'll have advance intel on the next few infiltrations now. A shadow of our former prep work, but invaluable in these dire times. Excellent work.",
 						"moremissions/VoiceOver/Central/informant/judge/good2",
 						"Central"}},
-					{{"A difficult task well performed. The informant is in, and you made sure there were no witnesses. Nice work.",
+					{{"A difficult task well performed. The informant is in, and you've made sure there were no witnesses. Nice work.",
 						"moremissions/VoiceOver/Central/informant/judge/good3",
 						"Central"}},
-					{{"A difficult task well performed. The informant is in, and you've made sure there were no witnesses. Nice work.",nil,"Central"}},
 					},
 
 				},

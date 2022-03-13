@@ -70,7 +70,7 @@ local function init( modApi )
 
 	modApi:addGenerationOption("MM_spawnTable_droids" , STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS, STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_DESC, {values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99999}, value=7, strings = STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_VALUES, noUpdate = true} )		
 	
-	modApi:addGenerationOption("MM_easy_mode",  STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE , STRINGS.MOREMISSIONS.OPTIONS.EASY_MODE_TIP, {enabled = false, noUpdate=true, difficulties = {{simdefs.NORMAL_DIFFICULTY, true}} } )
+	modApi:addGenerationOption("MM_hard_mode",  STRINGS.MOREMISSIONS.OPTIONS.HARD_MODE , STRINGS.MOREMISSIONS.OPTIONS.HARD_MODE_TIP, {enabled = false, noUpdate=true } )
 
 	-- patch automatic tracker
 	include( scriptPath .. "/appended_functions/simplayer" )
@@ -185,10 +185,10 @@ local function load( modApi, options, params )
 
 	if params then
 		params.mm_enabled = true
-		if options["MM_easy_mode"] and options["MM_easy_mode"].enabled then
-			params.MM_difficulty = "easy"
-		elseif options["MM_easy_mode"] and not options["MM_easy_mode"].enabled then
+		if (options["MM_hard_mode"] and options["MM_hard_mode"].enabled) or (options["MM_hard_mode"] == nil) then
 			params.MM_difficulty = "hard"
+		elseif options["MM_hard_mode"] and not options["MM_hard_mode"].enabled then
+			params.MM_difficulty = "easy"
 		end
 		if options["MM_exec_terminals"] and options["MM_exec_terminals"].enabled then
 			params.MM_exec_terminals = true

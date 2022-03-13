@@ -263,6 +263,8 @@ local function boost_firewalls(script, sim)
 	if not sim.MM_security_disabled then
 		if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
 			ice_boost = 1
+		else
+			ice_boost = 2
 		end
 		sim:dispatchEvent( simdefs.EV_SHOW_WARNING, {txt=STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_FIREWALLS, color=cdefs.COLOR_CORP_WARNING, sound = "SpySociety/Actions/mainframe_deterrent_action" } )
 		for i, unit in pairs(sim:getAllUnits()) do
@@ -436,10 +438,10 @@ end
 		
 local function specGooseEasterEgg( sim )
 	if not sim:getParams().agency.MM_techexpo_done or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance on first tech expo per campaign
-		log:write("LOG MM suppressing tech expo easter egg")
+		-- log:write("LOG MM suppressing tech expo easter egg")
 		return	
 	end
-	
+	log:write("LOG MM tech expo easter egg")
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().MM_droid_dummy and unit:getTraits().spec_droid then
 			local facing = unit:getFacing()
