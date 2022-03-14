@@ -37,6 +37,7 @@ local npc_abilities =
 		icon = "gui/icons/UI_icons/icon_program_moleBonus.png",--icon
 		title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_NAME,
 		noDaemonReversal = true,
+		standardDaemon = false,
 		bonus_type = "",
 		missionsLeft = 0,
 
@@ -69,6 +70,7 @@ local npc_abilities =
 	{
 		icon = "gui/icons/UI_icons/icon_program_moleWitness.png",--icon
 		title = "",
+		standardDaemon = false,
 		
 		onTooltip = function( self, hud, sim, player )
             local tooltip = util.tooltip( hud._screen )
