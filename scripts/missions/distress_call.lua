@@ -202,7 +202,7 @@ end
 ]]
 
 local function checkGuard( unit )
-	return unit and unit:getTraits().isGuard and not unit:isKO()
+	return unit and unit:getTraits().isGuard and not unit:isKO() and not unit:getTraits().pacifist
 end
 
 local function makeGuardInvestigate( script, sim )

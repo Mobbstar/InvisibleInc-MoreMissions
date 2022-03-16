@@ -137,9 +137,13 @@ local function lateInit( modApi )
 	include( scriptPath .. "/appended_functions/abilities/icebreak")
 	include( scriptPath .. "/appended_functions/abilities/useInvisiCloak")
 	include( scriptPath .. "/appended_functions/abilities/use_stim")	
+	include( scriptPath .. "/appended_functions/abilities/observePath")
 	
 	include( scriptPath .. "/appended_functions/engine_lateInit")
-	include( scriptPath .. "/appended_functions/worldgen")
+	local worldgen_append = include( scriptPath .. "/appended_functions/worldgen")
+	worldgen_append.runAppend()
+	
+	include( scriptPath .. "/appended_functions/state-map-screen") --for Informant map screen UI
 	
 end
 
@@ -284,6 +288,8 @@ local function load( modApi, options, params )
 	modApi:addAbilityDef( "MM_renameDrone", scriptPath .. "/abilities/MM_renameDrone" )
 	modApi:addAbilityDef( "MM_activateLuxuryNanofab", scriptPath .. "/abilities/MM_activateLuxuryNanofab" )
 	modApi:addAbilityDef( "MM_summonGuard", scriptPath .. "/abilities/MM_summonGuard" )
+	modApi:addAbilityDef( "MM_surveyor", scriptPath .. "/abilities/MM_surveyor" )
+	modApi:addAbilityDef( "MM_ce_ultrasonic_echolocation_passive", scriptPath .. "/abilities/MM_ce_ultrasonic_echolocation_passive" )
 
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )

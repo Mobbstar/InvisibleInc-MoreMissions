@@ -653,6 +653,24 @@ local tool_templates =
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_generic_arm_small.png",
     	profile_icon_100 = "gui/icons/item_icons/icon-item_generic_arm.png",
 	},
+	
+	--------NPC
+	item_spiderdrone_zapgun = util.extend( commondefs.npc_weapon_template )
+	{
+		name = STRINGS.ITEMS.DRONE_TURRET,
+		desc = STRINGS.ITEMS.DRONE_TURRET_TOOLTIP,
+		flavor = STRINGS.ITEMS.DRONE_TURRET_FLAVOR,
+		icon = "itemrigs/FloorProp_Pistol.png",		
+		--profile_icon = "gui/items/item_pistol_56.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_gun_pistol_small.png",	
+		profile_icon_100 = "gui/icons/item_icons/icon-item_gun_pistol.png",	
+		equipped_icon = "gui/items/equipped_pistol.png",
+		traits = { weaponType="pistol", baseDamage = 2, canSleep = true, },
+		-- sounds = {shoot="SpySociety/Weapons/LowBore/shoot_handgun", reload="SpySociety/Weapons/LowBore/reload_handgun", use="SpySociety/Actions/item_pickup"},
+		sounds = {shoot="SpySociety/HitResponse/hitby_tazer_flesh", reload="SpySociety/Weapons/LowBore/reload_handgun", use="SpySociety/Actions/item_pickup"},
+		weapon_anim = "kanim_light_revolver",
+		agent_anim = "anims_1h",
+	},	
 }
 
 return tool_templates

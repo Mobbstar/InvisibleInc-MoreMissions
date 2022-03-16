@@ -122,6 +122,18 @@ local function onGuardTooltip(tooltip, unit)
 	if unit:getTraits().MM_refitDroneRescue then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.OPPORTUNITY_ALLY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.OPPORTUNITY_ALLY_DESC,  "gui/icons/item_icons/items_icon_small/icon-item_heart.png" )	
 	end
+	if unit:getTraits().MM_noticesHidden then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.INFRARED_SENSORS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.INFRARED_SENSORS_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action_infrared.png" )
+	end
+	if unit:getTraits().idle_scanning then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.IDLE_SCAN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.IDLE_SCAN_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action-idle_scan.png" )	
+	end
+	if unit:getTraits().stationaryRotating then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.SURVEYOR, STRINGS.MOREMISSIONS.UI.TOOLTIPS.SURVEYOR_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action_surveyor.png" )
+	end
+	if unit:getTraits().zap_attack then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.ZAP_ATTACK, STRINGS.MOREMISSIONS.UI.TOOLTIPS.ZAP_ATTACK_DESC, "gui/icons/item_icons/items_icon_small/icon-item_chargeweapon_small.png" )
+	end	
 end
 
 local function onItemWorldTooltip( tooltip, unit )

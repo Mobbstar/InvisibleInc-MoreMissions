@@ -8,8 +8,6 @@ function generateTechExpoGear()
 	local itemdefs = include("sim/unitdefs/itemdefs")
 	local itemList = util.tcopy(itemdefs)
 	for k,v in pairs(itemList) do
-		-- if ((v.floorWeight or 0) > 1 )
-		-- and ((v.value or 0) > 800) -- tier 3 weapons and up
 		if ((v.floorWeight or 0) > 1 )
 		and ((v.value or 0) >= 700)		 --will include tier 2 weapons and up
 		and (v.traits.damage or v.traits.baseDamage) and (v.traits.weaponType or v.traits.melee) then
@@ -60,8 +58,18 @@ function generateTechExpoGear()
 		end
 
 		traits.usesLeft = 5
-		itemdef.createUpgradeParams = function( self, unit )
-			return { traits = { usesLeft = unit:getTraits().usesLeft } }
+		if itemdef.createUpgradeParams == nil then
+			itemdef.createUpgradeParams = function( self, unit )
+				return { traits = { usesLeft = unit:getTraits().usesLeft } }
+			end
+		else
+			local createUpgradeParams_old = itemdef.createUpgradeParams
+			itemdef.createUpgradeParams = function( self, unit )
+				local old_params = createUpgradeParams_old( self, unit )
+				old_params.traits = old_params.traits or {}
+				old_params.traits.usesLeft = unit:getTraits().usesLeft
+				return old_params
+			end
 		end
 		
 		traits.MM_tech_expo_item = true

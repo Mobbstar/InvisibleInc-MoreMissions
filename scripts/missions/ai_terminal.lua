@@ -43,13 +43,14 @@ local AI_CONSOLE_HIJACKED =
 	end,
 }
 
-local 	PC_WON =
+local PC_WON =
 	{		
         priority = 10,
 
         trigger = simdefs.TRG_GAME_OVER,
         fn = function( sim, evData )
             if sim:getWinner() then
+				log:write("LOG MM AI Terminal PC WON")
                 return sim:getPlayers()[sim:getWinner()]:isPC()
             else
                 return false
@@ -752,6 +753,9 @@ local function upgradeIncognita( script, sim )
 	sim.TA_mission_success = true
 
 	script:waitFor( PC_WON ) -- to think I could have been doing agency changes like wodzu all this time instead of putting things in DoFinishMission
+	log:write("LOG MM AI Terminal PC WON SCRIPT")
+	log:write(util.stringize(sim:getPC():getTraits(),2))
+	log:write(util.stringize(sim:getTags(),2))
 	local agency = sim:getParams().agency
 	
 	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
@@ -760,21 +764,25 @@ local function upgradeIncognita( script, sim )
 			sim:getParams().agency.W93_aiTerminals = 0
 		end
 		sim:getParams().agency.W93_aiTerminals = sim:getParams().agency.W93_aiTerminals + 1
+		log:write("LOG MM AI Terminal slots upgraded")
 		
 	elseif sim:getTags().upgradedPrograms then
 	
 		agency.MM_upgradedPrograms = agency.MM_upgradedPrograms or {}
-		
+		log:write("LOG MM AI Terminal program upgraded")
 		local programs = sim:getPC():getAbilities()
-		for i, ability in pairs(programs) do	
+		for i, ability in pairs(programs) do
+			log:write("LOG MM checking programs...")
 			-- local ID = ability._abilityID --see rant in scriptPath mainframe_abilities
 			if ability.MM_modifiers then
+				log:write("LOG MM found program " .. tostring(ability.oldName))
 				local ID = ability.oldName
 				agency.MM_upgradedPrograms[ID] = {}
 				agency.MM_upgradedPrograms[ID] = util.tcopy( ability.MM_modifiers )
 			end
 		end	
 	elseif sim:getTags().weakened_counterAI then
+		log:write("LOG MM AI Terminal weakened hostile AI")
 		local corp = sim:getParams().world
 		agency.MM_hostileAInerf = agency.MM_hostileAInerf or {}
 		agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] or 0
