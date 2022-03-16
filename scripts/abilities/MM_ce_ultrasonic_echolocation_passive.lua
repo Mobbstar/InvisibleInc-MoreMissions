@@ -11,7 +11,7 @@ local unitdefs = include( "sim/unitdefs" )
 local worldgen = include( "sim/worldgen" )
 local simfactory = include( "sim/simfactory" )
 
--- LIFTED WHOLESALE OUT OF ADVANCED GUARD PROTOC
+-- LIFTED WHOLESALE OUT OF ADVANCED GUARD PROTOCOL BY CYBERBOY2000
 -------------------------------------------------------------------------------
 -- These are passive abilities (no executeAbility function)
 
