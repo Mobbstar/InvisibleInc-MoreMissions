@@ -136,6 +136,7 @@ return {
 		PROTOTYPE_GOOSE_SPEC = "Prototype Anseroid",
 		SCIENTIST = "Scientist",
 		HOLOGRAM_DROID = "Holodroid Decoy",
+		SPIDER_DRONE = "Mizugumo Drone",
 	},
 
 
@@ -705,7 +706,7 @@ return {
 			INSET_TXT = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. First, we'll need to get them on site and secure their cover. Make sure the enemy doesn't spot them, or the job will get complicated.",
 			INSET_VO = {"moremissions/VoiceOver/Central/informant/mapscreen"},
 			DESCRIPTION = "Plant an informant and secure their cover identity. For best results, informant must remain unseen.",
-			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or exit location.",
+			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or camera locations.",
 
 		},
 
@@ -724,6 +725,13 @@ return {
 	},
 
 	UI = {
+	
+		MAP_SCREEN = {
+			MOLE_NAME = "INFORMANT",
+			MOLE_DESC = "Informant intel available for this mission.",
+			MOLE_TOOLTIP = "Intel available for {1} more {1:mission|missions}",
+		},
+		
 		HUD_WARN_EXIT_MISSION_HOLOSTUDIO = "Are you sure you want to leave? You don't have the holographic tool yet.",
 		HUD_WARN_EXIT_MISSION_ASSASSINATION = "Are you sure you want to leave? You haven't killed the target.",
 		-- REASON = {
@@ -849,6 +857,21 @@ return {
 			
 			NANOFAB_CONSOLE = "TECH SUPPORT LINE",
 			NANOFAB_CONSOLE_DESC = "Summons personnel with Nanofab Key on activation.",
+
+			IDLE_SCAN = "IDLE SCANNING",
+			IDLE_SCAN_DESC = "Scans surroundings at start of enemy turn, if idle.",
+			
+			STATUS_SURVEYING = "SURVEYING",
+			SURVEYOR = "SURVEYOR",
+			SURVEYOR_DESC = "Rotates 90 degrees counter-clockwise at end of enemy turn, if idle.",
+			
+			ZAP_ATTACK = "TAZER GUN",
+			ZAP_ATTACK_DESC = "KOs targets with a nonlethal stun gun.",
+
+			INFRARED_SENSORS = "INFRARED SENSORS",
+			INFRARED_SENSORS_DESC = "Notices agent movement, even behind cover.",
+			
+			
 		},
 		
 		REFIT_DRONE_NAMES = {
@@ -863,7 +886,7 @@ return {
 			"Chip",
 			"Qoalabot",
 			"R30hedrone",
-			"Tim",
+			"Tiny Tim",
 			"iLaub",
 			"Cheeto-So-Robo",
 			"Autonahton",
@@ -873,7 +896,8 @@ return {
 			"MechBirb",
 			"Shiny",
 			"Plinky",
-			"Greywind",			
+			"Greywind",
+			"Datapincher",
 		},		
 
 	},
