@@ -161,6 +161,7 @@ local npc_templates =
 			recap_icon = "executive",
 			MM_bounty_target = true,
 			MM_alertlink = true,
+			mm_nopatrolchange = true,
 		},
 		dropTable =
 		{
