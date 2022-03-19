@@ -830,13 +830,13 @@ local 	PC_WON =
         end,
 	}
 
-local function updateAgency( script, sim, mission ) --UNUSED
-	script:waitFor( PC_WON )
-		if mission.killedTarget then
-		sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations or 0
-		sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations + 1
-	end
-end
+-- local function updateAgency( script, sim, mission ) --UNUSED
+	-- script:waitFor( PC_WON )
+		-- if mission.killedTarget then
+		-- sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations or 0
+		-- sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations + 1
+	-- end
+-- end
 ---------------------------------------------------------------------------------------------
 -- Begin!
 

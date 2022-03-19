@@ -19,7 +19,7 @@ local escape_mission = include("sim/missions/escape_mission")
 local DRONE_BANTER_CHANCE = 0.3
 
 --local helpers
-local 	PC_WON =
+local 	PC_WON = --now unused
 	{		
         priority = 10,
 
@@ -93,15 +93,16 @@ local function waitForDroneEscape( script, sim )
 	local name = drone:getTraits().customName
 	local campaignHours = sim:getParams().campaignHours
 	
-	script:waitFor( PC_WON )
-	local agency = sim:getParams().agency
+	-- script:waitFor( PC_WON )
+	sim.TEMP_AGENCY = sim.TEMP_AGENCY or {}
+	-- local agency = sim:getParams().agency --we move this to DoFinishMission instead
+	local agency = sim.TEMP_AGENCY
 	agency.MM_rescuedRefitDrone = agency.MM_rescuedRefitDrone or {}
 
 	local droneData = {name = name, campaignHours = campaignHours}
-	-- table.insert(agency.MM_rescuedRefitDrone, droneData)
+
 	agency.MM_rescuedRefitDrone[1] = droneData
-	-- log:write("LOG agency")
-	-- log:write(util.stringize(agency.MM_rescuedRefitDrone,2))
+
 end
 
 local function droneSpeech( script, sim )
@@ -343,7 +344,7 @@ local function KillBoss( script, sim )
 	script:queue(1*cdefs.SECONDS)
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.PERSONNEL_HIJACK.BOSS_KILLED, type="newOperatorMessage" } )
 
-	script:waitFor( PC_WON )
+	-- script:waitFor( PC_WON ) --I don't think this delay is even needed...
 	sim:setMissionReward( simquery.scaleCredits( sim, 200 ))
 end
 
