@@ -363,9 +363,11 @@ local function MM_checkTopGearItem( script, sim )
 	
 	scripts = SCRIPTS.INGAME.WEAPONS_EXPO.LOOTED_CASE_DROIDS_BOOTING
 	
-	script:waitFor( PC_WON )
-	sim:getParams().agency.MM_techexpo_done = sim:getParams().agency.MM_techexpo_done or 0
-	sim:getParams().agency.MM_techexpo_done = sim:getParams().agency.MM_techexpo_done + 1
+	-- script:waitFor( PC_WON ) --moved agency changes to DoFinishMission
+	sim.PC_WON_agency = sim.PC_WON_agency or {}
+	local agency = sim.PC_WON_agency
+	agency.MM_techexpo_done = agency.MM_techexpo_done or 0
+	agency.MM_techexpo_done = agency.MM_techexpo_done + 1
 end
 
 local UNIT_ESCAPE =
