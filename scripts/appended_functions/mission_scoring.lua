@@ -15,7 +15,8 @@ local function runAppend( modApi )
 	local mission_scoring = include("mission_scoring")
 	local DoFinishMission_old = mission_scoring.DoFinishMission
 	mission_scoring.DoFinishMission = function( sim, campaign, ... )
-		local agency = sim:getParams().agency
+		-- local agency = sim:getParams().agency	
+		local agency = campaign.agency
 
 		--update existing informant bonuses
 		-- bonus doesn't apply in Omni missions so don't tick down
@@ -101,6 +102,19 @@ local function runAppend( modApi )
 			-- end
 			sim._resultTable.credits_gained.assassinationreward = sim._assassinationReward
 		end
+		
+		-- NEW: this moves every PC_WON block from mission scripts to here
+		if sim.TEMP_AGENCY then
+			-- Accessing the agency from the sim (even during DoFinishMission) doesn't help, that's what's the cause of all this: The campaign that's in the sim and in the savefile are different. You need to get it from the savefile.  -- Cyberboy2000
+			-- local user = savefiles.getCurrentGame()
+			-- local campaign = user.data.saveSlots[ user.data.currentSaveSlot ]
+			-- util.tmerge(campaign.agency, sim.TEMP_AGENCY)
+
+			util.tmerge(campaign.agency, sim.TEMP_AGENCY) --getting agency from campaign is also fine
+		end
+		
+		log:write("LOG MM agency")
+		log:write(util.stringize(campaign.agency,2))
 
 		return returnvalue
 	end
