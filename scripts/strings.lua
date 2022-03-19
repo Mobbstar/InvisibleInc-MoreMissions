@@ -98,7 +98,7 @@ return {
 		"MORE MISSIONS: The Relay Switches at a Tech Expo will disable the exhibit cases boosting each other's firewalls when broken. Skip this if you only plan to steal one or two items.",
 		"MORE MISSIONS: Unlike a Security Dispatch, a Tech Expo will have up to five items, most of them weapons. They are powerful but won't last long.",
 		"MORE MISSIONS: The AI Terminal lets you increase Incognita's slot number, or upgrade a program you own.",
-		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt that corporation's Counterintelligence AI.",		
+		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt the Counterintelligence AI.",		
 		"MORE MISSIONS: It's a good idea to have leftover AP on your agents when you complete an objective. You may want to move them after the security measures kick in.",
 		"MORE MISSIONS: You can enable the mod's HARD MODE to experience the full challenge of the security measures.",
 		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
@@ -535,8 +535,10 @@ return {
 					"Confirm"
 				},
 
-				OPTIONS2_PE_TXT = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with by 2 (to a minimum of 1), as well as reduce the selection pool.",
-				OPTIONS2_PE_TXT_PREEXISTING = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with by 2 (to a minimum of 1), as well as reduce the selection pool.\n\nYou have previously already weakened the {1} AI by {2} {2:level|levels}.",
+				OPTIONS2_PE_TXT_ONE_CORP = "You can use the data on this terminal to sabotage the AI research of <c:FC5603>this corporation</c>, reducing the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the <c:FC5603>{1}</c> AI starts with by 2 (to a minimum of 1), as well as reduce the selection pool.",
+				OPTIONS2_PE_TXT_ALL_CORPS = "You can use the data on this terminal to sabotage the AI research of <c:FC5603>all corporations</c>, reducing the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines each {1} AI starts with by 2 (to a minimum of 1), as well as reduce the selection pool.",
+				OPTIONS2_PE_TXT_CORPORATE = "corporate",
+				OPTIONS2_PE_ALREADY_WEAKENED = "\n\nYou have already weakened the {1} AI by {2} {2:level|levels}.",
 				OPTIONS2_PE_TITLE = "DISRUPT HOSTILE AI",
 
 				OPTIONS_PE_RESULT_TITLE = "SABOTAGE SUCCESSFUL",
@@ -730,6 +732,8 @@ return {
 			MOLE_NAME = "INFORMANT",
 			MOLE_DESC = "Informant intel available for this mission.",
 			MOLE_TOOLTIP = "Intel available for {1} more {1:mission|missions}",
+			HOSTILE_AI_TEXT = "<c:f5ff78>COUNTERINTELLIGENCE AI</c>\nTHREAT LEVEL: {1}\nAI TERMINAL SABOTAGE: -{2}",
+			HOSTILE_AI_NAME = "HOSTILE AI",
 		},
 		
 		HUD_WARN_EXIT_MISSION_HOLOSTUDIO = "Are you sure you want to leave? You don't have the holographic tool yet.",
@@ -802,7 +806,7 @@ return {
 			BODYGUARD_KEEPCLOSE = "BODYGUARD",
 			BODYGUARD_KEEPCLOSE_DESC = "While unalerted, this unit will not stray far from the VIP and will investigate the VIP's interest points.",
 			TARGET_PARANOID = "PARANOID",
-			TARGET_PARANOID_DESC = "Will delegate interest point investigations to the Bodyguard, if nearby.",
+			TARGET_PARANOID_DESC = "Will delegate interest point investigations to the Bodyguard, if within line-of-sight.",
 			AUTHORIZED_BODY = "AUTHORIZED",
 			AUTHORIZED_BODY_DESC = "If dragged, this unit's body will unlock the Panic Room.",
 			AUTHORIZED_BODY_DESC2 = "If dragged or controlled, this unit's body will unlock the Panic Room.",
