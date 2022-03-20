@@ -45,14 +45,16 @@ end
 
 stateMapScreen.OnClickLocation = function( self, situation, ... )
 	OnClickLocation_old( self, situation, ... )
-	if STRINGS.MOREMISSIONS then
-		local screen
-		for i, active_screen in pairs(mui.internals._activeScreens) do
-			if active_screen:findWidget("MM_informantBonus") then
-				screen = active_screen
-				break
-			end
-		end	
+	
+	local screen
+	for i, active_screen in pairs(mui.internals._activeScreens) do
+		if active_screen:findWidget("MM_informantBonus") then
+			screen = active_screen
+			break
+		end
+	end		
+	
+	if screen and STRINGS.MOREMISSIONS then
 		
 		local corpData = serverdefs.getCorpData( situation )
 		if self._campaign.agency.MM_informant_bonus and (#self._campaign.agency.MM_informant_bonus > 0) and not ((situation.corpName == "omni") or (situation.corpName == "omni2"))
