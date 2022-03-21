@@ -111,34 +111,36 @@ end
 
 local function make_gear( sim, newUnit, agentTemplate )
 
-	-- Distress Call: 800*scaling (reward) + 80*scaling (guard) + vault_passcard + 1 of these
-	-- Security Dispatch: 150*scaling ("safe") + item of floor weight 3+
-	--  * item value (vanilla+DLC): mean=1030, min=600, max=1500
-	-- CFO: 450*scaling (CFO) + vault_passcard
-	-- (scaling @E/E+ = 0.75-1.3  @E++ = 0.5-0.875)
+	-- Comparable vanilla rewards: (scaling @E/E+ = 0.75-1.3  @E++ = 0.5-0.875)
+	-- * Detention Centre (prisoner): 800*scaling (reward)
+	-- * Security Dispatch: 150*scaling ("safe") + item of floor weight 3+
+	--   * item value (vanilla+DLC): mean=1030, min=600, max=1500
+	-- * CFO: 450*scaling (CFO) + vault_passcard
+	--
+	-- Distress Call (Lien): 800*scaling (reward) + 80*scaling (guard) + vault_passcard + 1 of these
+	-- * mostly tier-2 or 500-800cr, no single-use items
+	-- * mean=640
 	local template_list = {   -- (floor weight, purchase value)
-	"item_adrenaline",        -- 0, 275 (low player value)
-	"item_light_pistol",      -- 0, 300
-	"item_crybaby",           -- 2, 300
-	"item_stickycam",         -- 2, 300
-	"item_smokegrenade",      -- 2, 300
-	"item_tag_pistol",        -- 0, 300 (high player value)
-	"item_clip",              -- 0, 400 (low player value)
-	"item_cloakingrig_1",     -- 1, 400
-	"item_lockdecoder",       -- 1, 400
+	"item_corpIntel",         -- reward = 300*scaling (similar to selling a 600cr item, but worse than using one)
+	"item_tag_pistol",        -- 0, 300 (higher perceived value)
 	"item_icebreaker_2",      -- 2, 400
 	"item_paralyzer_2",       -- 2, 500
 	"item_portabledrive_2",   -- 2, 500
-	"item_corpIntel",         -- reward = 300*scaling (better than selling a 600cr item, but worse than using one)
 	"item_hologrenade_17_9",  -- 2, 600
-	"item_flashgrenade",      -- 2, 600
 	"item_wireless_scanner_1",-- 3, 600 (not purchaseable)
+	"item_cloakingrig_2",     -- 2, 700
 	"item_shocktrap_2",       -- 2, 700
 	"item_prototype_drive",   -- 3, 700 (not purchaseable)
 	"item_econchip",          -- 1, 800
 	"item_stim_2",            -- 2, 800
 	"item_flash_pack",        -- 2, 900
 	"item_laptop_2",          -- 2, 1000
+
+	-- NIAA might make these more reasonable as rewards
+	-- "item_crybaby",           -- 2, 300  ->  2, 300
+	-- "item_stickycam",         -- 2, 300  ->  2, 400
+	-- "item_smokegrenade",      -- 2, 300  ->  2, 300
+	-- "item_lockdecoder",       -- 1, 400  ->  2, 450 (though odd paired with a vault card)
 	}
 	local new_items = {}
 	local captured_items = {} --separate table for these as they're already spawned
