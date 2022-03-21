@@ -121,9 +121,9 @@ local function make_gear( sim, newUnit, agentTemplate )
 	-- * mostly tier-2 or 500-800cr, no single-use items
 	-- * mean=640
 	local template_list = {   -- (floor weight, purchase value)
-	"item_corpIntel",         -- reward = 300*scaling (similar to selling a 600cr item, but worse than using one)
 	"item_tag_pistol",        -- 0, 300 (higher perceived value)
 	"item_icebreaker_2",      -- 2, 400
+	"MM_item_corpIntel",      -- reward = 500*scaling
 	"item_paralyzer_2",       -- 2, 500
 	"item_portabledrive_2",   -- 2, 500
 	"item_hologrenade_17_9",  -- 2, 600

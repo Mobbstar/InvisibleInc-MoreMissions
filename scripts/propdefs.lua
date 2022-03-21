@@ -456,6 +456,22 @@ local prop_templates =
 		}
     },		
 
+	-- Distress Call
+	MM_item_corpIntel =
+	{
+		type = "simunit",
+		name =  STRINGS.PROPS.CORP_INTEL,
+        onWorldTooltip = commondefs.onItemWorldTooltip,
+        onTooltip = commondefs.onItemTooltip,
+		desc = STRINGS.PROPS.CORP_INTEL_DESC,
+		icon = "itemrigs/FloorProp_DataDisc.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_data_disk_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_data_disk.png",
+		-- Buffed to 500cr, from 300 on the unused vanilla item
+		traits = { selectpriority = 0, cashInReward = 500, showOnce = "corp_intel" },
+		abilities = { "carryable" },
+	},
+
 	--------------- SIDE MISSIONS ---------------------
 	MM_W93_crate = --24 BRIEFCASES
 	{
