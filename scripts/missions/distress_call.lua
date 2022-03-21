@@ -117,7 +117,7 @@ local function make_gear( sim, newUnit, agentTemplate )
 	--   * item value (vanilla+DLC): mean=1030, min=600, max=1500
 	-- * CFO: 450*scaling (CFO) + vault_passcard
 	--
-	-- Distress Call (Lien): 800*scaling (reward) + 80*scaling (guard) + vault_passcard + 1 of these
+	-- Distress Call (Lien): 600*scaling (reward) + 80*scaling (guard) + vault_passcard + 1 of these
 	-- * mostly tier-2 or 500-800cr, no single-use items
 	-- * mean=640
 	local template_list = {   -- (floor weight, purchase value)
@@ -456,7 +456,7 @@ local function got_operative(script, sim, mission)
 		sim.TA_mission_success = true -- flag for Talkative Agents
 	else
 		mission.operative_extracted = true
-		sim:setMissionReward( simquery.scaleCredits( sim, 800 )) --keep this money reward unless we can think of something more exciting/original
+		sim:setMissionReward( simquery.scaleCredits( sim, 600 )) --keep this money reward unless we can think of something more exciting/original
 		sim.TA_mission_success = true
 	end
 	sim:removeObjective( "rescue_agent" )
