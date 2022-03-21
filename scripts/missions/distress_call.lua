@@ -111,30 +111,34 @@ end
 
 local function make_gear( sim, newUnit, agentTemplate )
 
-	local template_list = {
-	-- "vault_passcard",
-	"item_corpIntel",
-	"item_crybaby",
-	"item_flash_pack",
-	"item_clip",
-	"item_tag_pistol",
-	"item_flashgrenade",
-	"item_stickycam",
-	"item_hologrenade_17_9",
-	"item_smokegrenade",
-	"item_adrenaline",
-	"item_stim_2",
-	"item_paralyzer_2",
-	"item_laptop_2",
-	"item_cloakingrig_1",
-	"item_icebreaker_2",
-	"item_prototype_drive",
-	"item_portabledrive_2",
-	"item_econchip",
-	"item_lockdecoder",
-	"item_shocktrap_2",
-	"item_wireless_scanner_1",
-	"item_light_pistol",
+	-- Distress Call: 800*scaling (reward) + 80*scaling (guard) + vault_passcard + 1 of these
+	-- Security Dispatch: 150*scaling ("safe") + item of floor weight 3+
+	--  * item value (vanilla+DLC): mean=1030, min=600, max=1500
+	-- CFO: 450*scaling (CFO) + vault_passcard
+	-- (scaling @E/E+ = 0.75-1.3  @E++ = 0.5-0.875)
+	local template_list = {   -- (floor weight, purchase value)
+	"item_adrenaline",        -- 0, 275 (low player value)
+	"item_light_pistol",      -- 0, 300
+	"item_crybaby",           -- 2, 300
+	"item_stickycam",         -- 2, 300
+	"item_smokegrenade",      -- 2, 300
+	"item_tag_pistol",        -- 0, 300 (high player value)
+	"item_clip",              -- 0, 400 (low player value)
+	"item_cloakingrig_1",     -- 1, 400
+	"item_lockdecoder",       -- 1, 400
+	"item_icebreaker_2",      -- 2, 400
+	"item_paralyzer_2",       -- 2, 500
+	"item_portabledrive_2",   -- 2, 500
+	"item_corpIntel",         -- reward = 300*scaling (better than selling a 600cr item, but worse than using one)
+	"item_hologrenade_17_9",  -- 2, 600
+	"item_flashgrenade",      -- 2, 600
+	"item_wireless_scanner_1",-- 3, 600 (not purchaseable)
+	"item_shocktrap_2",       -- 2, 700
+	"item_prototype_drive",   -- 3, 700 (not purchaseable)
+	"item_econchip",          -- 1, 800
+	"item_stim_2",            -- 2, 800
+	"item_flash_pack",        -- 2, 900
+	"item_laptop_2",          -- 2, 1000
 	}
 	local new_items = {}
 	local captured_items = {} --separate table for these as they're already spawned
