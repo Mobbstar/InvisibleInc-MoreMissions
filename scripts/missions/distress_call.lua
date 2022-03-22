@@ -117,30 +117,26 @@ local function make_gear( sim, newUnit, agentTemplate )
 	--   * item value (vanilla+DLC): mean=1030, min=600, max=1500
 	-- * CFO: 450*scaling (CFO) + vault_passcard
 	--
-	-- Distress Call (Lien): 800*scaling (reward) + 80*scaling (guard) + vault_passcard + 1 of these
-	-- * mostly tier-2 or 500-800cr, no single-use items
-	-- * mean=640
+	-- Distress Call (Lien): 800*scaling (reward) + 80*scaling (guard) + vault_passcard (500) + 1 of these
+	-- * 300-600cr, other than the non-purchaseable prototype drive
+	-- * mean=420
 	local template_list = {   -- (floor weight, purchase value)
+	"item_light_pistol",      -- 0, 300
+	"item_crybaby",           -- 2, 300
+	"item_stickycam",         -- 2, 300
+	"item_smokegrenade",      -- 2, 300
 	"item_tag_pistol",        -- 0, 300 (higher perceived value)
+	"MM_item_corpIntel",      -- reward = 300*scaling
+	"item_shocktrap",         -- 1, 400
+	"item_stim",              -- 1, 400
+	"item_cloakingrig_1",     -- 1, 400
+	"item_lockdecoder",       -- 1, 400
 	"item_icebreaker_2",      -- 2, 400
-	"MM_item_corpIntel",      -- reward = 500*scaling
 	"item_paralyzer_2",       -- 2, 500
 	"item_portabledrive_2",   -- 2, 500
 	"item_hologrenade_17_9",  -- 2, 600
 	"item_wireless_scanner_1",-- 3, 600 (not purchaseable)
-	"item_cloakingrig_2",     -- 2, 700
-	"item_shocktrap_2",       -- 2, 700
 	"item_prototype_drive",   -- 3, 700 (not purchaseable)
-	"item_econchip",          -- 1, 800
-	"item_stim_2",            -- 2, 800
-	"item_flash_pack",        -- 2, 900
-	"item_laptop_2",          -- 2, 1000
-
-	-- NIAA might make these more reasonable as rewards
-	-- "item_crybaby",           -- 2, 300  ->  2, 300
-	-- "item_stickycam",         -- 2, 300  ->  2, 400
-	-- "item_smokegrenade",      -- 2, 300  ->  2, 300
-	-- "item_lockdecoder",       -- 1, 400  ->  2, 450 (though odd paired with a vault card)
 	}
 	local new_items = {}
 	local captured_items = {} --separate table for these as they're already spawned
