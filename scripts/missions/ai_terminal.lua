@@ -838,7 +838,7 @@ local function addKeys( sim )
 	local consoleAdded = false
 
 	for i, unit in pairs(sim:getAllUnits()) do
-		if unit:getTraits().safeUnit and not safeAdded then
+		if unit:getTraits().safeUnit and not (unit:getUnitData().id == "guard_locker") and not safeAdded then
 			local item = simfactory.createUnit( propdefs.MM_W93_AiRoomPasscard, sim )
 			sim:spawnUnit(item)
 			unit:addChild(item)
