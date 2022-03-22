@@ -8,9 +8,49 @@ local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 
-local function runAppend()
--- default weight for missions with no weight is 1, but the function doesn't accept weight less than 1. Set it to 100 instead so we can make missions both less frequent and more frequent than the vanilla unweighted ones without overriding the rest of the function.
+-- === earlyLoad ===
+local function earlyLoad()
 
+	-- If Distress Call doesn't contain an agent, the loot is a vault passcard and one of these, instead.
+	-- * 300-600cr, other than the non-purchaseable prototype drive
+	-- * mean=420
+	local MM_DISTRESS_CALL_ITEMS_DEFAULT = {
+		                          -- (floor weight, purchase value)
+		"item_light_pistol",      -- 0, 300
+		"item_crybaby",           -- 2, 300
+		"item_stickycam",         -- 2, 300
+		"item_smokegrenade",      -- 2, 300
+		"item_tag_pistol",        -- 0, 300 (higher perceived value)
+		"MM_item_corpIntel",      -- reward = 300*scaling
+		"item_shocktrap",         -- 1, 400
+		"item_stim",              -- 1, 400
+		"item_cloakingrig_1",     -- 1, 400
+		"item_lockdecoder",       -- 1, 400
+		"item_icebreaker_2",      -- 2, 400
+		"item_paralyzer_2",       -- 2, 500
+		"item_portabledrive_2",   -- 2, 500
+		"item_hologrenade_17_9",  -- 2, 600
+		"item_wireless_scanner_1",-- 3, 600 (not purchaseable)
+		"item_prototype_drive",   -- 3, 700 (not purchaseable)
+	}
+
+	serverdefs.MM_DISTRESS_CALL_ITEMS = {}
+
+	local function ResetMMDistressCallItems()
+		log:write("ResetMMDistressCallItems()")
+		util.tclear(serverdefs.MM_DISTRESS_CALL_ITEMS)
+		util.tmerge(serverdefs.MM_DISTRESS_CALL_ITEMS, MM_DISTRESS_CALL_ITEMS_DEFAULT)
+	end
+
+	ResetMMDistressCallItems()
+end
+-- === END earlyLoad ===
+
+
+-- === lateLoad ===
+local function lateLoad()
+
+-- default weight for missions with no weight is 1, but the function doesn't accept weight less than 1. Set it to 100 instead so we can make missions both less frequent and more frequent than the vanilla unweighted ones without overriding the rest of the function.
 local serverdefs_chooseSituation_old = serverdefs.chooseSituation
 serverdefs.chooseSituation = function( campaign, tags, gen, ... )
 	for name, situationData in pairs( serverdefs.SITUATIONS ) do
@@ -72,5 +112,9 @@ serverdefs.defaultMapSelector = function( campaign, tags, tempLocation )
 end
 
 end
+-- === END lateLoad ===
 
-return { runAppend = runAppend }
+return {
+	earlyLoad = earlyLoad,
+	lateLoad = lateLoad,
+}

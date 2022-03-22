@@ -1,5 +1,6 @@
 local array = include( "modules/array" )
 local util = include( "modules/util" )
+local serverdefs = include( "modules/serverdefs" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 local simquery = include( "sim/simquery" )
@@ -120,24 +121,7 @@ local function make_gear( sim, newUnit, agentTemplate )
 	-- Distress Call (Lien): 800*scaling (reward) + 80*scaling (guard) + vault_passcard (500) + 1 of these
 	-- * 300-600cr, other than the non-purchaseable prototype drive
 	-- * mean=420
-	local template_list = {   -- (floor weight, purchase value)
-	"item_light_pistol",      -- 0, 300
-	"item_crybaby",           -- 2, 300
-	"item_stickycam",         -- 2, 300
-	"item_smokegrenade",      -- 2, 300
-	"item_tag_pistol",        -- 0, 300 (higher perceived value)
-	"MM_item_corpIntel",      -- reward = 300*scaling
-	"item_shocktrap",         -- 1, 400
-	"item_stim",              -- 1, 400
-	"item_cloakingrig_1",     -- 1, 400
-	"item_lockdecoder",       -- 1, 400
-	"item_icebreaker_2",      -- 2, 400
-	"item_paralyzer_2",       -- 2, 500
-	"item_portabledrive_2",   -- 2, 500
-	"item_hologrenade_17_9",  -- 2, 600
-	"item_wireless_scanner_1",-- 3, 600 (not purchaseable)
-	"item_prototype_drive",   -- 3, 700 (not purchaseable)
-	}
+	local template_list = serverdefs.MM_DISTRESS_CALL_ITEMS
 	local new_items = {}
 	local captured_items = {} --separate table for these as they're already spawned
 	if newUnit:getUnitData().agentID then
