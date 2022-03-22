@@ -181,6 +181,13 @@ local function unloadCommon( modApi, options )
 
 end
 
+local function earlyLoad( modApi, options, params )
+    local scriptPath = modApi:getScriptPath()
+
+	local serverdefs_appends = include( scriptPath .. "/appended_functions/serverdefs" )
+	serverdefs_appends.earlyLoad()
+end
+
 local function load( modApi, options, params )
 	--before doing anything, clean up
 	unloadCommon( modApi, options )
@@ -416,7 +423,7 @@ local function load( modApi, options, params )
 	
 end
 
-local function lateLoad( modApi, options, params )
+local function lateLoad( modApi, options, params, mod_options )
 	local scriptPath = modApi:getScriptPath()
 	local tech_expo_itemdefs = include( scriptPath .. "/tech_expo_itemdefs" )
 	for name, itemDef in pairs(tech_expo_itemdefs.generateTechExpoGear()) do
@@ -430,10 +437,10 @@ local function lateLoad( modApi, options, params )
 	----- Distress Call mission hackz - Hek. They need to be in Load too. make that lateLoad because of Additional Banter
 	include( scriptPath .. "/appended_functions/mission_util_lateLoad" )	
 	
-	--ASSASSINATION
+	--ASSASSINATION, COURIER RESCUE
 	-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
-	local serverdef_appends = include( scriptPath .. "/appended_functions/serverdefs" )
-	serverdef_appends.runAppend()	
+	local serverdefs_appends = include( scriptPath .. "/appended_functions/serverdefs" )
+	serverdefs_appends.lateLoad( mod_options )
 end
 
 local function unload( modApi, options )
@@ -457,6 +464,7 @@ return {
     init = init,
     earlyInit = earlyInit,
     lateInit = lateInit,
+    earlyLoad = earlyLoad,
     load = load,
     lateLoad = lateLoad,
     unload = unload,
