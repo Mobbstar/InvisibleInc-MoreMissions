@@ -423,7 +423,7 @@ local function load( modApi, options, params )
 	
 end
 
-local function lateLoad( modApi, options, params )
+local function lateLoad( modApi, options, params, mod_options )
 	local scriptPath = modApi:getScriptPath()
 	local tech_expo_itemdefs = include( scriptPath .. "/tech_expo_itemdefs" )
 	for name, itemDef in pairs(tech_expo_itemdefs.generateTechExpoGear()) do
@@ -440,7 +440,7 @@ local function lateLoad( modApi, options, params )
 	--ASSASSINATION, COURIER RESCUE
 	-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
 	local serverdefs_appends = include( scriptPath .. "/appended_functions/serverdefs" )
-	serverdefs_appends.lateLoad()
+	serverdefs_appends.lateLoad( mod_options )
 end
 
 local function unload( modApi, options )

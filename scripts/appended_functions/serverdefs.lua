@@ -49,7 +49,7 @@ end
 
 
 -- === lateLoad ===
-local function lateLoad()
+local function lateLoad( mod_options )
 
 -- default weight for missions with no weight is 1, but the function doesn't accept weight less than 1. Set it to 100 instead so we can make missions both less frequent and more frequent than the vanilla unweighted ones without overriding the rest of the function.
 local serverdefs_chooseSituation_old = serverdefs.chooseSituation
@@ -94,6 +94,19 @@ serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )
 	end
 
 	return newSituation
+end
+
+--DISTRESS CALL
+-- Check for item mods that add items in the right value range for non-agent Distress Call loot.
+local niaa = mod_manager.findModByName and mod_manager:findModByName( "New Items And Augments" )
+if niaa and mod_options[niaa.id] and mod_options[niaa.id].enabled then
+	local niaaOptions = mod_options[niaa.id].options
+	if niaaOptions["enable_items"] and niaaOptions["enable_items"].enabled then
+		table.insert(serverdefs.MM_DISTRESS_CALL_ITEMS, "W93_item_door_controller") -- 2, 400
+	end
+	if niaaOptions["enable_weapons"] and niaaOptions["enable_weapons"].enabled then
+		table.insert(serverdefs.MM_DISTRESS_CALL_ITEMS, "W93_weapon_emp_pistol") -- 0, 450
+	end
 end
 
 --SECURE HOLDING FACILITY/COURIER RESCUE
