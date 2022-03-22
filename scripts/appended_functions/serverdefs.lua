@@ -27,6 +27,7 @@ local function earlyLoad()
 		"item_cloakingrig_1",     -- 1, 400
 		"item_lockdecoder",       -- 1, 400
 		"item_icebreaker_2",      -- 2, 400
+		"item_emp_pack",          -- 1, 500
 		"item_paralyzer_2",       -- 2, 500
 		"item_portabledrive_2",   -- 2, 500
 		"item_hologrenade_17_9",  -- 2, 600
