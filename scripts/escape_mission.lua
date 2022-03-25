@@ -88,21 +88,24 @@ local function updateRefitDrone( script, sim )
 	drone:getTraits().MM_refitDroneRescue = true
 end
 
-local function waitForDroneEscape( script, sim )
-	local _, drone = script:waitFor( REFIT_DRONE_ESCAPED )
-	local name = drone:getTraits().customName
+-- Callback to be applied in mission_scoring
+local function updateAgencyForRefitDrone( sim, agency )
+	local name = sim:getTags().MM_rescuedRefitDroneName
 	local campaignHours = sim:getParams().campaignHours
-	
-	-- script:waitFor( PC_WON )
-	sim.TEMP_AGENCY = sim.TEMP_AGENCY or {}
-	-- local agency = sim:getParams().agency --we move this to DoFinishMission instead
-	local agency = sim.TEMP_AGENCY
-	agency.MM_rescuedRefitDrone = agency.MM_rescuedRefitDrone or {}
 
 	local droneData = {name = name, campaignHours = campaignHours}
 
-	agency.MM_rescuedRefitDrone[1] = droneData
+	agency.MM_rescuedRefitDrone = agency.MM_rescuedRefitDrone or {}
+	table.insert( agency.MM_rescuedRefitDrone, droneData )
+end
 
+local function waitForDroneEscape( script, sim )
+	local _, drone = script:waitFor( REFIT_DRONE_ESCAPED )
+	sim:getTags().MM_rescuedRefitDroneName = drone:getTraits().customName
+
+	-- Updates will be applied in mission_scoring
+	sim.MM_agencyUpdates = sim.MM_agencyUpdates or {}
+	table.insert( sim.MM_agencyUpdates, updateAgencyForRefitDrone )
 end
 
 local function droneSpeech( script, sim )
