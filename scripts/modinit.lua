@@ -276,6 +276,11 @@ local function load( modApi, options, params )
 		modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } )
 		-- for vanilla side missions
 		include( scriptPath .. "/appended_functions/abilities/transformer_terminal")
+
+		-- (easy debugging of sidemissions: uncomment to clear the list and add just the sidemission to be tested)
+		--local worldgen = include( "sim/worldgen" )
+		--util.tclear(worldgen.SIDEMISSIONS)
+		--modApi:addSideMissions(scriptPath, { "???" } )
 	end
 
 	-- add all the custom NEW abilities (not appends to existing ones)

@@ -103,14 +103,21 @@ local function runAppend( modApi )
 			sim._resultTable.credits_gained.assassinationreward = sim._assassinationReward
 		end
 		
-		-- NEW: this moves every PC_WON block from mission scripts to here
-		if sim.TEMP_AGENCY then
-			-- Accessing the agency from the sim (even during DoFinishMission) doesn't help, that's what's the cause of all this: The campaign that's in the sim and in the savefile are different. You need to get it from the savefile.  -- Cyberboy2000
+		-- For a mission to arbitrarily update the agency,
+		-- 1. Define a function that takes (sim,agency) parameters, updating the agency based on values on the sim.
+		-- 2. Add that function to the list of callback functions to be applied when the mission is over:
+		-- ```
+		--   sim.MM_agencyUpdates = sim.MM_agencyUpdates or {}
+		--   table.insert( sim.MM_agencyUpdates, updateAgency )
+		-- ```
+		if sim.MM_agencyUpdates then
+			-- Accessing the agency from the sim (even during DoFinishMission) doesn't help, that's what's the cause of all this: The campaign that's in the sim and in the savefile are different. You need to get it from the savefile. Getting agency from campaign is also fine. -- Cyberboy2000
 			-- local user = savefiles.getCurrentGame()
 			-- local campaign = user.data.saveSlots[ user.data.currentSaveSlot ]
-			-- util.tmerge(campaign.agency, sim.TEMP_AGENCY)
 
-			util.tmerge(campaign.agency, sim.TEMP_AGENCY) --getting agency from campaign is also fine
+			for _, updateCallback in ipairs(sim.MM_agencyUpdates) do
+				updateCallback(sim, campaign.agency)
+			end
 		end
 		
 		log:write("LOG MM agency")

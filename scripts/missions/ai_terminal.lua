@@ -741,43 +741,17 @@ local function makeSmoke( script, sim )
 	end	
 end
 
-local function upgradeIncognita( script, sim )
-	-- local _, evData = script:waitFor( INCOGNITA_UPGRADED() )
-	-- upgradeDialog( script, sim, agent )
-	script:waitFor( FINISHED_USING_TERMINAL )
-	script:queue( 1*cdefs.SECONDS )
-	sim:removeObjective( "upgrade_incognita2" )
+-- Callback to be applied in mission_scoring
+local function updateAgency( sim, agency )
 	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
-		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED)], type="newOperatorMessage" } )
-	elseif sim:getTags().upgradedPrograms then
-		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED)], type="newOperatorMessage" } )
-	elseif sim:getTags().weakened_counterAI then
-		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_HOSTILE_AI_WEAKENED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_HOSTILE_AI_WEAKENED)], type="newOperatorMessage" } )
-	end
-	
-	--now for the security measures
-	script:queue( 1 * cdefs.SECONDS )
-	script:addHook( makeSmoke )
-	
-	sim:setClimax(true)
-	sim.exit_warning = nil
-	sim.TA_mission_success = true
 
-	-- script:waitFor( PC_WON ) -- moved to DoFinishMission
-	
-	-- local agency = sim:getParams().agency
-	sim.TEMP_AGENCY = sim.TEMP_AGENCY or {}
-	local agency = sim.TEMP_AGENCY
-	
-	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
-		
 		if not agency.W93_aiTerminals then
 			agency.W93_aiTerminals = 0
 		end
 		agency.W93_aiTerminals = agency.W93_aiTerminals + 1
-		
+
 	elseif sim:getTags().upgradedPrograms then
-	
+
 		agency.MM_upgradedPrograms = agency.MM_upgradedPrograms or {}
 		local programs = sim:getPC():getAbilities()
 		for i, ability in pairs(programs) do
@@ -787,7 +761,7 @@ local function upgradeIncognita( script, sim )
 				agency.MM_upgradedPrograms[ID] = {}
 				agency.MM_upgradedPrograms[ID] = util.tcopy( ability.MM_modifiers )
 			end
-		end	
+		end
 	elseif sim:getTags().weakened_counterAI then
 		local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
 		-- -2 to ALL corps on campaign. -2 to target corp on Endless
@@ -806,6 +780,33 @@ local function upgradeIncognita( script, sim )
 			end
 		end
 	end
+end
+
+local function upgradeIncognita( script, sim )
+	-- local _, evData = script:waitFor( INCOGNITA_UPGRADED() )
+	-- upgradeDialog( script, sim, agent )
+	script:waitFor( FINISHED_USING_TERMINAL )
+	script:queue( 1*cdefs.SECONDS )
+	sim:removeObjective( "upgrade_incognita2" )
+	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
+		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED)], type="newOperatorMessage" } )
+	elseif sim:getTags().upgradedPrograms then
+		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED)], type="newOperatorMessage" } )
+	elseif sim:getTags().weakened_counterAI then
+		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_HOSTILE_AI_WEAKENED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_HOSTILE_AI_WEAKENED)], type="newOperatorMessage" } )
+	end
+
+	--now for the security measures
+	script:queue( 1 * cdefs.SECONDS )
+	script:addHook( makeSmoke )
+
+	sim:setClimax(true)
+	sim.exit_warning = nil
+	sim.TA_mission_success = true
+
+	-- Updates will be applied in mission_scoring
+	sim.MM_agencyUpdates = sim.MM_agencyUpdates or {}
+	table.insert( sim.MM_agencyUpdates, updateAgency )
 end
 
 local function cardSafeReaction( script, sim  )
