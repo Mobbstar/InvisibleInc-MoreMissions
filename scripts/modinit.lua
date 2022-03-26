@@ -137,9 +137,13 @@ local function lateInit( modApi )
 	include( scriptPath .. "/appended_functions/abilities/icebreak")
 	include( scriptPath .. "/appended_functions/abilities/useInvisiCloak")
 	include( scriptPath .. "/appended_functions/abilities/use_stim")	
+	include( scriptPath .. "/appended_functions/abilities/observePath")
 	
 	include( scriptPath .. "/appended_functions/engine_lateInit")
-	include( scriptPath .. "/appended_functions/worldgen")
+	local worldgen_append = include( scriptPath .. "/appended_functions/worldgen")
+	worldgen_append.runAppend()
+	
+	include( scriptPath .. "/appended_functions/state-map-screen") --for Informant map screen UI
 	
 end
 
@@ -175,6 +179,13 @@ local function unloadCommon( modApi, options )
 		end
 	end	
 
+end
+
+local function earlyLoad( modApi, options, params )
+    local scriptPath = modApi:getScriptPath()
+
+	local serverdefs_appends = include( scriptPath .. "/appended_functions/serverdefs" )
+	serverdefs_appends.earlyLoad()
 end
 
 local function load( modApi, options, params )
@@ -265,6 +276,11 @@ local function load( modApi, options, params )
 		modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } )
 		-- for vanilla side missions
 		include( scriptPath .. "/appended_functions/abilities/transformer_terminal")
+
+		-- (easy debugging of sidemissions: uncomment to clear the list and add just the sidemission to be tested)
+		--local worldgen = include( "sim/worldgen" )
+		--util.tclear(worldgen.SIDEMISSIONS)
+		--modApi:addSideMissions(scriptPath, { "???" } )
 	end
 
 	-- add all the custom NEW abilities (not appends to existing ones)
@@ -284,6 +300,8 @@ local function load( modApi, options, params )
 	modApi:addAbilityDef( "MM_renameDrone", scriptPath .. "/abilities/MM_renameDrone" )
 	modApi:addAbilityDef( "MM_activateLuxuryNanofab", scriptPath .. "/abilities/MM_activateLuxuryNanofab" )
 	modApi:addAbilityDef( "MM_summonGuard", scriptPath .. "/abilities/MM_summonGuard" )
+	modApi:addAbilityDef( "MM_surveyor", scriptPath .. "/abilities/MM_surveyor" )
+	modApi:addAbilityDef( "MM_ce_ultrasonic_echolocation_passive", scriptPath .. "/abilities/MM_ce_ultrasonic_echolocation_passive" )
 
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
@@ -410,7 +428,7 @@ local function load( modApi, options, params )
 	
 end
 
-local function lateLoad( modApi, options, params )
+local function lateLoad( modApi, options, params, mod_options )
 	local scriptPath = modApi:getScriptPath()
 	local tech_expo_itemdefs = include( scriptPath .. "/tech_expo_itemdefs" )
 	for name, itemDef in pairs(tech_expo_itemdefs.generateTechExpoGear()) do
@@ -424,10 +442,10 @@ local function lateLoad( modApi, options, params )
 	----- Distress Call mission hackz - Hek. They need to be in Load too. make that lateLoad because of Additional Banter
 	include( scriptPath .. "/appended_functions/mission_util_lateLoad" )	
 	
-	--ASSASSINATION
+	--ASSASSINATION, COURIER RESCUE
 	-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
-	local serverdef_appends = include( scriptPath .. "/appended_functions/serverdefs" )
-	serverdef_appends.runAppend()	
+	local serverdefs_appends = include( scriptPath .. "/appended_functions/serverdefs" )
+	serverdefs_appends.lateLoad( mod_options )
 end
 
 local function unload( modApi, options )
@@ -451,6 +469,7 @@ return {
     init = init,
     earlyInit = earlyInit,
     lateInit = lateInit,
+    earlyLoad = earlyLoad,
     load = load,
     lateLoad = lateLoad,
     unload = unload,

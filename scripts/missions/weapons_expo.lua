@@ -350,8 +350,10 @@ local function MM_checkTopGearItem( script, sim )
     
 	sim:setClimax(true)
     script:waitFor( mission_util.UI_LOOT_CLOSED )
-    sim:removeObjective( OBJECTIVE_ID )    
-	sim:getNPC():addMainframeAbility( sim, "authority", nil, 0 ) --add Authority daemon (with no reversal) after first one looted
+    sim:removeObjective( OBJECTIVE_ID )
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then	
+		sim:getNPC():addMainframeAbility( sim, "authority", nil, 0 ) --add Authority daemon (with no reversal) after first one looted
+	end
     script:waitFrames( .5*cdefs.SECONDS )
 	sim.exit_warning = nil
 	androidFX(script,sim)
@@ -361,9 +363,11 @@ local function MM_checkTopGearItem( script, sim )
 	
 	scripts = SCRIPTS.INGAME.WEAPONS_EXPO.LOOTED_CASE_DROIDS_BOOTING
 	
-	script:waitFor( PC_WON )
-	sim:getParams().agency.MM_techexpo_done = sim:getParams().agency.MM_techexpo_done or 0
-	sim:getParams().agency.MM_techexpo_done = sim:getParams().agency.MM_techexpo_done + 1
+	-- script:waitFor( PC_WON ) --moved agency changes to DoFinishMission
+	sim.PC_WON_agency = sim.PC_WON_agency or {}
+	local agency = sim.PC_WON_agency
+	agency.MM_techexpo_done = agency.MM_techexpo_done or 0
+	agency.MM_techexpo_done = agency.MM_techexpo_done + 1
 end
 
 local UNIT_ESCAPE =

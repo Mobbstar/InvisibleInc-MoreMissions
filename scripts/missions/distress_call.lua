@@ -1,5 +1,6 @@
 local array = include( "modules/array" )
 local util = include( "modules/util" )
+local serverdefs = include( "modules/serverdefs" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 local simquery = include( "sim/simquery" )
@@ -111,31 +112,16 @@ end
 
 local function make_gear( sim, newUnit, agentTemplate )
 
-	local template_list = {
-	-- "vault_passcard",
-	"item_corpIntel",
-	"item_crybaby",
-	"item_flash_pack",
-	"item_clip",
-	"item_tag_pistol",
-	"item_flashgrenade",
-	"item_stickycam",
-	"item_hologrenade_17_9",
-	"item_smokegrenade",
-	"item_adrenaline",
-	"item_stim_2",
-	"item_paralyzer_2",
-	"item_laptop_2",
-	"item_cloakingrig_1",
-	"item_icebreaker_2",
-	"item_prototype_drive",
-	"item_portabledrive_2",
-	"item_econchip",
-	"item_lockdecoder",
-	"item_shocktrap_2",
-	"item_wireless_scanner_1",
-	"item_light_pistol",
-	}
+	-- Comparable vanilla rewards: (scaling @E/E+ = 0.75-1.3  @E++ = 0.5-0.875)
+	-- * Detention Centre (prisoner): 800*scaling (reward)
+	-- * Security Dispatch: 150*scaling ("safe") + item of floor weight 3+
+	--   * item value (vanilla+DLC): mean=1030, min=600, max=1500
+	-- * CFO: 450*scaling (CFO) + vault_passcard
+	--
+	-- Distress Call (Lien): 800*scaling (reward) + 80*scaling (guard) + vault_passcard (500) + 1 of these
+	-- * 300-600cr, other than the non-purchaseable prototype drive
+	-- * mean=420
+	local template_list = serverdefs.MM_DISTRESS_CALL_ITEMS
 	local new_items = {}
 	local captured_items = {} --separate table for these as they're already spawned
 	if newUnit:getUnitData().agentID then
@@ -202,7 +188,7 @@ end
 ]]
 
 local function checkGuard( unit )
-	return unit and unit:getTraits().isGuard and not unit:isKO()
+	return unit and unit:getTraits().isGuard and not unit:isKO() and not unit:getTraits().pacifist
 end
 
 local function makeGuardInvestigate( script, sim )

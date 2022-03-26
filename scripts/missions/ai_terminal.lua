@@ -43,13 +43,14 @@ local AI_CONSOLE_HIJACKED =
 	end,
 }
 
-local 	PC_WON =
+local PC_WON =
 	{		
         priority = 10,
 
         trigger = simdefs.TRG_GAME_OVER,
         fn = function( sim, evData )
             if sim:getWinner() then
+				log:write("LOG MM AI Terminal PC WON")
                 return sim:getPlayers()[sim:getWinner()]:isPC()
             else
                 return false
@@ -342,12 +343,23 @@ local function upgradeDialog( script, sim )
 			end
 		end
 	elseif option == counterAI_opt then
-		local corpName = serverdefs.CORP_DATA[ sim:getParams().world ].stringTable.SHORTNAME
-		local option_pe_txt = util.sformat(dialogPath.OPTIONS2_PE_TXT, corpName )
+		local corpName = dialogPath.OPTIONS2_PE_TXT_CORPORATE -- "corporate"
+		local options_pe_txt_base = dialogPath.OPTIONS2_PE_TXT_ALL_CORPS
+		
+		local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
+		if isEndless then
+			corpName = serverdefs.CORP_DATA[ sim:getParams().world ].stringTable.SHORTNAME
+			options_pe_txt_base = dialogPath.OPTIONS2_PE_TXT_ONE_CORP
+		end
+		
+		local option_pe_txt = util.sformat(options_pe_txt_base, corpName )
+		
 		if sim:getParams().agency.MM_hostileAInerf and sim:getParams().agency.MM_hostileAInerf[sim:getParams().world] then --if we've already debuffed this corp's AI in the past, display this
 			local debuff = sim:getParams().agency.MM_hostileAInerf[sim:getParams().world]
-			option_pe_txt = util.sformat(dialogPath.OPTIONS2_PE_TXT_PREEXISTING, corpName, debuff )
+			local text_alreadyDebuffed = options_pe_txt_base .. dialogPath.OPTIONS2_PE_ALREADY_WEAKENED
+			option_pe_txt = util.sformat(text_alreadyDebuffed, corpName, debuff )
 		end
+		
 		local option_pe = mission_util.showDialog( sim, dialogPath.OPTIONS2_PE_TITLE, option_pe_txt, dialogPath.OPTIONS2_CANCEL_CONFIRM )
 		if option_pe == 1 then
 			option_confirm = nil
@@ -729,6 +741,47 @@ local function makeSmoke( script, sim )
 	end	
 end
 
+-- Callback to be applied in mission_scoring
+local function updateAgency( sim, agency )
+	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
+
+		if not agency.W93_aiTerminals then
+			agency.W93_aiTerminals = 0
+		end
+		agency.W93_aiTerminals = agency.W93_aiTerminals + 1
+
+	elseif sim:getTags().upgradedPrograms then
+
+		agency.MM_upgradedPrograms = agency.MM_upgradedPrograms or {}
+		local programs = sim:getPC():getAbilities()
+		for i, ability in pairs(programs) do
+			-- local ID = ability._abilityID --see rant in scriptPath mainframe_abilities
+			if ability.MM_modifiers then
+				local ID = ability.oldName
+				agency.MM_upgradedPrograms[ID] = {}
+				agency.MM_upgradedPrograms[ID] = util.tcopy( ability.MM_modifiers )
+			end
+		end
+	elseif sim:getTags().weakened_counterAI then
+		local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
+		-- -2 to ALL corps on campaign. -2 to target corp on Endless
+		local corp = sim:getParams().world
+		agency.MM_hostileAInerf = agency.MM_hostileAInerf or {}
+		if isEndless then
+			agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] or 0
+			agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] + 2	--FuncLib or PE should do the rest
+		else
+			for i, corpData in pairs(serverdefs.CORP_DATA) do
+				local corpName = corpData.world
+				if not ((corpName == "omni") or (corpName == "omni2")) then
+					agency.MM_hostileAInerf[corpName] = agency.MM_hostileAInerf[corpName] or 0
+					agency.MM_hostileAInerf[corpName] = agency.MM_hostileAInerf[corpName] + 2
+				end
+			end
+		end
+	end
+end
+
 local function upgradeIncognita( script, sim )
 	-- local _, evData = script:waitFor( INCOGNITA_UPGRADED() )
 	-- upgradeDialog( script, sim, agent )
@@ -742,44 +795,18 @@ local function upgradeIncognita( script, sim )
 	elseif sim:getTags().weakened_counterAI then
 		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_HOSTILE_AI_WEAKENED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_HOSTILE_AI_WEAKENED)], type="newOperatorMessage" } )
 	end
-	
+
 	--now for the security measures
 	script:queue( 1 * cdefs.SECONDS )
 	script:addHook( makeSmoke )
-	
+
 	sim:setClimax(true)
 	sim.exit_warning = nil
 	sim.TA_mission_success = true
 
-	script:waitFor( PC_WON ) -- to think I could have been doing agency changes like wodzu all this time instead of putting things in DoFinishMission
-	local agency = sim:getParams().agency
-	
-	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
-		
-		if not sim:getParams().agency.W93_aiTerminals then
-			sim:getParams().agency.W93_aiTerminals = 0
-		end
-		sim:getParams().agency.W93_aiTerminals = sim:getParams().agency.W93_aiTerminals + 1
-		
-	elseif sim:getTags().upgradedPrograms then
-	
-		agency.MM_upgradedPrograms = agency.MM_upgradedPrograms or {}
-		
-		local programs = sim:getPC():getAbilities()
-		for i, ability in pairs(programs) do	
-			-- local ID = ability._abilityID --see rant in scriptPath mainframe_abilities
-			if ability.MM_modifiers then
-				local ID = ability.oldName
-				agency.MM_upgradedPrograms[ID] = {}
-				agency.MM_upgradedPrograms[ID] = util.tcopy( ability.MM_modifiers )
-			end
-		end	
-	elseif sim:getTags().weakened_counterAI then
-		local corp = sim:getParams().world
-		agency.MM_hostileAInerf = agency.MM_hostileAInerf or {}
-		agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] or 0
-		agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] + 2	--FuncLib or PE should do the rest
-	end
+	-- Updates will be applied in mission_scoring
+	sim.MM_agencyUpdates = sim.MM_agencyUpdates or {}
+	table.insert( sim.MM_agencyUpdates, updateAgency )
 end
 
 local function cardSafeReaction( script, sim  )
@@ -812,7 +839,7 @@ local function addKeys( sim )
 	local consoleAdded = false
 
 	for i, unit in pairs(sim:getAllUnits()) do
-		if unit:getTraits().safeUnit and not safeAdded then
+		if unit:getTraits().safeUnit and not (unit:getUnitData().id == "guard_locker") and not safeAdded then
 			local item = simfactory.createUnit( propdefs.MM_W93_AiRoomPasscard, sim )
 			sim:spawnUnit(item)
 			unit:addChild(item)

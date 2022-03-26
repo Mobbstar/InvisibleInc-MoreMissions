@@ -653,7 +653,7 @@ local function playerUnlocksSaferoom( script, sim )
 	end
 
 	-- Cannot waitFrames in response to a TRG_UNIT_WARP. The walking animation ends up looping in place
-	script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.DOOR_UNLOCKED ), type="newOperatorMessage" } )
+	-- script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.DOOR_UNLOCKED ), type="newOperatorMessage" } )
 end
 
 local function trackBodyguardDead( script, sim )
@@ -783,7 +783,7 @@ end
 
 local function bodyguardShotAt( script, sim )
 	local _, guard, agent = script:waitFor( BODYGUARD_SHOT_AT )
-	if guard:isValid() and guard:getLocation() then
+	if guard:isValid() and guard:getLocation() and not guard:isKO() then
 		if simquery.couldUnitSee( sim, guard, agent, true, nil ) then
 			guard:turnToFace( agent:getLocation() )
 		end
@@ -830,13 +830,13 @@ local 	PC_WON =
         end,
 	}
 
-local function updateAgency( script, sim, mission ) --UNUSED
-	script:waitFor( PC_WON )
-		if mission.killedTarget then
-		sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations or 0
-		sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations + 1
-	end
-end
+-- local function updateAgency( script, sim, mission ) --UNUSED
+	-- script:waitFor( PC_WON )
+		-- if mission.killedTarget then
+		-- sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations or 0
+		-- sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations + 1
+	-- end
+-- end
 ---------------------------------------------------------------------------------------------
 -- Begin!
 

@@ -15,7 +15,8 @@ local function runAppend( modApi )
 	local mission_scoring = include("mission_scoring")
 	local DoFinishMission_old = mission_scoring.DoFinishMission
 	mission_scoring.DoFinishMission = function( sim, campaign, ... )
-		local agency = sim:getParams().agency
+		-- local agency = sim:getParams().agency	
+		local agency = campaign.agency
 
 		--update existing informant bonuses
 		-- bonus doesn't apply in Omni missions so don't tick down
@@ -101,6 +102,26 @@ local function runAppend( modApi )
 			-- end
 			sim._resultTable.credits_gained.assassinationreward = sim._assassinationReward
 		end
+		
+		-- For a mission to arbitrarily update the agency,
+		-- 1. Define a function that takes (sim,agency) parameters, updating the agency based on values on the sim.
+		-- 2. Add that function to the list of callback functions to be applied when the mission is over:
+		-- ```
+		--   sim.MM_agencyUpdates = sim.MM_agencyUpdates or {}
+		--   table.insert( sim.MM_agencyUpdates, updateAgency )
+		-- ```
+		if sim.MM_agencyUpdates then
+			-- Accessing the agency from the sim (even during DoFinishMission) doesn't help, that's what's the cause of all this: The campaign that's in the sim and in the savefile are different. You need to get it from the savefile. Getting agency from campaign is also fine. -- Cyberboy2000
+			-- local user = savefiles.getCurrentGame()
+			-- local campaign = user.data.saveSlots[ user.data.currentSaveSlot ]
+
+			for _, updateCallback in ipairs(sim.MM_agencyUpdates) do
+				updateCallback(sim, campaign.agency)
+			end
+		end
+		
+		log:write("LOG MM agency")
+		log:write(util.stringize(campaign.agency,2))
 
 		return returnvalue
 	end

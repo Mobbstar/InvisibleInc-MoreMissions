@@ -19,7 +19,7 @@ local escape_mission = include("sim/missions/escape_mission")
 local DRONE_BANTER_CHANCE = 0.3
 
 --local helpers
-local 	PC_WON =
+local 	PC_WON = --now unused
 	{		
         priority = 10,
 
@@ -88,20 +88,24 @@ local function updateRefitDrone( script, sim )
 	drone:getTraits().MM_refitDroneRescue = true
 end
 
-local function waitForDroneEscape( script, sim )
-	local _, drone = script:waitFor( REFIT_DRONE_ESCAPED )
-	local name = drone:getTraits().customName
+-- Callback to be applied in mission_scoring
+local function updateAgencyForRefitDrone( sim, agency )
+	local name = sim:getTags().MM_rescuedRefitDroneName
 	local campaignHours = sim:getParams().campaignHours
-	
-	script:waitFor( PC_WON )
-	local agency = sim:getParams().agency
-	agency.MM_rescuedRefitDrone = agency.MM_rescuedRefitDrone or {}
 
 	local droneData = {name = name, campaignHours = campaignHours}
-	-- table.insert(agency.MM_rescuedRefitDrone, droneData)
-	agency.MM_rescuedRefitDrone[1] = droneData
-	-- log:write("LOG agency")
-	-- log:write(util.stringize(agency.MM_rescuedRefitDrone,2))
+
+	agency.MM_rescuedRefitDrone = agency.MM_rescuedRefitDrone or {}
+	table.insert( agency.MM_rescuedRefitDrone, droneData )
+end
+
+local function waitForDroneEscape( script, sim )
+	local _, drone = script:waitFor( REFIT_DRONE_ESCAPED )
+	sim:getTags().MM_rescuedRefitDroneName = drone:getTraits().customName
+
+	-- Updates will be applied in mission_scoring
+	sim.MM_agencyUpdates = sim.MM_agencyUpdates or {}
+	table.insert( sim.MM_agencyUpdates, updateAgencyForRefitDrone )
 end
 
 local function droneSpeech( script, sim )
@@ -343,7 +347,7 @@ local function KillBoss( script, sim )
 	script:queue(1*cdefs.SECONDS)
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.PERSONNEL_HIJACK.BOSS_KILLED, type="newOperatorMessage" } )
 
-	script:waitFor( PC_WON )
+	-- script:waitFor( PC_WON ) --I don't think this delay is even needed...
 	sim:setMissionReward( simquery.scaleCredits( sim, 200 ))
 end
 
