@@ -28,6 +28,14 @@ end
 
 ----
 -- Trigger Definitions
+
+-- Like mission_util.PC_ANY, but after the action completes instead of before.
+-- Allows triggering before returning to player control.
+local PC_AFTER_ANY =
+{
+	action = "", -- Any action
+}
+
 --interest triggers so bodyguard can investigate instead VIP
 local DECOY_REVEALED = 
 {
@@ -185,6 +193,75 @@ local UNIT_USE_DOOR =
 	end
 }
 
+-- bodyguard behaviour: keeping within vision range of VIP, investigating in his stead
+local function keepClose( script, sim )
+	while true do
+		local bodyguard = nil
+		local vip = nil
+		script:waitFor( mission_util.PC_START_TURN )
+		for i, unit in pairs(sim:getNPC():getUnits()) do
+			if unit:getTraits().MM_bodyguard then
+				bodyguard = unit
+			end
+			if sim.MM_bounty_disguise_active then
+				if unit:getTraits().MM_decoy then
+					vip = unit
+				end
+			else
+				if unit:getTraits().MM_bounty_target then
+					vip = unit
+				end
+			end
+		end
+		if bodyguard and vip and bodyguard:getBrain() and not bodyguard:isKO() then
+			if not simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) and not (bodyguard:getTraits().lostVIP or bodyguard:getTraits().previouslyLostVIP) then
+				bodyguard:getTraits().previouslyLostVIP = nil
+				local x1,y1 = vip:getLocation()
+				bodyguard:getBrain():spawnInterest(x1, y1, simdefs.SENSE_RADIO, simdefs.REASON_NOTICED, vip) -- give persistent interest point to VIP's location
+				bodyguard:getTraits().lostVIP = true
+			elseif simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) and bodyguard:getTraits().lostVIP then
+				bodyguard:getTraits().lostVIP = nil
+				bodyguard:getTraits().previouslyLostVIP = true
+				local x1,y1 = vip:getLocation()
+				bodyguard:getBrain():spawnInterest(x1, y1, simdefs.SENSE_RADIO, simdefs.REASON_NOTICED, vip) 		
+			end
+		end
+	end
+end
+
+-- when VIP is distracted, bodyguard investigates distraction instead if in sight, while VIP investigates on the spot
+local function transferInterest( sim, interest )
+	local bodyguard = nil
+	local vip = interest.sourceUnit
+	for i, unit in pairs(sim:getNPC():getUnits()) do
+		if unit:getTraits().MM_bodyguard and unit:getBrain() and not unit:isKO() then
+			bodyguard = unit
+		end
+	end
+	if bodyguard and vip and not vip:getTraits().MM_ceo_armed and (simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) or sim.MM_bounty_disguise_active ) then
+		local x0, y0 = vip:getLocation()
+		local x1, y1 = interest.x, interest.y
+		vip:getBrain():spawnInterest(x0,y0, sim:getDefs().SENSE_DEBUG, "REASON_MM_ASSASSINATION") --vip stays put and investigates in place	
+		if simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) then
+			bodyguard:getBrain():spawnInterest(x1,y1, simdefs.SENSE_RADIO, "REASON_MM_ASSASSINATION") --bodyguard investigates distraction
+		end
+	end
+end
+
+local function waitForInterest( script, sim )
+	while true do
+		local _, interest = script:waitFor( NEW_INTEREST )
+		transferInterest( sim, interest)	
+	end
+end
+
+local function waitForUnitInterest( script, sim )
+	while true do
+		local _, interest = script:waitFor( NEW_UNIT_INTEREST )
+		transferInterest( sim, interest)		
+	end
+end
+
 local function playerHasLethalWeapons( sim )
 	for i, unit in pairs( sim:getPC():getUnits() ) do
 		for k, item in pairs(unit:getChildren()) do
@@ -289,7 +366,12 @@ local function spawnCeoWeapon( sim )
 end
 
 local function initCeoTraits( sim )
-	local ceo = mission_util.findUnitByTag( sim, "assassination" )
+	local ceo_real_tag = "assassination"
+	local fake_ceo = safeFindUnitByTag( sim, "assassination_fake" )
+	if fake_ceo then
+		ceo_real_tag = "assassination_real"
+	end
+	local ceo = mission_util.findUnitByTag( sim, ceo_real_tag )
 
 	-- CEO is allowed to walk in and out of the saferoom
 	if ceo:getTraits().npcPassiveKeybits then
@@ -300,6 +382,15 @@ local function initCeoTraits( sim )
 
 	-- No penalty for killing this one.
 	ceo:getTraits().cleanup = nil
+	
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+		local bodyguard = mission_util.findUnitByTag( sim, "bodyguard" )
+		bodyguard:getTraits().woundsMax = 1
+		bodyguard:getTraits().MM_alertlink = nil
+		
+		ceo:getTraits().hasSentAlert = true
+		ceo:getTraits().MM_alertlink = nil
+	end
 end
 
 -- Alert the CEO
@@ -308,7 +399,7 @@ local function doAlertCeo( sim, fromBodyguard, mission )
 	local ceoreal = safeFindUnitByTag( sim, "assassination_real" )
 	local ceos = { ceofake, ceoreal }
 	for i, ceo in pairs(ceos) do
-		if ceo and ceo:isValid() and not ceo:isDown() and not ceo:getTraits().iscorpse and not ceo:isAlerted() then
+		if ceo and ceo:isValid() and not ceo:isDown() and not ceo:getTraits().iscorpse and not ceo:isAlerted() and not ceo:getTraits().hasSentAlert then
 			ceo:getTraits().MM_alertlink = nil --for tooltip
 			if fromBodyguard then
 				-- Don't send alerts back and forth
@@ -334,7 +425,7 @@ local function doAlertBodyguard( sim, ceo, mission )
 	if bodyguard then
 		bodyguard:getTraits().MM_alertlink = nil
 	end
-	if x and y and ceo then
+	if x and y and ceo and not ceo:getTraits().hasSentAlert then
 		if bodyguard and bodyguard:isValid() and bodyguard:getBrain() and not bodyguard:isDown() then
 			-- Send the bodyguard to the CEO
 			-- Brain:spawnInterest: Create a remembered interest
@@ -562,7 +653,7 @@ local function playerUnlocksSaferoom( script, sim )
 	end
 
 	-- Cannot waitFrames in response to a TRG_UNIT_WARP. The walking animation ends up looping in place
-	script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.DOOR_UNLOCKED ), type="newOperatorMessage" } )
+	-- script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.DOOR_UNLOCKED ), type="newOperatorMessage" } )
 end
 
 local function trackBodyguardDead( script, sim )
@@ -618,6 +709,11 @@ local function ceoAlerted(script, sim, mission)
 	local finalFacing = simquery.getDirectionFromDelta(xSafe - finalCell.x, ySafe - finalCell.y)
 	ceo:getTraits().patrolPath = { { x = finalCell.x, y = finalCell.y, facing = finalFacing } }
 
+	-- remove these hooks, as we don't want the bodyguard trying to do these things while the CEO is in the panic room
+	script:removeHook(keepClose)
+	script:removeHook(waitForInterest)
+	script:removeHook(waitForUnitInterest)
+	
 	-- Alert the bodyguard, unless we have already sent an alert
 	-- (No double interest for KO and first wakeup)
 	if not ceo:getTraits().hasSentAlert then
@@ -630,7 +726,7 @@ local function ceoAlerted(script, sim, mission)
 	
 	-- Tell the player (using the vanilla CFO running line)
 	if ceo and not ceo:isDown() then
-		script:queue( { script=SCRIPTS.INGAME.CENTRAL_CFO_RUNNING, type="newOperatorMessage" } )
+		-- script:queue( { script=SCRIPTS.INGAME.CENTRAL_CFO_RUNNING, type="newOperatorMessage" } ) --we don't need this anymore
 		sim:getPC():glimpseUnit(sim, ceo:getID() )
 	end
 
@@ -687,79 +783,10 @@ end
 
 local function bodyguardShotAt( script, sim )
 	local _, guard, agent = script:waitFor( BODYGUARD_SHOT_AT )
-	if guard:isValid() and guard:getLocation() then
+	if guard:isValid() and guard:getLocation() and not guard:isKO() then
 		if simquery.couldUnitSee( sim, guard, agent, true, nil ) then
 			guard:turnToFace( agent:getLocation() )
 		end
-	end
-end
-
--- bodyguard behaviour: keeping within vision range of VIP, investigating in his stead
-local function keepClose( script, sim )
-	while true do
-		local bodyguard = nil
-		local vip = nil
-		script:waitFor( mission_util.PC_START_TURN )
-		for i, unit in pairs(sim:getNPC():getUnits()) do
-			if unit:getTraits().MM_bodyguard then
-				bodyguard = unit
-			end
-			if sim.MM_bounty_disguise_active then
-				if unit:getTraits().MM_decoy then
-					vip = unit
-				end
-			else
-				if unit:getTraits().MM_bounty_target then
-					vip = unit
-				end
-			end
-		end
-		if bodyguard and vip and bodyguard:getBrain() and not bodyguard:isKO() then
-			if not simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) and not (bodyguard:getTraits().lostVIP or bodyguard:getTraits().previouslyLostVIP) then
-				bodyguard:getTraits().previouslyLostVIP = nil
-				local x1,y1 = vip:getLocation()
-				bodyguard:getBrain():spawnInterest(x1, y1, simdefs.SENSE_RADIO, simdefs.REASON_NOTICED, vip) -- give persistent interest point to VIP's location
-				bodyguard:getTraits().lostVIP = true
-			elseif simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) and bodyguard:getTraits().lostVIP then
-				bodyguard:getTraits().lostVIP = nil
-				bodyguard:getTraits().previouslyLostVIP = true
-				local x1,y1 = vip:getLocation()
-				bodyguard:getBrain():spawnInterest(x1, y1, simdefs.SENSE_RADIO, simdefs.REASON_NOTICED, vip) 		
-			end
-		end
-	end
-end
-
--- when VIP is distracted, bodyguard investigates distraction instead if in sight, while VIP investigates on the spot
-local function transferInterest( sim, interest )
-	local bodyguard = nil
-	local vip = interest.sourceUnit
-	for i, unit in pairs(sim:getNPC():getUnits()) do
-		if unit:getTraits().MM_bodyguard and unit:getBrain() and not unit:isKO() then
-			bodyguard = unit
-		end
-	end
-	if bodyguard and vip and not vip:getTraits().MM_ceo_armed and (simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) or sim.MM_bounty_disguise_active ) then
-		local x0, y0 = vip:getLocation()
-		local x1, y1 = interest.x, interest.y
-		vip:getBrain():spawnInterest(x0,y0, sim:getDefs().SENSE_DEBUG, "REASON_MM_ASSASSINATION") --vip stays put and investigates in place	
-		if simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) then
-			bodyguard:getBrain():spawnInterest(x1,y1, simdefs.SENSE_RADIO, "REASON_MM_ASSASSINATION") --bodyguard investigates distraction
-		end
-	end
-end
-
-local function waitForInterest( script, sim )
-	while true do
-		local _, interest = script:waitFor( NEW_INTEREST )
-		transferInterest( sim, interest)	
-	end
-end
-
-local function waitForUnitInterest( script, sim )
-	while true do
-		local _, interest = script:waitFor( NEW_UNIT_INTEREST )
-		transferInterest( sim, interest)		
 	end
 end
 
@@ -777,7 +804,7 @@ local function despawnDecoy( script, sim )
 	end
 	
 	script:queue( { type="hideHUDInstruction" } ) 
-	script:waitFor( mission_util.PC_ANY )
+	script:waitFor( mission_util.PC_ANY, PC_AFTER_ANY )
 	sim:warpUnit( decoyUnit, nil ) -- remove the original
 	sim:despawnUnit( decoyUnit ) 
 	
@@ -803,13 +830,13 @@ local 	PC_WON =
         end,
 	}
 
-local function updateAgency( script, sim, mission ) --UNUSED
-	script:waitFor( PC_WON )
-		if mission.killedTarget then
-		sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations or 0
-		sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations + 1
-	end
-end
+-- local function updateAgency( script, sim, mission ) --UNUSED
+	-- script:waitFor( PC_WON )
+		-- if mission.killedTarget then
+		-- sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations or 0
+		-- sim:getParams().agency.MM_assassinations = sim:getParams().agency.MM_assassinations + 1
+	-- end
+-- end
 ---------------------------------------------------------------------------------------------
 -- Begin!
 
@@ -895,6 +922,10 @@ local function spawnDecoy( sim, cell, facing )
 	decoyUnit:getTraits().MM_unsearchable = true
 	decoyUnit:addTag("assassination")
 	decoyUnit:addTag("assassination_fake")
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+		decoyUnit:getTraits().MM_alertlink = nil
+		decoyUnit:getTraits().hasSentAlert = true
+	end
 end
 
 --NEW decoy mechanic: real VIP in saferoom, replaced with disguised android
@@ -961,11 +992,11 @@ function mission:init( scriptMgr, sim )
 	tryDecoy( sim )
 	activateCam( sim )
 	-- Base credit value for a successful kill
-	self.BOUNTY_VALUE = 1000
+	self.BOUNTY_VALUE = 1500
 
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_FIND, "find" )
 	spawnCeoWeapon( sim )
-	initCeoTraits( sim )
+	initCeoTraits( sim ) --includes Easy Mode nerfing
 
 	sim.exit_warning = function() return exitWarning(self) end
 

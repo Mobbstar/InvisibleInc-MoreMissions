@@ -43,13 +43,14 @@ local AI_CONSOLE_HIJACKED =
 	end,
 }
 
-local 	PC_WON =
+local PC_WON =
 	{		
         priority = 10,
 
         trigger = simdefs.TRG_GAME_OVER,
         fn = function( sim, evData )
             if sim:getWinner() then
+				log:write("LOG MM AI Terminal PC WON")
                 return sim:getPlayers()[sim:getWinner()]:isPC()
             else
                 return false
@@ -175,22 +176,42 @@ local function upgradeIcebreak( upgradedProgram, sim, boost )
 			upgradedProgram.MM_modifiers.parasite_strength = upgradedProgram.MM_modifiers.parasite_strength + boost			
 		end	
 	end
+	if (upgradedProgram._abilityID == "dataBlast") and (boost > 0) then
+		log:write("LOG completing data blast upgrade")
+		validUpgrade = true
+		upgradedProgram.dataBlastStrength = 1
+		upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers or {}
+		upgradedProgram.MM_modifiers.break_firewalls = upgradedProgram.MM_modifiers.break_firewalls or 0
+		upgradedProgram.MM_modifiers.break_firewalls = upgradedProgram.MM_modifiers.break_firewalls + boost	
+	end
 	return validUpgrade
 end
 
 local function upgradePWRcost( upgradedProgram, sim, boost )
 	local validUpgrade = false
+	local pwrCost = upgradedProgram.cpu_cost
+	if upgradedProgram.parasite_strength then
+		pwrCost = upgradedProgram.base_cpu_cost
+	end
 	local result = (upgradedProgram.cpu_cost or 0) + boost
 	if result > 0 then
-		if upgradedProgram.cpu_cost then
+		if upgradedProgram.cpu_cost and not (upgradedProgram.parasite_strength and upgradedProgram.parasite_strength == 1) then 
+		-- we don't want Parasite 1.0 pwr cost to be upgradable for both balance and bug prevention reasons.
 			validUpgrade = true
 			upgradedProgram.cpu_cost = upgradedProgram.cpu_cost + boost
 			if upgradedProgram.GOLEMCOST then
 				upgradedProgram.GOLEMCOST = upgradedProgram.GOLEMCOST + boost
 			end
+			-- store changes for agency
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
 			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost or 0
-			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost + boost			
+			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost + boost
+			
+			if upgradedProgram.parasite_strength and upgradedProgram.base_cpu_cost then -- Parasite V.2.0
+				upgradedProgram.MM_modifiers.base_cpu_cost = upgradedProgram.MM_modifiers.base_cpu_cost or 0
+				upgradedProgram.base_cpu_cost = upgradedProgram.base_cpu_cost + boost
+				upgradedProgram.MM_modifiers.base_cpu_cost = upgradedProgram.MM_modifiers.base_cpu_cost + boost
+			end			
 		end
 	end
 	return validUpgrade
@@ -322,12 +343,23 @@ local function upgradeDialog( script, sim )
 			end
 		end
 	elseif option == counterAI_opt then
-		local corpName = serverdefs.CORP_DATA[ sim:getParams().world ].stringTable.SHORTNAME
-		local option_pe_txt = util.sformat(dialogPath.OPTIONS2_PE_TXT, corpName )
+		local corpName = dialogPath.OPTIONS2_PE_TXT_CORPORATE -- "corporate"
+		local options_pe_txt_base = dialogPath.OPTIONS2_PE_TXT_ALL_CORPS
+		
+		local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
+		if isEndless then
+			corpName = serverdefs.CORP_DATA[ sim:getParams().world ].stringTable.SHORTNAME
+			options_pe_txt_base = dialogPath.OPTIONS2_PE_TXT_ONE_CORP
+		end
+		
+		local option_pe_txt = util.sformat(options_pe_txt_base, corpName )
+		
 		if sim:getParams().agency.MM_hostileAInerf and sim:getParams().agency.MM_hostileAInerf[sim:getParams().world] then --if we've already debuffed this corp's AI in the past, display this
 			local debuff = sim:getParams().agency.MM_hostileAInerf[sim:getParams().world]
-			option_pe_txt = util.sformat(dialogPath.OPTIONS2_PE_TXT_PREEXISTING, corpName, debuff )
+			local text_alreadyDebuffed = options_pe_txt_base .. dialogPath.OPTIONS2_PE_ALREADY_WEAKENED
+			option_pe_txt = util.sformat(text_alreadyDebuffed, corpName, debuff )
 		end
+		
 		local option_pe = mission_util.showDialog( sim, dialogPath.OPTIONS2_PE_TITLE, option_pe_txt, dialogPath.OPTIONS2_CANCEL_CONFIRM )
 		if option_pe == 1 then
 			option_confirm = nil
@@ -346,9 +378,7 @@ local function upgradeDialog( script, sim )
 		local txt2 = util.sformat(dialogPath.OPTIONS2_TXT,options3_temp[2],options3_temp[1])
 		
 		local options2 = populateProgramList( sim ).options_list
-		if #options2 > 5 then
-			txt2 = util.sformat(dialogPath.OPTIONS2_TXT_COMPACT,options3_temp[2],options3_temp[1])
-		end
+
 		if #options2 <= 0 then
 			mission_util.showBadResult( sim, dialogPath.NO_PROGRAMS, dialogPath.NO_PROGRAMS_DESC )
 			option = nil
@@ -437,6 +467,9 @@ local function upgradeDialog( script, sim )
 					or (((upgradedProgram.parasite_strength or 0) > 0) and upgradedProgram.parasite_strength)
 					or dialogPath.INVALID	))..txt_increment
 					
+					if upgradedProgram._abilityID == "dataBlast" then -- more special cases
+						txt_firewalls = util.sformat(dialogPath.FIREWALLS_TIP, upgradedProgram.name, 1)..txt_increment
+					end
 					local option_firewalls = mission_util.showDialog( sim, dialogPath.OPTIONS_FIREWALLS_TITLE, txt_firewalls, options_increment )
 					
 
@@ -469,10 +502,9 @@ local function upgradeDialog( script, sim )
 					end
 					
 				elseif option3 == pwr_opt then
-				
 					local txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (upgradedProgram.cpu_cost or dialogPath.INVALID))..txt_increment		
 
-					if upgradedProgram.parasiteV2 then --blargh, hardcoding
+					if upgradedProgram.parasite_strength and (upgradedProgram.parasite_strength == 1) then --blargh, hardcoding
 						txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (dialogPath.INVALID))..txt_increment
 					end
 					
@@ -665,25 +697,26 @@ local function makeSmoke( script, sim )
 		end
 	end
 	local cell = sim:getCell(terminal:getLocation())
-	local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud_harmless, sim ) -- will produce more toxic gas after 1 turn
+	local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud, sim )
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Grenades/smokegrenade_explo" )
 	sim:spawnUnit( KOcloud )
 	sim:warpUnit( KOcloud, cell )
 	script:queue( { type="pan", x=cell.x, y=cell.y, zoom=0.27 } )
 	queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.SMOKE_WARNING )
-	sim:getNPC():spawnInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, terminal) 
-	
-	script:waitFor( mission_util.PC_START_TURN )
-	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
-		script:waitFor( mission_util.PC_START_TURN )
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
+		sim:getNPC():spawnInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, terminal) 
 	end
+	script:waitFor( mission_util.PC_START_TURN )
+	-- if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+		-- script:waitFor( mission_util.PC_START_TURN )
+	-- end
 	
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().MM_incogRoom_unlock then
 			local lock_cell = sim:getCell(unit:getLocation())
-			local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud_harmless, sim )
+			local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud, sim )
 			sim:spawnUnit( KOcloud )
-			sim:warpUnit (KOcloud, lock_cell )
+			sim:warpUnit( KOcloud, lock_cell )
 		end
 	end
 	
@@ -702,10 +735,51 @@ local function makeSmoke( script, sim )
 		end
 	end )
 	for i, doorcell in pairs( cells ) do
-		local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud_harmless, sim )
+		local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud, sim )
 		sim:spawnUnit( KOcloud )
-		sim:warpUnit (KOcloud, doorcell )
+		sim:warpUnit( KOcloud, doorcell )
 	end	
+end
+
+-- Callback to be applied in mission_scoring
+local function updateAgency( sim, agency )
+	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
+
+		if not agency.W93_aiTerminals then
+			agency.W93_aiTerminals = 0
+		end
+		agency.W93_aiTerminals = agency.W93_aiTerminals + 1
+
+	elseif sim:getTags().upgradedPrograms then
+
+		agency.MM_upgradedPrograms = agency.MM_upgradedPrograms or {}
+		local programs = sim:getPC():getAbilities()
+		for i, ability in pairs(programs) do
+			-- local ID = ability._abilityID --see rant in scriptPath mainframe_abilities
+			if ability.MM_modifiers then
+				local ID = ability.oldName
+				agency.MM_upgradedPrograms[ID] = {}
+				agency.MM_upgradedPrograms[ID] = util.tcopy( ability.MM_modifiers )
+			end
+		end
+	elseif sim:getTags().weakened_counterAI then
+		local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
+		-- -2 to ALL corps on campaign. -2 to target corp on Endless
+		local corp = sim:getParams().world
+		agency.MM_hostileAInerf = agency.MM_hostileAInerf or {}
+		if isEndless then
+			agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] or 0
+			agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] + 2	--FuncLib or PE should do the rest
+		else
+			for i, corpData in pairs(serverdefs.CORP_DATA) do
+				local corpName = corpData.world
+				if not ((corpName == "omni") or (corpName == "omni2")) then
+					agency.MM_hostileAInerf[corpName] = agency.MM_hostileAInerf[corpName] or 0
+					agency.MM_hostileAInerf[corpName] = agency.MM_hostileAInerf[corpName] + 2
+				end
+			end
+		end
+	end
 end
 
 local function upgradeIncognita( script, sim )
@@ -715,50 +789,24 @@ local function upgradeIncognita( script, sim )
 	script:queue( 1*cdefs.SECONDS )
 	sim:removeObjective( "upgrade_incognita2" )
 	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
-		queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED )
+		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_DATA_ACQUIRED)], type="newOperatorMessage" } )
 	elseif sim:getTags().upgradedPrograms then
-		queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED )
-	-- else
-		-- queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_TECH_ACQUIRED )	-- probably don't want this	
+		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_PROG_UPGRADED)], type="newOperatorMessage" } )
+	elseif sim:getTags().weakened_counterAI then
+		script:queue( { script=SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_HOSTILE_AI_WEAKENED[sim:nextRand(1,#SCRIPTS.INGAME.AI_TERMINAL.INCOGNITA_HOSTILE_AI_WEAKENED)], type="newOperatorMessage" } )
 	end
-	
+
 	--now for the security measures
 	script:queue( 1 * cdefs.SECONDS )
 	script:addHook( makeSmoke )
-	
+
 	sim:setClimax(true)
 	sim.exit_warning = nil
 	sim.TA_mission_success = true
 
-	script:waitFor( PC_WON ) -- to think I could have been doing agency changes like wodzu all this time instead of putting things in DoFinishMission
-	local agency = sim:getParams().agency
-	
-	if sim:getPC():getTraits().W93_incognitaUpgraded == 1 then
-		
-		if not sim:getParams().agency.W93_aiTerminals then
-			sim:getParams().agency.W93_aiTerminals = 0
-		end
-		sim:getParams().agency.W93_aiTerminals = sim:getParams().agency.W93_aiTerminals + 1
-		
-	elseif sim:getTags().upgradedPrograms then
-	
-		agency.MM_upgradedPrograms = agency.MM_upgradedPrograms or {}
-		
-		local programs = sim:getPC():getAbilities()
-		for i, ability in pairs(programs) do	
-			-- local ID = ability._abilityID --see rant in scriptPath mainframe_abilities
-			if ability.MM_modifiers then
-				local ID = ability.oldName
-				agency.MM_upgradedPrograms[ID] = {}
-				agency.MM_upgradedPrograms[ID] = util.tcopy( ability.MM_modifiers )
-			end
-		end	
-	elseif sim:getTags().weakened_counterAI then
-		local corp = sim:getParams().world
-		agency.MM_hostileAInerf = agency.MM_hostileAInerf or {}
-		agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] or 0
-		agency.MM_hostileAInerf[corp] = agency.MM_hostileAInerf[corp] + 2	--FuncLib or PE should do the rest
-	end
+	-- Updates will be applied in mission_scoring
+	sim.MM_agencyUpdates = sim.MM_agencyUpdates or {}
+	table.insert( sim.MM_agencyUpdates, updateAgency )
 end
 
 local function cardSafeReaction( script, sim  )
@@ -791,7 +839,7 @@ local function addKeys( sim )
 	local consoleAdded = false
 
 	for i, unit in pairs(sim:getAllUnits()) do
-		if unit:getTraits().safeUnit and not safeAdded then
+		if unit:getTraits().safeUnit and not (unit:getUnitData().id == "guard_locker") and not safeAdded then
 			local item = simfactory.createUnit( propdefs.MM_W93_AiRoomPasscard, sim )
 			sim:spawnUnit(item)
 			unit:addChild(item)
@@ -836,32 +884,38 @@ local function chooseUpgrades( sim )
 end
 
 local function spawnDaemons( sim )
-	local PROGRAM_LIST = serverdefs.PROGRAM_LIST
-	if sim:isVersion("0.17.5") then
-		PROGRAM_LIST = sim:getIcePrograms()
-	end		
-	local locks = {}
-	for i, unit in pairs(sim:getAllUnits()) do
-		if unit:hasAbility("MM_W93_incogRoom_unlock") then
-			table.insert(locks, unit)
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
+		local PROGRAM_LIST = serverdefs.PROGRAM_LIST
+		if sim:isVersion("0.17.5") then
+			PROGRAM_LIST = sim:getIcePrograms()
+		end		
+		local locks = {}
+		for i, unit in pairs(sim:getAllUnits()) do
+			if unit:hasAbility("MM_W93_incogRoom_unlock") then
+				table.insert(locks, unit)
+			end
 		end
-	end
-	local difficulty = sim:getParams().difficulty
-	local num_daemons = difficulty
-	if num_daemons > 4 then
-		num_daemons = 4
-	end
-	local ice_boosted = false
-	for i, unit in pairs(locks) do
-		if not ice_boosted then
-			unit:getTraits().mainframe_ice = unit:getTraits().mainframe_ice + 2
-			ice_boosted = true
-		end
-		local daemon = PROGRAM_LIST:getChoice( sim:nextRand( 1, PROGRAM_LIST:getTotalWeight() ))
-		unit:getTraits().mainframe_program = daemon
-		num_daemons = num_daemons - 1
-		if num_daemons <= 0 then
-			break
+		local difficulty = sim:getParams().difficulty
+		--local num_daemons = difficulty
+		--if num_daemons > 4 then
+			--num_daemons = 4
+		--end
+		local num_daemons = 1 -- easy mode
+		
+		local ice_boosted = false
+		if difficulty > 1 then
+			for i, unit in pairs(locks) do
+				if not ice_boosted then
+					unit:getTraits().mainframe_ice = unit:getTraits().mainframe_ice + 2
+					ice_boosted = true
+				end
+				local daemon = PROGRAM_LIST:getChoice( sim:nextRand( 1, PROGRAM_LIST:getTotalWeight() ))
+				unit:getTraits().mainframe_program = daemon
+				num_daemons = num_daemons - 1
+				if num_daemons <= 0 then
+					break
+				end
+			end
 		end
 	end
 end
@@ -894,9 +948,9 @@ function mission:init( scriptMgr, sim )
 
         local scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_NOTHING
 		if sim:getTags().upgradedPrograms then
-			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_UPGRADE
+			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_SUCCESS --GOT_UPGRADE
 		elseif sim:getPC():getTraits().W93_incognitaUpgraded then
-			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_SLOT
+			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.GOT_SUCCESS --GOT_SLOT
 		elseif sim:getTags().weakened_counterAI then
 			scripts = SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_JUDGEMENT.WEAKENED_COUNTER_AI
 		end

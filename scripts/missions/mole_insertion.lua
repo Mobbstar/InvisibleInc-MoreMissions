@@ -55,7 +55,6 @@ local mission = class( escape_mission )
 -- Local helpers
 local MOLE_BONUS_FULL = 5		--how many missions you get the bonus if no witnesses
 local MOLE_BONUS_PARTIAL = 1	--how many missions you get the bonus if witnesses
-local PATROLS_REVEALED = 0.75	--which % of guards is revealed by that bonus
 
 local function queueCentral(script, scripts) --really informative huh
 	for k, v in pairs(scripts) do
@@ -64,6 +63,14 @@ local function queueCentral(script, scripts) --really informative huh
 	end	
 end
 
+local function JetEscapeReminder(sim, script) --run this once after the first time informant gets spotted and default lines play
+	if not sim:getTags().MM_mole_escape_reminder then
+		local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_INTERJECTION
+		script:queue( 1 * cdefs.SECONDS )
+		queueCentral( script, scripts )
+		sim:getTags().MM_mole_escape_reminder = true
+	end
+end
 
 local STARTED_DBHACK = 
 {
@@ -284,6 +291,7 @@ local function guardWitnessesAgent(script, sim)
 				local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_DRONE
 				script:queue( 2 * cdefs.SECONDS )
 				queueCentral( script, scripts )
+				-- JetEscapeReminder( sim, script )
 				
 			end
 		else
@@ -292,6 +300,7 @@ local function guardWitnessesAgent(script, sim)
 				local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_GUARD
 				script:queue( 2 * cdefs.SECONDS )
 				queueCentral( script, scripts )
+				JetEscapeReminder(sim, script)
 			end
 		end
 		
@@ -317,6 +326,7 @@ local function cameraWitnessesAgent(script, sim)
 			local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_CAMERA
 			script:queue( 2 * cdefs.SECONDS )
 			queueCentral( script, scripts )
+			-- JetEscapeReminder( sim, script )
 		end
 		seer:createTab( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.WITNESS_DETECTED, "" ) -- keep this for now even though it's inconsistent with the lack of tab on moving witnesses
 
@@ -394,6 +404,9 @@ local function spawnMole( script, sim )
 	sim:warpUnit( newUnit, spawn_cell )
 	sim:dispatchEvent( simdefs.EV_TELEPORT, { units={newUnit}, warpOut =false } )
 	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newUnit } )
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+		newUnit:getTraits().mpMax = newUnit:getTraits().mpMax + 1
+	end
 	
 	--banter
 	local newOperative = newUnit
@@ -474,15 +487,20 @@ local function DBhack( script, sim )
 		local pcplayer = sim:getPC()
 		for i, agent in pairs( pcplayer:getUnits() ) do 
 			if agent:getTraits().monster_hacking and agent:getTraits().MM_mole then
-				mole = agent
-				-- if progress > 0 then
-					local x2,y2 = mole:getLocation()
-					sim:getNPC():spawnInterest(x2,y2, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, mole) --keep spawning interest for duration of hack
-				-- end		
 				local database = sim:getUnit(agent:getTraits().monster_hacking)
+				mole = agent
 				progressDBhack(sim, database, mole, script)
 				sim:incrementTimedObjective( "hack_personnel_DB" )
 				progress = progress + 1
+				
+				if (progress == 1) then
+					if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
+						-- if progress > 0 then
+							local x2,y2 = mole:getLocation()
+							sim:getNPC():spawnInterest(x2,y2, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, mole) --keep spawning interest for duration of hack
+						-- end
+					end
+				end				
 				if progress == 3 then
 					activateCamera(script, sim)
 				end
@@ -506,96 +524,6 @@ local function moleEscaped( script, sim)
 	
 	sim:addNewLocation( {sim:getParams().world, "mole_insertion"} )
 end	
-
-mission.bonus_types = {
-	[1] = "patrols",
-	[2] = "safes_consoles",
-	[3] = "cameras_turrets",
-	[4] = "daemons_layout",	
-	[5] = "doors",
-}
-
-mission.revealMoleBonus = function(sim, bonusType) --need to call on this from modinit
-	local unitlist = {} --collect units to be revealed for relevant bonuses
-	local randomAgent = sim:getPC():getUnits()[sim:nextRand(1,#sim:getPC():getUnits())] --it's turn 1 so just pick any agent so we have somewhere to display the float text
-	local x0, y0 = randomAgent:getLocation()
-	local currentPlayer = sim:getPC()
-	local script = sim:getLevelScript()
-	
-	if bonusType == "patrols" then
-		local total_guards = 0
-		for _, unit in pairs(sim:getAllUnits() ) do
-			if (unit:getPlayerOwner() ~= currentPlayer) and unit:getTraits().isGuard then
-				total_guards = total_guards + 1
-			end
-		end
-		local to_tag = math.floor(PATROLS_REVEALED * total_guards)
-		local tagged_guards = 0
-		for _, unit in pairs( sim:getAllUnits() ) do 
-			-- if sim:nextRand() <= (PATROLS_REVEALED or 0.75) then --don't tag all the guards, just most of them
-			if tagged_guards < to_tag then
-				if unit:getPlayerOwner() ~= currentPlayer and unit:getTraits().isGuard and not unit:getTraits().tagged then 										
-					unit:setTagged() -- need to consider PE's hostile AI interaction..
-					sim:dispatchEvent( simdefs.EV_UNIT_TAGGED, {unit = unit} )
-					sim:getPC():glimpseUnit(sim, unit:getID())
-					tagged_guards = tagged_guards + 1
-					-- tag + glimpse may be OP... maybe just tag... keep uncertainty about which guards are on the level...
-				end
-			end
-		end	
-		sim.MM_mole_bonus_tag = tagged_guards
-	elseif bonusType == "safes_consoles" then
-		sim:forEachUnit(
-			function ( u )
-				if u:getTraits().mainframe_console ~= nil then
-					table.insert(unitlist,u:getID())		
-					currentPlayer:glimpseUnit( sim, u:getID() )				
-				end
-				if u:getTraits().safeUnit ~= nil then
-					table.insert(unitlist,u:getID())		
-					currentPlayer:glimpseUnit( sim, u:getID() )				
-				end --reveal one, then the other				
-			end )
-	elseif bonusType == "cameras_turrets" then --also turrets
-		sim:forEachUnit(
-			function ( u )
-				if (u:getTraits().mainframe_camera ~= nil) or (u:getTraits().mainframe_turret ~= nil) then
-					table.insert(unitlist,u:getID())		
-					currentPlayer:glimpseUnit( sim, u:getID() )				
-				end
-			end )	
-	elseif bonusType == "daemons_layout" then
-			sim:forEachUnit(
-			function ( u )
-				if u:getTraits().mainframe_program ~= nil then
-					u:getTraits().daemon_sniffed = true 
-				end
-			end )
-			sim._showOutline = true
-			sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
-			if x0 and y0 then
-				local color = {r=1,g=1,b=41/255,a=1}
-				sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.UI.FLY_TXT.FACILITY_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
-			end			
-	elseif bonusType == "doors" then
-			sim:forEachCell(
-			function ( cell )
-				for dir, exit in pairs( cell.exits ) do
-					if (simquery.isDoorExit(exit)) then
-						sim:getPC():glimpseCell(sim, cell)
-					end
-				end
-			end )
-			if x0 and y0 then
-				local color = {r=1,g=1,b=41/255,a=1}
-				sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.MOREMISSIONS.UI.DOORS_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
-			end	
-			sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
-	end
-	if #unitlist > 0 then --for any bonuses that reveal units
-		sim:dispatchEvent( simdefs.EV_UNIT_MAINFRAME_UPDATE, {units=unitlist,reveal = true} )
-	end
-end
 
 -- local function cameraSawMole( script, sim )
 -- GUARD_SAW_MOLE
@@ -711,8 +639,12 @@ local function moleMission( script, sim )
 	queueCentral( script, scripts )
 	sim:removeObjective( "findDB" )
 	-- log:write("LOG pc saw db")
-	
-	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.HACK_DB, "hack_personnel_DB", 5 )
+	local turnsToHack = 5
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
+		turnsToHack = 4
+		hackConsole:getTraits().MMprogressMax = 4
+	end
+	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.HACK_DB, "hack_personnel_DB", turnsToHack )
 	script:waitFor( STARTED_DBHACK )
 	script:addHook( DBhack )
 	script:waitFor( FINISHED_DBHACK )
@@ -725,7 +657,6 @@ local function moleMission( script, sim )
 	scripts = SCRIPTS.INGAME.MOLE_INSERTION.FINISHED_DB_HACK
 	script:queue( 1*cdefs.SECONDS )
 	queueCentral( script, scripts )
-	
 	script:addHook( investigateMole )
 	script:addHook( seeGuardExit )
 	script:waitFor( MOLE_ESCAPED_GUARD_ELEVATOR )	
@@ -760,7 +691,7 @@ local function spawnEliteGuard( sim ) --spawns a high-tier stationary guard at t
 		end
 	end
 
-	if (sim:getParams().difficultyOptions.MM_difficulty == nil) or sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
+	-- if (sim:getParams().difficultyOptions.MM_difficulty == nil) or sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
 	
 		local isHumanGuard = false
 		local guardTemplate = unitdefs.lookupTemplate( "important_guard" )
@@ -803,7 +734,7 @@ local function spawnEliteGuard( sim ) --spawns a high-tier stationary guard at t
 		newGuard:setFacing(facing)
 		sim:warpUnit( newGuard, door_cell )
 		sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newGuard } )
-	end
+	-- end
 end
 ----------------
 local function despawnRedundantCameraDB(sim)

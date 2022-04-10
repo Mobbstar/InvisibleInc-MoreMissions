@@ -24,6 +24,28 @@ local onSafeTooltip = commondefs.onSafeTooltip
 	-- tooltip:addAbility( STRINGS.ABILITIES.RESCUE, STRINGS.ABILITIES.RESCUE_HOSTAGE_DESC, "gui/items/icon-action_open-safe.png",nil,true )
 -- end,
 
+-- Fixed tooltip function that doesn't accidentally use the flavor text as a format string. Necessary to use a % in the luxury nanofab key tooltip.
+local ITEM_HEADER_COLOUR = "<ttheader>"
+local function onItemWorldTooltip( tooltip, unit )
+	tooltip:addLine( ITEM_HEADER_COLOUR..unit:getName().."</>" )
+
+	if unit:getUnitData().flavor then
+		tooltip:addDesc( "<c:61AAAA>"..unit:getUnitData().flavor.."</c>" )
+	end
+
+	if unit:getUnitData().desc then
+		tooltip:addDesc( unit:getUnitData().desc )
+	end
+
+	if unit:getTraits().pickupOnly then
+		tooltip:addDesc( util.sformat(STRINGS.UI.TOOLTIPS.PICK_UP_CONDITION_DESC, util.toupper(unit:getTraits().pickupOnly) ) )
+	end
+
+	for i,tooltipFunction in ipairs(mod_manager:getTooltipDefs().onItemWorldTooltips)do
+		tooltipFunction(tooltip, unit)
+	end
+end
+
 local prop_templates =
 {
 	-----------------------------------------------------
@@ -312,14 +334,14 @@ local prop_templates =
 	{
 		type = "item_disguise",
 		name = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE,
-		desc = STRINGS.ITEMS.HOLO_MESH_TOOLTIP,
+		desc = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE_TIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE_FLAVOR,
 		icon = "itemrigs/disk.png",		
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_holomesh_Prism.png",
     	profile_icon_100 = "gui/icons/item_icons/icon-item_holomesh_Prism.png",		
     	abilities = { "carryable" , "disguise" },
     	value = 500,
-    	traits = {  scan_vulnerable=true, cooldown = 0, cooldownMax = 5, disguise_duration = 1, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}, drop_dropdisguise=true },	
+    	traits = {  cantdrop = true, pickupOnly="INFORMANT", scan_vulnerable=true, cooldown = 0, cooldownMax = 5, disguise_duration = 1, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}, drop_dropdisguise=true },	
 	},
 	
 	-- AI TERMINAL
@@ -394,29 +416,26 @@ local prop_templates =
         name = STRINGS.PROPS.SMOKE,
         rig = "smokerig",
 		kanim = "kanim_smoke_plume",
-        -- traits = { radius = 4, lifetime = 3, noghost = true, gasColor = {r = 0.5, g = 1, b = 1, a = 0.25} }
-		traits = { radius = 4, lifetime = 4, noghost = true, KOgas = true, gasColor = {r=197/255,g=227/255,b=107/255, a = 0.35} }	
-    },	
-	
-	MM_gas_cloud_harmless = --spawns MM_gas_cloud at end of lifetime
-    {
-        type = "MM_simKOcloud",
-        name = STRINGS.PROPS.SMOKE,
-        rig = "smokerig",
-		kanim = "kanim_smoke_plume",
-        -- traits = { radius = 4, lifetime = 3, noghost = true, gasColor = {r = 0.5, g = 1, b = 1, a = 0.25} }
-		traits = { radius = 4, lifetime = 2, noghost = true, spawnKOgas = true, gasColor = {r=197/255,g=227/255,b=107/255, a = 0.15} }	
+		traits = { radius = 4, lifetime = 8, noghost = true, 
+			stages = { -- these get applied by MM_simKOcloud.lua
+				[8] = {
+					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.15}, --cosmetic: warning
+					KOgas = false,
+					KOgasTooltip = true,
+				},
+				[6] = { --knocks you out
+					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.35},
+					KOgas = true,
+					KOgasTooltip = true,
+				},
+				[2] = { --dispersal
+					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.10},
+					KOgas = false,
+					KOgasTooltip = false,
+				},
+			}
+		}
     },
-
-	MM_gas_cloud_dispersal = 
-    {
-        type = "MM_simKOcloud",
-        name = STRINGS.PROPS.SMOKE,
-        rig = "smokerig",
-		kanim = "kanim_smoke_plume",
-        -- traits = { radius = 4, lifetime = 3, noghost = true, gasColor = {r = 0.5, g = 1, b = 1, a = 0.25} }
-		traits = { radius = 4, lifetime = 2, noghost = true, KOgasdispersal = true, gasColor = {r=197/255,g=227/255,b=107/255, a = 0.05} }	
-    },	
 
 	MM_smoke_cloud = --for Tech Expo smoke grenade
     {
@@ -439,6 +458,23 @@ local prop_templates =
 		-- gasColor = {r=85/255,g=41/255,b=38/255}, 
 		}
     },		
+
+	-- Distress Call
+	MM_item_corpIntel =
+	{
+		type = "simunit",
+		name =  STRINGS.PROPS.CORP_INTEL,
+        onWorldTooltip = commondefs.onItemWorldTooltip,
+        onTooltip = commondefs.onItemTooltip,
+		desc = STRINGS.PROPS.CORP_INTEL_DESC,
+		icon = "itemrigs/FloorProp_DataDisc.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_data_disk_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_data_disk.png",
+		-- Remove a number of irrelevant traits from the vanilla item_corpIntel
+		-- Also, just in case we want to tweak the value. (vanilla = 300cr)
+		traits = { selectpriority = 0, cashInReward = 300, showOnce = "corp_intel" },
+		abilities = { "carryable" },
+	},
 
 	--------------- SIDE MISSIONS ---------------------
 	MM_W93_crate = --24 BRIEFCASES
@@ -492,6 +528,7 @@ local prop_templates =
 		desc = STRINGS.MOREMISSIONS.PROPS.NANOFAB_KEY_DESC,
 		flavor = STRINGS.MOREMISSIONS.PROPS.NANOFAB_KEY_FLAVOR,
 		icon = "itemrigs/disk.png",		
+		onWorldTooltip = onItemWorldTooltip,
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_compile_key_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_compile_key.png",
 		abilities = { "carryable","MM_activateLuxuryNanofab" },

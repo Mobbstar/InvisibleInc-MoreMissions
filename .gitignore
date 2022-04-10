@@ -5,7 +5,7 @@
 int/*
 anim.kwad
 gui.kwad
-sound.kwad
+# sound.kwad
 scripts.zip
 
 # Automated build output
@@ -15,15 +15,12 @@ out/
 batconfig.bat
 makeconfig.mk
 
-# Mobb
-testmod.py
-pull.bat
-
 # FMOD
 */.fsbcache/*
 # Maybe we want to upload the compiled FMOD files? Most people will never touch the sound project.
 # *.fev
 # *.fsb
+sound/src/raw/*
 
 # generic file endings
 *.bak

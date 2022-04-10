@@ -19,7 +19,7 @@ local escape_mission = include("sim/missions/escape_mission")
 local DRONE_BANTER_CHANCE = 0.3
 
 --local helpers
-local 	PC_WON =
+local 	PC_WON = --now unused
 	{		
         priority = 10,
 
@@ -88,20 +88,24 @@ local function updateRefitDrone( script, sim )
 	drone:getTraits().MM_refitDroneRescue = true
 end
 
-local function waitForDroneEscape( script, sim )
-	local _, drone = script:waitFor( REFIT_DRONE_ESCAPED )
-	local name = drone:getTraits().customName
+-- Callback to be applied in mission_scoring
+local function updateAgencyForRefitDrone( sim, agency )
+	local name = sim:getTags().MM_rescuedRefitDroneName
 	local campaignHours = sim:getParams().campaignHours
-	
-	script:waitFor( PC_WON )
-	local agency = sim:getParams().agency
-	agency.MM_rescuedRefitDrone = agency.MM_rescuedRefitDrone or {}
 
 	local droneData = {name = name, campaignHours = campaignHours}
-	-- table.insert(agency.MM_rescuedRefitDrone, droneData)
-	agency.MM_rescuedRefitDrone[1] = droneData
-	-- log:write("LOG agency")
-	-- log:write(util.stringize(agency.MM_rescuedRefitDrone,2))
+
+	agency.MM_rescuedRefitDrone = agency.MM_rescuedRefitDrone or {}
+	table.insert( agency.MM_rescuedRefitDrone, droneData )
+end
+
+local function waitForDroneEscape( script, sim )
+	local _, drone = script:waitFor( REFIT_DRONE_ESCAPED )
+	sim:getTags().MM_rescuedRefitDroneName = drone:getTraits().customName
+
+	-- Updates will be applied in mission_scoring
+	sim.MM_agencyUpdates = sim.MM_agencyUpdates or {}
+	table.insert( sim.MM_agencyUpdates, updateAgencyForRefitDrone )
 end
 
 local function droneSpeech( script, sim )
@@ -322,7 +326,8 @@ local function spottedBoss( script, sim )
 	script:waitFor( mission_util.PC_SAW_UNIT("bossUnit") )
 
 	local cx, cy = bossUnit:getLocation()
-	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.PERSONNEL_HIJACK.OBJECTIVE1, "KO_Boss" )
+	bossUnit:createTab( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.PERSONNEL_HIJACK.TAB, STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.PERSONNEL_HIJACK.TAB_SUB )
+	sim:addObjective( (string.format(STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.PERSONNEL_HIJACK.OBJECTIVE1,bossUnit:getUnitData().name)), "KO_Boss" )
 
 	script:queue( { type="pan", x=cx, y=cy } )
 	script:queue( { type="clearOperatorMessage" } )
@@ -331,6 +336,7 @@ end
 
 local function KoBoss( script, sim )
 	script:waitFor( PC_KNOCKOUT_BOSS )
+	script:queue(1*cdefs.SECONDS)
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.PERSONNEL_HIJACK.KO_BOSS, type="newOperatorMessage" } )
 end
 
@@ -338,10 +344,10 @@ local function KillBoss( script, sim )
 	script:waitFor( PC_KILL_BOSS )
 
 	sim:removeObjective( "KO_Boss" )
-	script:queue( { type="hideHUDInstruction" } )
+	script:queue(1*cdefs.SECONDS)
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.PERSONNEL_HIJACK.BOSS_KILLED, type="newOperatorMessage" } )
 
-	script:waitFor( PC_WON )
+	-- script:waitFor( PC_WON ) --I don't think this delay is even needed...
 	sim:setMissionReward( simquery.scaleCredits( sim, 200 ))
 end
 
@@ -349,7 +355,7 @@ local function escapeBoss( script, sim )
 	script:waitFor( BOSS_ESCAPED )
 
 	sim:removeObjective( "KO_Boss" )
-	script:queue( { type="hideHUDInstruction" } )
+	script:queue(1*cdefs.SECONDS)
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.PERSONNEL_HIJACK.BOSS_TAKEN, type="newOperatorMessage" } )
 	sim:setMissionReward( simquery.scaleCredits( sim, 300 ))
 	sim:getPC():getTraits().W93_BossUnitHijacked = true
@@ -547,7 +553,7 @@ end
 local function createKeyCarrier( sim )
 	local keyAdded = false
 	for i, guardUnit in pairs(sim:getNPC():getUnits()) do
-		if guardUnit:getTraits().isGuard and not guardUnit:getTraits().isDrone and not guardUnit:getTraits().pacifist and not keyAdded then
+		if guardUnit:getTraits().isGuard and not guardUnit:getTraits().isDrone and not guardUnit:getTraits().pacifist and not guardUnit:getTraits().mm_nopatrolchange and not guardUnit:getTraits().MM_bodyguard  and not guardUnit:getTraits().MM_bounty_target and not keyAdded then
 			log:write("LOG MM giving nanofab key to" .. guardUnit:getUnitData().name )
 			local item = simfactory.createUnit( propdefs.MM_luxuryNanofab_key, sim )
 			sim:spawnUnit( item )

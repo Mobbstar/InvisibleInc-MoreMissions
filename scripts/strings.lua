@@ -52,7 +52,7 @@ return {
 		LANDFILL = "SALVAGING PLANT",
 		LANDFILL_TIP = "<c:FF8411>SALVAGING PLANT</c>\nProvides disliked items at heavy discounts. Similiar to Nanofab Vestibule.",
 		DISTRESSCALL = "DISTRESS CALL",
-		DISTRESSCALL_TIP = "<c:FF8411>DISTRESS CALL</c>\nProvides a chance at an agent and their gear but the alarm rises quickly.",
+		DISTRESSCALL_TIP = "<c:FF8411>DISTRESS CALL</c>\nProvides a chance at an agent and their gear, but the alarm rises quickly.",
 		WEAPONSEXPO = "TECH EXPO",
 		WEAPONSEXPO_TIP = "<c:FF8411>TECH EXPO</c>\nProvides powerful weapons protected by advanced security measures.",
 		MOLE_INSERTION = "INFORMANT RENDEZVOUS",
@@ -63,7 +63,7 @@ return {
 		EA_HOSTAGE_TIP = "<c:FF8411>COURIER RESCUE</c>\nRescue the Courier in the limited time before he dies to gain access to more infiltration sites.",
 
 		SIDEMISSIONS = "SIDE MISSIONS",
-		SIDEMISSIONS_TIP = "<c:FF8411>SIDE MISSIONS</c>\n<c:ffeb7c>PERSONNEL HIJACK:</c> Abduct a specific guard to the jet for a site reward.\n<c:ffeb7c>CORPORATE WAREHOUSE:</c> Steal as many briefcases as you can.\n<c:ffeb7c>LUXURY NANOFAB:</c> Access a shop with a large selection of just one item type.",
+		SIDEMISSIONS_TIP = "<c:FF8411>SIDE MISSIONS</c>\n<c:ffeb7c>PERSONNEL EXTRACTION:</c> Abduct a specific guard to the jet to temporarily reduce enemy armor.\n<c:ffeb7c>CORPORATE WAREHOUSE:</c> Steal as many briefcases as you can.\n<c:ffeb7c>LUXURY NANOFAB:</c> Access a shop with a large selection of just one item type.",
 		
 		SIDEMISSIONS_REBALANCE = "ENHANCED VANILLA SIDE MISSIONS",
 		SIDEMISSIONS_REBALANCE_TIP = "<c:FF8411>ENHANCED VANILLA SIDE MISSIONS</c>\n<c:ffeb7c>PWR RELAY:</c> Sell 5, 10, or 15 PWR.\n<c:ffeb7c>REFIT DRONE:</c> Drone has +2 AP and accompanies you on the next mission.\n<c:ffeb7c>COMPILE ROOM:</c> Install the program, or take it with you to sell or install later.", --include more detail here later
@@ -81,24 +81,26 @@ return {
 		SPAWNTABLE_DROIDS_DESC = "<c:FF8411>ADD NEW ENEMIES (EARLIEST DIFFICULTY)</c>\nUnique Tech Expo-only enemies may appear in other missions starting with this mission difficulty.",
 		SPAWNTABLE_DROIDS_VALUES = {"1","2","3","4","5","6","7","8","9","10","NEVER",},
 
-		EASY_MODE = "EASY MODE",
-		EASY_MODE_TIP = "<c:FF8411>EASY MODE</c>\nSome security measures in the custom missions are disabled or more forgiving.",
+		HARD_MODE = "HARD MODE",
+		HARD_MODE_TIP = "<c:FF8411>HARD MODE</c>\nCustom missions' security measures are more challenging. Intended for veteran players comfortable with Expert Plus.",
 	},
 	
 	LOADING_TIPS = {
 		"MORE MISSIONS: Distress Call missions only appear briefly on the map. The CFO works late every night, but an agent is only on the run right now.",
+		"MORE MISSIONS: Read the tooltips carefully for any enemies and devices relevant to the new objectives.",
 		"MORE MISSIONS: Don't despair if you go into an Assassination mission unarmed. The facility offers more than one way to complete the job.",
-		"MORE MISSIONS: Enemy-controlled laser grids turn off if you drag an enemy through them. This comes in handy in more than one mission.",
+		"MORE MISSIONS: The Assassination bounty target is exempt from cleanup costs.",
+		"MORE MISSIONS: Enemy-controlled laser grids turn off if you drag an enemy through them. This comes in handy in more than one mission type.",
 		"MORE MISSIONS: The Distress Call mission has a safe in it somewhere with the agent's equipment. If you're rescuing that agent for the first time, this means their starting gear.",
 		"MORE MISSIONS: The alarm level will advance twice as quickly in the Distress Call mission. You'll have to move fast to extract the detainee.",
 		"MORE MISSIONS: The Tech Expo offers great rewards at increasing risk. Try to manage your greed, or your campaign may end prematurely.",
 		"MORE MISSIONS: The tooltip for a Tech Expo exhibit will tell you what's inside. Only hack and open the cases with items you actually want.",
 		"MORE MISSIONS: The Relay Switches at a Tech Expo will disable the exhibit cases boosting each other's firewalls when broken. Skip this if you only plan to steal one or two items.",
 		"MORE MISSIONS: Unlike a Security Dispatch, a Tech Expo will have up to five items, most of them weapons. They are powerful but won't last long.",
-		"MORE MISSIONS: The AI Terminal lets you increase Incognita's slot size or upgrade a program you own.",
-		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt that corporation's Counterintelligence AI.",		
+		"MORE MISSIONS: The AI Terminal lets you increase Incognita's slot number, or upgrade a program you own.",
+		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt the Counterintelligence AI.",		
 		"MORE MISSIONS: It's a good idea to have leftover AP on your agents when you complete an objective. You may want to move them after the security measures kick in.",
-		"MORE MISSIONS: You can enable the mod's EASY MODE to make the new missions' security measures more forgiving.",
+		"MORE MISSIONS: You can enable the mod's HARD MODE to experience the full challenge of the security measures.",
 		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
 		"MORE MISSIONS: The Assassination target is marked as Paranoid, but is it paranoia if someone really is out to kill you?",
 		"MORE MISSIONS: A huge thank you to the voiceover fund contributors: <c:F47932>Cyberboy2000, jlaub, TornadoFive, Zorlock Darksoul, Dwarlen, amalloy,	Datsdabeat,	Mobbstar, Waldenburger,	alpacalypse, magnificentophat, Zaman, 	Alexander S., Datapuncher, Jeysie, Linenpixel, WMGreywind,  Puppetsquid, qoala, kalec.gos</>",
@@ -134,6 +136,7 @@ return {
 		PROTOTYPE_GOOSE_SPEC = "Prototype Anseroid",
 		SCIENTIST = "Scientist",
 		HOLOGRAM_DROID = "Holodroid Decoy",
+		SPIDER_DRONE = "Mizugumo Drone",
 	},
 
 
@@ -176,7 +179,7 @@ return {
 
 		EA_HOSTAGE =
 		{
-			NAME = "Johnny W.",
+			NAME = "Johnny Wique",
 		},
 		MOLE =
 		{
@@ -191,8 +194,9 @@ return {
 				FINAL_WORDS =
 				{
 					"Well, this was a wild ride.",
-					"This is all a huge mistake. Come on, I'll show you my ID...",
+					"This is all a huge misunderstanding. Come on, boys, I'll show you my ID...",
 					"I've got friends in high places. You sure you want to take that shot?",
+					"I suppose this is where my lucky streak ends.",
 				},
 			},
 		},
@@ -234,6 +238,7 @@ return {
 		MOLE_CLOAK_FLAVOR = "Some cloaking rig models have increased efficiency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",
 		
 		MOLE_DISGUISE = "Custom Holo Projection Mesh",
+		MOLE_DISGUISE_TIP = "Generates a disguise for 1 turn.\nSprinting and attacking disables the effect.\nDisguise will fail if an enemy observes from 1 tile away.",
 		MOLE_DISGUISE_FLAVOR = "Some holorig models have dispensed with PWR dependency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",		
 
 		-- TECH EXPO CUSTOM ITEMS
@@ -360,7 +365,7 @@ return {
 		INCOGROOM_UNLOCK_DESC = "Unlocks 1 of 4 locks to the AI Development Terminal.",
 
 		INCOGROOM_UPGRADE = "UPGRADE INCOGNITA",
-		INCOGROOM_UPGRADE_DESC = "Use this terminal to add 1 program slot to Incognita.",
+		INCOGROOM_UPGRADE_DESC = "Use this terminal to add 1 program slot or upgrade a program.",
 
 		DEACTIVATE_LOCKS = "DEACTIVATE LOCKS",
 		
@@ -398,7 +403,9 @@ return {
 	{
 		MOLE_DAEMON = {
 			NAME = "INFORMANT INTEL",
+			NAME_ARMOR = "INTERROGATION INTEL",
 			DESC = "Receive random intel at mission start. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
+			DESC_ARMOR = "-1 to guard armor. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
 			SHORT_DESC = "",
 			ACTIVE_DESC = "INTEL PROVIDED BY INFORMANT",
 		},
@@ -410,12 +417,17 @@ return {
 			["cameras_turrets"] = "Cameras & turrets revealed",
 			["daemons_layout"] = "Facility layout & daemons revealed",
 			["doors"] = "Doors revealed",
+			["armor"] = "Guard armor weakened",
 			},
 
 			-- for event notification
 			MOLE_DAEMON_HEAD = "E S P I O N A G E   B O N U S",
 			MOLE_DAEMON_TITLE = "INFORMANT INTEL",
 			MOLE_DAEMON_TXT = "Your informant has provided you with the following intel on this facility:\n\n",
+			
+			ARMOR_DAEMON_HEAD = "I N T E R R O G A T I O N  B O N U S",
+			ARMOR_DAEMON_TITLE = "INTERROGATION INTEL",
+			ARMOR_DAEMON_TXT = "Your guard interrogation has revealed armor weaknesses for this facility.\n\n-1 to enemy armor",
 		},
 
 		WITNESS_WARNING = {
@@ -523,8 +535,10 @@ return {
 					"Confirm"
 				},
 
-				OPTIONS2_PE_TXT = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with by 2 (to a minimum of 1), as well as reduce the selection pool.",
-				OPTIONS2_PE_TXT_PREEXISTING = "You can use the data on this terminal to sabotage this corporation's AI research and reduce the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the {1} AI will start with by 2 (to a minimum of 1), as well as reduce the selection pool.\n\nYou have previously already weakened the {1} AI by {2} {2:level|levels}.",
+				OPTIONS2_PE_TXT_ONE_CORP = "You can use the data on this terminal to sabotage the AI research of <c:FC5603>this corporation</c>, reducing the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the <c:FC5603>{1}</c> AI starts with by 2 (to a minimum of 1), as well as reduce the selection pool.",
+				OPTIONS2_PE_TXT_ALL_CORPS = "You can use the data on this terminal to sabotage the AI research of <c:FC5603>all corporations</c>, reducing the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines each {1} AI starts with by 2 (to a minimum of 1), as well as reduce the selection pool.",
+				OPTIONS2_PE_TXT_CORPORATE = "corporate",
+				OPTIONS2_PE_ALREADY_WEAKENED = "\n\nYou have already weakened the {1} AI by {2} {2:level|levels}.",
 				OPTIONS2_PE_TITLE = "DISRUPT HOSTILE AI",
 
 				OPTIONS_PE_RESULT_TITLE = "SABOTAGE SUCCESSFUL",
@@ -601,8 +615,9 @@ return {
 			},
 			PERSONNEL_HIJACK = -- I can finally fix this typo!!!!
 			{
-				OBJECTIVE1 = "Bring target to the Jet",
-				TEXT1 = "OPPORTUNITY TARGET DETECTED",			
+				OBJECTIVE1 = "Bring %s to jet",
+				TAB = "OPPORTUNITY TARGET IDENTIFIED",
+				TAB_SUB = "Probable intel",
 			},
 			LUXURY_NANOFAB =
 			{
@@ -620,7 +635,7 @@ return {
 			MORE_INFO = "This site features its own dedicated holographic design laboratory. Our agents can steal and use some of the advanced tech here to deceive and evade.\n\nSome of these items are not available at any nanofabs.", --This can be quite lengthy.
 			INSET_TITLE = "MARKETING AGENCY", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
-			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			INSET_VO = {"moremissions/VoiceOver/Central/holostudio/mapscreen"},
 			DESCRIPTION = "Locate and acquire state-of-the-art hologram technology.",
 			REWARD = "A powerful disguise or stealth tool.",
 			-- LOADING_TIP = "",
@@ -629,8 +644,8 @@ return {
 			NAME= "Assassination",
 			MORE_INFO = "A high-ranked executive at this location has an impressive bounty on their head, but such a high-profile hit will not go unanswered by the corp.\n\nBe wary - the target is reportedly paranoid, with personal security on-site. If you're short on firepower, some of it may potentially be used against him.", --This can be quite lengthy.
 			INSET_TITLE = "MARKED FOR DEATH", --unused
-			INSET_TXT = "I would't normally stoop to assassination contracts, but the payday on this one is too tempting to ignore. The target is highly placed, so we can expect heightened security at this corporation if you complete the job. Ready to get your hands dirty, Operator?", --unused
-			INSET_VO = {""},
+			INSET_TXT = "I wouldn't normally stoop to assassination contracts, but the payday on this one is too tempting to ignore. The target is highly placed, so we can expect heightened security at this corporation if you complete the job. Ready to get your hands dirty, Operator?", --unused
+			INSET_VO = {"moremissions/VoiceOver/Central/assassination/mapscreen"},
 			DESCRIPTION = "Kill the VIP.",
 			REWARD = "A hefty cash reward, at the cost of a permanent security increase at this corporation.",
 		},
@@ -640,18 +655,17 @@ return {
 			MORE_INFO = "Tons of various objects get dumped on this landfill and ground up for whatever materials can be recovered. Some of the items can probably be repaired inexpensively.\n\nDon't expect the goods to be very likable, many of them have been here for weeks without getting any love.", --This can be quite lengthy.
 			INSET_TITLE = "LANDFILL", --unused
 			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
-			INSET_VO = {"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			INSET_VO = {"moremissions/VoiceOver/Central/assassination/mapscreen"},
 			DESCRIPTION = "Find and access the repair workstation.",
 			REWARD = "A range of heavily discounted items.",
 		},
 		-- EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
 		EA_HOSTAGE = {
 			NAME= "Courier Rescue",
-			-- MORE_INFO = "The corp has intercepted a courier of one of our former clients. He's got important site intel stored in a cerebral implant, intel we could use. Your task is to break in, locate the courier, and recover the information.\n\nOne final note - the implant is set to explode if the courier loses consciousness, so we have to work fast.",
 			MORE_INFO = "Data couriers traffic valuable information for their clients, but are easy targets for the corps if they get caught. This courier has detailed knowledge of the corp's facilities and can provide us with more targets nearby.\n\nAs a security precaution, the exit elevator is locked until further notice, but the courier should have a backdoor sequence for it.",
 			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
-			INSET_TXT = "This corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we might be able to persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
-			INSET_VO = {""},
+			INSET_TXT = "This corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we can persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
+			INSET_VO = {"moremissions/VoiceOver/Central/courierrescue/mapscreen"},
 			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.\nTelepad locked, courier has the key.",
 			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby.",
 			BANTER = {
@@ -672,18 +686,17 @@ return {
 			MORE_INFO = "We've intercepted a signal from an operative in need of extraction. It may be one of our missing agents, and if not, we can still negotiate a suitable compensation from them once we get them out safely. \n\nBe careful, Operator - our telemetry suggests the facility is already alerted, and the alarm level will advance more quickly as a result.", --This can be quite lengthy.
 			INSET_TITLE = "OPERATIVE EXTRACTION", --unused
 			INSET_TXT = "We've detected an urgent distress call at this facility. It may be one of our agents attempting an escape, or some other operative who's stumbled onto our signal network. There's no time to waste, Operator. If you mean to extract them, do it now. We will not get a second chance if we delay.", --unused
-			INSET_VO = {""}, --{"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			INSET_VO = {"moremissions/VoiceOver/Central/distresscall/mapscreen"}, --{"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
 			DESCRIPTION = "Get the escaped operative safely to extraction and grab their confiscated gear on the way out. Alarm level will increase more quickly here.",
-			REWARD = "Agent or prisoner rescue with equipment.\n<c:FC5603>URGENT:</c> This mission will disappear unless visited immediately.",
+			REWARD = "Agent or prisoner rescue with equipment.\n<c:FC5603>URGENT: This mission will disappear unless visited immediately.</c>",
 		},
 
 		WEAPONS_EXPO = {
 			NAME= "Tech Expo",
-			-- MORE_INFO = "This facility is hosting a world class tech exposition. The corporations and the industry finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours.\n\nBut keep your guard up - word has it their security system is as experimental as the tech they're showcasing.", --This can be quite lengthy.
 			MORE_INFO = "A prestigious tech exhibition offers the chance to steal some powerful prototypes before they reach the wider market. \n\nYou will find advanced weapons as well as powerful limited-use items here, but the security system should not be taken lightly - the more you steal, the greater the risk.", --This can be quite lengthy.
 			INSET_TITLE = "TECH EXPO", --unused
-			INSET_TXT = "This facility is hosting a world class tech exposition. The corporations and the industry's finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours. But keep your guard up - rumour has it their security system is every bit as experimental as the tech they're showcasing.", --unused unless we actually get these voiced somehow
-			INSET_VO = {""},
+			INSET_TXT = "This facility is hosting a world class tech exposition. The corporations and the industry's finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours. But keep your guard up - rumour has it their security system is every bit as experimental as the tech they're showcasing.", --unused unless we actually get these voiced somehow --CRAZY, RIGHT?
+			INSET_VO = {"moremissions/VoiceOver/Central/techexpo/mapscreen"},
 			DESCRIPTION = "Locate the main exhibition center and steal at least one prototype.",
 			REWARD = "Advanced weapons and powerful limited-use items you can sell or use as equipment.",
 		},
@@ -692,10 +705,10 @@ return {
 			NAME = "Informant Rendezvous", -- thanks to jlaub for name idea
 			MORE_INFO = "We have an opportunity to plant an informant at this facility who will feed us intel from the inside. This mission grants no immediate reward, but you will start future missions with advance knowledge of the infiltration target. \n\nMake sure the mole remains unseen to maximise the duration of this reward.",
 			INSET_TITLE = "",
-			INSET_TXT = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. \n\nFirst, we'll need to get them on site and secure their cover. Make sure the enemy doesn't spot them, or the job gets complicated.",
-			INSET_VO = {""},
+			INSET_TXT = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. First, we'll need to get them on site and secure their cover. Make sure the enemy doesn't spot them, or the job will get complicated.",
+			INSET_VO = {"moremissions/VoiceOver/Central/informant/mapscreen"},
 			DESCRIPTION = "Plant an informant and secure their cover identity. For best results, informant must remain unseen.",
-			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or exit location.",
+			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or camera locations.",
 
 		},
 
@@ -703,8 +716,8 @@ return {
 			NAME = "AI Terminal",
 			MORE_INFO = "We've located an AI Development Terminal with unusually high security clearance. We should be able to integrate some of this research to increase Incognita's processing efficiency.\n\nThe terminal has multiple redundant locks, so be prepared to be thorough.",
 			INSET_TITLE = "",
-			INSET_TXT = "We've unearthed an off-the-books AI research facility. We may be able to use it to upgrade Incognita, but be sure to tread lightly, Operator. We can only assume there's a good reason they've kept this place so well-hidden.",
-			INSET_VO = {""},
+			INSET_TXT = "We've unearthed an off-the-books AI research facility. We may be able to use it to upgrade Incognita, but tread lightly, Operator. We can only assume there's a good reason they've kept this place so well-hidden.",
+			INSET_VO = {"moremissions/VoiceOver/Central/aiterminal/mapscreen"},
 			DESCRIPTION = "Unlock and access the AI Development Terminal using keycards and devices found on-site.",
 			-- REWARD = "An additional program slot for Incognita, or valuable tech if at upgrade cap (2 additional slots).",
 			REWARD = "An additional program slot for Incognita, or an upgrade to an existing program.",
@@ -714,6 +727,15 @@ return {
 	},
 
 	UI = {
+	
+		MAP_SCREEN = {
+			MOLE_NAME = "INFORMANT",
+			MOLE_DESC = "Informant intel available for this mission.",
+			MOLE_TOOLTIP = "Intel available for {1} more {1:mission|missions}",
+			HOSTILE_AI_TEXT = "<c:f5ff78>COUNTERINTELLIGENCE AI</c>\nTHREAT LEVEL: {1}\nAI TERMINAL SABOTAGE: -{2}",
+			HOSTILE_AI_NAME = "HOSTILE AI",
+		},
+		
 		HUD_WARN_EXIT_MISSION_HOLOSTUDIO = "Are you sure you want to leave? You don't have the holographic tool yet.",
 		HUD_WARN_EXIT_MISSION_ASSASSINATION = "Are you sure you want to leave? You haven't killed the target.",
 		-- REASON = {
@@ -784,7 +806,7 @@ return {
 			BODYGUARD_KEEPCLOSE = "BODYGUARD",
 			BODYGUARD_KEEPCLOSE_DESC = "While unalerted, this unit will not stray far from the VIP and will investigate the VIP's interest points.",
 			TARGET_PARANOID = "PARANOID",
-			TARGET_PARANOID_DESC = "Will delegate interest point investigations to the Bodyguard, if nearby.",
+			TARGET_PARANOID_DESC = "Will delegate interest point investigations to the Bodyguard, if within line-of-sight.",
 			AUTHORIZED_BODY = "AUTHORIZED",
 			AUTHORIZED_BODY_DESC = "If dragged, this unit's body will unlock the Panic Room.",
 			AUTHORIZED_BODY_DESC2 = "If dragged or controlled, this unit's body will unlock the Panic Room.",
@@ -792,9 +814,11 @@ return {
 			IMPAIRED_VISION_DESC = "This unit's vision range is reduced.",
 			MOLE_CIVILIAN = "FRAGILE",--"CIVILIAN",
 			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
+			MOLE_JET_ESCAPE = "FLEXIBLE EXTRACTION",
+			MOLE_JET_ESCAPE_DESC = "Escaping with this unit to the jet will fail the objective, but put another Informant Rendezvous mission on the map.",
 
 			BOSSUNIT = "Opportunity Target",
-			BOSSUNIT_DESC = "Bring this unit to the Jet. Successful extraction adds Detention Center location to the map.",			
+			BOSSUNIT_DESC = "Bring this unit to the jet for interrogation. Reduces guard armor for the next 2 missions.",			
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
 				UPGRADED_LONG = "AI TERMINAL UPGRADE",
@@ -834,6 +858,24 @@ return {
 			
 			NANOFAB_TYPE = "WIDE ITEM SELECTION",
 			NANOFAB_TYPE_DESC = "Stock type:",
+			
+			NANOFAB_CONSOLE = "TECH SUPPORT LINE",
+			NANOFAB_CONSOLE_DESC = "Summons personnel with Nanofab Key on activation.",
+
+			IDLE_SCAN = "IDLE SCANNING",
+			IDLE_SCAN_DESC = "Scans surroundings at start of enemy turn, if idle.",
+			
+			STATUS_SURVEYING = "SURVEYING",
+			SURVEYOR = "SURVEYOR",
+			SURVEYOR_DESC = "Rotates 90 degrees counter-clockwise at end of enemy turn, if idle.",
+			
+			ZAP_ATTACK = "TAZER GUN",
+			ZAP_ATTACK_DESC = "KOs targets with a nonlethal stun gun.",
+
+			INFRARED_SENSORS = "INFRARED SENSORS",
+			INFRARED_SENSORS_DESC = "Notices agent movement, even behind cover.",
+			
+			
 		},
 		
 		REFIT_DRONE_NAMES = {
@@ -848,7 +890,7 @@ return {
 			"Chip",
 			"Qoalabot",
 			"R30hedrone",
-			"Tim",
+			"Tiny Tim",
 			"iLaub",
 			"Cheeto-So-Robo",
 			"Autonahton",
@@ -858,7 +900,8 @@ return {
 			"MechBirb",
 			"Shiny",
 			"Plinky",
-			"Greywind",			
+			"Greywind",
+			"Datapincher",
 		},		
 
 	},
@@ -904,244 +947,273 @@ return {
 		--automatically compiled by story_scripts.lua
 		INGAME = {
 			--Central's one-liners are technically speaking scripts with only one line, thus the nesting.
-			HOLOSTUDIO = {
-				OBJECTIVE_SIGHTED = {
-					--stole some generic Security Dispatch line
-					{{"You've found the secure lock-box. Time to open it up.",
-						"SpySociety/VoiceOver/Missions/GenericLines/ObjectiveSighted_Dispatch_2",
-						"Central"}},
-					{{"There's the secure safe. You're almost done.",
-						"SpySociety/VoiceOver/Missions/GenericLines/ObjectiveSighted_Dispatch_4",
-						"Central"}},
-				},
-				AFTERMATH = {
-					{{"The item was resting on a pressure plate. Except a gamma blast to briefly disrupt all our holograms soon.",
-						"moremissions/VoiceOver/Central/holostudio/aftermath0",
-						"Central"}},
-				},
-				CENTRAL_JUDGEMENT = {
-					HASLOOT = {
-						{{"Well done. Use this new toy to prevent dangerous situations from forming in the first place.",
-							"moremissions/VoiceOver/Central/holostudio/judge/hasloot0",
-							"Central"}},
-						--also stole a generic Security Dispatch line
-						{{"The more equipment we recover, the more tactical options we have in the field. Nice work.",
-							"SpySociety/VoiceOver/Missions/PostMission/MissionComplete_Dispatch_GetThing_2",
-							"Central"}},
-					},
-					NOLOOT = {
-						{{"Did you let the holograms fool you? Search properly next time.",
-							"moremissions/VoiceOver/Central/holostudio/judge/noloot0",
-							"Central"}},
-						--also stole all the generic Security Dispatch lines
-						{{"You were supposed to find high-tech gear in that facility. Don't disappoint me again.",
-							"SpySociety/VoiceOver/Missions/PostMission/MissionComplete_Dispatch_DidntGetThing_1",
-							"Central"}},
-						{{"The gear that you skipped over back there could mean the difference between life and death for our agents. That's on your head.",
-							"SpySociety/VoiceOver/Missions/PostMission/MissionComplete_Dispatch_DidntGetThing_2",
-							"Central"}},
-					},
-				},
-			},
 
 			ASSASSINATION = {
 				OBJECTIVE_SIGHTED = {
-					-- {{"There's our target. Watch your step, Operator.",
-						-- "moremissions/VoiceOver/Central/assassination/seen0",
-						-- "Central"},
-						-- -- {"But watch out for his bodyguard. He seems to have some sort of dermal plating implant, and won't go down as easily as your average security.", nil, "Central"},
-						-- },
-			
-					{{"You've found the target. Best approach carefully, Operator. This wouldn't be the first attempt on his life, and his paranoia is notorious.",
-						"moremissions/VoiceOver/Central/assassination/seen1",
+					{{"You've found the target. Best approach carefully, Operator. This wouldn't be the first attempt on his life, and he's sure to be well-prepared.",
+						"moremissions/VoiceOver/Central/assassination/sighted/regular",
 						"Central"}},
 				},
 				OBJECTIVE_SIGHTED_NO_WEAPONS = {
-					{{"You've found the target. You didn't bring anything lethal, so you'll have to improvise.",nil,"Central"
+					{{"You've found the target. You didn't bring anything lethal, so you'll have to improvise.",
+						"moremissions/VoiceOver/Central/assassination/sighted/unprep_1p",
+						"Central"
 					},
-					{"From our client's intel, the target has recently had new K&O security installed. We may be able to use that to our advantage. Get creative, Operator.",nil,"Central"},},
+					{"From our client's intel, the target has recently had new K&O security installed. We may be able to use that to our advantage. Get creative, Operator.",
+						"moremissions/VoiceOver/Central/assassination/sighted/unprep_2p",
+						"Central"},},
 				},
 				DOOR_SIGHTED = {
 					{
 						{"Interesting. Our target has prepared a panic room. Both the target and his bodyguard should have the codes to this door.",
-							nil,
+							"moremissions/VoiceOver/Central/assassination/sighted/room_1p",
 							"Central"},
 						{"We don't have time to extract the codes, so you'll need to drag one of them up to the door. Their bodies should also deactivate the lasers as you pass.",
-							nil,
+							"moremissions/VoiceOver/Central/assassination/sighted/room_2p",
 							"Central"},
 					},
 				},
-				DOOR_UNLOCKED = {
-					{{"Good work, now let's see what he has in here.",
-						nil,
-						"Central"}},
-				},
 				KO = {
 					{{"We don't earn partial credit here, Operator. Find a way to finish the job.",
-						nil,
+						"moremissions/VoiceOver/Central/assassination/nonlethal",
 						"Central"}},
 				},
-				
 				DECOY_REVEALED = { --discovered decoy the hard way
-					{{"Damn it! We've been duped, Operator. The holo tech on that decoy is advanced enough to fool even Incognita's scans. The real target must be secured somewhere nearby.", nil, "Central"},
-					{"See if you can track him down, or we'll have to pull the plug on this mess.",nil,"Central"}},
+					{{"Damn it! We've been duped, Operator. The holo tech on that decoy is advanced enough to fool even Incognita's scans. The real target must be secured somewhere nearby.", 
+						"moremissions/VoiceOver/Central/assassination/decoy_1p",
+						"Central"},
+					{"See if you can track him down, or we'll have to pull the plug on this mess.",
+						"moremissions/VoiceOver/Central/assassination/decoy_2p",
+						"Central"}},
 				},
 				FOUND_REAL_TARGET_LATE = { --found real target after bumping into decoy
-					{{"There's our real target, finally. Get to it, Operator, this job is alerady messier than I'd like.", nil, "Central"}},	
+					{{"There's our real target, finally. Get to it, Operator, this job is already messier than I'd like.",
+						"moremissions/VoiceOver/Central/assassination/sighted/postdecoy",
+						"Central"}},	
 				},
 				FOUND_REAL_TARGET = { --found real target before decoy was busted
-					{{"Would you look at that, Operator. That appears to be our real target, holed up in his saferoom already.", nil, "Central"},
-					{"A pity we need him dead; I would almost admire this level of paranoia, if it didn't stand in our way.", nil, "Central"}},			
+					{{"Would you look at that, Operator? That looks to be our real target, holed up in his saferoom already.", 
+						"moremissions/VoiceOver/Central/assassination/sighted/predecoy_1p",
+						"Central"},
+					{"A pity we need him dead; I would almost admire this level of paranoia, if it didn't stand in our way.",
+						"moremissions/VoiceOver/Central/assassination/sighted/predecoy_2p",
+						"Central"}},			
 				},				
 				AFTERMATH = {
-					-- "Now make sure not to bump into any rival assassins on your way out."
 					{{"So far, so good. Get our agents out of there and we can collect from the client.",
-						"moremissions/VoiceOver/Central/assassination/aftermath0",
+						"moremissions/VoiceOver/Central/assassination/killed1",
+						"Central"}},
+					{{"That's one way to increase his net worth to society, and bolster ours at the same time. Good job, Operator. Extract the team.",
+						"moremissions/VoiceOver/Central/assassination/killed2",
+						"Central"}},
+					{{"Good timing, Operator. I was just starting to tire of hearing that whinging little voice. You put us both out of our misery.",
+						"moremissions/VoiceOver/Central/assassination/killed3",
 						"Central"}},
 				},
 				CENTRAL_JUDGEMENT = {
 					GOTBODY = {
-						-- "Tonight, we drink on X, who kindly pays in blood.",
-						{{"This bounty will make for a crucial donation to our cause. Excellent!",
-							"moremissions/VoiceOver/Central/assassination/judge/gotloot0",
+						{{"This will cost us a small fortune in cleanup, but our client should be pleased to pay for the privilege. Consider the catharsis an extra bonus, Operator.",
+							"moremissions/VoiceOver/Central/assassination/judge/kill1",
 							"Central"}},
-						{{"We'll need to scrub the jet floor after this, but it is worthwile.",
-							"moremissions/VoiceOver/Central/assassination/judge/gotloot1",
-							"Central"}},
-					},
-					NOTDEAD = {
-						{{"Target seems alive, but we can fix that. Good job.",
-							"moremissions/VoiceOver/Central/assassination/judge/gotalive0",
+						{{"A little messier than I would’ve liked, but we can’t be picky, not with such a substantial bounty at stake. Well done.",
+							"moremissions/VoiceOver/Central/assassination/judge/kill2",
 							"Central"}},
 					},
-					-- GOTLOOT = {
-						-- "No body, no bounty. At least we got a nice souvenir.",
-						-- "Make good use of that equipment, it's the only thing we got from all this.",
-					-- },
 					GOTNOTHING = {
-						{{"You didn't get what we came for. Perhaps you would like to offer your own head to the client?",
-							nil,
+						{{"You didn't get what we came for. Perhaps you would like to offer your own head to our client?",
+							"moremissions/VoiceOver/Central/assassination/judge/nokill1",
 							"Central"}},
-						{{"Now somebody else is going to get the bounty. Quit wasting precious time, Operator!",
-							nil,
+						{{"You didn't eliminate the target. I hope you weren't being squeamish, Operator. Wetwork is a necessity in our profession, and our circumstances don't allow us the luxury of keeping our hands clean.",
+							"moremissions/VoiceOver/Central/assassination/judge/nokill2",
+							"Central"}},
+						{{"I didn’t think I’d need to remind you of your objectives. Anything you managed to pilfer from this facility is a pittance compared to the money we just lost. I hope you had a good reason to slack off.",
+							"moremissions/VoiceOver/Central/assassination/judge/nokill3",
 							"Central"}},
 					},
 				},
 			},
-			-- LANDFILL = {
-				-- BOUGHT ={
-					-- --stole all the generic Nanofab lines
-					-- "Nice haul, Operator. Everything is useful, if you're resourceful enough.",
-					--MissionComplete_Nanofab_Bought_1
-					-- "I'm sure you considered your purchases carefully. Wouldn't want you wasting the company dime on useless dreck.",
-				-- },
-				-- SAW ={
-					-- --stole a generic Serverfarm line
-					-- "Didn't see anything to your liking, eh? I hope that doesn't come back to bite us.",
-					--MissionComplete_ServerFarm_NoBuy_1
-				-- },
-				-- MISSED ={
-					-- "Operator, get your head on straight. You didn't even check the workstation. We don't have the luxury of time to waste!",
-					-- "We can make do with nanofabs, but the cheap items you missed at this facility would have saved much money for other improvements.",
-				-- },
-			-- },
+
 			EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.INGAME,
 
 			DISTRESS_CALL = {
 				SAW_AGENT = {
-				{{"There's our missing asset. Your objective is simple, Operator: Get that agent to the extraction point.",	nil,"Central"}},
-				{{"But be careful - that little stunt won't have gone unnoticed. Their security level should start rising rapidly now.",nil,		"Central"}},
+				{{"There's our missing asset. Your objective is simple, Operator: Get that agent to the extraction point.",
+					"moremissions/VoiceOver/Central/distresscall/sighted/agent_1p",
+					"Central"}},
+				{{"But be careful - that little stunt won't have gone unnoticed. Their security level should start rising rapidly now.",
+					"moremissions/VoiceOver/Central/distresscall/sighted/agent_2p",
+					"Central"}},
 				},
 				SAW_OTHER = {
 				{{"We've made contact with the operative. He's not one of ours, but that doesn't mean he can't be useful. See if you can get him out; we can talk shop back on the jet.",
-						nil,
-						"Central"}},
-				{{"But be careful - that little stunt won't have gone unnoticed. Their security level should start rising rapidly now.",nil,		"Central"}},
+					"moremissions/VoiceOver/Central/distresscall/sighted/prisoner",
+					"Central"}},
+				{{"But be careful - that little stunt won't have gone unnoticed. Their security level should start rising rapidly now.",
+					"moremissions/VoiceOver/Central/distresscall/sighted/agent_2p",
+					"Central"}},
 				},
 				SAW_GEAR_CONTAINER = {
-				{{"Heads up, Operator. Incognita's heuristic model suggests they might have stashed our rescuee's equipment here. Let's have a look.",	nil,"Central"}},
+				{{"Heads up, Operator. Incognita's heuristic model suggests they might have stashed their prisoner's equipment here. Let's have a look.",
+					"moremissions/VoiceOver/Central/distresscall/sighted/stash",
+					"Central"}},
 				},
 				CENTRAL_JUDGEMENT = {
 					GOT_AGENT = {
-					{{"That's one more pair of hands on the team. Excellent work, Operator.", nil, "Central"}},
-					{{"We've shown them they can't keep our people locked up. Prepare that agent for the next mission, Operator. You've earned your keep today.", nil, "Central"}},
-					{{"It's a good thing we were there to provide extraction. Now there's one more pair of hands on our side, and we're stronger for it.", nil, "Central"}},
-					{{"That agent certainly made the rescue easy for us. I suppose a moment of professional pride is in order. Good work, everyone.",nil,"Central"}},
+					{{"We've shown them they can't keep our people locked up. Prepare that agent for the next mission, Operator. You've earned your keep today.",
+						"moremissions/VoiceOver/Central/distresscall/judge/agent_out1",
+						"Central"}},
+					{{"It's a good thing we were there to provide extraction. Now there's one more pair of hands on our side, and we're stronger for it.",
+						"moremissions/VoiceOver/Central/distresscall/judge/agent_out2",
+						"Central"}},
+					{{"That agent certainly made the rescue easier for us. I suppose a moment of professional pride is in order. Good work, everyone.",
+						"moremissions/VoiceOver/Central/distresscall/judge/agent_out3",
+						"Central"}},
 					},
 					LOST_AGENT = {
-					{{"Damn it, Operator! That agent had already sprung themselves free, all you had to do was walk in there and get them!", nil, "Central"}},
-					{{"One day you'll find yourself in the same shoes as the agent you just abandoned. You should hope that day doesn't come soon.", nil, "Central"}},
-					{{"This one is going on your permanent record.", nil, "Central"}}
+					{{"Damn it, Operator! That agent had already sprung themselves free, all you had to do was walk in there and get them!",
+						"moremissions/VoiceOver/Central/distresscall/judge/agent_fail1",
+						"Central"}},
+					{{"One day you'll find yourself in the same shoes as the agent you just abandoned, Operator. You should hope that day doesn't come soon.",
+						"moremissions/VoiceOver/Central/distresscall/judge/agent_fail2",
+						"Central"}},
+					{{"This one is going on your permanent record.",
+						"moremissions/VoiceOver/Central/distresscall/judge/agent_fail3",
+						"Central"}}
 					},
 					GOT_OTHER = {
-					{{"Extraction complete. Now we can find out who he works for and just how much he's worth to his employer.",nil, "Central"}},
-					{{"Our mystery man is out. With any luck, we can negotiate a reward for the rescue.",nil,"Central"}},
-					{{"A pity the operative wasn't one of ours, but we'll keep looking. Good work, Operator.",nil,"Central"}},
+					{{"Extraction complete. Now we can find out who he works for and just how much he's worth to his employer.",
+						"moremissions/VoiceOver/Central/distresscall/judge/prisoner_out1",
+						"Central"}},
+					{{"Our mystery man is out. With any luck, we can negotiate a reward for the rescue.",
+						"moremissions/VoiceOver/Central/distresscall/judge/prisoner_out2",
+						"Central"}},
+					{{"A pity the operative wasn't one of ours, but we'll keep looking. Good work, Operator.",
+						"moremissions/VoiceOver/Central/distresscall/judge/prisoner_out3",
+						"Central"}},
 					},
 					LOST_OTHER = {
-					{{"Another opportunity squandered. You had better step up your game, Operator. You're lucky that wasn't one of our own people you just abandoned.",nil,"Central"}},
-					{{"We went in there for nothing. You better have a good explanation for this in debriefing.",nil,"Central"}},
-					{{"A fruitless endeavour. That operative could have been of use to us in some manner. Too late for that now.",nil,"Central"}},
+					{{"Another opportunity squandered. You had better step up your game, Operator. You're lucky that wasn't one of our own people you just abandoned.",
+						"moremissions/VoiceOver/Central/distresscall/judge/prisoner_fail1",
+						"Central"}},
+					{{"We went in there for nothing. You'd better have a good explanation for this in debriefing.",
+						"moremissions/VoiceOver/Central/distresscall/judge/prisoner_fail2",
+						"Central"}},
+					{{"A fruitless endeavour. That operative could have been of use to us in some manner. Too late for that now.",
+						"moremissions/VoiceOver/Central/distresscall/judge/prisoner_fail3",
+						"Central"}},
 					},
 				},
 			},
+
 			WEAPONS_EXPO = {
-				FOUND_EXPO = {{{"Not so fast, Operator. Our scans show this room has advanced security failsafes.",nil,"Central"}},
-				{{"The system will boost nearby firewalls if even one exhibit is compromised. See if you can find a way to disable it.",nil,"Central"}}},
-				FOUND_EXPO_DISABLED_SEC = {{{"There's the exhibit. Their main failsafe should be offline now. Let's get to work.",nil,"Central"}}},
-				SAW_SWITCH = {{{"This security switch controls the failsafes protecting the exhibit. Find the other switch and activate both at the same time.",nil,"Central"}}},
-				DISABLED_SWITCH = {{{"You've deactivated the firewall boost, but don't let your guard down. There may still be security in place we don't know about.", nil, "Central"}}},
+				FOUND_EXPO = {{{"Not so fast, Operator. Our scans show this room has advanced security failsafes.",
+					"moremissions/VoiceOver/Central/techexpo/sighted/room_first_1p",
+					"Central"}},
+				{{"The system will boost nearby firewalls if even one exhibit is compromised. See if you can find a way to disable it.",
+					"moremissions/VoiceOver/Central/techexpo/sighted/room_first_2p",
+					"Central"}}},
+				FOUND_EXPO_DISABLED_SEC = {{{"There's the exhibit. Their main failsafe should be offline now. Let's get to work.",
+					"moremissions/VoiceOver/Central/techexpo/sighted/room_last",
+					"Central"}}},
+				SAW_SWITCH = {{{"This security switch controls the failsafes protecting the exhibit. Find the other switch and activate both at the same time.",
+					"moremissions/VoiceOver/Central/techexpo/sighted/switch",
+					"Central"}}},
+				DISABLED_SWITCH = {{{"You've deactivated the firewall boost, but don't let your guard down. There may still be security in place we don't know about.",
+					"moremissions/VoiceOver/Central/techexpo/switched",
+					"Central"}}},
 				LOOTED_CASE_DROIDS_BOOTING = {
-				{{"Heads up, Operator. Those android prototypes are coming online.",nil,"Central"}},
-				{{"Looks like the expo is providing its own security. Get out while you still can.",nil,"Central"}},
+				{{"Look alive, Operator. Those android prototypes are coming online.",
+					"moremissions/VoiceOver/Central/techexpo/droid_1p",
+					"Central"}},
+				{{"Looks like the expo is providing its own security. Get out while you still can.",
+					"moremissions/VoiceOver/Central/techexpo/droid_2p",
+					"Central"}},
 				},
 				CENTRAL_JUDGEMENT = {
-					NO_LOOT = {{{"This was a waste of time, Operator. If you cannot pull off a simple museum heist, then what good are you to me?",nil,"Central"}},
-					{{"I expected better results from you, Operator. We've lost our previous firepower, and opportunities like this don't come knocking every day.",nil,"Central"}},
-					{{"Outstanding work, Operator. I trust you'll remember this moment the next time our agents enter the field armed with toothpicks and BB guns.",nil,"Central"}}},
-					GOT_PARTIAL = {{{"I trust you've made the right call, Operator. Pity we couldn't clean them out completely, but the reward is not always worth the risk.",nil,"Central"}},
-					{{"Acceptable work. You didn't get the entire arsenal, but this should tide us over for now.",nil,"Central"}},
-					{{"This should give our people an edge in the field. Let's just hope the enemy won't be armed with those prototypes you chose to leave behind.",nil,"Central"}}},
-					GOT_FULL = {{{"I hope you dusted the shelves on your way out. We wouldn't want their cleaners to think we've missed a spot. Excellent work.",nil,"Central"}},
-					{{"This should do quite nicely. It won't put us on par with the corps, but we're no longer as disastrously outmatched as we were before.",nil,"Central"}},
-					{{"Commendable work, Operator. We've expanded our arsenal and put a dent in their research all at once.",nil,"Central"}}},
+					NO_LOOT = {{{"This was a waste of time, Operator. If you cannot pull off a simple museum heist, then what good are you?",
+						"moremissions/VoiceOver/Central/techexpo/judge/none1",
+						"Central"}},
+					{{"I expected better results from you, Operator. We've lost our previous firepower, and opportunities like this don't come knocking every day.",
+						"moremissions/VoiceOver/Central/techexpo/judge/none2",
+						"Central"}},
+					{{"Outstanding work, Operator. I trust you'll remember this moment the next time our agents enter the field armed with toothpicks and BB guns.",
+						"moremissions/VoiceOver/Central/techexpo/judge/none3",
+						"Central"}}},
+					GOT_PARTIAL = {{{"I trust you've made the right call, Operator. Pity we couldn't clean them out completely, but the reward is not always worth the risk.",
+						"moremissions/VoiceOver/Central/techexpo/judge/some1",
+						"Central"}},
+					{{"Acceptable work. You didn't get the entire arsenal, but this should tide us over for now.",
+						"moremissions/VoiceOver/Central/techexpo/judge/some2",
+						"Central"}},
+					{{"This should give our people an edge in the field. Let's just hope the enemy won't be armed with those prototypes you chose to leave behind.",
+						"moremissions/VoiceOver/Central/techexpo/judge/some3",
+						"Central"}}},
+					GOT_FULL = {{{"I hope you dusted the shelves on your way out. We wouldn't want their cleaners to think we've missed a spot. Excellent work.",
+						"moremissions/VoiceOver/Central/techexpo/judge/all1",
+						"Central"}},
+					{{"This should do quite nicely. It won't put us on par with the corps, but we're no longer as disastrously outmatched as we were before.",
+						"moremissions/VoiceOver/Central/techexpo/judge/all2",
+						"Central"}},
+					{{"Commendable work, Operator. We've expanded our arsenal and put a dent in their research all at once.",
+						"moremissions/VoiceOver/Central/techexpo/judge/all3",
+						"Central"}}},
 				},
 			},
 
 			MOLE_INSERTION = {
 				MOLE_ESCAPED_NOWITNESSES = {
-					{{"The informant is out, and their cover identity is secure. Extract the rest of the team, Operator. We're done here.", nil, "Central"}},
+					{{"The informant is out, and their cover identity is secure. Extract the rest of the team, Operator. We're done here.",
+						"moremissions/VoiceOver/Central/informant/escape_unseen",
+						"Central"}},
 				},
 				MOLE_ESCAPED_WITNESSES = {
-					{{"The informant is out, but they won't last long unless we secure their cover. Remember your objectives, Operator. No witnesses.", nil, "Central"}},
+					{{"The informant is out, but they won't last long unless we secure their cover. Remember your objectives, Operator. No witnesses.", 
+						"moremissions/VoiceOver/Central/informant/escape_seen",
+						"Central"}},
 				},
 				MOLE_ESCAPED_TO_JET = {
-					{{"You were supposed to get that informant into the enemy camp, not back on board, Operator. I trust you had good reason to abort the mission.", nil, "Central"}},
+					{{"You were supposed to get that informant into the enemy camp, not back on board. I trust you had good reason to abort the mission.", 
+						"moremissions/VoiceOver/Central/informant/escape_abort",
+						"Central"}},
 					{{"We should be able to find a new target for them somewhere nearby, so it's not entirely a loss. The important thing is nobody got hurt.", nil, "Monster"}},
 				},
 				MOLE_DIED = {
 					{
-						{{"What a sorry waste of a live asset. We'll be lucky if we get this opportunity again.",nil,"Central"}},
+						{{"What a sorry waste of a live asset. We'll be lucky if we get this opportunity again.",
+							"moremissions/VoiceOver/Central/informant/died1",
+							"Central"}},
 						{{"Yes, lucky is indeed the word. I suppose I ought to think twice about throwing any more \"live assets\" your way.",nil,"Monster"}},
 					},
 					{
-						{{"That's the mission gone down the drain. Make sure the team is extracted safely, and we'll discuss this in debriefing.",nil,"Central"}},
+						{{"That's the mission gone down the drain. Make sure the team is extracted safely. We'll discuss this in debriefing.",
+							"moremissions/VoiceOver/Central/informant/died2",
+							"Central"}},
 						{{"And there goes one of my favourite contacts. Was this really necessary?",nil,"Monster"}},
 					},
 					{
-						{{"Damn it, Operator! Do you have any idea how much having that contact in place would have helped our odds?",nil,"Central"}},
+						{{"Damn it, Operator! Do you have any idea how much having that contact in place would have helped our odds?",
+							"moremissions/VoiceOver/Central/informant/died3",
+							"Central"}},
 						{{"I suppose this particular death is on me. I put them in touch with you, after all.",nil,"Monster"}},
 					},
 				},
+				MOLE_SEEN_INTERJECTION = { --should play dynamically after the first time mole is spotted, no matter who spots them
+					{{"Bear in mind, there's no shame in walking away from this job if it goes belly-up. Get my freelancer safely back to your jet, and we can give this another go at a different facility.", nil, "Monster"}},
+				},
 				MOLE_SEEN_BY_GUARD = {
-					{{"Operator, our informant is as good as dead unless we secure their cover. If anyone sees them before they leave, make sure to clean up those loose ends.",nil,"Central"}},
-					{{"And by \"clean up\", she means...",nil,"Monster"}},
-					{{"Not necessarily. If you can find a nonlethal solution, use it. The informant should have something on them for that.",nil,"Central"}},
+					{{"Operator, our informant is as good as dead unless we secure their cover. If anyone sees them before they leave, make sure to clean up those loose ends.",
+						"moremissions/VoiceOver/Central/informant/seen_1p",
+						"Central"}},
+					-- {{"And by \"clean up\", she means...",nil,"Monster"}},
+					-- {{"Not necessarily. If you can find a non-lethal solution, use it. The informant should have some equipment on them for that.",						"moremissions/VoiceOver/Central/informant/seen_2p", "Central"}},
+					{{"If you can find a non-lethal solution, use it. The informant should have some equipment on them for that.",						"moremissions/VoiceOver/Central/informant/seen_2p", "Central"}}, --NEED TO EDIT FILE
 					},
 				MOLE_SEEN_BY_CAMERA = {
 					{{"You'll want to take care of any cameras that caught a glimpse of our Informant. Their visual feeds are synched to the nearest Camera Database.",nil,"Monster"}},
 					{{"Scrub the database or destroy the camera - a bullet or an EMP ought do the trick. They really don't use the most robust tech, I'm afraid. Now, if they had the benefit of a reliable vendor-",nil,"Monster"}},
-					{{"Derek, this is not the time.",nil,"Central"}},
+					{{"Derek, this is not the time.",
+						"moremissions/VoiceOver/Central/informant/shush_derek",
+						"Central"}},
 					{{"Right, yes, of course. Carry on.",nil,"Monster"}},
 					},
 				MOLE_SEEN_BY_DRONE = {
@@ -1152,21 +1224,32 @@ return {
 					{{"A camera database. Keep that in mind, that may come in handy if our informant gets spotted by any pesky cameras.",nil,"Monster"}},
 				},
 				SEE_OBJECTIVE_DOOR = {
-					{{"Heads up, Operator. We're in the right place. The Personnel Database should be behind that door.",nil,"Central"}},
+					{{"Heads up, Operator. We're in the right place. The Personnel Database should be behind that door.",
+						"moremissions/VoiceOver/Central/informant/sighted/room",
+						"Central"}},
 				},
 				SEE_OBJECTIVE_DB = {
-					{{"There's the database. The informant can use it to fabricate their cover identity before they infiltrate deeper into the facility. Make sure it goes smoothly.",nil,"Central"}},
+					{{"There's the database. The informant can use it to fabricate their cover identity before they infiltrate deeper into the facility. Make sure it goes smoothly.",
+						"moremissions/VoiceOver/Central/informant/sighted/console",
+						"Central"}},
 				},
 				FINISHED_DB_HACK = {
-					{{"The hack is done, but the informant got tagged as they were plugging out. Their location will keep pinging nearby security each alarm level.",nil,"Central"}},
-					{{"Get them to a guard elevator and off this floor, and stay out of sight. Our work is almost done.",nil,"Central"}},
-					-- {{"The informant is ready to go undercover now. Get them to a guard elevator and stay out of sight.",nil,"Central"}},
+					{{"The hack is done, but the informant got tagged as they were plugging out. Their location will keep pinging nearby security each alarm level.",
+						"moremissions/VoiceOver/Central/informant/hacked_1p",
+						"Central"}},
+					{{"Get them to a guard elevator and off this floor, and stay out of sight. Our work is almost done.",
+						"moremissions/VoiceOver/Central/informant/hacked_2p",
+						"Central"}},
 				},
 				CAMERA_BOOTING = {
-					{{"They're booting this backup camera in response to our intrusion. Keep the informant out of its sights, or we'll have more work on our hands.",nil,"Central"}},
+					{{"They're booting this backup camera in response to our intrusion. Keep the informant out of its sights, or we'll have more work on our hands.",
+						"moremissions/VoiceOver/Central/informant/camera",
+						"Central"}},
 				},
 				SEE_GUARD_EXIT = {
-					{{"There's a guard exit. Be careful, Operator. Make sure the informant doesn't run into any inbound reinforcements on the way.",nil,"Central"}},
+					{{"There's a guard exit. Be careful, Operator. Make sure the informant doesn't run into any inbound reinforcements on the way.",
+						"moremissions/VoiceOver/Central/informant/sighted/exit",
+						"Central"}},
 				},
 				WITNESS_FLED_LEVEL = {
 					{{"Damn it! Someone who's seen our informant has just escaped from this floor. We can't get to them now, and our contact is already inside.", nil, "Central"}},
@@ -1178,25 +1261,44 @@ return {
 				},
 				CENTRAL_JUDGEMENT = {
 					MOLE_JET_ESCAPE = {
-					{{"We cannot afford to keep wasting our time like this, Operator. Luckily, we may just have a second shot at this. Make it count.", nil,"Central"}},
-					{{"We're no better off than we started. There should be another infiltration target like this nearby. Don't force me to give you a third chance, Operator.",nil,"Central"}},
+					-- {{"We cannot afford to keep wasting our time like this, Operator. Luckily, we may just have a second shot at this. Make it count.", nil,"Central"}},
+					{{"We're no better off than when we started. There should be another infiltration target like this nearby. Don't force me to give you a third chance, Operator.",
+						"moremissions/VoiceOver/Central/informant/judge/abort2",
+						"Central"}},
 					},
 					MOLE_DIED = {
-					{{"This was a sorry waste of an opportunity. We don't have much in the way of friends anymore, Operator. This could have been a step forward.",nil, "Central"}},
-					{{"Your job was to get them inside, not to get them killed. It's a damn shame to see a fine operative go down like that.",nil,"Central"}},
-					{{"A complete and utter disappointment. We need people on the inside, Operator. That kind of intel would be invaluable for our survival.",nil,"Central"}},
-					{{"Don't let this kind of failure become a pattern, Operator. It would not be in your best interest.",nil,"Central"}},
+					{{"This was a sorry waste of an opportunity. We don't have much in the way of friends anymore, Operator. This could have been a step forward.",
+						"moremissions/VoiceOver/Central/informant/judge/fail1",
+						"Central"}},
+					{{"Your job was to get the informant inside, not to get them killed. It's a damn shame to see a fine operative go down like that.",
+						"moremissions/VoiceOver/Central/informant/judge/fail2",
+						"Central"}},
+					{{"A complete and utter disappointment. We need people on the inside, Operator. That kind of intel would've been invaluable for our survival.",
+						"moremissions/VoiceOver/Central/informant/judge/fail3",
+						"Central"}},
+					{{"Don't let this kind of failure become a pattern, Operator. It would not be in your best interest.",
+						"moremissions/VoiceOver/Central/informant/judge/fail4",
+						"Central"}},
 					},
 					WIN_WITH_WITNESSES = {
-					{{"You weren't supposed to leave witnesses. Our informant won't be able to feed us intel for long before their cover is blown. Still, it's better than nothing.",nil,"Central"}},
-					{{"Next time, make sure the informant is unseen. They'll be useful to us for that much longer if their cover is secure.",nil,"Central"}},
-					{{"A job half done. We won't be able to use their intel for long, not with the witnesses you left behind. Be more careful next time.",nil,"Central"}},
+					{{"You weren't supposed to leave witnesses. Our informant won't be able to feed us intel for long before their cover is blown. Still, it's better than nothing.",
+						"moremissions/VoiceOver/Central/informant/judge/seen1",
+						"Central"}},
+					-- {{"Next time, make sure the informant is unseen. They'll be useful to us for that much longer if their cover is secure.",nil,"Central"}},
+					{{"A job half done. We won't be able to use their intel for long, not with the witnesses you left behind. Be more careful next time.",
+						"moremissions/VoiceOver/Central/informant/judge/seen2",
+						"Central"}},
 					},
 					WIN_NO_WITNESSES = {
-					{{"An informant in the right place is worth their weight in gold, and you kept things clean. Well done, Operator.",nil,"Central"}},
-					{{"We'll have advance intel on the next few infiltrations now. A shadow of our former prep work, but invaluable in these dire times. Excellent work.",nil,"Central"}},
-					{{"A difficult task well performed. The informant is in, and you made sure there were no witnesses. Nice work.",nil,"Central"}},
-					{{"Well done, Operator. With that informant in place, our job will be that much easier.",nil,"Central"}},
+					{{"An informant in the right place is worth their weight in gold, and you've made sure they weren't spotted. Well done, Operator.",
+						"moremissions/VoiceOver/Central/informant/judge/good1",
+						"Central"}},
+					{{"We'll have advance intel on the next few infiltrations now. A shadow of our former prep work, but invaluable in these dire times. Excellent work.",
+						"moremissions/VoiceOver/Central/informant/judge/good2",
+						"Central"}},
+					{{"A difficult task well performed. The informant is in, and you've made sure there were no witnesses. Nice work.",
+						"moremissions/VoiceOver/Central/informant/judge/good3",
+						"Central"}},
 					},
 
 				},
@@ -1204,39 +1306,58 @@ return {
 
 			AI_TERMINAL = {
 				CENTRAL_DOOR_SPOTTED = {
-					-- {{"A scan of that door shows unusually high security measures. Whatever is behind it, must be very valuable. Shall we take a look, Operator?", nil, "Central"}}, --old WE version
-					{{"A scan of that door shows unusually high security measures. This must be the AI research center we've been looking for. Shall we take a look, Operator?", nil, "Central"}},
-					{{"You'll need to disable a lock behind each of those four doors. You should be able to find measures to unlock them on site. Take a look around.", nil, "Central"}},
+					{{"A scan of that door shows unusually high security measures. This must be the AI research center we've been looking for.",
+						"moremissions/VoiceOver/Central/aiterminal/sighted/door_1p",
+						"Central"}},
+					{{"You'll need to activate a terminal behind each of those four doors. You should be able to find measures to unlock them on site. Take a look around.",
+						"moremissions/VoiceOver/Central/aiterminal/sighted/door_2p",
+						"Central"}},
 				},
 				CENTRAL_UNLOCKED_SUBDOOR =
 				{
-					{{"That Console just sent a signal to another part of the facility. One of the previously locked doors should be open now.", nil, "Central"}},
+					{{"That Console just sent a signal to another part of the facility. One of the previously locked doors should be open now.",
+						"moremissions/VoiceOver/Central/aiterminal/console",
+						"Central"}},
 				},
 
 				CENTRAL_UNLOCKED_MAINDOOR_OMNI_UNSEEN =
 				{
-					-- {{"Aha! Looks like we stumbled upon an AI development site. Get data from the terminal inside, and it should provide some useful information for Incognita.", nil, "Central"}},-- old WE version
-					{{"That's the main AI development terminal. Finally. Let's access the data and see if there is anything worthwhile for Incognita.", nil, "Central"}},
+					{{"That's the main AI development terminal. Finally. Let's access the data and see if there is anything worthwhile for Incognita.",
+						"moremissions/VoiceOver/Central/aiterminal/sighted/main_1p",
+						"Central"}},
 					{{"Something strange is going on here. The equipment at this research site is like nothing I've seen before. Certainly not at this corporation.", nil, "Monster"}},
-					{{"Something to puzzle over later. For now, we need to finish the job and get out of here.", nil, "Central"}},
+					{{"Something to puzzle over later. For now, we need to finish the job and get out of here.",
+						"moremissions/VoiceOver/Central/aiterminal/sighted/main_2p_preomni",
+						"Central"}},
 				},
 
 				CENTRAL_UNLOCKED_MAINDOOR_OMNI_SEEN =
 				{
-					{{"That's the main AI development terminal. Finally. Let's access the data and see if there is anything worthwhile for Incognita.", nil, "Central"}},
+					{{"That's the main AI development terminal. Finally. Let's access the data and see if there is anything worthwhile for Incognita.",
+						"moremissions/VoiceOver/Central/aiterminal/sighted/main_1p",
+						"Central"}},
 					{{"This must be one of Omni Corp's covert research sites - only they have tech quite this advanced. The decor is a bit of a giveaway, too.", nil, "Monster"}},
-					{{"There must be hundreds of such facilities scattered around the globe. How on Earth did we not run into one of these before?", nil, "Central"}},
+					{{"There must be hundreds of such facilities scattered around the globe. How on Earth did we not run into one of these before?",					
+						"moremissions/VoiceOver/Central/aiterminal/sighted/main_2p_postomni",
+						"Central"}},
 					{{"I confess I have my suspicions, although you may not like hearing them...",nil,"Monster"}}, --it's because you're a bad mom, Central
 				},
 
 				INCOGNITA_DATA_ACQUIRED = {
 					{{"Acquired new data. High probability of increasing efficiency in coroutine execution. Processing... Estimated finish time is 1 hour, 21 minutes and 48 seconds.", nil, "Incognita"}},
+					{{"Integrating novel input matrix. Estimated process time is 78 minutes. Try not to die until then.", nil, "Incognita"}},
+					{{"Additional computation processing venues unlocked. Likelihood of agency survival increased by two percent. Please stand by for full data integration.", nil, "Incognita"}},					
 					-- {{"Excelent job, Operator. Incognita will be able to install one additional program after we're finished here.",nil,"Central"}},
 				},
 
 				INCOGNITA_PROG_UPGRADED = {
-					{{"Acquired new data. High probability of increasing effectiveness in coroutine execution. Processing... Integration complete.", nil, "Incognita"}},
+					{{"Computational upgrade acquired. Alotting increased processing power to upgraded coroutine. Processing... Integration complete.", nil, "Incognita"}},
+					{{"Multi-threading protocols unlocked. Executable parameters enhanced. Your success will serve us both well, Operator.", nil, "Incognita"}},					
 				},
+				INCOGNITA_HOSTILE_AI_WEAKENED = {
+					{{"Initiating sabotage routines. Anticipating significant lag phase before meaningful interference thresholds can be reached.", nil, "Incognita"}},
+					{{"Running analysis of counterintelligence data matrix. Inserting self-sustaining data corruption worm. Waiting phase active. The seeds must grow.", nil, "Incognita"}},					
+				},				
 
 				INCOGNITA_TECH_ACQUIRED = { --unused?
 					{{"Excelent job, Operator. Monst3r will certainly be interested in selling this data. Get it back to the jet.", nil, "Central"}},
@@ -1244,31 +1365,53 @@ return {
 				},
 
 				SMOKE_WARNING = {
-					{{"We've tripped a failsafe. The room is rapidly filling with knockout gas. Get your agent out of there, now.",nil, "Central"}},
+					{{"We've tripped a failsafe. The room is rapidly filling with knockout gas. Get your agent out of there, now.",
+						"moremissions/VoiceOver/Central/aiterminal/gas",
+						"Central"}},
 					{{"It could be worse. At least they're not flooding the research center with a deadly neurotoxin.", nil, "Monster"}},
 				},
 
 				CENTRAL_JUDGEMENT = {
-					GOT_SLOT = {
-						{{"Excellent job, Operator. Incognita will be able to install an additional program soon.",nil,"Central"}},
-						-- {{"",nil,"Central"}},
-					},
-					GOT_UPGRADE = {
-						{{"An impressive performance, Operator. Have a cookie.", nil, "Central"}},
-					},
-					
 					GOT_SUCCESS = {
-						{{"Expertly done, Operator. The stronger we make Incognita, the greater our collective chances of survival.", nil, "Central"}},
-						{{"This was a triumph, Operator. Incognita is our best shot at surviving this mess. The more upgrades we can give her, the better off we'll be.", nil, "Central"}}, -- obligatory portal ref
-						{{"Incognita seems happy with her enhancements. Have a cookie. You've earned it.", nil, "Central"}},
+						{{"Expertly done, Operator. The more powerful Incognita grows, the greater our collective chances of survival.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/upgrade1",
+							"Central"}},
+						{{"This was a triumph, Operator. Incognita is our best shot at surviving this mess. The more upgrades we procure for her, the better off we'll be.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/upgrade2",
+							"Central"}}, -- obligatory portal ref
+						{{"Expertly done, Operator. The more powerful Incognita grows, the greater our collective chances of survival.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/upgrade1",
+							"Central"}},
+						{{"This was a triumph, Operator. Incognita is our best shot at surviving this mess. The more upgrades we procure for her, the better off we'll be.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/upgrade2",
+							"Central"}}, -- obligatory portal ref
+						-- again, lazy copy-pasting to keep cookie line rare
+						{{"Incognita seems happy with her new enhancements. Have a cookie, Operator. You've earned it.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/upgrade3",
+							"Central"}},
 					},
 					GOT_NOTHING = {
-						{{"I should have left you at the orphanage.", nil, "Central"}}, --will rewrite when feeling more creative
-						{{"We had a rare opportunity to enhance Incognita here, and you've squandered it. How disappointing.",nil,"Central"}},
-						{{"Operator, Incognita is the one advantage we still have over the corps. We cannot keep wasting such opportunities. Try to keep that in mind for next time.",nil,"Central"}},
+						{{"I should have left you at the orphanage.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/fail3", 
+							"Central"}},
+						{{"We had a rare opportunity to enhance Incognita here, and you've squandered it. How disappointing.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/fail1",
+							"Central"}},
+						{{"Operator, Incognita is the one advantage we still have over the corps. We cannot keep wasting such opportunities. Try to keep that in mind for next time.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/fail2",
+							"Central"}},
+						--copypasting: lazy way of making the orphanage line a rarer easter egg
+						{{"We had a rare opportunity to enhance Incognita here, and you've squandered it. How disappointing.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/fail1",
+							"Central"}},
+						{{"Operator, Incognita is the one advantage we still have over the corps. We cannot keep wasting such opportunities. Try to keep that in mind for next time.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/fail2",
+							"Central"}},
 					},
 					WEAKENED_COUNTER_AI = {
-						{{"The best defense is a good offense, as they say. Sabotage may be a dirty game, but hamstringing their AI research is sure to help us stay competitive. Well done.", nil, "Central"}}, --unvoiced?
+						{{"The best defense is a good offense, as they say. Sabotage may be a dirty game, but hamstringing their AI research is sure to help us stay competitive. Well done.",
+							"moremissions/VoiceOver/Central/aiterminal/judge/sabotage",
+							"Central"}},
 					},
 				},
 			},
@@ -1354,7 +1497,7 @@ return {
 	
 	LOGS = {
 		-- Informant datalog: doubles as acknowledgemt for VA contributors
-		log_informant_filename = "INFORMANT INTEL",
+		log_informant_filename = "INFORMANT INTEL", --author: Hek
 		log_informant_title = "UNDERCOVER AGENT REPORT",
 		log_informant = [[INFORMANT COMMUNIQUÉ - NATALIE FORMAUNT
 			
@@ -1399,7 +1542,7 @@ return {
 			
 			- The More Missions dev team)
 		]],
-		log_techexpo_filename = "LETTER OF INVITATION",
+		log_techexpo_filename = "LETTER OF INVITATION", --author: jlaub
 		log_techexpo_title = "MWC LETTER OF INVITATION",
 		log_techexpo = 
 		[[INVITATION, 2074 MEGACORP WARE CONGRESS (MWC)
@@ -1441,6 +1584,116 @@ return {
 		Megacorp Ware Congress
 
 		P.S.: Please be aware that your presence after the closing of the expo will trigger an alarm response. We thank you in advance for your cooperation with security enforcement personnel.</>
+		]],
+		
+		log_assassination_filename = "CORPORATE CHATLOG", --author: jlaub
+		log_assassination_title = "DECRYPTED CHATLOG",
+		log_assassination = [[>>> CHAT INITIATED
+		
+		>>> ENCRYPTION PROTOCOL CONFIRMED
+		
+		>>> Participants joined: Steve Hall, Chief Operating Officer, Special Projects; Sayid Madani, Regional Security Chief
+		
+		>>> Your friendly executive chat-bot is here to assist you. Just type <c:6bf7ff>"Hey Weebo..."</c> and your request. For instance, say <c:6bf7ff>"Hey Weebo, what were the division's quarterly earnings in Q2 2073."</c> Have a fantastic day!
+
+		<c:63ffca>STEVE:</c> <c:62B3B3>You there Sayid?</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Steve my man, how's the executive life treating you?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I've been better. Did you get my request?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>It's important.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Do you mean that upgraded security request?</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>What about it?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>....</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Is it approved?</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Well, you know it's not that simple. You haven't conclusively shown that there is increased risk to your person and from whom. Standard stuff.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I've gotten reports of chatter on the Subnet from *your* team.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Chatter is chatter, it could be nothing. Terrorists playing mindgames, trying to get us to stretch ourselves thin. Like, say, spending a small fortune on security based on the Subnet rumor mill.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I don't know about that. You heard about that high-clearance terminal hit recently? All of Gavin's location data, stolen. Something's going on.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Of course I heard about it.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>And?</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>And what?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Do I really have to spell it out? There could be a bullet out there right now with my  name on it.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>We don't know that for sure.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>"For sure"? Geez. It's almost like you're *trying* to get me killed.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Of course not! I'm just trying to do my job. This isn't personal.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Yeah right. You've had it out for me ever since I got promoted and you didn't. Now you're gonna hang me out to dry??? I could have you reported.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>You're being paranoid - I would never do that. Not lastly because keeping you safe is my goddamn job. But I have to answer for *every* expenditure, same as you. Finance is not gonna be happy with me if we install all that extra tech and nothing happens.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Isn't nothing happening the point???</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>You know what I mean.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I don't feel safe here.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Nobody does. But trust me, installing turrets in the corner of every room helps a lot less than you might think.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Can we do that???</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>No.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>We don't even have the finalized SecNet assessment yet.  It could be nothing. Could be a disgruntled janitor, or some idiot temp forgetting to lock the screen. You want to turn your C-suite into Fort Knox over *that*?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>A couple of security upgrades isn't exactly Fort Knox, and most of it is standard countermeasures we already use. I just want more of it. In my office.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Have you even read your own list? "Two Akuma drones with Seeker ammo"? Laser-grid guarded saferoom? Pressure plates? Tripwires? Half of that is experimental tech, and it'll endanger you and your colleagues more than Subnet "chatter" ever could. Not to mention put a serious dent in your leather couches.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Ha ha. So funny.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Look. I get that you're worried, but you've gotta admit it's probably just the stress of the new job. You're not the first exec to discover he's got a fear of heights. Book your PTO, spend a day on a yacht, and try to relax. And lay off the spy novels while you're at it. Alright?</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I don't have a fear of heights. I go wingsuit flying every year.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>I was being metaphorical. </c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Sayid. Dude. We go way back, right? Just do this for me, and I'll owe you big. That's a huge chance for you, and you know it. A guy in your position can't be picky about opportunities like that.</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Right...</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Well. Let me remind you that I take my job very seriously, and I would never engage in a quid-pro-quo scheme involving the misuse of corporate funding, especially not on a corp-owned messaging system.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I'll make it worth your while. We can worry about explaining it to management later, when I'm still alive</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>I really can't</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>Look... If you're that worried... I'll see if I can get you a side-arm, okay? But anything more, you're going to have to pay for it out of your own pocket. Could try pitching it to the higher-ups as a facility upgrade, maybe they'll reimburse you for part of it. I'm sure you'll figure out a way - guy in your position and all.</c>
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>I didn't mean it like that</c>
+		
+		<c:ff9677>SAYID:</c> <c:62B3B3>I gotta go, alright? Ttyl, catch you on the flipside, be sure to give my regards to Katie</c>
+
+		>>> Sayid Madani has left the chat.
+		
+		<c:63ffca>STEVE:</c> <c:62B3B3>Screw you too *amigo*.</c>
+		
+		<c:63ffca>STEVE:</c> <c:6bf7ff>Hey Weebo</c>, <c:62B3B3>please order items outlined in attached document "Security Upgrades" minus Sankaku imports and charge to my personal account as a rush order</c>
+		
+		<c:6bf7ff>WEEBO:</c> <c:62B3B3>Ordering...</c>
+		
+		<c:6bf7ff>WEEBO:</c> <c:62B3B3>Completed. Installation details have been forwarded to your wallet and calendar. Thank you for shopping with Weebo!</c>
+		
+		>>> Steve Hall has left the chat.
+		
+		>>> CHAT COMPLETE AND ARCHIVED
+		
 		]],
 	},
 }

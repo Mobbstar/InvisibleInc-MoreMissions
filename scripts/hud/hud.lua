@@ -45,17 +45,34 @@ local function showChoiceDialog( hud, headerTxt, bodyTxt, options, dType, toolti
 		screen.binder.pnl.binder.theirface:setVisible(false)
 	end
 
+	local use_list = false
+	if #options > 5 then
+		use_list = true
+	end
+
 	-- Fill out the dialog options.
 	local result = nil
-	local x = 1
+	local x = 1 --RaXaH: What is this used for? Remove?
 	for i, btn in screen.binder.pnl.binder:forEach( "optionBtn" ) do
-		if options[i] == nil then
+		if use_list or options[i] == nil then
 			btn:setVisible( false )
 		else
 			btn:setVisible( true )
 			btn:setText("<c:8CFFFF>"..  options[i] .."</>")
 			btn.onClick = util.makeDelegate( nil, function() result = i end )
 			x = x + 1
+		end
+	end
+
+	if use_list then
+		local lb = screen:findWidget("optionList")
+		lb:setVisible(true)
+		lb:clearItems()
+		for i=#options, 1, -1 do
+			local entry = lb:addItem(nil , nil)
+			local btn = entry.binder.optionListBtn
+			btn:setText("<c:8CFFFF>"..  options[i] .."</>")
+			btn.onClick = util.makeDelegate( nil, function() result = i end )
 		end
 	end
 

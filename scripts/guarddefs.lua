@@ -161,6 +161,7 @@ local npc_templates =
 			recap_icon = "executive",
 			MM_bounty_target = true,
 			MM_alertlink = true,
+			mm_nopatrolchange = true,
 		},
 		dropTable =
 		{
@@ -176,7 +177,7 @@ local npc_templates =
 		speech = speechdefs.NPC,
 		voices = {"Executive"},
 		skills = {},
-		abilities = {"shootOverwatch", "overwatch", "consciousness_monitor_passive"},
+		abilities = {"shootOverwatch", "overwatch",},
 		children = {},
 		idles = DEFAULT_IDLES,
 		sounds = SOUNDS.GUARD,
@@ -218,7 +219,7 @@ local npc_templates =
 		speech = speechdefs.NPC,
 		voices = {"Executive"},
 		skills = {},
-		abilities = {"shootOverwatch", "overwatch", "consciousness_monitor_passive"},
+		abilities = {"shootOverwatch", "overwatch",},
 		children = {},
 		idles = DEFAULT_IDLES,
 		sounds = DROID_SOUNDS,
@@ -310,7 +311,7 @@ local npc_templates =
 		speech = speechdefs.NPC,
 		voices = {"KO_Heavy"},
 		skills = {},
-		abilities = util.extend(DEFAULT_ABILITIES){"consciousness_monitor_passive"}, --minimise differences between bodyguard and target for the sake of the disguise mechanic
+		abilities = util.extend(DEFAULT_ABILITIES){},
 		children = { itemdefs.item_npc_pistol },
 		sounds = SOUNDS.GUARD,
 		brain = "GuardBrain",		
@@ -482,6 +483,31 @@ local npc_templates =
 		idles = DEFAULT_IDLES,
 		sounds = SOUNDS.GUARD,
 		brain = "WimpBrain",		
+	},
+	
+	MM_spider_drone = util.extend( DEFAULT_DRONE )
+	{
+		name = STRINGS.MOREMISSIONS.GUARDS.SPIDER_DRONE,
+		profile_anim = "portraits/sankaku_drone_face_new",
+		profile_build = "portraits/MM_prototype_drone_face",
+		profile_image = "sankaku_drone.png",		
+		kanim = "kanim_MM_prototype_drone",
+		sounds = SOUNDS.DRONE_WALK,
+		abilities = {  "shootOverwatch", "overwatch", "MM_surveyor","MM_ce_ultrasonic_echolocation_passive"},
+		children = {"item_spiderdrone_zapgun"},	
+		traits = util.extend( DEFAULT_DRONE.traits )   
+		{
+			-- seesHidden = true,
+			MM_spider_drone = true,
+			zap_attack = true,
+			idle_scanning = true,
+			stationaryRotating = true,
+			LOSrange = 5, --8,
+			LOSperipheralArc = math.pi / 2, -- periph vision is required for the ultrasonic echolocation to work
+			LOSperipheralRange = 5,
+			silencer = true,
+			MM_noticesHidden = true,
+		},		
 	},	
 }
 

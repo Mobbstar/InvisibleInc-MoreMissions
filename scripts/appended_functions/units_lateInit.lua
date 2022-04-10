@@ -8,6 +8,8 @@ local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 
+local assassination_mission = include( SCRIPT_PATHS.more_missions .. "/missions/assassination" )
+
 -- SIMUNIT ------------------------------------------------
 -- setAlerted edit to allow un-alerting for Amnesiac function
 local simunit = include("sim/simunit")
@@ -33,8 +35,9 @@ end
 local processEMP_old = simunit.processEMP
 simunit.processEMP = function( self, bootTime, noEmpFX, ... )
 	processEMP_old( self, bootTime, noEmpFX, ... )
-	if self:getTraits().witness then
+	if self:getTraits().witness and self:getTraits().mainframe_item then
 		self:getTraits().witness = nil
+		sim:triggerEvent("MM_processed_EMP_on_witness")
 		local x0, y0 = self:getLocation()
 		if x0 and y0 then
 			self._sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
@@ -78,7 +81,7 @@ local simunit_onDamage_old = simunit.onDamage
 simunit.onDamage = function( self, damage, ... )
 	simunit_onDamage_old( self, damage, ... )
 	if self and self:isValid() and self:getLocation() and not self:getTraits().isDead and (self:getTraits().MM_bodyguard or self:getTraits().MM_bounty_target) then
-		if not self:isKO() then
+		if (self:getTraits().wounds < self:getTraits().woundsMax) and not self:isKO() then
 			self:getSim():dispatchEvent( simdefs.EV_UNIT_HIT, {unit = self, result = 0} ) --stagger FX
 		end
 	end
@@ -129,6 +132,7 @@ simdrone.processEMP = function(self, empTime, noEmpFx, noAttack)
 	simdrone_processEMP_old(self, empTime, noEmpFx, noAttack)
 	if self:getTraits().witness then
 		self:getTraits().witness = nil
+		sim:triggerEvent("MM_processed_EMP_on_witness")
 		local x0, y0 = self:getLocation()
 		if x0 and y0 then
 			self._sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )

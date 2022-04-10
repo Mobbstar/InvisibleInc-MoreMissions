@@ -37,6 +37,7 @@ local npc_abilities =
 		icon = "gui/icons/UI_icons/icon_program_moleBonus.png",--icon
 		title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_NAME,
 		noDaemonReversal = true,
+		standardDaemon = false,
 		bonus_type = "",
 		missionsLeft = 0,
 
@@ -45,7 +46,11 @@ local npc_abilities =
 			local section = tooltip:addSection()
 			
 			section:addLine( self.name )
-			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC, self.missionsLeft), "gui/icons/action_icons/Action_icon_Small/actionicon_talk.png" )		
+			if self.bonus_type == "armor" then
+				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC_ARMOR, self.missionsLeft), "gui/icons/item_icons/items_icon_small/icon-item_personal_shield_broken_small.png" )
+			else
+				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC, self.missionsLeft), "gui/icons/action_icons/Action_icon_Small/actionicon_talk.png" )
+			end		
 			if self.dlcFooter then
 				section:addFooter(self.dlcFooter[1],self.dlcFooter[2])
 			end
@@ -65,6 +70,7 @@ local npc_abilities =
 	{
 		icon = "gui/icons/UI_icons/icon_program_moleWitness.png",--icon
 		title = "",
+		standardDaemon = false,
 		
 		onTooltip = function( self, hud, sim, player )
             local tooltip = util.tooltip( hud._screen )
@@ -107,6 +113,7 @@ local npc_abilities =
 			sim:addTrigger( "mole_final_escape", self )
 			sim:addTrigger( "vip_escaped", self )
 			sim:addTrigger( "used_amnesiac", self ) --trg_unit_paralyzed is firing too early, need this instead
+			sim:addTrigger("MM_processed_EMP_on_witness", self )
 			self.camera_witnesses = 0
 			self.guard_witnesses = 0
 			self.drone_witnesses = 0
@@ -123,6 +130,7 @@ local npc_abilities =
 			sim:removeTrigger( "mole_final_escape", self )
 			sim:removeTrigger( "vip_escaped", self )
 			sim:removeTrigger( "used_amnesiac", self )
+			sim:removeTrigger("MM_processed_EMP_on_witness", self )
 		end,
 		
 		onTrigger = function( self, sim, evType, evData, userUnit )

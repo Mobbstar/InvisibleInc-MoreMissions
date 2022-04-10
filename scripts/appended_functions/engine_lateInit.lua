@@ -8,6 +8,8 @@ local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 
+local assassination_mission = include( SCRIPT_PATHS.more_missions .. "/missions/assassination" )
+
 local simengine = include("sim/engine")
 local simengine_tryShootAt_old = simengine.tryShootAt
 simengine.tryShootAt = function( self, sourceUnit, targetUnit, dmgt, equipped, ... )

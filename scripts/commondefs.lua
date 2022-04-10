@@ -28,6 +28,9 @@ local function onMainframeTooltip( tooltip, unit )
 		
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_TYPE, (STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_TYPE_DESC .. " " .. unit:getTraits().luxuryNanofab), itemType_icon)
 	end
+	if unit:getTraits().luxuryNanofab_console then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_CONSOLE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_CONSOLE_DESC, "gui/icons/arrow_small.png" )
+	end
 end
 
 local function onItemTooltip(tooltip, unit)
@@ -46,7 +49,7 @@ local function onAgentTooltip(tooltip, unit)
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.EA_HOSTAGE_VITAL_STATUS, util.sformat(STRINGS.MOREMISSIONS.UI.TOOLTIPS.EA_HOSTAGE_VITAL_STATUS_DESC, unit:getTraits().vitalSigns), "gui/icons/item_icons/items_icon_small/icon-item_heart_monitor_small.png" )
 	end
 	local cell = unit:getSim():getCell( unit:getLocation() )
-	if cell and cell.KOgas then
+	if cell and cell.KOgas and cell.KOgas > 0 then
 		if unit:isKO() then
 			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS_PINNED, STRINGS.MOREMISSIONS.UI.TOOLTIPS.KO_GAS_PINNED_DESC, "gui/icons/item_icons/items_icon_small/icon-item_toxic_smokel.png" )
 		elseif unit:getTraits().canKO then
@@ -55,15 +58,19 @@ local function onAgentTooltip(tooltip, unit)
 	end
 	if unit:getTraits().MM_mole then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_CIVILIAN_DESC, "gui/icons/item_icons/items_icon_small/icon-item_heart_monitor_small.png" )
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_JET_ESCAPE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.MOLE_JET_ESCAPE_DESC, "gui/actions/escape1.png" )
+	end
+	if not unit:getTraits().canKO and unit:isPC() then
+		tooltip:addAbility( STRINGS.UI.TOOLTIPS.KO_IMMUNE, STRINGS.UI.TOOLTIPS.KO_IMMUNE_DESC, "gui/icons/arrow_small.png" )
 	end
 	if unit:getTraits().empDeath and unit:isPC() then
 		tooltip:addAbility( string.format( STRINGS.UI.TOOLTIPS.EMP_VULNERABLE ), STRINGS.UI.TOOLTIPS.EMP_VULNERABLE_DESC, "gui/icons/arrow_small.png",nil,true )
-    end 	
+	end
 	if unit:getTraits().doesNotHideInCover then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_HIDING, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_HIDING_DESC, "gui/icons/arrow_small.png" )	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_HIDING, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_HIDING_DESC, "gui/icons/arrow_small.png" )
 	end
 	if unit:getTraits().refitDroneFriend then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED, STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED_DESC, "gui/icons/arrow_small.png" )	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED, STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED_DESC, "gui/icons/arrow_small.png" )
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END_DESC, "gui/icons/arrow_small.png" )
 		tooltip:addAbility(STRINGS.MOREMISSIONS.UI.TOOLTIPS.CAN_JACKIN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.CAN_JACKIN_DESC, "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png")
 	end	
@@ -115,6 +122,18 @@ local function onGuardTooltip(tooltip, unit)
 	if unit:getTraits().MM_refitDroneRescue then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.OPPORTUNITY_ALLY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.OPPORTUNITY_ALLY_DESC,  "gui/icons/item_icons/items_icon_small/icon-item_heart.png" )	
 	end
+	if unit:getTraits().MM_noticesHidden then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.INFRARED_SENSORS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.INFRARED_SENSORS_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action_infrared.png" )
+	end
+	if unit:getTraits().idle_scanning then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.IDLE_SCAN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.IDLE_SCAN_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action-idle_scan.png" )	
+	end
+	if unit:getTraits().stationaryRotating then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.SURVEYOR, STRINGS.MOREMISSIONS.UI.TOOLTIPS.SURVEYOR_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action_surveyor.png" )
+	end
+	if unit:getTraits().zap_attack then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.ZAP_ATTACK, STRINGS.MOREMISSIONS.UI.TOOLTIPS.ZAP_ATTACK_DESC, "gui/icons/item_icons/items_icon_small/icon-item_chargeweapon_small.png" )
+	end	
 end
 
 local function onItemWorldTooltip( tooltip, unit )

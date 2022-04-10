@@ -31,6 +31,20 @@ local OBJECTIVE_ID = "tech_expo"
 local ice_boost = 2 --variable for firewall-boosting security measure
 local CHANCE_OF_GOOSE = 0.1
 
+local PC_WON =
+{		
+	priority = 10,
+
+	trigger = simdefs.TRG_GAME_OVER,
+	fn = function( sim, evData )
+		if sim:getWinner() then
+			return sim:getPlayers()[sim:getWinner()]:isPC()
+		else
+			return false
+		end
+	end,
+}
+
 local function queueCentral(script, scripts) --really informative huh
 	for k, v in pairs(scripts) do
 		script:queue( { script=v, type="newOperatorMessage" } )
@@ -179,6 +193,7 @@ local function spawnAndroids(script,sim)
 		sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newUnit } )	
 		sim.exit_warning = nil	
 	end
+	
 end
 
 -- TRANSFORMER SUB GOAL
@@ -248,6 +263,8 @@ local function boost_firewalls(script, sim)
 	if not sim.MM_security_disabled then
 		if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
 			ice_boost = 1
+		else
+			ice_boost = 2
 		end
 		sim:dispatchEvent( simdefs.EV_SHOW_WARNING, {txt=STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_FIREWALLS, color=cdefs.COLOR_CORP_WARNING, sound = "SpySociety/Actions/mainframe_deterrent_action" } )
 		for i, unit in pairs(sim:getAllUnits()) do
@@ -333,8 +350,10 @@ local function MM_checkTopGearItem( script, sim )
     
 	sim:setClimax(true)
     script:waitFor( mission_util.UI_LOOT_CLOSED )
-    sim:removeObjective( OBJECTIVE_ID )    
-	sim:getNPC():addMainframeAbility( sim, "authority", nil, 0 ) --add Authority daemon (with no reversal) after first one looted
+    sim:removeObjective( OBJECTIVE_ID )
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then	
+		sim:getNPC():addMainframeAbility( sim, "authority", nil, 0 ) --add Authority daemon (with no reversal) after first one looted
+	end
     script:waitFrames( .5*cdefs.SECONDS )
 	sim.exit_warning = nil
 	androidFX(script,sim)
@@ -344,7 +363,11 @@ local function MM_checkTopGearItem( script, sim )
 	
 	scripts = SCRIPTS.INGAME.WEAPONS_EXPO.LOOTED_CASE_DROIDS_BOOTING
 	
-
+	-- script:waitFor( PC_WON ) --moved agency changes to DoFinishMission
+	sim.PC_WON_agency = sim.PC_WON_agency or {}
+	local agency = sim.PC_WON_agency
+	agency.MM_techexpo_done = agency.MM_techexpo_done or 0
+	agency.MM_techexpo_done = agency.MM_techexpo_done + 1
 end
 
 local UNIT_ESCAPE =
@@ -418,10 +441,11 @@ local function countUnstolenTech(script,sim)
 end
 		
 local function specGooseEasterEgg( sim )
-	if not (sim:nextRand() <= CHANCE_OF_GOOSE) then
+	if not sim:getParams().agency.MM_techexpo_done or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance on first tech expo per campaign
+		-- log:write("LOG MM suppressing tech expo easter egg")
 		return	
 	end
-	
+	log:write("LOG MM tech expo easter egg")
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().MM_droid_dummy and unit:getTraits().spec_droid then
 			local facing = unit:getFacing()

@@ -176,129 +176,21 @@ local function checkForAgents ( sim )
 	return agents
 end
 
+-- replaced with a regular Central Judgement
+-- local function checkNoHostageGameOver( script, sim )
+	-- script:waitFor( PC_WON )
 
-local function checkNoHostageGameOver( script, sim )
-	script:waitFor( PC_WON )
+	-- script:removeAllHooks( script )
+	-- sim:getTags().delayPostGame = true
 
-	script:removeAllHooks( script )
-	sim:getTags().delayPostGame = true
+	-- script:clearQueue()
+	-- script:queue( { type="clearEnemyMessage" } )
+	-- script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_COMPLETE_MISSION_NO_COURIER[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_COMPLETE_MISSION_NO_COURIER)], type="newOperatorMessage" })
+	-- script:waitFrames( 240 )
+	-- script:queue( { type="clearOperatorMessage" } )
 
-	script:clearQueue()
-	script:queue( { type="clearEnemyMessage" } )
-	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_COMPLETE_MISSION_NO_COURIER[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_COMPLETE_MISSION_NO_COURIER)], type="newOperatorMessage" })
-	script:waitFrames( 240 )
-	script:queue( { type="clearOperatorMessage" } )
-
-	sim:getTags().delayPostGame = false
-end
-
-local function checkHostageKO( script, sim )
-
-	while true do
-		script:waitFor( HOSTAGE_KO )
-	        print( "HOSTAGE DEATH!" )
-		script:removeAllHooks( script )
-		local hostage = nil
-		local hostageID = nil
-		sim:forEachUnit(
-			function(unit)
-				if unit:getTraits().MM_hostage then 
-					hostage = unit
-					hostageID = hostage:getID()
-				end
-			end
-		)
-
-		--local hostage = getHostage(sim)
-		local x, y = hostage:getLocation()
-		local text=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS
-		local subtext = STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS_SUBTEXT_DEATH
-		script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_flatline", type="operatorVO" } )
-		
-		sim:setMissionReward( 0 )
-		local missionReward = sim:getMissionReward()
-		print( "Mission reward: "..missionReward )
-		--script:waitFor( PC_ANY )
-		--script:waitFrames( 1*cdefs.SECONDS )
-		--sim:forEachUnit(
-		--	function(unit)
-		--		if unit:getTraits().iscorpse and unit:getID()== hostageID then 
-		--			hostage = unit
-		--		end
-		--	end
-		--)
-		
-		--hostage:createTab( text, subtext )  
-		script:waitFrames( 2*cdefs.SECONDS )
-		local agents = checkForAgents(sim)
-		if agents then 
-			script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH)], type="newOperatorMessage" })
-		else
-			script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH)], type="newOperatorMessage" })
- 		end
-
-		sim:removeObjective( "hostage_3" )
-		script:addHook( checkNoHostageGameOver )
-
-		script:waitFor( PC_HOSTAGE_HIT_END, mission_util.NPC_WARP, NPC_END_TURN, mission_util.PC_ANY )	
-		if hostage:isKO() then
-				local hostageID = hostage:getID()
-				hostage:killUnit( hostage._sim )
-				sim:getPC():glimpseUnit( sim, hostageID ) -- KO icon likes to stuck until an agents see corpse so...
-			end
-		script:queue( { type="clearOperatorMessage" } )
-		script:waitFrames( 2*cdefs.SECONDS )
-		--hostage:destroyTab()		
-		
-		
-	end
-
-end
-
-local function checkHostageDeath( script, sim )
-
-	while true do
-		script:waitFor( HOSTAGE_DEAD )
-	        print( "HOSTAGE DEATH!" )
-		script:removeAllHooks( script )		
-	--	local hostage = nil
-	--	sim:forEachUnit(
-	--		function(unit)
-	--			if unit:getTraits().hostage then 
-	--				hostage = unit
-	--			end
-	--		end
-	--	)
-
-		--local hostage = getHostage(sim)
-	--	local x, y = hostage:getLocation()
-	--	local subtext = STRINGS.MISSIONS.HOSTAGE.HOSTAGE_VITALS_SUBTEXT_DEATH
-		script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_flatline", type="operatorVO" } )
-	--	script:queue( { 
-	--		type="displayHUDInstruction", 
-	--		text=STRINGS.MISSIONS.HOSTAGE.HOSTAGE_VITALS, 
-	--		subtext=subtext,
-	--		x=x, y=y } )
-
-		--hostage:killUnit( sim )]]
-		
-		script:waitFrames( 2*cdefs.SECONDS )
-		local agents = checkForAgents(sim)
-		if agents then 
-			script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_DEATH)], type="newOperatorMessage" })
-		else
-			script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH)], type="newOperatorMessage" })
- 		end
-
-		sim:removeObjective( "hostage_3" )
-		script:waitFor( mission_util.PC_ANY )	
-		script:queue( { type="clearOperatorMessage" } )
-
-		script:addHook( checkNoHostageGameOver )
-		
-	end
-
-end
+	-- sim:getTags().delayPostGame = false
+-- end
 
 local function updateVitalStatus( script, sim, playSound )
 	sim:forEachUnit(
@@ -342,9 +234,10 @@ local function hostageBanter( script, sim )
 
 		if hostage and not hostage:isKO() and not hostage:isDead() then
 			hostage:getTraits().vitalSigns = hostage:getTraits().vitalSigns - 1
-
+			
 			if hostage:getTraits().vitalSigns <= 0 then
-				script:removeHook( checkHostageDeath )
+				script:removeHook( "checkHostageDeath" )
+				sim:getTags().MM_hostageExpired = true				
 				script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_PASS_OUT, 
 					header=STRINGS.MOREMISSIONS.AGENTS.EA_HOSTAGE.NAME, type="enemyMessage", 
 					profileAnim="portraits/portrait_animation_template",
@@ -359,7 +252,7 @@ local function hostageBanter( script, sim )
 				script:waitFrames( 1*cdefs.SECONDS )
 				script:queue( { type="clearEnemyMessage" } )
 
-				script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_PASS_OUT[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_PASS_OUT)], type="newOperatorMessage" })	
+				-- script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_PASSEDOUT[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_PASSEDOUT)], type="newOperatorMessage" })	
 				script:queue( 1*cdefs.SECONDS )
 				script:queue( { type="clearOperatorMessage" } )
 
@@ -368,7 +261,7 @@ local function hostageBanter( script, sim )
 				gameOver = true
 
 				--add the no hostage gameover check
-				script:addHook( checkNoHostageGameOver )
+				-- script:addHook( checkNoHostageGameOver )
 			end
 
 			if not gameOver then
@@ -386,6 +279,10 @@ local function hostageBanter( script, sim )
 					script:queue( { type="clearEnemyMessage" } )
 				end
 				script:queue( { type="clearEnemyMessage" } )
+				if hostage:getTraits().vitalSigns == 3 then -- Central warns player
+					script:waitFrames( 0.5*cdefs.SECONDS )
+					script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_PASSOUT_WARNING[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_PASSOUT_WARNING)], type="newOperatorMessage" } )					
+				end				
 			end
 		end
 	end
@@ -547,7 +444,7 @@ local function courier_guard_banter(script, sim)
 			text = STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.COURIER_INTERROGATE1,
 			anim = "portraits/portrait_animation_template",
 			build = "portraits/courier_face",
-			name = hostage:getUnitData().name,
+			name = STRINGS.MOREMISSIONS.AGENTS.EA_HOSTAGE.NAME,
 			timing = 5,
 			voice = nil,
 		}}			
@@ -565,6 +462,73 @@ local function createManacles(sim)
 	manacles:addTag("MM_discarded_manacles")
 	sim:warpUnit(manacles, cell)
 	sim:emitSound(simdefs.SOUND_ITEM_PUTDOWN, cell.x, cell.y)
+end
+
+
+-- Remove continuous hooks
+function removeHostageHooks( script )
+	script:removeHook( courier_guard_banter )
+	script:removeHook( clearHostageStatusAfterMove )
+	script:removeHook( clearHostageStatusAfterTeleport )
+	script:removeHook( clearStatusAfterEndTurn )
+	script:removeHook( updateHostageStatusAfterMove )
+
+	-- The following 1-time hooks are left active, in case they haven't triggered yet, or to ensure they finish cleanup
+	-- checkCaptainSeenFreeHostage
+	-- alertCaptainForMissingHostage
+	-- checkHostageKO
+	-- checkHostageDeath
+	-- hostageBanter
+end
+
+local function checkHostageKO( script, sim )
+	script:waitFor( HOSTAGE_KO )
+	log:write( "HOSTAGE KO!" )
+	removeHostageHooks( script )
+
+	script:waitFor( PC_HOSTAGE_HIT_END, mission_util.NPC_WARP, NPC_END_TURN, mission_util.PC_ANY )
+
+	local hostage = nil
+	local hostageID = nil
+	sim:forEachUnit(
+		function(unit)
+			if unit:getTraits().MM_hostage then
+				hostage = unit
+				hostageID = hostage:getID()
+			end
+		end
+	)
+	if hostage:isKO() then
+		local hostageID = hostage:getID()
+		hostage:killUnit( hostage._sim )
+		sim:getPC():glimpseUnit( sim, hostageID ) -- KO icon likes to stuck until an agents see corpse so...
+	end
+end
+
+local function checkHostageDeath( script, sim )
+	script:waitFor( HOSTAGE_DEAD )
+	log:write( "HOSTAGE DEATH!" )
+	removeHostageHooks( script )
+
+	script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_flatline", type="operatorVO" } )
+
+	script:waitFrames( 2*cdefs.SECONDS )
+	local agents = checkForAgents(sim)
+	-- if agents then
+		if sim:getTags().MM_hostageExpired then
+			script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_PASSEDOUT[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_PASSEDOUT)], type="newOperatorMessage" })	
+		else
+			script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.DEATH_SHOT[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.DEATH_SHOT)], type="newOperatorMessage" })		
+		end
+	-- else
+		-- script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_HOSTAGE_LONE_DEATH)], type="newOperatorMessage" })
+	-- end
+
+	sim:removeObjective( "hostage_3" )
+	script:waitFor( mission_util.PC_ANY )
+	script:queue( { type="clearOperatorMessage" } )
+
+	-- script:addHook( checkNoHostageGameOver )
 end
 
 local function startPhase( script, sim )
@@ -675,13 +639,15 @@ local function startPhase( script, sim )
 	sim:addNewLocation( tags )
 	sim:addNewLocation( tags )	
 
-	sim:getTags().delayPostGame = true
+	-- sim:getTags().delayPostGame = true
+	script:waitFrames( 0.5*cdefs.SECONDS )
 	script:queue( { script=SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_ESCAPE[sim:nextRand(1, #SCRIPTS.INGAME.EA_HOSTAGE.OPERATOR_ESCAPE)], type="newOperatorMessage" } )
-	script:waitFrames( 200 )
+	-- script:waitFrames( 200 )
 
-	script:queue( { type="clearOperatorMessage" } )
-	sim:getTags().delayPostGame = false
+	-- script:queue( { type="clearOperatorMessage" } )
+	-- sim:getTags().delayPostGame = false
 end
+
 
 ---------------------------------------------------------------------------------------------
 -- Begin!
@@ -690,7 +656,7 @@ local hostage_mission = class( mission_util.campaign_mission )
 --local hostage_mission = class( escape_mission )
 
 function hostage_mission:init( scriptMgr, sim )
-	sim.TA_mission_success = true
+	sim.TA_mission_success = false
 	escape_mission.init( self, scriptMgr, sim ) --let vanilla escape_mission.init run but follow it up with custom version of the sim:closeElevator code which doesn't set a 2 turn timer
 
 	sim:forEachCell(
@@ -716,6 +682,15 @@ function hostage_mission:init( scriptMgr, sim )
 			
 	scriptMgr:addHook( "HOSTAGE", startPhase )
 
+	local scriptfn = function()
+        local scripts = SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_JUDGEMENT.COURIER_MIA
+		if sim:getTags().EA_hostage_rescued then
+			scripts = SCRIPTS.INGAME.EA_HOSTAGE.CENTRAL_JUDGEMENT.COURIER_ESCAPED
+		end
+        local scr = scripts[sim:nextRand(1, #scripts)]
+        return scr
+    end	
+	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))
 
 end
 

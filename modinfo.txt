@@ -2,6 +2,6 @@ name = More Missions
 
 author = Mobbstar, Hekateras, qoalaty_engineering
 
-version = 0.22.1
+version = 0.29.0
 
 icon = gui/icons/modicon_moremissions.png

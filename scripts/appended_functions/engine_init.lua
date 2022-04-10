@@ -80,3 +80,11 @@ simengine.canPlayerSeeUnit = function( self, player, unit, ... )
 	end
 	return sim_canPlayerSeeUnit_old( self, player, unit, ... )
 end
+
+--other half of tracker edit is in aiplayer append --OLD
+-- local _trackerAdvance = simengine.trackerAdvance
+-- function simengine.trackerAdvance(self, delta, ...)
+	-- local trackerBoost = self.missionTrackerBoost or 0
+	-- delta = delta + trackerBoost
+	-- return _trackerAdvance(self, delta, ...)
+-- end
