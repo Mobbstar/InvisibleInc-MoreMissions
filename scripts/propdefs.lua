@@ -421,14 +421,17 @@ local prop_templates =
 				[8] = {
 					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.15}, --cosmetic: warning
 					KOgas = false,
+					KOgasTooltip = true,
 				},
 				[6] = { --knocks you out
 					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.35},
 					KOgas = true,
+					KOgasTooltip = true,
 				},
 				[2] = { --dispersal
 					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.10},
 					KOgas = false,
+					KOgasTooltip = false,
 				},
 			}
 		}
