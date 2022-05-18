@@ -815,7 +815,7 @@ return {
 			MOLE_CIVILIAN = "FRAGILE",--"CIVILIAN",
 			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
 			MOLE_JET_ESCAPE = "FLEXIBLE EXTRACTION",
-			MOLE_JET_ESCAPE_DESC = "Escaping with this unit to the jet will fail the objective, but put another Informant Rendezvous mission on the map.",
+			MOLE_JET_ESCAPE_DESC = "Escaping with this unit to the jet will fail the objective but add another Informant Rendezvous mission.",
 
 			BOSSUNIT = "Opportunity Target",
 			BOSSUNIT_DESC = "Bring this unit to the jet for interrogation. Reduces guard armor for the next 2 missions.",			
