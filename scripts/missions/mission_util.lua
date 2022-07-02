@@ -13,7 +13,7 @@ local PC_LOOTED_SAFE_PRE = function( safeID )
 	    trigger = "TRG_SAFE_LOOTED_PRE",
 	    fn = function( sim, triggerData )
             if triggerData.targetUnit:getID() == safeID then
-                return triggerData 
+                return triggerData
             end
 	    end,
     }
@@ -25,7 +25,7 @@ local PC_TALKED_TO = function( agentID )
 	    trigger = "TRG_UNIT_TALKTO",
 	    fn = function( sim, triggerData )
             if triggerData.unit:getID() == agentID then
-                return triggerData 
+                return triggerData
             end
 	    end,
     }
@@ -66,17 +66,17 @@ end
 
 local function giftItem(sim,unit,templateName)
 	local x,y = unit:getLocation()
-	
+
 	local simfactory = include( "sim/simfactory" )
     local unitdefs = include( "sim/unitdefs" )
     local unitData = unitdefs.lookupTemplate( templateName )
-	local newItem = simfactory.createUnit( unitData, sim )	
+	local newItem = simfactory.createUnit( unitData, sim )
     local cell = sim:getCell( x, y )
     if cell then
 	    sim:spawnUnit( newItem )
 	    sim:warpUnit( newItem, cell )
     end
-	
+
 	sim:dispatchEvent( simdefs.EV_ITEMS_PANEL, { unit = unit, x = x, y = y } )
 end
 
@@ -87,5 +87,14 @@ mission_util.showDialog = showDialog
 mission_util.showGoodResult = showGoodResult
 mission_util.showBadResult = showBadResult
 mission_util.showNeutralResult = showNeutralResult
+
+base_campaign_mission_init = mission_util.campaign_mission.init
+function mission_util.campaign_mission:init( scriptMgr, sim, finalMission )
+  base_campaign_mission_init( self, scriptMgr, sim, finalMission )
+
+  if sim:getParams().agency.W93_aiTerminals then
+    sim:getTags().extraPrograms = (sim:getTags().extraPrograms or 0) + sim:getParams().agency.W93_aiTerminals
+  end
+end
 
 return mission_util
