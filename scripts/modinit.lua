@@ -1,15 +1,11 @@
 local util = include( "modules/util" )
-local serverdefs = include( "modules/serverdefs" )
 local simdefs = include( "sim/simdefs" )
 local array = include( "modules/array" )
-local abilitydefs = include( "sim/abilitydefs" )
-local simquery = include ( "sim/simquery" )
-local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 
 --for unloading
-local default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
+local default_missiontags
 
 local function earlyInit( modApi )
 	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Advanced Guard Protocol", "Items Evacuation", "New Items And Augments","Advanced Cyberwarfare","Programs Extended","Offbrand Programs","Switch Content Mod", "Interactive Events","Generation Options+", "Additional Banter" }
@@ -19,6 +15,9 @@ local function earlyInit( modApi )
     SCRIPT_PATHS.more_missions = scriptPath	
 	SCRIPT_PATHS.name_dialog = include( scriptPath .. "/hud/name_dialog" )
     include( scriptPath .. "/hud/hud_name_dialog" )
+	
+	local serverdefs = include( "modules/serverdefs" )
+	default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 end
 
 local function init( modApi )
@@ -164,7 +163,8 @@ end
 
 local function unloadCommon( modApi, options )
     local scriptPath = modApi:getScriptPath()
-
+	
+	local serverdefs = include( "modules/serverdefs" )
 	local serverdefs_mod = include( scriptPath .. "/serverdefs" )
 	removeAllElementsAndDupes(serverdefs.ESCAPE_MISSION_TAGS, serverdefs_mod.ESCAPE_MISSION_TAGS)
 	removeAllElementsAndDupes(simdefs.DEFAULT_MISSION_TAGS, serverdefs_mod.ESCAPE_MISSION_TAGS)
@@ -191,7 +191,8 @@ end
 local function load( modApi, options, params )
 	--before doing anything, clean up
 	unloadCommon( modApi, options )
-
+	
+	local serverdefs = include( "modules/serverdefs" )
     local scriptPath = modApi:getScriptPath()
 
 	if params then
@@ -331,6 +332,7 @@ local function load( modApi, options, params )
 
 	--mod_api:addTooltipDef( commondef ) --Lets us append all onTooltip functions
 
+	local serverdefs = include( "modules/serverdefs" )
 	local serverdefs_mod = include( scriptPath .. "/serverdefs" )
 	-- Add the new custom situations
 	for id,situation in pairs(serverdefs_mod.SITUATIONS) do
