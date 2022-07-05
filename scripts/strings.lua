@@ -179,7 +179,7 @@ return {
 
 		EA_HOSTAGE =
 		{
-			NAME = "Johnny Wique",
+			NAME = "Johnny W.",
 		},
 		MOLE =
 		{
