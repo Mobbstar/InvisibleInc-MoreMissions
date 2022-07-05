@@ -203,7 +203,7 @@ local function updateVitalStatus( script, sim, playSound )
 					if playSound then
 						script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_stage3", type="operatorVO" } )
 					end
-					subtext = string.format( STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS_SUBTEXT, unit:getTraits().vitalSigns )
+					subtext = util.sformat( STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_VITALS_SUBTEXT, unit:getTraits().vitalSigns )
 				else
 					if playSound then
 						script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_flatline", type="operatorVO" } )
@@ -402,13 +402,13 @@ local function calculateHostageVitalSigns( sim )
 	assert(path)
 
 	local distToExit = path:getTotalMoveCost()
-
 	local maxTurns = math.floor(distToExit*2 / hostage:getMPMax())
 	local minTurns = math.floor(distToExit*1.5 / hostage:getMPMax())
 	local newSigns = sim:nextRand(minTurns, maxTurns) + extraSigns
 	--print( "vital signs should be: "..newSigns )
 
-	print( "vital signs: "..newSigns )
+	log:write("distToExit: "..distToExit)
+	log:write( "vital signs: "..newSigns )
 	return newSigns
 end
 
@@ -603,7 +603,9 @@ local function startPhase( script, sim )
 	script:queue( 0.5*cdefs.SECONDS )
 	--calculateHostageVitalSigns(sim)
 	--updateVitalStatus(script, sim, true)
-
+	
+	script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_stage3", type="operatorVO" } )
+		
 	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_CONVO1,
 					header=STRINGS.MOREMISSIONS.AGENTS.EA_HOSTAGE.NAME, type="enemyMessage",
 					profileAnim="portraits/portrait_animation_template",
@@ -631,10 +633,18 @@ local function startPhase( script, sim )
 	sim:getTags().no_escape = nil
 
 	script:waitFor( mission_util.PC_ANY )
-
-	updateVitalStatus(script, sim, true)
+	
+	local hostage = nil
+	sim:forEachUnit(
+		function(unit)
+			if unit:getTraits().MM_hostage then 
+				hostage = unit
+			end
+		end)
+	assert(hostage)
+	
 	hostage:getTraits().vitalSigns = vital_signs
-
+	updateVitalStatus(script, sim, false)
 
 	script:waitFor( HOSTAGE_ESCAPED )
 	sim.TA_mission_success = true -- flag for Talkative Agents
