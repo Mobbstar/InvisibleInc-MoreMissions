@@ -8,6 +8,28 @@ local abilityutil = include( "sim/abilities/abilityutil" )
 local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 
+local function countClusters( campaign, clusterName )
+    local count = 0
+    for i = 1, #campaign.situations do
+    	local sit_name = campaign.situations[i].name
+        if array.find( serverdefs.SITUATIONS[sit_name].cluster or {}, clusterName ) then
+            count = count + 1
+        end
+    end
+    log:write( "Clusters count for " .. clusterName .. ": " .. tostring(count) )
+    return count
+end
+
+local function countSituations( campaign, situationName )
+    local count = 0
+    for i = 1, #campaign.situations do
+        if campaign.situations[i].name == situationName then
+            count = count + 1
+        end
+    end
+    return count
+end
+
 -- === earlyLoad ===
 local function earlyLoad()
 
@@ -60,13 +82,76 @@ serverdefs.chooseSituation = function( campaign, tags, gen, ... )
 		end
 		situationData.weight = situationData.weight * 100
 	end
-	return serverdefs_chooseSituation_old( campaign, tags, gen, ... )
+		
+	local tags_copy = util.tcopy( tags ) --important!
+	if array.find( tags_copy, "2max" ) then --we assume that '2max' is an indicator for choosing random situations
+		--Check which clusters are possible with the given tags.
+		local clusters = {}
+		for i=#tags_copy, 1, -1 do
+			if tags_copy[i] == "distress_call" and countSituations( campaign, tags_copy[i] ) >= 1 then
+				--Special case for distress call
+				table.remove( tags_copy, i )
+			elseif serverdefs.SITUATIONS[ tags_copy[i] ] and serverdefs.SITUATIONS[ tags_copy[i] ].cluster then
+				for _, cluster in ipairs( serverdefs.SITUATIONS[ tags_copy[i] ].cluster ) do
+					if not clusters[cluster] then
+						clusters[cluster] = {}
+					end
+					table.insert( clusters[cluster], tags_copy[i] )
+				end		
+			end
+		end
+		
+		--Remove any cluster that has too many situations on the map already.
+		for cluster, cluster_tags in pairs( clusters ) do
+			if countClusters( campaign, cluster ) >= (serverdefs.CLUSTERS[ cluster ].max_situations or 0) then
+				clusters[cluster] = nil
+			else
+				--Now for the edge cases. The player might have disabled certain missions, so there might be only one mission in that cluster, which means, that the cluster might be selected, although there are already 2 missions of that type on the map and hence no mission types available that can be spawned for this cluster.
+				--RaXaH: This code is vulnerable to other mods adding other count restricting tags.
+				local legal_cluster = false
+				for _, tag in ipairs( cluster_tags ) do
+					if countSituations( campaign, tag ) < 2 then
+						legal_cluster = true
+						break
+					end
+				end
+				if not legal_cluster then
+					clusters[cluster] = nil
+				end
+			end
+		end
+
+		--Select a cluster
+		local clusterWeighted = util.weighted_list()
+		local cluster_selected = nil
+		for cluster, _ in pairs( clusters ) do
+			local weight = ( (serverdefs.CLUSTERS[ cluster ].max_situations or 0) - math.max( countClusters( campaign, cluster ), 1 ) ) * ( serverdefs.CLUSTERS[ cluster ].weight or 1 ) --half the weight if there are already 2 sits of that cluster
+			clusterWeighted:addChoice( cluster, weight )
+		end
+		if clusterWeighted:getTotalWeight() > 0 then
+		    local wt = gen:nextInt( 1, clusterWeighted:getTotalWeight())
+		    cluster_selected = clusterWeighted:getChoice( wt )
+		end
+		
+		--Now iterate again over all tags and remove any that are situation tags and not from the selected cluster
+		if cluster_selected then
+			for i=#tags_copy, 1, -1 do
+				if serverdefs.SITUATIONS[ tags_copy[i] ] and serverdefs.SITUATIONS[ tags_copy[i] ].cluster then
+					if not array.find( serverdefs.SITUATIONS[ tags_copy[i] ].cluster, cluster_selected ) then
+						table.remove( tags_copy, i )
+					end
+				end
+			end
+		end    
+	end
+    
+	return serverdefs_chooseSituation_old( campaign, tags_copy, gen, ... )
 end
 
 --ASSASSINATION
 -- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
 local serverdefs_createNewSituation_old = serverdefs.createNewSituation
-serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )
+serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )	
 	local newSituation =  serverdefs_createNewSituation_old(campaign, gen, tags, difficulty )
 
 	if not newSituation and array.find(tags, "close_by") then

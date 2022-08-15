@@ -149,7 +149,7 @@ end
 
 --The implementation of array.removeAllElements is not optimal for our purposes, and we also need something to remove dupes, so might as well combine it all. -M
 local function removeAllElementsAndDupes(t0, t1)
-	local t2 = {}
+	local t2 = {} --RaXaH: What is t2 used for?
 	for i = 1, #t1, 1 do
 		t2[t1[i]] = true
 	end
@@ -426,6 +426,8 @@ local function load( modApi, options, params )
 	local mid_1_append = include( scriptPath .. "/missions/mid_1" )
 	mid_1_append.runAppend(  modApi )
 	
+	--Add the clusters to serverdefs
+	serverdefs.CLUSTERS = serverdefs_mod.CLUSTERS
 end
 
 local function lateLoad( modApi, options, params, mod_options )
@@ -445,7 +447,13 @@ local function lateLoad( modApi, options, params, mod_options )
 	--ASSASSINATION, COURIER RESCUE
 	-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
 	local serverdefs_appends = include( scriptPath .. "/appended_functions/serverdefs" )
-	serverdefs_appends.lateLoad( mod_options )
+	serverdefs_appends.lateLoad( mod_options ) --RaXaH: I don't really see a reason to do these in lateLoad > load.
+	
+	--Add cluster to SITUATIONS
+	local serverdefs_mod = include( scriptPath .. "/serverdefs" )
+	for name, situation in pairs( serverdefs.SITUATIONS ) do
+		util.extend( serverdefs_mod.SITUATION_CLUSTERING[name] or serverdefs_mod.SITUATION_CLUSTERING.default ) ( situation )
+	end
 end
 
 local function unload( modApi, options )
