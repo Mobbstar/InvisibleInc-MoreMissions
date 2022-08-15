@@ -124,7 +124,7 @@ return {
 	--	OPERATOR_ESCAPE = "Good job, team. We should be able to stabilize him in the helicopter.",
 	
 		HOSTAGE_VITALS = "VITAL STATUS",
-		HOSTAGE_VITALS_SUBTEXT = "%d TURN(S) REMAINING",
+		HOSTAGE_VITALS_SUBTEXT = "{1} {1:TURN|TURNS} REMAINING",
 		HOSTAGE_VITALS_SUBTEXT_DEATH = "EXPIRED",
 		HOSTAGE_NAME = "THE COURIER",
 	
