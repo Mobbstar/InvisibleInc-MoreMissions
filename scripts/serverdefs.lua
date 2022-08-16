@@ -1,3 +1,4 @@
+local util = include( "modules/util" )
 local serverdefs = include( "modules/serverdefs" )
 
 local function createGeneralMissionObj( txt, txt2 )
@@ -89,6 +90,43 @@ local SITUATIONS =
 	},			
 }
 
+--Clustering for the missions. Run the extend in lateLoad in case any other mod adds custom missions as well.
+local STANDARD_CLUSTER =
+{
+	weight = 10,
+	max_situations = 3,
+}
+
+local CLUSTERS =
+{
+	money = util.extend( STANDARD_CLUSTER ) {},
+	programs = util.extend( STANDARD_CLUSTER ) {},
+	items = util.extend( STANDARD_CLUSTER ) {},
+	agents = util.extend( STANDARD_CLUSTER ) {},
+	utility = util.extend( STANDARD_CLUSTER ) {},
+	situations = util.extend( STANDARD_CLUSTER ) {},
+	unclustered = util.extend( STANDARD_CLUSTER ) {max_situations = math.huge,},
+}
+
+local SITUATION_CLUSTERING =
+{
+	default = { cluster = { "unclustered" }, },
+	vault = { cluster = { "money" }, },
+	server_farm = { cluster = { "programs" }, },
+	nanofab = { cluster = { "items" }, },
+	detention_centre = { cluster = { "agents" }, },
+	security = { cluster = { "items" }, },
+	ceo_office = { cluster = { "utility" }, },
+	cyberlab = { cluster = { "utility" }, },
+	executive_terminals = { cluster = { "situations" }, },
+	assassination = { cluster = { "money" }, },
+	ea_hostage = { cluster = { "situations" }, },
+	weapons_expo = { cluster = { "items" }, },
+	distress_call = { cluster = { "agents" }, },
+	mole_insertion = { cluster = { "utility" }, },
+	ai_terminal = { cluster = { "programs" }, },
+}
+
 --automated processing
 for k, v in pairs(SITUATIONS) do
 	--assume mission ID as tag for mission picker
@@ -117,4 +155,6 @@ end
 return {
 	SITUATIONS = SITUATIONS,
 	ESCAPE_MISSION_TAGS = ESCAPE_MISSION_TAGS,
+	CLUSTERS = CLUSTERS,
+	SITUATION_CLUSTERING = SITUATION_CLUSTERING,
 }
