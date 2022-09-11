@@ -475,6 +475,18 @@ local prop_templates =
 		traits = { selectpriority = 0, cashInReward = 300, showOnce = "corp_intel" },
 		abilities = { "carryable" },
 	},
+	
+	--------- ASSASSINATION ----------
+	MM_door_decoder_prop =
+	{
+		type = "simunit", 
+		name = STRINGS.MOREMISSIONS.PROPS.DOOR_DEVICE,
+		desc = STRINGS.MOREMISSIONS.PROPS.DOOR_DEVICE_DESC,
+		kanim = "kanim_lock_decoder", 
+		rig ="traprig",
+		traits = { noMainframe = true },
+		abilities = {},
+	},		
 
 	--------------- SIDE MISSIONS ---------------------
 	MM_W93_crate = --24 BRIEFCASES
