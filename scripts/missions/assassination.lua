@@ -193,6 +193,33 @@ local UNIT_USE_DOOR =
 	end
 }
 
+-- this is a mishmash of PC_SAW_UNIT and PC_SAW_CELL_WITH_TAG, as the former doesn't work when a player-captured camera spots the VIP.
+PC_SAW_UNIT_FIXED = function( tag )
+	return
+	{
+		trigger = simdefs.TRG_LOS_REFRESH,
+		fn = function( sim, evData )
+			local seer =  evData.seer 
+			if not seer or not seer:isPC() then
+				return false
+			end
+			
+			for i = 1, #evData.cells, 2 do
+				local cell = sim:getCell(evData.cells[i],evData.cells[i+1])		
+				if cell.units then
+					for i, seenUnit in pairs(cell.units) do
+						if seenUnit:hasTag(tag) then
+							return seenUnit, seer
+						end
+					end
+				end		
+			end
+
+			return false
+		end,
+	}
+end
+
 -- bodyguard behaviour: keeping within vision range of VIP, investigating in his stead
 local function keepClose( script, sim )
 	while true do
@@ -541,12 +568,16 @@ local function playerSeesCeo( script, sim, mission )
 
 	local x,y = ceo:getLocation()
 	script:queue( { type="pan", x=x, y=y } )
-	script:queue( 1*cdefs.SECONDS )
-	script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )
+	if not sim:getTags().MM_sawRealCEO then
+		script:queue( 1*cdefs.SECONDS )
+		script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )
+	end
 end
 
 local function playerSeesRealCEO( script, sim, mission ) --only in use if decoy is in place)
-	local _, ceo, agent = script:waitFor(  mission_util.PC_SAW_UNIT("assassination_real")  )
+	-- local _, ceo, agent = script:waitFor(  mission_util.PC_SAW_UNIT("assassination_real")  ) -- no longer used. see new function desc for explanation
+	local _, ceo, agent = script:waitFor( PC_SAW_UNIT_FIXED("assassination_real") )
+	
 	-- local hidingCell = findCell( sim, "saferoom_hide" )
 	local hidingCell = sim:getCell( ceo:getLocation() )
 	if sim.MM_bounty_disguise_active then
@@ -560,7 +591,11 @@ local function playerSeesRealCEO( script, sim, mission ) --only in use if decoy 
 		script:queue( 1*cdefs.SECONDS )
 		script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )	
 		sim:getTags().MM_sawRealCEO = true
-		script:queue( { type="hideHUDInstruction" } ) 
+		script:queue( { type="hideHUDInstruction" } )
+		local fakeCEO = safeFindUnitByTag( sim, "assassination_fake")
+		if fakeCEO then
+			fakeCEO:getTraits().customName = STRINGS.MOREMISSIONS.GUARDS.BOUNTY_TARGET_DECOY
+		end
 	end
 end
 
@@ -615,7 +650,7 @@ local function playerSeesSaferoom(script, sim)
 	assert( doorCell )
 
 	-- spawn a label-carrying decoder on the door
-	local labelCarrier = simfactory.createUnit( unitdefs.prop_templates.door_decoder, sim )
+	local labelCarrier = simfactory.createUnit( unitdefs.prop_templates.MM_door_decoder_prop, sim )
 	labelCarrier:getTraits().LOSarc = 0
 	labelCarrier:getTraits().MM_label_carrier = true
 	for dir, exit in pairs(doorCell.exits) do
@@ -626,6 +661,8 @@ local function playerSeesSaferoom(script, sim)
 	sim:spawnUnit( labelCarrier )
 	sim:warpUnit( labelCarrier, doorCell )
 	labelCarrier:createTab( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.SECUREDOOR_TIP, "" )
+	
+	sim:getPC():glimpseUnit( sim, labelCarrier:getID() ) --this reveals the 'door decoder' and label if the player saw the inside of the door first
 
 	script:queue( { type="pan", x=doorCell.x, y=doorCell.y } )
 	script:queue( 1*cdefs.SECONDS )
