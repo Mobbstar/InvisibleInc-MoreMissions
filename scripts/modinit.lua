@@ -453,6 +453,7 @@ local function lateLoad( modApi, options, params, mod_options )
 	
 	--Add cluster to SITUATIONS
 	local serverdefs_mod = include( scriptPath .. "/serverdefs" )
+	local serverdefs = include( "modules/serverdefs" )
 	for name, situation in pairs( serverdefs.SITUATIONS ) do
 		util.extend( serverdefs_mod.SITUATION_CLUSTERING[name] or serverdefs_mod.SITUATION_CLUSTERING.default ) ( situation )
 	end
