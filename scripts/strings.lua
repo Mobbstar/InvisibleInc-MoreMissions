@@ -72,7 +72,7 @@ return {
 		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",
 
 		NEWDAY = "NEW DAY MISSIONS",
-		NEWDAY_DESC = "<c:FF8411>NEW DAY MISSIONS</c>\nNumber of missions that appear when there's a new day. \nOverrides Generation Options+ mod settings.",
+		NEWDAY_DESC = "<c:FF8411>NEW DAY MISSIONS</c>\nNumber of missions that appear when there's a new day. \nOverrides Generation Options+ mod settings. Set to 4 (vanilla value) by default.",
 		
 		EXEC_TERMINALS = "MORE EXEC TERMINAL OPTIONS",
 		EXEC_TERMINALS_DESC = "<c:FF8411>MORE EXEC TERMINAL OPTIONS</c>\nExecutive Terminals will allow you to choose from a pool of six missions, instead of four.",
@@ -124,12 +124,16 @@ return {
 		NANOFAB_KEY = "Nanofab Key",
 		NANOFAB_KEY_DESC = "Use on a Luxury Nanofab to unlock it. Only usable in this facility.",
 		NANOFAB_KEY_FLAVOR = "Luxury Pass Members get exclusive deals on thousands of items. Get free two-day delivery and save up to 80% on prescriptions. Your unique coupon code: SINGLEORIGINCOFFEE74",
+		DOOR_DEVICE = "BIOLOCK DOOR",
+		DOOR_DEVICE_DESC = "Can be unlocked by VIP or Bodyguard.",
+		
 		
 	},
 
 	GUARDS =
 	{
 		BOUNTY_TARGET = "VIP",
+		BOUNTY_TARGET_DECOY = "Decoy VIP",
 		BODYGUARD = "Bodyguard",
 		PROTOTYPE_DROID = "Prototype Android",
 		PROTOTYPE_DROID_SPEC = "Prototype SpecDroid",
