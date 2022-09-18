@@ -775,29 +775,34 @@ return {
 		FANCYFAB_DESC = "UNLOCK WITH NANOFAB KEY",
 
 		TOOLTIPS = {
-			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
-			WEAPONS_EXPO_RESALE_DESC = "This prototype is not market-ready and can only be sold at half price.",
+			NO_PATROL_CHANGE = "NO PATROL CHANGE",
+			NO_PATROL_CHANGE_DESC = "This unit will not respond to patrol changes.",
+			NO_ALERT = "NO ALERT ON WAKE-UP",
+			NO_ALERT_DESC = "This unit will not become alerted when they wake up.",
+			
+			-- Courier Rescue
 			EA_HOSTAGE_FRAIL = "FRAIL",
 			EA_HOSTAGE_FRAIL_DESC = "KO damage is lethal.",
 			EA_HOSTAGE_VITAL_STATUS = "VITAL STATUS",
 			EA_HOSTAGE_VITAL_STATUS_DESC = "Will expire if not extracted in {1} {1:turn|turns}.",
+			
+			-- Informant Rendezvous
 			PARALYZE_AMNESIAC = "Amnesiac dose",
 			PARALYZE_AMNESIAC_DESC = "Inject pinned victim with amnesiac. Removes WITNESS status. Reduces vision range by {1}. Guard wakes up without being alerted.",
 			WITNESS = "WITNESS",
 			WITNESS_DESC_HUMAN = "Kill this unit or KO and apply Amnesiac.",
 			WITNESS_DESC_MAINFRAME = "Destroy this unit, EMP or scrub Camera Database.",
 			WITNESS_DESC_DRONE = "Destroy or EMP this unit.",
-			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",
-			KO_GAS = "KNOCKOUT GAS",
-			KO_GAS_DESC = "This agent is surrounded by knockout gas and will be KO'd if they end their turn here.",
-			KO_GAS_PINNED = "GASSED",
-			KO_GAS_PINNED_DESC = "This agent's KO timer will not decrease until they leave the knockout gas.",
-			NO_PATROL_CHANGE = "NO PATROL CHANGE",
-			NO_PATROL_CHANGE_DESC = "This unit will not respond to patrol changes.",
-			NO_ALERT = "NO ALERT ON WAKE-UP",
-			NO_ALERT_DESC = "This unit will not become alerted when they wake up.",
+			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",	
+			MOLE_CIVILIAN = "FRAGILE",--"CIVILIAN",
+			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
+			MOLE_JET_ESCAPE = "FLEXIBLE EXTRACTION",
+			MOLE_JET_ESCAPE_DESC = "Escaping with this unit to the jet will fail the objective but add another Informant Rendezvous mission.",						
 
 			-- tech expo
+			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
+			WEAPONS_EXPO_RESALE_DESC = "This prototype is not market-ready and can only be sold at half price.",
+			
 			WEAPONS_EXPO_LOOT_CONTENT = "DISPLAY PLAQUE",
 			WEAPONS_EXPO_FAILSAFE = "FAILSAFE",
 			WEAPONS_EXPO_FAILSAFE_DESC = "When captured, boosts firewalls of remaining Secure Cases.",
@@ -816,13 +821,16 @@ return {
 			AUTHORIZED_BODY_DESC2 = "If dragged or controlled, this unit's body will unlock the Panic Room.",
 			IMPAIRED_VISION = "IMPAIRED VISION",
 			IMPAIRED_VISION_DESC = "This unit's vision range is reduced.",
-			MOLE_CIVILIAN = "FRAGILE",--"CIVILIAN",
-			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
-			MOLE_JET_ESCAPE = "FLEXIBLE EXTRACTION",
-			MOLE_JET_ESCAPE_DESC = "Escaping with this unit to the jet will fail the objective but add another Informant Rendezvous mission.",
 
-			BOSSUNIT = "Opportunity Target",
-			BOSSUNIT_DESC = "Bring this unit to the jet for interrogation. Reduces guard armor for the next 2 missions.",			
+			-- ai terminal
+			KO_GAS = "KNOCKOUT GAS",
+			KO_GAS_DESC = "This agent is surrounded by knockout gas and will be KO'd if they end their turn here.",
+			KO_GAS_PINNED = "GASSED",
+			KO_GAS_PINNED_DESC = "This agent's KO timer will not decrease until they leave the knockout gas.",
+			DOOR_LOCK_ACCESS = "DOOR LOCK ACCESS",
+			LOCK_ACCESS_CONSOLE_DESC = "Hijacking this Console will unlock one of the AI Terminal doors.",
+			LOCK_ACCESS_SAFE_DESC = "This safe contains the Access Card to one of the AI Terminal doors.",
+			
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
 				UPGRADED_LONG = "AI TERMINAL UPGRADE",
@@ -836,6 +844,11 @@ return {
 
 			HOSTILE_AI_WEAKEN = "AI TERMINAL SABOTAGE",
 			HOSTILE_AI_WEAKEN_DESC = "This AI has been disrupted and has {1} fewer subroutines than normal.",
+			
+			-- misc + side missions
+			
+			BOSSUNIT = "Opportunity Target",
+			BOSSUNIT_DESC = "Bring this unit to the jet for interrogation. Reduces guard armor for the next 2 missions.",				
 			
 			NOT_CARRYABLE = "NOT CARRYABLE",
 			NOT_CARRYABLE_DESC = "This item is broken and can't be picked up again.",
