@@ -494,6 +494,7 @@ function mission:init( scriptMgr, sim )
 	sim.TA_mission_success = false
     escape_mission.init( self, scriptMgr, sim )
 	activateCam( sim )
+	sim:getNPC():addMainframeAbility( sim, "MM_distress_call_info", nil, 0 )
 
 	-- sim:addObjective( STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE, "rescue_agent" )
 	scriptMgr:addHook( "START_AGENT_ESCAPE", startAgentEscape, nil, self )
