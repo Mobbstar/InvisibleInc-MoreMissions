@@ -408,10 +408,18 @@ return {
 		MOLE_DAEMON = {
 			NAME = "INFORMANT INTEL",
 			NAME_ARMOR = "INTERROGATION INTEL",
-			DESC = "Receive random intel at mission start. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
-			DESC_ARMOR = "-1 to guard armor. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
+			DESC = "Receive random intel at mission start. Valid for {1} more {1:mission|missions}.",
+			DESC_ARMOR = "-1 to guard armor. Valid for {1} more {1:mission|missions}.",
+			NOT_OMNI = "STANDARD CORPS ONLY",
+			NOT_OMNI_DESC = "Not active in OMNI facilities.",
 			SHORT_DESC = "",
 			ACTIVE_DESC = "INTEL PROVIDED BY INFORMANT",
+		},
+		
+		DISTRESS_CALL_INFO = {
+			NAME = "FACILITY ALERT",
+			DESC = "Prisoner escape detected. Alarm advances at 2x rate every turn.",
+			SHORT_DESC = "2x alarm advance",
 		},
 
 		MOLE_DAEMON_EVENT = {
