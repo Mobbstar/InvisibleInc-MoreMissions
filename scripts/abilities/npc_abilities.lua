@@ -35,7 +35,7 @@ local npc_abilities =
 	MM_informant_intel = util.extend( mainframe_common.createReverseDaemon( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON ) ) --this daemon is basically cosmetic/for UI convenience only
 	{
 		icon = "gui/icons/UI_icons/icon_program_moleBonus.png",--icon
-		title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_NAME,
+		title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.NAME,
 		noDaemonReversal = true,
 		standardDaemon = false,
 		bonus_type = "",
@@ -178,6 +178,19 @@ local npc_abilities =
 		end,
 	},
 	
+	MM_distress_call_info = util.extend( mainframe_common.createDaemon( STRINGS.MOREMISSIONS.DAEMONS.DISTRESS_CALL_INFO ) ) --this daemon is basically cosmetic/for UI convenience only
+	{
+		icon = "gui/icons/UI_icons/icon_distressCall_warning.png",--icon
+		title = STRINGS.MOREMISSIONS.DAEMONS.DISTRESS_CALL_INFO.NAME,
+		noDaemonReversal = true,
+		standardDaemon = false,		
+		onSpawnAbility = function( self, sim, player, agent )
+			-- sim:dispatchEvent( simdefs.EV_SHOW_REVERSE_DAEMON, { showMainframe=true, name=self.name, icon=self.icon, txt=self.activedesc, title=self.title } )
+		end,
+		
+		onDespawnAbility = function( self, sim )
+		end,
+	},	
 }
 
 -- sim:triggerEvent( simdefs.TRG_UNIT_PARALYZED )
