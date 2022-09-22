@@ -316,7 +316,7 @@ return {
 		
 		USB_DRIVE = "FLASH DRIVE",
 		USB_DRIVE_TOOLTIP = "Stores a mainframe program. Install the program or sell the drive for profit.",
-		USB_DRIVE_FLAVOR = "These humble-looking floppy disks are used extensively to traffic black market software, while non-fungible tokenization ensures the same program can't be sold twice.",		
+		USB_DRIVE_FLAVOR = "These humble-looking flash drives are used extensively to traffic black market software, while non-fungible tokenization ensures the same program can't be sold twice.",		
 
 		AUGMENTS = {
 
