@@ -35,7 +35,7 @@ local npc_abilities =
 	MM_informant_intel = util.extend( mainframe_common.createReverseDaemon( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON ) ) --this daemon is basically cosmetic/for UI convenience only
 	{
 		icon = "gui/icons/UI_icons/icon_program_moleBonus.png",--icon
-		title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_NAME,
+		title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.NAME,
 		noDaemonReversal = true,
 		standardDaemon = false,
 		bonus_type = "",
@@ -50,7 +50,8 @@ local npc_abilities =
 				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC_ARMOR, self.missionsLeft), "gui/icons/item_icons/items_icon_small/icon-item_personal_shield_broken_small.png" )
 			else
 				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC, self.missionsLeft), "gui/icons/action_icons/Action_icon_Small/actionicon_talk.png" )
-			end		
+			end
+			section:addAbility(  STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.NOT_OMNI, STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.NOT_OMNI_DESC, "gui/icons/action_icons/Action_icon_Small/actionicon_noentry.png" )
 			if self.dlcFooter then
 				section:addFooter(self.dlcFooter[1],self.dlcFooter[2])
 			end
@@ -178,6 +179,19 @@ local npc_abilities =
 		end,
 	},
 	
+	MM_distress_call_info = util.extend( mainframe_common.createDaemon( STRINGS.MOREMISSIONS.DAEMONS.DISTRESS_CALL_INFO ) ) --this daemon is basically cosmetic/for UI convenience only
+	{
+		icon = "gui/icons/UI_icons/icon_distressCall_warning.png",--icon
+		title = STRINGS.MOREMISSIONS.DAEMONS.DISTRESS_CALL_INFO.NAME,
+		noDaemonReversal = true,
+		standardDaemon = false,		
+		onSpawnAbility = function( self, sim, player, agent )
+			-- sim:dispatchEvent( simdefs.EV_SHOW_REVERSE_DAEMON, { showMainframe=true, name=self.name, icon=self.icon, txt=self.activedesc, title=self.title } )
+		end,
+		
+		onDespawnAbility = function( self, sim )
+		end,
+	},	
 }
 
 -- sim:triggerEvent( simdefs.TRG_UNIT_PARALYZED )
