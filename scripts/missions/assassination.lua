@@ -554,12 +554,16 @@ local function playerSeesCeo( script, sim, mission )
 		end
 		mission.reportedCeoSeen = true
 	elseif ceo:isKO() then
-		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
+		if not sim:hasObjective("kill") then
+			sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
+		end
 		report = SCRIPTS.INGAME.ASSASSINATION.KO
 		mission.reportedCeoKOed = true
 		mission.reportedCeoSeen = true
 	else
-		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
+		if not sim:hasObjective("kill") then
+			sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
+		end
 		mission.reportedCeoSeen = true
 
 		--create that big white arrow pointing to the target
@@ -592,9 +596,14 @@ local function playerSeesRealCEO( script, sim, mission ) --only in use if decoy 
 		script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )	
 		sim:getTags().MM_sawRealCEO = true
 		script:queue( { type="hideHUDInstruction" } )
+		sim:removeObjective( "find" )
+		if not sim:hasObjective("kill") then
+			sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )	
+		end
 		local fakeCEO = safeFindUnitByTag( sim, "assassination_fake")
 		if fakeCEO then
 			fakeCEO:getTraits().customName = STRINGS.MOREMISSIONS.GUARDS.BOUNTY_TARGET_DECOY
+			fakeCEO:getTraits().decoyTooltip = true
 		end
 	end
 end
@@ -849,8 +858,10 @@ local function despawnDecoy( script, sim )
 		script:queue( { type="pan", x=x, y=y } )
 	end
 	script:queue( 1*cdefs.SECONDS )
-	local report = SCRIPTS.INGAME.ASSASSINATION.DECOY_REVEALED
-	script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )	
+	if not sim:getTags().MM_sawRealCEO then
+		local report = SCRIPTS.INGAME.ASSASSINATION.DECOY_REVEALED
+		script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )
+	end
 end
 
 local 	PC_WON =
