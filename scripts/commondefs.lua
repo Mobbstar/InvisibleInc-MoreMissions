@@ -147,6 +147,9 @@ local function onGuardTooltip(tooltip, unit)
 	if unit:getTraits().zap_attack then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.ZAP_ATTACK, STRINGS.MOREMISSIONS.UI.TOOLTIPS.ZAP_ATTACK_DESC, "gui/icons/item_icons/items_icon_small/icon-item_chargeweapon_small.png" )
 	end	
+	if unit:getTraits().decoyTooltip then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.DECOY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.DECOY_DESC, "gui/icons/item_icons/items_icon_small/icon-item_holomesh_Prism.png" )	
+	end
 end
 
 local function onItemWorldTooltip( tooltip, unit )
