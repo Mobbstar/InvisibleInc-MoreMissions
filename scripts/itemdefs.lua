@@ -266,7 +266,7 @@ local tool_templates =
 	},
 
 	MM_techexpo_cloakingrig = util.extend(commondefs.item_template)
-	{
+	{ --"Fragile Cloaking Zone Rig"
 		name = STRINGS.MOREMISSIONS.ITEMS.CLOAK_1,
 		desc = STRINGS.MOREMISSIONS.ITEMS.CLOAK_1_TOOLTIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.CLOAK_1_FLAVOR,
@@ -286,7 +286,7 @@ local tool_templates =
 	},
 
 	MM_techexpo_cloakingrig2 = util.extend(commondefs.item_template)
-	{
+	{ --"Extended Cloaking Rig"
 		name = STRINGS.MOREMISSIONS.ITEMS.CLOAK_2,
 		desc = STRINGS.MOREMISSIONS.ITEMS.CLOAK_2_TOOLTIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.CLOAK_2_FLAVOR,
@@ -304,7 +304,7 @@ local tool_templates =
 	},
 	
 	MM_techexpo_cloakingrig3 = util.extend(commondefs.item_template)
-	{
+	{ --"Fortified Cloaking Rig"
 		name = STRINGS.MOREMISSIONS.ITEMS.CLOAK_3,
 		desc = STRINGS.MOREMISSIONS.ITEMS.CLOAK_3_TOOLTIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.CLOAK_3_FLAVOR,
@@ -312,7 +312,7 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-cloak.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_strong_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak_strong.png",
-		traits = { usesLeft = 5, duration = 1, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 6, MM_attackproof_cloak = true,},
+		traits = { usesLeft = 5, duration = 1, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 6, MM_attackproof_cloak = true, cloakInVision = true,},
 		requirements = { stealth = 3 },
 		abilities = { "carryable","useInvisiCloak","recharge" },
 		value = 400,
