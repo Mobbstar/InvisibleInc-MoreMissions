@@ -17,7 +17,8 @@ local onGuardTooltip = commondefs.onGuardTooltip
 
 local DEFAULT_DRONE = commondefs.DEFAULT_DRONE
 
-local DROID_SOUNDS = { 
+local DROID_SOUNDS = util.extend( SOUNDS.DRONE_WALK )
+{ 
 	appeared="SpySociety/HUD/gameplay/peek_negative", 
 	alert ="SpySociety/Actions/guard/guard_alerted", 
 	speech="SpySociety/Agents/dialogue_KO", 

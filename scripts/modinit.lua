@@ -143,6 +143,7 @@ local function lateInit( modApi )
 	worldgen_append.runAppend()
 	
 	include( scriptPath .. "/appended_functions/state-map-screen") --for Informant map screen UI
+	include( scriptPath .. "/appended_functions/state-postgame") -- for Texpo easter egg
 	
 end
 

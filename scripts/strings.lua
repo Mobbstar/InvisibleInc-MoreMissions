@@ -103,7 +103,7 @@ return {
 		"MORE MISSIONS: You can enable the mod's HARD MODE to experience the full challenge of the security measures.",
 		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
 		"MORE MISSIONS: The Assassination target is marked as Paranoid, but is it paranoia if someone really is out to kill you?",
-		"MORE MISSIONS: A huge thank you to the voiceover fund contributors: <c:F47932>Cyberboy2000, jlaub, TornadoFive, Zorlock Darksoul, Dwarlen, amalloy,	Datsdabeat,	Mobbstar, Waldenburger,	alpacalypse, magnificentophat, Zaman, 	Alexander S., Datapuncher, Jeysie, Linenpixel, WMGreywind,  Puppetsquid, qoala, kalec.gos</>",
+		"MORE MISSIONS: A huge thank you to the voiceover fund contributors: <c:F47932>Cyberboy2000, jlaub, TornadoFive, Zorlock Darksoul, Dwarlen, amalloy,	Datsdabeat,	Mobbstar, Waldenburger,	alpacalypse, magnificentophat, Zaman, Alexander S., Datapuncher, Jeysie, Linenpixel, WMGreywind, Puppetsquid, qoala, kalec.gos</>",
 	},
 
 	PROPS =
@@ -829,6 +829,8 @@ return {
 			AUTHORIZED_BODY_DESC2 = "If dragged or controlled, this unit's body will unlock the Panic Room.",
 			IMPAIRED_VISION = "IMPAIRED VISION",
 			IMPAIRED_VISION_DESC = "This unit's vision range is reduced.",
+			DECOY = "DECOY",
+			DECOY_DESC = "This is not the real target. The guy in the safe room is the real target.",
 
 			-- ai terminal
 			KO_GAS = "KNOCKOUT GAS",
@@ -1048,7 +1050,8 @@ return {
 						{{"You didn't get what we came for. Perhaps you would like to offer your own head to our client?",
 							"moremissions/VoiceOver/Central/assassination/judge/nokill1",
 							"Central"}},
-						{{"You didn't eliminate the target. I hope you weren't being squeamish, Operator. Wetwork is a necessity in our profession, and our circumstances don't allow us the luxury of keeping our hands clean.",
+						-- {{"You didn't eliminate the target. I hope you weren't being squeamish, Operator. Wetwork is a necessity in our profession, and our circumstances don't allow us the luxury of keeping our hands clean.", --this is too long to fit :(
+						{{"You didn't eliminate the target. I hope you weren't being squeamish, Operator. Our circumstances don't allow us the luxury of keeping our hands clean.",
 							"moremissions/VoiceOver/Central/assassination/judge/nokill2",
 							"Central"}},
 						{{"I didn’t think I’d need to remind you of your objectives. Anything you managed to pilfer from this facility is a pittance compared to the money we just lost. I hope you had a good reason to slack off.",

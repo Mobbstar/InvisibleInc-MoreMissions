@@ -29,7 +29,7 @@ local SCRIPTS = include('client/story_scripts')
 -- Local helpers
 local OBJECTIVE_ID = "tech_expo"
 local ice_boost = 2 --variable for firewall-boosting security measure
-local CHANCE_OF_GOOSE = 0.1
+local CHANCE_OF_GOOSE = 0.2
 
 local PC_WON =
 {		
@@ -445,7 +445,12 @@ local function countUnstolenTech(script,sim)
 end
 		
 local function specGooseEasterEgg( sim )
-	if not sim:getParams().agency.MM_techexpo_done or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance on first tech expo per campaign
+	-- if sim:getParams().agency.MM_techexpo_done_savefile then
+		-- log:write("PLAYER DID TEXPO")
+	-- end
+
+	-- if not sim:getParams().agency.MM_techexpo_done or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance on first tech expo per campaign
+	if not sim:getParams().agency.MM_techexpo_done_savefile or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance if player has not yet done texpo mission across all saves
 		-- log:write("LOG MM suppressing tech expo easter egg")
 		return	
 	end
