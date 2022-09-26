@@ -821,6 +821,7 @@ local function cardSafeReaction( script, sim  )
 	--log:write("LOG AI card safe looted!")
 
     unit:destroyTab()
+	unit:getTraits().MM_hasAICard = nil
 end
 
 local function consoleReaction( script, sim  )
@@ -831,6 +832,7 @@ local function consoleReaction( script, sim  )
 	script:queue( { type="pan", x=x, y=y } )
 	script:waitFor(AI_CONSOLE_HIJACKED)
 	unit:destroyTab()
+	unit:getTraits().MM_AIconsole = nil
 end
 
 local function addKeys( sim )

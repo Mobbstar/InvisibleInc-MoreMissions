@@ -29,7 +29,7 @@ local SCRIPTS = include('client/story_scripts')
 -- Local helpers
 local OBJECTIVE_ID = "tech_expo"
 local ice_boost = 2 --variable for firewall-boosting security measure
-local CHANCE_OF_GOOSE = 0.1
+local CHANCE_OF_GOOSE = 0.2
 
 local PC_WON =
 {		
@@ -332,6 +332,11 @@ local function MM_checkTopGearSafes( sim )
 	-- log:write("LOG sim.totalTopGear " ..tostring(sim.totalTopGear))
 end
 
+local function updateAgency( sim, agency )
+	agency.MM_techexpo_done = agency.MM_techexpo_done or 0
+	agency.MM_techexpo_done = agency.MM_techexpo_done + 1
+end
+
 local function MM_checkTopGearItem( script, sim )	
 	local _, topGearSafe = script:waitFor( mission_util.PC_SAW_UNIT("MM_topGear") )
 	-- topGearSafe:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB) 
@@ -364,10 +369,9 @@ local function MM_checkTopGearItem( script, sim )
 	scripts = SCRIPTS.INGAME.WEAPONS_EXPO.LOOTED_CASE_DROIDS_BOOTING
 	
 	-- script:waitFor( PC_WON ) --moved agency changes to DoFinishMission
-	sim.PC_WON_agency = sim.PC_WON_agency or {}
-	local agency = sim.PC_WON_agency
-	agency.MM_techexpo_done = agency.MM_techexpo_done or 0
-	agency.MM_techexpo_done = agency.MM_techexpo_done + 1
+	
+	sim.MM_agencyUpdates = sim.MM_agencyUpdates or {}
+	table.insert( sim.MM_agencyUpdates, updateAgency )	
 end
 
 local UNIT_ESCAPE =
@@ -441,7 +445,12 @@ local function countUnstolenTech(script,sim)
 end
 		
 local function specGooseEasterEgg( sim )
-	if not sim:getParams().agency.MM_techexpo_done or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance on first tech expo per campaign
+	-- if sim:getParams().agency.MM_techexpo_done_savefile then
+		-- log:write("PLAYER DID TEXPO")
+	-- end
+
+	-- if not sim:getParams().agency.MM_techexpo_done or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance on first tech expo per campaign
+	if not sim:getParams().agency.MM_techexpo_done_savefile or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance if player has not yet done texpo mission across all saves
 		-- log:write("LOG MM suppressing tech expo easter egg")
 		return	
 	end

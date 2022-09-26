@@ -17,7 +17,8 @@ local onGuardTooltip = commondefs.onGuardTooltip
 
 local DEFAULT_DRONE = commondefs.DEFAULT_DRONE
 
-local DROID_SOUNDS = { 
+local DROID_SOUNDS = util.extend( SOUNDS.DRONE_WALK )
+{ 
 	appeared="SpySociety/HUD/gameplay/peek_negative", 
 	alert ="SpySociety/Actions/guard/guard_alerted", 
 	speech="SpySociety/Agents/dialogue_KO", 
@@ -114,7 +115,7 @@ local SPECDROID_TRAITS = util.extend( ANDROID_TRAITS )
 	mainframe_status = "active",
 	canKO = false,	
 	LOSrange = 2.5,
-	LOSarc = 2 * math.pi,
+	LOSarc = 2 * math.pi, --3*math.pi/2 for blind spot in the back
 	LOSperipheralArc =  2 * math.pi,
 	LOSperipheralRange = 3,
 	lookaroundArc = 2 * math.pi,
@@ -490,7 +491,7 @@ local npc_templates =
 		name = STRINGS.MOREMISSIONS.GUARDS.SPIDER_DRONE,
 		profile_anim = "portraits/sankaku_drone_face_new",
 		profile_build = "portraits/MM_prototype_drone_face",
-		profile_image = "sankaku_drone.png",		
+		profile_image = "MM_mizugumo_drone.png",		
 		kanim = "kanim_MM_prototype_drone",
 		sounds = SOUNDS.DRONE_WALK,
 		abilities = {  "shootOverwatch", "overwatch", "MM_surveyor","MM_ce_ultrasonic_echolocation_passive"},

@@ -31,7 +31,20 @@ local function onMainframeTooltip( tooltip, unit )
 	if unit:getTraits().luxuryNanofab_console then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_CONSOLE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_CONSOLE_DESC, "gui/icons/arrow_small.png" )
 	end
+	if unit:getTraits().MM_hasAICard then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.DOOR_LOCK_ACCESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LOCK_ACCESS_SAFE_DESC, "gui/icons/mission_icons/mission_ai_terminal_small.png" )		
+	end	
 end
+
+-- this is necessary to add a custom tooltip to a Console.
+local propdefs = include("sim/unitdefs/propdefs")
+local console_tooltip_old = propdefs.console.onWorldTooltip
+propdefs.console.onWorldTooltip = function( tooltip, unit, hud )
+	console_tooltip_old( tooltip, unit, hud )
+	if unit:getTraits().MM_AIconsole then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.DOOR_LOCK_ACCESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LOCK_ACCESS_CONSOLE_DESC, "gui/icons/mission_icons/mission_ai_terminal_small.png" )	
+	end	
+end		
 
 local function onItemTooltip(tooltip, unit)
 	if unit:getTraits().MM_tech_expo_item then
@@ -134,6 +147,9 @@ local function onGuardTooltip(tooltip, unit)
 	if unit:getTraits().zap_attack then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.ZAP_ATTACK, STRINGS.MOREMISSIONS.UI.TOOLTIPS.ZAP_ATTACK_DESC, "gui/icons/item_icons/items_icon_small/icon-item_chargeweapon_small.png" )
 	end	
+	if unit:getTraits().decoyTooltip then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.DECOY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.DECOY_DESC, "gui/icons/item_icons/items_icon_small/icon-item_holomesh_Prism.png" )	
+	end
 end
 
 local function onItemWorldTooltip( tooltip, unit )

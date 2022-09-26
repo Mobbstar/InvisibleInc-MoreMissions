@@ -72,7 +72,7 @@ return {
 		ITEMS_IN_STORE_TIP = "<c:FF8411>ITEMS IN STORES</c>\nAllows the new exclusive items to spawn in nanofabs and such, making them not exclusive anymore.",
 
 		NEWDAY = "NEW DAY MISSIONS",
-		NEWDAY_DESC = "<c:FF8411>NEW DAY MISSIONS</c>\nNumber of missions that appear when there's a new day. \nOverrides Generation Options+ mod settings.",
+		NEWDAY_DESC = "<c:FF8411>NEW DAY MISSIONS</c>\nNumber of missions that appear when there's a new day. \nOverrides Generation Options+ mod settings. Set to 4 (vanilla value) by default.",
 		
 		EXEC_TERMINALS = "MORE EXEC TERMINAL OPTIONS",
 		EXEC_TERMINALS_DESC = "<c:FF8411>MORE EXEC TERMINAL OPTIONS</c>\nExecutive Terminals will allow you to choose from a pool of six missions, instead of four.",
@@ -103,7 +103,7 @@ return {
 		"MORE MISSIONS: You can enable the mod's HARD MODE to experience the full challenge of the security measures.",
 		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
 		"MORE MISSIONS: The Assassination target is marked as Paranoid, but is it paranoia if someone really is out to kill you?",
-		"MORE MISSIONS: A huge thank you to the voiceover fund contributors: <c:F47932>Cyberboy2000, jlaub, TornadoFive, Zorlock Darksoul, Dwarlen, amalloy,	Datsdabeat,	Mobbstar, Waldenburger,	alpacalypse, magnificentophat, Zaman, 	Alexander S., Datapuncher, Jeysie, Linenpixel, WMGreywind,  Puppetsquid, qoala, kalec.gos</>",
+		"MORE MISSIONS: A huge thank you to the voiceover fund contributors: <c:F47932>Cyberboy2000, jlaub, TornadoFive, Zorlock Darksoul, Dwarlen, amalloy,	Datsdabeat,	Mobbstar, Waldenburger,	alpacalypse, magnificentophat, Zaman, Alexander S., Datapuncher, Jeysie, Linenpixel, WMGreywind, Puppetsquid, qoala, kalec.gos</>",
 	},
 
 	PROPS =
@@ -124,12 +124,16 @@ return {
 		NANOFAB_KEY = "Nanofab Key",
 		NANOFAB_KEY_DESC = "Use on a Luxury Nanofab to unlock it. Only usable in this facility.",
 		NANOFAB_KEY_FLAVOR = "Luxury Pass Members get exclusive deals on thousands of items. Get free two-day delivery and save up to 80% on prescriptions. Your unique coupon code: SINGLEORIGINCOFFEE74",
+		DOOR_DEVICE = "BIOLOCK DOOR",
+		DOOR_DEVICE_DESC = "Can be unlocked by VIP or Bodyguard.",
+		
 		
 	},
 
 	GUARDS =
 	{
 		BOUNTY_TARGET = "VIP",
+		BOUNTY_TARGET_DECOY = "Decoy VIP",
 		BODYGUARD = "Bodyguard",
 		PROTOTYPE_DROID = "Prototype Android",
 		PROTOTYPE_DROID_SPEC = "Prototype SpecDroid",
@@ -179,7 +183,7 @@ return {
 
 		EA_HOSTAGE =
 		{
-			NAME = "Johnny Wique",
+			NAME = "Johnny W.",
 		},
 		MOLE =
 		{
@@ -312,7 +316,7 @@ return {
 		
 		USB_DRIVE = "FLASH DRIVE",
 		USB_DRIVE_TOOLTIP = "Stores a mainframe program. Install the program or sell the drive for profit.",
-		USB_DRIVE_FLAVOR = "These humble-looking floppy disks are used extensively to traffic black market software, while non-fungible tokenization ensures the same program can't be sold twice.",		
+		USB_DRIVE_FLAVOR = "These humble-looking flash drives are used extensively to traffic black market software, while non-fungible tokenization ensures the same program can't be sold twice.",		
 
 		AUGMENTS = {
 
@@ -404,10 +408,18 @@ return {
 		MOLE_DAEMON = {
 			NAME = "INFORMANT INTEL",
 			NAME_ARMOR = "INTERROGATION INTEL",
-			DESC = "Receive random intel at mission start. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
-			DESC_ARMOR = "-1 to guard armor. Valid for {1} more {1:mission|missions}. Not active in Omni facilities.",
+			DESC = "Receive random intel at mission start. Valid for {1} more {1:mission|missions}.",
+			DESC_ARMOR = "-1 to guard armor. Valid for {1} more {1:mission|missions}.",
+			NOT_OMNI = "STANDARD CORPS ONLY",
+			NOT_OMNI_DESC = "Not active in OMNI facilities.",
 			SHORT_DESC = "",
 			ACTIVE_DESC = "INTEL PROVIDED BY INFORMANT",
+		},
+		
+		DISTRESS_CALL_INFO = {
+			NAME = "FACILITY ALERT",
+			DESC = "Prisoner escape detected. Alarm advances at 2x rate every turn.",
+			SHORT_DESC = "2x alarm advance",
 		},
 
 		MOLE_DAEMON_EVENT = {
@@ -771,29 +783,34 @@ return {
 		FANCYFAB_DESC = "UNLOCK WITH NANOFAB KEY",
 
 		TOOLTIPS = {
-			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
-			WEAPONS_EXPO_RESALE_DESC = "This prototype is not market-ready and can only be sold at half price.",
+			NO_PATROL_CHANGE = "NO PATROL CHANGE",
+			NO_PATROL_CHANGE_DESC = "This unit will not respond to patrol changes.",
+			NO_ALERT = "NO ALERT ON WAKE-UP",
+			NO_ALERT_DESC = "This unit will not become alerted when they wake up.",
+			
+			-- Courier Rescue
 			EA_HOSTAGE_FRAIL = "FRAIL",
 			EA_HOSTAGE_FRAIL_DESC = "KO damage is lethal.",
 			EA_HOSTAGE_VITAL_STATUS = "VITAL STATUS",
 			EA_HOSTAGE_VITAL_STATUS_DESC = "Will expire if not extracted in {1} {1:turn|turns}.",
+			
+			-- Informant Rendezvous
 			PARALYZE_AMNESIAC = "Amnesiac dose",
 			PARALYZE_AMNESIAC_DESC = "Inject pinned victim with amnesiac. Removes WITNESS status. Reduces vision range by {1}. Guard wakes up without being alerted.",
 			WITNESS = "WITNESS",
 			WITNESS_DESC_HUMAN = "Kill this unit or KO and apply Amnesiac.",
 			WITNESS_DESC_MAINFRAME = "Destroy this unit, EMP or scrub Camera Database.",
 			WITNESS_DESC_DRONE = "Destroy or EMP this unit.",
-			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",
-			KO_GAS = "KNOCKOUT GAS",
-			KO_GAS_DESC = "This agent is surrounded by knockout gas and will be KO'd if they end their turn here.",
-			KO_GAS_PINNED = "GASSED",
-			KO_GAS_PINNED_DESC = "This agent's KO timer will not decrease until they leave the knockout gas.",
-			NO_PATROL_CHANGE = "NO PATROL CHANGE",
-			NO_PATROL_CHANGE_DESC = "This unit will not respond to patrol changes.",
-			NO_ALERT = "NO ALERT ON WAKE-UP",
-			NO_ALERT_DESC = "This unit will not become alerted when they wake up.",
+			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",	
+			MOLE_CIVILIAN = "FRAGILE",--"CIVILIAN",
+			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
+			MOLE_JET_ESCAPE = "FLEXIBLE EXTRACTION",
+			MOLE_JET_ESCAPE_DESC = "Escaping with this unit to the jet will fail the objective but add another Informant Rendezvous mission.",						
 
 			-- tech expo
+			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
+			WEAPONS_EXPO_RESALE_DESC = "This prototype is not market-ready and can only be sold at half price.",
+			
 			WEAPONS_EXPO_LOOT_CONTENT = "DISPLAY PLAQUE",
 			WEAPONS_EXPO_FAILSAFE = "FAILSAFE",
 			WEAPONS_EXPO_FAILSAFE_DESC = "When captured, boosts firewalls of remaining Secure Cases.",
@@ -812,13 +829,18 @@ return {
 			AUTHORIZED_BODY_DESC2 = "If dragged or controlled, this unit's body will unlock the Panic Room.",
 			IMPAIRED_VISION = "IMPAIRED VISION",
 			IMPAIRED_VISION_DESC = "This unit's vision range is reduced.",
-			MOLE_CIVILIAN = "FRAGILE",--"CIVILIAN",
-			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
-			MOLE_JET_ESCAPE = "FLEXIBLE EXTRACTION",
-			MOLE_JET_ESCAPE_DESC = "Escaping with this unit to the jet will fail the objective, but put another Informant Rendezvous mission on the map.",
+			DECOY = "DECOY",
+			DECOY_DESC = "This is not the real target. The guy in the safe room is the real target.",
 
-			BOSSUNIT = "Opportunity Target",
-			BOSSUNIT_DESC = "Bring this unit to the jet for interrogation. Reduces guard armor for the next 2 missions.",			
+			-- ai terminal
+			KO_GAS = "KNOCKOUT GAS",
+			KO_GAS_DESC = "This agent is surrounded by knockout gas and will be KO'd if they end their turn here.",
+			KO_GAS_PINNED = "GASSED",
+			KO_GAS_PINNED_DESC = "This agent's KO timer will not decrease until they leave the knockout gas.",
+			DOOR_LOCK_ACCESS = "DOOR LOCK ACCESS",
+			LOCK_ACCESS_CONSOLE_DESC = "Hijacking this Console will unlock one of the AI Terminal doors.",
+			LOCK_ACCESS_SAFE_DESC = "This safe contains the Access Card to one of the AI Terminal doors.",
+			
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
 				UPGRADED_LONG = "AI TERMINAL UPGRADE",
@@ -832,6 +854,11 @@ return {
 
 			HOSTILE_AI_WEAKEN = "AI TERMINAL SABOTAGE",
 			HOSTILE_AI_WEAKEN_DESC = "This AI has been disrupted and has {1} fewer subroutines than normal.",
+			
+			-- misc + side missions
+			
+			BOSSUNIT = "Opportunity Target",
+			BOSSUNIT_DESC = "Bring this unit to the jet for interrogation. Reduces guard armor for the next 2 missions.",				
 			
 			NOT_CARRYABLE = "NOT CARRYABLE",
 			NOT_CARRYABLE_DESC = "This item is broken and can't be picked up again.",
@@ -1023,7 +1050,8 @@ return {
 						{{"You didn't get what we came for. Perhaps you would like to offer your own head to our client?",
 							"moremissions/VoiceOver/Central/assassination/judge/nokill1",
 							"Central"}},
-						{{"You didn't eliminate the target. I hope you weren't being squeamish, Operator. Wetwork is a necessity in our profession, and our circumstances don't allow us the luxury of keeping our hands clean.",
+						-- {{"You didn't eliminate the target. I hope you weren't being squeamish, Operator. Wetwork is a necessity in our profession, and our circumstances don't allow us the luxury of keeping our hands clean.", --this is too long to fit :(
+						{{"You didn't eliminate the target. I hope you weren't being squeamish, Operator. Our circumstances don't allow us the luxury of keeping our hands clean.",
 							"moremissions/VoiceOver/Central/assassination/judge/nokill2",
 							"Central"}},
 						{{"I didn’t think I’d need to remind you of your objectives. Anything you managed to pilfer from this facility is a pittance compared to the money we just lost. I hope you had a good reason to slack off.",

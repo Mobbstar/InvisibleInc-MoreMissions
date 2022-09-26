@@ -50,22 +50,16 @@ local MM_scrubcameradb = --tweaked version of monster root hub hack
 			return true
 		end,
 
-		acquireTargets = function( self, targets, game, sim, abilityOwner, unit )
-			local units = {}
-			
-			-- if sim:getTags().finished_DB_hack then
-				-- return targets.unitTarget( game, units, self, abilityOwner, unit )
-			-- end 
+        acquireTargets = function( self, targets, game, sim, abilityOwner, unit )
+            local units = {}
+            
+            local x1, y1 = abilityOwner:getLocation()
+            if x1 and abilityOwner:getTraits().mainframe_status == "active" and simquery.canUnitReach( sim, unit, x1, y1 ) then
+                table.insert( units, abilityOwner )
+            end
 
-			for _, targetUnit in pairs(sim:getAllUnits()) do
-				local x1, y1 = targetUnit:getLocation()
-				if x1 and self:isTarget( abilityOwner, unit, targetUnit ) and simquery.canUnitReach( sim, unit, x1, y1 ) then
-					table.insert( units, targetUnit )
-				end
-			end
-
-			return targets.unitTarget( game, units, self, abilityOwner, unit )
-		end,
+            return targets.unitTarget( game, units, self, abilityOwner, unit )
+        end,
 
 		canUseAbility = function( self, sim, abilityOwner, unit, targetUnitID )
 			local targetUnit = sim:getUnit( targetUnitID )
