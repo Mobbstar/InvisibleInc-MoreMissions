@@ -365,7 +365,13 @@ end
 local function keepExitLocked( script, sim )
 	while true do
 		script:waitFor( mission_util.PC_END_TURN )
-		sim._elevator_inuse = (sim._elevator_inuse or 0) + 1
+		
+		if sim._elevator_inuse == 1 then
+			sim._elevator_inuse = 2
+			sim._elevatorHeldByHostage = true
+		else
+			sim._elevatorHeldByHostage = false
+		end
 	end
 end
 
@@ -575,11 +581,14 @@ local function startPhase( script, sim )
 		end)
 
 	--looks weird, but we need the doors to be open when calculating the vital signs
-	sim._elevator_inuse = (sim._elevator_inuse - 1) or 0
 	sim:openElevator()
 	script:removeHook( keepExitLocked )
 	local vital_signs = calculateHostageVitalSigns(sim)
-	if sim._elevator_inuse > 0 then
+	
+	if sim._elevatorHeldByHostage and sim._elevator_inuse == 1 then
+		sim._elevator_inuse = nil
+		sim._elevatorHeldByHostage = nil
+	else
 		local elevator_status = sim._elevator_inuse
 		sim:closeElevator( )
 		sim._elevator_inuse = elevator_status
@@ -689,9 +698,15 @@ function hostage_mission:init( scriptMgr, sim )
 
 	local elevator_status = sim._elevator_inuse
 	sim:closeElevator( )
-	sim._elevator_inuse = (elevator_status or 0) + 1
+	
+	if elevator_status and elevator_status > 0 then
+		sim._elevator_inuse = elevator_status
+	else
+		sim._elevator_inuse = 1
+		sim._elevatorHeldByHostage = true
+	end
+	
 	scriptMgr:addHook( "DOORLOCK", keepExitLocked )
-
 	scriptMgr:addHook( "HOSTAGE", startPhase )
 
 	local scriptfn = function()
