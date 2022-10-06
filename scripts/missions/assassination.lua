@@ -441,7 +441,7 @@ local function doAlertCeo( sim, fromBodyguard, mission )
 	local ceoreal = safeFindUnitByTag( sim, "assassination_real" )
 	local ceos = { ceofake, ceoreal }
 	for i, ceo in pairs(ceos) do
-		if ceo and ceo:isValid() and not ceo:isDown() and not ceo:getTraits().iscorpse and not ceo:isAlerted() and not ceo:getTraits().hasSentAlert then
+		if ceo and ceo:isValid() and not ceo:isDown() and not ceo:getTraits().iscorpse and not ceo:isAlerted() then
 			ceo:getTraits().MM_alertlink = nil --for tooltip
 			if fromBodyguard then
 				-- Don't send alerts back and forth
@@ -736,7 +736,7 @@ local function bodyguardAlertsCeo( script, sim, mission )
 	end
 
 	local ceo = safeFindUnitByTag( sim, "assassination" )
-	if ceo:isAlerted() then  -- Done
+	if ceo:isAlerted() or not bodyguard:getTraits().MM_alertlink then  -- Done
 		return
 	end
 
@@ -746,10 +746,9 @@ local function bodyguardAlertsCeo( script, sim, mission )
 		if ev == mission_util.PC_END_TURN then
 			script:waitFor( mission_util.PC_START_TURN, BODYGUARD_ALERTED )
 		end
-	else
-		bodyguard:getTraits().MM_alertlink = nil --for tooltip
 	end
 
+	bodyguard:getTraits().MM_alertlink = nil --for tooltip
 	local bodyguardIsAwake = not bodyguard:isDown() and not bodyguard:getTraits().iscorpse
 	doAlertCeo( sim, bodyguardIsAwake, mission )
 end
