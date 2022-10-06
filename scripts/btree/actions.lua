@@ -29,6 +29,10 @@ function Actions.mmArmVip( sim, unit )
 	-- Remove other interests outside the saferoom
 	array.removeIf( unit:getBrain():getSenses().interests, function( interest ) return interestOutsideOfSaferoom( sim, interest ) end )
 
+	 --Go to the hiding corner next
+	local hidingCell = unit:getTraits().mmVipHidePoint
+	unit:getBrain():spawnInterest(hidingCell.x, hidingCell.y, sim:getDefs().SENSE_DEBUG, "REASON_MM_ASSASSINATION")
+
 	-- Update traits
 	unit:getTraits().mmSearchedVipSafe = true
 	unit:getTraits().vip = false
@@ -99,7 +103,13 @@ Actions.mmMoveToSafetyPoint = class(Actions.MoveTo, function(self, name)
 end)
 
 function Actions.mmMoveToSafetyPoint:getDestination()
-	return self.unit:getBrain():getPatrolPoint()
+	if self.unit:getTraits().mmSearchedVipSafe then
+		-- Already visited the safe. Retreat to the safe corner.
+		return self.unit:getTraits().mmVipHidePoint
+	else
+		-- Visit the safe first.
+		return self.unit:getTraits().mmVipSafePoint
+	end
 end
 
 function Actions.mmMoveToSafetyPoint:executePath(unit, ...)

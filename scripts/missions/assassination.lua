@@ -409,6 +409,21 @@ local function initCeoTraits( sim )
 
 	-- No penalty for killing this one.
 	ceo:getTraits().cleanup = nil
+
+	-- Load the fixed destinations for the CEO fleeing
+	do
+		-- Where the CEO goes to get his stuff from the safe.
+		local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
+		local xSafe,ySafe = safe:getLocation()
+		local nextToSafe = findCell( sim, "saferoom_flee" )
+		assert( nextToSafe )
+		local finalFacing = simquery.getDirectionFromDelta(xSafe - nextToSafe.x, ySafe - nextToSafe.y)
+		ceo:getTraits().mmVipSafePoint = { x = nextToSafe.x, y = nextToSafe.y, facing = finalFacing }
+		-- The CEO's fallback when spooked later.
+		local hidingCell = findCell( sim, "saferoom_hide" )
+		assert( hidingCell )
+		ceo:getTraits().mmVipHidePoint = { x = hidingCell.x, y = hidingCell.y, facing = calculateBestFacing( sim, hidingCell, ceo ) }
+	end
 	
 	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
 		local bodyguard = mission_util.findUnitByTag( sim, "bodyguard" )
@@ -746,14 +761,7 @@ end
 -- In both 1 & 2b, the destination is set as a stationary patrol point.
 local function ceoAlerted(script, sim, mission)
 	local _, ceo = script:waitFor( CEO_ALERTED )
-	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
 	ceo:getTraits().MM_alertlink = nil
-	-- Send the CEO to the safes
-	local xSafe,ySafe = safe:getLocation()
-	local finalCell = findCell( sim, "saferoom_flee" )
-	assert( finalCell )
-	local finalFacing = simquery.getDirectionFromDelta(xSafe - finalCell.x, ySafe - finalCell.y)
-	ceo:getTraits().patrolPath = { { x = finalCell.x, y = finalCell.y, facing = finalFacing } }
 
 	-- remove these hooks, as we don't want the bodyguard trying to do these things while the CEO is in the panic room
 	script:removeHook(keepClose)
@@ -779,26 +787,21 @@ local function ceoAlerted(script, sim, mission)
 	-- Wait for the CEO to reach the safe
 	_, ceo = script:waitFor( CEO_ARMING )
 	
-	-- New "patrol" destination: corner of the room, hidden from the door by tall cover.
-	-- This is the CEO's fallback when spooked.
-	local hidingCell = findCell( sim, "saferoom_hide" )
-	
-	--hotfix for bug that causes CEO to leave the room after getting gun: give him a new investigation point immediately after he arms himself
-	ceo:getBrain():spawnInterest(hidingCell.x, hidingCell.y, sim:getDefs().SENSE_DEBUG, "REASON_MM_ASSASSINATION") --vip stays put and investigates in place	
-	
-	ceo:getTraits().patrolPath = { { x = hidingCell.x, y = hidingCell.y, facing = calculateBestFacing( sim, hidingCell, ceo ) } }
 
 	-- Fully armed and operational.
+	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
 	local weapon = safeFindUnitByTag( sim, "saferoom_weapon" )
 	if weapon and weapon:isValid() and safe and safe:isValid() and safe:hasChild( weapon:getID() ) then
 		local sound = simdefs.SOUNDPATH_SAFE_OPEN
 		--sound = "SpySociety/Objects/securitysafe_open" --is there a difference?
 		safe:getTraits().open = true --this is a flag for anim, not sure if setting it to open and then closed again before/after the event will look good but worth a try -Hek
-		sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR, { unitID = ceo:getID(), facing = finalFacing, sound = sound, soundFrame = 1 } )
-		sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR_PST, { unitID = ceo:getID(), facing = finalFacing } )
+		local facing = ceo:getTraits().mmVipSafePoint.facing
+		sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR, { unitID = ceo:getID(), facing = facing, sound = sound, soundFrame = 1 } )
+		sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR_PST, { unitID = ceo:getID(), facing = facing } )
 		safe:getTraits().open = false		
 		inventory.giveItem( safe, ceo, weapon )
-		sim:emitSound( { path = weapon:getUnitData().sounds.reload, range = simdefs.SOUND_RANGE_0 }, finalCell.x, finalCell.y, ceo )
+		local x,y = ceo:getLocation()
+		sim:emitSound( { path = weapon:getUnitData().sounds.reload, range = simdefs.SOUND_RANGE_0 }, x, y, ceo )
 		ceo:getTraits().pacifist = false
 		ceo:getTraits().MM_ceo_armed = true
 	end
