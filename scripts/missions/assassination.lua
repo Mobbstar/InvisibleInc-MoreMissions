@@ -1016,11 +1016,6 @@ local function tryDecoy( sim )
 			spawnDecoy( sim, oldCell, oldFacing )
 			sim.MM_bounty_disguise_active = true
 		end
-		
-		--now give all agents the ability to "steal" from the decoy
-		for i, agent in pairs(sim:getPC():getUnits()) do --edge cases? do we need to worry about agents being added mid-mission?
-			agent:giveAbility("MM_fakesteal")
-		end
 	end
 end
 
