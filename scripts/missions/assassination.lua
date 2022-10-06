@@ -1008,6 +1008,7 @@ local function tryDecoy( sim )
 			local oldFacing = vip:getFacing()
 			vip:setFacing( calculateBestFacing( sim, hidingCell, vip ) )
 			vip:getTraits().MM_realtarget = true
+			vip:getTraits().MM_staySafe = true
 			vip:getTraits().patrolPath = { { x = safeCell.x, y = safeCell.y }, { x = hidingCell.x, y = hidingCell.y } }
 			vip:addTag("assassination_real")
 			sim:refreshUnitLOS( vip )
