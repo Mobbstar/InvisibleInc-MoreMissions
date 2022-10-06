@@ -113,14 +113,18 @@ function Actions.mmMoveToSafetyPoint:getDestination()
 end
 
 function Actions.mmMoveToSafetyPoint:executePath(unit, ...)
-	local interest = unit:getBrain():getInterest()
-	if interest and not interest.mmFaced then
-		local x0, y0 = unit:getLocation()
-		local raycastX, raycastY = unit:getSim():getLOS():raycast(x0, y0, interest.x, interest.y)
-		if raycastX == interest.x and raycastY == interest.y then
-			unit:turnToFace(interest.x, interest.y)
+	if unit:ownsAbility( "shootSingle" ) then
+		-- We've bypassed some of the steps that would turn to face an interest.
+		-- If we have a gun, we should see if we can successfully enter overwatch before trying to run.
+		local interest = unit:getBrain():getInterest()
+		if interest and not interest.mmFaced then
+			local x0, y0 = unit:getLocation()
+			local raycastX, raycastY = unit:getSim():getLOS():raycast(x0, y0, interest.x, interest.y)
+			if raycastX == interest.x and raycastY == interest.y then
+				unit:turnToFace(interest.x, interest.y)
+			end
+			interest.mmFaced = true
 		end
-		interest.mmFaced = true
 	end
 
 	return Actions.MoveTo.executePath(self, unit, ...)
