@@ -29,6 +29,10 @@ function Actions.mmArmVip( sim, unit )
 	-- Remove other interests outside the saferoom
 	array.removeIf( unit:getBrain():getSenses().interests, function( interest ) return interestOutsideOfSaferoom( sim, interest ) end )
 
+	 --Go to the hiding corner next
+	local hidingCell = unit:getTraits().mmVipHidePoint
+	unit:getBrain():spawnInterest(hidingCell.x, hidingCell.y, sim:getDefs().SENSE_DEBUG, "REASON_MM_ASSASSINATION")
+
 	-- Update traits
 	unit:getTraits().mmSearchedVipSafe = true
 	unit:getTraits().vip = false
@@ -99,18 +103,28 @@ Actions.mmMoveToSafetyPoint = class(Actions.MoveTo, function(self, name)
 end)
 
 function Actions.mmMoveToSafetyPoint:getDestination()
-	return self.unit:getBrain():getPatrolPoint()
+	if self.unit:getTraits().mmSearchedVipSafe then
+		-- Already visited the safe. Retreat to the safe corner.
+		return self.unit:getTraits().mmVipHidePoint
+	else
+		-- Visit the safe first.
+		return self.unit:getTraits().mmVipSafePoint
+	end
 end
 
 function Actions.mmMoveToSafetyPoint:executePath(unit, ...)
-	local interest = unit:getBrain():getInterest()
-	if interest and not interest.mmFaced then
-		local x0, y0 = unit:getLocation()
-		local raycastX, raycastY = unit:getSim():getLOS():raycast(x0, y0, interest.x, interest.y)
-		if raycastX == interest.x and raycastY == interest.y then
-			unit:turnToFace(interest.x, interest.y)
+	if unit:ownsAbility( "shootSingle" ) then
+		-- We've bypassed some of the steps that would turn to face an interest.
+		-- If we have a gun, we should see if we can successfully enter overwatch before trying to run.
+		local interest = unit:getBrain():getInterest()
+		if interest and not interest.mmFaced then
+			local x0, y0 = unit:getLocation()
+			local raycastX, raycastY = unit:getSim():getLOS():raycast(x0, y0, interest.x, interest.y)
+			if raycastX == interest.x and raycastY == interest.y then
+				unit:turnToFace(interest.x, interest.y)
+			end
+			interest.mmFaced = true
 		end
-		interest.mmFaced = true
 	end
 
 	return Actions.MoveTo.executePath(self, unit, ...)

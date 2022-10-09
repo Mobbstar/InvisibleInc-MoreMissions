@@ -99,6 +99,11 @@ end)
 -----
 -- Senses overrides for units with this brain
 
+local function interestInSaferoom(sim, x, y)
+	local cell = sim:getCell( x, y )
+	return simquery.cellHasTag( sim, cell, "saferoom" )
+end
+
 local function overrideSensesAddInterest( senses )
 	local oldAddInterest = senses.addInterest
 
@@ -111,6 +116,13 @@ local function overrideSensesAddInterest( senses )
 				simlog("LOG_MOREMISSIONS", "Unit [%d] ignoring radio interest (%d,%d:%s:%s:%s)", self.unit:getID(), x, y, sense, reason, sourceUnit and tostring(sourceUnit:getID()) or "nil")
 				return nil
 			end
+		end
+		if self.unit:getTraits().MM_staySafe and not interestInSaferoom( self.unit:getSim(), x, y ) then
+			-- Don't willingly leave the safe room if we started in there.
+			local fallback = self.unit:getTraits().mmVipHidePoint
+			local interest = oldAddInterest(self, fallback.x, fallback.y, sense, reason, sourceUnit, ... )
+			interest.alwaysDraw = false
+			return interest
 		end
 
 		return oldAddInterest(self, x, y, sense, reason, sourceUnit, ... )
