@@ -561,6 +561,7 @@ local function playerSeesCeo( script, sim, mission )
 	end
 
 	sim:removeObjective( "find" )
+	sim:getTags().sawCEO = true
 	if ceo:getTraits().iscorpse then
 		report = SCRIPTS.INGAME.ASSASSINATION.AFTERMATH
 		mission.reportedCeoKilled = true
@@ -860,7 +861,7 @@ local function despawnDecoy( script, sim )
 		script:queue( { type="pan", x=x, y=y } )
 	end
 	script:queue( 1*cdefs.SECONDS )
-	if not sim:getTags().MM_sawRealCEO then
+	if sim:getTags().sawCEO and not sim:getTags().MM_sawRealCEO then
 		local report = SCRIPTS.INGAME.ASSASSINATION.DECOY_REVEALED
 		script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )
 	end
@@ -894,7 +895,7 @@ local mission = class( escape_mission )
 
 -- "reveal" decoy, but actually despawn it and replace it with an android
 mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
-	log:write("LOG reveal decoy1")
+	-- log:write("LOG reveal decoy1")
 	if sim:getTags().MM_decoyrevealed or (sim.MM_bounty_disguise_active == nil) or (not decoyUnit) then
 		return
 	end
