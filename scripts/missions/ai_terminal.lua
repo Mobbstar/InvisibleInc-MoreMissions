@@ -336,9 +336,7 @@ local function upgradeDialog( script, sim )
 			else
 				mission_util.showGoodResult( sim, dialogPath.OPTIONS2_RESULT1_TITLE, dialogPath.OPTIONS2_RESULT1_TXT )
 				sim:getTags().used_AI_terminal = true
-				if not sim:getParams().agency.W93_aiTerminals or sim:getParams().agency.W93_aiTerminals < 2 then
-					sim:getPC():getTraits().W93_incognitaUpgraded = 1
-				end
+				sim:getPC():getTraits().W93_incognitaUpgraded = 1
 				finishDialog( sim )
 			end
 		end
