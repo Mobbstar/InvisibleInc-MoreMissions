@@ -460,7 +460,7 @@ local tool_templates =
 		kanim = "kanim_stickycam",
 		abilities ={"carryable" , "throw","recharge"},
 		sounds = {activate="SpySociety/Grenades/stickycam_deploy", bounce="SpySociety/Grenades/bounce", cry_baby="SpySociety_DLC001/Actions/crybaby_activate"},
-		traits = { MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, throwUnit = "MM_techexpo_crybaby_throwUnit", usesLeft = 5,range = 15,  disposable = false},
+		traits = { MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, throwUnit = "MM_techexpo_crybaby_throwUnit", usesLeft = 5,range = 15,  disposable = false, targeting_ignoreLOS=true},
 		value = 300,
 		locator=true,
 		createUpgradeParams = function( self, unit )
@@ -488,7 +488,7 @@ local tool_templates =
 		},
 		abilities = {"throw"},
 		sounds = {activate="SpySociety/Grenades/stickycam_deploy", bounce="SpySociety/Grenades/bounce", cry_baby="SpySociety_DLC001/Actions/crybaby_activate"},
-		traits = { cryBaby=true, range=15, agent_filter=true,},
+		traits = { cryBaby=true, range=15, agent_filter=true, targeting_ignoreLOS = true,},
 		value = 300,
 		locator=true,
 	},
