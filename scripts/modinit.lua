@@ -67,7 +67,7 @@ local function init( modApi )
 	modApi:addGenerationOption("MM_exec_terminals", STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS, STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS_DESC,
 	{ noUpdate = true,})	
 
-	modApi:addGenerationOption("MM_spawnTable_droids" , STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS, STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_DESC, {values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99999}, value=4, strings = STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_VALUES, noUpdate = true} )		
+	modApi:addGenerationOption("MM_spawnTable_droids" , STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS, STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_DESC, {values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99999}, value=3, strings = STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_VALUES, noUpdate = true} )		
 	
 	modApi:addGenerationOption("MM_hard_mode",  STRINGS.MOREMISSIONS.OPTIONS.HARD_MODE , STRINGS.MOREMISSIONS.OPTIONS.HARD_MODE_TIP, {enabled = false, noUpdate=true } )
 
