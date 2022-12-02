@@ -266,7 +266,7 @@ local function load( modApi, options, params )
 	end
 	local agentdefs = include( scriptPath .. "/agentdefs" )
 	for name, agentDef in pairs(agentdefs) do
-	modApi:addAgentDef( name, agentDef )
+		modApi:addAgentDef( name, agentDef )
 	end
 
 	local commondefs = include( scriptPath .. "/commondefs" )
