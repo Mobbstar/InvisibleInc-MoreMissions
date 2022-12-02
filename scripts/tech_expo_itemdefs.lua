@@ -57,7 +57,7 @@ function generateTechExpoGear()
 			itemdef.floorWeight = nil
 		end
 
-		traits.usesLeft = 5
+		traits.usesLeft = 3--5
 		if itemdef.createUpgradeParams == nil then
 			itemdef.createUpgradeParams = function( self, unit )
 				return { traits = { usesLeft = unit:getTraits().usesLeft } }
