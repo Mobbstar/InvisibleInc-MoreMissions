@@ -13,6 +13,21 @@ local bonus_types = {
 	[5] = "doors",
 }
 
+local function isTurretGenerator( sim, u )
+	if not u:getTraits().powerGrid then
+		return false
+	else
+		local powerGrid = u:getTraits().powerGrid		
+		   for unitID, unit in pairs( sim:getAllUnits() ) do
+				if unit ~= u and unit:getTraits().mainframe_turret and unit:getTraits().powerGrid == powerGrid and unit:getLocation() then
+					return true
+				end
+			end
+	end
+	
+	return false
+end
+
 local revealMoleBonus = function(sim, bonusType) --need to call on this from modinit
 	local unitlist = {} --collect units to be revealed for relevant bonuses
 	local randomAgent = sim:getPC():getUnits()[sim:nextRand(1,#sim:getPC():getUnits())] --it's turn 1 so just pick any agent so we have somewhere to display the float text
@@ -57,7 +72,7 @@ local revealMoleBonus = function(sim, bonusType) --need to call on this from mod
 	elseif bonusType == "cameras_turrets" then --also turrets
 		sim:forEachUnit(
 			function ( u )
-				if (u:getTraits().mainframe_camera ~= nil) or (u:getTraits().mainframe_turret ~= nil) then
+				if (u:getTraits().mainframe_camera ~= nil) or (u:getTraits().mainframe_turret ~= nil) or isTurretGenerator(sim, u) then
 					table.insert(unitlist,u:getID())		
 					currentPlayer:glimpseUnit( sim, u:getID() )				
 				end
