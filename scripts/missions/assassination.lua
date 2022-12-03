@@ -639,6 +639,7 @@ local function ceoDown( script, sim, mission )
 			sim.TA_mission_success = true -- flag for Talkative Agents
 
 			sim:removeObjective( "kill" )
+			sim:removeObjective( "find" )
 		end
 
 		sim:setClimax(true)
@@ -652,14 +653,14 @@ local function ceoDown( script, sim, mission )
 		script:waitFrames( .5*cdefs.SECONDS )
 		doAlertBodyguard( sim, ceo, mission )
 
-		if not ceo:getTraits().iscorpse and mission.reportedCeoSeen and not mission.reportedCeoKOed then
+		if not ceo:getTraits().iscorpse and not mission.reportedCeoKOed then
 			mission.reportedCeoKOed = true
 			script:waitFrames( 1.5*cdefs.SECONDS )
 			script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.KO ), type="newOperatorMessage" } )
 		end
 	until ceo:getTraits().iscorpse
 
-	if mission.reportedCeoSeen and not mission.reportedCeoKilled then
+	if not mission.reportedCeoKilled then
 		mission.reportedCeoKilled = true
 		script:waitFrames( 1.5*cdefs.SECONDS )
 		script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.AFTERMATH ), type="newOperatorMessage" } )
