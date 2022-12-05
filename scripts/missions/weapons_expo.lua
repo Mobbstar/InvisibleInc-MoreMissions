@@ -308,11 +308,15 @@ local function MM_checkTopGearSafes( sim )
 		local item = nil
 		if unit:getTraits().MM_loot == "weapon" then
 			-- log:write("LOG choosing weapon")
-			item = itemList[ sim:nextRand( 1, #itemList ) ]
+			local pos = sim:nextRand( 1, #itemList )
+			item = itemList[pos]
+			table.remove(itemList, pos) -- prevent duplicates
 		end
 		if unit:getTraits().MM_loot == "item" then
 			-- log:write("LOG choosing item")
-			item = techList[ sim:nextRand( 1, #techList ) ]
+			local pos = sim:nextRand( 1, #techList )
+			item = techList[ pos ]
+			table.remove(techList, pos)
 		end
 		if item then
 			local newItem = simfactory.createUnit( item, sim )						

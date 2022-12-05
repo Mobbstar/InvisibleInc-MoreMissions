@@ -561,6 +561,7 @@ local function playerSeesCeo( script, sim, mission )
 	end
 
 	sim:removeObjective( "find" )
+	sim:getTags().sawCEO = true
 	if ceo:getTraits().iscorpse then
 		report = SCRIPTS.INGAME.ASSASSINATION.AFTERMATH
 		mission.reportedCeoKilled = true
@@ -638,6 +639,7 @@ local function ceoDown( script, sim, mission )
 			sim.TA_mission_success = true -- flag for Talkative Agents
 
 			sim:removeObjective( "kill" )
+			sim:removeObjective( "find" )
 		end
 
 		sim:setClimax(true)
@@ -651,14 +653,14 @@ local function ceoDown( script, sim, mission )
 		script:waitFrames( .5*cdefs.SECONDS )
 		doAlertBodyguard( sim, ceo, mission )
 
-		if not ceo:getTraits().iscorpse and mission.reportedCeoSeen and not mission.reportedCeoKOed then
+		if not ceo:getTraits().iscorpse and not mission.reportedCeoKOed then
 			mission.reportedCeoKOed = true
 			script:waitFrames( 1.5*cdefs.SECONDS )
 			script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.KO ), type="newOperatorMessage" } )
 		end
 	until ceo:getTraits().iscorpse
 
-	if mission.reportedCeoSeen and not mission.reportedCeoKilled then
+	if not mission.reportedCeoKilled then
 		mission.reportedCeoKilled = true
 		script:waitFrames( 1.5*cdefs.SECONDS )
 		script:queue( { script=selectStoryScript( sim, SCRIPTS.INGAME.ASSASSINATION.AFTERMATH ), type="newOperatorMessage" } )
@@ -860,7 +862,7 @@ local function despawnDecoy( script, sim )
 		script:queue( { type="pan", x=x, y=y } )
 	end
 	script:queue( 1*cdefs.SECONDS )
-	if not sim:getTags().MM_sawRealCEO then
+	if sim:getTags().sawCEO and not sim:getTags().MM_sawRealCEO then
 		local report = SCRIPTS.INGAME.ASSASSINATION.DECOY_REVEALED
 		script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )
 	end
@@ -894,7 +896,7 @@ local mission = class( escape_mission )
 
 -- "reveal" decoy, but actually despawn it and replace it with an android
 mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
-	log:write("LOG reveal decoy1")
+	-- log:write("LOG reveal decoy1")
 	if sim:getTags().MM_decoyrevealed or (sim.MM_bounty_disguise_active == nil) or (not decoyUnit) then
 		return
 	end

@@ -32,7 +32,7 @@ local MM_installprogram =
 				return false
 			end
 			
-			local maxPrograms = simdefs.MAX_PROGRAMS  + (sim:getParams().agency.extraPrograms or 0)
+			local maxPrograms = simquery.getMaxPrograms( sim )
 			if #sim:getPC():getAbilities() >= maxPrograms then
 				return false, STRINGS.UI.TOOLTIP_PROGRAMS_FULL
 			end

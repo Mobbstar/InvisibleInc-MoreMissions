@@ -1447,17 +1447,17 @@ return {
 			MM_SIDEMISSIONS = {
 				STEAL_STORAGE = {
 					STORAGE_SPOTTED_1 = {
-					{"Our telemetry data suggests there are two other rooms like this somewhere in the facility. If we can spare the time, it would be a shame to leave these valuables without stopping by.",nil,"Central"},
-					{"Do try not to drop them. My clients are incredibly particular about the number of pieces they prefer their merchandise to be in.",nil,"Monster"},
+					{"Operator, our telemetry data suggests there are two more rooms like this somewhere in the facility. If we can spare the time, it would be a shame to leave these valuables without stopping by.",nil,"Central"},
+					{"Do try not to break them. My clients are incredibly particular about the number of pieces they prefer their merchandise to be in.",nil,"Monster"},
 					},
 					STORAGE_SPOTTED_2 = {
-					{"You found the second storage room. Get to work.",nil,"Central"},
-					{"Just remember: the more you steal, the more I'll make it worth your while.",nil,"Monster"},
+					{"You've found the second storage room. Get to work.",nil,"Central"},
+					{"Remember: the more you steal, the more I'll make it worth your while.",nil,"Monster"},
 					{"We are not your delivery service. Operator, take only what our team can safely carry out.",nil,"Central"}
 					},
 					STORAGE_SPOTTED_3 = {
-					{"There it is! The last room. Get all of that back on board with you, and I promise you, you will be swimming in credits. Maybe if you leave some by the exit and make two trips-",nil,"Monster"},
-					{"That's enough. It is your choice, Operator. Make sure it's not one we come to regret.",nil,"Central"},
+					{"There it is! The last room. Get all of that back on board with you, and I promise you, you will be swimming in credits. Maybe if you make two trips-",nil,"Monster"},
+					{"That is quite enough. It is your choice, Operator. Make sure it's not one we come to regret.",nil,"Central"},
 					},
 					CENTRAL_LOCKER_ROBBED = {
 					{"Be careful, Operator. The locker's internal sensors triggered a daemon the moment you took that gear. Perhaps their security is not as shoddy as we thought.",nil,"Central"},
@@ -1483,7 +1483,7 @@ return {
 				
 				LUXURY_NANOFAB = {
 					LOOTED_KEY = {
-						{"Operator, your agent just looted some kind of special access key. Keep an eye out for the matching Nanofab - we may have ourselves an opportunity here.",nil,"Central"},
+						{"Operator, your agent just procured some kind of special access key. Keep an eye out for the matching Nanofab - we may have ourselves an opportunity here.",nil,"Central"},
 					},
 					LOOTED_KEY_SAWNANOFAB = {
 						{"That card you just stole must be the one we've been looking for. Get back to that nanofab and see what's for sale.",nil,"Central"},
@@ -1509,7 +1509,8 @@ return {
 						{"No response from IT. We know they're on shift today - perhaps you should double check the pockets of any guards you've already taken out.",nil,"Central"},					
 					},		
 					UNLOCKED_NANOFAB = {
-						{"Good job, you've unlocked the nanofab. This model shuts down for recalibration after printing a single item, so choose wisely, Operator.",nil,"Central"},					
+						{"Good job, you've unlocked the nanofab. This model shuts down for recalibration after printing a single item, so choose wisely, Operator.",nil,"Central"},
+						{"Urgh, shopping under time pressure. Better you than me.", nil, "Monster"},
 					},
 					BOUGHT_ITEM = {
 						{"A spot of precision shopping can go a long way. Let's hope this little detour will prove itself worth the hassle.",nil,"Central"},

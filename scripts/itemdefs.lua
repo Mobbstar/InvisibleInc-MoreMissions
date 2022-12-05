@@ -116,7 +116,23 @@ local tool_templates =
 		-- },
     	-- value = 1000,
 	-- },
-
+	
+	-- copy of item_npc_smg_drone with fixed shoot sound
+	MM_item_npc_smg_android = util.extend( commondefs.npc_weapon_template )
+	{
+		name = STRINGS.ITEMS.SMG,
+		desc = STRINGS.ITEMS.SMG_TOOLTIP,
+		flavor = STRINGS.ITEMS.SMG_FLAVOR,
+		icon = "itemrigs/FloorProp_SMG.png",		
+		--profile_icon = "gui/items/item_smg-56.png",
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_gun_SMG_small.png",	
+		profile_icon_100 = "gui/icons/item_icons/icon-item_gun_SMG.png",	
+		equipped_icon = "gui/items/equipped_smg.png",
+		traits = { weaponType="smg", baseDamage = 4,  armorPiercing = 2},
+		sounds = { reload="SpySociety/Weapons/LowBore/reload_smg", use="SpySociety/Actions/item_pickup", shoot="SpySociety/Weapons/LowBore/shoot_handgun"},
+		weapon_anim = "kanim_light_smg",
+		agent_anim = "anims_2h",
+	},
 	-- for Distress Call
 	MM_item_tazer_old = util.extend(commondefs.melee_template)
 	{
@@ -460,7 +476,7 @@ local tool_templates =
 		kanim = "kanim_stickycam",
 		abilities ={"carryable" , "throw","recharge"},
 		sounds = {activate="SpySociety/Grenades/stickycam_deploy", bounce="SpySociety/Grenades/bounce", cry_baby="SpySociety_DLC001/Actions/crybaby_activate"},
-		traits = { MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, throwUnit = "MM_techexpo_crybaby_throwUnit", usesLeft = 5,range = 15,  disposable = false},
+		traits = { MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, throwUnit = "MM_techexpo_crybaby_throwUnit", usesLeft = 5,range = 15,  disposable = false, targeting_ignoreLOS=true, removeAfter=true},
 		value = 300,
 		locator=true,
 		createUpgradeParams = function( self, unit )
@@ -488,7 +504,7 @@ local tool_templates =
 		},
 		abilities = {"throw"},
 		sounds = {activate="SpySociety/Grenades/stickycam_deploy", bounce="SpySociety/Grenades/bounce", cry_baby="SpySociety_DLC001/Actions/crybaby_activate"},
-		traits = { cryBaby=true, range=15, agent_filter=true,},
+		traits = { cryBaby=true, range=15, agent_filter=true, targeting_ignoreLOS = true, removeAfter=true},
 		value = 300,
 		locator=true,
 	},

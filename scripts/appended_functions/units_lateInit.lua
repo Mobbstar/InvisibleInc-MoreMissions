@@ -34,10 +34,10 @@ end
 -- for clearing mainframe witnesses
 local processEMP_old = simunit.processEMP
 simunit.processEMP = function( self, bootTime, noEmpFX, ... )
-	processEMP_old( self, bootTime, noEmpFX, ... )
-	if self:getTraits().witness and self:getTraits().mainframe_item then
+	processEMP_old( self, bootTime, noEmpFX, ... ) 
+	if self:getTraits().witness and self:getTraits().mainframe_item and (self:getTraits().isDrone or self:getTraits().mainframe_camera) then
 		self:getTraits().witness = nil
-		sim:triggerEvent("MM_processed_EMP_on_witness")
+		self:getSim():triggerEvent("MM_processed_EMP_on_witness")
 		local x0, y0 = self:getLocation()
 		if x0 and y0 then
 			self._sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.WITNESS_CLEARED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
