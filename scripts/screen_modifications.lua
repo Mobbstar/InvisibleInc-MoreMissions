@@ -68,6 +68,18 @@ local modifications = {
 		}
 	},
 }
+if SCRIPT_PATHS.qedctrl then -- Controller Bindings mod support.
+	local sutil = include(SCRIPT_PATHS.qedctrl.."/screen_util")
+
+	table.insert(modifications,
+	{
+		"modal-execterminals.lua",
+		{ "properties", "ctrlProperties", "layouts", 1 },
+		{
+			h = 3,
+		},
+	})
+end
 
 
 return modifications
