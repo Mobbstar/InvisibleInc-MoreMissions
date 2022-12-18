@@ -315,7 +315,9 @@ local function startAgentEscape( script, sim, mission )
 		newGuard:setPlayerOwner( sim:getNPC() )
 		newGuard:setPather(sim:getNPC().pather)
 		sim:warpUnit( newGuard, unit_cell )
+		newGuard:getTraits().heartMonitor = nil
 		newGuard:setKO( sim, 3 )
+		newGuard:getTraits().heartMonitor = "enabled"
 		local item_passcard = simfactory.createUnit( unitdefs.lookupTemplate( "passcard" ), sim )  --this is less effort than fiddling with spyface to make sure the door to that room can never be locked...
 		sim:spawnUnit( item_passcard )
 		newGuard:addChild( item_passcard )
