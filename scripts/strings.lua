@@ -126,6 +126,7 @@ return {
 		NANOFAB_KEY_FLAVOR = "Luxury Pass Members get exclusive deals on thousands of items. Get free two-day delivery and save up to 80% on prescriptions. Your unique coupon code: SINGLEORIGINCOFFEE74",
 		DOOR_DEVICE = "BIOLOCK DOOR",
 		DOOR_DEVICE_DESC = "Can be unlocked by VIP or Bodyguard.",
+		WORKSHOP_GRAFTER = "Cool Name",
 		
 		
 	},
