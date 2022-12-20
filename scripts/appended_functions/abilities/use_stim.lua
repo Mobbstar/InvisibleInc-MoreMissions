@@ -16,4 +16,8 @@ use_stim.executeAbility = function( self, sim, unit, userUnit, target )
 	if unit:getTraits().impair_agent_AP and targetUnit:getTraits().mpMax then
 		targetUnit:getTraits().mpMax = math.max(targetUnit:getTraits().mpMax - unit:getTraits().impair_agent_AP, 4)
 	end
+	if unit:getTraits().armorPiercingBuff then
+		local armorBuff = unit:getTraits().armorPiercingBuff
+		targetUnit:getTraits().genericPiercing = (targetUnit:getTraits().genericPiercing or 0) + armorBuff 	
+	end
 end

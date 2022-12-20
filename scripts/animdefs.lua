@@ -199,7 +199,18 @@ local animdefs =
 		layer = Layer.Decor,
 		boundType = BoundType.bound_1x1_tall_med,
 		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
-	},		
+	},
+
+	kanim_MM_techsafe_3 =
+	{
+		build = "data/anims/props/MM_techsafe3.abld",
+		anims = { "data/anims/Unique_Vault/vault_1x1_podium1.adef" },
+		symbol = "character",		
+		scale = 0.25,
+		layer = Layer.Decor,
+		boundType = BoundType.bound_1x1_tall_med,
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
+	},	
 
 	kanim_MM_prototype_drone =
 	{
@@ -837,6 +848,17 @@ local animdefs =
 		},
 
 	},
+	
+	kanim_MM_workshop_grafter =
+	{
+		build = "data/anims/props/MM_workshop_augmenter.abld",
+		anims = { "data/anims/Unique_cybernetics/cybernetics_1x1_augmenter.adef" },
+		symbol = "character",		
+		scale = 0.25,
+		layer = Layer.Decor,
+		boundType = BoundType.bound_1x1_med_big,
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
+	},	
 }
 
 return animdefs

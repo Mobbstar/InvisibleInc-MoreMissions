@@ -661,6 +661,7 @@ function fixNoPatrolFacing( sim )
 end
 
 function pregeneratePrefabs( cxt, tagSet )
+	cxt.params.side_mission = "MM_workshop" -- DEBUG
 	if cxt.params.side_mission then
 		if cxt.params.side_mission == "MM_w93_storageroom" then
 			table.insert( tagSet, { "storageRoom2" } )
@@ -668,6 +669,8 @@ function pregeneratePrefabs( cxt, tagSet )
 			table.insert( tagSet, { "storageRoom3" } )
 		elseif cxt.params.side_mission == "MM_luxuryNanofab" then
 			table.insert( tagSet, { "luxuryNanofab" } )
+		elseif cxt.params.side_mission == "MM_workshop" then
+			table.insert( tagSet, {"workshopRoom"} )
 		end
 	end
 end
@@ -698,6 +701,8 @@ function init( scriptMgr, sim )
 			scriptMgr:addHook( "KoBoss", KoBoss )
 			scriptMgr:addHook( "KillBoss", KillBoss )
 			scriptMgr:addHook( "escapeBoss", escapeBoss )
+		elseif params.side_mission == "MM_workshop" then
+			-- stuff
 		end
 		-- VANILLA SIDE MISSION REBALANCES
 		if params.difficultyOptions.MM_sidemission_rebalance then

@@ -283,7 +283,21 @@ local prop_templates =
 		abilities = { "stealCredits" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
 		-- children = {"item_valuable_tech"},
-	},		
+	},
+
+	MM_vault_safe_nonweapon_3 = 
+	{ 
+		type = "simunit", 
+		name = STRINGS.MOREMISSIONS.PROPS.ITEMLOCKER,
+		onWorldTooltip = onSafeTooltip,
+		kanim = "kanim_MM_techsafe_3", 
+		rig ="corerig",
+		tags = {"MM_topGear"},
+		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2, MM_loot = "item"},
+		abilities = { "stealCredits" },
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
+		-- children = {"item_valuable_tech"},
+	},	
 	
 	MM_cell_door = 
 	{
@@ -547,6 +561,20 @@ local prop_templates =
 		traits = {disposable=true, luxuryNanofabKey = true}, 
 		value = 300, --keep?
 	},
+	
+	MM_workshop_grafter = 
+	{ 
+		type = "simunit", 
+		name =  STRINGS.MOREMISSIONS.PROPS.WORKSHOP_GRAFTER,
+		onWorldTooltip = onDeviceTooltip,
+		kanim = "kanim_MM_workshop_grafter", 
+		rig ="corerig",
+
+		traits = util.extend( MAINFRAME_TRAITS ) {	moveToDevice=true, cover = true, impass = {0,0}, sightable = true, mainframe_no_recapture = true, MM_modifyItem=true },
+
+		abilities = { "useAugmentMachine" },
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", }
+	},	
 	
 }
 

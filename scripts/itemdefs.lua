@@ -382,7 +382,7 @@ local tool_templates =
 		--profile_icon = "gui/items/icon-stims.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_stim_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_stim.png",
-		traits = { mpRestored = 12, impair_agent_AP = 3, unlimitedAttacks = true, usesLeft = 5, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 4, },
+		traits = { mpRestored = 12, impair_agent_AP = 3, unlimitedAttacks = true, usesLeft = 5, MM_tech_expo_nonweapon = true, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 4, armorPiercingBuff = 1, },
 		requirements = { stealth = 3 },
 		abilities = { "carryable","use_stim","recharge" },
 		value = 1000,
