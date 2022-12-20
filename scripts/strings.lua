@@ -278,7 +278,7 @@ return {
 		ECON_CHIP_TOOLTIP = "Collects credits from consoles instead of PWR. 100 credit per PWR point. Limited uses.",
 
 		STIM = "Experimental Stim",
-		STIM_TOOLTIP = "Grants unlimited attacks for one turn and restores 12 AP, but reduces max AP by 3 for the rest of the mission. Limited uses.",
+		STIM_TOOLTIP = "Grants unlimited attacks and +1 armour piercing for one turn. Restores 12 AP, but reduces max AP by 3 for the rest of the mission. Limited uses.",
 		STIM_FLAVOR = "This experimental chemical cocktail has proven reasonably sublethal in most rats.\n\nYou'll probably be fine.",
 
 		SHOCK_TRAP = "Experimental Shock Trap",
