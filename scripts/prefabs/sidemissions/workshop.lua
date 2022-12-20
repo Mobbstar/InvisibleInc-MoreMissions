@@ -595,6 +595,18 @@ local walls =
         wallIndex = [[default_wall]],
         dir = 0,
     },
+    {
+        x = 6,
+        y = 5,
+        wallIndex = [[default_wall]],
+        dir = 4,
+    },
+    {
+        x = 5,
+        y = 5,
+        wallIndex = [[default_wall]],
+        dir = 0,
+    },
 }
 local units =
 {

@@ -983,6 +983,15 @@
         <WallIndex>1</WallIndex>
         <Flags>1</Flags>
       </MapWall>
+      <MapWall>
+        <Coord>
+          <x>5</x>
+          <y>4</y>
+          <z>0</z>
+        </Coord>
+        <WallIndex>1</WallIndex>
+        <Flags>1</Flags>
+      </MapWall>
     </Walls>
     <Units>
       <MapUnit>
