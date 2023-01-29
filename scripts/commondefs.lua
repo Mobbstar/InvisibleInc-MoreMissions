@@ -12,8 +12,15 @@ local function onMainframeTooltip( tooltip, unit )
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_LOOT_CONTENT, "\""..tostring(unit:getTraits().MM_tech_expo_contents).."\"",
 		"gui/icons/item_icons/items_icon_small/icon_plaque.png" )
 	end
-	if unit:hasTag("MM_topGear") and unit:getSim() and not unit:getSim().MM_security_disabled then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_FAILSAFE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_FAILSAFE_DESC, "gui/icons/item_icons/items_icon_small/icon-item_personal_shield_small.png")
+	if unit:hasTag("MM_topGear") and unit:getSim() then
+		if not unit:getSim().MM_security_disabled then
+			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_FAILSAFE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_FAILSAFE_DESC, "gui/icons/item_icons/items_icon_small/icon-item_personal_shield_small.png")
+		else
+			tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_FAILSAFE_OFF, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_FAILSAFE_OFF_DESC, "gui/icons/item_icons/items_icon_small/icon-item_safecracker_small.png")
+		end
+	end
+	if unit:getTraits().MM_texpo_switch and not unit:getTraits().unlocked then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_SWITCH, STRINGS.MOREMISSIONS.UI.TOOLTIPS.WEAPONS_EXPO_SWITCH_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action_unlock_small.png")
 	end
 	if unit:getTraits().luxuryNanofab then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.FANCYFAB_WARNING, STRINGS.MOREMISSIONS.UI.TOOLTIPS.FANCYFAB_WARNING_DESC, "gui/icons/skills_icons/skills_icon_small/icon-item_technician_small.png")
