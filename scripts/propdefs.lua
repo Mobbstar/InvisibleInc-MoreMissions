@@ -205,6 +205,7 @@ local prop_templates =
 			impass = {0,0}, 
 			sightable=true,
 			multiLockSwitch = true, 
+			MM_texpo_switch = true,
 			recap_icon = "access_switch",
 			mainframe_no_daemon_spawn = false,
 			mainframe_always_daemon_spawn = true, --we don't want it to be too easy :^)	
