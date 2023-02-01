@@ -109,6 +109,15 @@ simunit.setInvisible = function( self, state, duration, ... )
 	return simunit_setInvisible_old( self, state, duration, ... )
 end
 
+-- for Texpo
+local simunit_increaseIce_old = simunit.increaseIce
+simunit.increaseIce = function( self, sim, iceInc, ... )
+	if sim.MM_security_disabled and self:hasTag("MM_topGear") and (iceInc > 0) then
+		return
+	end
+	simunit_increaseIce_old( self, sim, iceInc, ... )
+end
+
 -- for Tech Expo androids visual glitch
 local simunit_takeControl_old = simunit.takeControl
 simunit.takeControl = function( self, player, ... )
