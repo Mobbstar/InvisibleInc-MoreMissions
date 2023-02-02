@@ -909,7 +909,8 @@ return {
 			INFRARED_SENSORS = "INFRARED SENSORS",
 			INFRARED_SENSORS_DESC = "Notices agent movement, even behind cover.",
 			
-			
+			ITEM_MODDED = "Modified",
+			ITEM_MODDED_DESC = "This item has been modified: {1}",
 		},
 		
 		REFIT_DRONE_NAMES = {
@@ -1521,6 +1522,24 @@ return {
 					},
 					BOUGHT_ITEM = {
 						{"A spot of precision shopping can go a long way. Let's hope this little detour will prove itself worth the hassle.",nil,"Central"},
+					},
+				},
+				
+				WORKSHOP =
+				{
+					SEE_CONSOLE =
+					{
+						{"Placeholder text for Workshop 1", nil, "Central"},
+					},
+					
+					SEE_WORKSHOP =
+					{
+						{"Placeholder text for Workshop 2", nil, "Central"},
+					},
+					
+					ITEM_MODIFIED =
+					{
+						{"Placeholder text for Workshop 3", nil, "Central"},
 					},
 				},
 			},

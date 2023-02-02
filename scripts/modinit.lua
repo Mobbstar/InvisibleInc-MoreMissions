@@ -79,6 +79,8 @@ local function init( modApi )
 
 	-- SIDE MISSIONS
 	include( scriptPath .. "/appended_functions/abilities/showItemStore" )
+	include( scriptPath .. "/appended_functions/unitdefs" ) --make item upgrades persist
+	include( scriptPath.."/items_panel" )--used to make the workshop stashable
 
 	-- MOLE INSERTION
 	include( scriptPath .. "/appended_functions/prefabs" )
@@ -305,6 +307,9 @@ local function load( modApi, options, params )
 	modApi:addAbilityDef( "MM_summonGuard", scriptPath .. "/abilities/MM_summonGuard" )
 	modApi:addAbilityDef( "MM_surveyor", scriptPath .. "/abilities/MM_surveyor" )
 	modApi:addAbilityDef( "MM_ce_ultrasonic_echolocation_passive", scriptPath .. "/abilities/MM_ce_ultrasonic_echolocation_passive" )
+	modApi:addAbilityDef( "MM_workshop_reroute_pwr", scriptPath .. "/abilities/MM_workshop_reroute_pwr" ) --!!!this also appends vanilla jackin
+	modApi:addAbilityDef( "MM_modify_item", scriptPath .. "/abilities/MM_modify_item" )
+	modApi:addAbilityDef( "MM_workshop_place_item", scriptPath .. "/abilities/MM_workshop_place_item" )
 
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
@@ -458,6 +463,33 @@ local function lateLoad( modApi, options, params, mod_options )
 	local serverdefs = include( "modules/serverdefs" )
 	for name, situation in pairs( serverdefs.SITUATIONS ) do
 		util.extend( serverdefs_mod.SITUATION_CLUSTERING[name] or serverdefs_mod.SITUATION_CLUSTERING.default ) ( situation )
+	end
+	
+	--Make workshop upgrades persist
+	local itemdefs = include( "sim/unitdefs/itemdefs" )
+	for _, item in pairs( itemdefs ) do
+		if not item.MM_append then
+			local baseCreateUpgradeParams = item.createUpgradeParams
+			
+			item.createUpgradeParams = function( self, unit )
+				local params = { traits = {} }
+				if baseCreateUpgradeParams then
+					local baseParams = baseCreateUpgradeParams( self, unit )
+					params = baseParams
+				end
+				params.traits.MM_mod_cooldownMax = unit:getTraits().MM_mod_cooldownMax
+				params.traits.MM_mod_chargesMax = unit:getTraits().MM_mod_chargesMax
+				params.traits.MM_mod_maxAmmo = unit:getTraits().MM_mod_maxAmmo
+				params.traits.MM_mod_pwrCost = unit:getTraits().MM_mod_pwrCost
+				params.traits.MM_mod_requirements = unit:getTraits().MM_mod_requirements
+				params.traits.MM_mod_armorPiercing = unit:getTraits().MM_mod_armorPiercing
+				params.traits.MM_modded_item_trait = unit:getTraits().MM_modded_item_trait
+				params.traits.is_modified = unit:getTraits().is_modified
+
+				return params
+			end
+			item.MM_append = true
+		end
 	end
 end
 
