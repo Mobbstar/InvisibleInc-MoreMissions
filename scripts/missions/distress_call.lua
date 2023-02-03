@@ -128,7 +128,7 @@ local function make_gear( sim, newUnit, agentTemplate )
 
 		local items = newUnit:getChildren() or {}
 			for i = #items, 1, -1 do
-				if not (items[i]:getTraits().installed and items[i]:getTraits().installed == true) then
+				if not items[i]:getTraits().installed then
 					-- table.remove(items,i) --this will empty their inventory even if they would normally have it at detention centers
 					if items[i] then
 						if newUnit:getTraits().MM_captureTime then
@@ -148,7 +148,7 @@ local function make_gear( sim, newUnit, agentTemplate )
 			if agentTemplate and not newUnit:getTraits().MM_captureTime then
 				for k,v in pairs(agentTemplate.upgrades) do
 					local itemdef = unitdefs.lookupTemplate( v )
-					if itemdef.traits.installed ~= true then
+					if not itemdef.traits.installed then
 						table.insert(new_items, v)
 					end
 				end
