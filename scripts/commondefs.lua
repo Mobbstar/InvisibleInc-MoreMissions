@@ -61,6 +61,9 @@ local function onItemTooltip(tooltip, unit)
 		local mainframeDef = abilitydefs.lookupAbility(unit:getTraits().MM_installedProgram)
 		tooltip:addAbility( util.sformat(STRINGS.MOREMISSIONS.UI.TOOLTIPS.USB_PROGRAM_STORED,mainframeDef.name), mainframeDef.desc, mainframeDef.icon )
 	end
+	if unit and unit:getTraits().MM_modded_item_trait then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.ITEM_MODDED, util.sformat( STRINGS.MOREMISSIONS.UI.TOOLTIPS.ITEM_MODDED_DESC, unit:getTraits().MM_modded_item_trait ), "gui/icons/skills_icons/skills_icon_small/icon-item_technician_small.png" )
+	end
 end
 
 local function onAgentTooltip(tooltip, unit)

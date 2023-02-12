@@ -126,9 +126,7 @@ return {
 		NANOFAB_KEY_FLAVOR = "Luxury Pass Members get exclusive deals on thousands of items. Get free two-day delivery and save up to 80% on prescriptions. Your unique coupon code: SINGLEORIGINCOFFEE74",
 		DOOR_DEVICE = "BIOLOCK DOOR",
 		DOOR_DEVICE_DESC = "Can be unlocked by VIP or Bodyguard.",
-		WORKSHOP_GRAFTER = "Cool Name",
-		
-		
+		WORKSHOP_GRAFTER = "Workshop",
 	},
 
 	GUARDS =
@@ -395,7 +393,27 @@ return {
 		ACTIVATE_NANOFAB_CONSOLE_DESC = "Summon the guard entrusted with the Nanofab Key.",
 		
 		UNLOCK_LUXURY_NANOFAB = "UNLOCK NANOFAB",
-
+		
+		REROUTE_PWR = "Reroute PWR ({1} PWR)",
+		REROUTE_PWR_DESC = "Reroutes the PWR to the workshop instead of adding it to Incognita.",
+		
+		MODIFY_ITEM = "Modify Item",
+		MODIFY_ITEM_DESC = "Upgrade the item stashed in the workshop.",
+		MOD_ITEM_DIALOG_TITLE = "Item Workshop",
+		MOD_ITEM_DIALOG_TXT = "Upgrade an property of the following item: {1}",
+		MOD_ITEM_DIALOG_UNMODABLE = "\n\nCan't modify this item.",
+		MOD_ITEM_DIALOG_PWR = "\n\nNot enough PWR in the workshop to modify this item. {1} PWR is needed.",
+		UPGRADE_OPTIONS =
+		{
+			CANCEL = "Cancel",
+			COOLDOWN = "-1 Cooldown",
+			CHARGE = "+1 Max Charge",
+			AMMO = "+1 Max Ammo",
+			POWER = "-1 PWR Cost",
+			SKILL_REQ = "Remove Skill Requirements",
+			ARMOR_PIERCE = "+1 Armor Piercing",
+			DAMAGE = "+1 Damage",
+		},
 	},
 
 	-- ACTIONS =
@@ -637,6 +655,11 @@ return {
 				FIND_KEY = "Find Luxury Nanofab key",
 				FIND_NANOFAB = "Find Luxury Nanofab",
 				UNLOCK_NANOFAB = "Unlock Luxury Nanofab",
+			},
+			WORKSHOP =
+			{
+				OBJECTIVE_1 = "Reroute PWR to the workshop: {1} PWR",
+				OBJECTIVE_2 = "Use the workshop to upgrade an item",
 			},
 		},
 	},
@@ -909,7 +932,8 @@ return {
 			INFRARED_SENSORS = "INFRARED SENSORS",
 			INFRARED_SENSORS_DESC = "Notices agent movement, even behind cover.",
 			
-			
+			ITEM_MODDED = "Modified",
+			ITEM_MODDED_DESC = "This item has been modified: {1}",
 		},
 		
 		REFIT_DRONE_NAMES = {
@@ -1521,6 +1545,24 @@ return {
 					},
 					BOUGHT_ITEM = {
 						{"A spot of precision shopping can go a long way. Let's hope this little detour will prove itself worth the hassle.",nil,"Central"},
+					},
+				},
+				
+				WORKSHOP =
+				{
+					SEE_CONSOLE =
+					{
+						{"Placeholder text for Workshop 1", nil, "Central"},
+					},
+					
+					SEE_WORKSHOP =
+					{
+						{"Placeholder text for Workshop 2", nil, "Central"},
+					},
+					
+					ITEM_MODIFIED =
+					{
+						{"Placeholder text for Workshop 3", nil, "Central"},
 					},
 				},
 			},
