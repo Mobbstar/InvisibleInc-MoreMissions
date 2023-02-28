@@ -278,11 +278,12 @@ local function load( modApi, options, params )
 		modApi:addSideMissions(scriptPath, { "MM_w93_storageroom" } )
 		modApi:addSideMissions(scriptPath, { "MM_w93_personelHijack" } )
 		modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } )
-		modApi:addSideMissions(scriptPath, { "MM_workshop" } )
+		--modApi:addSideMissions(scriptPath, { "MM_workshop" } )
 		-- for vanilla side missions
 		include( scriptPath .. "/appended_functions/abilities/transformer_terminal")
 
 		-- (easy debugging of sidemissions: uncomment to clear the list and add just the sidemission to be tested)
+		-- even easier debugging of sidemissions: set cxt.params.side_mission = "???" in escape_mission.pregeneratePrefabs -H
 		--local worldgen = include( "sim/worldgen" )
 		--util.tclear(worldgen.SIDEMISSIONS)
 		--modApi:addSideMissions(scriptPath, { "???" } )
