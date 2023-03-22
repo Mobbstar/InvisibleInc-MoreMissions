@@ -20,6 +20,7 @@ local UPGRADE_OPTIONS =
 	SKILL_REQ = STRINGS.MOREMISSIONS.ABILITIES.UPGRADE_OPTIONS.SKILL_REQ,
 	ARMOR_PIERCE = STRINGS.MOREMISSIONS.ABILITIES.UPGRADE_OPTIONS.ARMOR_PIERCE,
 	DAMAGE = STRINGS.MOREMISSIONS.ABILITIES.UPGRADE_OPTIONS.DAMAGE,
+	USES = STRINGS.MOREMISSIONS.ABILITIES.UPGRADE_OPTIONS.USES,
 }
 
 local function showDialog( sim, headerTxt, bodyTxt, options, t, result )
@@ -121,6 +122,9 @@ local MM_modify_item =
 				if (itemUnit:getTraits().damage and itemUnit:getTraits().damage > 0) or (itemUnit:getTraits().baseDamage and itemUnit:getTraits().baseDamage > 0) then
 					table.insert(upgrade_option, UPGRADE_OPTIONS.DAMAGE)
 				end
+				if itemUnit:getTraits().usesLeft and itemUnit:getTraits().usesLeft > 0 then
+					table.insert(upgrade_option, UPGRADE_OPTIONS.USES)
+				end
 			end
 			
 			if #upgrade_option > 0 then
@@ -177,6 +181,12 @@ local MM_modify_item =
 						itemUnit:getTraits().baseDamage = itemUnit:getTraits().baseDamage + 1
 					end
 					itemUnit:getTraits().MM_modded_item_trait = UPGRADE_OPTIONS.DAMAGE
+					itemUnit:getTraits().is_modified = true
+					modification_done = true
+				elseif upgrade_option[option] == UPGRADE_OPTIONS.USES then
+					local item_template = unitdefs.lookupTemplate( itemUnit:getUnitData().id )
+					itemUnit:getTraits().usesLeft = (itemUnit:getTraits().usesLeft or 0) + ( (item_template.traits and item_template.traits.usesLeft) or 3)
+					itemUnit:getTraits().MM_modded_item_trait = UPGRADE_OPTIONS.USES
 					itemUnit:getTraits().is_modified = true
 					modification_done = true
 				end
