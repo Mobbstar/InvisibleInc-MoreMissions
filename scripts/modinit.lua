@@ -478,6 +478,9 @@ local function lateLoad( modApi, options, params, mod_options )
 					local baseParams = baseCreateUpgradeParams( self, unit )
 					params = baseParams
 				end
+				if not params.traits then
+					params.traits = {}
+				end
 				params.traits.MM_mod_cooldownMax = unit:getTraits().MM_mod_cooldownMax
 				params.traits.MM_mod_chargesMax = unit:getTraits().MM_mod_chargesMax
 				params.traits.MM_mod_maxAmmo = unit:getTraits().MM_mod_maxAmmo
