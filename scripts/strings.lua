@@ -413,6 +413,7 @@ return {
 			SKILL_REQ = "Remove Skill Requirements",
 			ARMOR_PIERCE = "+1 Armor Piercing",
 			DAMAGE = "+1 Damage",
+			USES = "More uses",
 		},
 	},
 

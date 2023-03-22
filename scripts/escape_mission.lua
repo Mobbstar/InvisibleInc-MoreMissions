@@ -670,16 +670,29 @@ local ITEM_MODDED =
 		return true
 	end,
 }
+local AGENT_CONNECTION =
+{
+	trigger = "agentConnectionDone", --custom 'hook' in makeAgentConnection append in modinit
+	fn = function( sim, evData )
+		return true
+	end,
+}
 
 local function startWorkshopMission( script, sim )
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.WORKSHOP.SEE_CONSOLE, type="newOperatorMessage" } ) --blurb Make the sidemission known to the player and tell them, that they can reroute power to the workshop from the console instead of adding it to incognita
 	sim.MM_workshop_pwr = 0
 	sim:addObjective( util.sformat( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.WORKSHOP.OBJECTIVE_1, sim.MM_workshop_pwr ), "reroute_workshop_pwr" )
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.WORKSHOP.OBJECTIVE_2, "use_workshop" )
+	
+	for _, simunit in pairs( sim:getAllUnits() ) do
+		if simunit:getTraits().mainframe_console then
+			simunit:giveAbility( "MM_workshop_reroute_pwr" )
+		end
+	end
 end
 
 local function preSeeConsole( script, sim )
-	script:waitFor( mission_util.UI_INITIALIZED )
+	script:waitFor( AGENT_CONNECTION )
 	startWorkshopMission( script, sim )
 end
 
@@ -711,6 +724,7 @@ local function workshopUsed( script, sim )
 	script:removeHook( addWorkshopPwr )
 	sim:removeObjective( "reroute_workshop_pwr" )
 	sim:removeObjective( "use_workshop" )
+	sim.MM_workshop_complete = true
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.WORKSHOP.ITEM_MODIFIED, type="newOperatorMessage" } )
 end
 
@@ -725,6 +739,7 @@ function fixNoPatrolFacing( sim )
 end
 
 function pregeneratePrefabs( cxt, tagSet )
+	cxt.params.side_mission = "MM_workshop"
 	if cxt.params.side_mission then
 		if cxt.params.side_mission == "MM_w93_storageroom" then
 			table.insert( tagSet, { "storageRoom2" } )

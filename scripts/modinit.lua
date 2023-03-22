@@ -278,7 +278,7 @@ local function load( modApi, options, params )
 		modApi:addSideMissions(scriptPath, { "MM_w93_storageroom" } )
 		modApi:addSideMissions(scriptPath, { "MM_w93_personelHijack" } )
 		modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } )
-		--modApi:addSideMissions(scriptPath, { "MM_workshop" } )
+		modApi:addSideMissions(scriptPath, { "MM_workshop" } )
 		-- for vanilla side missions
 		include( scriptPath .. "/appended_functions/abilities/transformer_terminal")
 
@@ -308,7 +308,7 @@ local function load( modApi, options, params )
 	modApi:addAbilityDef( "MM_summonGuard", scriptPath .. "/abilities/MM_summonGuard" )
 	modApi:addAbilityDef( "MM_surveyor", scriptPath .. "/abilities/MM_surveyor" )
 	modApi:addAbilityDef( "MM_ce_ultrasonic_echolocation_passive", scriptPath .. "/abilities/MM_ce_ultrasonic_echolocation_passive" )
-	modApi:addAbilityDef( "MM_workshop_reroute_pwr", scriptPath .. "/abilities/MM_workshop_reroute_pwr" ) --!!!this also appends vanilla jackin
+	modApi:addAbilityDef( "MM_workshop_reroute_pwr", scriptPath .. "/abilities/MM_workshop_reroute_pwr" )
 	modApi:addAbilityDef( "MM_modify_item", scriptPath .. "/abilities/MM_modify_item" )
 	modApi:addAbilityDef( "MM_workshop_place_item", scriptPath .. "/abilities/MM_workshop_place_item" )
 
