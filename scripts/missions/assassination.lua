@@ -361,6 +361,10 @@ local function safeFindUnitByTag(sim, tag)
 	end
 end
 
+local function tryFindRealCeo(sim)
+	return safeFindUnitByTag(sim, "assassination_real") or safeFindUnitByTag(sim, "assassination")
+end
+
 -- Copied from IdleSituation:generateStationaryPath
 local function calculateBestFacing( sim, cell, unit )
     -- Look for stationary patrollers and face them in a direction that allows maximal visibility.
@@ -393,12 +397,7 @@ local function spawnCeoWeapon( sim )
 end
 
 local function initCeoTraits( sim )
-	local ceo_real_tag = "assassination"
-	local fake_ceo = safeFindUnitByTag( sim, "assassination_fake" )
-	if fake_ceo then
-		ceo_real_tag = "assassination_real"
-	end
-	local ceo = mission_util.findUnitByTag( sim, ceo_real_tag )
+	local ceo = tryFindRealCeo(sim)
 
 	-- CEO is allowed to walk in and out of the saferoom
 	if ceo:getTraits().npcPassiveKeybits then
@@ -436,23 +435,26 @@ local function initCeoTraits( sim )
 end
 
 -- Alert the CEO
-local function doAlertCeo( sim, fromBodyguard, mission )
-	local ceofake = safeFindUnitByTag( sim, "assassination_fake" )
-	local ceoreal = safeFindUnitByTag( sim, "assassination_real" )
-	local ceos = { ceofake, ceoreal }
-	for i, ceo in pairs(ceos) do
-		if ceo and ceo:isValid() and not ceo:isDown() and not ceo:getTraits().iscorpse and not ceo:isAlerted() then
-			ceo:getTraits().MM_alertlink = nil --for tooltip
-			if fromBodyguard then
-				-- Don't send alerts back and forth
-				ceo:getTraits().hasSentAlert = true
-			end
-			-- Senses:addInterest: Create an ephemeral interest to be forgotten later
-			local x,y = ceo:getLocation()
-			ceo:getBrain():getSenses():addInterest( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
-			sim:processReactions( ceo )
+local function doAlertCeo(sim, fromBodyguard, ceo)
+	if ceo and ceo:isValid() and not ceo:isDown() and not ceo:getTraits().iscorpse and not ceo:isAlerted() then
+		ceo:getTraits().MM_alertlink = nil --for tooltip
+		if fromBodyguard then
+			-- Don't send alerts back and forth
+			ceo:getTraits().hasSentAlert = true
 		end
+		-- Senses:addInterest: Create an ephemeral interest to be forgotten later
+		local x,y = ceo:getLocation()
+		if ceo:getBrain() then
+			ceo:getBrain():getSenses():addInterest( x, y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
+		end
+		sim:processReactions( ceo )
 	end
+end
+
+local function doAlertRealAndFakeCeos( sim, fromBodyguard, mission )
+	local ceofake = safeFindUnitByTag( sim, "assassination_fake" )
+	doAlertCeo(sim, fromBodyguard, ceofake)
+	doAlertCeo(sim, fromBodyguard, tryFindRealCeo(sim))
 	mission.revealDecoy( sim, ceofake )
 end
 
@@ -737,8 +739,8 @@ local function bodyguardAlertsCeo( script, sim, mission )
 		script:addHook( trackBodyguardDead )
 	end
 
-	local ceo = safeFindUnitByTag( sim, "assassination" )
-	if ceo:isAlerted() or not bodyguard:getTraits().MM_alertlink then  -- Done
+	local ceo = tryFindRealCeo(sim)
+	if not ceo or ceo:isAlerted() or not bodyguard:getTraits().MM_alertlink then  -- Done
 		return
 	end
 
@@ -752,7 +754,7 @@ local function bodyguardAlertsCeo( script, sim, mission )
 
 	bodyguard:getTraits().MM_alertlink = nil --for tooltip
 	local bodyguardIsAwake = not bodyguard:isDown() and not bodyguard:getTraits().iscorpse
-	doAlertCeo( sim, bodyguardIsAwake, mission )
+	doAlertRealAndFakeCeos( sim, bodyguardIsAwake, mission )
 end
 
 -- Behavior once the CEO becomes alerted
@@ -776,7 +778,7 @@ local function ceoAlerted(script, sim, mission)
 	end
 	if sim.MM_bounty_disguise_active then
 		ceo = safeFindUnitByTag(sim, "assassination_real")
-		doAlertCeo( sim, nil, mission )
+		doAlertRealAndFakeCeos( sim, nil, mission )
 	end
 	
 	-- Tell the player (using the vanilla CFO running line)
@@ -926,6 +928,8 @@ mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
 	decoyUnit:getTraits().canBeCritical = true
 	decoyUnit:getTraits().sightable = nil
 	decoyUnit:getTraits().MM_invisible_to_PC = true
+	decoyUnit:getBrain():onDespawned()
+	decoyUnit._brain = nil
 	
 	-- cosmetic stuff
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, {sound="SpySociety/Actions/holocover_deactivate", x=x0,y=y0} )
@@ -942,6 +946,7 @@ mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
 	-- implement effect of player actions on despawned original
 	newDecoy:getBrain():getSenses():addInterest( cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
 	doAlertBodyguard( sim, newDecoy, mission )
+	doAlertCeo(sim, true, tryFindRealCeo(sim))
 	sim:processReactions( newDecoy )
 	if newDecoy and stagger then
 		sim:dispatchEvent( simdefs.EV_UNIT_HIT, {unit = newDecoy, result = 0} ) --stagger FX
