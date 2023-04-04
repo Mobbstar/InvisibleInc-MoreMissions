@@ -833,13 +833,41 @@ local function despawnRedundantCameraDB(sim)
 	end
 end
 
+-- Like turnToFace, but without processReactions
+local function turnBodyguardToFace(self, x, y)
+	if self:getTraits().refreshingLOS then
+		return
+	end
+	
+	local x1, y1 = self:getLocation()
+	local facing = simquery.getDirectionFromDelta(x - x1, y - y1)
+
+	if facing >= 0 and facing < simdefs.DIR_MAX and self._facing ~= facing then
+		--self:resetAllAiming()
+		self:getTraits().turning = true
+		self._facing = facing
+		self._sim:dispatchEvent( simdefs.EV_UNIT_TURN, { unit = self, facing = facing } )
+
+		if self:isValid() and self:hasTrait("hasSight") then
+			self._sim:refreshUnitLOS( self )
+		end
+		--if self:getPlayerOwner():isNPC() then
+		--	self._sim:processReactions(self)
+		--end
+		self:getTraits().turning = nil
+	end
+end
+
 local function bodyguardShotAt( script, sim )
 	local _, guard, agent = script:waitFor( BODYGUARD_SHOT_AT )
 	if guard:isValid() and guard:getLocation() and not guard:isKO() then
 		if simquery.couldUnitSee( sim, guard, agent, true, nil ) then
-			guard:turnToFace( agent:getLocation() )
+			--guard:turnToFace( agent:getLocation() )
+			turnBodyguardToFace( guard, agent:getLocation() )
 		end
 	end
+	
+	scriptMgr:addHook( "bodyguardShotAt", bodyguardShotAt )
 end
 
 local function waitForSteal( script, sim, mission )
@@ -1059,7 +1087,6 @@ function mission:init( scriptMgr, sim )
 	scriptMgr:addHook( "UNLOCK", playerUnlocksSaferoom, nil, self )
 	scriptMgr:addHook( "BODYGUARD", bodyguardAlertsCeo, nil, self )
 	scriptMgr:addHook( "CEO", ceoAlerted, nil, self )
-	scriptMgr:addHook( "bodyguardShotAt", bodyguardShotAt )
 	scriptMgr:addHook( "bodyguardShotAt", bodyguardShotAt )
 	scriptMgr:addHook( "waitForInterest", waitForInterest )
 	scriptMgr:addHook( "waitForUnitInterest", waitForUnitInterest )
