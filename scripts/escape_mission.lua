@@ -739,7 +739,7 @@ function fixNoPatrolFacing( sim )
 end
 
 function pregeneratePrefabs( cxt, tagSet )
-	cxt.params.side_mission = "MM_workshop"
+	--cxt.params.side_mission = "MM_workshop"
 	if cxt.params.side_mission then
 		if cxt.params.side_mission == "MM_w93_storageroom" then
 			table.insert( tagSet, { "storageRoom2" } )
