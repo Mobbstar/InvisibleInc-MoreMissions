@@ -12,8 +12,8 @@ local simfactory = include( "sim/simfactory" )
 local mission_util = include("sim/missions/mission_util")
 
 --local helpers
-local 	PC_WON =
-{		
+local PC_WON =
+{
 	priority = 10,
 
 	trigger = simdefs.TRG_GAME_OVER,
@@ -33,7 +33,7 @@ local MOLE_SPAWNED =
 		return true
 	end
 }
-	
+
 
 local REFIT_DRONE_ESCAPED =
 {
@@ -107,8 +107,8 @@ local function spawnDroneFriend( script, sim )
 	end
 	
 	-- remove old drone
-	local agency = sim:getParams().agency
 	script:waitFor ( PC_WON )
+	local agency = sim:getParams().agency
 	if sim:getTags().MM_refitDroneFriendEscaped then
 		agency.MM_droneFriendSurvived = true --can be used by Additional Banter
 	end
