@@ -150,6 +150,8 @@ end
 
 --ASSASSINATION
 -- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
+
+local maxSecurity = #simdefs.SPAWN_TABLE.NORMAL or 20
 local serverdefs_createNewSituation_old = serverdefs.createNewSituation
 serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )	
 	local newSituation =  serverdefs_createNewSituation_old(campaign, gen, tags, difficulty )
@@ -173,8 +175,8 @@ serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )
 	if newSituation then
 		local corp = serverdefs.MAP_LOCATIONS[newSituation.mapLocation].corpName
 		if campaign.MM_assassination and campaign.MM_assassination[corp] then
-			-- Assassination: apply difficulty spike
-			newSituation.difficulty = newSituation.difficulty + campaign.MM_assassination[corp]
+			-- Assassination: apply difficulty spike. Do not exceed max possible security level because otherwise the game breaks.
+			newSituation.difficulty = math.min((newSituation.difficulty + campaign.MM_assassination[corp]), maxSecurity)
 		end
 	end
 
