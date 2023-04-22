@@ -269,6 +269,10 @@ return {
 		CLOAK_3_TOOLTIP = "Renders the user invisible for 1 turn. Is not disrupted by attacking. Limited uses.",
 		CLOAK_3_FLAVOR = "This fortified cloaking rig model can withstand energetic fluctuations that would collapse a regular cloak, even from firearms or neural disrupters.",
 
+		CLOAK_4 = "Capacitor Cloaking Rig",
+		CLOAK_4_TOOLTIP = "Renders the user invisible until end of player turn, or until toggled off. Cooldown increases by 1 for every tile the user moves while cloaked.",
+		CLOAK_4_FLAVOR = "Originally commissioned by a kleptomanic corporate diplomat to aid in stealing sandwiches from the refrigerators of progressively higher-ranking executives, this cloaking rig momentarily hides the user with remarkable efficiency. Excessive motion stresses its capacitors.",
+
 		BUSTER = "Experimental Buster Chip",
 		BUSTER_TOOLTIP = "Use this to manually break through 8 firewalls, destroying any installed daemon. Limited uses.",
 		BUSTER_FLAVOR = "An advanced Buster Chip model designed for taking down high-security, high-priority targets with no fuss.",
@@ -403,6 +407,7 @@ return {
 		MOD_ITEM_DIALOG_TXT = "Upgrade an property of the following item: {1}",
 		MOD_ITEM_DIALOG_UNMODABLE = "\n\nCan't modify this item.",
 		MOD_ITEM_DIALOG_PWR = "\n\nNot enough PWR in the workshop to modify this item. {1} PWR is needed.",
+		
 		UPGRADE_OPTIONS =
 		{
 			CANCEL = "Cancel",
@@ -413,8 +418,10 @@ return {
 			SKILL_REQ = "Remove Skill Requirements",
 			ARMOR_PIERCE = "+1 Armor Piercing",
 			DAMAGE = "+1 Damage",
-			USES = "More uses",
+			USES = "More Uses",
 		},
+		
+		CAPACITOR_CLOAK_INACTIVATE = "DEACTIVATE CLOAK",
 	},
 
 	-- ACTIONS =
@@ -699,11 +706,11 @@ return {
 		-- EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
 		EA_HOSTAGE = {
 			NAME= "Courier Rescue",
-			MORE_INFO = "Data couriers traffic valuable information for their clients, but are easy targets for the corps if they get caught. This courier has detailed knowledge of the corp's facilities and can provide us with more targets nearby.\n\nAs a security precaution, the exit elevator is locked until further notice, but the courier should have a backdoor sequence for it.",
+			MORE_INFO = "Data couriers traffic valuable information for their clients, but are easy targets for the corps if they get caught. This courier has detailed knowledge of the corp's facilities and can provide us with more targets nearby.",
 			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
 			INSET_TXT = "This corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we can persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
 			INSET_VO = {"moremissions/VoiceOver/Central/courierrescue/mapscreen"},
-			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.\nTelepad locked, courier has the key.",
+			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.",
 			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby.",
 			BANTER = {
 				START = {
