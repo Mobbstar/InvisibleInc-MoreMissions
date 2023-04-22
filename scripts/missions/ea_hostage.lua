@@ -585,14 +585,14 @@ local function startPhase( script, sim )
 	script:removeHook( keepExitLocked )
 	local vital_signs = calculateHostageVitalSigns(sim)
 	
-	if sim._elevatorHeldByHostage and sim._elevator_inuse == 1 then
-		sim._elevator_inuse = nil
-		sim._elevatorHeldByHostage = nil
-	else
-		local elevator_status = sim._elevator_inuse
-		sim:closeElevator( )
-		sim._elevator_inuse = elevator_status
-	end
+	-- if sim._elevatorHeldByHostage and sim._elevator_inuse == 1 then
+		-- sim._elevator_inuse = nil
+		-- sim._elevatorHeldByHostage = nil
+	-- else
+		-- local elevator_status = sim._elevator_inuse
+		-- sim:closeElevator( )
+		-- sim._elevator_inuse = elevator_status
+	-- end
 
 	script:addHook( clearHostageStatusAfterMove )
 	script:addHook( clearHostageStatusAfterTeleport )
@@ -695,18 +695,18 @@ local hostage_mission = class( mission_util.campaign_mission )
 function hostage_mission:init( scriptMgr, sim )
 	sim.TA_mission_success = false
 	escape_mission.init( self, scriptMgr, sim ) --let vanilla escape_mission.init run but follow it up with custom version of the sim:closeElevator code which doesn't set a 2 turn timer
-
-	local elevator_status = sim._elevator_inuse
-	sim:closeElevator( )
+	-- nvm, scrap the elevator mechanic after much debate -H
+	-- local elevator_status = sim._elevator_inuse
+	-- sim:closeElevator( )
 	
-	if elevator_status and elevator_status > 0 then
-		sim._elevator_inuse = elevator_status
-	else
-		sim._elevator_inuse = 1
-		sim._elevatorHeldByHostage = true
-	end
+	-- if elevator_status and elevator_status > 0 then
+		-- sim._elevator_inuse = elevator_status
+	-- else
+		-- sim._elevator_inuse = 1
+		-- sim._elevatorHeldByHostage = true
+	-- end
 	
-	scriptMgr:addHook( "DOORLOCK", keepExitLocked )
+	-- scriptMgr:addHook( "DOORLOCK", keepExitLocked )
 	scriptMgr:addHook( "HOSTAGE", startPhase )
 
 	local scriptfn = function()
