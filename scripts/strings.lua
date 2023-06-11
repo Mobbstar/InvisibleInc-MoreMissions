@@ -1411,7 +1411,7 @@ return {
 				},
 
 				INCOGNITA_PROG_UPGRADED = {
-					{{"Computational upgrade acquired. Alotting increased processing power to upgraded coroutine. Processing... Integration complete.", nil, "Incognita"}},
+					{{"Computational upgrade acquired. Allotting increased processing power to upgraded coroutine. Processing... Integration complete.", nil, "Incognita"}},
 					{{"Multi-threading protocols unlocked. Executable parameters enhanced. Your success will serve us both well, Operator.", nil, "Incognita"}},					
 				},
 				INCOGNITA_HOSTILE_AI_WEAKENED = {
