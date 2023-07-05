@@ -575,7 +575,7 @@ return {
 				},
 
 				OPTIONS2_PE_TXT_ONE_CORP = "You can use the data on this terminal to sabotage the AI research of <c:FC5603>this corporation</c>, reducing the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the <c:FC5603>{1}</c> AI starts with by 2 (to a minimum of 1), as well as reduce the selection pool.",
-				OPTIONS2_PE_TXT_ALL_CORPS = "You can use the data on this terminal to sabotage the AI research of <c:FC5603>all corporations</c>, reducing the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines each {1} AI starts with by 2 (to a minimum of 1), as well as reduce the selection pool.",
+				OPTIONS2_PE_TXT_ALL_CORPS = "You can use the data on this terminal to sabotage the AI research of <c:FC5603>all corporations</c>, reducing the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines each {1} AI starts with by 2 (to a minimum of 1), as well as reduce the selection pool.\n\nDoes not affect OMNI corp.",
 				OPTIONS2_PE_TXT_CORPORATE = "corporate",
 				OPTIONS2_PE_ALREADY_WEAKENED = "\n\nYou have already weakened the {1} AI by {2} {2:level|levels}.",
 				OPTIONS2_PE_TITLE = "DISRUPT HOSTILE AI",
