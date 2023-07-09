@@ -826,36 +826,44 @@ end
 
 local function addKeys( sim )
 
-	local safeAdded = false
-	local consoleAdded = false
-
+	local safeCandidates = {}
+	local consoleCandidates = {}
+	
 	for i, unit in pairs(sim:getAllUnits()) do
-		if unit:getTraits().safeUnit and not (unit:getUnitData().id == "guard_locker") and not safeAdded then
-			local item = simfactory.createUnit( propdefs.MM_W93_AiRoomPasscard, sim )
-			sim:spawnUnit(item)
-			unit:addChild(item)
-			unit:getTraits().MM_hasAICard = true
-			safeAdded = true
-		end
-		if unit:getTraits().mainframe_console and not consoleAdded then
-			unit:addTag("W93_INCOG_LOCK")
-			-- log:write("LOG console added!")
-			consoleAdded = true
-			unit:getTraits().MM_AIconsole = true
-			unit:getTraits().sightable = true --required for triggering on unit appeared
-			if not (unit:getPlayerOwner() == sim:getNPC()) then
-				-- log:write("reowning console")
-				-- this is necessary on the 0 consoles setting because consoles start out player-owned
-				unit:setPlayerOwner(sim:getNPC())
-				unit:getTraits().hijacked = nil
-				unit:getTraits().cpus = 2 --sorry, AndrewKay, I cannot be bothered to look up the console PWR determining thing for this
-			end
-		end
-		if consoleAdded and safeAdded then
-			break
+		if unit:getTraits().safeUnit and not (unit:getUnitData().id == "guard_locker") then
+			table.insert(safeCandidates, unit)
 		end
 	end
-
+	
+	if #safeCandidates > 0 then
+		local unit = safeCandidates[sim:nextRand(1, #safeCandidates)]
+		local item = simfactory.createUnit( propdefs.MM_W93_AiRoomPasscard, sim )
+		sim:spawnUnit(item)
+		unit:addChild(item)
+		unit:getTraits().MM_hasAICard = true
+		log:write("LOG MM safe added!")
+	end
+	
+	for i, unit in pairs(sim:getAllUnits()) do
+		if unit:getTraits().mainframe_console then
+			table.insert(consoleCandidates, unit)
+		end
+	end
+	
+	if #consoleCandidates > 0 then
+		local unit = consoleCandidates[sim:nextRand(1, #consoleCandidates)]	
+		unit:addTag("W93_INCOG_LOCK")
+		unit:getTraits().MM_AIconsole = true
+		unit:getTraits().sightable = true --required for triggering on unit appeared
+		if not (unit:getPlayerOwner() == sim:getNPC()) then
+			-- log:write("reowning console")
+			-- this is necessary on the 0 consoles setting because consoles start out player-owned
+			unit:setPlayerOwner(sim:getNPC())
+			unit:getTraits().hijacked = nil
+			unit:getTraits().cpus = 2 --sorry, AndrewKay, I cannot be bothered to look up the console PWR determining thing for this
+		end
+		log:write("LOG MM console added!")
+	end
 end
 
 local function chooseUpgrades( sim )
