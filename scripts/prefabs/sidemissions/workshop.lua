@@ -91,8 +91,6 @@ local tiles =
         y = 3,
         zone = [[sk_lab]],
         variant = 0,
-        impass = 1,
-        cover = 1,
     },
     {
         x = 7,
@@ -161,8 +159,6 @@ local tiles =
         y = 3,
         zone = [[sk_lab]],
         variant = 0,
-        impass = 1,
-        cover = 1,
     },
     {
         x = 2,
@@ -694,18 +690,6 @@ local decos =
         y = 1,
         kanim = [[decor_ko_lab_cabinetscreen1]],
         facing = 2,
-    },
-    {
-        x = 6,
-        y = 3,
-        kanim = [[decor_ko_lab_catwalk1]],
-        facing = 4,
-    },
-    {
-        x = 2,
-        y = 3,
-        kanim = [[decor_ko_lab_catwalk1]],
-        facing = 4,
     },
     {
         x = 4,

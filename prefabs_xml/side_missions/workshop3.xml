@@ -1085,20 +1085,6 @@
         <Facing>2</Facing>
       </MapDeco>
       <MapDeco>
-        <X>6</X>
-        <Y>3</Y>
-        <Anim>decor_ko_lab_catwalk1</Anim>
-        <DecoKey>KO lab catwalk 1 2x1</DecoKey>
-        <Facing>4</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>2</X>
-        <Y>3</Y>
-        <Anim>decor_ko_lab_catwalk1</Anim>
-        <DecoKey>KO lab catwalk 1 2x1</DecoKey>
-        <Facing>4</Facing>
-      </MapDeco>
-      <MapDeco>
         <X>4</X>
         <Y>1</Y>
         <Anim>decor_ko_barracks_walllight1</Anim>
