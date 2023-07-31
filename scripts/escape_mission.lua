@@ -652,6 +652,84 @@ local function populateFancyFab(sim)
 end
 
 -------------------------------------------------------------------------
+
+-----------------------------------------------------------------
+-----------Workshop Sidemission----------------------------------
+-----------------------------------------------------------------
+local WORKSHOP_PWR_ADDED =
+{
+	trigger = "MM_reroute_power",
+	fn = function( sim, triggerData )
+		return triggerData.pwr
+	end,
+}
+local ITEM_MODDED =
+{
+	trigger = "MM_workshop_used",
+	fn = function( sim, triggerData )
+		return true
+	end,
+}
+local AGENT_CONNECTION =
+{
+	trigger = "agentConnectionDone", --custom 'hook' in makeAgentConnection append in modinit
+	fn = function( sim, evData )
+		return true
+	end,
+}
+
+local function startWorkshopMission( script, sim )
+	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.WORKSHOP.SEE_CONSOLE, type="newOperatorMessage" } ) --blurb Make the sidemission known to the player and tell them, that they can reroute power to the workshop from the console instead of adding it to incognita
+	sim.MM_workshop_pwr = 0
+	sim:addObjective( util.sformat( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.WORKSHOP.OBJECTIVE_1, sim.MM_workshop_pwr ), "reroute_workshop_pwr" )
+	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.WORKSHOP.OBJECTIVE_2, "use_workshop" )
+	
+	for _, simunit in pairs( sim:getAllUnits() ) do
+		if simunit:getTraits().mainframe_console then
+			simunit:giveAbility( "MM_workshop_reroute_pwr" )
+		end
+	end
+end
+
+local function preSeeConsole( script, sim )
+	script:waitFor( AGENT_CONNECTION )
+	startWorkshopMission( script, sim )
+end
+
+local function seeConsole( script, sim )
+	script:waitFor( mission_util.PC_SAW_UNIT_WITH_TRAIT( "mainframe_console" ))
+	startWorkshopMission( script, sim )
+end
+
+local function seeWorkshop( script, sim )
+	script:waitFor( mission_util.PC_SAW_UNIT_WITH_TRAIT( "MM_modifyItem" ))
+	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.WORKSHOP.SEE_WORKSHOP, type="newOperatorMessage" } )
+end
+
+local function addWorkshopPwr( script, sim )
+	while true do --endless loop :o
+		local pwr_added = script:waitFor( WORKSHOP_PWR_ADDED )
+		--update the objective
+		local reroute_objective = sim:hasObjective( "reroute_workshop_pwr" )
+		if reroute_objective then --should always be true
+			reroute_objective.txt = util.sformat( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.WORKSHOP.OBJECTIVE_1, sim.MM_workshop_pwr )
+		end
+	end
+end
+
+local function workshopUsed( script, sim )
+	script:waitFor( ITEM_MODDED )
+	script:removeHook( seeConsole )
+	script:removeHook( seeWorkshop )
+	script:removeHook( addWorkshopPwr )
+	sim:removeObjective( "reroute_workshop_pwr" )
+	sim:removeObjective( "use_workshop" )
+	sim.MM_workshop_complete = true
+	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.WORKSHOP.ITEM_MODIFIED, type="newOperatorMessage" } )
+end
+
+-----------------------------------------------------------------
+
 function fixNoPatrolFacing( sim )
 	for i,unit in pairs( sim:getAllUnits() ) do
 		if unit:getTraits().mm_fixnopatrolfacing and unit:getTraits().nopatrol then
@@ -661,7 +739,7 @@ function fixNoPatrolFacing( sim )
 end
 
 function pregeneratePrefabs( cxt, tagSet )
-	cxt.params.side_mission = "MM_workshop" -- DEBUG
+	--cxt.params.side_mission = "MM_workshop"
 	if cxt.params.side_mission then
 		if cxt.params.side_mission == "MM_w93_storageroom" then
 			table.insert( tagSet, { "storageRoom2" } )
@@ -702,7 +780,28 @@ function init( scriptMgr, sim )
 			scriptMgr:addHook( "KillBoss", KillBoss )
 			scriptMgr:addHook( "escapeBoss", escapeBoss )
 		elseif params.side_mission == "MM_workshop" then
-			-- stuff
+			--just make consoles sightable??
+			for _, simunit in pairs( sim:getAllUnits() ) do
+				if simunit:getTraits().mainframe_console then
+					simunit:getTraits().sightable = true
+				end
+			end
+			--do we already see a console?
+			local console_seen = false
+			for _, seenUnit in ipairs( sim:getPC():getSeenUnits() ) do
+				if seenUnit:getTraits().mainframe_console then
+					console_seen = true
+					break
+				end
+			end
+			if console_seen then
+				scriptMgr:addHook( "preSeeConsole", preSeeConsole )
+			else
+				scriptMgr:addHook( "seeConsole", seeConsole )
+			end
+			scriptMgr:addHook( "seeWorkshop", seeWorkshop )
+			scriptMgr:addHook( "workshopUsed", workshopUsed )
+			scriptMgr:addHook( "addWorkshopPwr", addWorkshopPwr )
 		end
 		-- VANILLA SIDE MISSION REBALANCES
 		if params.difficultyOptions.MM_sidemission_rebalance then

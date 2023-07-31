@@ -17,6 +17,8 @@ function generateTechExpoGear()
 
 	for i,itemdef in pairs(tech_expo_templates) do --upgrade traits
 		local traits = itemdef.traits
+		
+		traits.usesLeft = 3--5		
 		if traits.damage and (traits.damage > 0) and not traits.lethalMelee then --NIAA compatibility --if a trait is present, but 0, there's probably a good reason for it, keep it
 			traits.damage = traits.damage + 1
 		end
@@ -27,12 +29,14 @@ function generateTechExpoGear()
 			traits.pwrCost = traits.pwrCost - 1
 		end
 		if traits.ammo and traits.maxAmmo then
-			traits.ammo = traits.ammo + 1
-			traits.maxAmmo = traits.maxAmmo + 1
+			local newAmmo = math.min( traits.usesLeft, (traits.maxAmmo + 1) )
+			traits.ammo = newAmmo
+			traits.maxAmmo = newAmmo
 		end
 		if traits.charges and traits.chargesMax then
-			traits.charges = traits.charges + 1
-			traits.chargesMax = traits.chargesMax + 1
+			local newCharges = math.min( traits.usesLeft, (traits.chargesMax + 1 ))
+			traits.charges = newCharges
+			traits.chargesMax = newCharges
 		end
 		if traits.armorPiercing and not traits.canSleep then
 			traits.armorPiercing = traits.armorPiercing + 1 --may be too powerful? restrict to lethal weapons for now, since the 'basedamage' increase does nothing for them anyway when all guards have 1 hitpoint
@@ -57,7 +61,6 @@ function generateTechExpoGear()
 			itemdef.floorWeight = nil
 		end
 
-		traits.usesLeft = 3--5
 		if itemdef.createUpgradeParams == nil then
 			itemdef.createUpgradeParams = function( self, unit )
 				return { traits = { usesLeft = unit:getTraits().usesLeft } }

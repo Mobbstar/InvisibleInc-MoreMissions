@@ -148,7 +148,7 @@ local function make_gear( sim, newUnit, agentTemplate )
 			if agentTemplate and not newUnit:getTraits().MM_captureTime then
 				for k,v in pairs(agentTemplate.upgrades) do
 					local itemdef = unitdefs.lookupTemplate( v )
-					if itemdef.traits.installed == nil then
+					if not itemdef.traits.installed then
 						table.insert(new_items, v)
 					end
 				end

@@ -3960,13 +3960,13 @@
       <MapDeco>
         <X>1</X>
         <Y>9</Y>
-        <Anim>ftm_office_decor_wallmap1</Anim>
+        <Anim>ftm_office_wallscreen1</Anim>
         <DecoKey>FTM office wallscreen1</DecoKey>
         <Facing>0</Facing>
       </MapDeco>
       <MapDeco>
         <X>10</X>
-        <Y>16</Y>
+        <Y>15</Y>
         <Anim>decor_ko_barracks_walldivider1</Anim>
         <DecoKey>KO barracks wall divider 1 1x1</DecoKey>
         <Facing>2</Facing>
@@ -3991,13 +3991,6 @@
         <Anim>publicterminal_glasswall1</Anim>
         <DecoKey>Unique Public Terminal Glasswall1</DecoKey>
         <Facing>2</Facing>
-      </MapDeco>
-      <MapDeco>
-        <X>10</X>
-        <Y>15</Y>
-        <Anim>decor_ko_barracks_walldividerguns1</Anim>
-        <DecoKey>KO barracks wall divider guns 1 1x1</DecoKey>
-        <Facing>0</Facing>
       </MapDeco>
       <MapDeco>
         <X>1</X>

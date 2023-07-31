@@ -176,14 +176,6 @@ local function upgradeIcebreak( upgradedProgram, sim, boost )
 			upgradedProgram.MM_modifiers.parasite_strength = upgradedProgram.MM_modifiers.parasite_strength + boost			
 		end	
 	end
-	if (upgradedProgram._abilityID == "dataBlast") and (boost > 0) then
-		log:write("LOG completing data blast upgrade")
-		validUpgrade = true
-		upgradedProgram.dataBlastStrength = 1
-		upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers or {}
-		upgradedProgram.MM_modifiers.break_firewalls = upgradedProgram.MM_modifiers.break_firewalls or 0
-		upgradedProgram.MM_modifiers.break_firewalls = upgradedProgram.MM_modifiers.break_firewalls + boost	
-	end
 	return validUpgrade
 end
 
@@ -465,9 +457,6 @@ local function upgradeDialog( script, sim )
 					or (((upgradedProgram.parasite_strength or 0) > 0) and upgradedProgram.parasite_strength)
 					or dialogPath.INVALID	))..txt_increment
 					
-					if upgradedProgram._abilityID == "dataBlast" then -- more special cases
-						txt_firewalls = util.sformat(dialogPath.FIREWALLS_TIP, upgradedProgram.name, 1)..txt_increment
-					end
 					local option_firewalls = mission_util.showDialog( sim, dialogPath.OPTIONS_FIREWALLS_TITLE, txt_firewalls, options_increment )
 					
 
@@ -819,6 +808,7 @@ local function cardSafeReaction( script, sim  )
 	--log:write("LOG AI card safe looted!")
 
     unit:destroyTab()
+	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = unit })
 	unit:getTraits().MM_hasAICard = nil
 end
 
@@ -830,41 +820,50 @@ local function consoleReaction( script, sim  )
 	script:queue( { type="pan", x=x, y=y } )
 	script:waitFor(AI_CONSOLE_HIJACKED)
 	unit:destroyTab()
+	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = unit })
 	unit:getTraits().MM_AIconsole = nil
 end
 
 local function addKeys( sim )
 
-	local safeAdded = false
-	local consoleAdded = false
-
+	local safeCandidates = {}
+	local consoleCandidates = {}
+	
 	for i, unit in pairs(sim:getAllUnits()) do
-		if unit:getTraits().safeUnit and not (unit:getUnitData().id == "guard_locker") and not safeAdded then
-			local item = simfactory.createUnit( propdefs.MM_W93_AiRoomPasscard, sim )
-			sim:spawnUnit(item)
-			unit:addChild(item)
-			unit:getTraits().MM_hasAICard = true
-			safeAdded = true
-		end
-		if unit:getTraits().mainframe_console and not consoleAdded then
-			unit:addTag("W93_INCOG_LOCK")
-			-- log:write("LOG console added!")
-			consoleAdded = true
-			unit:getTraits().MM_AIconsole = true
-			unit:getTraits().sightable = true --required for triggering on unit appeared
-			if not (unit:getPlayerOwner() == sim:getNPC()) then
-				-- log:write("reowning console")
-				-- this is necessary on the 0 consoles setting because consoles start out player-owned
-				unit:setPlayerOwner(sim:getNPC())
-				unit:getTraits().hijacked = nil
-				unit:getTraits().cpus = 2 --sorry, AndrewKay, I cannot be bothered to look up the console PWR determining thing for this
-			end
-		end
-		if consoleAdded and safeAdded then
-			break
+		if unit:getTraits().safeUnit and not (unit:getUnitData().id == "guard_locker") then
+			table.insert(safeCandidates, unit)
 		end
 	end
-
+	
+	if #safeCandidates > 0 then
+		local unit = safeCandidates[sim:nextRand(1, #safeCandidates)]
+		local item = simfactory.createUnit( propdefs.MM_W93_AiRoomPasscard, sim )
+		sim:spawnUnit(item)
+		unit:addChild(item)
+		unit:getTraits().MM_hasAICard = true
+		log:write("LOG MM safe added!")
+	end
+	
+	for i, unit in pairs(sim:getAllUnits()) do
+		if unit:getTraits().mainframe_console then
+			table.insert(consoleCandidates, unit)
+		end
+	end
+	
+	if #consoleCandidates > 0 then
+		local unit = consoleCandidates[sim:nextRand(1, #consoleCandidates)]	
+		unit:addTag("W93_INCOG_LOCK")
+		unit:getTraits().MM_AIconsole = true
+		unit:getTraits().sightable = true --required for triggering on unit appeared
+		if not (unit:getPlayerOwner() == sim:getNPC()) then
+			-- log:write("reowning console")
+			-- this is necessary on the 0 consoles setting because consoles start out player-owned
+			unit:setPlayerOwner(sim:getNPC())
+			unit:getTraits().hijacked = nil
+			unit:getTraits().cpus = 2 --sorry, AndrewKay, I cannot be bothered to look up the console PWR determining thing for this
+		end
+		log:write("LOG MM console added!")
+	end
 end
 
 local function chooseUpgrades( sim )

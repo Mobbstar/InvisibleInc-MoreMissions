@@ -205,6 +205,7 @@ local prop_templates =
 			impass = {0,0}, 
 			sightable=true,
 			multiLockSwitch = true, 
+			MM_texpo_switch = true,
 			recap_icon = "access_switch",
 			mainframe_no_daemon_spawn = false,
 			mainframe_always_daemon_spawn = true, --we don't want it to be too easy :^)	
@@ -570,9 +571,9 @@ local prop_templates =
 		kanim = "kanim_MM_workshop_grafter", 
 		rig ="corerig",
 
-		traits = util.extend( MAINFRAME_TRAITS ) {	moveToDevice=true, cover = true, impass = {0,0}, sightable = true, mainframe_no_recapture = true, MM_modifyItem=true },
+		traits = util.extend( MAINFRAME_TRAITS ) { moveToDevice=true, cover = true, impass = {0,0}, sightable = true, MM_modifyItem=true, stashable=true },
 
-		abilities = { "useAugmentMachine" },
+		abilities = { "MM_modify_item", "MM_workshop_place_item" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", }
 	},	
 	

@@ -106,7 +106,17 @@ simunit.setInvisible = function( self, state, duration, ... )
 		end
 
 	end
+	self:getSim():triggerEvent( "TRG_UNIT_INVIS", { unit = self, state = state, duration = duration } )
 	return simunit_setInvisible_old( self, state, duration, ... )
+end
+
+-- for Texpo
+local simunit_increaseIce_old = simunit.increaseIce
+simunit.increaseIce = function( self, sim, iceInc, ... )
+	if sim.MM_security_disabled and self:hasTag("MM_topGear") and (iceInc > 0) then
+		return
+	end
+	simunit_increaseIce_old( self, sim, iceInc, ... )
 end
 
 -- for Tech Expo androids visual glitch
@@ -127,9 +137,9 @@ end
 -- SIMDRONE ------------------------------------------------
 local simdrone = include("sim/units/simdrone")
 local simdrone_processEMP_old = simdrone.processEMP
-simdrone.processEMP = function(self, empTime, noEmpFx, noAttack)
+simdrone.processEMP = function(self, empTime, noEmpFx, noAttack, ignoreMagRei, ...)
 	-- log:write("LOG custom process EMP drone")
-	simdrone_processEMP_old(self, empTime, noEmpFx, noAttack)
+	simdrone_processEMP_old(self, empTime, noEmpFx, noAttack, ignoreMagRei, ...)
 	if self:getTraits().witness then
 		self:getTraits().witness = nil
 		sim:triggerEvent("MM_processed_EMP_on_witness")

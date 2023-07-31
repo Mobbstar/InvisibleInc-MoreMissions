@@ -852,8 +852,6 @@ local tiles =
         y = 16,
         zone = [[vault]],
         variant = 2,
-        impass = 1,
-        cover = 1,
     },
     {
         x = 7,
@@ -2438,12 +2436,6 @@ local decos =
         facing = 0,
     },
     {
-        x = 10,
-        y = 16,
-        kanim = [[decor_ko_barracks_walldivider1]],
-        facing = 2,
-    },
-    {
         x = 6,
         y = 3,
         kanim = [[decor_sk_lab_table2]],
@@ -2464,8 +2456,8 @@ local decos =
     {
         x = 10,
         y = 15,
-        kanim = [[decor_ko_barracks_walldividerguns1]],
-        facing = 0,
+        kanim = [[decor_ko_barracks_walldivider1]],
+        facing = 2,
     },
     {
         x = 1,

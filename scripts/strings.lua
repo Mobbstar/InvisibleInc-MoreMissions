@@ -95,7 +95,7 @@ return {
 		"MORE MISSIONS: The alarm level will advance twice as quickly in the Distress Call mission. You'll have to move fast to extract the detainee.",
 		"MORE MISSIONS: The Tech Expo offers great rewards at increasing risk. Try to manage your greed, or your campaign may end prematurely.",
 		"MORE MISSIONS: The tooltip for a Tech Expo exhibit will tell you what's inside. Only hack and open the cases with items you actually want.",
-		"MORE MISSIONS: The Relay Switches at a Tech Expo will disable the exhibit cases boosting each other's firewalls when broken. Skip this if you only plan to steal one or two items.",
+		"MORE MISSIONS: The Relay Switches at a Tech Expo will disable the exhibit cases boosting each other's firewalls when broken. Even more, they will keep the firewalls from increasing for any reason. Skip this if you only plan to steal one or two items.",
 		"MORE MISSIONS: Unlike a Security Dispatch, a Tech Expo will have up to five items, most of them weapons. They are powerful but won't last long.",
 		"MORE MISSIONS: The AI Terminal lets you increase Incognita's slot number, or upgrade a program you own.",
 		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt the Counterintelligence AI.",		
@@ -126,9 +126,7 @@ return {
 		NANOFAB_KEY_FLAVOR = "Luxury Pass Members get exclusive deals on thousands of items. Get free two-day delivery and save up to 80% on prescriptions. Your unique coupon code: SINGLEORIGINCOFFEE74",
 		DOOR_DEVICE = "BIOLOCK DOOR",
 		DOOR_DEVICE_DESC = "Can be unlocked by VIP or Bodyguard.",
-		WORKSHOP_GRAFTER = "Cool Name",
-		
-		
+		WORKSHOP_GRAFTER = "Workshop",
 	},
 
 	GUARDS =
@@ -271,6 +269,10 @@ return {
 		CLOAK_3_TOOLTIP = "Renders the user invisible for 1 turn. Is not disrupted by attacking. Limited uses.",
 		CLOAK_3_FLAVOR = "This fortified cloaking rig model can withstand energetic fluctuations that would collapse a regular cloak, even from firearms or neural disrupters.",
 
+		CLOAK_4 = "Capacitor Cloaking Rig",
+		CLOAK_4_TOOLTIP = "Renders the user invisible until end of player turn, or until toggled off. Cooldown increases by 1 for every tile the user moves while cloaked.",
+		CLOAK_4_FLAVOR = "Originally commissioned by a kleptomanic corporate diplomat to aid in stealing sandwiches from the refrigerators of progressively higher-ranking executives, this cloaking rig momentarily hides the user with remarkable efficiency. Excessive motion stresses its capacitors.",
+
 		BUSTER = "Experimental Buster Chip",
 		BUSTER_TOOLTIP = "Use this to manually break through 8 firewalls, destroying any installed daemon. Limited uses.",
 		BUSTER_FLAVOR = "An advanced Buster Chip model designed for taking down high-security, high-priority targets with no fuss.",
@@ -395,7 +397,31 @@ return {
 		ACTIVATE_NANOFAB_CONSOLE_DESC = "Summon the guard entrusted with the Nanofab Key.",
 		
 		UNLOCK_LUXURY_NANOFAB = "UNLOCK NANOFAB",
-
+		
+		REROUTE_PWR = "Reroute PWR ({1} PWR)",
+		REROUTE_PWR_DESC = "Reroutes the PWR to the workshop instead of adding it to Incognita.",
+		
+		MODIFY_ITEM = "Modify Item",
+		MODIFY_ITEM_DESC = "Upgrade the item stashed in the workshop.",
+		MOD_ITEM_DIALOG_TITLE = "Item Workshop",
+		MOD_ITEM_DIALOG_TXT = "Upgrade an property of the following item: {1}",
+		MOD_ITEM_DIALOG_UNMODABLE = "\n\nCan't modify this item.",
+		MOD_ITEM_DIALOG_PWR = "\n\nNot enough PWR in the workshop to modify this item. {1} PWR is needed.",
+		
+		UPGRADE_OPTIONS =
+		{
+			CANCEL = "Cancel",
+			COOLDOWN = "-1 Cooldown",
+			CHARGE = "+1 Max Charge",
+			AMMO = "+1 Max Ammo",
+			POWER = "-1 PWR Cost",
+			SKILL_REQ = "Remove Skill Requirements",
+			ARMOR_PIERCE = "+1 Armor Piercing",
+			DAMAGE = "+1 Damage",
+			USES = "More Uses",
+		},
+		
+		CAPACITOR_CLOAK_INACTIVATE = "DEACTIVATE CLOAK",
 	},
 
 	-- ACTIONS =
@@ -549,7 +575,7 @@ return {
 				},
 
 				OPTIONS2_PE_TXT_ONE_CORP = "You can use the data on this terminal to sabotage the AI research of <c:FC5603>this corporation</c>, reducing the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines the <c:FC5603>{1}</c> AI starts with by 2 (to a minimum of 1), as well as reduce the selection pool.",
-				OPTIONS2_PE_TXT_ALL_CORPS = "You can use the data on this terminal to sabotage the AI research of <c:FC5603>all corporations</c>, reducing the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines each {1} AI starts with by 2 (to a minimum of 1), as well as reduce the selection pool.",
+				OPTIONS2_PE_TXT_ALL_CORPS = "You can use the data on this terminal to sabotage the AI research of <c:FC5603>all corporations</c>, reducing the threat level of their Counterintelligence AI.\n\nThis will decrease the number of subroutines each {1} AI starts with by 2 (to a minimum of 1), as well as reduce the selection pool.\n\nDoes not affect OMNI corp.",
 				OPTIONS2_PE_TXT_CORPORATE = "corporate",
 				OPTIONS2_PE_ALREADY_WEAKENED = "\n\nYou have already weakened the {1} AI by {2} {2:level|levels}.",
 				OPTIONS2_PE_TITLE = "DISRUPT HOSTILE AI",
@@ -638,6 +664,11 @@ return {
 				FIND_NANOFAB = "Find Luxury Nanofab",
 				UNLOCK_NANOFAB = "Unlock Luxury Nanofab",
 			},
+			WORKSHOP =
+			{
+				OBJECTIVE_1 = "Reroute PWR to the workshop: {1} PWR",
+				OBJECTIVE_2 = "Use the workshop to upgrade an item",
+			},
 		},
 	},
 
@@ -675,11 +706,11 @@ return {
 		-- EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
 		EA_HOSTAGE = {
 			NAME= "Courier Rescue",
-			MORE_INFO = "Data couriers traffic valuable information for their clients, but are easy targets for the corps if they get caught. This courier has detailed knowledge of the corp's facilities and can provide us with more targets nearby.\n\nAs a security precaution, the exit elevator is locked until further notice, but the courier should have a backdoor sequence for it.",
+			MORE_INFO = "Data couriers traffic valuable information for their clients, but are easy targets for the corps if they get caught. This courier has detailed knowledge of the corp's facilities and can provide us with more targets nearby.",
 			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
 			INSET_TXT = "This corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we can persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
 			INSET_VO = {"moremissions/VoiceOver/Central/courierrescue/mapscreen"},
-			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.\nTelepad locked, courier has the key.",
+			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.",
 			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby.",
 			BANTER = {
 				START = {
@@ -816,6 +847,12 @@ return {
 			WEAPONS_EXPO_FAILSAFE = "FAILSAFE",
 			WEAPONS_EXPO_FAILSAFE_DESC = "When captured, boosts firewalls of remaining Secure Cases.",
 			
+			WEAPONS_EXPO_FAILSAFE_OFF = "FAILSAFE DISABLED",
+			WEAPONS_EXPO_FAILSAFE_OFF_DESC = "Failsafe disabled. Not affected by any firewall boosts.",
+			
+			WEAPONS_EXPO_SWITCH = "FAILSAFE CONTROL",
+			WEAPONS_EXPO_SWITCH_DESC = "Activating this switch pair will prevent any further firewall boosts to the exhibit cases.",
+			
 			--assassination
 			TARGET_ALERT = "VIP LINK",
 			TARGET_ALERT_DESC = "The first time this unit is alerted or attacked, the Bodyguard or nearest conscious guard becomes alerted.",
@@ -903,7 +940,8 @@ return {
 			INFRARED_SENSORS = "INFRARED SENSORS",
 			INFRARED_SENSORS_DESC = "Notices agent movement, even behind cover.",
 			
-			
+			ITEM_MODDED = "Modified",
+			ITEM_MODDED_DESC = "This item has been modified: {1}",
 		},
 		
 		REFIT_DRONE_NAMES = {
@@ -1380,7 +1418,7 @@ return {
 				},
 
 				INCOGNITA_PROG_UPGRADED = {
-					{{"Computational upgrade acquired. Alotting increased processing power to upgraded coroutine. Processing... Integration complete.", nil, "Incognita"}},
+					{{"Computational upgrade acquired. Allotting increased processing power to upgraded coroutine. Processing... Integration complete.", nil, "Incognita"}},
 					{{"Multi-threading protocols unlocked. Executable parameters enhanced. Your success will serve us both well, Operator.", nil, "Incognita"}},					
 				},
 				INCOGNITA_HOSTILE_AI_WEAKENED = {
@@ -1515,6 +1553,24 @@ return {
 					},
 					BOUGHT_ITEM = {
 						{"A spot of precision shopping can go a long way. Let's hope this little detour will prove itself worth the hassle.",nil,"Central"},
+					},
+				},
+				
+				WORKSHOP =
+				{
+					SEE_CONSOLE =
+					{
+						{"Placeholder text for Workshop 1", nil, "Central"},
+					},
+					
+					SEE_WORKSHOP =
+					{
+						{"Placeholder text for Workshop 2", nil, "Central"},
+					},
+					
+					ITEM_MODIFIED =
+					{
+						{"Placeholder text for Workshop 3", nil, "Central"},
 					},
 				},
 			},
