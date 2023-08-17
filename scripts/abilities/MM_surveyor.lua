@@ -101,14 +101,12 @@ local MM_surveyor =
 	onSpawnAbility = function( self, sim, unit )
 		self.seerUnits = {}
 		self.abilityOwner = unit
-		sim:addTrigger( simdefs.TRG_UNIT_WARP, self )
 		sim:addTrigger( simdefs.TRG_START_TURN, self )
 		sim:addTrigger( simdefs.TRG_END_TURN, self )
 	end,
 
 	onDespawnAbility = function( self, sim, unit )
 		sim:removeTrigger( simdefs.TRG_START_TURN, self )
-		sim:removeTrigger( simdefs.TRG_UNIT_WARP, self )
 		sim:removeTrigger( simdefs.TRG_END_TURN, self )
 		self.abilityOwner = nil
 	end,
@@ -123,7 +121,7 @@ local MM_surveyor =
 				local droneUnit = self.abilityOwner
 				if not droneUnit:isAlerted() and droneUnit:getBrain() and (droneUnit:getBrain():getSituation().ClassType == simdefs.SITUATION_IDLE) and droneUnit:getTraits().idle_scanning then
 					local x0, y0 = droneUnit:getLocation()
-					droneUnit:getBrain():getSenses():addInterest( x0, y0, simdefs.SENSE_PERIPHERAL, simdefs.REASON_SENSEDTARGET, droneUnit)
+					droneUnit:getBrain():getSenses():addInterest( x0, y0, simdefs.SENSE_RADIO, simdefs.REASON_PATROLCHANGED, droneUnit)
 					droneUnit:getTraits().shouldRotate = true
 				end
 			end
@@ -131,11 +129,16 @@ local MM_surveyor =
 			if evData:isNPC() then
 				local droneUnit = self.abilityOwner
 				if droneUnit:getTraits().stationaryRotating and droneUnit:getBrain() and droneUnit:getTraits().shouldRotate and not droneUnit:isAlerted() then
-					droneUnit:updateFacing((droneUnit:getFacing() + 2) % simdefs.DIR_MAX)
-					sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = droneUnit } )
-					sim:dispatchEvent( simdefs.EV_UNIT_UPDATE_INTEREST, { unit = droneUnit } )
-					droneUnit:getTraits().shouldRotate = nil
+					local interest = droneUnit:getBrain():getInterest()
+					local x0, y0 = droneUnit:getLocation()
+					-- Cancel rotation if a new interest was found.
+					if not interest or (interest.reason == simdefs.REASON_PATROLCHANGED and interest.x == x0 and interest.y == y0) then
+						droneUnit:updateFacing((droneUnit:getFacing() + 2) % simdefs.DIR_MAX)
+						sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = droneUnit } )
+						sim:dispatchEvent( simdefs.EV_UNIT_UPDATE_INTEREST, { unit = droneUnit } )
+					end
 				end
+				droneUnit:getTraits().shouldRotate = nil
 			end
 
 		end
