@@ -17,6 +17,12 @@ local inserts_exec = {
 			h = 0,
 			sx = 1,
 			sy = 1,
+			inheritDef =
+			{
+				["btn"] = { -- Unique ID for Controller Bindings mod.
+					ctrlProperties = { id = [[location5]] },
+				}
+			},
 			skin = [[Group]],				
 		},	
 	},
@@ -37,10 +43,32 @@ local inserts_exec = {
 			h = 0,
 			sx = 1,
 			sy = 1,
+			inheritDef =
+			{
+				["btn"] = { -- Unique ID for Controller Bindings mod.
+					ctrlProperties = { id = [[location6]] },
+				}
+			},
 			skin = [[Group]],				
 		},	
 	},	
 }
+if SCRIPT_PATHS.qedctrl then -- Controller Bindings mod support.
+	local sutil = include(SCRIPT_PATHS.qedctrl.."/screen_util")
+
+	table.insert(inserts_exec,
+	{
+		"modal-execterminals.lua",
+		{ "properties", "ctrlProperties", "layouts", 1, "children" },
+		sutil.widget([[location5]], {1,3}),
+	})
+	table.insert(inserts_exec,
+	{
+		"modal-execterminals.lua",
+		{ "properties", "ctrlProperties", "layouts", 1, "children" },
+		sutil.widget([[location6]], {2,3}),
+	})
+end
 
 -- for AI Terminal dialog: -- copied from Interactive Events & expanded to support up to 8 buttons
 local inserts_ai_term = {

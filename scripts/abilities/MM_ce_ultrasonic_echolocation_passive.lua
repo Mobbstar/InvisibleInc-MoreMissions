@@ -21,12 +21,12 @@ end
 
 local DEFAULT_BUFF =
 {
-	-- buffAbility = true, 
+	-- buffAbility = true,
 
 	getName = function( self, sim, unit )
 		return self.name
 	end,
-		
+
 	createToolTip = function( self,sim,unit,targetUnit)
 		return formatToolTip( self.name, string.format("BUFF\n%s", self.desc ) )
 	end,
@@ -34,7 +34,7 @@ local DEFAULT_BUFF =
 	canUseAbility = function( self, sim, unit )
 		return false -- Passives are never 'used'
 	end,
-	
+
 	ghostable = true,
 
 	executeAbility = nil, -- Passives by definition have no execute.
@@ -42,8 +42,8 @@ local DEFAULT_BUFF =
 
 local MM_ce_ultrasonic_echolocation_passive = util.extend( DEFAULT_BUFF )
 {
-	name = STRINGS.RESEARCH.ULTRASONIC_ECHOLOCATION.NAME, 
-	-- buffDesc = STRINGS.RESEARCH.ULTRASONIC_ECHOLOCATION.UNIT_DESC, 
+	name = STRINGS.RESEARCH.ULTRASONIC_ECHOLOCATION.NAME,
+	-- buffDesc = STRINGS.RESEARCH.ULTRASONIC_ECHOLOCATION.UNIT_DESC,
 	onSpawnAbility = function( self, sim, unit )
 		-- unit:getTraits().ultrasonic_echolocation = true
 		unit:getTraits().MM_noticesHidden = true
@@ -78,7 +78,7 @@ local MM_ce_ultrasonic_echolocation_passive = util.extend( DEFAULT_BUFF )
 			end
 			userUnit:getTraits().seesHidden = false
 
-			if targetX and targetY then 
+			if targetX and targetY then
 			-- Unit either IS, or WAS in peripheral vision.  Either is noticeable.
 				if userUnit:getBrain():getSenses():hasLostTarget(evData.unit) then
 					userUnit:turnToFace( targetX, targetY , STRINGS.UI.TRACKED )
@@ -91,8 +91,8 @@ local MM_ce_ultrasonic_echolocation_passive = util.extend( DEFAULT_BUFF )
 						userUnit:getBrain():getSenses():addInterest( targetX, targetY, simdefs.SENSE_PERIPHERAL, simdefs.REASON_SENSEDTARGET, evData.unit)
 					end
 				end
-			end		
+			end
 		end
-	end, 
+	end,
 }
 return MM_ce_ultrasonic_echolocation_passive

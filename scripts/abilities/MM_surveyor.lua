@@ -40,7 +40,7 @@ local function cellIsClear( sim, cell )
 	if simquery.cellHasTag(sim, cell, "guard_spawn") then
 		return false
 	end
-	
+
 	return true
 end
 
@@ -57,15 +57,15 @@ local function roomCenterCell( sim, unit )
 			table.insert(y_coords, cell.y)
 		end
 	end)
-	
+
 	local x_min = returnMin(x_coords)
 	local x_max = returnMax(x_coords)
 	local y_min = returnMin(y_coords)
 	local y_max = returnMax(y_coords)
-	
+
 	local x_mid = math.ceil( (x_min+x_max)/2 )
 	local y_mid = math.ceil( (y_min+y_max)/2 )
-	
+
 	local mid_cell = sim:getCell(x_mid, y_mid)
 	if cellIsClear( sim, mid_cell ) then
 		return mid_cell
@@ -78,9 +78,9 @@ local function roomCenterCell( sim, unit )
 					return targetCell
 				end
 			end
-		end		
+		end
 	end
-	
+
 	return nil -- give up and go with original spawn
 end
 
@@ -97,24 +97,22 @@ local MM_surveyor =
 	getName = function( self, sim, unit )
 		return self.name
 	end,
-		
+
 	onSpawnAbility = function( self, sim, unit )
-        self.seerUnits = {}
-        self.abilityOwner = unit
-		sim:addTrigger( simdefs.TRG_UNIT_WARP, self )
-        sim:addTrigger( simdefs.TRG_START_TURN, self )
+		self.seerUnits = {}
+		self.abilityOwner = unit
+		sim:addTrigger( simdefs.TRG_START_TURN, self )
 		sim:addTrigger( simdefs.TRG_END_TURN, self )
 	end,
-        
+
 	onDespawnAbility = function( self, sim, unit )
-        sim:removeTrigger( simdefs.TRG_START_TURN, self )
-		sim:removeTrigger( simdefs.TRG_UNIT_WARP, self )
+		sim:removeTrigger( simdefs.TRG_START_TURN, self )
 		sim:removeTrigger( simdefs.TRG_END_TURN, self )
-        self.abilityOwner = nil
+		self.abilityOwner = nil
 	end,
 
-    onTrigger = function( self, sim, evType, evData )
-        if evType == simdefs.TRG_START_TURN then
+	onTrigger = function( self, sim, evType, evData )
+		if evType == simdefs.TRG_START_TURN then
 			if sim:getTurnCount() < 1 then
 				spawnInRoomCenter( sim, self.abilityOwner )
 				self.abilityOwner:getTraits().patrolPath = nil -- normally you'd set a guard to stationary by making sure its patrol point is its location, but that doesn't really play ball with the scan at start of turn. Plus, this makes it possible to distract the drone to a new stationary point and that's kinda interesting?
@@ -123,23 +121,28 @@ local MM_surveyor =
 				local droneUnit = self.abilityOwner
 				if not droneUnit:isAlerted() and droneUnit:getBrain() and (droneUnit:getBrain():getSituation().ClassType == simdefs.SITUATION_IDLE) and droneUnit:getTraits().idle_scanning then
 					local x0, y0 = droneUnit:getLocation()
-					droneUnit:getBrain():getSenses():addInterest( x0, y0, simdefs.SENSE_PERIPHERAL, simdefs.REASON_SENSEDTARGET, droneUnit)
+					droneUnit:getBrain():getSenses():addInterest( x0, y0, simdefs.SENSE_RADIO, simdefs.REASON_PATROLCHANGED, droneUnit)
 					droneUnit:getTraits().shouldRotate = true
-				end				
+				end
 			end
 		elseif evType == simdefs.TRG_END_TURN then
 			if evData:isNPC() then
 				local droneUnit = self.abilityOwner
 				if droneUnit:getTraits().stationaryRotating and droneUnit:getBrain() and droneUnit:getTraits().shouldRotate and not droneUnit:isAlerted() then
-					droneUnit:updateFacing((droneUnit:getFacing() + 2) % simdefs.DIR_MAX)
-					sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = droneUnit } )
-					sim:dispatchEvent( simdefs.EV_UNIT_UPDATE_INTEREST, { unit = droneUnit } )
-					droneUnit:getTraits().shouldRotate = nil
+					local interest = droneUnit:getBrain():getInterest()
+					local x0, y0 = droneUnit:getLocation()
+					-- Cancel rotation if a new interest was found.
+					if not interest or (interest.reason == simdefs.REASON_PATROLCHANGED and interest.x == x0 and interest.y == y0) then
+						droneUnit:updateFacing((droneUnit:getFacing() + 2) % simdefs.DIR_MAX)
+						sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = droneUnit } )
+						sim:dispatchEvent( simdefs.EV_UNIT_UPDATE_INTEREST, { unit = droneUnit } )
+					end
 				end
+				droneUnit:getTraits().shouldRotate = nil
 			end
 
-        end
-    end,
+		end
+	end,
 }
 
 return MM_surveyor
