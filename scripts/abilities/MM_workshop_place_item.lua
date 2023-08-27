@@ -30,7 +30,7 @@ local MM_workshop_place_item =
 		end
 
 		if unit:getTraits().mainframe_status ~= "active" then
-			return false, STRINGS.C_WAR.ABILITIES.UNLOCK_WITH_STATION
+			return false,
 		end
 
 		if not simquery.canUnitReach( sim, userUnit, unit:getLocation() ) then
