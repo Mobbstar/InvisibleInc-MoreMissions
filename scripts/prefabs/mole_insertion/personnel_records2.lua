@@ -220,6 +220,7 @@ local tiles =
         {
             "personneldb_door",
             "personneldb_nearby",
+			"noguard",
         },
     },
     {
