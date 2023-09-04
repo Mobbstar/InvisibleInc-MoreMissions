@@ -42,9 +42,12 @@ local function addVizSmokeToCell( self, cell )
 	end
 end
 
-local function updateSmoke( sim, targetCell, smokeRadius, self )
+local function updateSmoke( sim, self, targetCell, smokeRadius )
 	self._cells = self._cells or {}
 	self._vizcells = self._vizcells or {}
+
+	targetCell = targetCell or sim:getCell(self:getLocation())
+	smokeRadius = smokeRadius or self:getTraits().radius
 
 	if self:getTraits().KOgasTooltip then
 		-- expand where possible
@@ -145,7 +148,7 @@ function simKOcloud:onWarp(sim, oldcell, cell)
 	-- place new smoke
 	local agents = {}
     if cell then
-        updateSmoke( sim, cell, self:getTraits().radius, self )
+        updateSmoke(sim, self, cell)
 		agents = findAgents( sim, self._cells )
     end
 
@@ -173,8 +176,6 @@ function simKOcloud:onEndTurn( sim )
     updateStage( self )
 
 	if sim:getCurrentPlayer() == sim:getNPC() and self:isValid() then
-		-- adjust to doors
-		updateSmoke( sim, sim:getCell(self:getLocation()), self:getTraits().radius, self )
 		-- do the KO stuff
 		local agents = findAgents( sim, self._cells )
 		if (#agents > 0) and self:getTraits().KOgas then
@@ -183,6 +184,8 @@ function simKOcloud:onEndTurn( sim )
 			koAgents(sim, agents)
 			sim:dispatchEvent( simdefs.EV_KO_GROUP, false )
 		end
+		-- adjust to doors
+		updateSmoke(sim, self)
 	end
 end
 
