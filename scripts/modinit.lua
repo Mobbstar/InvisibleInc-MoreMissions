@@ -47,15 +47,18 @@ local function init( modApi )
 	-- modApi:addGenerationOption("holostudio",  STRINGS.MOREMISSIONS.OPTIONS.HOLOSTUDIO , STRINGS.MOREMISSIONS.OPTIONS.HOLOSTUDIO_TIP, {noUpdate=true, enabled = false} )
 	modApi:addGenerationOption("assassination",  STRINGS.MOREMISSIONS.OPTIONS.ASSASSINATION , STRINGS.MOREMISSIONS.OPTIONS.ASSASSINATION_TIP, {noUpdate=true} )
 	-- modApi:addGenerationOption("landfill",  STRINGS.MOREMISSIONS.OPTIONS.LANDFILL , STRINGS.MOREMISSIONS.OPTIONS.LANDFILL_TIP, {noUpdate=true, enabled = false} )
-	modApi:addGenerationOption("ea_hostage",  STRINGS.MOREMISSIONS.OPTIONS.EA_HOSTAGE , STRINGS.MOREMISSIONS.OPTIONS.EA_HOSTAGE_TIP, {noUpdate=true, enabled = true} )
-	modApi:addGenerationOption("distress_call",  STRINGS.MOREMISSIONS.OPTIONS.DISTRESSCALL, STRINGS.MOREMISSIONS.OPTIONS.DISTRESSCALL_TIP, {noUpdate=true, enabled = true} )
-	modApi:addGenerationOption("weapons_expo",  STRINGS.MOREMISSIONS.OPTIONS.WEAPONSEXPO, STRINGS.MOREMISSIONS.OPTIONS.WEAPONSEXPO_TIP, {noUpdate=true, enabled = true} )
-	modApi:addGenerationOption("mole_insertion",  STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION, STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION_TIP, {noUpdate=true, enabled = true} )
-	modApi:addGenerationOption("ai_terminal",  STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL, STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL_TIP, {noUpdate=true, enabled = true} )
+	modApi:addGenerationOption("ea_hostage",  STRINGS.MOREMISSIONS.OPTIONS.EA_HOSTAGE , STRINGS.MOREMISSIONS.OPTIONS.EA_HOSTAGE_TIP, {noUpdate=true} )
+	modApi:addGenerationOption("distress_call",  STRINGS.MOREMISSIONS.OPTIONS.DISTRESSCALL, STRINGS.MOREMISSIONS.OPTIONS.DISTRESSCALL_TIP, {noUpdate=true} )
+	modApi:addGenerationOption("weapons_expo",  STRINGS.MOREMISSIONS.OPTIONS.WEAPONSEXPO, STRINGS.MOREMISSIONS.OPTIONS.WEAPONSEXPO_TIP, {noUpdate=true} )
+	modApi:addGenerationOption("mole_insertion",  STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION, STRINGS.MOREMISSIONS.OPTIONS.MOLE_INSERTION_TIP, {noUpdate=true} )
+	modApi:addGenerationOption("ai_terminal",  STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL, STRINGS.MOREMISSIONS.OPTIONS.AI_TERMINAL_TIP, {noUpdate=true} )
 
-	modApi:addGenerationOption("MM_sidemissions",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_TIP, {noUpdate=true} ) --doesn't do anything yet
-	
-	modApi:addGenerationOption("MM_sidemission_rebalance",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_REBALANCE , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_REBALANCE_TIP, {noUpdate=true} ) --doesn't do anything yet	
+	modApi:addGenerationOption("MM_sidemissions_abduction",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_ABDUCTION , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_ABDUCTION_TIP, {noUpdate=true} )
+	modApi:addGenerationOption("MM_sidemissions_briefcases",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_BRIEFCASES , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_BRIEFCASES_TIP, {noUpdate=true} )
+	modApi:addGenerationOption("MM_sidemissions_luxurynanofab",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_LUXURYNANOFAB , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_LUXURYNANOFAB_TIP, {noUpdate=true} )
+	modApi:addGenerationOption("MM_sidemissions_workshop",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_WORKSHOP , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_WORKSHOP_TIP, {noUpdate=true, enabled=false} )
+
+	modApi:addGenerationOption("MM_sidemission_rebalance",  STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_REBALANCE , STRINGS.MOREMISSIONS.OPTIONS.SIDEMISSIONS_REBALANCE_TIP, {noUpdate=true} )
 
 	modApi:addGenerationOption("MM_newday", STRINGS.MOREMISSIONS.OPTIONS.NEWDAY, STRINGS.MOREMISSIONS.OPTIONS.NEWDAY_DESC,
 	{
@@ -229,7 +232,11 @@ local function load( modApi, options, params )
 			end
 		end
 	end
-	
+
+	if options["MM_sidemission_rebalance"] and options["MM_sidemission_rebalance"].enabled then
+		include( scriptPath .. "/appended_functions/abilities/transformer_terminal")
+	end
+
 	if options["MM_exec_terminals"] and options["MM_exec_terminals"].enabled then
 		-- new SC functions for Executive Terminal window override
 		modApi:insertUIElements( include( scriptPath.."/screen_inserts" ).inserts_exec )
@@ -274,20 +281,23 @@ local function load( modApi, options, params )
 	local commondefs = include( scriptPath .. "/commondefs" )
 	modApi:addTooltipDef( commondefs )
 
-	if options["MM_sidemissions"].enabled then
-		modApi:addSideMissions(scriptPath, { "MM_w93_storageroom" } )
+	if options["MM_sidemissions_abduction"].enabled then
 		modApi:addSideMissions(scriptPath, { "MM_w93_personelHijack" } )
+	end
+	if options["MM_sidemissions_briefcases"].enabled then
+		modApi:addSideMissions(scriptPath, { "MM_w93_storageroom" } )
+	end
+	if options["MM_sidemissions_luxurynanofab"].enabled then
 		modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } )
+	end
+	if options["MM_sidemissions_workshop"].enabled then
 		modApi:addSideMissions(scriptPath, { "MM_workshop" } )
-		-- for vanilla side missions
-		include( scriptPath .. "/appended_functions/abilities/transformer_terminal")
-
+	end
 		-- (easy debugging of sidemissions: uncomment to clear the list and add just the sidemission to be tested)
 		-- even easier debugging of sidemissions: set cxt.params.side_mission = "???" in escape_mission.pregeneratePrefabs -H
 		--local worldgen = include( "sim/worldgen" )
 		--util.tclear(worldgen.SIDEMISSIONS)
 		--modApi:addSideMissions(scriptPath, { "???" } )
-	end
 
 	-- add all the custom NEW abilities (not appends to existing ones)
 	modApi:addAbilityDef( "hostage_rescuable", scriptPath .."/abilities/hostage_rescuable_2" ) -- to dest... okay maybe don't needed, we'll see
