@@ -14,7 +14,7 @@ local doAgentBanter_old = mission_util.doAgentBanter
 mission_util.doAgentBanter = function(script,sim,cross_script,odds,returnIfFailed, ...)
 	--if sim:getParams().situationName == "distress_call" then
 	if sim:getTags().skipBanter then
-		-- log:write("skipping banter")
+		-- log:write("[MM] skipping banter")
 		return
 	end
 	doAgentBanter_old(script,sim,cross_script,odds,returnIfFailed, ...)

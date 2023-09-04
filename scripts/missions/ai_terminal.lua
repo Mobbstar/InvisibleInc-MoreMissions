@@ -27,7 +27,7 @@ local CARD_SAFE_LOOTED =
 	trigger = simdefs.TRG_SAFE_LOOTED,
 	fn = function( sim, triggerData )
 		if triggerData.targetUnit and triggerData.targetUnit:getTraits().MM_hasAICard then
-			-- log:write("LOg safe looted1")
+			-- log:write("[MM] safe looted1")
 			return triggerData.targetUnit
 		end
 	end,
@@ -50,7 +50,7 @@ local PC_WON =
         trigger = simdefs.TRG_GAME_OVER,
         fn = function( sim, evData )
             if sim:getWinner() then
-				log:write("LOG MM AI Terminal PC WON")
+				log:write("[MM] AI Terminal PC WON")
                 return sim:getPlayers()[sim:getWinner()]:isPC()
             else
                 return false
@@ -805,7 +805,7 @@ local function cardSafeReaction( script, sim  )
 	unit:createTab( text, "" )
 
 	script:waitFor(CARD_SAFE_LOOTED)
-	--log:write("LOG AI card safe looted!")
+	--log:write("[MM] AI card safe looted!")
 
     unit:destroyTab()
 	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = unit })
@@ -841,7 +841,7 @@ local function addKeys( sim )
 		sim:spawnUnit(item)
 		unit:addChild(item)
 		unit:getTraits().MM_hasAICard = true
-		log:write("LOG MM safe added!")
+		log:write("[MM] safe added!")
 	end
 	
 	for i, unit in pairs(sim:getAllUnits()) do
@@ -856,13 +856,13 @@ local function addKeys( sim )
 		unit:getTraits().MM_AIconsole = true
 		unit:getTraits().sightable = true --required for triggering on unit appeared
 		if not (unit:getPlayerOwner() == sim:getNPC()) then
-			-- log:write("reowning console")
+			-- log:write("[MM] reowning console")
 			-- this is necessary on the 0 consoles setting because consoles start out player-owned
 			unit:setPlayerOwner(sim:getNPC())
 			unit:getTraits().hijacked = nil
 			unit:getTraits().cpus = 2 --sorry, AndrewKay, I cannot be bothered to look up the console PWR determining thing for this
 		end
-		log:write("LOG MM console added!")
+		log:write("[MM] console added!")
 	end
 end
 

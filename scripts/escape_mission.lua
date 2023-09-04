@@ -554,7 +554,7 @@ local function createKeyCarrier( sim )
 	local keyAdded = false
 	for i, guardUnit in pairs(sim:getNPC():getUnits()) do
 		if guardUnit:getTraits().isGuard and not guardUnit:getTraits().isDrone and not guardUnit:getTraits().pacifist and not guardUnit:getTraits().mm_nopatrolchange and not guardUnit:getTraits().MM_bodyguard  and not guardUnit:getTraits().MM_bounty_target and not keyAdded then
-			log:write("LOG MM giving nanofab key to" .. guardUnit:getUnitData().name )
+			log:write("[MM] giving nanofab key to" .. guardUnit:getUnitData().name )
 			local item = simfactory.createUnit( propdefs.MM_luxuryNanofab_key, sim )
 			sim:spawnUnit( item )
 			guardUnit:addChild( item )
@@ -758,7 +758,7 @@ function init( scriptMgr, sim )
 	--sidemission stuff
     local params = sim:getParams()
 	if params.side_mission then
-		log:write("LOG side mission")
+		log:write("[MM] side mission")
 		log:write(util.stringize(params.side_mission,2))
 		-- CUSTOM MM SIDEMISSIONS
         if params.side_mission == "MM_luxuryNanofab" then

@@ -66,7 +66,7 @@ local NEW_UNIT_INTEREST =
 		if evData.unit and evData.unit:getTraits().MM_bounty_target and not evData.unit:getTraits().MM_realtarget then
 			if evData.interest.reason == nil or (evData.interest.reason and not (evData.interest.reason == "REASON_MM_ASSASSINATION")) then
 				local interest = { sourceUnit = evData.unit, x = evData.interest.x, y = evData.interest.y }
-				-- log:write("LOG interest")
+				-- log:write("[MM] interest")
 				-- log:write(util.stringize(evData.unit:getUnitData().name,2))
 				return interest
 			end
@@ -170,7 +170,7 @@ local BODYGUARD_SHOT_AT =
 		if evData.targetUnit:getTraits().MM_bodyguard then
 			local equipped = evData.equipped
 			if equipped and not (equipped:getTraits().canSleep or equipped:getTraits().targetNotAlerted or equipped:getTraits().noTargetAlert) then
-				-- log:write("LOG trigger MM_shotAtBodyguard")
+				-- log:write("[MM] trigger MM_shotAtBodyguard")
 				return evData.targetUnit, evData.sourceUnit
 			end
 		end
@@ -510,7 +510,7 @@ end
 
 local function isHeatSigTarget( sim, unit )
 	if unit:getTraits().MM_bounty_target then
-	-- log:write("LOG 1")
+	-- log:write("[MM] 1")
 		if not sim.MM_bounty_disguise_active then
 			return true
 		else
@@ -528,7 +528,7 @@ local function followHeatSig( script, sim )
 	function(unit)
 		if isHeatSigTarget( sim, unit ) then 
 			local x, y = unit:getLocation()
-			-- log:write("LOG spawning heatsig")
+			-- log:write("[MM] spawning heatsig")
 			-- script:queue( { type="displayHUDInstruction", text=STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, x=x, y=y } )
 			script:queue( { type="pan", x=x, y=y } )
 		end
@@ -540,7 +540,7 @@ local function followHeatSig( script, sim )
 			-- script:queue( { type="hideHUDInstruction" } ) 
 			local x, y = triggerData.unit:getLocation()
             if x and y then
-				-- log:write("LOG warp updating heatsig")
+				-- log:write("[MM] warp updating heatsig")
 			    -- script:queue( { type="displayHUDInstruction", text=STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, x=x, y=y } )
 			    script:queue( { type="pan", x=x, y=y } )
             end
@@ -710,7 +710,7 @@ local function playerUnlocksSaferoom( script, sim )
 	--despawn the label-carrying decoder
 	for _, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().MM_label_carrier == true then
-			log:write("TAB DESTROYED.")
+			log:write("[MM] TAB DESTROYED.")
 			unit:destroyTab()
 			sim:warpUnit( unit, nil )
 			sim:despawnUnit( unit )
@@ -926,7 +926,7 @@ local mission = class( escape_mission )
 
 -- "reveal" decoy, but actually despawn it and replace it with an android
 mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
-	-- log:write("LOG reveal decoy1")
+	-- log:write("[MM] reveal decoy1")
 	if sim:getTags().MM_decoyrevealed or (sim.MM_bounty_disguise_active == nil) or (not decoyUnit) then
 		return
 	end
@@ -1015,7 +1015,7 @@ end
 
 --NEW decoy mechanic: real VIP in saferoom, replaced with disguised android
 local function tryDecoy( sim )
-	-- log:write("LOG trying decoy")
+	-- log:write("[MM] trying decoy")
 	local vip = nil -- resetting for save file edge cases
 	local no_decoy = nil
 	-- if sim:getParams().agency.MM_assassinations == nil then
@@ -1028,7 +1028,7 @@ local function tryDecoy( sim )
 		FINAL_CHANCE_OF_DECOY = 0.9
 	end
 	if (sim:nextRand() < FINAL_CHANCE_OF_DECOY) then
-		log:write("LOG implementing decoy")	
+		log:write("[MM] implementing decoy")	
 		for i, unit in pairs(sim:getNPC():getUnits()) do 
 			if unit:getTraits().MM_bounty_target then
 				vip = unit 		--locate VIP	

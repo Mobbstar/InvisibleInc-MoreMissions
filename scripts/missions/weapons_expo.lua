@@ -58,7 +58,7 @@ local SWITCH_RESET =
         trigger = simdefs.TRG_MAP_EVENT,
         fn = function( sim, eventData )
             if eventData.event == simdefs.MAP_EVENTS.RESET_SWITCH then 
-				-- log:write("LOG map event")
+				-- log:write("[MM] map event")
 				-- log:write(util.stringize(eventData,3))
                 return true
             end 
@@ -71,10 +71,10 @@ local MULTISWITCHES_USED =
         trigger = simdefs.TRG_MAP_EVENT,
         fn = function( sim, eventData )
             if eventData.event == simdefs.MAP_EVENTS.SWITCH then 
-				-- log:write("LOG map event2")
+				-- log:write("[MM] map event2")
 				-- log:write(util.stringize(eventData,3))		
 				if eventData.data == "MM_multilock" then --need to test how this interacts with vanilla switches. IIRC the power relay switch trigger doesn't check for eventData.data. So you could get erroneous triggering in one direction but not the other
-					-- log:write("LOG multiswitches used")
+					-- log:write("[MM] multiswitches used")
 					return true
 				end
             end 
@@ -238,7 +238,7 @@ local function MM_transformer( script, sim )
     script:waitFor( MULTISWITCHES_USED )
     sim:removeObjective( "MM_transformer_switches" )
 	sim.MM_security_disabled = true
-	-- log:write("LOG disable security")
+	-- log:write("[MM] disable security")
     script:queue( 1*cdefs.SECONDS )     
 	local scripts = SCRIPTS.INGAME.WEAPONS_EXPO.DISABLED_SWITCH
 	queueCentral(script, scripts)
@@ -283,7 +283,7 @@ local function boost_firewalls(script, sim)
 end
 
 local function MM_checkTopGearSafes( sim )
-	-- log:write("spawning special gear")
+	-- log:write("[MM] spawning special gear")
 	local itemList = {}
 	local techList = {}
 	for k,v in pairs(itemdefs) do
@@ -307,13 +307,13 @@ local function MM_checkTopGearSafes( sim )
 		-- Add a random item to unit (presumably a safe)
 		local item = nil
 		if unit:getTraits().MM_loot == "weapon" then
-			-- log:write("LOG choosing weapon")
+			-- log:write("[MM] choosing weapon")
 			local pos = sim:nextRand( 1, #itemList )
 			item = itemList[pos]
 			table.remove(itemList, pos) -- prevent duplicates
 		end
 		if unit:getTraits().MM_loot == "item" then
-			-- log:write("LOG choosing item")
+			-- log:write("[MM] choosing item")
 			local pos = sim:nextRand( 1, #techList )
 			item = techList[ pos ]
 			table.remove(techList, pos)
@@ -321,7 +321,7 @@ local function MM_checkTopGearSafes( sim )
 		if item then
 			local newItem = simfactory.createUnit( item, sim )						
 			sim:spawnUnit( newItem )
-			-- log:write("LOG newItem")
+			-- log:write("[MM] newItem")
 			-- log:write(util.stringize(newItem:getUnitData().name,2))
 			newItem:getTraits().artifact = true --for safe to display the loot symbol
 			unit:addChild( newItem )	
@@ -333,7 +333,7 @@ local function MM_checkTopGearSafes( sim )
 		end
 		-- log:write(util.stringize(newItem._tags,3))
 	end
-	-- log:write("LOG sim.totalTopGear " ..tostring(sim.totalTopGear))
+	-- log:write("[MM] sim.totalTopGear " ..tostring(sim.totalTopGear))
 end
 
 local function updateAgency( sim, agency )
@@ -433,14 +433,14 @@ local function countUnstolenTech(script,sim)
 			end
 		end				
 		local stolen = sim.totalTopGear -(#not_stolen)  --sim.totalTopGear should always be 5 with these prefabs
-		log:write("LOG stolen " .. tostring(stolen))
+		log:write("[MM] stolen " .. tostring(stolen))
 		if (stolen > 0) and (stolen < sim.totalTopGear) then
-			log:write("LOG MM got some gear")
+			log:write("[MM] got some gear")
 			sim.TA_mission_success = true -- flag for Talkative Agents
 			sim.MM_got_partial_tech = true
 		end
 		if stolen >= sim.totalTopGear then
-			log:write("LOG MM got all gear")
+			log:write("[MM] got all gear")
 			sim.MM_got_all_tech = true
 			sim.TA_mission_success = true
 		end
@@ -450,15 +450,15 @@ end
 		
 local function specGooseEasterEgg( sim )
 	-- if sim:getParams().agency.MM_techexpo_done_savefile then
-		-- log:write("PLAYER DID TEXPO")
+		-- log:write("[MM] PLAYER DID TEXPO")
 	-- end
 
 	-- if not sim:getParams().agency.MM_techexpo_done or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance on first tech expo per campaign
 	if not sim:getParams().agency.MM_techexpo_done_savefile or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance if player has not yet done texpo mission across all saves
-		-- log:write("LOG MM suppressing tech expo easter egg")
+		-- log:write("[MM] suppressing tech expo easter egg")
 		return	
 	end
-	log:write("LOG MM tech expo easter egg")
+	log:write("[MM] tech expo easter egg")
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().MM_droid_dummy and unit:getTraits().spec_droid then
 			local facing = unit:getFacing()
@@ -523,7 +523,7 @@ end
 function mission.pregeneratePrefabs( cxt, tagSet )
 
     if cxt.params.side_mission and (cxt.params.side_mission == "transformer") then
-		-- log:write("LOG params transformer1")
+		-- log:write("[MM] params transformer1")
 		cxt.params.side_mission = "data scrub"--nil
 	end
 
@@ -537,7 +537,7 @@ end
 function mission.generatePrefabs( cxt, candidates )
     local prefabs = include( "sim/prefabs" )   
 	if cxt.params.side_mission and (cxt.params.side_mission == "transformer") then
-		-- log:write("LOG params transformer2")
+		-- log:write("[MM] params transformer2")
 		cxt.params.side_mission = "data scrub"--nil
 	end
 	escape_mission.generatePrefabs( cxt, candidates )

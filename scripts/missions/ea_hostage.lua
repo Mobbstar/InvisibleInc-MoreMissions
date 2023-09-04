@@ -413,7 +413,7 @@ local function calculateHostageVitalSigns( sim )
 	local newSigns = sim:nextRand(minTurns, maxTurns) + extraSigns
 	--print( "vital signs should be: "..newSigns )
 
-	log:write("distToExit: "..distToExit)
+	log:write("[MM] distToExit: "..distToExit)
 	log:write( "vital signs: "..newSigns )
 	return newSigns
 end

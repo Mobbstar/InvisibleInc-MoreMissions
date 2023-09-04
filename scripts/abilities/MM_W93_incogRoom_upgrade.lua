@@ -82,7 +82,7 @@ local MM_W93_incogRoom_unlock =
 			-- self.used = true
 			-- sim:getTags().used_AI_terminal = true,
 			-- sim:triggerEvent( simdefs.TRG_UNIT_WARP, { unit = unit, from_cell = sim:getCell(x1,y1), to_cell = sim:getCell(x1,y1) } )
-			-- log:write("LOG activated incogroom")
+			-- log:write("[MM] activated incogroom")
 			sim:triggerEvent( "activated_incogRoom", { unit = unit, userUnit = userUnit } )
 			
 		end,

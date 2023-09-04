@@ -187,7 +187,7 @@ local MM_escape_guardelevator =
 					sim:triggerEvent( "mole_final_escape" )
 					for dir, exit in pairs( start_cell.exits ) do
 						if exit.door and (exit.keybits == simdefs.DOOR_KEYS.GUARD) then
-							-- log:write("LOG closing door")
+							-- log:write("[MM] closing door")
 							sim:modifyExit( start_cell, dir, simdefs.EXITOP_CLOSE )
 						end
 					end

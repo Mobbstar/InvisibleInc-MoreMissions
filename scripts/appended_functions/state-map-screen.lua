@@ -59,7 +59,7 @@ stateMapScreen.OnClickLocation = function( self, situation, ... )
 		local corpData = serverdefs.getCorpData( situation )
 		if self._campaign.agency.MM_informant_bonus and (#self._campaign.agency.MM_informant_bonus > 0) and not ((situation.corpName == "omni") or (situation.corpName == "omni2"))
 		then
-			-- log:write("LOG setting mole visible")
+			-- log:write("[MM] setting mole visible")
 			screen:findWidget("MM_informantBonus"):setVisible( true )
 			screen:findWidget("MM_informantInfo"):setVisible(true)
 			local missionsLeft = getMaxBonus( self._campaign.agency.MM_informant_bonus )
@@ -67,7 +67,7 @@ stateMapScreen.OnClickLocation = function( self, situation, ... )
 			screen:findWidget("MM_informantInfo.moleDesc"):setText(STRINGS.MOREMISSIONS.UI.MAP_SCREEN.MOLE_DESC)
 			screen:findWidget("MM_informantInfo.moleName"):setText(STRINGS.MOREMISSIONS.UI.MAP_SCREEN.MOLE_NAME)	
 		else
-			-- log:write("LOG setting invisible")
+			-- log:write("[MM] setting invisible")
 			screen:findWidget("MM_informantBonus"):setVisible( false )
 			screen:findWidget("MM_informantInfo"):setVisible( false )
 		end

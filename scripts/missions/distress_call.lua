@@ -55,7 +55,7 @@ local OPERATIVE_ESCAPED =
 	trigger = simdefs.TRG_UNIT_ESCAPED,
 	fn = function( sim, triggerUnit )
 		if triggerUnit and triggerUnit:hasTag("escapedAgent") then
-		--log:write("LOG trg unit escaped")
+		--log:write("[MM] trg unit escaped")
 			return triggerUnit
 		end
 	end,
@@ -66,7 +66,7 @@ local OPERATIVE_DESPAWNED =
 	trigger = simdefs.TRG_UNIT_WARP,
 	fn = function( sim, triggerData )
 		if triggerData.unit and triggerData.unit:hasTag("escapedAgent") and not triggerData.to_cell then --on despawn (and not just escaping). Permadeath or NCT or...
-			--log:write("LOG escapedAgent despawned")
+			--log:write("[MM] escapedAgent despawned")
 			return triggerData
 		end
 	end
@@ -99,7 +99,7 @@ local GEAR_SAFE_LOOTED =
 	trigger = simdefs.TRG_SAFE_LOOTED,
 	fn = function( sim, triggerData )
 		if triggerData.targetUnit and triggerData.targetUnit:hasTag("agent_gear_storage") then
-			-- log:write("LOg safe looted1")
+			-- log:write("[MM] safe looted1")
 			return triggerData.targetUnit
 		end
 	end,
@@ -132,7 +132,7 @@ local function make_gear( sim, newUnit, agentTemplate )
 					-- table.remove(items,i) --this will empty their inventory even if they would normally have it at detention centers
 					if items[i] then
 						if newUnit:getTraits().MM_captureTime then
-							-- log:write("LOG MM_captureTime")
+							-- log:write("[MM] MM_captureTime")
 							if items[i]:getTraits().equipped then 
 								items[i]:getTraits().equipped = false
 							end
@@ -218,7 +218,7 @@ local function getLostAgent( agency )
 end
 
 local function startAgentEscape( script, sim, mission )
-	-- log:write("LOG starting agent escape")
+	-- log:write("[MM] starting agent escape")
 	script:waitFor( AGENT_CONNECTION )
 
 	--copypasted chunk from mission_detention_centre with some changes--
@@ -327,7 +327,7 @@ local function startAgentEscape( script, sim, mission )
 
 		local safeUnit
 		local safes = {}
-		--log:write("searching for safe")
+		--log:write("[MM] searching for safe")
 		for k,unit in pairs(sim:getAllUnits()) do
 			if unit:getTraits().safeUnit and not (unit:getUnitData().id == "guard_locker") then
 				table.insert(safes,unit)
@@ -335,13 +335,13 @@ local function startAgentEscape( script, sim, mission )
 		end
 		if #safes > 0 then
 			safeUnit = safes[sim:nextRand(1,#safes)]
-			--log:write("found safe")
+			--log:write("[MM] found safe")
 		end
 
 		local gear = make_gear( sim, newOperative, agentTemplate ) --handles inventory wrangling & spawning
 
 		if safeUnit then
-			--log:write("putting stuff in safe")
+			--log:write("[MM] putting stuff in safe")
 			safeUnit:addTag("agent_gear_storage")
 
 			if #gear > 0 then
@@ -362,7 +362,7 @@ local function startAgentEscape( script, sim, mission )
 			newOperative:addChild( newItem )
 
 		else  --edge case for no safes on map: put all the stuff in the inventory, in which case they shouldn't need the taser
-			log:write("populating agent inventory")
+			log:write("[MM] populating agent inventory")
 			if #gear > 0 then
 				for k,item in pairs(gear) do
 					newOperative:addChild(item) --put in agent inventory
@@ -454,7 +454,7 @@ local function gearSafeReaction( script, sim, mission )
 	script:queue( { script=SCRIPTS.INGAME.DISTRESS_CALL.SAW_GEAR_CONTAINER[1], type="newOperatorMessage" } )
 
 	script:waitFor(GEAR_SAFE_LOOTED)
-	--log:write("LOG safe looted!")
+	--log:write("[MM] safe looted!")
 	sim:removeObjective( "find_agent_gear" )
 
     	agent_gear_safe:destroyTab()

@@ -177,7 +177,7 @@ local function unloadCommon( modApi, options )
 
 	for i, tag in pairs(default_missiontags) do
 		if not array.find(serverdefs.ESCAPE_MISSION_TAGS, tag) then
-			-- log:write("restoring mission tag: ".. tag)
+			-- log:write("[MM] restoring mission tag: ".. tag)
 			table.insert(serverdefs.ESCAPE_MISSION_TAGS, tag)
 		end
 		if not array.find(simdefs.DEFAULT_MISSION_TAGS, tag) then
@@ -360,7 +360,7 @@ local function load( modApi, options, params )
 	--remove vanilla tags if disabled
 	for i = #serverdefs.ESCAPE_MISSION_TAGS, 1, -1 do
 		if options[serverdefs.ESCAPE_MISSION_TAGS[i]] and not options[serverdefs.ESCAPE_MISSION_TAGS[i]].enabled then
-			-- log:write("removing mission tag: ".. serverdefs.ESCAPE_MISSION_TAGS[i])
+			-- log:write("[MM] removing mission tag: ".. serverdefs.ESCAPE_MISSION_TAGS[i])
 			table.remove(serverdefs.ESCAPE_MISSION_TAGS, i)
 		end
 	end
@@ -372,7 +372,7 @@ local function load( modApi, options, params )
 	--add new tags if enabled
 	for i, tag in pairs(serverdefs_mod.ESCAPE_MISSION_TAGS) do
 		if not options[tag] or options[tag].enabled then
-			-- log:write("adding mission tag: ".. tag)
+			-- log:write("[MM] adding mission tag: ".. tag)
 			table.insert(serverdefs.ESCAPE_MISSION_TAGS, tag)
 			table.insert(simdefs.DEFAULT_MISSION_TAGS, tag)
 		end

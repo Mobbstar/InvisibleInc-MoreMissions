@@ -138,7 +138,7 @@ end
 local simdrone = include("sim/units/simdrone")
 local simdrone_processEMP_old = simdrone.processEMP
 simdrone.processEMP = function(self, empTime, noEmpFx, noAttack, ignoreMagRei, ...)
-	-- log:write("LOG custom process EMP drone")
+	-- log:write("[MM] custom process EMP drone")
 	simdrone_processEMP_old(self, empTime, noEmpFx, noAttack, ignoreMagRei, ...)
 	if self:getTraits().witness then
 		self:getTraits().witness = nil

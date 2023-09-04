@@ -107,7 +107,7 @@ local MM_scrubcameradb = --tweaked version of monster root hub hack
 				local hacker = sim:getUnit( self.abilityOwner:getTraits().MM_hacker )
 
 				if hacker and ( hacker:getTraits().monster_hacking == self.abilityOwner:getID() ) then
-					-- log:write("LOG clearing witnesses")
+					-- log:write("[MM] clearing witnesses")
 					clearWitnesses( sim )
 					local x0, y0 = self.abilityOwner:getLocation()
 					sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.CAMERADB_SCRUBBED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )

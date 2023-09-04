@@ -114,12 +114,12 @@ end
 
 local function spawnBonusFromSelection(sim, possible_bonuses, agency_bonus)
 	sim:getLevelScript():queue( 1.5*cdefs.SECONDS )
-	-- log:write("LOG possible bonus")
+	-- log:write("[MM] possible bonus")
 	-- log:write(util.stringize(possible_bonuses,2))
 
 	local missionsLeft = agency_bonus.missions_left - 1 --this tickdown is only for UI event purposes; for seed preservation reasons, wait until end of mission to actually update the ticker
 	local randBonus = sim:nextRand(1,#possible_bonuses)
-	-- log:write("LOG randBonus is"..tostring(randBonus))
+	-- log:write("[MM] randBonus is"..tostring(randBonus))
 	local bonus_type = possible_bonuses[randBonus]
 	if not agency_bonus.bonus then
 		table.remove(possible_bonuses, randBonus) --don't spawn the same one
@@ -154,7 +154,7 @@ local function spawnBonusFromSelection(sim, possible_bonuses, agency_bonus)
 	-- now modify the newly-spawned daemon with customised text info
 	for i,ability in pairs( sim:getNPC():getAbilities() ) do
 		if (ability._abilityID == "MM_informant_intel") and not ability.MM_mole_checked then
-			-- log:write("LOG editing bonus desc")
+			-- log:write("[MM] editing bonus desc")
 			ability.MM_mole_checked = true
 			ability.missionsLeft = missionsLeft
 			ability.bonus_type = bonus_type

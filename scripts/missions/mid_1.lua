@@ -20,22 +20,22 @@ local function runAppend( modApi )
 			mid_1.MM_append = true
 			mid_1.init = function( self, scriptMgr, sim )
 				mid_1_initOld( self, scriptMgr, sim )
-				-- log:write("LOG new mid_1 init")
+				-- log:write("[MM] new mid_1 init")
 				local startPhase_old = nil
 				for i, hook in ipairs(scriptMgr.hooks) do
 					if hook.name == "MID_1" then
-						-- log:write("LOG found MID_1 hook")
+						-- log:write("[MM] found MID_1 hook")
 						-- log:write(util.stringize(hook,3))
 						startPhase_old = hook
 					end
 				end
 				if startPhase_old then
-					-- log:write("LOG adding new hook")
+					-- log:write("[MM] adding new hook")
 					local newStartPhase = function( scriptMgr, sim )
 						startPhase_old.hookFn( scriptMgr, sim )
 						-- scriptMgr:queue( 5*cdefs.SECONDS ) --this does nothing...
 						spawn_mole_bonus( sim, mole_insertion )
-						-- log:write("LOG new mid1 start phase running")
+						-- log:write("[MM] new mid1 start phase running")
 						spawn_refit_drone( scriptMgr, sim )
 					end
 					scriptMgr:removeHook( startPhase_old )

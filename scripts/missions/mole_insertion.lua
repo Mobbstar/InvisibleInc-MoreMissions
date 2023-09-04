@@ -321,7 +321,7 @@ local function cameraWitnessesAgent(script, sim)
 		local x0, y0 = seer:getLocation()
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
 		if not sim:getTags().Monster_cameracomment then
-		-- log:write("LOG central reaction to camera")
+		-- log:write("[MM] central reaction to camera")
 			sim:getTags().Monster_cameracomment = true
 			local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_CAMERA
 			script:queue( 2 * cdefs.SECONDS )
@@ -520,7 +520,7 @@ local function moleEscaped( script, sim)
 	sim:removeObjective("mole_escape")
 	sim:removeObjective("kill_witness")
 	sim:getTags().MM_mole_escaped = true
-	-- log:write("LOG mole escaped through agent elevator")
+	-- log:write("[MM] mole escaped through agent elevator")
 	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_ESCAPED_TO_JET
 	queueCentral( script, scripts )
 	
@@ -556,7 +556,7 @@ local function moleDied( script, sim )
 	sim:getTags().MM_mole_died = true
 	sim.exit_warning = nil
 	sim:getNPC():removeAbility(sim, "MM_informant_witness")
-	-- log:write("LOG mole died")
+	-- log:write("[MM] mole died")
 	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_DIED[sim:nextRand(1,#SCRIPTS.INGAME.MOLE_INSERTION.MOLE_DIED)]
 	queueCentral( script, scripts )
 end
@@ -628,7 +628,7 @@ local function moleMission( script, sim )
 
 	local a, cell = script:waitFor( mission_util.PC_SAW_CELL_WITH_TAG(script, "personneldb_door" ) )
 	script:queue( { type="pan", x=cell.x, y=cell.y, zoom=0.27 } )
-	-- log:write("PC saw door")
+	-- log:write("[MM] PC saw door")
 	script:queue( 1*cdefs.SECONDS )
 	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.SEE_OBJECTIVE_DOOR
 	queueCentral( script, scripts)
@@ -640,7 +640,7 @@ local function moleMission( script, sim )
 	scripts = SCRIPTS.INGAME.MOLE_INSERTION.SEE_OBJECTIVE_DB
 	queueCentral( script, scripts )
 	sim:removeObjective( "findDB" )
-	-- log:write("LOG pc saw db")
+	-- log:write("[MM] pc saw db")
 	local turnsToHack = 5
 	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
 		turnsToHack = 4
@@ -728,7 +728,7 @@ local function spawnEliteGuard( sim ) --spawns a high-tier stationary guard at t
 		-- make him face away from the door
 		for dir, exit in pairs(door_cell.exits) do
 			if simquery.isDoorExit(exit) then
-				-- log:write("LOG setting facing")
+				-- log:write("[MM] setting facing")
 				local x1, y1 = exit.cell.x, exit.cell.y
 				facing = simquery.getDirectionFromDelta( door_cell.x - x1, door_cell.y - y1 )
 			end
@@ -830,7 +830,7 @@ function mission.generatePrefabs( cxt, candidates )
 	cxt.maxCountOverride["entry_guard"] = 1	
 	escape_mission.generatePrefabs( cxt, candidates )
 	prefabs.generatePrefabs( cxt, candidates, "MM_cameradb", 1 ) --force-spawn a camera db, then later despawn any redundant one
-	-- log:write("LOG spawning cameradb")
+	-- log:write("[MM] spawning cameradb")
 end
 
 return mission

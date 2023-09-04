@@ -71,7 +71,7 @@ local MM_ce_ultrasonic_echolocation_passive = util.extend( DEFAULT_BUFF )
 				if simquery.couldUnitSee(sim, userUnit, evData.unit, false, evData.from_cell ) then
 					canSee, canSense = sim:canUnitSee(userUnit, evData.from_cell.x, evData.from_cell.y)
 					if not canSee and canSense then
-						log:write("LOG 4")
+						log:write("[MM] Ultrasonic echolocation", evData.unit:getName())
 						targetX, targetY = evData.from_cell.x, evData.from_cell.y
 					end
 				end

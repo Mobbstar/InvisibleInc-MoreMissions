@@ -60,7 +60,7 @@ local function earlyLoad()
 	serverdefs.MM_DISTRESS_CALL_ITEMS = {}
 
 	local function ResetMMDistressCallItems()
-		log:write("ResetMMDistressCallItems()")
+		log:write("[MM] ResetMMDistressCallItems()")
 		util.tclear(serverdefs.MM_DISTRESS_CALL_ITEMS)
 		util.tmerge(serverdefs.MM_DISTRESS_CALL_ITEMS, MM_DISTRESS_CALL_ITEMS_DEFAULT)
 	end

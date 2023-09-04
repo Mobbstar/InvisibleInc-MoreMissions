@@ -31,7 +31,7 @@ local function GenerateScript(strings, scripts)
 	if strings[1] and type(strings[1]) == "string" then
 		-- currently in the data table for a specific line
 		if not MakeLine[strings[3]] then
-			log:write("Warning: The following Story Script had no valid actor (" .. util.stringize(strings[3], 1) .. "):\n" .. strings[1])
+			log:write("[MM] Warning: The following Story Script had no valid actor (" .. util.stringize(strings[3], 1) .. "):\n" .. strings[1])
 			strings[3] = "Central"
 		end
 		MakeLine[strings[3]](scripts, strings[1], strings[2], message_time)
@@ -41,7 +41,7 @@ local function GenerateScript(strings, scripts)
 				scripts[i] = {}
 				GenerateScript(data, scripts[i])
 			else
-				log:write("Warning: The following Story Script is not valid: " .. util.stringize(data, 1))
+				log:write("[MM] Warning: The following Story Script is not valid: " .. util.stringize(data, 1))
 				scripts[i] = data
 			end
 		end

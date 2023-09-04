@@ -19,7 +19,7 @@ local function runAppend( modApi )
 	
 	mission_util.makeAgentConnection = function( script, sim, ... )
 		-- spawn bonus
-		-- log:write("LOG makeAgentConnection append")
+		-- log:write("[MM] makeAgentConnection append")
 		spawn_refit_drone( script, sim )
 		makeAgentConnection_old(script, sim, ...)
 		spawn_mole_bonus( sim )

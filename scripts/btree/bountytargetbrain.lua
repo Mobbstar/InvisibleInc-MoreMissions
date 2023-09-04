@@ -113,7 +113,7 @@ local function overrideSensesAddInterest( senses )
 			-- Ignore them except for the random hunting interests sent by this unit.
 			-- Note: We'll still turn to join a shared overwatch combat. An interest only tries to be added if we can't immediately point our gun.
 			if not (reason == simdefs.REASON_HUNTING and sourceUnit == self.unit) then
-				simlog("LOG_MOREMISSIONS", "Unit [%d] ignoring radio interest (%d,%d:%s:%s:%s)", self.unit:getID(), x, y, sense, reason, sourceUnit and tostring(sourceUnit:getID()) or "nil")
+				simlog("[MM] Unit [%d] ignoring radio interest (%d,%d:%s:%s:%s)", self.unit:getID(), x, y, sense, reason, sourceUnit and tostring(sourceUnit:getID()) or "nil")
 				return nil
 			end
 		end

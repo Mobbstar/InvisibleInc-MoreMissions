@@ -89,8 +89,8 @@ function generateTechExpoGear()
 		itemdef.flavor = itemdef.flavor .. STRINGS.MOREMISSIONS.ITEMS.TECHEXPO_FLAVOR
 	end
 		
-	simlog("LOG_MM", "LOG tech expo templates")
-	simlog("LOG_MM", util.stringize(tech_expo_templates,3))
+	simlog("[MM] tech expo templates")
+	simlog(util.stringize(tech_expo_templates,3))
 
 	return tech_expo_templates
 end

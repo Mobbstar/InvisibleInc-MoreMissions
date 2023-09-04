@@ -27,9 +27,9 @@ for i, program in pairs(mainframe_abilities) do
 			if sim:getParams().agency.MM_upgradedPrograms and not self.MM_upgraded then
 				local upgrades = sim:getParams().agency.MM_upgradedPrograms
 				-- local abilityID = self:getID()
-				log:write("LOG upgrades")
+				log:write("[MM] upgrades")
 				log:write(util.stringize(upgrades, 2))
-				log:write("LOG name")
+				log:write("[MM] name")
 				log:write(util.stringize(self.name,2))
 				local abilityID = self.name
 				if upgrades[abilityID] then

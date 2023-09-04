@@ -27,7 +27,7 @@ local postGame_onLoad_old = postGame.onLoad
 postGame.onLoad = function( self, sim, params, num_actions )
 	
 	local mission_type = params.situationName
-	-- log:write("LOG situation " .. mission_type )
+	-- log:write("[MM] situation " .. mission_type )
 
 	local user = savefiles.getCurrentGame() 
 	if params.agency and params.agency.MM_techexpo_done then

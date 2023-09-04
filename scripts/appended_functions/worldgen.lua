@@ -33,14 +33,14 @@ worldgen.generateThreats = function( cxt, spawnTable, spawnList, ... )
 			if unitdefs.lookupTemplate("MM_prototype_droid") and unitdefs.lookupTemplate("MM_prototype_droid_spec") 
 			and not ((params.world == "omni") or (params.world == "omni2")) then
 				if rand:nextInt(1,100) < 70 then
-					-- log:write("LOG spawning droid")
+					-- log:write("[MM] spawning droid")
 					local listIndex = array.find( spawnList, "COMMON" )
 					
 					if listIndex then
 						cxt.units[unitCount + listIndex].template = "MM_prototype_droid"
 					end
 				else
-					-- log:write("LOG spawning elite droid")
+					-- log:write("[MM] spawning elite droid")
 					local listIndex = array.find( spawnList, "ELITE" )
 					
 					if listIndex then
@@ -50,7 +50,7 @@ worldgen.generateThreats = function( cxt, spawnTable, spawnList, ... )
 			end
 			if unitdefs.lookupTemplate("MM_spider_drone") and params.world == "sankaku" then
 				if rand:nextInt(1,100) < 70 then
-					-- log:write("LOG spawning drone")
+					-- log:write("[MM] spawning drone")
 					local listIndex = array.find( spawnList, "ELITE" )
 					
 					if listIndex then
@@ -71,7 +71,7 @@ end
 	-- if params.difficulty >= (params.difficultyOptions.MM_spawnTable_droids or 99999) then
 		-- local unitdefs = include("sim/unitdefs")
 		-- local rand = rand_module.createGenerator( params.seed )
-		-- log:write("LOG adding new threats")
+		-- log:write("[MM] adding new threats")
 		-- if unitdefs.lookupTemplate("MM_prototype_droid") and unitdefs.lookupTemplate("MM_prototype_droid_spec") 
 		
 		-- and not ((params.world == "omni") or (params.world == "omni2")) then
@@ -86,7 +86,7 @@ end
 			-- end
 		-- end
 		-- if unitdefs.lookupTemplate("MM_spider_drone") and params.world == "sankaku" then
-			-- -- log:write("LOG adding drone")
+			-- -- log:write("[MM] adding drone")
 			-- local randSpawn_ELITE = spawnTable.ELITE[rand:nextInt(1,#spawnTable.ELITE)]
 			-- if rand:nextInt(1,100) < 70 then
 				-- randSpawn_ELITE[1] = "MM_spider_drone"
@@ -94,7 +94,7 @@ end
 		-- end
 	-- end
 		
-	-- -- log:write("LOG spawnTable")
+	-- -- log:write("[MM] spawnTable")
 	-- -- log:write(util.stringize(spawnTable,3))
 	
 	-- return generateThreats_old( cxt, spawnTable, spawnList, ... )

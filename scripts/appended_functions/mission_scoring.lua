@@ -26,15 +26,15 @@ local function runAppend( modApi )
 			-- tick duration on existing mole bonuses
 			for i=#agency.MM_informant_bonus, 1, -1 do --do not modify agency during serialisation, doFinishMission is fine because no more serialisable player actions are possible
 				local mole_bonus = agency.MM_informant_bonus[i]
-				log:write("LOG DoFinishMission mole bonus")
+				log:write("[MM] DoFinishMission mole bonus")
 				log:write(util.stringize(mole_bonus,2))
 				if mole_bonus.missions_left then
 					if mole_bonus.missions_left then
-						log:write("LOG ticking down missions_left")
+						log:write("[MM] ticking down missions_left")
 						mole_bonus.missions_left = mole_bonus.missions_left - 1
 					end
 					if mole_bonus.missions_left <= 0 then
-						log:write("LOG removing bonus")
+						log:write("[MM] removing bonus")
 						table.remove(agency.MM_informant_bonus, i)
 					end
 				end
@@ -120,7 +120,7 @@ local function runAppend( modApi )
 			end
 		end
 		
-		log:write("LOG MM agency")
+		log:write("[MM] agency")
 		log:write(util.stringize(campaign.agency,2))
 
 		return returnvalue

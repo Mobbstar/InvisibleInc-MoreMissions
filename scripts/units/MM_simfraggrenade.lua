@@ -265,7 +265,7 @@ end
 function frag_grenade:onExplode( cells )
     local sim, player = self:getSim(), self:getPlayerOwner()
 
-	-- log:write("LOG on explode")
+	-- log:write("[MM] on explode")
 	
 	if self:getTraits().createsSmoke then
 		assert( self:getTraits().on_spawn )
@@ -282,16 +282,16 @@ function frag_grenade:onExplode( cells )
 	local killedUnits = {}
 	
 	for i, cell in ipairs(cells) do
-		-- log:write("LOG cell")
+		-- log:write("[MM] cell")
 		for i, cellUnit in ipairs( cell.units ) do
-			-- log:write("LOG cell unit")
+			-- log:write("[MM] cell unit")
 			-- log:write(util.stringize(cellUnit:getUnitData().name,2))
 			if self:getTraits().baseDamage 
 			and (self:getTraits().friendlyDamage
 			or ( self:getTraits().friendlyDamage == nil and simquery.isEnemyAgent( player, cellUnit)))
 			-- and not cellUnit:getTraits().isDrone
 			then
-				-- log:write("LOG grenade explosion")
+				-- log:write("[MM] grenade explosion")
 				-- for FX reasons, KO first, then kill: EV_KO_GROUP doesn't apply to death events
 				local damage = self:getTraits().baseDamage
 
@@ -307,7 +307,7 @@ function frag_grenade:onExplode( cells )
 	
 	sim:dispatchEvent( simdefs.EV_KO_GROUP, false )
 	for i, cellUnit in pairs(killedUnits) do
-		-- log:write("LOG damaging unit")
+		-- log:write("[MM] damaging unit")
 		if cellUnit:getTraits().woundsMax or cellUnit:getTraits().canBeShot then
 			sim:damageUnit(cellUnit, self:getTraits().baseDamage)
 			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = cellUnit } )
