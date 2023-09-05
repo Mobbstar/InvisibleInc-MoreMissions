@@ -15,6 +15,9 @@ function unitdefs.createUnitData( agentDef )
 		  	end
 		  	if child.traits.MM_mod_maxAmmo and child.traits.maxAmmo then
 		  		child.traits.maxAmmo = child.traits.maxAmmo + child.traits.MM_mod_maxAmmo
+				if child.traits.ammo_clip then
+					child.traits.ammo_clip = child.traits.ammo_clip + child.traits.MM_mod_maxAmmo
+				end
 		  	end
 		  	if child.traits.MM_mod_pwrCost and child.traits.pwrCost then
 		  		child.traits.pwrCost = child.traits.pwrCost + child.traits.MM_mod_pwrCost
