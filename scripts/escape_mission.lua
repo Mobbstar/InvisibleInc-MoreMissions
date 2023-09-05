@@ -740,6 +740,7 @@ end
 
 function pregeneratePrefabs( cxt, tagSet )
 	--cxt.params.side_mission = "MM_workshop"
+	--table.insert(tagSet, {"drone_lab"}) -- for dlc1 side missions
 	if cxt.params.side_mission then
 		if cxt.params.side_mission == "MM_w93_storageroom" then
 			table.insert( tagSet, { "storageRoom2" } )
