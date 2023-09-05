@@ -76,17 +76,6 @@ simunit.progressHack = function( self, ... )
 	return simunit_progressHack_old( self, ... )
 end
 
--- ASSASSINATION bodyguard
-local simunit_onDamage_old = simunit.onDamage
-simunit.onDamage = function( self, damage, ... )
-	simunit_onDamage_old( self, damage, ... )
-	if self and self:isValid() and self:getLocation() and not self:getTraits().isDead and (self:getTraits().MM_bodyguard or self:getTraits().MM_bounty_target) then
-		if (self:getTraits().wounds < self:getTraits().woundsMax) and not self:isKO() then
-			self:getSim():dispatchEvent( simdefs.EV_UNIT_HIT, {unit = self, result = 0} ) --stagger FX
-		end
-	end
-end
-
 local simunit_setKO_old = simunit.setKO --for flash grenade
 simunit.setKO = function( self, sim, ticks, fx, ... )
 	if self:getTraits().MM_decoy then
