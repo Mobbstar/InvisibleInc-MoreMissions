@@ -148,6 +148,9 @@ local MM_modify_item =
 					itemUnit:getTraits().MM_mod_maxAmmo = (itemUnit:getTraits().maa_mod_maxAmmo or 0) + 1
 					itemUnit:getTraits().maxAmmo = itemUnit:getTraits().maxAmmo + 1
 					itemUnit:getTraits().ammo = (itemUnit:getTraits().ammo or 0) + 1
+					if itemUnit:getTraits().ammo_clip then
+						itemUnit:getTraits().ammo_clip = (itemUnit:getTraits().ammo_clip or 0) + 1
+					end					
 					itemUnit:getTraits().MM_modded_item_trait = UPGRADE_OPTIONS.AMMO
 					itemUnit:getTraits().is_modified = true
 					modification_done = true
