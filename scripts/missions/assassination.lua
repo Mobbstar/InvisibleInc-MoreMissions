@@ -866,8 +866,8 @@ local function bodyguardShotAt( script, sim )
 			turnBodyguardToFace( guard, agent:getLocation() )
 		end
 	end
-	
-	scriptMgr:addHook( "bodyguardShotAt", bodyguardShotAt )
+
+	script:addHook( bodyguardShotAt )
 end
 
 local function waitForSteal( script, sim, mission )
