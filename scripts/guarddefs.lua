@@ -224,7 +224,7 @@ local npc_templates =
 		children = {},
 		idles = DEFAULT_IDLES,
 		sounds = DROID_SOUNDS,
-		brain = "mmBountyTargetBrain",
+		brain = "mmBountyFakeBrain",
 	},
 
 	MM_bounty_target_android =
