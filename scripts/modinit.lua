@@ -98,6 +98,7 @@ local function init( modApi )
 	include( scriptPath .. "/btree/actions" )
 	include( scriptPath .. "/btree/conditions" )
 	include( scriptPath .. "/btree/bountytargetbrain" )
+	include( scriptPath .. "/btree/bountyfakebrain" )
 
 	include( scriptPath.."/hud/hud" )--from Interactive Events, required for modal dialog choice menu to work properly
 
