@@ -667,8 +667,8 @@ local function useConsole( script, sim )
 			sim:getPC():glimpseExit( c.x, c.y, i )
 
 			script:queue( 1*cdefs.SECONDS )
-			script:queue( { type="pan", x=c.x, y=c.y } )
-			script:queue( 0.1*cdefs.SECONDS )
+			--script:queue( { type="pan", x=c.x, y=c.y } )
+			--script:queue( 0.1*cdefs.SECONDS )
 			queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_UNLOCKED_SUBDOOR )
 		end
 	end
