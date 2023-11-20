@@ -25,13 +25,14 @@ local MM_renameDrone =
 		end,
 		
 		proxy = true,
-
+		HUDpriority = 1,
 		getName = function( self, sim, abilityOwner, abilityUser, targetUnitID )
 			return self.name
 		end,
 		
 		profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png",
-
+		
+		-- NEEDS FIXING TO DISALLOW DIAGONAL INTERACTION
 		acquireTargets = function( self, targets, game, sim, abilityOwner, unit )
             if simquery.canUnitReach( sim, unit, abilityOwner:getLocation() ) and (unit ~= abilityOwner) then
 			    return targets.unitTarget( game, { abilityOwner }, self, abilityOwner, unit )
