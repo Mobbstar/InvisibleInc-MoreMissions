@@ -400,6 +400,10 @@ return {
 		RENAME_DRONE = "RENAME DRONE",
 		RENAME_DRONE_DESC = "Rename refit drone",
 		RENAME_DRONE_CONFIRM = "CONFIRM",
+
+		PET = "PET ",
+		PET_DRONE = "PET DRONE",
+		PET_DRONE_DESC = "Pet the drone on its smooth little head",		
 		
 		ACTIVATE_NANOFAB_CONSOLE = "CALL SUPPORT",
 		ACTIVATE_NANOFAB_CONSOLE_DESC = "Summon the guard entrusted with the Nanofab Key.",

@@ -322,6 +322,7 @@ local function load( modApi, options, params )
 	modApi:addAbilityDef( "MM_workshop_reroute_pwr", scriptPath .. "/abilities/MM_workshop_reroute_pwr" )
 	modApi:addAbilityDef( "MM_modify_item", scriptPath .. "/abilities/MM_modify_item" )
 	modApi:addAbilityDef( "MM_workshop_place_item", scriptPath .. "/abilities/MM_workshop_place_item" )
+	modApi:addAbilityDef( "MM_petDrone", scriptPath .. "/abilities/MM_petDrone" )
 
 	include( scriptPath .. "/missions/distress_call" )
 	include( scriptPath .. "/missions/weapons_expo" )
