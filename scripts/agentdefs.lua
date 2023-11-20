@@ -208,7 +208,7 @@ local agent_templates =
 		profile_build = "portraits/sankaku_proto_drone",
 		profile_image = "sankaku_drone_camera.png",		
 		children = { },
-		abilities = { "observePath","peek","escape","MM_renameDrone","jackin","lastWords" },
+		abilities = { "observePath","peek","escape","MM_renameDrone","jackin","lastWords", "MM_petDrone" },
 		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS )
 		{
 			LOSrange = nil,
