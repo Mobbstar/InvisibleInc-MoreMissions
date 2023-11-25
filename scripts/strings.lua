@@ -111,7 +111,7 @@ return {
 		"MORE MISSIONS: You can enable the mod's HARD MODE to experience the full challenge of the security measures.",
 		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
 		"MORE MISSIONS: The Assassination target is marked as Paranoid, but is it paranoia if someone really is out to kill you?",
-		"MORE MISSIONS: A huge thank you to the voiceover fund contributors: <c:F47932>Cyberboy2000, jlaub, TornadoFive, Zorlock Darksoul, Dwarlen, amalloy,	Datsdabeat,	Mobbstar, Waldenburger,	alpacalypse, magnificentophat, Zaman, Alexander S., Datapuncher, Jeysie, Linenpixel, WMGreywind, Puppetsquid, qoala, kalec.gos</>",
+		"MORE MISSIONS: A huge thank you to the voiceover fund contributors: <c:F47932>Cyberboy2000, jlaub, TornadoFive, Zorlock Darksoul, Dwarlen, amalloy,	Datsdabeat,	Mobbstar, Waldenburger,	alpacalypse, magnificentophat, Zaman, Alexander S., Datapuncher, Jeysie, Linenpixel, WMGreywind, Puppetsquid, qoala, kalec.gos, Erpy, Andrew Kay</>",
 	},
 
 	PROPS =
@@ -702,7 +702,7 @@ return {
 			INSET_TITLE = "MARKED FOR DEATH", --unused
 			INSET_TXT = "I wouldn't normally stoop to assassination contracts, but the payday on this one is too tempting to ignore. The target is highly placed, so we can expect heightened security at this corporation if you complete the job. Ready to get your hands dirty, Operator?", --unused
 			INSET_VO = {"moremissions/VoiceOver/Central/assassination/mapscreen"},
-			DESCRIPTION = "Kill the VIP.",
+			DESCRIPTION = "Eliminate the VIP.",
 			REWARD = "A hefty cash reward, at the cost of a permanent security increase at this corporation.",
 		},
 		LANDFILL = {
@@ -1633,10 +1633,12 @@ return {
 			WMGreywind
 			Puppetsquid
 			qoala
-			kalec.gos</>
+			kalec.gos
+			Erpy
+			Andrew Kay</>
 			--------------------
 
-			(A huge thanks to everyone who donated to fund voice acting for the More Missions mod, and an equally huge thanks to Veena Sood for her work in voicing the lines!
+			(A huge thank you to everyone who donated to fund voice acting for the More Missions mod, and an equally huge thanks to Veena Sood and Benjamin Hawkins for their work in voicing the lines!
 			
 			- The More Missions dev team)
 		]],
