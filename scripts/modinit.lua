@@ -31,7 +31,7 @@ local function init( modApi )
     -- KLEIResourceMgr.MountPackage( dataPath .. "/characters.kwad", "data/anims" )
     -- KLEIResourceMgr.MountPackage( dataPath .. "/anims.kwad", "data" )
    	KLEIResourceMgr.MountPackage( dataPath .. "/moremissions_anims.kwad", "data" )
-	KLEIResourceMgr.MountPackage( dataPath .. "/pedler_oil.kwad", "data" ) --taken from Shirsh's mod combo
+	KLEIResourceMgr.MountPackage( dataPath .. "/oil_fx.kwad", "data" ) --taken from Shirsh's mod combo, pedler_oil.kwad
 
 	modApi:addGenerationOption("executive_terminals",  STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL , STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("ceo_office",  STRINGS.MOREMISSIONS.OPTIONS.CFO_OFFICE , STRINGS.MOREMISSIONS.OPTIONS.CFO_OFFICE_TIP, {noUpdate=true} )
