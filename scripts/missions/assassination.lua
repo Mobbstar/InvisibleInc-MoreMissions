@@ -956,8 +956,6 @@ mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
 	decoyUnit:getTraits().canBeCritical = true
 	decoyUnit:getTraits().sightable = nil
 	decoyUnit:getTraits().MM_invisible_to_PC = true
-	decoyUnit:getBrain():onDespawned()
-	decoyUnit._brain = nil
 	
 	-- cosmetic stuff
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, {sound="SpySociety/Actions/holocover_deactivate", x=x0,y=y0} )
