@@ -744,7 +744,8 @@ local function bodyguardAlertsCeo( script, sim, mission )
 		return
 	end
 
-	if bodyguard:isDown() or bodyguard:getTraits().iscorpse then
+	local bodyguardIsAwake = not bodyguard:isDown() and not bodyguard:getTraits().iscorpse
+	if not bodyguardIsAwake then
 		-- delay 1 full CORP turn before the CEO notices, unless the bodyguard wakes up first.
 		local ev, _ = script:waitFor( mission_util.PC_END_TURN, BODYGUARD_ALERTED )
 		if ev == mission_util.PC_END_TURN then
@@ -753,7 +754,6 @@ local function bodyguardAlertsCeo( script, sim, mission )
 	end
 
 	bodyguard:getTraits().MM_alertlink = nil --for tooltip
-	local bodyguardIsAwake = not bodyguard:isDown() and not bodyguard:getTraits().iscorpse
 	doAlertRealAndFakeCeos( sim, bodyguardIsAwake, mission )
 end
 

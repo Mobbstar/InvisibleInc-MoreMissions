@@ -12,10 +12,10 @@ local function earlyInit( modApi )
 
 	local scriptPath = modApi:getScriptPath()
 	rawset(_G,"SCRIPT_PATHS",rawget(_G,"SCRIPT_PATHS") or {})
-    SCRIPT_PATHS.more_missions = scriptPath	
+	SCRIPT_PATHS.more_missions = scriptPath	
 	SCRIPT_PATHS.name_dialog = include( scriptPath .. "/hud/name_dialog" )
-    include( scriptPath .. "/hud/hud_name_dialog" )
-	
+	include( scriptPath .. "/hud/hud_name_dialog" )
+
 	local serverdefs = include( "modules/serverdefs" )
 	default_missiontags = array.copy(serverdefs.ESCAPE_MISSION_TAGS)
 end
@@ -25,12 +25,12 @@ local function init( modApi )
 	local scriptPath = modApi:getScriptPath()
 	local dataPath = modApi:getDataPath()
 	KLEIResourceMgr.MountPackage( dataPath .. "/gui.kwad", "data" )
-    -- KLEIResourceMgr.MountPackage( dataPath .. "/images.kwad", "data" )
-    KLEIResourceMgr.MountPackage( dataPath .. "/sound.kwad", "data" )
-    MOAIFmodDesigner.loadFEV("moremissions.fev")
-    -- KLEIResourceMgr.MountPackage( dataPath .. "/characters.kwad", "data/anims" )
-    -- KLEIResourceMgr.MountPackage( dataPath .. "/anims.kwad", "data" )
-   	KLEIResourceMgr.MountPackage( dataPath .. "/moremissions_anims.kwad", "data" )
+	-- KLEIResourceMgr.MountPackage( dataPath .. "/images.kwad", "data" )
+	KLEIResourceMgr.MountPackage( dataPath .. "/sound.kwad", "data" )
+	MOAIFmodDesigner.loadFEV("moremissions.fev")
+	-- KLEIResourceMgr.MountPackage( dataPath .. "/characters.kwad", "data/anims" )
+	-- KLEIResourceMgr.MountPackage( dataPath .. "/anims.kwad", "data" )
+	KLEIResourceMgr.MountPackage( dataPath .. "/moremissions_anims.kwad", "data" )
 	KLEIResourceMgr.MountPackage( dataPath .. "/oil_fx.kwad", "data" ) --taken from Shirsh's mod combo, pedler_oil.kwad
 
 	modApi:addGenerationOption("executive_terminals",  STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL , STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINAL_TIP, {noUpdate=true} )
@@ -111,7 +111,7 @@ local function init( modApi )
 	
 	-- adding datalogs
 	local logs = include( scriptPath .. "/logs" )
-	for i,log in ipairs(logs) do      
+	for i,log in ipairs(logs) do
 		modApi:addLog(log)
 	end
 	
@@ -168,9 +168,16 @@ local function removeAllElementsAndDupes(t0, t1)
 	end
 end
 
+local function generationOptionEnabled(options, name, default)
+	if options and options[name] then
+		return options[name].enabled
+	end
+	return default or false
+end
+
 local function unloadCommon( modApi, options )
-    local scriptPath = modApi:getScriptPath()
-	
+	local scriptPath = modApi:getScriptPath()
+
 	local serverdefs = include( "modules/serverdefs" )
 	local serverdefs_mod = include( scriptPath .. "/serverdefs" )
 	removeAllElementsAndDupes(serverdefs.ESCAPE_MISSION_TAGS, serverdefs_mod.ESCAPE_MISSION_TAGS)
@@ -189,7 +196,7 @@ local function unloadCommon( modApi, options )
 end
 
 local function earlyLoad( modApi, options, params )
-    local scriptPath = modApi:getScriptPath()
+	local scriptPath = modApi:getScriptPath()
 
 	local serverdefs_appends = include( scriptPath .. "/appended_functions/serverdefs" )
 	serverdefs_appends.earlyLoad()
@@ -200,29 +207,25 @@ local function load( modApi, options, params )
 	unloadCommon( modApi, options )
 	
 	local serverdefs = include( "modules/serverdefs" )
-    local scriptPath = modApi:getScriptPath()
+	local scriptPath = modApi:getScriptPath()
 
 	if params then
 		params.mm_enabled = true
-		if (options["MM_hard_mode"] and options["MM_hard_mode"].enabled) or (options["MM_hard_mode"] == nil) then
-			params.MM_difficulty = "hard"
-		elseif options["MM_hard_mode"] and not options["MM_hard_mode"].enabled then
-			params.MM_difficulty = "easy"
-		end
-		if options["MM_exec_terminals"] and options["MM_exec_terminals"].enabled then
+		params.MM_difficulty = generationOptionEnabled(options, "MM_hard_mode", true) and "hard" or "easy"
+		if generationOptionEnabled(options, "MM_exec_terminals") then
 			params.MM_exec_terminals = true
 		end	
-		if options["MM_sidemission_rebalance"] and options["MM_sidemission_rebalance"].enabled then
+		if generationOptionEnabled(options, "MM_sidemission_rebalance") then
 			params.MM_sidemission_rebalance = true
 		end
 		if options["MM_spawnTable_droids"] and options["MM_spawnTable_droids"].value then
 			params.MM_spawnTable_droids = options["MM_spawnTable_droids"].value
 		end
 	end
-	
+
 	local animdefs_vanilla = include( "animdefs" ).defs
 	if animdefs_vanilla.kanim_drone_refit then
-		if options["MM_sidemission_rebalance"] and options["MM_sidemission_rebalance"].enabled then
+		if generationOptionEnabled(options, "MM_sidemission_rebalance") then
 			if animdefs_vanilla.kanim_drone_refit.oldScale == nil then
 				animdefs_vanilla.kanim_drone_refit.oldScale = animdefs_vanilla.kanim_drone_refit.scale
 			end
@@ -234,17 +237,17 @@ local function load( modApi, options, params )
 		end
 	end
 
-	if options["MM_sidemission_rebalance"] and options["MM_sidemission_rebalance"].enabled then
+	if generationOptionEnabled(options, "MM_sidemission_rebalance") then
 		include( scriptPath .. "/appended_functions/abilities/transformer_terminal")
 	end
 
-	if options["MM_exec_terminals"] and options["MM_exec_terminals"].enabled then
+	if generationOptionEnabled(options, "MM_exec_terminals") then
 		-- new SC functions for Executive Terminal window override
 		modApi:insertUIElements( include( scriptPath.."/screen_inserts" ).inserts_exec )
 		modApi:modifyUIElements( include( scriptPath.."/screen_modifications" ) )
 	end
-	
-	if options["ai_terminal"] and options["ai_terminal"].enabled then
+
+	if generationOptionEnabled(options, "ai_terminal") then
 		modApi:insertUIElements( include( scriptPath.."/screen_inserts" ).inserts_ai_term )
 	end
 
@@ -282,16 +285,16 @@ local function load( modApi, options, params )
 	local commondefs = include( scriptPath .. "/commondefs" )
 	modApi:addTooltipDef( commondefs )
 
-	if options["MM_sidemissions_abduction"].enabled then
+	if generationOptionEnabled(options, "MM_sidemissions_abduction") then
 		modApi:addSideMissions(scriptPath, { "MM_w93_personelHijack" } )
 	end
-	if options["MM_sidemissions_briefcases"].enabled then
+	if generationOptionEnabled(options, "MM_sidemissions_briefcases") then
 		modApi:addSideMissions(scriptPath, { "MM_w93_storageroom" } )
 	end
-	if options["MM_sidemissions_luxurynanofab"].enabled then
+	if generationOptionEnabled(options, "MM_sidemissions_luxurynanofab") then
 		modApi:addSideMissions(scriptPath, { "MM_luxuryNanofab" } )
 	end
-	if options["MM_sidemissions_workshop"].enabled then
+	if generationOptionEnabled(options, "MM_sidemissions_workshop") then
 		modApi:addSideMissions(scriptPath, { "MM_workshop" } )
 	end
 		-- (easy debugging of sidemissions: uncomment to clear the list and add just the sidemission to be tested)
@@ -361,19 +364,19 @@ local function load( modApi, options, params )
 
 	--remove vanilla tags if disabled
 	for i = #serverdefs.ESCAPE_MISSION_TAGS, 1, -1 do
-		if options[serverdefs.ESCAPE_MISSION_TAGS[i]] and not options[serverdefs.ESCAPE_MISSION_TAGS[i]].enabled then
+		if not generationOptionEnabled(options, serverdefs.ESCAPE_MISSION_TAGS[i], true) then
 			-- log:write("[MM] removing mission tag: ".. serverdefs.ESCAPE_MISSION_TAGS[i])
 			table.remove(serverdefs.ESCAPE_MISSION_TAGS, i)
 		end
 	end
 	for i = #simdefs.DEFAULT_MISSION_TAGS, 1, -1 do
-		if options[simdefs.DEFAULT_MISSION_TAGS[i]] and not options[simdefs.DEFAULT_MISSION_TAGS[i]].enabled then
+		if not generationOptionEnabled(options, simdefs.DEFAULT_MISSION_TAGS[i], true) then
 			table.remove(simdefs.DEFAULT_MISSION_TAGS, i)
 		end
 	end
 	--add new tags if enabled
 	for i, tag in pairs(serverdefs_mod.ESCAPE_MISSION_TAGS) do
-		if not options[tag] or options[tag].enabled then
+		if generationOptionEnabled(options, tag, true) then
 			-- log:write("[MM] adding mission tag: ".. tag)
 			table.insert(serverdefs.ESCAPE_MISSION_TAGS, tag)
 			table.insert(simdefs.DEFAULT_MISSION_TAGS, tag)
@@ -405,29 +408,29 @@ local function load( modApi, options, params )
 	local assassinationPrefabs = include( scriptPath .. "/prefabs/assassination/prefabt" )
 	modApi:addPrefabt(assassinationPrefabs)
 	local distressPrefabs = include( scriptPath .. "/prefabs/distress_call/prefabt" )
-    modApi:addPrefabt(distressPrefabs)
+	modApi:addPrefabt(distressPrefabs)
 	local moleInsertionPrefabs = include( scriptPath .. "/prefabs/mole_insertion/prefabt" )
 	modApi:addPrefabt(moleInsertionPrefabs)
 	local cameraDB = include( scriptPath .. "/prefabs/mole_insertion/prefabt_cameradb" )
 	modApi:addPrefabt(cameraDB)
 	local weaponsExpoPrefabs = include( scriptPath .. "/prefabs/weaponsexpo/prefabt" )
-    modApi:addPrefabt(weaponsExpoPrefabs)
+	modApi:addPrefabt(weaponsExpoPrefabs)
 	local aiTerminalPrefabs = include( scriptPath .. "/prefabs/ai_terminal/prefabt" )
-    modApi:addPrefabt(aiTerminalPrefabs)
+	modApi:addPrefabt(aiTerminalPrefabs)
 	local sidemissionPrefabs = include( scriptPath .. "/prefabs/sidemissions/prefabt" )
-    modApi:addPrefabt(sidemissionPrefabs)
+	modApi:addPrefabt(sidemissionPrefabs)
 
 	--local koPrefabs = include( scriptPath .. "/prefabs/ko/prefabt" )
- 	--modApi:addWorldPrefabt(scriptPath, "ko", koPrefabs)
+	--modApi:addWorldPrefabt(scriptPath, "ko", koPrefabs)
 
 	--local ftmPrefabs = include( scriptPath .. "/prefabs/ftm/prefabt" )
-  	-- modApi:addWorldPrefabt(scriptPath, "ftm", ftmPrefabs)
+	-- modApi:addWorldPrefabt(scriptPath, "ftm", ftmPrefabs)
 
 	--local skPrefabs = include( scriptPath .. "/prefabs/sankaku/prefabt" )
-  	--modApi:addWorldPrefabt(scriptPath, "sankaku", skPrefabs)
+	--modApi:addWorldPrefabt(scriptPath, "sankaku", skPrefabs)
 
 	--local plastechPrefabs = include( scriptPath .. "/prefabs/plastech/prefabt" )
-    	--modApi:addWorldPrefabt(scriptPath, "plastech", plastechPrefabs)
+	--modApi:addWorldPrefabt(scriptPath, "plastech", plastechPrefabs)
 
 	--and here comes the massive hacks! -M
 	include( scriptPath .. "/appended_functions/abilities/escape" ) --This one has to be in load() because the item evac mod overrides the ability each load. (as of 20-2-2, -M)
@@ -527,12 +530,12 @@ local function initStrings(modApi)
 end
 
 return {
-    init = init,
-    earlyInit = earlyInit,
-    lateInit = lateInit,
-    earlyLoad = earlyLoad,
-    load = load,
-    lateLoad = lateLoad,
-    unload = unload,
-    initStrings = initStrings,
+	init = init,
+	earlyInit = earlyInit,
+	lateInit = lateInit,
+	earlyLoad = earlyLoad,
+	load = load,
+	lateLoad = lateLoad,
+	unload = unload,
+	initStrings = initStrings,
 }
