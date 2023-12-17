@@ -397,7 +397,7 @@ local BOUGHT_ITEM =
 {
 	trigger = simdefs.TRG_BUY_ITEM,
 	fn = function( sim, triggerData )
-		if triggerData.shopUnit:getTraits().storeType and (triggerData.shopUnit:getTraits().storeType == "large") and triggerData.shopUnit:getTraits().luxuryNanofab and triggerData.shopUnit:hasAbility("showItemStore") then
+		if triggerData.shopUnit:getTraits().luxuryNanofab and triggerData.shopUnit:hasAbility("showItemStore") then
 			return triggerData.shopUnit
 		end
 	end,
@@ -407,7 +407,7 @@ local CLOSED_NANOFAB =
 {
 	trigger = simdefs.TRG_CLOSE_NANOFAB,
 	fn = function( sim, triggerData )
-		if triggerData.unit and triggerData.unit:getTraits().storeType and (triggerData.unit:getTraits().storeType == "large") and triggerData.unit:hasAbility("showItemStore") and triggerData.unit:getTraits().luxuryNanofab then
+		if triggerData.shopUnit:getTraits().luxuryNanofab and triggerData.shopUnit:hasAbility("showItemStore") then
 			return triggerData.unit
 		end
 	end,
@@ -583,71 +583,58 @@ local function populateFancyFab(sim)
 	end
 
 	if computer then
-
-		--Use simstore.createStoreItems to generate a long list of item candidates for each category. This will contain duplicates
-		local possible_merch = {
-		[1] = {}, --items
-		[2] = {}, --augments
-		[3] = {}, --weapons
-		}
-
-		for i = 40, 1, -1 do --40 iterations should be enough to get 16 unique items
-			local items, weapons, augments = simstore.createStoreItems( simstore.STORE_ITEM, computer, sim )
-			util.tmerge(possible_merch[1], items)
-			util.tmerge(possible_merch[2], augments)
-			util.tmerge(possible_merch[3], weapons)
-		end
-
+		local STORE_TYPES = {"MM_luxuryItem", "MM_luxuryAug", "MM_luxuryWpn"}
 		local itemType = sim:nextRand(1,3) --randomly choose either items, augments or weapons to populate the shop
 		sim.luxuryNanofabItemType = itemType
-		local merch_candidates = possible_merch[itemType]
+		local storeType = STORE_TYPES[itemType]
+		computer:getTraits().storeType = storeType
 
-		--remove_duplicates
-		local hash = {}
-		local unique_merch = {}
+		--Use simstore.createStoreItems to generate a long list of item candidates for each category. This will contain duplicates
+		local items, weapons, augments = simstore.createStoreItems( simstore.STORE_ITEM, computer, sim )
 
-		for _,v in ipairs(merch_candidates) do
-		   if (not hash[v._unitData.id ]) then
-			   table.insert(unique_merch,v)
-			   hash[v._unitData.id] = true
-		   end
+		local merch
+		if itemType == 1 then
+			merch = items
+		elseif itemType == 2 then
+			merch = augments
+		elseif itemType == 3 then
+			merch = weapons
 		end
+		-- simlog("QDBG %d:%s i=%d w=%d a=%d -=%d \n%s", itemType, storeType, #items, #weapons, #augments, #merch, util.stringize(simstore.STORE_ITEM.storeType[storeType]))
 
-		-- distribute the possible merch randomly to fill up the three nanofab categories
-		local total_items = {
+		-- distribute the possible merch among the three nanofab categories
+		local totalItems = {
 			[1] = {},	--8 slots
 			[2] = {},	-- 4 slots
 			[3] = {},	-- 4 slots
 		}
-		if #unique_merch > 0 then
 
-			for i = #unique_merch, 1, -1 do -- will run until merch list potential is empty or all nanofab categories are full, whichever comes first
-				local item = sim:nextRand(1, #unique_merch)
-				local group_choice = sim:nextRand(1,#total_items) --pick one of three categories to populate
-				local item_group = total_items[group_choice]
-				local limit = 4 -- 4 slots
-				if group_choice == 1 then
-					limit = 8 --8 slots
-				end
-				if #item_group < limit then
-					table.insert(item_group, unique_merch[i])
-					table.remove(unique_merch, i)
-				end
+		local groupChoice = 1
+		while #merch > 0 and groupChoice <= 3 do
+			local itemGroup = totalItems[groupChoice]
+			table.insert(itemGroup, table.remove(merch))
+			-- simlog("     %d.%d %s", groupChoice, #itemGroup, itemGroup[#itemGroup]._unitData.name or "")
+			local limit = 4 -- 4 slots
+			if groupChoice == 1 then
+				limit = 8 --8 slots
 			end
-
-			computer.items, computer.weapons, computer.augments = total_items[1], total_items[2], total_items[3]
-
-			computer:getTraits().mainframe_status = "off"
-			local itemTypeName
-			if itemType == 1 then
-				itemTypeName = "ITEMS"
-			elseif itemType == 2 then
-				itemTypeName = "AUGMENTS"
-			elseif itemType == 3 then
-				itemTypeName = "WEAPONS"
+			if #itemGroup >= limit then
+				groupChoice = groupChoice + 1
 			end
-			computer:getTraits().luxuryNanofab = itemTypeName -- doubly used for tooltip and scripts
 		end
+
+		computer.items, computer.weapons, computer.augments = totalItems[1], totalItems[2], totalItems[3]
+
+		computer:getTraits().mainframe_status = "off"
+		local itemTypeName
+		if itemType == 1 then
+			itemTypeName = "ITEMS"
+		elseif itemType == 2 then
+			itemTypeName = "AUGMENTS"
+		elseif itemType == 3 then
+			itemTypeName = "WEAPONS"
+		end
+		computer:getTraits().luxuryNanofab = itemTypeName -- doubly used for tooltip and scripts
 	end
 end
 

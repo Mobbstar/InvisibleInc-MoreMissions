@@ -491,10 +491,12 @@ local prop_templates =
 			moveToDevice=true,
 			cover = true,
 			impass = {0,0},
-			storeType = "large",
+			storeType="MM_luxuryItem",  -- This will be replaced by the mission script.
+			noMandatoryItems = true,  -- No chargepack/medgel.
+			noDupes = true, -- No duplicate items. (Requires Function Library 1.100+)
 			sightable = true,
-			largenano = true,
-			luxuryNanofab = true,
+			-- largenano = true,  -- This flag is used by the vanilla Nanofab mission, inconsistently this or storeType in various checks.
+			luxuryNanofab = true,  -- Also replaced by the mission script.
 		},
 		abilities = { "showItemStore" },
 		tags = {"MM_luxuryNanofab"},
