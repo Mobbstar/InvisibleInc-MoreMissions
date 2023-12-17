@@ -1025,7 +1025,6 @@ local function tryDecoy( sim )
 	if FINAL_CHANCE_OF_DECOY > 1 then
 		FINAL_CHANCE_OF_DECOY = 0.9
 	end
-	FINAL_CHANCE_OF_DECOY = 0 -- DISABLE DECOY DUE TO BUGGINESS IN CURRENT BUILD. REMOVE LATER
 	if (sim:nextRand() < FINAL_CHANCE_OF_DECOY) then
 		log:write("[MM] implementing decoy")	
 		for i, unit in pairs(sim:getNPC():getUnits()) do 
