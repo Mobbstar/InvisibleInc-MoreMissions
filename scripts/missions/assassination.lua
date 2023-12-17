@@ -1044,6 +1044,7 @@ local function tryDecoy( sim )
 			vip:getTraits().MM_realtarget = true
 			vip:getTraits().MM_staySafe = true
 			vip:getTraits().patrolPath = { { x = safeCell.x, y = safeCell.y }, { x = hidingCell.x, y = hidingCell.y } }
+			vip:getBrain():reset() -- Reset any existing planned pathing for new patrol path.
 			vip:addTag("assassination_real")
 			sim:refreshUnitLOS( vip )
 			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = vip } )
