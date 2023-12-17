@@ -956,8 +956,6 @@ mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
 	decoyUnit:getTraits().canBeCritical = true
 	decoyUnit:getTraits().sightable = nil
 	decoyUnit:getTraits().MM_invisible_to_PC = true
-	decoyUnit:getBrain():onDespawned()
-	decoyUnit._brain = nil
 	
 	-- cosmetic stuff
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, {sound="SpySociety/Actions/holocover_deactivate", x=x0,y=y0} )
@@ -1027,7 +1025,6 @@ local function tryDecoy( sim )
 	if FINAL_CHANCE_OF_DECOY > 1 then
 		FINAL_CHANCE_OF_DECOY = 0.9
 	end
-	FINAL_CHANCE_OF_DECOY = 0 -- DISABLE DECOY DUE TO BUGGINESS IN CURRENT BUILD. REMOVE LATER
 	if (sim:nextRand() < FINAL_CHANCE_OF_DECOY) then
 		log:write("[MM] implementing decoy")	
 		for i, unit in pairs(sim:getNPC():getUnits()) do 
@@ -1046,6 +1043,7 @@ local function tryDecoy( sim )
 			vip:getTraits().MM_realtarget = true
 			vip:getTraits().MM_staySafe = true
 			vip:getTraits().patrolPath = { { x = safeCell.x, y = safeCell.y }, { x = hidingCell.x, y = hidingCell.y } }
+			vip:getBrain():reset() -- Reset any existing planned pathing for new patrol path.
 			vip:addTag("assassination_real")
 			sim:refreshUnitLOS( vip )
 			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = vip } )
