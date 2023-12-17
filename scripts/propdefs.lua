@@ -487,7 +487,15 @@ local prop_templates =
 		onWorldTooltip = onStoreTooltip,
 		kanim = "kanim_printer", 
 		rig ="corerig",
-		traits = util.extend( MAINFRAME_TRAITS ) { moveToDevice=true, cover = true, impass = {0,0}, storeType="large", sightable = true, largenano=true, luxuryNanofab = true,},
+		traits = util.extend( MAINFRAME_TRAITS ) {
+			moveToDevice=true,
+			cover = true,
+			impass = {0,0},
+			storeType = "large",
+			sightable = true,
+			largenano = true,
+			luxuryNanofab = true,
+		},
 		abilities = { "showItemStore" },
 		tags = {"MM_luxuryNanofab"},
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", }
