@@ -80,7 +80,7 @@ local MM_scrubcameradb = --tweaked version of monster root hub hack
 				-- return false, STRINGS.ABILITIES.HACK_ONLY_MOLE --only mole
 			-- end 
 
-			if abilityOwner:getTraits().mainframe_ice > 0 then 
+			if abilityOwner:getPlayerOwner() ~= sim:getPC() then
 				return false, STRINGS.ABILITIES.TOOLTIPS.UNLOCK_WITH_INCOGNITA
 			end
 			

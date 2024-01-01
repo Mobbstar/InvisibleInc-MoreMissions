@@ -32,7 +32,7 @@ local MM_transformer_terminal_sell_PWR_10 =
                 return false
             end
 
-			if abilityOwner:getTraits().mainframe_ice > 0 then 
+			if abilityOwner:getPlayerOwner() ~= sim:getPC() then
 				return false, STRINGS.ABILITIES.TOOLTIPS.UNLOCK_WITH_INCOGNITA
 			end
 
