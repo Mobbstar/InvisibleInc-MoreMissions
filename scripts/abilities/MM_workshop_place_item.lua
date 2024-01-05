@@ -37,7 +37,7 @@ local MM_workshop_place_item =
 			return false
 		end
 
-		if unit:getTraits().mainframe_ice > 0 then
+		if unit:getPlayerOwner() ~= sim:getPC() then
 			return false, STRINGS.ABILITIES.TOOLTIPS.UNLOCK_WITH_INCOGNITA
 		end
 
