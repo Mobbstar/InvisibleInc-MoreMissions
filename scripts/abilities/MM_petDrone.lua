@@ -34,40 +34,6 @@ local MM_renameDrone =
 		profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png", -- NEEDS TO BE CUSTOM!!!!!!!!
 
 		-- Note that abilityOwner is the drone, unit is the agent!
-		acquireTargets = function( self, targets, game, sim, abilityOwner, unit )
-            if simquery.canUnitReach( sim, unit, abilityOwner:getLocation() ) and (unit ~= abilityOwner) then
-			    return targets.unitTarget( game, { abilityOwner }, self, abilityOwner, unit )
-            end
-		end,
-
-		-- Current acquireTargets allows diagonal petting, which crashes due to lack of diagonal animation.
-		-- Needs to be adapted to only allow orthogonal petting. Below example code taken from melee.acquireTargets.
-
-		-- acquireTargets = function( self, targets, game, sim, unit )
-			-- -- Check adjacent tiles
-			-- local targetUnits = {}
-			-- local cell = sim:getCell( unit:getLocation() )
-			-- --check for pinned guards
-			-- for i,cellUnit in ipairs(cell.units) do
-				-- if self:isValidTarget( sim, unit, unit, cellUnit ) then
-					-- table.insert( targetUnits,cellUnit )
-				-- end
-			-- end
-            -- for i = 1, #simdefs.OFFSET_NEIGHBOURS, 2 do
-    			-- local dx, dy = simdefs.OFFSET_NEIGHBOURS[i], simdefs.OFFSET_NEIGHBOURS[i+1]
-                -- local targetCell = sim:getCell( cell.x + dx, cell.y + dy )
-                -- if simquery.isConnected( sim, cell, targetCell ) then
-					-- for _,cellUnit in ipairs( targetCell.units ) do
-						-- if self:isValidTarget( sim, unit, unit, cellUnit ) then
-							-- table.insert( targetUnits,cellUnit )
-						-- end
-					-- end
-				-- end
-			-- end
-
-			-- return targets.unitTarget( game, targetUnits, self, unit, unit )
-		-- end,
-
 		canUseAbility = function( self, sim, abilityOwner, unit )
 			if abilityOwner == unit then
 				return false
@@ -77,7 +43,7 @@ local MM_renameDrone =
 				return false
 			end
 
-            return true
+            return simquery.canUnitReach(sim, unit, abilityOwner:getLocation())
 		end,
 
 		executeAbility = function( self, sim, abilityOwner, unit )

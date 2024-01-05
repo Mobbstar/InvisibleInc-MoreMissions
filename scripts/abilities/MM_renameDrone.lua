@@ -32,13 +32,6 @@ local MM_renameDrone =
 
 		profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png",
 
-		-- NEEDS FIXING TO DISALLOW DIAGONAL INTERACTION
-		acquireTargets = function( self, targets, game, sim, abilityOwner, unit )
-            if simquery.canUnitReach( sim, unit, abilityOwner:getLocation() ) and (unit ~= abilityOwner) then
-			    return targets.unitTarget( game, { abilityOwner }, self, abilityOwner, unit )
-            end
-		end,
-
 		canUseAbility = function( self, sim, abilityOwner, unit )
 			if abilityOwner == unit then
 				return false
@@ -48,7 +41,7 @@ local MM_renameDrone =
 				return false
 			end
 
-            return true -- simquery.canUnitReach(sim, unit, abilityOwner:getLocation())
+            return simquery.canUnitReach(sim, unit, abilityOwner:getLocation())
 		end,
 
 		executeAbility = function( self, sim, abilityOwner, unit )
