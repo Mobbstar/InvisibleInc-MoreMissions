@@ -5,7 +5,7 @@ local simdefs = include("sim/simdefs")
 local simquery = include("sim/simquery")
 local abilityutil = include( "sim/abilities/abilityutil" )
 
-local MM_renameDrone = 
+local MM_renameDrone =
 	{
 		name = STRINGS.MOREMISSIONS.ABILITIES.RENAME_DRONE,
 
@@ -19,18 +19,18 @@ local MM_renameDrone =
 			end
 			if unit:getTraits().activate_txt_body then
 				body = unit:getTraits().activate_txt_body
-			end			
+			end
 
 			return abilityutil.formatToolTip( title,  body )
 		end,
-		
+
 		proxy = true,
 		ap_boost = 1,
 		HUDpriority = 2,
 		getName = function( self, sim, abilityOwner, abilityUser, targetUnitID )
 			return self.name
 		end,
-		
+
 		profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png", -- NEEDS TO BE CUSTOM!!!!!!!!
 
 		-- Note that abilityOwner is the drone, unit is the agent!
@@ -39,10 +39,10 @@ local MM_renameDrone =
 			    return targets.unitTarget( game, { abilityOwner }, self, abilityOwner, unit )
             end
 		end,
-		
+
 		-- Current acquireTargets allows diagonal petting, which crashes due to lack of diagonal animation.
 		-- Needs to be adapted to only allow orthogonal petting. Below example code taken from melee.acquireTargets.
-		
+
 		-- acquireTargets = function( self, targets, game, sim, unit )
 			-- -- Check adjacent tiles
 			-- local targetUnits = {}
@@ -76,7 +76,7 @@ local MM_renameDrone =
 			if unit:getTraits().hasAlreadyPetDrone then
 				return false
 			end
-			
+
             return true
 		end,
 
@@ -85,12 +85,12 @@ local MM_renameDrone =
 			local x1, y1 = abilityOwner:getLocation()
 
 			local facing = simquery.getDirectionFromDelta( x1 - x0, y1 - y0 )
-			
+
 			local droneSounds = {abilityOwner:getSounds().getko, abilityOwner:getSounds().getko, abilityOwner:getSounds().reboot_end}
-			local droneSound = droneSounds[sim:nextRand(1, #droneSounds)]			
+			local droneSound = droneSounds[sim:nextRand(1, #droneSounds)]
 
 			sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR, { unitID = unit:getID(), facing = facing, sound = nil, soundFrame = 1 } )
-			
+
 			sim:dispatchEvent( simdefs.EV_PLAY_SOUND, {sound=droneSound, x=x0,y=y0} )
 			sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR_PST, { unitID = unit:getID(), facing = facing } )
 
@@ -99,11 +99,11 @@ local MM_renameDrone =
 
 			sim:dispatchEvent( simdefs.EV_GAIN_AP, { unit = unit } )
 			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.UI.FLY_TXT.MOVEMENT_BOOSTED,x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
-			
+
 			unit:getTraits().hasAlreadyPetDrone = true
-			
+
 
 		end,
 	}
-	
+
 return MM_renameDrone

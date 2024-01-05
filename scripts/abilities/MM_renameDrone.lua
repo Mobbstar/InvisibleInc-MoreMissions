@@ -5,7 +5,7 @@ local simdefs = include("sim/simdefs")
 local simquery = include("sim/simquery")
 local abilityutil = include( "sim/abilities/abilityutil" )
 
-local MM_renameDrone = 
+local MM_renameDrone =
 	{
 		name = STRINGS.MOREMISSIONS.ABILITIES.RENAME_DRONE,
 
@@ -19,19 +19,19 @@ local MM_renameDrone =
 			end
 			if unit:getTraits().activate_txt_body then
 				body = unit:getTraits().activate_txt_body
-			end			
+			end
 
 			return abilityutil.formatToolTip( title,  body )
 		end,
-		
+
 		proxy = true,
 		HUDpriority = 1,
 		getName = function( self, sim, abilityOwner, abilityUser, targetUnitID )
 			return self.name
 		end,
-		
+
 		profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png",
-		
+
 		-- NEEDS FIXING TO DISALLOW DIAGONAL INTERACTION
 		acquireTargets = function( self, targets, game, sim, abilityOwner, unit )
             if simquery.canUnitReach( sim, unit, abilityOwner:getLocation() ) and (unit ~= abilityOwner) then
@@ -43,12 +43,12 @@ local MM_renameDrone =
 			if abilityOwner == unit then
 				return false
 			end
-			
+
 			if abilityOwner:getTraits().alreadyRenamed then
 				return false
 			end
 
-            return true
+            return true -- simquery.canUnitReach(sim, unit, abilityOwner:getLocation())
 		end,
 
 		executeAbility = function( self, sim, abilityOwner, unit )
@@ -60,10 +60,10 @@ local MM_renameDrone =
 			sim:dispatchEvent( simdefs.EV_UNIT_USECOMP, { unitID = unit:getID(), targetID= abilityOwner:getID(), facing = facing, sound=simdefs.SOUNDPATH_USE_CONSOLE, soundFrame=10 } )
 
 			local result = sim:dispatchChoiceEvent( "NameDialog" )
-			abilityOwner:getTraits().customName = result.txt	
+			abilityOwner:getTraits().customName = result.txt
 			abilityOwner:getTraits().alreadyRenamed = true
 
 		end,
 	}
-	
+
 return MM_renameDrone
