@@ -487,7 +487,17 @@ local prop_templates =
 		onWorldTooltip = onStoreTooltip,
 		kanim = "kanim_printer", 
 		rig ="corerig",
-		traits = util.extend( MAINFRAME_TRAITS ) { moveToDevice=true, cover = true, impass = {0,0}, storeType="large", sightable = true, largenano=true, luxuryNanofab = true,},
+		traits = util.extend( MAINFRAME_TRAITS ) {
+			moveToDevice=true,
+			cover = true,
+			impass = {0,0},
+			storeType="MM_luxuryItem",  -- This will be replaced by the mission script.
+			noMandatoryItems = true,  -- No chargepack/medgel.
+			noDupes = true, -- No duplicate items. (Requires Function Library 1.100+)
+			sightable = true,
+			-- largenano = true,  -- This flag is used by the vanilla Nanofab mission, inconsistently this or storeType in various checks.
+			luxuryNanofab = true,  -- Also replaced by the mission script.
+		},
 		abilities = { "showItemStore" },
 		tags = {"MM_luxuryNanofab"},
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", }

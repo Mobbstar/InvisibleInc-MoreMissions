@@ -20,21 +20,21 @@ local DRONE_BANTER_CHANCE = 0.3
 
 --local helpers
 local 	PC_WON = --now unused
-	{		
-        priority = 10,
+	{
+		priority = 10,
 
-        trigger = simdefs.TRG_GAME_OVER,
-        fn = function( sim, evData )
-            if sim:getWinner() then
-                return sim:getPlayers()[sim:getWinner()]:isPC()
-            else
-                return false
-            end
-        end,
+		trigger = simdefs.TRG_GAME_OVER,
+		fn = function( sim, evData )
+			if sim:getWinner() then
+				return sim:getPlayers()[sim:getWinner()]:isPC()
+			else
+				return false
+			end
+		end,
 	}
-	
+
 --VANILLA REBALANCES
-local REFIT_DRONE_SPAWNED = 
+local REFIT_DRONE_SPAWNED =
 {
 	trigger = simdefs.TRG_UNIT_WARP,
 	fn = function( sim, triggerData )
@@ -67,7 +67,7 @@ local DRONE_BOOTED =
 local function doDroneBanter( script, sim, unit )
 	local drone_lines = STRINGS.MOREMISSIONS.AGENT_LINES.SIDE_MISSIONS.REFIT_DRONE
 	local drone_txt = drone_lines[sim:nextRand(1,#drone_lines)]
-	script:queue( { type="clearEnemyMessage" } )	
+	script:queue( { type="clearEnemyMessage" } )
 	script:queue( {
 		body=drone_txt,
 		header = unit:getName(),
@@ -76,7 +76,7 @@ local function doDroneBanter( script, sim, unit )
 		profileBuild = unit:getUnitData().profile_build or unit:getUnitData().profile_anim,
 		} )
 	script:queue( 5 * cdefs.SECONDS )
-	script:queue( { type="clearEnemyMessage" } )	
+	script:queue( { type="clearEnemyMessage" } )
 end
 
 local function updateRefitDrone( script, sim )
@@ -123,7 +123,7 @@ local function droneSpeech( script, sim )
 		elseif not drone:isKO() and drone:getPlayerOwner() and (drone:getPlayerOwner() == sim:getPC()) and (sim:nextRand() <= DRONE_BANTER_CHANCE) then
 			doDroneBanter( script, sim, drone )
 		end
-	end	
+	end
 end
 
 local function updatePWRTerminal( sim )
@@ -146,7 +146,7 @@ end
 ---------------------------------------------------------
 
 local safeUnit = nil
-	
+
 local function PC_SAW_UNIT_WITH_MARKER2( script, tag, marker )
 	return
 	{
@@ -161,7 +161,7 @@ local function PC_SAW_UNIT_WITH_MARKER2( script, tag, marker )
 				local x, y = evData.unit:getLocation()
 				safeUnit = evData.unit
 				script:queue( { type="displayHUDInstruction", text=marker, x=x, y=y } )
-				return true 
+				return true
 			else
 				return false
 			end
@@ -177,7 +177,7 @@ local function PC_LOOTED_STORAGE_SAFE()
 		fn = function( sim, triggerData )
 			if triggerData.targetUnit:hasTag("w93_storage_1") and not triggerData.targetUnit:getTraits().MM_W93_daemons_installed then
 				safeUnit = triggerData.targetUnit
-				return triggerData 
+				return triggerData
 			end
 		end,
 	}
@@ -283,36 +283,36 @@ end
 --- Personnel Hijack sideobjective
 local PC_KNOCKOUT_BOSS =
 {
-    trigger = simdefs.TRG_UNIT_KO,
-    fn = function( sim, triggerData )
+	trigger = simdefs.TRG_UNIT_KO,
+	fn = function( sim, triggerData )
 	if triggerData and (triggerData.ticks or 0) > 0 then
-		if (not sim:isVersion("0.17.12") and triggerData.unit:getTraits().ko_trigger == "intimidate_guard") or triggerData.unit:getTraits().bossUnit then 
-            		return triggerData.unit
-            	end
-        end
-    end
+		if (not sim:isVersion("0.17.12") and triggerData.unit:getTraits().ko_trigger == "intimidate_guard") or triggerData.unit:getTraits().bossUnit then
+					return triggerData.unit
+				end
+		end
+	end
 }
 
 local PC_KILL_BOSS =
 {
-    trigger = simdefs.TRG_UNIT_KILLED,
-    fn = function( sim, triggerData )
+	trigger = simdefs.TRG_UNIT_KILLED,
+	fn = function( sim, triggerData )
 	if triggerData then
-		if triggerData.unit:getTraits().bossUnit then 
-            		return triggerData.unit
-            	end
-        end
-    end
+		if triggerData.unit:getTraits().bossUnit then
+					return triggerData.unit
+				end
+		end
+	end
 }
 
-local BOSS_ESCAPED = 
+local BOSS_ESCAPED =
 {
-    trigger = "hostage_escaped",
-    fn = function( sim, triggerData )
-        if triggerData.unit:getTraits().bossUnit then
-            return triggerData.unit
-        end
-    end,     
+	trigger = "hostage_escaped",
+	fn = function( sim, triggerData )
+		if triggerData.unit:getTraits().bossUnit then
+			return triggerData.unit
+		end
+	end,
 }
 
 local function spottedBoss( script, sim )
@@ -394,20 +394,20 @@ end
 -------------------------------------------------------------------
 -- LUXURY  NANOFAB
 local BOUGHT_ITEM =
-{       
-    trigger = simdefs.TRG_BUY_ITEM,
-    fn = function( sim, triggerData )
-        if triggerData.shopUnit:getTraits().storeType and (triggerData.shopUnit:getTraits().storeType == "large") and triggerData.shopUnit:getTraits().luxuryNanofab and triggerData.shopUnit:hasAbility("showItemStore") then
-            return triggerData.shopUnit
-        end
-    end,
+{
+	trigger = simdefs.TRG_BUY_ITEM,
+	fn = function( sim, triggerData )
+		if triggerData.shopUnit:getTraits().luxuryNanofab and triggerData.shopUnit:hasAbility("showItemStore") then
+			return triggerData.shopUnit
+		end
+	end,
 }
 
-local CLOSED_NANOFAB = 
+local CLOSED_NANOFAB =
 {
 	trigger = simdefs.TRG_CLOSE_NANOFAB,
 	fn = function( sim, triggerData )
-		if triggerData.unit and triggerData.unit:getTraits().storeType and (triggerData.unit:getTraits().storeType == "large") and triggerData.unit:hasAbility("showItemStore") and triggerData.unit:getTraits().luxuryNanofab then
+		if triggerData.shopUnit:getTraits().luxuryNanofab and triggerData.shopUnit:hasAbility("showItemStore") then
 			return triggerData.unit
 		end
 	end,
@@ -420,28 +420,28 @@ local SUMMONED_GUARD =
 		if triggerData.unit and triggerData.consoleUnit then
 			return triggerData.unit and triggerData.consoleUnit
 		end
-	end	
+	end
 }
 
 local PC_LOOTED_ITEM_NANOFAB_KEY =
 {
-    trigger = "agentGotItem",
-    fn = function( sim, triggerData )
-        -- print("CHECK THE ITEM",triggerData.item:getName())
-        if triggerData.item:hasTrait("luxuryNanofabKey") then
-            return triggerData.item
-        end
-    end,
+	trigger = "agentGotItem",
+	fn = function( sim, triggerData )
+		-- print("CHECK THE ITEM",triggerData.item:getName())
+		if triggerData.item:hasTrait("luxuryNanofabKey") then
+			return triggerData.item
+		end
+	end,
 }
 
 local UNLOCKED_NANOFAB =
 {
-    trigger = "MM_unlockedLuxuryNanoab",
-    fn = function( sim, triggerData )
-        if triggerData.unit and triggerData.targetUnit then
-            return triggerData.unit and triggerData.targetUnit
-        end
-    end,
+	trigger = "MM_unlockedLuxuryNanoab",
+	fn = function( sim, triggerData )
+		if triggerData.unit and triggerData.targetUnit then
+			return triggerData.unit and triggerData.targetUnit
+		end
+	end,
 }
 
 local function findGuardWithKey( sim )
@@ -494,7 +494,7 @@ local function sawNanofab( script, sim )
 	local x0, y0 = nanofab:getLocation()
 	script:queue( { type="pan", x=x0, y=y0 } )
 	script:queue(1*cdefs.SECONDS)
-	
+
 	if sim:getTags().haveNanofabKey then
 		sim:removeObjective( "findLuxuryNanofab" )
 		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.LUXURY_NANOFAB.UNLOCK_NANOFAB, "unlockLuxuryNanofab" )
@@ -503,18 +503,18 @@ local function sawNanofab( script, sim )
 		sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.LUXURY_NANOFAB.FIND_KEY, "findNanofabKey" )
 		script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.SAW_NANOFAB, type="newOperatorMessage" } )
 	end
-	
+
 	script:waitFor( UNLOCKED_NANOFAB )
 	nanofab:destroyTab()
 	sim:removeObjective( "unlockLuxuryNanofab" )
 	script:queue(1*cdefs.SECONDS)
 	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.UNLOCKED_NANOFAB, type="newOperatorMessage" } )
-	
+
 	local _, shop = script:waitFor( BOUGHT_ITEM )
 	shop.items = {} -- this empties the nanofab stock and forces the shop dialogue to close
 	shop.weapons = {}
 	shop.augments = {}
-	
+
 	strings_screens.STR_346165218 = sim.old_augmenttip
 	strings_screens.STR_2618909495 = sim.old_weapontip
 	strings_screens.STR_590530336 = sim.old_itemtip
@@ -522,16 +522,16 @@ local function sawNanofab( script, sim )
 	shop:getTraits().mainframe_status = "off"
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/mainframe_object_off" )
 	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = shop } )
-	
+
 	script:queue(1*cdefs.SECONDS)
-	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.BOUGHT_ITEM, type="newOperatorMessage" } )	
-	
+	script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.BOUGHT_ITEM, type="newOperatorMessage" } )
+
 end
 
 local function summonedGuard( script, sim )
 	local _, console = script:waitFor( SUMMONED_GUARD )
 	console:destroyTab()
-	
+
 	local guard = findGuardWithKey(sim)
 	script:queue( { type="clearOperatorMessage" } )
 	if guard then
@@ -539,7 +539,7 @@ local function summonedGuard( script, sim )
 		local interest = guard:getBrain():getSenses():addInterest( x1,  y1, simdefs.SENSE_HEARING, simdefs.REASON_ALARMEDSAFE, console)
 		interest.alwaysDraw = true
 		sim:processReactions()
-		
+
 		if not sim:getTags().haveNanofabKey then
 			script:queue(1*cdefs.SECONDS)
 			script:queue( { script=SCRIPTS.INGAME.MM_SIDEMISSIONS.LUXURY_NANOFAB.SUMMONED_GUARD, type="newOperatorMessage" } )
@@ -566,7 +566,7 @@ end
 
 local function closedFancyFab( script, sim)
 	local _, shop = script:waitFor(CLOSED_NANOFAB)
-	
+
 	strings_screens.STR_346165218 = sim.old_augmenttip
 	strings_screens.STR_2618909495 = sim.old_weapontip
 	strings_screens.STR_590530336 = sim.old_itemtip
@@ -574,80 +574,67 @@ local function closedFancyFab( script, sim)
 end
 
 local function populateFancyFab(sim)
-    local simstore = include( "sim/units/store" )
-    local computer = nil
-    for i, unit in pairs(sim:getAllUnits())do
-        if unit:getTraits().luxuryNanofab then
-            computer = unit
-        end
-    end   
-
-    if computer then 
-
-		--Use simstore.createStoreItems to generate a long list of item candidates for each category. This will contain duplicates
-		local possible_merch = {
-		[1] = {}, --items
-		[2] = {}, --augments
-		[3] = {}, --weapons
-		}
-		
-		for i = 40, 1, -1 do --40 iterations should be enough to get 16 unique items
-			local items, weapons, augments = simstore.createStoreItems( simstore.STORE_ITEM, computer, sim )
-			util.tmerge(possible_merch[1], items)
-			util.tmerge(possible_merch[2], augments)
-			util.tmerge(possible_merch[3], weapons)
+	local simstore = include( "sim/units/store" )
+	local computer = nil
+	for i, unit in pairs(sim:getAllUnits())do
+		if unit:getTraits().luxuryNanofab then
+			computer = unit
 		end
-		
+	end
+
+	if computer then
+		local STORE_TYPES = {"MM_luxuryItem", "MM_luxuryAug", "MM_luxuryWpn"}
 		local itemType = sim:nextRand(1,3) --randomly choose either items, augments or weapons to populate the shop
 		sim.luxuryNanofabItemType = itemType
-		local merch_candidates = possible_merch[itemType]
-		
-		--remove_duplicates
-		local hash = {}
-		local unique_merch = {}
+		local storeType = STORE_TYPES[itemType]
+		computer:getTraits().storeType = storeType
 
-		for _,v in ipairs(merch_candidates) do
-		   if (not hash[v._unitData.id ]) then
-			   table.insert(unique_merch,v)
-			   hash[v._unitData.id] = true
-		   end
-		end	
-		
-		-- distribute the possible merch randomly to fill up the three nanofab categories
-		local total_items = {
+		--Use simstore.createStoreItems to generate a long list of item candidates for each category. This will contain duplicates
+		local items, weapons, augments = simstore.createStoreItems( simstore.STORE_ITEM, computer, sim )
+
+		local merch
+		if itemType == 1 then
+			merch = items
+		elseif itemType == 2 then
+			merch = augments
+		elseif itemType == 3 then
+			merch = weapons
+		end
+		-- simlog("QDBG %d:%s i=%d w=%d a=%d -=%d \n%s", itemType, storeType, #items, #weapons, #augments, #merch, util.stringize(simstore.STORE_ITEM.storeType[storeType]))
+
+		-- distribute the possible merch among the three nanofab categories
+		local totalItems = {
 			[1] = {},	--8 slots
 			[2] = {},	-- 4 slots
 			[3] = {},	-- 4 slots
 		}
-		if #unique_merch > 0 then
-			
-			for i = #unique_merch, 1, -1 do -- will run until merch list potential is empty or all nanofab categories are full, whichever comes first
-				local item = sim:nextRand(1, #unique_merch)
-				local group_choice = sim:nextRand(1,#total_items) --pick one of three categories to populate
-				local item_group = total_items[group_choice]
-				local limit = 4 -- 4 slots
-				if group_choice == 1 then 
-					limit = 8 --8 slots
-				end
-				if #item_group < limit then 
-					table.insert(item_group, unique_merch[i])
-					table.remove(unique_merch, i)
-				end
+
+		local groupChoice = 1
+		while #merch > 0 and groupChoice <= 3 do
+			local itemGroup = totalItems[groupChoice]
+			table.insert(itemGroup, table.remove(merch))
+			-- simlog("     %d.%d %s", groupChoice, #itemGroup, itemGroup[#itemGroup]._unitData.name or "")
+			local limit = 4 -- 4 slots
+			if groupChoice == 1 then
+				limit = 8 --8 slots
 			end
-			
-			computer.items, computer.weapons, computer.augments = total_items[1], total_items[2], total_items[3]
-			
-			computer:getTraits().mainframe_status = "off"
-			local itemTypeName
-			if itemType == 1 then
-				itemTypeName = "ITEMS"
-			elseif itemType == 2 then
-				itemTypeName = "AUGMENTS"
-			elseif itemType == 3 then
-				itemTypeName = "WEAPONS"
+			if #itemGroup >= limit then
+				groupChoice = groupChoice + 1
 			end
-			computer:getTraits().luxuryNanofab = itemTypeName -- doubly used for tooltip and scripts
 		end
+
+		computer.items, computer.weapons, computer.augments = totalItems[1], totalItems[2], totalItems[3]
+
+		computer:getTraits().mainframe_status = "off"
+		local itemTypeName
+		if itemType == 1 then
+			itemTypeName = "ITEMS"
+		elseif itemType == 2 then
+			itemTypeName = "AUGMENTS"
+		elseif itemType == 3 then
+			itemTypeName = "WEAPONS"
+		end
+		computer:getTraits().luxuryNanofab = itemTypeName -- doubly used for tooltip and scripts
 	end
 end
 
@@ -683,7 +670,7 @@ local function startWorkshopMission( script, sim )
 	sim.MM_workshop_pwr = 0
 	sim:addObjective( util.sformat( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.WORKSHOP.OBJECTIVE_1, sim.MM_workshop_pwr ), "reroute_workshop_pwr" )
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.SIDEMISSIONS.WORKSHOP.OBJECTIVE_2, "use_workshop" )
-	
+
 	for _, simunit in pairs( sim:getAllUnits() ) do
 		if simunit:getTraits().mainframe_console then
 			simunit:giveAbility( "MM_workshop_reroute_pwr" )
@@ -757,17 +744,17 @@ end
 function init( scriptMgr, sim )
 	fixNoPatrolFacing( sim )
 	--sidemission stuff
-    local params = sim:getParams()
+	local params = sim:getParams()
 	if params.side_mission then
 		log:write("[MM] side mission")
 		log:write(util.stringize(params.side_mission,2))
 		-- CUSTOM MM SIDEMISSIONS
-        if params.side_mission == "MM_luxuryNanofab" then
+		if params.side_mission == "MM_luxuryNanofab" then
 			createKeyCarrier(sim)
 			populateFancyFab(sim)
 			scriptMgr:addHook( "sawNanofab", sawNanofab )
 			scriptMgr:addHook( "CLOSED_FANCYFAB", closedFancyFab, nil )
-			scriptMgr:addHook( "summonedGuard", summonedGuard ) 
+			scriptMgr:addHook( "summonedGuard", summonedGuard )
 			scriptMgr:addHook( "PC_lootedKey", PC_lootedKey )
 			scriptMgr:addHook( "sawConsole" , sawConsole )
 		elseif params.side_mission == "MM_w93_storageroom" then
@@ -816,7 +803,7 @@ function init( scriptMgr, sim )
 				updateCompileTerminal( sim )
 			end
 		end
-	end	
+	end
 end
 
 return {

@@ -261,6 +261,9 @@ local function load( modApi, options, params )
 		end
 	end
 
+	-- Additional store types for Luxury Nanofab
+	include(scriptPath .. "/appended_functions/simstore_load").addMoreMissionsStores()
+
 	local itemdefs = include( scriptPath .. "/itemdefs" )
 	for name, itemDef in pairs(itemdefs) do
 		modApi:addItemDef( name, itemDef )
