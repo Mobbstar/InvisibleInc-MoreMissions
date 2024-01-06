@@ -31,7 +31,7 @@ local MM_renameDrone =
 			return self.name
 		end,
 
-		profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png", -- NEEDS TO BE CUSTOM!!!!!!!!
+		profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-action_pet_drone.png",
 
 		-- Note that abilityOwner is the drone, unit is the agent!
 		canUseAbility = function( self, sim, abilityOwner, unit )
