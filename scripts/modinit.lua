@@ -81,7 +81,7 @@ local function init( modApi )
 	table.insert(modApi.mod_manager.credit_sources, "assassinationreward")
 
 	-- SIDE MISSIONS
-	include( scriptPath .. "/appended_functions/abilities/showItemStore" )
+	include( scriptPath .. "/appended_functions/shop_panel" ) --used for customizing Luxury Nanofab
 	include( scriptPath .. "/appended_functions/unitdefs" ) --make item upgrades persist
 	include( scriptPath.."/items_panel" )--used to make the workshop stashable
 
