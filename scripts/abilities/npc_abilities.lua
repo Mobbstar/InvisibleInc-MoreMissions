@@ -82,13 +82,13 @@ local npc_abilities =
 			-----
 			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.GUARDS, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_GUARDS, self.guard_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
 			
-			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.CAMERAS, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_CAMERAS, self.camera_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
+			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.CAMERAS, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_MAINFRAME, self.camera_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
 			
 			-- if sim:getParams().difficultyOptions.enable_devices then -- check for Worldgen Extended's Drone Uplinks, need to also check if it is actually present
 			-- too complex/inconsistent, leave this out for now
 				-- section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DRONES, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_DRONES_WE, self.drone_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )			
 			-- else
-				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DRONES, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_DRONES, self.drone_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
+				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DRONES, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_MAINFRAME, self.drone_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
 			-- end
 			------
 			if self.escaped_witnesses > 0 then
@@ -115,7 +115,7 @@ local npc_abilities =
 			sim:addTrigger( "vip_escaped", self )
 			sim:addTrigger( "used_amnesiac", self ) --trg_unit_paralyzed is firing too early, need this instead
 			sim:addTrigger("MM_processed_EMP_on_witness", self )
-			self.informant_escaped = true
+			self.informant_escaped = false
 			self.camera_witnesses = 0
 			self.guard_witnesses = 0
 			self.drone_witnesses = 0

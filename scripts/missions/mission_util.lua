@@ -88,12 +88,15 @@ DEV_PLAY_ALL = false
 local function reportScriptMsg(script, report)
 	-- Input is either an immediate {txt,vo} table or an array of choices.
 	if type(report) == "table" and not report.txt and not report.vo and report[1] then
+
+		-- Normally false. Development option to test all variants in a single pass.
 		if DEV_PLAY_ALL then
 			script:queue( .25*cdefs.SECONDS )
 			for _, s in ipairs(report) do
 				script:queue( { script=report, type="newOperatorMessage" } )
 				script:queue( .5*cdefs.SECONDS )
 			end
+			return
 		end
 
 		local sim = script.sim or script.script.sim

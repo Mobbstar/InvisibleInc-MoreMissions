@@ -491,9 +491,9 @@ return {
 			DRONES = "DRONES",
 			ESCAPED = "ESCAPED",
 			WITNESSES_LEFT_GUARDS = "{1} {1:witness|witnesses} remaining. Remove by killing or injecting KO'd target with Amnesiac.",
-			WITNESSES_LEFT_CAMERAS = "{1} {1:witness|witnesses} remaining. Remove by destroying unit, EMPing unit, or Scrubbing a Camera Database.",
-			WITNESSES_LEFT_DRONES = "{1} {1:witness|witnesses} remaining. Remove by destroying or EMPing unit.",
-			WITNESSES_LEFT_DRONES_WE = "{1} {1:witness|witnesses} remaining. Remove by destroying or Data Scrubbing a Drone Uplink.", --Worldgen Extended
+			WITNESSES_LEFT_MAINFRAME = "{1} {1:witness|witnesses} remaining. Remove by destroying unit, EMPing unit, or Scrubbing a Camera Database.",
+			-- WITNESSES_LEFT_DRONES = "{1} {1:witness|witnesses} remaining. Remove by destroying or EMPing unit, or Scrubbing a Camera Database.",
+			-- WITNESSES_LEFT_DRONES_WE = "{1} {1:witness|witnesses} remaining. Remove by destroying or Data Scrubbing a Drone Uplink.", --Worldgen Extended
 			WITNESSES_ESCAPED = "{1} {1:witness has|witnesses have} escaped the level and can no longer be removed.",
 
 		},
@@ -844,7 +844,7 @@ return {
 			WITNESS = "WITNESS",
 			WITNESS_DESC_HUMAN = "Kill this unit or KO and apply Amnesiac.",
 			WITNESS_DESC_MAINFRAME = "Destroy this unit, EMP or scrub Camera Database.",
-			WITNESS_DESC_DRONE = "Destroy or EMP this unit.",
+			-- WITNESS_DESC_DRONE = "Destroy or EMP this unit.",
 			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",	
 			MOLE_CIVILIAN = "FRAGILE",--"CIVILIAN",
 			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
