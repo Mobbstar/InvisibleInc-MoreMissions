@@ -1,3 +1,4 @@
+local cdefs = include( "client_defs" )
 local util = include("modules/util")
 local simdefs = include("sim/simdefs")
 
@@ -80,6 +81,18 @@ local function giftItem(sim,unit,templateName)
 	sim:dispatchEvent( simdefs.EV_ITEMS_PANEL, { unit = unit, x = x, y = y } )
 end
 
+-- Choose and play 1 of a selection of possible voice scripts.
+-- Based on the relevant part of vanilla mission_util.DoReportObject()
+local function reportScriptMsg(script, report)
+	-- Input is either an immediate {txt,vo} table or an array of choices.
+	if type(report) == "table" and not report.txt and not report.vo and report[1] then
+		local sim = script.sim or script.script.sim
+		report = report[sim:nextRand(1, #report)]
+	end
+	script:queue( .25*cdefs.SECONDS )
+	script:queue( { script=report, type="newOperatorMessage" } )
+end
+
 mission_util.PC_LOOTED_SAFE_PRE = PC_LOOTED_SAFE_PRE
 mission_util.PC_TALKED_TO = PC_TALKED_TO
 mission_util.giftItem = giftItem
@@ -87,6 +100,7 @@ mission_util.showDialog = showDialog
 mission_util.showGoodResult = showGoodResult
 mission_util.showBadResult = showBadResult
 mission_util.showNeutralResult = showNeutralResult
+mission_util.reportScriptMsg = reportScriptMsg
 
 base_campaign_mission_init = mission_util.campaign_mission.init
 function mission_util.campaign_mission:init( scriptMgr, sim, finalMission )

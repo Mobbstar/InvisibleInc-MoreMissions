@@ -1362,7 +1362,7 @@ return {
 						{"Scrub the database or disrupt the device - a bullet or an EMP ought do the trick. They really don't use the most robust tech, I'm afraid. Now, if they had the benefit of a more reliable vendor-",
 							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen1_2p",
 							"Monster"}, -- TODO: long line cut off. Missing "reliable vendor-"
-						{"Derek, this is not the time.",
+						{"Derek, now is not the time.",
 							"moremissions/VoiceOver/Central/informant/shush_derek",
 							"Central"},
 						{"Right, yes, of course. Carry on.",

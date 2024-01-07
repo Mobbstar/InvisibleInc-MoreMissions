@@ -299,7 +299,7 @@ local function guardWitnessesAgent(script, sim)
 				sim:getTags().Central_guardcomment = true
 				local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_GUARD
 				script:queue( 2 * cdefs.SECONDS )
-				queueCentral( script, scripts )
+				mission_util.reportScriptMsg( script, scripts )
 				JetEscapeReminder(sim, script)
 			end
 		end
@@ -325,7 +325,7 @@ local function cameraWitnessesAgent(script, sim)
 			sim:getTags().Monster_cameracomment = true
 			local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_CAMERA
 			script:queue( 2 * cdefs.SECONDS )
-			queueCentral( script, scripts )
+			mission_util.reportScriptMsg( script, scripts )
 			-- JetEscapeReminder( sim, script )
 		end
 		seer:createTab( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.WITNESS_DETECTED, "" ) -- keep this for now even though it's inconsistent with the lack of tab on moving witnesses
@@ -469,7 +469,7 @@ local function activateCamera(script, sim)
 			script:queue( { type="pan", x=x0, y=y0, zoom=0.25 } )
 			
 			local scripts = SCRIPTS.INGAME.MOLE_INSERTION.CAMERA_BOOTING
-			queueCentral( script, scripts )
+			mission_util.reportScriptMsg( script, scripts )
 			
 			script:waitFor( util.extend( mission_util.NPC_START_TURN ){ priority = -1 } )
 			cameraUnit:destroyTab()
@@ -522,7 +522,7 @@ local function moleEscaped( script, sim)
 	sim:getTags().MM_mole_escaped = true
 	-- log:write("[MM] mole escaped through agent elevator")
 	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_ESCAPED_TO_JET
-	queueCentral( script, scripts )
+	mission_util.reportScriptMsg( script, scripts )
 	
 	sim:addNewLocation( {sim:getParams().world, "mole_insertion"} )
 end	
@@ -557,8 +557,8 @@ local function moleDied( script, sim )
 	sim.exit_warning = nil
 	sim:getNPC():removeAbility(sim, "MM_informant_witness")
 	-- log:write("[MM] mole died")
-	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_DIED[sim:nextRand(1,#SCRIPTS.INGAME.MOLE_INSERTION.MOLE_DIED)]
-	queueCentral( script, scripts )
+	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_DIED
+	mission_util.reportScriptMsg( script, scripts )
 end
 
 local function seeGuardExit( script, sim )
@@ -566,7 +566,7 @@ local function seeGuardExit( script, sim )
 	script:queue( { type="pan", x=cell.x, y=cell.y, zoom=0.27 } )
 	script:queue( 1 * cdefs.SECONDS )
 	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.SEE_GUARD_EXIT
-	queueCentral( script, scripts )
+	mission_util.reportScriptMsg( script, scripts )
 end
 
 -- local function followWitness( script, sim )
@@ -633,14 +633,14 @@ local function moleMission( script, sim )
 	-- log:write("[MM] PC saw door")
 	script:queue( 1*cdefs.SECONDS )
 	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.SEE_OBJECTIVE_DOOR
-	queueCentral( script, scripts)
+	mission_util.reportScriptMsg( script, scripts)
 	
 	local _, hackConsole = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "personneldb", STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.PERSONNEL_DB, STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.HACK_WITH_MOLE ) )
 	local x0, y0 = hackConsole:getLocation()
 	script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
 	script:queue( 1*cdefs.SECONDS )
 	scripts = SCRIPTS.INGAME.MOLE_INSERTION.SEE_OBJECTIVE_DB
-	queueCentral( script, scripts )
+	mission_util.reportScriptMsg( script, scripts )
 	sim:removeObjective( "findDB" )
 	-- log:write("[MM] pc saw db")
 	local turnsToHack = 5
