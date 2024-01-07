@@ -1289,55 +1289,15 @@ return {
 				MOLE_SEEN_INTERJECTION = { --should play dynamically after the first time mole is spotted, no matter who spots them
 					{{"Bear in mind, there's no shame in walking away from this job if it goes belly-up. Get my freelancer safely back to your jet, and we can give this another go at a different facility.", nil, "Monster"}},
 				},
-				MOLE_SEEN_TODO = { -- TODO: lines that need to be used/moved.
+				MOLE_SEEN_GENERIC = { -- TODO: Are the "seen_generic" lines meant for repeat sightings?
 					{
 						{"That's more unwanted eyes on the informant. You are familiar with the concept of stealth, yes?",
 							"moremissions/VoiceOver/Monster/informant/seen_generic1",
 							"Monster"},
 					},
 					{
-						{"Remember to keep the informant out of sight of cameras or drones.",
-							"moremissions/VoiceOver/Monster/informant/seen_generic2",
-							"Monster"},
-						{"You'll have to scramble the device's visual chip with an EMP, or destroy it entirely. I'm sure you're up to the task.",
-							"moremissions/VoiceOver/Monster/informant/seen_drone_2p",
-							"Monster"},
-					},
-					{
 						{"Do be careful, Operator. Our informant works best without witnesses.",
 							"moremissions/VoiceOver/Monster/informant/seen_generic3",
-							"Monster"},
-					},
-					{
-						{"The visual feeds of all drones and cameras on this floor are synced up to a Camera Database. Get one of your people close to it, and you should be able to scrub their memory chips one by one.",
-							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen2_1p",
-							"Monster"},
-						{" Or... disrupt them through more physical means, if you prefer. Unlike Gladstone, I don't micromanage my allies nearly quite as heavily",
-							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen2_2p",
-							"Monster"},
-					},
-					{
-						{"Be careful. That mainframe device just compromised our darling informant's cover.",
-							"moremissions/VoiceOver/Monster/informant/seen3_1p",
-							"Monster"},
-						{"There should be a Camera Database somewhere nearby. Get your hands on that, and it will solve your problem far more efficiently than brute force.",
-							"moremissions/VoiceOver/Monster/informant/seen3_2p",
-							"Monster"},
-					},
-					{
-						{"Do try not to get the Informant spotted by anything with a camera, yes? Those data feeds are quite finnicky to wipe, you'll need physical access to a nearby Camera Database.",
-							"moremissions/VoiceOver/Monster/informant/seen4_1p",
-							"Monster"},
-						{"Failing that, you can scramble the mainframe device with an EMP, or destroy it entirely. I'm sure you're up to the task...",
-							"moremissions/VoiceOver/Monster/informant/seen4_2p",
-							"Monster"},
-					},
-					{
-						{"Seeing as you've let the informant be spotted, there are two ways to handle that. Destroy or EMP the device in question and it will scramble the visual chip enough to wipe the facial recognition records.",
-							"moremissions/VoiceOver/Monster/informant/seen5_1p",
-							"Monster"},
-						{": Your other option is to locate a Camera Database and wipe the records remotely, but it's going to take time. Try to be a bit more subtle, will you? This is supposed to be a stealthy affair.",
-							"moremissions/VoiceOver/Monster/informant/seen5_2p",
 							"Monster"},
 					},
 				},
@@ -1354,7 +1314,7 @@ return {
 							"Central"}
 					},
 				},
-				MOLE_SEEN_BY_CAMERA = {
+				MOLE_SEEN_BY_DEVICE = {
 					{
 						{"You'll want to take care of any of those mainframe devices the Informant was spotted by. Their visual feeds are synched to the nearest Camera Database.",
 							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen1_1p",
@@ -1369,10 +1329,53 @@ return {
 							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen1_4p",
 							"Monster"},
 					},
-				},
-				MOLE_SEEN_BY_DRONE = { -- TODO: delete this label?
-					{{"That drone just compromised the informant's cover. You'll need to do something about that. Unlike cameras, they're not linked to a central feed.",nil,"Monster"}},
-					{{"You'll have to scramble each one with an EMP, or destroy it entirely. I'm sure you're up to the task.",nil,"Monster"}},
+					{
+						{"Remember to keep the informant out of sight of cameras or drones.",
+							"moremissions/VoiceOver/Monster/informant/seen_generic2",
+							"Monster"},
+						{"You'll have to scramble the device's visual chip with an EMP, or destroy it entirely. I'm sure you're up to the task.",
+							"moremissions/VoiceOver/Monster/informant/seen_drone_2p",
+							"Monster"},
+						{"Your other option is to locate a Camera Database and wipe the records remotely, but it's going to take time. Try to be a bit more subtle, will you? This is supposed to be a stealthy affair.",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen5_2p",
+							"Monster"}, -- Reuse this line from seen5, since this sequence didn't mention the DB option.
+							 -- TODO: long line cut off. Missing "stealthy affair, after all"
+					},
+					{
+						{"The visual feeds of all drones and cameras on this floor are synced up to a Camera Database. Get one of your people close to it, and you should be able to scrub their memory chips one by one.",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen2_1p",
+							"Monster"}, -- TODO: long line cut off. Missing "by one"
+						{" Or... disrupt them through more physical means, if you prefer. Unlike Gladstone, I don't micromanage my allies nearly quite as heavily.",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen2_2p",
+							"Monster"},
+					},
+					{
+						{"Be careful. That mainframe device just compromised our darling informant's cover.",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen3_1p",
+							"Monster"},
+						{"There should be a Camera Database somewhere nearby. Get your hands on that, and it will solve your problem far more efficiently than brute force.",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen3_2p",
+							"Monster"},
+						{" Or... disrupt them through more physical means, if you prefer. Unlike Gladstone, I don't micromanage my allies nearly quite as heavily.",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen2_2p",
+							"Monster"}, -- Reuse this line from seen2, because seen3 didn't mention the direct option. And more chances to sass Gladstone.
+					},
+					{
+						{"Do try not to get the Informant spotted by anything with a camera, yes? Those data feeds are quite finnicky to wipe, you'll need physical access to a nearby Camera Database.",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen4_1p",
+							"Monster"},
+						{"Failing that, you can scramble the mainframe device with an EMP, or destroy it entirely. I'm sure you're up to the task.",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen4_2p",
+							"Monster"},
+					},
+					{
+						{"Seeing as you've let the informant be spotted, there are two ways to handle that. Destroy or EMP the device in question and it will scramble the visual chip enough to wipe the facial recognition records.",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen5_1p",
+							"Monster"}, -- TODO: long line cut off. Missing "recognition records"
+						{"Your other option is to locate a Camera Database and wipe the records remotely, but it's going to take time. Try to be a bit more subtle, will you? This is supposed to be a stealthy affair, after all.",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen5_2p",
+							"Monster"},  -- TODO: long line cut off. Missing "stealthy affair, after all"
+					},
 				},
 				SEE_CAMERADB = {
 					{

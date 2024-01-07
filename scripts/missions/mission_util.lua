@@ -81,11 +81,21 @@ local function giftItem(sim,unit,templateName)
 	sim:dispatchEvent( simdefs.EV_ITEMS_PANEL, { unit = unit, x = x, y = y } )
 end
 
+
 -- Choose and play 1 of a selection of possible voice scripts.
 -- Based on the relevant part of vanilla mission_util.DoReportObject()
+DEV_PLAY_ALL = false
 local function reportScriptMsg(script, report)
 	-- Input is either an immediate {txt,vo} table or an array of choices.
 	if type(report) == "table" and not report.txt and not report.vo and report[1] then
+		if DEV_PLAY_ALL then
+			script:queue( .25*cdefs.SECONDS )
+			for _, s in ipairs(report) do
+				script:queue( { script=report, type="newOperatorMessage" } )
+				script:queue( .5*cdefs.SECONDS )
+			end
+		end
+
 		local sim = script.sim or script.script.sim
 		report = report[sim:nextRand(1, #report)]
 	end

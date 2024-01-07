@@ -286,17 +286,17 @@ local function guardWitnessesAgent(script, sim)
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
 		
 		if seer:getTraits().isDrone then
-			if not sim:getTags().Monster_dronecomment then
-				sim:getTags().Monster_dronecomment = true
-				local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_DRONE
+			if not sim:getTags().Witness_DeviceComment then
+				sim:getTags().Witness_DeviceComment = true
+				local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_DEVICE
 				script:queue( 2 * cdefs.SECONDS )
-				queueCentral( script, scripts )
+				mission_util.reportScriptMsg( script, scripts )
 				-- JetEscapeReminder( sim, script )
 				
 			end
 		else
-			if not sim:getTags().Central_guardcomment then
-				sim:getTags().Central_guardcomment = true
+			if not sim:getTags().Witness_GuardComment then
+				sim:getTags().Witness_GuardComment = true
 				local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_GUARD
 				script:queue( 2 * cdefs.SECONDS )
 				mission_util.reportScriptMsg( script, scripts )
@@ -320,10 +320,10 @@ local function cameraWitnessesAgent(script, sim)
 		seer:getTraits().witness = true
 		local x0, y0 = seer:getLocation()
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
-		if not sim:getTags().Monster_cameracomment then
+		if not sim:getTags().Witness_DeviceComment then
 		-- log:write("[MM] central reaction to camera")
-			sim:getTags().Monster_cameracomment = true
-			local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_CAMERA
+			sim:getTags().Witness_DeviceComment = true
+			local scripts = SCRIPTS.INGAME.MOLE_INSERTION.MOLE_SEEN_BY_DEVICE
 			script:queue( 2 * cdefs.SECONDS )
 			mission_util.reportScriptMsg( script, scripts )
 			-- JetEscapeReminder( sim, script )
