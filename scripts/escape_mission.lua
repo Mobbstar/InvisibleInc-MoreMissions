@@ -407,7 +407,7 @@ local CLOSED_NANOFAB =
 {
 	trigger = simdefs.TRG_CLOSE_NANOFAB,
 	fn = function( sim, triggerData )
-		if triggerData.shopUnit:getTraits().luxuryNanofab and triggerData.shopUnit:hasAbility("showItemStore") then
+		if triggerData.unit:getTraits().luxuryNanofab and triggerData.unit:hasAbility("showItemStore") then
 			return triggerData.unit
 		end
 	end,

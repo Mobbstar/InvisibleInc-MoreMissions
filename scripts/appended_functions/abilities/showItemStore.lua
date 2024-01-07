@@ -15,7 +15,7 @@ local showItemStore_executeOld = showItemStore.executeAbility
 
 showItemStore.executeAbility = function( self, sim, unit, userUnit, ... )
 -- note: unit is nanofab, userUnit is agent
-	if unit:getTraits().storeType and (unit:getTraits().storeType == "large") and unit:getTraits().luxuryNanofab and sim.luxuryNanofabItemType then
+	if unit:getTraits().luxuryNanofab and sim.luxuryNanofabItemType then
 
 		local strings_screens = include( "strings_screens" )
 		sim.old_augmenttip, sim.old_weapontip, sim.old_itemtip = strings_screens.STR_346165218, strings_screens.STR_2618909495, strings_screens.STR_590530336
