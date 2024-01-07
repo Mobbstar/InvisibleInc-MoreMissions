@@ -105,19 +105,9 @@ local npc_abilities =
 			end
 
 			if #self.witness_names > 0 then
-				local msg = ""
 				for i, nameCount in ipairs(self.witness_names) do
-					msg = msg .. util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESS_COUNT_NAME, nameCount[2], nameCount[1])
-
-					-- Every 3 lines, add a section
-					if i % 3 == 0 then
-						section:addAbility("", msg, nil)
-						msg = ""
-					end
-				end
-				-- Add a section for any remainder
-				if #self.witness_names % 3 ~= 0 then
-					section:addAbility("", msg, nil)
+					local msg = util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESS_COUNT_NAME, nameCount[2], nameCount[1])
+					section:addLine(msg)
 				end
 			end
 
