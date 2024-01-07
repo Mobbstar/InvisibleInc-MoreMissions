@@ -1256,7 +1256,7 @@ return {
 							"moremissions/VoiceOver/Central/informant/escape_abort",
 							"Central"},
 						{"We should be able to find a new target for them somewhere nearby, so it's not entirely a loss. The important thing is nobody got hurt.",
-							"moremissions/VoiceOver/Monst3r/informant/escape_abort_2p",
+							"moremissions/VoiceOver/Monster/informant/escape_abort_2p",
 							"Monster"},
 					},
 				},
@@ -1266,7 +1266,7 @@ return {
 							"moremissions/VoiceOver/Central/informant/died1",
 							"Central"},
 						{"Yes, lucky is indeed the word. I suppose I ought to think twice about throwing any more \"live assets\" your way.",
-							"moremissions/VoiceOver/Monst3r/informant/died1_2p",
+							"moremissions/VoiceOver/Monster/informant/died1_2p",
 							"Monster"},
 					},
 					{
@@ -1274,7 +1274,7 @@ return {
 							"moremissions/VoiceOver/Central/informant/died2",
 							"Central"},
 						{"And there goes one of my favourite contacts. Was this really necessary?",
-							"moremissions/VoiceOver/Monst3r/informant/died2_2p",
+							"moremissions/VoiceOver/Monster/informant/died2_2p",
 							"Monster"},
 					},
 					{
@@ -1282,7 +1282,7 @@ return {
 							"moremissions/VoiceOver/Central/informant/died3",
 							"Central"},
 						{"I suppose this particular demise is on me. I put them in touch with you, after all.",
-							"moremissions/VoiceOver/Monst3r/informant/died3_2p",
+							"moremissions/VoiceOver/Monster/informant/died3_2p",
 							"Monster"},
 					},
 				},
@@ -1292,52 +1292,52 @@ return {
 				MOLE_SEEN_TODO = { -- TODO: lines that need to be used/moved.
 					{
 						{"That's more unwanted eyes on the informant. You are familiar with the concept of stealth, yes?",
-							"moremissions/VoiceOver/Monst3r/informant/seen_generic1",
+							"moremissions/VoiceOver/Monster/informant/seen_generic1",
 							"Monster"},
 					},
 					{
 						{"Remember to keep the informant out of sight of cameras or drones.",
-							"moremissions/VoiceOver/Monst3r/informant/seen_generic2",
+							"moremissions/VoiceOver/Monster/informant/seen_generic2",
 							"Monster"},
 						{"You'll have to scramble the device's visual chip with an EMP, or destroy it entirely. I'm sure you're up to the task.",
-							"moremissions/VoiceOver/Monst3r/informant/seen_drone_2p",
+							"moremissions/VoiceOver/Monster/informant/seen_drone_2p",
 							"Monster"},
 					},
 					{
 						{"Do be careful, Operator. Our informant works best without witnesses.",
-							"moremissions/VoiceOver/Monst3r/informant/seen_generic3",
+							"moremissions/VoiceOver/Monster/informant/seen_generic3",
 							"Monster"},
 					},
 					{
 						{"The visual feeds of all drones and cameras on this floor are synced up to a Camera Database. Get one of your people close to it, and you should be able to scrub their memory chips one by one.",
-							"moremissions/VoiceOver/Monst3r/informant/witness_mainframe/seen2_1p",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen2_1p",
 							"Monster"},
 						{" Or... disrupt them through more physical means, if you prefer. Unlike Gladstone, I don't micromanage my allies nearly quite as heavily",
-							"moremissions/VoiceOver/Monst3r/informant/witness_mainframe/seen2_2p",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen2_2p",
 							"Monster"},
 					},
 					{
 						{"Be careful. That mainframe device just compromised our darling informant's cover.",
-							"moremissions/VoiceOver/Monst3r/informant/seen3_1p",
+							"moremissions/VoiceOver/Monster/informant/seen3_1p",
 							"Monster"},
 						{"There should be a Camera Database somewhere nearby. Get your hands on that, and it will solve your problem far more efficiently than brute force.",
-							"moremissions/VoiceOver/Monst3r/informant/seen3_2p",
+							"moremissions/VoiceOver/Monster/informant/seen3_2p",
 							"Monster"},
 					},
 					{
 						{"Do try not to get the Informant spotted by anything with a camera, yes? Those data feeds are quite finnicky to wipe, you'll need physical access to a nearby Camera Database.",
-							"moremissions/VoiceOver/Monst3r/informant/seen4_1p",
+							"moremissions/VoiceOver/Monster/informant/seen4_1p",
 							"Monster"},
 						{"Failing that, you can scramble the mainframe device with an EMP, or destroy it entirely. I'm sure you're up to the task...",
-							"moremissions/VoiceOver/Monst3r/informant/seen4_2p",
+							"moremissions/VoiceOver/Monster/informant/seen4_2p",
 							"Monster"},
 					},
 					{
 						{"Seeing as you've let the informant be spotted, there are two ways to handle that. Destroy or EMP the device in question and it will scramble the visual chip enough to wipe the facial recognition records.",
-							"moremissions/VoiceOver/Monst3r/informant/seen5_1p",
+							"moremissions/VoiceOver/Monster/informant/seen5_1p",
 							"Monster"},
 						{": Your other option is to locate a Camera Database and wipe the records remotely, but it's going to take time. Try to be a bit more subtle, will you? This is supposed to be a stealthy affair.",
-							"moremissions/VoiceOver/Monst3r/informant/seen5_2p",
+							"moremissions/VoiceOver/Monster/informant/seen5_2p",
 							"Monster"},
 					},
 				},
@@ -1347,7 +1347,7 @@ return {
 							"moremissions/VoiceOver/Central/informant/seen_1p",
 							"Central"},
 						{"And by \"clean up\", she means...",
-							"moremissions/VoiceOver/Monst3r/informant/seen_2p",
+							"moremissions/VoiceOver/Monster/informant/seen_2p",
 							"Monster"},
 						{"Not necessarily. If you can find a non-lethal solution, use it. The informant should have some equipment on them for that.",
 							"moremissions/VoiceOver/Central/informant/seen_2p",
@@ -1356,17 +1356,17 @@ return {
 				},
 				MOLE_SEEN_BY_CAMERA = {
 					{
-						{"You'll want to take care of any mainframe devices the Informant was spotted by. Their visual feeds are synched to the nearest Camera Database.",
-							"moremissions/VoiceOver/Monst3r/informant/witness_mainframe/seen1_1p",
+						{"You'll want to take care of any of those mainframe devices the Informant was spotted by. Their visual feeds are synched to the nearest Camera Database.",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen1_1p",
 							"Monster"},
-						{"Scrub the database or destroy the camera - a bullet or an EMP ought do the trick. They really don't use the most robust tech, I'm afraid. Now, if they had the benefit of a: Scrub the database or disrupt the device - a bullet or an EMP ought do the trick. They really don't use the most robust tech, I'm afraid. Now, if they had the benefit of a more reliable vendor-",
-							"moremissions/VoiceOver/Monst3r/informant/witness_mainframe/seen1_2p",
-							"Monster"},
-						{"Derek, now is not the time.",
+						{"Scrub the database or disrupt the device - a bullet or an EMP ought do the trick. They really don't use the most robust tech, I'm afraid. Now, if they had the benefit of a more reliable vendor-",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen1_2p",
+							"Monster"}, -- TODO: long line cut off. Missing "reliable vendor-"
+						{"Derek, this is not the time.",
 							"moremissions/VoiceOver/Central/informant/shush_derek",
 							"Central"},
 						{"Right, yes, of course. Carry on.",
-							"moremissions/VoiceOver/Monst3r/informant/witness_mainframe/seen1_4p",
+							"moremissions/VoiceOver/Monster/informant/witness_mainframe/seen1_4p",
 							"Monster"},
 					},
 				},
@@ -1376,25 +1376,25 @@ return {
 				},
 				SEE_CAMERADB = {
 					{
-						{"A camera database. Keep that in mind, that may come in handy if our informant gets spotted by any pesky cameras or drones.",
-							"moremissions/VoiceOver/Monst3r/informant/sighted/camera_database1",
-							"Monster"}
+						{"There's a Camera Database. Be careful now - you can use this to wipe any camera and drone witnesses one by one, but it's quite the intrusive process. I have no doubt they will have countermeasures in place.",
+							"moremissions/VoiceOver/Monster/informant/sighted/camera_database1",
+							"Monster"}, -- TODO: long line cut off. Missing "countermeasures in place"
 					},
 					{
-						{"A camera database. Keep that in mind, that may come in handy if our informant gets spotted by any pesky cameras or drones.",
-							"moremissions/VoiceOver/Monst3r/informant/camera_database2",
+						{"A Camera Database. Keep that in mind, that may come in handy if our informant gets spotted by any pesky cameras or drones.",
+							"moremissions/VoiceOver/Monster/informant/sighted/camera_database2",
 							"Monster"},
 					},
 				},
 				CAMERADB_PROGRESS = { -- TODO: use these lines in mission file
 					{
 						{"Ahh, there we go. It's rebooting a random device for each one you wipe. This is why discretion is the better part of valor, you know",
-							"moremissions/VoiceOver/Monst3r/informant/rebooting1",
+							"moremissions/VoiceOver/Monster/informant/rebooting1",
 							"Monster"},
 					},
 					{
 						{"You've triggered a mainframe protocol, and it's restarting parts of the network as long as you're jacked into the camera feed. <sigh> I knew this would happen. Let's try to keep this intrusion brief, shall we?",
-							"moremissions/VoiceOver/Monst3r/informant/rebooting2",
+							"moremissions/VoiceOver/Monster/informant/rebooting2",
 							"Monster"},
 					},
 				},
@@ -1502,7 +1502,7 @@ return {
 							"moremissions/VoiceOver/Central/aiterminal/sighted/main_1p",
 							"Central"},
 						{"Something strange is going on here. The equipment at this research site is like nothing I've seen before. Certainly not at this corporation.",
-							"moremissions/VoiceOver/Monst3r/aiterminal/sighted/main_2p_preomni",
+							"moremissions/VoiceOver/Monster/aiterminal/sighted/main_2p_preomni",
 							"Monster"},
 						{"Something to puzzle over later. For now, we need to finish the job and get out of here.",
 							"moremissions/VoiceOver/Central/aiterminal/sighted/main_2p_preomni",
@@ -1517,13 +1517,13 @@ return {
 							"moremissions/VoiceOver/Central/aiterminal/sighted/main_1p",
 							"Central"},
 						{"This must be one of Omni Corp's covert research sites - only they have tech quite this advanced. The decor is a bit of a giveaway, too.",
-							"moremissions/VoiceOver/Monst3r/aiterminal/sighted/main_2p_postomni",
+							"moremissions/VoiceOver/Monster/aiterminal/sighted/main_2p_postomni",
 							"Monster"},
 						{"There must be hundreds of such facilities scattered around the globe. How on Earth did we not run into one of these before?",					
 							"moremissions/VoiceOver/Central/aiterminal/sighted/main_2p_postomni",
 							"Central"},
 						{"I confess I have my suspicions, although you may not like hearing them...",
-							"moremissions/VoiceOver/Monst3r/aiterminal/sighted/main_4p_postomni",
+							"moremissions/VoiceOver/Monster/aiterminal/sighted/main_4p_postomni",
 							"Monster"},  -- it's because you're a bad mom, Central
 					},
 				},
@@ -1610,9 +1610,9 @@ return {
 					STORAGE_SPOTTED_1 = {
 						{"Operator, our telemetry data suggests there are two more rooms like this somewhere in the facility. If we can spare the time, it would be a shame to leave these valuables without stopping by.",
 							nil,
-							"Central"},
+							"Central"}, -- TODO: long line cut off. Missing "stopping by"
 						{"Do try not to break them. My clients are incredibly particular about the number of pieces they prefer their merchandise to be in.",
-							"moremissions/VoiceOver/Monst3r/briefcases/sighted1_p2",
+							"moremissions/VoiceOver/Monster/briefcases/sighted1_p2",
 							"Monster"},
 					},
 					STORAGE_SPOTTED_2 = {
@@ -1620,7 +1620,7 @@ return {
 							nil,
 							"Central"},
 						{"Remember: the more you steal, the more I'll make it worth your while.",
-							"moremissions/VoiceOver/Monst3r/briefcases/sighted2_p2",
+							"moremissions/VoiceOver/Monster/briefcases/sighted2_p2",
 							"Monster"},
 						{"We are not your delivery service. Operator, take only what our team can safely carry out.",
 							nil,
@@ -1628,7 +1628,7 @@ return {
 					},
 					STORAGE_SPOTTED_3 = {
 						{"There it is! The last room. Get all of that back on board with you, and I promise you, you will be swimming in credits. Maybe if you make two trips-",
-							"moremissions/VoiceOver/Monst3r/briefcases/sighted3_p1",
+							"moremissions/VoiceOver/Monster/briefcases/sighted3_p1",
 							"Monster"},
 						{"That is quite enough. It is your choice, Operator. Make sure it's not one we come to regret.",
 							nil,
@@ -1645,7 +1645,7 @@ return {
 							nil,
 							"Central"},
 						{"Goodness me. A little reminder of the bad old days, isn't it?",
-							"moremissions/VoiceOver/Monst3r/personnel/sighted_p2",
+							"moremissions/VoiceOver/Monster/personnel/sighted_p2",
 							"Monster"},
 						{"It has been a while. Operator, I would very much like to have a chat with him on the jet. See to it.",
 							nil,
@@ -1672,21 +1672,21 @@ return {
 					SAW_NANOFAB = {
 --						{"Operator, we've found ourselves a rare Nanofab model. It should hold a wide selection of a single item type, but it's locked down.",nil,"Central"},
 --						{"There must be an activation key somewhere. See if you can find anything in the back room.",nil,"Central"},
-						{"Ahh, now that is interesting. This model of Nanofab is specialised in precisely one type of gear, but undergoes a lengthy recalibration cycle after each job. You'd best make your choice carefully.",
-							"moremissions/VoiceOver/Monst3r/luxury_nanofab/sighted_1p",
-							"Monster"},
+						{"Ahh, now that is interesting. This model of Nanofab is specialised in precisely one type of gear, but undergoes a lengthy recalibration process after each job. You'd best make your choice carefully.",
+							"moremissions/VoiceOver/Monster/luxury_nanofab/sighted_1p",
+							"Monster"}, -- TODO: long line cut off. Missing "choice carefully"
 						{"Take a look around the back room - there should be a console to summon tech support in there, and they are bound to have access.",
-							"moremissions/VoiceOver/Monst3r/luxury_nanofab/sighted_2p",
+							"moremissions/VoiceOver/Monster/luxury_nanofab/sighted_2p",
 							"Monster"},
 					},
 					SAW_NANOFAB_HAVE_KEY = {
 --						{"Operator, we've found ourselves a rare Nanofab model. It should hold a wide selection of a single item type, but it's locked down.",nil,"Central"},
 --						{"The key you looted off that guard should come in handy now. Time to see what the nanofab has in store for us.",nil,"Central"},
-						{"Ahh, now that is interesting. This model of Nanofab is specialised in precisely one type of gear, but undergoes a lengthy recalibration cycle after each job. You'd best make your choice carefully.",
-							"moremissions/VoiceOver/Monst3r/luxury_nanofab/sighted_1p",
-							"Monster"},
-						{"Now, I do believe you already have the key?",
-							"moremissions/VoiceOver/Monst3r/luxury_nanofab/haskey",
+						{"Ahh, now that is interesting. This model of Nanofab is specialised in precisely one type of gear, but undergoes a lengthy recalibration process after each job. You'd best make your choice carefully.",
+							"moremissions/VoiceOver/Monster/luxury_nanofab/sighted_1p",
+							"Monster"}, -- TODO: long line cut off. Missing "choice carefully"
+						{"Now, I do believe you already have the key? Do you not?",
+							"moremissions/VoiceOver/Monster/luxury_nanofab/haskey",
 							"Monster"},
 					},
 					SAW_CONSOLE = {
@@ -1706,7 +1706,7 @@ return {
 							nil,
 							"Central"},
 						{"Ugh, shopping under time pressure. Better you than me.",
-							"moremissions/VoiceOver/Monst3r/luxury_nanofab/unlocked_2p",
+							"moremissions/VoiceOver/Monster/luxury_nanofab/unlocked_2p",
 							"Monster"},
 					},
 					BOUGHT_ITEM = {
@@ -1721,24 +1721,24 @@ return {
 					SEE_CONSOLE =
 					{
 						{"Ahh, now that's interesting. A little bird told me there might be a Gear Enhancement Workshop here... and look at that console, wired up via heavy-duty circuit. There must be an awfully power-hungry device somewhere on this level.",
-							"moremissions/VoiceOver/Monst3r/workshop/console_1p",
-							"Monster"},
+							"moremissions/VoiceOver/Monster/workshop/console_1p",
+							"Monster"}, -- long line cut off. Last word "awfully"
 						{"If you can spare the power, try rerouting it from some of these consoles to the Workshop instead. A state-of-the-art upgrading bench? My, I'd trade places with you in a minute.",
-							"moremissions/VoiceOver/Monst3r/workshop/console_2p",
+							"moremissions/VoiceOver/Monster/workshop/console_2p",
 							"Monster"},
 					},
 					
 					SEE_WORKSHOP =
 					{
 						{"There's the Workshop! A thing of beauty, is it not? Now, it's going to take more juice to power the upgrade the more complex your tech is, so don't expect any miracles if you were stingy with those consoles. Hmpf, I suppose I ought to step back and leave you to get acquainted. Enjoy...",
-							"moremissions/VoiceOver/Monst3r/workshop/workshop",
-							"Monster"},
+							"moremissions/VoiceOver/Monster/workshop/workshop",
+							"Monster"}, -- long line EXTREMELY cut off. Last word "stingy"
 					},
-					SEE_WORKSHOP_NO_PWR =
+					SEE_WORKSHOP_NO_PWR = -- TODO: use this line
 					{
 						{" There's the Workshop! You know it uses state-of-the-art laser ablation and 3D-printing technology? Imagine the possibilities! Hypothetically, of course - you didn't reroute any power, so at best you'll be able to switch it on and admire the startup screen for a bit. Oh well, perhaps next time...",
-							"moremissions/VoiceOver/Monst3r/workshop/workshop_unpowered",
-							"Monster"},
+							"moremissions/VoiceOver/Monster/workshop/workshop_unpowered",
+							"Monster"}, -- long line EXTREMELY cut off. Last word "didn't reroute"
 					},
 					
 					ITEM_MODIFIED =
