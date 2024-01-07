@@ -118,7 +118,15 @@ local MOLE_ESCAPED_GUARD_ELEVATOR =
 local MADE_AGENT_CONNECTION = 
 {
 	trigger = "agentConnectionDone"
-}	
+}
+
+local WITNESS_DEVICE_REBOOTED =
+{
+	trigger = "MM_device_witness_scrubbed",
+	fn = function( sim, triggerData )
+		return triggerData.db, triggerData.unit
+	end
+}
 
 local PC_SAW_GUARD_EXIT = 
 	{
@@ -611,8 +619,28 @@ local function sawCameraDbHook(mission)
 	return mission_util.DoReportObject(waiter, SCRIPTS.INGAME.MOLE_INSERTION.SEE_CAMERADB, nil, postSawCameraDb)
 end
 
+local function witnessDeviceRebooted( script, sim )
+	while true do
+		_, db, _ = script:waitFor(WITNESS_DEVICE_REBOOTED)
+
+		mission_util.doRecapturePresentation(script, sim, nil, nil, nil, 1)
+
+		local x, y = db:getLocation()
+		script:queue( { type="pan", x=x, y=y } )
+		script:waitFrames( 1*cdefs.SECONDS )
+		sim:dispatchEvent( simdefs.EV_SCRIPT_EXIT_MAINFRAME )
+
+		if not sim:getTags().Witness_DBProgressComment then
+			sim:getTags().Witness_DBProgressComment = true
+			local scripts = SCRIPTS.INGAME.MOLE_INSERTION.CAMERADB_PROGRESS
+			mission_util.reportScriptMsg( script, scripts)
+		end
+	end
+end
+
 local function investigateMole( script, sim )
 	while true do
+
 		script:waitFor( ALARM_CHANGE )
 		local mole
 		for i, agent in pairs(sim:getPC():getUnits()) do
@@ -781,6 +809,7 @@ function mission:init( scriptMgr, sim )
 	sim.exit_warning = STRINGS.MOREMISSIONS.UI.MOLE_EXIT_WARNING
 	scriptMgr:addHook( "guardWitnessesAgent", guardWitnessesAgent)
 	scriptMgr:addHook( "cameraWitnessesAgent", cameraWitnessesAgent )
+	scriptMgr:addHook( "witnessDeviceRebooted", witnessDeviceRebooted )
 	scriptMgr:addHook( "witnessDied", witnessDied, nil, self)
 	scriptMgr:addHook( "moleMission", moleMission )
 	scriptMgr:addHook( "moleDied", moleDied )

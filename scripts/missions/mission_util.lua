@@ -99,8 +99,8 @@ local function reportScriptMsg(script, report)
 		local sim = script.sim or script.script.sim
 		report = report[sim:nextRand(1, #report)]
 	end
-	script:queue( .25*cdefs.SECONDS )
 	script:queue( { script=report, type="newOperatorMessage" } )
+	script:queue( .25*cdefs.SECONDS )
 end
 
 mission_util.PC_LOOTED_SAFE_PRE = PC_LOOTED_SAFE_PRE

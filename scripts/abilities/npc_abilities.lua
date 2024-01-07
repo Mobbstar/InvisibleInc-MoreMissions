@@ -110,7 +110,7 @@ local npc_abilities =
 			sim:addTrigger( simdefs.TRG_UNIT_KILLED, self )
 			sim:addTrigger( TRG_DATABASE_SCRUBBED , self )
 			sim:addTrigger( simdefs.TRG_START_TURN , self ) --just in case
-			sim:addTrigger( "cameradb_scrubbed", self )
+			sim:addTrigger( "MM_cameradb_scrubbed", self )
 			sim:addTrigger( "mole_final_escape", self )
 			sim:addTrigger( "vip_escaped", self )
 			sim:addTrigger( "used_amnesiac", self ) --trg_unit_paralyzed is firing too early, need this instead
@@ -127,7 +127,7 @@ local npc_abilities =
 			sim:removeTrigger( TRG_DATABASE_SCRUBBED, self )
 			sim:removeTrigger( simdefs.TRG_UNIT_APPEARED , self )
 			sim:removeTrigger( simdefs.TRG_START_TURN , self )
-			sim:removeTrigger( "cameradb_scrubbed", self )
+			sim:removeTrigger( "MM_cameradb_scrubbed", self )
 			sim:removeTrigger( "mole_final_escape", self )
 			sim:removeTrigger( "vip_escaped", self )
 			sim:removeTrigger( "used_amnesiac", self )

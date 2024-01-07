@@ -1390,7 +1390,7 @@ return {
 							"Monster"},
 					},
 				},
-				CAMERADB_PROGRESS = { -- TODO: use these lines in mission file
+				CAMERADB_PROGRESS = {
 					{
 						{"Ahh, there we go. It's rebooting a random device for each one you wipe. This is why discretion is the better part of valor, you know",
 							"moremissions/VoiceOver/Monster/informant/rebooting1",
@@ -1399,7 +1399,7 @@ return {
 					{
 						{"You've triggered a mainframe protocol, and it's restarting parts of the network as long as you're jacked into the camera feed. <sigh> I knew this would happen. Let's try to keep this intrusion brief, shall we?",
 							"moremissions/VoiceOver/Monster/informant/rebooting2",
-							"Monster"},
+							"Monster"}, -- TODO: long line cut off. Missing "shall we"
 					},
 				},
 				SEE_OBJECTIVE_DOOR = {

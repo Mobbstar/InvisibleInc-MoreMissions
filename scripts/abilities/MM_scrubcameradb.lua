@@ -23,10 +23,10 @@ local function findWitnesses( sim )
 	end
 	return witnesses
 end
-local function clearWitness( sim, unit )
+local function clearWitness( sim, db, unit )
 	unit:getTraits().witness = nil
 	unit:destroyTab()
-	sim:triggerEvent( "cameradb_scrubbed" )
+	sim:triggerEvent( "MM_device_witness_scrubbed" , { db=db, unit=unit })
 	sim:getPC():glimpseUnit( sim, unit:getID() ) -- To clear witness status from the ghost.
 	local x0, y0 = unit:getLocation()
 	if x0 then
@@ -37,6 +37,10 @@ end
 local function finishHacking(self, sim, hacker)
 	local x0, y0 = self.abilityOwner:getLocation()
 	sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=util.sformat(STRINGS.MOREMISSIONS.UI.CAMERADB_SCRUBBED),x=x0,y=y0,color={r=1,g=1,b=1,a=1}} )
+
+	if not hacker then
+		return -- DB was forcibly rebooted or similar disruption.
+	end
 	hacker:getTraits().data_hacking = nil
 	self.abilityOwner:getTraits().hacker = nil
 	hacker:getSounds().spot = nil
@@ -132,7 +136,7 @@ local MM_scrubcameradb = --tweaked version of monster root hub hack
 
 			if #witnesses > 0 then
 				local unit = witnesses[sim:nextRand(1, #witnesses)]
-				clearWitness( sim, unit )
+				clearWitness( sim, self.abilityOwner, unit )
 			end
 
 			if #witnesses <= 1 then -- None, or last witness
