@@ -282,6 +282,7 @@ local function guardWitnessesAgent(script, sim)
 	
 	if seer:isValid() and not seer:isKO() and not seer:getTraits().witness then
 		seer:getTraits().witness = true
+        sim:triggerEvent("MM_new_witness", {seer=seer}) -- Update Daemon counts
 		local x0, y0 = seer:getLocation()
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
 		
@@ -318,6 +319,7 @@ local function cameraWitnessesAgent(script, sim)
 	while true do
 		_, agent, seer = script:waitFor( CAMERA_SAW_MOLE )
 		seer:getTraits().witness = true
+        sim:triggerEvent("MM_new_witness", {seer=seer}) -- Update Daemon counts
 		local x0, y0 = seer:getLocation()
 		script:queue( { type="pan", x=x0, y=y0, zoom=0.27 } )
 		if not sim:getTags().Witness_DeviceComment then
