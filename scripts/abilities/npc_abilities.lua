@@ -24,7 +24,7 @@ local existsWitnessOnMap = function(sim)
 end
 
 local checkAllWitnesses = function( self )
-	return self.device_witnesses + self.guard_witnesses + self.escaped_witnesses
+	return self.camera_witnesses + self.guard_witnesses + self.drone_witnesses + self.escaped_witnesses
 end
 
 local TRG_DATABASE_SCRUBBED = "MM_DB_scrubbed"
@@ -82,14 +82,13 @@ local npc_abilities =
 			-----
 			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.GUARDS, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_GUARDS, self.guard_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
 			
-			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DEVICES, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_DEVICES, self.device_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
+			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.CAMERAS, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_CAMERAS, self.camera_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
 			
-            -- Drones are now combined with cameras as "devices"
 			-- if sim:getParams().difficultyOptions.enable_devices then -- check for Worldgen Extended's Drone Uplinks, need to also check if it is actually present
 			-- too complex/inconsistent, leave this out for now
 				-- section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DRONES, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_DRONES_WE, self.drone_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )			
 			-- else
-				-- section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DRONES, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_DRONES, self.drone_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
+				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DRONES, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_DRONES, self.drone_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
 			-- end
 			------
 			if self.escaped_witnesses > 0 then
@@ -109,16 +108,17 @@ local npc_abilities =
 		onSpawnAbility = function( self, sim, player, agent )
 			sim:addTrigger( simdefs.TRG_UNIT_KILLED, self )
 			sim:addTrigger( TRG_DATABASE_SCRUBBED , self )
+			sim:addTrigger( simdefs.TRG_UNIT_APPEARED , self )
 			sim:addTrigger( simdefs.TRG_START_TURN , self ) --just in case
 			sim:addTrigger( "MM_cameradb_scrubbed", self )
 			sim:addTrigger( "mole_final_escape", self )
 			sim:addTrigger( "vip_escaped", self )
 			sim:addTrigger( "used_amnesiac", self ) --trg_unit_paralyzed is firing too early, need this instead
-			sim:addTrigger("MM_new_witness" , self )
 			sim:addTrigger("MM_processed_EMP_on_witness", self )
 			self.informant_escaped = true
-			self.device_witnesses = 0
+			self.camera_witnesses = 0
 			self.guard_witnesses = 0
+			self.drone_witnesses = 0
 			self.escaped_witnesses = 0
 			-- sim:dispatchEvent( simdefs.EV_SHOW_REVERSE_DAEMON, { showMainframe=true, name=self.name, icon=self.icon, txt=self.activedesc, title=self.title } )
 		end,
@@ -137,8 +137,9 @@ local npc_abilities =
 		
 		onTrigger = function( self, sim, evType, evData, userUnit )
 			-- if (evType == simdefs.TRG.UNIT_KILLED) or (evType == simdefs.TRG_UNIT_PARALYZED) or (evType == TRG_DATABASE_SCRUBBED) or (evType == simdefs.TRG_UNIT_APPEARED) then --refresh after any event that could lead to witness number changing, this should be fairly infrequent
-				local device_witnesses = {}
+				local camera_witnesses = {}
 				local guard_witnesses = {}
+				local drone_witnesses = {}
 
 				for unitID, unit in pairs(sim:getAllUnits()) do
 					if unit:getTraits().witness and not unit:isDead() then
@@ -146,15 +147,16 @@ local npc_abilities =
 							table.insert(guard_witnesses, unit)
 						end
 						if unit:getTraits().isDrone then
-							table.insert(device_witnesses, unit)
+							table.insert(drone_witnesses, unit)
 						end
 						if unit:getTraits().mainframe_camera then
-							table.insert(device_witnesses, unit)
+							table.insert(camera_witnesses, unit)
 						end
 					end
 				end	
-				self.device_witnesses = #device_witnesses
+				self.camera_witnesses = #camera_witnesses
 				self.guard_witnesses = #guard_witnesses
+				self.drone_witnesses = #drone_witnesses
 			-- end
 			if evType == "mole_final_escape" then
 				self.informant_escaped = true

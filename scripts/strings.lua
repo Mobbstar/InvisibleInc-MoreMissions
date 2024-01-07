@@ -487,14 +487,13 @@ return {
 			SHORT_DESC = "Remove witnesses",
 			ACTIVE_DESC = "WITNESS TRACKING",
 			GUARDS = "GUARDS",
-			DEVICES = "CAMERAS AND DRONES",
-			-- CAMERAS = "CAMERAS",
-			-- DRONES = "DRONES",
+			CAMERAS = "CAMERAS",
+			DRONES = "DRONES",
 			ESCAPED = "ESCAPED",
 			WITNESSES_LEFT_GUARDS = "{1} {1:witness|witnesses} remaining. Remove by killing or injecting KO'd target with Amnesiac.",
-			WITNESSES_LEFT_DEVICES = "{1} {1:witness|witnesses} remaining. Remove by destroying unit, EMPing unit, or Scrubbing a Camera Database.",
-			-- WITNESSES_LEFT_DRONES = "{1} {1:witness|witnesses} remaining. Remove by destroying or EMPing unit.",
-			-- WITNESSES_LEFT_DRONES_WE = "{1} {1:witness|witnesses} remaining. Remove by destroying or Data Scrubbing a Drone Uplink.", --Worldgen Extended
+			WITNESSES_LEFT_CAMERAS = "{1} {1:witness|witnesses} remaining. Remove by destroying unit, EMPing unit, or Scrubbing a Camera Database.",
+			WITNESSES_LEFT_DRONES = "{1} {1:witness|witnesses} remaining. Remove by destroying or EMPing unit.",
+			WITNESSES_LEFT_DRONES_WE = "{1} {1:witness|witnesses} remaining. Remove by destroying or Data Scrubbing a Drone Uplink.", --Worldgen Extended
 			WITNESSES_ESCAPED = "{1} {1:witness has|witnesses have} escaped the level and can no longer be removed.",
 
 		},
