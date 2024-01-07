@@ -27,6 +27,16 @@ local checkAllWitnesses = function( self )
 	return self.camera_witnesses + self.guard_witnesses + self.drone_witnesses + self.escaped_witnesses
 end
 
+local sortByName = function(namesToCounts)
+	local names = util.tkeys(namesToCounts)
+	table.sort(names)
+	for i = 1, #names do
+		local n = names[i]
+		names[i] = {n, namesToCounts[n]}
+	end
+	return names
+end
+
 local npc_abilities =
 {
 
@@ -94,6 +104,23 @@ local npc_abilities =
 
 			end
 
+			if #self.witness_names > 0 then
+				local msg = ""
+				for i, nameCount in ipairs(self.witness_names) do
+					msg = msg .. util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESS_COUNT_NAME, nameCount[2], nameCount[1])
+
+					-- Every 3 lines, add a section
+					if i % 3 == 0 then
+						section:addAbility("", msg, nil)
+						msg = ""
+					end
+				end
+				-- Add a section for any remainder
+				if #self.witness_names % 3 ~= 0 then
+					section:addAbility("", msg, nil)
+				end
+			end
+
 			if self.dlcFooter then
 				section:addFooter(self.dlcFooter[1],self.dlcFooter[2])
 			end
@@ -137,6 +164,7 @@ local npc_abilities =
 				local camera_witnesses = {}
 				local guard_witnesses = {}
 				local drone_witnesses = {}
+				local names = {}
 
 				for unitID, unit in pairs(sim:getAllUnits()) do
 					if unit:getTraits().witness and not unit:isDead() then
@@ -149,11 +177,15 @@ local npc_abilities =
 						if unit:getTraits().mainframe_camera then
 							table.insert(camera_witnesses, unit)
 						end
+						local name = util.toupper(unit:getName())
+						names[name] = (names[name] or 0) + 1
 					end
 				end
 				self.camera_witnesses = #camera_witnesses
 				self.guard_witnesses = #guard_witnesses
 				self.drone_witnesses = #drone_witnesses
+				self.witness_names = sortByName(names)
+
 			-- end
 			if evType == "mole_final_escape" then
 				self.informant_escaped = true

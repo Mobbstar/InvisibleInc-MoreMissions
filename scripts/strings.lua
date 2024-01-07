@@ -495,6 +495,7 @@ return {
 			-- WITNESSES_LEFT_DRONES = "{1} {1:witness|witnesses} remaining. Remove by destroying or EMPing unit, or Scrubbing a Camera Database.",
 			-- WITNESSES_LEFT_DRONES_WE = "{1} {1:witness|witnesses} remaining. Remove by destroying or Data Scrubbing a Drone Uplink.", --Worldgen Extended
 			WITNESSES_ESCAPED = "{1} {1:witness has|witnesses have} escaped the level and can no longer be removed.",
+			WITNESS_COUNT_NAME = "{1}x {2}\n",
 
 		},
 	},
