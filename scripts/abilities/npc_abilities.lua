@@ -29,7 +29,7 @@ end
 
 local TRG_DATABASE_SCRUBBED = "MM_DB_scrubbed"
 
-local npc_abilities = 
+local npc_abilities =
 {
 
 	MM_informant_intel = util.extend( mainframe_common.createReverseDaemon( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON ) ) --this daemon is basically cosmetic/for UI convenience only
@@ -42,9 +42,9 @@ local npc_abilities =
 		missionsLeft = 0,
 
 		onTooltip = function( self, hud, sim, player )
-            local tooltip = util.tooltip( hud._screen )
+			local tooltip = util.tooltip( hud._screen )
 			local section = tooltip:addSection()
-			
+
 			section:addLine( self.name )
 			if self.bonus_type == "armor" then
 				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[self.bonus_type], util.sformat(STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON.DESC_ARMOR, self.missionsLeft), "gui/icons/item_icons/items_icon_small/icon-item_personal_shield_broken_small.png" )
@@ -56,13 +56,13 @@ local npc_abilities =
 				section:addFooter(self.dlcFooter[1],self.dlcFooter[2])
 			end
 
-            return tooltip
+			return tooltip
 		end,
-		
+
 		onSpawnAbility = function( self, sim, player, agent )
 			-- sim:dispatchEvent( simdefs.EV_SHOW_REVERSE_DAEMON, { showMainframe=true, name=self.name, icon=self.icon, txt=self.activedesc, title=self.title } )
 		end,
-		
+
 		onDespawnAbility = function( self, sim )
 		end,
 	},
@@ -72,18 +72,18 @@ local npc_abilities =
 		icon = "gui/icons/UI_icons/icon_program_moleWitness.png",--icon
 		title = "",
 		standardDaemon = false,
-		
+
 		onTooltip = function( self, hud, sim, player )
-            local tooltip = util.tooltip( hud._screen )
+			local tooltip = util.tooltip( hud._screen )
 			local section = tooltip:addSection()
 			self.name = util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.NAME,checkAllWitnesses(self))
 			section:addLine( self.name )
 			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.ACTIVE_DESC, STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DESC, "gui/items/icon-action_peek.png" )
 			-----
 			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.GUARDS, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_GUARDS, self.guard_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
-			
+
 			section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.CAMERAS, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_MAINFRAME, self.camera_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
-			
+
 			-- if sim:getParams().difficultyOptions.enable_devices then -- check for Worldgen Extended's Drone Uplinks, need to also check if it is actually present
 			-- too complex/inconsistent, leave this out for now
 				-- section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DRONES, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_DRONES_WE, self.drone_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )			
@@ -93,18 +93,18 @@ local npc_abilities =
 			------
 			if self.escaped_witnesses > 0 then
 				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.ESCAPED, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_ESCAPED, self.escaped_witnesses), "gui/icons/thought_icons/status_run.png" )
-			
+
 			end
-			
+
 			if self.dlcFooter then
 				section:addFooter(self.dlcFooter[1],self.dlcFooter[2])
 			end
 
-            return tooltip
-        end,	
-		
+			return tooltip
+		end,
+
 		noDaemonReversal = true,
-		
+
 		onSpawnAbility = function( self, sim, player, agent )
 			sim:addTrigger( simdefs.TRG_UNIT_KILLED, self )
 			sim:addTrigger( TRG_DATABASE_SCRUBBED , self )
@@ -122,7 +122,7 @@ local npc_abilities =
 			self.escaped_witnesses = 0
 			-- sim:dispatchEvent( simdefs.EV_SHOW_REVERSE_DAEMON, { showMainframe=true, name=self.name, icon=self.icon, txt=self.activedesc, title=self.title } )
 		end,
-		
+
 		onDespawnAbility = function( self, sim )
 			sim:removeTrigger( simdefs.TRG_UNIT_KILLED, self )
 			sim:removeTrigger( TRG_DATABASE_SCRUBBED, self )
@@ -134,7 +134,7 @@ local npc_abilities =
 			sim:removeTrigger( "used_amnesiac", self )
 			sim:removeTrigger("MM_processed_EMP_on_witness", self )
 		end,
-		
+
 		onTrigger = function( self, sim, evType, evData, userUnit )
 			-- if (evType == simdefs.TRG.UNIT_KILLED) or (evType == simdefs.TRG_UNIT_PARALYZED) or (evType == TRG_DATABASE_SCRUBBED) or (evType == simdefs.TRG_UNIT_APPEARED) then --refresh after any event that could lead to witness number changing, this should be fairly infrequent
 				local camera_witnesses = {}
@@ -153,7 +153,7 @@ local npc_abilities =
 							table.insert(camera_witnesses, unit)
 						end
 					end
-				end	
+				end
 				self.camera_witnesses = #camera_witnesses
 				self.guard_witnesses = #guard_witnesses
 				self.drone_witnesses = #drone_witnesses
@@ -177,23 +177,23 @@ local npc_abilities =
 				sim:getNPC():removeAbility(sim, self)  --despawn self if no witnesses left and mole has escaped
 			end
 
-			mainframe_common.DEFAULT_ABILITY.onTrigger( self, sim, evType, evData, userUnit )			
+			mainframe_common.DEFAULT_ABILITY.onTrigger( self, sim, evType, evData, userUnit )
 		end,
 	},
-	
+
 	MM_distress_call_info = util.extend( mainframe_common.createDaemon( STRINGS.MOREMISSIONS.DAEMONS.DISTRESS_CALL_INFO ) ) --this daemon is basically cosmetic/for UI convenience only
 	{
 		icon = "gui/icons/UI_icons/icon_distressCall_warning.png",--icon
 		title = STRINGS.MOREMISSIONS.DAEMONS.DISTRESS_CALL_INFO.NAME,
 		noDaemonReversal = true,
-		standardDaemon = false,		
+		standardDaemon = false,
 		onSpawnAbility = function( self, sim, player, agent )
 			-- sim:dispatchEvent( simdefs.EV_SHOW_REVERSE_DAEMON, { showMainframe=true, name=self.name, icon=self.icon, txt=self.activedesc, title=self.title } )
 		end,
-		
+
 		onDespawnAbility = function( self, sim )
 		end,
-	},	
+	},
 }
 
 -- sim:triggerEvent( simdefs.TRG_UNIT_PARALYZED )
