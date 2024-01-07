@@ -593,18 +593,20 @@ end
 		-- end 
 	-- end
 -- end
-local function sawCameraDB( script, sim, mission )
 
-	local _, cameraDB = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "MM_camera_core", STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.CAMERADB, STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.CAMERADB_TIP ) )
+-- Prepare a DoReportObject hook with complex arguments.
+local function sawCameraDbHook(mission)
+	local waiter = mission_util.SAW_SPECIAL_TAG(nil, "MM_camera_core", STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.CAMERADB, STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.CAMERADB_TIP)
 
-	local scripts = SCRIPTS.INGAME.MOLE_INSERTION.SEE_CAMERADB
-	queueCentral( script, scripts )
-	
-	script:waitFor( MOLE_ESCAPED_GUARD_ELEVATOR )
+	local function postSawCameraDb( script, sim, cameraDB )
+		script:waitFor( MOLE_ESCAPED_GUARD_ELEVATOR )
 
-	if not mission.existsLivingWitness(sim) then
-		cameraDB:destroyTab()
+		if cameraDB and not mission.existsLivingWitness(sim) then
+			cameraDB:destroyTab()
+		end
 	end
+
+	return mission_util.DoReportObject(waiter, SCRIPTS.INGAME.MOLE_INSERTION.SEE_CAMERADB, nil, postSawCameraDb)
 end
 
 local function investigateMole( script, sim )
@@ -781,7 +783,7 @@ function mission:init( scriptMgr, sim )
 	scriptMgr:addHook( "moleDied", moleDied )
 	scriptMgr:addHook( "spawnMole", spawnMole )
 	scriptMgr:addHook( "moleEscaped", moleEscaped )
-	scriptMgr:addHook( "sawCameraDB", sawCameraDB, nil, self)
+	scriptMgr:addHook( "sawCameraDB", sawCameraDbHook(self))
 	scriptMgr:addHook( "witnessEscaped", witnessEscaped )
 	sim:getNPC():addMainframeAbility( sim, "MM_informant_witness", nil, 0 )
 	
