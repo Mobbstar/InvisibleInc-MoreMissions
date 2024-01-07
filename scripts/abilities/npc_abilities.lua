@@ -116,6 +116,7 @@ local npc_abilities =
 			sim:addTrigger( "used_amnesiac", self ) --trg_unit_paralyzed is firing too early, need this instead
 			sim:addTrigger("MM_new_witness" , self )
 			sim:addTrigger("MM_processed_EMP_on_witness", self )
+			self.informant_escaped = true
 			self.device_witnesses = 0
 			self.guard_witnesses = 0
 			self.escaped_witnesses = 0
@@ -156,15 +157,11 @@ local npc_abilities =
 				self.guard_witnesses = #guard_witnesses
 			-- end
 			if evType == "mole_final_escape" then
-				if checkAllWitnesses(self) <= 0 then
-					sim:getNPC():removeAbility(sim, "MM_informant_witness")  --despawn self if no witnesses left and mole has escaped
-				end
+				self.informant_escaped = true
 			elseif evType == simdefs.TRG_UNIT_ESCAPED then
 				local unit = evData
 				if unit and unit:getTraits().MM_mole then
-					if checkAllWitnesses(self) <= 0 then
-						sim:getNPC():removeAbility(sim, 		"MM_informant_witness")  --despawn self if no witnesses left and mole has escaped
-					end
+					self.informant_escaped = true
 				end
 			elseif evType == "vip_escaped" then --for pacifists who can flee
 				local unit = evData.unit
@@ -173,6 +170,11 @@ local npc_abilities =
 					sim:getTags().MM_escapedWitness = true
 				end
 			end
+
+			if self.informant_escaped and checkAllWitnesses(self) <= 0 then
+				sim:getNPC():removeAbility(sim, self)  --despawn self if no witnesses left and mole has escaped
+			end
+
 			mainframe_common.DEFAULT_ABILITY.onTrigger( self, sim, evType, evData, userUnit )			
 		end,
 	},
