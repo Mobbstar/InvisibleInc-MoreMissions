@@ -543,7 +543,7 @@ return {
 			NOT_SEEN = "Informant must not be seen",
 			NOT_SEEN_FAILED = "Informant must not be seen (FAILED)",
 			CAMERADB = "CAMERA DATABASE",
-			CAMERADB_TIP = "Scrub to clear camera witnesses",
+			CAMERADB_TIP = "Scrub to clear camera/drone witnesses",
 		},
 		AI_TERMINAL = {
 			AI_OBJECTIVE = "Access the AI Terminal",
@@ -815,7 +815,7 @@ return {
 		EXIT_REVEALED = "EXIT REVEALED",
 		NO_GUARD_ESCAPE = "Must access Personnel Database first",
 		NO_ESCAPE_OVERWATCHED = "Cannot exit while overwatched",
-		CAMERADB_SCRUBBED = "CAMERAS CLEARED",
+		CAMERADB_SCRUBBED = "ALL DEVICES CLEARED",
 		WITNESS_CLEARED = "WITNESS REMOVED",
 		MOLE_EXIT_WARNING = "Are you sure you want to leave? You haven't located the Personnel Database yet.",
 		MOLE_EXIT_WARNING2 = "Are you sure you want to leave? The Informant needs to escape through the GUARD elevator.",

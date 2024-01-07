@@ -752,6 +752,7 @@ local function despawnRedundantCameraDB(sim)
 			unit:getTraits().sightable = true --required for triggering on unit appeared
 			unit:addTag("MM_camera_core")
 			unit:giveAbility("MM_scrubcameradb") --ability that allows witness scrubbing
+
 			local daemonList = sim:getIcePrograms()
 			if daemonList:getCount() > 0 then
 				unit:getTraits().mainframe_program = daemonList:getChoice( sim:nextRand( 1, daemonList:getTotalWeight() )) --make it fun y'know?
