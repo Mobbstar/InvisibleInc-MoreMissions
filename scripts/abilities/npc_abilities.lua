@@ -27,8 +27,6 @@ local checkAllWitnesses = function( self )
 	return self.camera_witnesses + self.guard_witnesses + self.drone_witnesses + self.escaped_witnesses
 end
 
-local TRG_DATABASE_SCRUBBED = "MM_DB_scrubbed"
-
 local npc_abilities =
 {
 
@@ -107,10 +105,9 @@ local npc_abilities =
 
 		onSpawnAbility = function( self, sim, player, agent )
 			sim:addTrigger( simdefs.TRG_UNIT_KILLED, self )
-			sim:addTrigger( TRG_DATABASE_SCRUBBED , self )
 			sim:addTrigger( simdefs.TRG_UNIT_APPEARED , self )
 			sim:addTrigger( simdefs.TRG_START_TURN , self ) --just in case
-			sim:addTrigger( "MM_cameradb_scrubbed", self )
+			sim:addTrigger( "MM_device_witness_scrubbed", self )
 			sim:addTrigger( "mole_final_escape", self )
 			sim:addTrigger( "vip_escaped", self )
 			sim:addTrigger( "used_amnesiac", self ) --trg_unit_paralyzed is firing too early, need this instead
@@ -120,15 +117,15 @@ local npc_abilities =
 			self.guard_witnesses = 0
 			self.drone_witnesses = 0
 			self.escaped_witnesses = 0
+			self.witness_names = {}
 			-- sim:dispatchEvent( simdefs.EV_SHOW_REVERSE_DAEMON, { showMainframe=true, name=self.name, icon=self.icon, txt=self.activedesc, title=self.title } )
 		end,
 
 		onDespawnAbility = function( self, sim )
 			sim:removeTrigger( simdefs.TRG_UNIT_KILLED, self )
-			sim:removeTrigger( TRG_DATABASE_SCRUBBED, self )
 			sim:removeTrigger( simdefs.TRG_UNIT_APPEARED , self )
 			sim:removeTrigger( simdefs.TRG_START_TURN , self )
-			sim:removeTrigger( "MM_cameradb_scrubbed", self )
+			sim:removeTrigger( "MM_device_witness_scrubbed", self )
 			sim:removeTrigger( "mole_final_escape", self )
 			sim:removeTrigger( "vip_escaped", self )
 			sim:removeTrigger( "used_amnesiac", self )
