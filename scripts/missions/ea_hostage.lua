@@ -547,7 +547,7 @@ end
 local function startPhase( script, sim )
 
 	sim:addObjective( STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OBJECTIVE_FIND_HOSTAGE, "hostage_1" )
-	sim:getTags().no_escape = true
+	-- sim:getTags().no_escape = true
 
 	--See the hostage
 	local _, hostage = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "MM_hostage", STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, STRINGS.MISSIONS.UTIL.RAPID_PULSE_READING ) )
@@ -639,7 +639,7 @@ local function startPhase( script, sim )
 
 	sim:removeObjective( "hostage_2" )
 	sim:addObjective( STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.OBJECTIVE_ESCAPE, "hostage_3" )
-	sim:getTags().no_escape = nil
+	-- sim:getTags().no_escape = nil
 
 	script:waitFor( mission_util.PC_ANY )
 	
