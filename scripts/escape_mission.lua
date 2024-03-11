@@ -403,16 +403,6 @@ local BOUGHT_ITEM =
 	end,
 }
 
-local CLOSED_NANOFAB =
-{
-	trigger = simdefs.TRG_CLOSE_NANOFAB,
-	fn = function( sim, triggerData )
-		if triggerData.shopUnit:getTraits().luxuryNanofab and triggerData.shopUnit:hasAbility("showItemStore") then
-			return triggerData.unit
-		end
-	end,
-}
-
 local SUMMONED_GUARD =
 {
 	trigger = "MM_nanofab_summonedGuard",
@@ -515,10 +505,6 @@ local function sawNanofab( script, sim )
 	shop.weapons = {}
 	shop.augments = {}
 
-	strings_screens.STR_346165218 = sim.old_augmenttip
-	strings_screens.STR_2618909495 = sim.old_weapontip
-	strings_screens.STR_590530336 = sim.old_itemtip
-
 	shop:getTraits().mainframe_status = "off"
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/mainframe_object_off" )
 	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = shop } )
@@ -562,15 +548,6 @@ local function createKeyCarrier( sim )
 			keyAdded = true
 		end
 	end
-end
-
-local function closedFancyFab( script, sim)
-	local _, shop = script:waitFor(CLOSED_NANOFAB)
-
-	strings_screens.STR_346165218 = sim.old_augmenttip
-	strings_screens.STR_2618909495 = sim.old_weapontip
-	strings_screens.STR_590530336 = sim.old_itemtip
-	script:addHook(closedFancyFab)
 end
 
 local function populateFancyFab(sim)
@@ -753,7 +730,6 @@ function init( scriptMgr, sim )
 			createKeyCarrier(sim)
 			populateFancyFab(sim)
 			scriptMgr:addHook( "sawNanofab", sawNanofab )
-			scriptMgr:addHook( "CLOSED_FANCYFAB", closedFancyFab, nil )
 			scriptMgr:addHook( "summonedGuard", summonedGuard )
 			scriptMgr:addHook( "PC_lootedKey", PC_lootedKey )
 			scriptMgr:addHook( "sawConsole" , sawConsole )
