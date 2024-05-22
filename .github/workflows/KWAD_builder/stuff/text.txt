@@ -1,1 +1,0 @@
-Random files end up as BLOB(s) in the kwad.
