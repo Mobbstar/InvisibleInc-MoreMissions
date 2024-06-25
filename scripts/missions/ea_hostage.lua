@@ -582,6 +582,7 @@ local function startPhase( script, sim )
 
 	--looks weird, but we need the doors to be open when calculating the vital signs
 	sim:openElevator()
+	sim:triggerEvent( "TRG_OBJ_COMPLETE", { missionType = "EA_hostage" })
 	script:removeHook( keepExitLocked )
 	local vital_signs = calculateHostageVitalSigns(sim)
 	

@@ -639,6 +639,7 @@ local function ceoDown( script, sim, mission )
 			sim:addMissionReward( sim._assassinationReward )
 			sim:getTags().MM_assassination_success = true
 			sim.TA_mission_success = true -- flag for Talkative Agents
+			sim:triggerEvent( "TRG_OBJ_COMPLETE", { missionType = "assassination" })
 
 			sim:removeObjective( "kill" )
 			sim:removeObjective( "find" )

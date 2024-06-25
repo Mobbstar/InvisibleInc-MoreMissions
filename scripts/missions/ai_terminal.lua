@@ -788,6 +788,7 @@ local function upgradeIncognita( script, sim )
 	script:addHook( makeSmoke )
 
 	sim:setClimax(true)
+	sim:triggerEvent( "TRG_OBJ_COMPLETE", { missionType = "ai_terminal" } )
 	sim.exit_warning = nil
 	sim.TA_mission_success = true
 

@@ -359,6 +359,7 @@ local function MM_checkTopGearItem( script, sim )
     
 	sim:setClimax(true)
     script:waitFor( mission_util.UI_LOOT_CLOSED )
+    sim:triggerEvent( "TRG_OBJ_COMPLETE", { missionType = "weapons_expo" } )
     sim:removeObjective( OBJECTIVE_ID )
 	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then	
 		sim:getNPC():addMainframeAbility( sim, "authority", nil, 0 ) --add Authority daemon (with no reversal) after first one looted
