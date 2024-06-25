@@ -441,6 +441,7 @@ local function got_operative(script, sim, mission)
 		sim:setMissionReward( simquery.scaleCredits( sim, 800 )) --keep this money reward unless we can think of something more exciting/original
 		sim.TA_mission_success = true
 	end
+	sim:triggerEvent( "TRG_OBJ_COMPLETE", { missionType = "distress_call" })
 	sim:removeObjective( "rescue_agent" )
 
 end
