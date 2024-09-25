@@ -681,17 +681,18 @@ local function moleMission( script, sim )
 	script:addHook( DBhack )
 	script:waitFor( FINISHED_DBHACK )
 	hackConsole:destroyTab()
-	sim:getTags().MM_DBhack_finished = true	
+	sim:getTags().MM_DBhack_finished = true		
 	sim.exit_warning = STRINGS.MOREMISSIONS.UI.MOLE_EXIT_WARNING2
 	--display HUD on guard elevators
 	
+	sim:triggerEvent( "TRG_OBJ_COMPLETE", { missionType = "mole_insertion" })
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.ESCAPE, "mole_escape" ) -- mole escapes through guard elevator
 	scripts = SCRIPTS.INGAME.MOLE_INSERTION.FINISHED_DB_HACK
 	script:queue( 1*cdefs.SECONDS )
 	queueCentral( script, scripts )
 	script:addHook( investigateMole )
 	script:addHook( seeGuardExit )
-	script:waitFor( MOLE_ESCAPED_GUARD_ELEVATOR )	
+	script:waitFor( MOLE_ESCAPED_GUARD_ELEVATOR )
 	sim:getTags().MM_informant_success = true --successfully planted mole
 	sim:removeObjective("mole_escape")
 	
