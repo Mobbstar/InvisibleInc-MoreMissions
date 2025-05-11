@@ -9,5 +9,5 @@ local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 
 local transformer_terminal = abilitydefs.lookupAbility("transformer_terminal")
-transformer_terminal.HUDpriority = 3		
+transformer_terminal.HUDpriority = 3
 transformer_terminal.profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small_15PWR.png"

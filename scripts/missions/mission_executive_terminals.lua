@@ -39,10 +39,10 @@ local LOOT_TERMINAL =
 
 
 local function doAftermath(script, sim)
-    
+
     script:queue( 1*cdefs.SECONDS )
     script:queue( { script=SCRIPTS.INGAME.AFTERMATH.TERMS[sim:nextRand(1, #SCRIPTS.INGAME.AFTERMATH.TERMS)], type="newOperatorMessage" } )
-    
+
     --shift guard patrols
     local idle = sim:getNPC():getIdleSituation()
     local guards = sim:getNPC():getUnits()
@@ -68,13 +68,13 @@ local function chooseRandomLocations( count, sim )
 	if array.find( missionTags, "distress_call" ) then
 		array.removeIf( missionTags, function(v) return v == "distress_call" end )
 	end
-	
+
 	if count > #missionTags then
 		repeat
 			local missionTags2 = util.tcopy( serverdefs.ESCAPE_MISSION_TAGS )
 			if array.find( missionTags2, "distress_call" ) then
 				array.removeIf( missionTags2, function(v) return v == "distress_call" end )
-			end			
+			end
 			util.tmerge(missionTags, missionTags2)
 		until not (count > #missionTags)
 	end

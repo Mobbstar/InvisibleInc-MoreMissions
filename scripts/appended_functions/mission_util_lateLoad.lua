@@ -9,7 +9,7 @@ local cdefs = include( "client_defs" )
 local simdefs = include( "sim/simdefs" )
 
 --for Distress Call
-local mission_util = include("sim/missions/mission_util") 
+local mission_util = include("sim/missions/mission_util")
 local doAgentBanter_old = mission_util.doAgentBanter
 mission_util.doAgentBanter = function(script,sim,cross_script,odds,returnIfFailed, ...)
 	--if sim:getParams().situationName == "distress_call" then

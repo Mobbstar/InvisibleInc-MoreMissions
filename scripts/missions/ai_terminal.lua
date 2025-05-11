@@ -44,7 +44,7 @@ local AI_CONSOLE_HIJACKED =
 }
 
 local PC_WON =
-	{		
+	{
         priority = 10,
 
         trigger = simdefs.TRG_GAME_OVER,
@@ -57,13 +57,13 @@ local PC_WON =
             end
         end,
 	}
-	
+
 local function queueCentral(script, scripts) --really informative huh
 	script:queue( { type="clearOperatorMessage" } )
 	for k, v in pairs(scripts) do
 		script:queue( { script=v, type="newOperatorMessage" } )
 		script:queue(0.5*cdefs.SECONDS)
-	end	
+	end
 end
 
 local function findCell( sim, tag )
@@ -79,7 +79,7 @@ local function CONSOLE_USED()
 			if eventData.unit and eventData.unit:hasTag("W93_INCOG_LOCK") then
 				eventData.unit:removeTag("W93_INCOG_LOCK")
 				return true
-			end 
+			end
 		end
 	}
 end
@@ -91,7 +91,7 @@ local function LOCK_DEACTIVATED()
 		fn = function( sim, eventData )
 			if eventData.W93_incogLock then
 				return true
-			end 
+			end
 		end
 	}
 end
@@ -132,7 +132,7 @@ local function populateProgramList( sim )
 			-- traits[name].ID = ability._abilityID
 		-- end
 	-- end
-	
+
 	for i = 1, #programs do
 		local ability = programs[#programs +1 -i] --reverse iteration so the dialog buttons appear in the same order as in the slots
 		if not ability.MM_upgraded then
@@ -146,8 +146,8 @@ local function populateProgramList( sim )
 			traits[name].cpu_cost = ability.cpu_cost or nil
 			traits[name].ID = ability._abilityID
 		end
-	end	
-	
+	end
+
 	return {options_list = options_list, traits = traits}
 
 end
@@ -159,7 +159,7 @@ local function upgradeIcebreak( upgradedProgram, sim, boost )
 		if (upgradedProgram.break_firewalls or 0) > 0 then
 			validUpgrade = true
 			upgradedProgram.break_firewalls = upgradedProgram.break_firewalls + boost
-			
+
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers or {}
 			upgradedProgram.MM_modifiers.break_firewalls = upgradedProgram.MM_modifiers.break_firewalls or 0
 			upgradedProgram.MM_modifiers.break_firewalls = upgradedProgram.MM_modifiers.break_firewalls + boost
@@ -170,11 +170,11 @@ local function upgradeIcebreak( upgradedProgram, sim, boost )
 		if upgradedProgram.parasite_strength then
 			validUpgrade = true
 			upgradedProgram.parasite_strength = upgradedProgram.parasite_strength + boost
-			
+
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
 			upgradedProgram.MM_modifiers.parasite_strength = upgradedProgram.MM_modifiers.parasite_strength or 0
-			upgradedProgram.MM_modifiers.parasite_strength = upgradedProgram.MM_modifiers.parasite_strength + boost			
-		end	
+			upgradedProgram.MM_modifiers.parasite_strength = upgradedProgram.MM_modifiers.parasite_strength + boost
+		end
 	end
 	return validUpgrade
 end
@@ -187,7 +187,7 @@ local function upgradePWRcost( upgradedProgram, sim, boost )
 	end
 	local result = (upgradedProgram.cpu_cost or 0) + boost
 	if result > 0 then
-		if upgradedProgram.cpu_cost and not (upgradedProgram.parasite_strength and upgradedProgram.parasite_strength == 1) then 
+		if upgradedProgram.cpu_cost and not (upgradedProgram.parasite_strength and upgradedProgram.parasite_strength == 1) then
 		-- we don't want Parasite 1.0 pwr cost to be upgradable for both balance and bug prevention reasons.
 			validUpgrade = true
 			upgradedProgram.cpu_cost = upgradedProgram.cpu_cost + boost
@@ -198,12 +198,12 @@ local function upgradePWRcost( upgradedProgram, sim, boost )
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
 			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost or 0
 			upgradedProgram.MM_modifiers.cpu_cost = upgradedProgram.MM_modifiers.cpu_cost + boost
-			
+
 			if upgradedProgram.parasite_strength and upgradedProgram.base_cpu_cost then -- Parasite V.2.0
 				upgradedProgram.MM_modifiers.base_cpu_cost = upgradedProgram.MM_modifiers.base_cpu_cost or 0
 				upgradedProgram.base_cpu_cost = upgradedProgram.base_cpu_cost + boost
 				upgradedProgram.MM_modifiers.base_cpu_cost = upgradedProgram.MM_modifiers.base_cpu_cost + boost
-			end			
+			end
 		end
 	end
 	return validUpgrade
@@ -217,7 +217,7 @@ local function upgradeCooldown( upgradedProgram, sim, boost )
 			validUpgrade = true
 			upgradedProgram.maxCooldown = upgradedProgram.maxCooldown + boost
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
-			upgradedProgram.MM_modifiers.maxCooldown = boost		
+			upgradedProgram.MM_modifiers.maxCooldown = boost
 		end
 	end
 	return validUpgrade
@@ -231,7 +231,7 @@ local function upgradeRange( upgradedProgram, sim, boost )
 			validUpgrade = true
 			upgradedProgram.range = upgradedProgram.range + boost
 			upgradedProgram.MM_modifiers = upgradedProgram.MM_modifiers  or {}
-			upgradedProgram.MM_modifiers.range = boost		
+			upgradedProgram.MM_modifiers.range = boost
 		end
 	end
 	return validUpgrade
@@ -260,32 +260,32 @@ local function upgradeDialog( script, sim )
 	while sim:getTags().used_AI_terminal == nil do
 
 	local _, triggerData = script:waitFor( INCOGNITA_UPGRADED )
-	
+
 	local dialogPath = STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.DIALOG
 
 	-- check available upgrade types for display purposes
-	local pos1, pos2 = sim.MM_AI_terminal_parameters[1], sim.MM_AI_terminal_parameters[2]	
+	local pos1, pos2 = sim.MM_AI_terminal_parameters[1], sim.MM_AI_terminal_parameters[2]
 	local options3_temp = {}
 	table.insert(options3_temp, dialogPath.OPTIONS3[pos1])
 	table.insert(options3_temp, dialogPath.OPTIONS3[pos2])
-				
+
 	local txt = util.sformat(dialogPath.OPTIONS1_TXT, options3_temp[2],options3_temp[1])
 	local title = dialogPath.OPTIONS1_TITLE
 	local options = dialogPath.OPTIONS1 --choose between slot and program upgrade
-	
+
 	if (sim:getParams().difficultyOptions.W93_AI or 0) > 0 then
 		--display alternate menu with option to disrupt hostile AI
 		options = dialogPath.OPTIONS1_PE
 		txt = util.sformat(dialogPath.OPTIONS1_TXT_PE, options3_temp[2],options3_temp[1])
 	end
-	
+
 	local option = mission_util.showDialog( sim, title, txt, options )
-	
+
 	local cancel_opt = nil
 	local slots_opt = nil
 	local upgrade_opt = nil
 	local counterAI_opt = nil
-	
+
 	for optnum = #options, 1, -1 do
 		local opt_name = options[optnum]
 		if opt_name == "CANCEL" then
@@ -298,21 +298,21 @@ local function upgradeDialog( script, sim )
 			counterAI_opt = optnum
 		end
 	end
-	
+
 	if option == slots_opt then -- upgrade Incognita's slots
-	
+
 		local currentSlots = simquery.getMaxPrograms( sim )
-		local doneUpgrades = sim:getParams().agency.W93_aiTerminals or 0 
+		local doneUpgrades = sim:getParams().agency.W93_aiTerminals or 0
 		local remainingUpgrades = 2 - doneUpgrades
 		local maxSlots = currentSlots + remainingUpgrades
 		local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
 		-- isEndless = true --this lifts the slot cap for non-endless campaigns as well
-		
+
 		if sim:getParams().agency.W93_aiTerminals and ((sim:getParams().agency.W93_aiTerminals) >= 2) and not isEndless then --max slots reached
 			local slotsfull_txt = util.sformat(dialogPath.OPTIONS2_SLOTSFULL_TXT, currentSlots, maxSlots )
 			mission_util.showBadResult( sim, dialogPath.OPTIONS2_SLOTSFULL_TITLE, slotsfull_txt )
 			option = nil
-			finishDialog( sim, triggerData )			
+			finishDialog( sim, triggerData )
 		else
 			if isEndless then
 				maxSlots = dialogPath.SLOTS_UNLIMITED
@@ -335,21 +335,21 @@ local function upgradeDialog( script, sim )
 	elseif option == counterAI_opt then
 		local corpName = dialogPath.OPTIONS2_PE_TXT_CORPORATE -- "corporate"
 		local options_pe_txt_base = dialogPath.OPTIONS2_PE_TXT_ALL_CORPS
-		
+
 		local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
 		if isEndless then
 			corpName = serverdefs.CORP_DATA[ sim:getParams().world ].stringTable.SHORTNAME
 			options_pe_txt_base = dialogPath.OPTIONS2_PE_TXT_ONE_CORP
 		end
-		
+
 		local option_pe_txt = util.sformat(options_pe_txt_base, corpName )
-		
+
 		if sim:getParams().agency.MM_hostileAInerf and sim:getParams().agency.MM_hostileAInerf[sim:getParams().world] then --if we've already debuffed this corp's AI in the past, display this
 			local debuff = sim:getParams().agency.MM_hostileAInerf[sim:getParams().world]
 			local text_alreadyDebuffed = options_pe_txt_base .. dialogPath.OPTIONS2_PE_ALREADY_WEAKENED
 			option_pe_txt = util.sformat(text_alreadyDebuffed, corpName, debuff )
 		end
-		
+
 		local option_pe = mission_util.showDialog( sim, dialogPath.OPTIONS2_PE_TITLE, option_pe_txt, dialogPath.OPTIONS2_CANCEL_CONFIRM )
 		if option_pe == 1 then
 			option_confirm = nil
@@ -360,13 +360,13 @@ local function upgradeDialog( script, sim )
 			sim:getTags().used_AI_terminal = true
 			sim:getTags().weakened_counterAI = true
 			finishDialog( sim )
-		end		
+		end
 	elseif option == cancel_opt then
 		option = nil
 		finishDialog( sim, triggerData )
 	elseif option == upgrade_opt then
 		local txt2 = util.sformat(dialogPath.OPTIONS2_TXT,options3_temp[2],options3_temp[1])
-		
+
 		local options2 = populateProgramList( sim ).options_list
 
 		if #options2 <= 0 then
@@ -375,9 +375,9 @@ local function upgradeDialog( script, sim )
 			finishDialog( sim, triggerData )
 		else
 		local option2 = mission_util.showDialog( sim, dialogPath.OPTIONS2_TITLE, txt2, options2 ) -- choose program to upgrade
-		
+
 		local program_name = options2[option2]
-		
+
 		for i = #options2, 1, -1 do
 			if option2 == i then
 				local txt3 = dialogPath.OPTIONS3_TXT
@@ -388,34 +388,34 @@ local function upgradeDialog( script, sim )
 					-- "Cooldown",
 					-- "Range"
 				-- }
-	
+
 				local program_ID  = populateProgramList(sim).traits[program_name].ID
 				local upgradedProgram = sim:getPC():hasMainframeAbility( program_ID )
-				
+
 				if upgradedProgram.parasite_strength ~= nil then
 					options3 = util.tcopy(dialogPath.OPTIONS3_PARASITE)
 				end
-				
+
 				-- NEW: only 2 out of 4 upgrades should be available in a given mission, at random, to force variety and more interesting choices.
 				local upgrades_available = {
 					[1] = true,
 					[2] = true,
 					[3] = true,
 					[4] = true,
-				}				
-				
+				}
+
 				local pos1, pos2 = sim.MM_AI_terminal_parameters[1], sim.MM_AI_terminal_parameters[2]
 				local options3_random = {} --make a new options table, keeping only the two randomised entries
 				table.insert(options3_random, dialogPath.OPTIONS3[pos1])
 				table.insert(options3_random, dialogPath.OPTIONS3[pos2])
 				table.insert(options3_random, 1, dialogPath.START_OVER )
 
-				local firewall_opt = nil 
+				local firewall_opt = nil
 				local pwr_opt = nil
 				local cd_opt = nil
-				local range_opt = nil 
+				local range_opt = nil
 				local restart_opt = nil
-				
+
 				-- reassign now that two entries in options were randomly removed
 				for num = #options3_random, 1, -1 do
 					local pam = options3_random[num]
@@ -438,45 +438,45 @@ local function upgradeDialog( script, sim )
 				end
 
 				local option3 = mission_util.showDialog( sim, dialogPath.OPTIONS3_TITLE, txt3, options3_random ) --choose between parameters to upgrade
-				
+
 				local txt_increment = dialogPath.OPTIONS4_TXT --"Choose a change. Parameter cannot be decreased below 1."
-				
+
 				local options_increment = dialogPath.OPTIONS4_INC --choose to increment or decrement
 				-- {
 					-- "Increase by 1",
 					-- "Decrease by 1",
 				-- }
-				
-				if option3 == restart_opt then 
+
+				if option3 == restart_opt then
 					restart_opt = nil
-					finishDialog( sim, triggerData )					
+					finishDialog( sim, triggerData )
 				elseif option3 == firewall_opt then
 					--increase/decrease firewalls broken
 					local txt_firewalls = util.sformat(dialogPath.FIREWALLS_TIP, upgradedProgram.name, (
 					(((upgradedProgram.break_firewalls or 0) > 0) and upgradedProgram.break_firewalls )
 					or (((upgradedProgram.parasite_strength or 0) > 0) and upgradedProgram.parasite_strength)
 					or dialogPath.INVALID	))..txt_increment
-					
-					local option_firewalls = mission_util.showDialog( sim, dialogPath.OPTIONS_FIREWALLS_TITLE, txt_firewalls, options_increment )
-					
 
-					if option_firewalls == 3 then	
-						local validUpgrade = upgradeIcebreak( upgradedProgram, sim, 1 )	
+					local option_firewalls = mission_util.showDialog( sim, dialogPath.OPTIONS_FIREWALLS_TITLE, txt_firewalls, options_increment )
+
+
+					if option_firewalls == 3 then
+						local validUpgrade = upgradeIcebreak( upgradedProgram, sim, 1 )
 						if validUpgrade == true then
-							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_FIREWALLS_INCREASE )	
-						
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_FIREWALLS_INCREASE )
+
 							finishProgramUpgrade(upgradedProgram, sim )
 						else
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
 							option_firewalls = nil
 							finishDialog( sim, triggerData )
 						end
-						
+
 					elseif option_firewalls == 2 then
 						local validUpgrade = upgradeIcebreak( upgradedProgram, sim, -1 )
 						if validUpgrade == true then
 							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_FIREWALLS_DECREASE )
-						
+
 							finishProgramUpgrade(upgradedProgram, sim )
 						else
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
@@ -487,32 +487,32 @@ local function upgradeDialog( script, sim )
 						option_firewalls = nil
 						finishDialog( sim, triggerData )
 					end
-					
+
 				elseif option3 == pwr_opt then
-					local txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (upgradedProgram.cpu_cost or dialogPath.INVALID))..txt_increment		
+					local txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (upgradedProgram.cpu_cost or dialogPath.INVALID))..txt_increment
 
 					if upgradedProgram.parasite_strength and (upgradedProgram.parasite_strength == 1) then --blargh, hardcoding
 						txt_PWRcost = util.sformat(dialogPath.PWRCOST_TIP, upgradedProgram.name, (dialogPath.INVALID))..txt_increment
 					end
-					
+
 					local option_PWR = mission_util.showDialog( sim, dialogPath.OPTIONS_PWRCOST_TITLE, txt_PWRcost, options_increment )
 					if option_PWR == 3 then
-						
+
 						local validUpgrade = upgradePWRcost( upgradedProgram, sim, 1 )
 						if validUpgrade == true then
-							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_PWRCOST_INCREASE )					
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_PWRCOST_INCREASE )
 							finishProgramUpgrade(upgradedProgram, sim )
 						else
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
 							option_PWR = nil
 							finishDialog( sim, triggerData )
 						end
-						
+
 					elseif option_PWR == 2 then
-					
+
 						local validUpgrade = upgradePWRcost( upgradedProgram, sim, -1 )
 						if validUpgrade == true then
-							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_PWRCOST_DECREASE )		
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_PWRCOST_DECREASE )
 							finishProgramUpgrade(upgradedProgram, sim )
 						else
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
@@ -524,12 +524,12 @@ local function upgradeDialog( script, sim )
 						finishDialog( sim, triggerData )
 					end
 				elseif option3 == cd_opt then
-				
-					local txt_cooldown = util.sformat(dialogPath.COOLDOWN_TIP, upgradedProgram.name, (upgradedProgram.maxCooldown or dialogPath.INVALID))..txt_increment					
-				
+
+					local txt_cooldown = util.sformat(dialogPath.COOLDOWN_TIP, upgradedProgram.name, (upgradedProgram.maxCooldown or dialogPath.INVALID))..txt_increment
+
 					local option_CD = mission_util.showDialog( sim, dialogPath.OPTIONS_COOLDOWN_TITLE, txt_cooldown, options_increment )
 					if option_CD == 3 then
-					
+
 						local validUpgrade = upgradeCooldown( upgradedProgram, sim, 1 )
 						if validUpgrade == true then
 							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_COOLDOWN_INCREASE )
@@ -539,12 +539,12 @@ local function upgradeDialog( script, sim )
 							option_CD = nil
 							finishDialog( sim, triggerData )
 						end
-						
+
 					elseif option_CD == 2 then
-					
+
 						local validUpgrade = upgradeCooldown( upgradedProgram, sim, -1 )
 						if validUpgrade == true then
-							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_COOLDOWN_DECREASE )	
+							mission_util.showGoodResult( sim, dialogPath.PROGRAM_UPGRADED_SUCCESS, dialogPath.OPTIONS_COOLDOWN_DECREASE )
 							finishProgramUpgrade(upgradedProgram, sim )
 						else
 							mission_util.showBadResult( sim, dialogPath.PROGRAM_UPGRADE_FAIL_TITLE, dialogPath.PROGRAM_UPGRADE_FAIL_TXT )
@@ -557,7 +557,7 @@ local function upgradeDialog( script, sim )
 					end
 				elseif option3 == range_opt then
 					local txt_range = util.sformat( dialogPath.RANGE_TIP, upgradedProgram.name, (upgradedProgram.range or dialogPath.INVALID))..txt_increment
-					
+
 					local option_RANGE = mission_util.showDialog( sim, dialogPath.OPTIONS_RANGE_TITLE, txt_range, options_increment )
 					if option_RANGE == 3 then
 						local validUpgrade = upgradeRange( upgradedProgram, sim, 1 )
@@ -586,12 +586,12 @@ local function upgradeDialog( script, sim )
 				end
 			end
 		end
-			
+
 		end
 	end
-	
+
 	end
-	
+
 end
 
 -- end of modal dialog stuff
@@ -600,7 +600,7 @@ end
 
 local function spottedDoor( script, sim )
 	script:waitFor( mission_util.PC_SAW_CELL_WITH_TAG( script, "IncognitaLock2" ))
-	
+
 	local c = findCell( sim, "IncognitaLock2" )
 
 	script:queue( 1*cdefs.SECONDS )
@@ -608,7 +608,7 @@ local function spottedDoor( script, sim )
 	script:queue( 0.1*cdefs.SECONDS )
 	script:queue( { type="displayHUDInstruction", text=STRINGS.MOREMISSIONS.UI.INCOGROOM_TEXT1, x=c.x, y=c.y } )
 	script:queue( { type="clearOperatorMessage" } )
-	queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_DOOR_SPOTTED ) 
+	queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.CENTRAL_DOOR_SPOTTED )
 	sim:removeObjective("find")
 	sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.OBJECTIVE1, "upgrade_incognita1", 4 )
 	script:waitFor( mission_util.PC_START_TURN )
@@ -627,12 +627,12 @@ local function incrementLocks( script, sim )
 			if AIunit:getName() == STRINGS.MOREMISSIONS.PROPS.INCOGROOM_AI_TERMINAL then
 				AIunit:setPlayerOwner( sim:getPC() )
 				sim:getCurrentPlayer():glimpseUnit( sim, AIunit:getID() )
-				sim:dispatchEvent( simdefs.EV_UNIT_CAPTURE, { unit = AIunit, nosound = true } )	
+				sim:dispatchEvent( simdefs.EV_UNIT_CAPTURE, { unit = AIunit, nosound = true } )
 			end
 		end
 		local c = findCell( sim, "IncognitaLock2" )
 		for i, exit in pairs( c.exits ) do
-			if exit.door and exit.locked and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then 
+			if exit.door and exit.locked and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then
 				sim:modifyExit( c, i, simdefs.EXITOP_UNLOCK )
 				sim:modifyExit( c, i, simdefs.EXITOP_OPEN )
 				sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED, {cell=c, dir=i} )
@@ -660,7 +660,7 @@ local function useConsole( script, sim )
 	script:waitFor( CONSOLE_USED() )
 	local c =  findCell( sim, "IncognitaLock1" )
 	for i, exit in pairs( c.exits ) do
-		if exit.door and exit.locked and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then 
+		if exit.door and exit.locked and exit.keybits == simdefs.DOOR_KEYS.BLAST_DOOR then
 			sim:modifyExit( c, i, simdefs.EXITOP_UNLOCK )
 			sim:modifyExit( c, i, simdefs.EXITOP_OPEN )
 			sim:dispatchEvent( simdefs.EV_EXIT_MODIFIED, {cell=c, dir=i} )
@@ -675,7 +675,7 @@ local function useConsole( script, sim )
 
 end
 
-local function makeSmoke( script, sim ) 
+local function makeSmoke( script, sim )
 	--IncogRoom fills with KO gas starting with main terminal, then the unlock terminals, then the doors. KO gas is harmless on first spawn then replaces itself with potent KO version, which replaces itself with harmless dispersal version (the last one is cosmetic only)
 	local terminal
 	for i, unit in pairs(sim:getAllUnits()) do
@@ -691,13 +691,13 @@ local function makeSmoke( script, sim )
 	script:queue( { type="pan", x=cell.x, y=cell.y, zoom=0.27 } )
 	queueCentral( script, SCRIPTS.INGAME.AI_TERMINAL.SMOKE_WARNING )
 	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
-		sim:getNPC():spawnInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, terminal) 
+		sim:getNPC():spawnInterest(cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_ALARMEDSAFE, terminal)
 	end
 	script:waitFor( mission_util.PC_START_TURN )
 	-- if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
 		-- script:waitFor( mission_util.PC_START_TURN )
 	-- end
-	
+
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().MM_incogRoom_unlock then
 			local lock_cell = sim:getCell(unit:getLocation())
@@ -706,9 +706,9 @@ local function makeSmoke( script, sim )
 			sim:warpUnit( KOcloud, lock_cell )
 		end
 	end
-	
+
 	script:waitFor( mission_util.PC_START_TURN )
-	
+
 	local obj_procGen = cell.procgenRoom
 	local cells = {}
 	sim:forEachCell(
@@ -725,7 +725,7 @@ local function makeSmoke( script, sim )
 		local KOcloud = simfactory.createUnit( propdefs.MM_gas_cloud, sim )
 		sim:spawnUnit( KOcloud )
 		sim:warpUnit( KOcloud, doorcell )
-	end	
+	end
 end
 
 -- Callback to be applied in mission_scoring
@@ -829,13 +829,13 @@ local function addKeys( sim )
 
 	local safeCandidates = {}
 	local consoleCandidates = {}
-	
+
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().safeUnit and not (unit:getUnitData().id == "guard_locker") then
 			table.insert(safeCandidates, unit)
 		end
 	end
-	
+
 	if #safeCandidates > 0 then
 		local unit = safeCandidates[sim:nextRand(1, #safeCandidates)]
 		local item = simfactory.createUnit( propdefs.MM_W93_AiRoomPasscard, sim )
@@ -844,15 +844,15 @@ local function addKeys( sim )
 		unit:getTraits().MM_hasAICard = true
 		log:write("[MM] safe added!")
 	end
-	
+
 	for i, unit in pairs(sim:getAllUnits()) do
 		if unit:getTraits().mainframe_console then
 			table.insert(consoleCandidates, unit)
 		end
 	end
-	
+
 	if #consoleCandidates > 0 then
-		local unit = consoleCandidates[sim:nextRand(1, #consoleCandidates)]	
+		local unit = consoleCandidates[sim:nextRand(1, #consoleCandidates)]
 		unit:addTag("W93_INCOG_LOCK")
 		unit:getTraits().MM_AIconsole = true
 		unit:getTraits().sightable = true --required for triggering on unit appeared
@@ -888,7 +888,7 @@ local function spawnDaemons( sim )
 		local PROGRAM_LIST = serverdefs.PROGRAM_LIST
 		if sim:isVersion("0.17.5") then
 			PROGRAM_LIST = sim:getIcePrograms()
-		end		
+		end
 		local locks = {}
 		for i, unit in pairs(sim:getAllUnits()) do
 			if unit:hasAbility("MM_W93_incogRoom_unlock") then
@@ -901,7 +901,7 @@ local function spawnDaemons( sim )
 			--num_daemons = 4
 		--end
 		local num_daemons = 1 -- easy mode
-		
+
 		local ice_boosted = false
 		if difficulty > 1 then
 			for i, unit in pairs(locks) do
@@ -927,7 +927,7 @@ local mission = class( escape_mission )
 function mission:init( scriptMgr, sim )
 	escape_mission.init( self, scriptMgr, sim )
 	sim.TA_mission_success = false
-	
+
 	addKeys( sim )
 	chooseUpgrades( sim ) --randomly choose 2 out of 4 possible parameters available for program upgrade in AI terminal
 	spawnDaemons(sim) --spawn daemons on some of the lock devices
@@ -940,7 +940,7 @@ function mission:init( scriptMgr, sim )
 	scriptMgr:addHook( "upgradeDialog", upgradeDialog )
 	scriptMgr:addHook( "cardSafeReaction", cardSafeReaction )
 	scriptMgr:addHook( "consoleReaction", consoleReaction )
-	
+
 	sim.exit_warning = STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.EXIT_WARNING
 
 	--This picks a reaction rant from Central on exit
@@ -956,7 +956,7 @@ function mission:init( scriptMgr, sim )
 		end
         local scr = scripts[sim:nextRand(1, #scripts)]
         return scr
-    end	
+    end
 	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))
 end
 
@@ -967,15 +967,15 @@ function mission.pregeneratePrefabs( cxt, tagSet )
 end
 
 function mission.generatePrefabs( cxt, candidates )
-    local prefabs = include( "sim/prefabs" ) 
+    local prefabs = include( "sim/prefabs" )
 	escape_mission.generatePrefabs( cxt, candidates )
-	
+
 	if cxt.params.difficultyOptions.safesPerLevel == 0 then
 		prefabs.generatePrefabs( cxt, candidates, "safe", 1 )
-	end 
+	end
 	if cxt.params.difficultyOptions.consolesPerLevel == 0 then
 		prefabs.generatePrefabs( cxt, candidates, "console", 1 )
-	end	
-end	
+	end
+end
 
 return mission

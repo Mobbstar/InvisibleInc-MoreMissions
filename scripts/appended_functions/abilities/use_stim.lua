@@ -18,6 +18,6 @@ use_stim.executeAbility = function( self, sim, unit, userUnit, target )
 	end
 	if unit:getTraits().armorPiercingBuff then
 		local armorBuff = unit:getTraits().armorPiercingBuff
-		targetUnit:getTraits().genericPiercing = (targetUnit:getTraits().genericPiercing or 0) + armorBuff 	
+		targetUnit:getTraits().genericPiercing = (targetUnit:getTraits().genericPiercing or 0) + armorBuff
 	end
 end

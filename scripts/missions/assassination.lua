@@ -23,7 +23,7 @@ local function queueCentral(script, scripts)
 	for k, v in pairs(scripts) do
 		script:queue( { script=v, type="newOperatorMessage" } )
 		script:queue(0.5*cdefs.SECONDS)
-	end	
+	end
 end
 
 ----
@@ -37,7 +37,7 @@ local PC_AFTER_ANY =
 }
 
 --interest triggers so bodyguard can investigate instead VIP
-local DECOY_REVEALED = 
+local DECOY_REVEALED =
 {
 	trigger = "MM_decoy_revealed",
 	fn = function( sim, evData )
@@ -47,7 +47,7 @@ local DECOY_REVEALED =
 	end,
 }
 
-local NEW_INTEREST = 
+local NEW_INTEREST =
 {
 	trigger = simdefs.TRG_NEW_INTEREST,
 	fn = function( sim, evData )
@@ -59,7 +59,7 @@ local NEW_INTEREST =
 	end,
 }
 
-local NEW_UNIT_INTEREST = 
+local NEW_UNIT_INTEREST =
 {
 	trigger = simdefs.TRG_UNIT_NEWINTEREST,
 	fn = function( sim, evData )
@@ -74,7 +74,7 @@ local NEW_UNIT_INTEREST =
 	end,
 }
 
-local TRIED_TO_STEAL_FROM_DECOY = 
+local TRIED_TO_STEAL_FROM_DECOY =
 {
 	trigger = "MM_usedFakeSteal",
 	fn = function( sim, evData )
@@ -177,7 +177,7 @@ local BODYGUARD_SHOT_AT =
 	end,
 }
 
-local UNIT_WARP = 
+local UNIT_WARP =
 {
 	trigger = simdefs.TRG_UNIT_WARP,
 	fn = function( sim, evData )
@@ -185,7 +185,7 @@ local UNIT_WARP =
 	end
 }
 
-local UNIT_USE_DOOR = 
+local UNIT_USE_DOOR =
 {
 	trigger = simdefs.TRG_UNIT_USEDOOR,
 	fn = function( sim, evData )
@@ -199,20 +199,20 @@ PC_SAW_UNIT_FIXED = function( tag )
 	{
 		trigger = simdefs.TRG_LOS_REFRESH,
 		fn = function( sim, evData )
-			local seer =  evData.seer 
+			local seer =  evData.seer
 			if not seer or not seer:isPC() then
 				return false
 			end
-			
+
 			for i = 1, #evData.cells, 2 do
-				local cell = sim:getCell(evData.cells[i],evData.cells[i+1])		
+				local cell = sim:getCell(evData.cells[i],evData.cells[i+1])
 				if cell.units then
 					for i, seenUnit in pairs(cell.units) do
 						if seenUnit:hasTag(tag) then
 							return seenUnit, seer
 						end
 					end
-				end		
+				end
 			end
 
 			return false
@@ -250,7 +250,7 @@ local function keepClose( script, sim )
 				bodyguard:getTraits().lostVIP = nil
 				bodyguard:getTraits().previouslyLostVIP = true
 				local x1,y1 = vip:getLocation()
-				bodyguard:getBrain():spawnInterest(x1, y1, simdefs.SENSE_RADIO, simdefs.REASON_NOTICED, vip) 		
+				bodyguard:getBrain():spawnInterest(x1, y1, simdefs.SENSE_RADIO, simdefs.REASON_NOTICED, vip)
 			end
 		end
 	end
@@ -268,7 +268,7 @@ local function transferInterest( sim, interest )
 	if bodyguard and vip and not vip:getTraits().MM_ceo_armed and (simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) or sim.MM_bounty_disguise_active ) then
 		local x0, y0 = vip:getLocation()
 		local x1, y1 = interest.x, interest.y
-		vip:getBrain():spawnInterest(x0,y0, sim:getDefs().SENSE_DEBUG, "REASON_MM_ASSASSINATION") --vip stays put and investigates in place	
+		vip:getBrain():spawnInterest(x0,y0, sim:getDefs().SENSE_DEBUG, "REASON_MM_ASSASSINATION") --vip stays put and investigates in place
 		if simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) then
 			bodyguard:getBrain():spawnInterest(x1,y1, simdefs.SENSE_RADIO, "REASON_MM_ASSASSINATION") --bodyguard investigates distraction
 		end
@@ -278,14 +278,14 @@ end
 local function waitForInterest( script, sim )
 	while true do
 		local _, interest = script:waitFor( NEW_INTEREST )
-		transferInterest( sim, interest)	
+		transferInterest( sim, interest)
 	end
 end
 
 local function waitForUnitInterest( script, sim )
 	while true do
 		local _, interest = script:waitFor( NEW_UNIT_INTEREST )
-		transferInterest( sim, interest)		
+		transferInterest( sim, interest)
 	end
 end
 
@@ -423,12 +423,12 @@ local function initCeoTraits( sim )
 		assert( hidingCell )
 		ceo:getTraits().mmVipHidePoint = { x = hidingCell.x, y = hidingCell.y, facing = calculateBestFacing( sim, hidingCell, ceo ) }
 	end
-	
+
 	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "easy") then
 		local bodyguard = mission_util.findUnitByTag( sim, "bodyguard" )
 		bodyguard:getTraits().woundsMax = 1
 		bodyguard:getTraits().MM_alertlink = nil
-		
+
 		ceo:getTraits().hasSentAlert = true
 		ceo:getTraits().MM_alertlink = nil
 	end
@@ -480,7 +480,7 @@ local function doAlertBodyguard( sim, ceo, mission )
 		end
 		ceo:getTraits().hasSentAlert = true
 	end
-	
+
 	-- if the alerted unit was a decoy, reveal the decoy
 	if ceo:getTraits().MM_decoy then
 		mission.revealDecoy( sim, ceo )
@@ -526,7 +526,7 @@ end
 local function followHeatSig( script, sim )
 	sim:forEachUnit(
 	function(unit)
-		if isHeatSigTarget( sim, unit ) then 
+		if isHeatSigTarget( sim, unit ) then
 			local x, y = unit:getLocation()
 			-- log:write("[MM] spawning heatsig")
 			-- script:queue( { type="displayHUDInstruction", text=STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, x=x, y=y } )
@@ -534,17 +534,17 @@ local function followHeatSig( script, sim )
 		end
 	end)
 
-	while true do 
+	while true do
 		local ev, triggerData = script:waitFor( mission_util.UNIT_WARP )
 		if isHeatSigTarget( sim, triggerData.unit ) then
-			-- script:queue( { type="hideHUDInstruction" } ) 
+			-- script:queue( { type="hideHUDInstruction" } )
 			local x, y = triggerData.unit:getLocation()
             if x and y then
 				-- log:write("[MM] warp updating heatsig")
 			    -- script:queue( { type="displayHUDInstruction", text=STRINGS.MISSIONS.UTIL.HEAT_SIGNATURE_DETECTED, x=x, y=y } )
 			    script:queue( { type="pan", x=x, y=y } )
             end
-		end 
+		end
 	end
 end
 
@@ -599,7 +599,7 @@ end
 local function playerSeesRealCEO( script, sim, mission ) --only in use if decoy is in place)
 	-- local _, ceo, agent = script:waitFor(  mission_util.PC_SAW_UNIT("assassination_real")  ) -- no longer used. see new function desc for explanation
 	local _, ceo, agent = script:waitFor( PC_SAW_UNIT_FIXED("assassination_real") )
-	
+
 	-- local hidingCell = findCell( sim, "saferoom_hide" )
 	local hidingCell = sim:getCell( ceo:getLocation() )
 	if sim.MM_bounty_disguise_active then
@@ -609,14 +609,14 @@ local function playerSeesRealCEO( script, sim, mission ) --only in use if decoy 
 		local report = SCRIPTS.INGAME.ASSASSINATION.FOUND_REAL_TARGET
 		if sim:getTags().MM_decoyrevealed then
 			report = SCRIPTS.INGAME.ASSASSINATION.FOUND_REAL_TARGET_LATE
-		end	
+		end
 		script:queue( 1*cdefs.SECONDS )
-		script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )	
+		script:queue( { script=selectStoryScript( sim, report ), type="newOperatorMessage" } )
 		sim:getTags().MM_sawRealCEO = true
 		script:queue( { type="hideHUDInstruction" } )
 		sim:removeObjective( "find" )
 		if not sim:hasObjective("kill") then
-			sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )	
+			sim:addObjective( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.OBJ_KILL, "kill" )
 		end
 		local fakeCEO = safeFindUnitByTag( sim, "assassination_fake")
 		if fakeCEO then
@@ -690,7 +690,7 @@ local function playerSeesSaferoom(script, sim)
 	sim:spawnUnit( labelCarrier )
 	sim:warpUnit( labelCarrier, doorCell )
 	labelCarrier:createTab( STRINGS.MOREMISSIONS.MISSIONS.ASSASSINATION.SECUREDOOR_TIP, "" )
-	
+
 	sim:getPC():glimpseUnit( sim, labelCarrier:getID() ) --this reveals the 'door decoder' and label if the player saw the inside of the door first
 
 	script:queue( { type="pan", x=doorCell.x, y=doorCell.y } )
@@ -771,7 +771,7 @@ local function ceoAlerted(script, sim, mission)
 	script:removeHook(keepClose)
 	script:removeHook(waitForInterest)
 	script:removeHook(waitForUnitInterest)
-	
+
 	-- Alert the bodyguard, unless we have already sent an alert
 	-- (No double interest for KO and first wakeup)
 	if not ceo:getTraits().hasSentAlert then
@@ -781,7 +781,7 @@ local function ceoAlerted(script, sim, mission)
 		ceo = safeFindUnitByTag(sim, "assassination_real")
 		doAlertRealAndFakeCeos( sim, nil, mission )
 	end
-	
+
 	-- Tell the player (using the vanilla CFO running line)
 	if ceo and not ceo:isDown() then
 		-- script:queue( { script=SCRIPTS.INGAME.CENTRAL_CFO_RUNNING, type="newOperatorMessage" } ) --we don't need this anymore
@@ -790,7 +790,7 @@ local function ceoAlerted(script, sim, mission)
 
 	-- Wait for the CEO to reach the safe
 	_, ceo = script:waitFor( CEO_ARMING )
-	
+
 
 	-- Fully armed and operational.
 	local safe = mission_util.findUnitByTag( sim, "saferoom_safe" )
@@ -802,7 +802,7 @@ local function ceoAlerted(script, sim, mission)
 		local facing = ceo:getTraits().mmVipSafePoint.facing
 		sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR, { unitID = ceo:getID(), facing = facing, sound = sound, soundFrame = 1 } )
 		sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR_PST, { unitID = ceo:getID(), facing = facing } )
-		safe:getTraits().open = false		
+		safe:getTraits().open = false
 		inventory.giveItem( safe, ceo, weapon )
 		local x,y = ceo:getLocation()
 		sim:emitSound( { path = weapon:getUnitData().sounds.reload, range = simdefs.SOUND_RANGE_0 }, x, y, ceo )
@@ -839,7 +839,7 @@ local function turnBodyguardToFace(self, x, y)
 	if self:getTraits().refreshingLOS then
 		return
 	end
-	
+
 	local x1, y1 = self:getLocation()
 	local facing = simquery.getDirectionFromDelta(x - x1, y - y1)
 
@@ -883,12 +883,12 @@ local function despawnDecoy( script, sim )
 	if newDecoy:getTraits().wounds > newDecoy:getTraits().woundsMax then
 		newDecoy:killUnit( sim ) --now kill decoy droid if it was damaged.
 	end
-	
-	script:queue( { type="hideHUDInstruction" } ) 
+
+	script:queue( { type="hideHUDInstruction" } )
 	script:waitFor( mission_util.PC_ANY, PC_AFTER_ANY )
 	sim:warpUnit( decoyUnit, nil ) -- remove the original
-	sim:despawnUnit( decoyUnit ) 
-	
+	sim:despawnUnit( decoyUnit )
+
 	if x and y then
 		script:queue( { type="pan", x=x, y=y } )
 	end
@@ -900,7 +900,7 @@ local function despawnDecoy( script, sim )
 end
 
 local 	PC_WON =
-	{		
+	{
         priority = 10,
 
         trigger = simdefs.TRG_GAME_OVER,
@@ -951,16 +951,16 @@ mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
 	newDecoy:getTraits().patrolPath = { { x = cell.x, y = cell.y, facing = facing } }
 	if decoyUnit:getTraits().tagged then
 		newDecoy:getTraits().tagged = true
-	end	
+	end
 	-- removing original now is a problem because aiplayer may still be processing reactions for this unit. So we'll delay the despawn until later and just make the original disappear
 	decoyUnit:changeKanim( "kanim_transparent" )
 	decoyUnit:getTraits().canBeCritical = true
 	decoyUnit:getTraits().sightable = nil
 	decoyUnit:getTraits().MM_invisible_to_PC = true
-	
+
 	-- cosmetic stuff
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, {sound="SpySociety/Actions/holocover_deactivate", x=x0,y=y0} )
-	sim:dispatchEvent( simdefs.EV_UNIT_ADD_FX, { unit = newDecoy, kanim = "fx/agent_cloak_fx", symbol = "effect", anim="out", above=true, params={} } )	
+	sim:dispatchEvent( simdefs.EV_UNIT_ADD_FX, { unit = newDecoy, kanim = "fx/agent_cloak_fx", symbol = "effect", anim="out", above=true, params={} } )
 	-- hologram drops, revealing decoy to be a robot!
 	newDecoy:changeKanim(  nil , 0.05 )
 	newDecoy:changeKanim(  oldKanim , 0.1 )
@@ -969,7 +969,7 @@ mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
 	newDecoy:changeKanim(  nil , 0.1 )
 	newDecoy:changeKanim(  oldKanim , 0.05 )
 	newDecoy:changeKanim(  nil )
-	
+
 	-- implement effect of player actions on despawned original
 	newDecoy:getBrain():getSenses():addInterest( cell.x, cell.y, simdefs.SENSE_RADIO, simdefs.REASON_SHARED )  -- REASON_SHARED is alerting
 	doAlertBodyguard( sim, newDecoy, mission )
@@ -983,7 +983,7 @@ mission.revealDecoy = function( sim, decoyUnit, stagger, EMP )
 		local noEmpFX = EMP.noEmpFX or nil
 		newDecoy:processEMP( bootTime, noEmpFX )
 	end
-	
+
 	sim:triggerEvent("MM_decoy_revealed", { unit = decoyUnit, newDecoy = newDecoy })
 	return newDecoy
 end
@@ -997,7 +997,7 @@ local function spawnDecoy( sim, cell, facing )
 	decoyUnit:setFacing( facing )
 	sim:refreshUnitLOS( decoyUnit )
 	sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = decoyUnit } )
-	sim:warpUnit( decoyUnit, cell )	
+	sim:warpUnit( decoyUnit, cell )
 	decoyUnit:setPather(sim:getNPC().pather)
 	decoyUnit:getBrain():setSituation(sim:getNPC():getIdleSituation() )
 	sim:getNPC():getIdleSituation():generatePatrolPath( decoyUnit, decoyUnit:getLocation() )
@@ -1027,10 +1027,10 @@ local function tryDecoy( sim )
 		FINAL_CHANCE_OF_DECOY = 0.9
 	end
 	if (sim:nextRand() < FINAL_CHANCE_OF_DECOY) then
-		log:write("[MM] implementing decoy")	
-		for i, unit in pairs(sim:getNPC():getUnits()) do 
+		log:write("[MM] implementing decoy")
+		for i, unit in pairs(sim:getNPC():getUnits()) do
 			if unit:getTraits().MM_bounty_target then
-				vip = unit 		--locate VIP	
+				vip = unit 		--locate VIP
 				unit:getTraits().MM_bounty_disguise = true
 			end
 		end
@@ -1038,7 +1038,7 @@ local function tryDecoy( sim )
 		local safeCell = findCell( sim, "saferoom_flee" )
 		if vip and hidingCell then
 			local oldCell = sim:getCell(vip:getLocation())
-			sim:warpUnit( vip, hidingCell ) 
+			sim:warpUnit( vip, hidingCell )
 			local oldFacing = vip:getFacing()
 			vip:setFacing( calculateBestFacing( sim, hidingCell, vip ) )
 			vip:getTraits().MM_realtarget = true
@@ -1060,8 +1060,8 @@ local function activateCam( sim )
 			unit:getTraits().mainframe_status = "active"
 			unit:getTraits().hasSight = true
 			sim:refreshUnitLOS( unit )
-			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = unit } )	
-			sim:addTrigger( simdefs.TRG_OVERWATCH, unit )	
+			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = unit } )
+			sim:addTrigger( simdefs.TRG_OVERWATCH, unit )
 		end
 	end
 end
@@ -1105,8 +1105,8 @@ function mission:init( scriptMgr, sim )
 		end
         local scr = scripts[sim:nextRand(1, #scripts)]
         return scr
-    end	
-	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))	
+    end
+	scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))
 end
 
 
@@ -1116,10 +1116,10 @@ function mission.pregeneratePrefabs( cxt, tagSet )
 end
 
 function mission.generatePrefabs( cxt, candidates )
-    local prefabs = include( "sim/prefabs" ) 
+    local prefabs = include( "sim/prefabs" )
 	escape_mission.generatePrefabs( cxt, candidates )
-	prefabs.generatePrefabs( cxt, candidates, "MM_cameradb", 1 ) 
-end	
+	prefabs.generatePrefabs( cxt, candidates, "MM_cameradb", 1 )
+end
 
 
 return mission

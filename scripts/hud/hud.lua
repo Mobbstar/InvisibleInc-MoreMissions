@@ -10,7 +10,7 @@ local function showChoiceDialog( hud, headerTxt, bodyTxt, options, dType, toolti
 	local screen
 
 	screen = mui.createScreen( "modal-event.lua" )
-	
+
 	hud._choice_dialog = screen
 	mui.activateScreen( screen )
 
@@ -26,7 +26,7 @@ local function showChoiceDialog( hud, headerTxt, bodyTxt, options, dType, toolti
 	else
 		screen.binder.pnl.binder.yourface:setVisible(false)
 	end
-	
+
 	screen.binder.pnl.binder.Item:setVisible(false)
 
 	if enemyProfile == true then

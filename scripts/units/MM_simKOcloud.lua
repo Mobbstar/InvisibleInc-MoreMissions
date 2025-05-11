@@ -153,7 +153,7 @@ function simKOcloud:onWarp(sim, oldcell, cell)
     end
 
     sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = self } )
-	
+
 	-- do the KO stuff
 	if (#agents > 0) and self:getTraits().KOgas then
 		sim:getLevelScript():queue( 2 * cdefs.SECONDS )

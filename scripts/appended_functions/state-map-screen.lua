@@ -45,17 +45,17 @@ end
 
 stateMapScreen.OnClickLocation = function( self, situation, ... )
 	OnClickLocation_old( self, situation, ... )
-	
+
 	local screen
 	for i, active_screen in pairs(mui.internals._activeScreens) do
 		if active_screen:findWidget("MM_informantBonus") then
 			screen = active_screen
 			break
 		end
-	end		
-	
+	end
+
 	if screen and STRINGS.MOREMISSIONS then
-		
+
 		local corpData = serverdefs.getCorpData( situation )
 		if self._campaign.agency.MM_informant_bonus and (#self._campaign.agency.MM_informant_bonus > 0) and not ((situation.corpName == "omni") or (situation.corpName == "omni2"))
 		then
@@ -65,32 +65,32 @@ stateMapScreen.OnClickLocation = function( self, situation, ... )
 			local missionsLeft = getMaxBonus( self._campaign.agency.MM_informant_bonus )
 			screen:findWidget("MM_informantBonus.moleIcon"):setTooltip( util.sformat(STRINGS.MOREMISSIONS.UI.MAP_SCREEN.MOLE_TOOLTIP, missionsLeft) )
 			screen:findWidget("MM_informantInfo.moleDesc"):setText(STRINGS.MOREMISSIONS.UI.MAP_SCREEN.MOLE_DESC)
-			screen:findWidget("MM_informantInfo.moleName"):setText(STRINGS.MOREMISSIONS.UI.MAP_SCREEN.MOLE_NAME)	
+			screen:findWidget("MM_informantInfo.moleName"):setText(STRINGS.MOREMISSIONS.UI.MAP_SCREEN.MOLE_NAME)
 		else
 			-- log:write("[MM] setting invisible")
 			screen:findWidget("MM_informantBonus"):setVisible( false )
 			screen:findWidget("MM_informantInfo"):setVisible( false )
 		end
-		
+
 		local corpWorld = corpData.world
-		
+
 		if self._campaign.agency.MM_hostileAInerf and self._campaign.agency.MM_hostileAInerf[corpWorld] then
 			screen:findWidget("MM_PE_hostileAI"):setVisible(true)
-			
+
 			local debuff = self._campaign.agency.MM_hostileAInerf[corpWorld]
 			local situationDiff = situation.difficulty
 			local hostileAIDiff = situationDiff - debuff
 			if hostileAIDiff < 1 then hostileAIDiff = 1 end
-			
-			
+
+
 			local pe_txt = STRINGS.MOREMISSIONS.UI.MAP_SCREEN.HOSTILE_AI_TEXT
 			local pe_txt_formatted = util.sformat(pe_txt, situationDiff, debuff)
 			screen:findWidget("MM_PE_hostileAI"):setTooltip(pe_txt_formatted)
 
-			
+
 			screen:findWidget("MM_PE_hostileAI.AIdifficultyShield"):setImage(string.format("gui/menu pages/map_screen/shield%d.png", hostileAIDiff))
-				
-			
+
+
 			screen:findWidget("MM_PE_hostileAI_label"):setVisible(true)
 			screen:findWidget("MM_PE_hostileAI_label.PE_AI_name"):setText(STRINGS.MOREMISSIONS.UI.MAP_SCREEN.HOSTILE_AI_NAME)
 		else

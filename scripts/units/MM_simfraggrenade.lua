@@ -18,7 +18,7 @@ function frag_grenade:throw(throwingUnit, targetCell)
 
     assert( player )
 	self:setPlayerOwner(player)
-	
+
 	sim:dispatchEvent( simdefs.EV_UNIT_THROWN, { unit = self, x=targetCell.x, y=targetCell.y } )
 
 	if x0 ~= targetCell.x or y0 ~= targetCell.y then
@@ -33,7 +33,7 @@ function frag_grenade:throw(throwingUnit, targetCell)
     if self:getTraits().keepPathing == false and throwingUnit:getBrain() then
     	throwingUnit:useMP(throwingUnit:getMP(), sim)
     end
-    
+
 	sim:processReactions()
 end
 
@@ -54,7 +54,7 @@ function frag_grenade:explode()
  	sim:warpUnit(self, nil)
 	sim:despawnUnit( self )
 	--make sure all players glimpse to remove the ghosts
-	for i,player in ipairs(sim:getPlayers()) do			
+	for i,player in ipairs(sim:getPlayers()) do
 		player:glimpseUnit(sim, unitID)
 	end
 end
@@ -65,7 +65,7 @@ function frag_grenade:getExplodeCells()
 	local cells = {currentCell}
 	if self:getTraits().range then
 		-- local fillCells = simquery.fillCircle( self._sim, x0, y0, self:getTraits().range, 0)
-		
+
 		local fillCells = simquery.rasterCircle( self._sim, x0, y0, self:getTraits().range ) --redefine cells based on range, so the effect goes through walls
 		for i, x, y in util.xypairs( fillCells ) do
 			local cell = self._sim:getCell( x, y )
@@ -117,7 +117,7 @@ function frag_grenade:activate()
 		self:removeAbility(sim, "carryable")
 		self:getTraits().MM_destroyedNotCarryable = true
 	end
-		
+
 	if self:getTraits().camera then
 		self:getTraits().hasSight = true
 		sim:getLOS():registerSeer(self:getID() )
@@ -128,15 +128,15 @@ function frag_grenade:activate()
 		local cell = sim:getCell(self:getLocation())
 		if self:getTraits().deploy_cover then
 			sim:warpUnit( self )
-			self:getTraits().cover = true			
+			self:getTraits().cover = true
 			sim:warpUnit( self, cell)
 			if self:getTraits().deploySightblock then
 				self:createTallCover()
-			end	
-		end		
+			end
+		end
 		self:getTraits().hologram=true
 		self:getSounds().spot = self:getSounds().activeSpot
-		sim:dispatchEvent( simdefs.EV_UNIT_UPDATE_SPOTSOUND, { unit = self,  stop = false } )										 
+		sim:dispatchEvent( simdefs.EV_UNIT_UPDATE_SPOTSOUND, { unit = self,  stop = false } )
 	end
 
 	if self:getTraits().cryBaby or self:getTraits().transporterBeacon then
@@ -190,7 +190,7 @@ function frag_grenade:deactivate()
 	local x0,y0 = self:getLocation()
 
 	if self:getTraits().camera then
-		self:getTraits().hasSight = false	
+		self:getTraits().hasSight = false
 		sim:refreshUnitLOS(self)
 		sim:getLOS():unregisterSeer(self:getID() )
 	end
@@ -202,11 +202,11 @@ function frag_grenade:deactivate()
 
 	if self:getTraits().holoProjector then
 		if self:getTraits().deploy_cover then
-			local cell = sim:getCell(self:getLocation())	
+			local cell = sim:getCell(self:getLocation())
 			sim:warpUnit( self )
 			self:getTraits().cover = false
 			sim:warpUnit( self, cell)
-		end			
+		end
 		sim:dispatchEvent( simdefs.EV_UNIT_UPDATE_SPOTSOUND, { unit = self, stop = true } )
 		self:getSounds().spot = nil
 		self:getTraits().hologram=false
@@ -217,7 +217,7 @@ function frag_grenade:deactivate()
 			-- sim:dispatchEvent( sim:getDefs().EV_LOS_REFRESH, { player = sim:getPC(), cells = self._cells } )
 			-- sim:dispatchEvent( sim:getDefs().EV_LOS_REFRESH, { player = sim:getNPC(), cells = self._cells } )
 			self._segments, self._cells = nil, nil
-		end			
+		end
 	end
 
     self:getTraits().deployed = nil
@@ -258,7 +258,7 @@ function frag_grenade:onWarp(sim, oldcell, cell)
                 -- end
             -- end
         -- end
-        -- sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = self } )     
+        -- sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = self } )
     -- end
 end
 
@@ -266,27 +266,27 @@ function frag_grenade:onExplode( cells )
     local sim, player = self:getSim(), self:getPlayerOwner()
 
 	-- log:write("[MM] on explode")
-	
+
 	if self:getTraits().createsSmoke then
 		assert( self:getTraits().on_spawn )
 		local sim = self:getSim()
 		local newUnit = simfactory.createUnit( unitdefs.lookupTemplate( self:getTraits().on_spawn ), sim )
 		sim:spawnUnit( newUnit )
-		sim:warpUnit( newUnit, sim:getCell( self:getLocation() ) )	
-	end	
-	
-	sim:startTrackerQueue(true)				
-	sim:startDaemonQueue()			
+		sim:warpUnit( newUnit, sim:getCell( self:getLocation() ) )
+	end
+
+	sim:startTrackerQueue(true)
+	sim:startDaemonQueue()
     sim:dispatchEvent( simdefs.EV_KO_GROUP, true )
 
 	local killedUnits = {}
-	
+
 	for i, cell in ipairs(cells) do
 		-- log:write("[MM] cell")
 		for i, cellUnit in ipairs( cell.units ) do
 			-- log:write("[MM] cell unit")
 			-- log:write(util.stringize(cellUnit:getUnitData().name,2))
-			if self:getTraits().baseDamage 
+			if self:getTraits().baseDamage
 			and (self:getTraits().friendlyDamage
 			or ( self:getTraits().friendlyDamage == nil and simquery.isEnemyAgent( player, cellUnit)))
 			-- and not cellUnit:getTraits().isDrone
@@ -297,14 +297,14 @@ function frag_grenade:onExplode( cells )
 
 				if sim:isVersion("0.17.5") then
 					damage = cellUnit:processKOresist( damage )
-				end		
+				end
 
 				-- cellUnit:setKO(sim, damage)
 				table.insert(killedUnits, cellUnit)
 			end
 		end
 	end
-	
+
 	sim:dispatchEvent( simdefs.EV_KO_GROUP, false )
 	for i, cellUnit in pairs(killedUnits) do
 		-- log:write("[MM] damaging unit")
@@ -314,8 +314,8 @@ function frag_grenade:onExplode( cells )
 		end
 	end
 
-	sim:startTrackerQueue(false)				
-	sim:processDaemonQueue()		
+	sim:startTrackerQueue(false)
+	sim:processDaemonQueue()
 end
 
 local function createFragGrenade( unitData, sim )

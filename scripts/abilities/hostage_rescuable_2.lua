@@ -16,10 +16,10 @@ local hostage_rescuable =
 		createToolTip = function( self, sim )
 			return abilityutil.formatToolTip( self.name, STRINGS.ABILITIES.RESCUE_DESC, simdefs.DEFAULT_COST )
 		end,
-		
+
 		profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-action_free_agent_small.png",
 		proxy = true,
-		
+
 		canUseAbility = function ( self, sim, unit, userUnit )
 			if unit:getTraits().relased_hostage then
 				return false
@@ -36,20 +36,20 @@ local hostage_rescuable =
 			--	unit:destroyTab()
 			--end
 			unit:getTraits().relased_hostage = true
-			
+
 			if unit:getTraits().diagnostic_terminal then
 				for i,simunit in pairs( sim:getAllUnits() ) do
 					if simunit:getTraits().drone_refit then
 						unit = simunit
-					end 
+					end
 				end
 			end
 
 
-			local cell = sim:getCell( unit:getLocation() )			
+			local cell = sim:getCell( unit:getLocation() )
 
 			local newUnit = userUnit:getPlayerOwner():rescueHostage( sim, unit, cell, unit:getFacing(), userUnit  )
-			if newUnit then				
+			if newUnit then
 				sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newUnit } )
 
 				if unit:getTraits().rescue_incident ~= nil then

@@ -41,16 +41,16 @@ local function runAppend( modApi )
 		if targetUnit:getTraits().MM_decoy then
 			-- punch animation, un-disguise, stagger
 			local x0,y0 = unit:getLocation()
-			local x1,y1 = targetUnit:getLocation()	
+			local x1,y1 = targetUnit:getLocation()
 			local facing = simquery.getDirectionFromDelta(x1-x0,y1-y0)
 			local pinning, pinnee = simquery.isUnitPinning(sim, unit)
 			if pinning and pinnee ~= targetUnit then
 				pinning = false
 			end
 			-- sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR, { unitID = unit:getID(), facing = facing } )
-			sim:dispatchEvent( simdefs.EV_UNIT_MELEE, { unit = unit, targetUnit = targetUnit, grapple = false, pinning = pinning, lethal = true} )	
+			sim:dispatchEvent( simdefs.EV_UNIT_MELEE, { unit = unit, targetUnit = targetUnit, grapple = false, pinning = pinning, lethal = true} )
 			assassination_mission.revealDecoy( sim, targetUnit, true )
-			-- sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR_PST, { unitID = unit:getID(), facing = facing } )	
+			-- sim:dispatchEvent( simdefs.EV_UNIT_USEDOOR_PST, { unitID = unit:getID(), facing = facing } )
 			unit:useAP( sim )
 			return
 		end

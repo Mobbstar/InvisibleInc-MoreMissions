@@ -94,7 +94,7 @@ local npc_abilities =
 
 			-- if sim:getParams().difficultyOptions.enable_devices then -- check for Worldgen Extended's Drone Uplinks, need to also check if it is actually present
 			-- too complex/inconsistent, leave this out for now
-				-- section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DRONES, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_DRONES_WE, self.drone_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )			
+				-- section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DRONES, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_DRONES_WE, self.drone_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
 			-- else
 				section:addAbility( STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.DRONES, util.sformat(STRINGS.MOREMISSIONS.DAEMONS.WITNESS_WARNING.WITNESSES_LEFT_MAINFRAME, self.drone_witnesses), "gui/icons/action_icons/Action_icon_Small/icon-item_shoot_small.png" )
 			-- end

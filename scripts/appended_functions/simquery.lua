@@ -14,7 +14,7 @@ local oldCanUseLockedExit = simquery._canUseLockedExit
 function simquery._canUseLockedExit( unit, exitOp, exit )
 	local res = false
 	if oldCanUseLockedExit then
-		res = oldCanUseLockedExit( unit, exit ) 
+		res = oldCanUseLockedExit( unit, exit )
 	end
 
 	if (not res

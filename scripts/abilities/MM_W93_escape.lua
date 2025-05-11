@@ -15,7 +15,7 @@ local MM_W93_escape =
 	onTooltip = function( self, hud, sim, abilityOwner, abilityUser )
 		return abilityutil.hotkey_tooltip( self, sim, abilityOwner, STRINGS.MOREMISSIONS.ABILITIES.W93_ESCAPE_DESC )
 	end,
-		
+
 	profile_icon = "gui/actions/escape1.png",
 	proxy = false,
 
@@ -49,13 +49,13 @@ local MM_W93_escape =
 		if cell.exitID then
 			local units = {}
 
-			for _, unit in pairs( sim:getAllUnits() ) do			
+			for _, unit in pairs( sim:getAllUnits() ) do
 				local c = sim:getCell( unit:getLocation() )
 				if unit:getUnitOwner() then
 					c = sim:getCell( unit:getUnitOwner():getLocation() )
 				end
 				if c and c.exitID and unit:hasAbility( "MM_W93_escape" ) then
-					table.insert(units,unit)						
+					table.insert(units,unit)
 				end
 			end
 
@@ -72,20 +72,20 @@ local MM_W93_escape =
 				if unit:getTraits().cashInReward then
 					local value = sim:getQuery().scaleCredits(sim, unit:getTraits().cashInReward)
 					sim._resultTable.credits_gained.stolengoods = sim._resultTable.credits_gained.stolengoods and sim._resultTable.credits_gained.stolengoods + value or value
-					sim:addMissionReward(value) 
+					sim:addMissionReward(value)
 				end
 
 				sim:warpUnit( unit, nil )
 				sim:despawnUnit( unit )
 
 				table.insert( escapedUnits, unit )
-				simlog( "%s escaped!", unit:getName())					
+				simlog( "%s escaped!", unit:getName())
 			end
-				
+
 			while #escapedUnits > 0 do
 				sim:triggerEvent( simdefs.TRG_UNIT_ESCAPED, table.remove( escapedUnits ))
 			end
-				
+
 			sim:processReactions()
 			sim:updateWinners()
 		end

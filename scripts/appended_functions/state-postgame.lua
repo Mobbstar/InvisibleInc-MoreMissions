@@ -25,22 +25,22 @@ local postGame = include( "states/state-postgame" )
 local postGame_onLoad_old = postGame.onLoad
 
 postGame.onLoad = function( self, sim, params, num_actions )
-	
+
 	local mission_type = params.situationName
 	-- log:write("[MM] situation " .. mission_type )
 
-	local user = savefiles.getCurrentGame() 
+	local user = savefiles.getCurrentGame()
 	if params.agency and params.agency.MM_techexpo_done then
 		user.data.stat_tracker = user.data.stat_tracker or {}
 		user.data.stat_tracker.played_missions = user.data.stat_tracker.played_missions or {}
 		user.data.stat_tracker.played_missions[mission_type] = (user.data.stat_tracker.played_missions[mission_type] or 0) + 1
 		user:save()
 	end
-	
+
 	if user.data.stat_tracker and user.data.stat_tracker.played_missions["weapons_expo"] then
 		params.agency.MM_techexpo_done_savefile = true
 	end
-	
-	postGame_onLoad_old( self, sim, params, num_actions )	
+
+	postGame_onLoad_old( self, sim, params, num_actions )
 
 end

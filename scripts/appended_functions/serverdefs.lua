@@ -82,7 +82,7 @@ serverdefs.chooseSituation = function( campaign, tags, gen, ... )
 		end
 		situationData.weight = situationData.weight * 100
 	end
-		
+
 	local tags_copy = util.tcopy( tags ) --important!
 	if array.find( tags_copy, "2max" ) then --we assume that '2max' is an indicator for choosing random situations
 		--Check which clusters are possible with the given tags.
@@ -97,10 +97,10 @@ serverdefs.chooseSituation = function( campaign, tags, gen, ... )
 						clusters[cluster] = {}
 					end
 					table.insert( clusters[cluster], tags_copy[i] )
-				end		
+				end
 			end
 		end
-		
+
 		--Remove any cluster that has too many situations on the map already.
 		for cluster, cluster_tags in pairs( clusters ) do
 			if countClusters( campaign, cluster ) >= (serverdefs.CLUSTERS[ cluster ].max_situations or 0) then
@@ -132,7 +132,7 @@ serverdefs.chooseSituation = function( campaign, tags, gen, ... )
 		    local wt = gen:nextInt( 1, clusterWeighted:getTotalWeight())
 		    cluster_selected = clusterWeighted:getChoice( wt )
 		end
-		
+
 		--Now iterate again over all tags and remove any that are situation tags and not from the selected cluster
 		if cluster_selected then
 			for i=#tags_copy, 1, -1 do
@@ -142,9 +142,9 @@ serverdefs.chooseSituation = function( campaign, tags, gen, ... )
 					end
 				end
 			end
-		end    
+		end
 	end
-    
+
 	return serverdefs_chooseSituation_old( campaign, tags_copy, gen, ... )
 end
 
@@ -153,7 +153,7 @@ end
 
 local maxSecurity = #simdefs.SPAWN_TABLE.NORMAL or 20
 local serverdefs_createNewSituation_old = serverdefs.createNewSituation
-serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )	
+serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )
 	local newSituation =  serverdefs_createNewSituation_old(campaign, gen, tags, difficulty )
 
 	if not newSituation and array.find(tags, "close_by") then

@@ -13,7 +13,7 @@ local MM_installprogram =
 		name = STRINGS.MOREMISSIONS.ABILITIES.USB_PROGRAM_INSTALL,
 		createToolTip = function( self, sim, unit )
 			local mainframeDef = abilitydefs.lookupAbility(unit:getTraits().MM_installedProgram)
-			local progName = 
+			local progName =
 			util.toupper(mainframeDef.name)
 			local tooltip = STRINGS.MOREMISSIONS.ABILITIES.USB_PROGRAM_INSTALL_SHORT..progName
 			return abilityutil.formatToolTip( self.name, util.sformat(STRINGS.MOREMISSIONS.ABILITIES.USB_PROGRAM_INSTALL_DESC,progName))
@@ -23,7 +23,7 @@ local MM_installprogram =
 		alwaysShow = true,
 		getName = function( self, sim )
 			return self.name
-		end,		
+		end,
 
 		canUseAbility = function( self, sim, unit )
 			-- Must have a user owner.
@@ -31,27 +31,27 @@ local MM_installprogram =
 			if not userUnit then
 				return false
 			end
-			
+
 			local maxPrograms = simquery.getMaxPrograms( sim )
 			if #sim:getPC():getAbilities() >= maxPrograms then
 				return false, STRINGS.UI.TOOLTIP_PROGRAMS_FULL
 			end
-			
+
 			local progID = unit:getTraits().MM_installedProgram
-			
+
 			if unit:getPlayerOwner():hasMainframeAbility(progID) then
 				return false, STRINGS.UI.TOOLTIP_ALREADY_OWN
-			end			
-					
+			end
+
 			return abilityutil.checkRequirements( unit, userUnit )
 		end,
 
 		executeAbility = function( self, sim, unit )
 			local userUnit = unit:getUnitOwner()
 			local player = unit:getPlayerOwner()
-				
+
 			sim:getStats():incStat( "programs_earned" )
-			
+
 			sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/VoiceOver/Incognita/Pickups/NewProgram" )
 
 			player:addMainframeAbility( sim, unit:getTraits().MM_installedProgram )
@@ -65,7 +65,7 @@ local MM_installprogram =
 				color = {r=1,g=0,b=0,a=1}
 			}
 			sim:dispatchEvent( simdefs.EV_SHOW_DIALOG, { dialog = "programDialog", dialogParams = dialogParams } )
-			
+
 			inventory.useItem( sim, userUnit, unit )
 		end,
 	}

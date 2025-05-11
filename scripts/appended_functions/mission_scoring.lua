@@ -15,7 +15,7 @@ local function runAppend( modApi )
 	local mission_scoring = include("mission_scoring")
 	local DoFinishMission_old = mission_scoring.DoFinishMission
 	mission_scoring.DoFinishMission = function( sim, campaign, ... )
-		-- local agency = sim:getParams().agency	
+		-- local agency = sim:getParams().agency
 		local agency = campaign.agency
 
 		--update existing informant bonuses
@@ -102,7 +102,7 @@ local function runAppend( modApi )
 			-- end
 			sim._resultTable.credits_gained.assassinationreward = sim._assassinationReward
 		end
-		
+
 		-- For a mission to arbitrarily update the agency,
 		-- 1. Define a function that takes (sim,agency) parameters, updating the agency based on values on the sim.
 		-- 2. Add that function to the list of callback functions to be applied when the mission is over:
@@ -119,13 +119,13 @@ local function runAppend( modApi )
 				updateCallback(sim, campaign.agency)
 			end
 		end
-		
+
 		log:write("[MM] agency")
 		log:write(util.stringize(campaign.agency,2))
 
 		return returnvalue
 	end
-	
+
 end
 
 return { runAppend = runAppend }

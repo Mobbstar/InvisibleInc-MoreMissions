@@ -365,7 +365,7 @@ end
 local function keepExitLocked( script, sim )
 	while true do
 		script:waitFor( mission_util.PC_END_TURN )
-		
+
 		if sim._elevator_inuse == 1 then
 			sim._elevator_inuse = 2
 			sim._elevatorHeldByHostage = true
@@ -585,7 +585,7 @@ local function startPhase( script, sim )
 	sim:triggerEvent( "TRG_OBJ_COMPLETE", { missionType = "EA_hostage" })
 	script:removeHook( keepExitLocked )
 	local vital_signs = calculateHostageVitalSigns(sim)
-	
+
 	-- if sim._elevatorHeldByHostage and sim._elevator_inuse == 1 then
 		-- sim._elevator_inuse = nil
 		-- sim._elevatorHeldByHostage = nil
@@ -613,9 +613,9 @@ local function startPhase( script, sim )
 	script:queue( 0.5*cdefs.SECONDS )
 	--calculateHostageVitalSigns(sim)
 	--updateVitalStatus(script, sim, true)
-	
+
 	script:queue( { soundPath="SpySociety/Actions/guard/guard_heart_stage3", type="operatorVO" } )
-		
+
 	script:queue( { body=STRINGS.MOREMISSIONS_HOSTAGE.MISSIONS.HOSTAGE.HOSTAGE_CONVO1,
 					header=STRINGS.MOREMISSIONS.AGENTS.EA_HOSTAGE.NAME, type="enemyMessage",
 					profileAnim="portraits/portrait_animation_template",
@@ -643,16 +643,16 @@ local function startPhase( script, sim )
 	-- sim:getTags().no_escape = nil
 
 	script:waitFor( mission_util.PC_ANY )
-	
+
 	local hostage = nil
 	sim:forEachUnit(
 		function(unit)
-			if unit:getTraits().MM_hostage then 
+			if unit:getTraits().MM_hostage then
 				hostage = unit
 			end
 		end)
 	assert(hostage)
-	
+
 	hostage:getTraits().vitalSigns = vital_signs
 	updateVitalStatus(script, sim, false)
 
@@ -699,14 +699,14 @@ function hostage_mission:init( scriptMgr, sim )
 	-- nvm, scrap the elevator mechanic after much debate -H
 	-- local elevator_status = sim._elevator_inuse
 	-- sim:closeElevator( )
-	
+
 	-- if elevator_status and elevator_status > 0 then
 		-- sim._elevator_inuse = elevator_status
 	-- else
 		-- sim._elevator_inuse = 1
 		-- sim._elevatorHeldByHostage = true
 	-- end
-	
+
 	-- scriptMgr:addHook( "DOORLOCK", keepExitLocked )
 	scriptMgr:addHook( "HOSTAGE", startPhase )
 

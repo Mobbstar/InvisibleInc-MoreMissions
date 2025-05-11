@@ -17,7 +17,7 @@ local PC_LOOTED_SECURE_SAFE =
     trigger = simdefs.TRG_SAFE_LOOTED,
     fn = function( sim, triggerData )
         if triggerData.targetUnit:hasTag("topGear") then
-            return triggerData 
+            return triggerData
         end
     end,
 }
@@ -33,18 +33,18 @@ local function fillTopGearSafes( sim )
 		"item_decoy", --from Ghuff
 	}
 	local itemList = {}
-	
+
 	for i, name in pairs(wishList) do
 		if unitdefs.lookupTemplate(name) then
 			table.insert(itemList, unitdefs.lookupTemplate(name) )
 		end
 	end
-	
+
 	for i,unit in pairs(sim:getAllUnits()) do
 		if unit:hasTag("topGear") then
             -- Add a random item to unit (presumably a safe)
 			local item = itemList[ sim:nextRand( 1, #itemList ) ]
-			local newItem = simfactory.createUnit( item, sim )						
+			local newItem = simfactory.createUnit( item, sim )
             newItem:addTag("topGearItem") -- For the UI loot hook
 			sim:spawnUnit( newItem )
 			unit:addChild( newItem )
@@ -52,14 +52,14 @@ local function fillTopGearSafes( sim )
 	end
 end
 
-local function checkTopGearItem( script, sim )	
+local function checkTopGearItem( script, sim )
 	local _, item, agent = script:waitFor( mission_util.PC_TOOK_UNIT_WITH_TAG( "topGearItem" ))
 	local topGearSafe = mission_util.findUnitByTag( sim, "topGear" )
     topGearSafe:destroyTab()
 
 	sim:setClimax(true)
     script:waitFor( mission_util.UI_LOOT_CLOSED )
-    sim:removeObjective( "primaryLoot" )        
+    sim:removeObjective( "primaryLoot" )
     script:waitFrames( .5*cdefs.SECONDS )
 
 	if agent then
@@ -81,12 +81,12 @@ end
 local function presawfn( script, sim, item )
 	--create that big white arrow pointing to the target
 	item:createTab( STRINGS.MISSIONS.UTIL.ADVANCED_TECHNOLOGY, "" )
-	sim:removeObjective( "primaryLoot" )              
+	sim:removeObjective( "primaryLoot" )
 end
 
 local function pstsawfn( script, sim, item )
 	sim:addObjective( STRINGS.MISSIONS.ESCAPE.OBJ_SECURITY_2, "primaryLoot" )
-	script:waitFor( PC_LOOTED_SECURE_SAFE ) 
+	script:waitFor( PC_LOOTED_SECURE_SAFE )
 end
 
 
@@ -98,7 +98,7 @@ local mission = class( escape_mission )
 function mission:init( scriptMgr, sim )
     escape_mission.init( self, scriptMgr, sim )
 
-    sim:addObjective( STRINGS.MISSIONS.ESCAPE.OBJ_SECURITY, "primaryLoot" )			
+    sim:addObjective( STRINGS.MISSIONS.ESCAPE.OBJ_SECURITY, "primaryLoot" )
 	fillTopGearSafes( sim )
 
 	sim.exit_warning = mission_util.CheckForLeftItem(sim, "topGearItem", STRINGS.MOREMISSIONS.UI.HUD_WARN_EXIT_MISSION_HOLOSTUDIO)
@@ -120,22 +120,22 @@ end
 function mission.pregeneratePrefabs( cxt, tagSet )
     escape_mission.pregeneratePrefabs( cxt, tagSet )
     table.insert( tagSet[1], "guard_office" )
-	
-	
+
+
     -- local prefabs = include( "sim/prefabs" )
 
     -- table.insert( tagSet, { "entry_hotel_ground", makeTags( "struct", cxt.params.difficultyOptions.roomCount ) })
     -- -- table.insert( tagSet, { "entry", makeTags( "struct", cxt.params.difficultyOptions.roomCount ) })
     -- tagSet[1].fitnessSelect = prefabs.SELECT_HIGHEST
-	
+
 	-- --table.insert( tagSet, { "research_lab" })
-	
+
     -- table.insert( tagSet, { "struct_small", "struct_small" })
 	-- table.insert( tagSet, { { "exit", exitFitnessFn } })
 end
 
 -- function mission.generatePrefabs( cxt, candidates )
-    -- local prefabs = include( "sim/prefabs" )   
+    -- local prefabs = include( "sim/prefabs" )
     -- prefabs.generatePrefabs( cxt, candidates, "switch", 2 )
 -- end
 

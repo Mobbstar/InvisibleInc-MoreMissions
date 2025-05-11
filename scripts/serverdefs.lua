@@ -55,8 +55,8 @@ local SITUATIONS =
 			icon = "gui/icons/mission_icons/mission_weapons_expo_small.png",
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_OBJECTIVE ),
 		},
-	},	
-	
+	},
+
 	distress_call =
 	{
         ui = {
@@ -67,7 +67,7 @@ local SITUATIONS =
 		},
 		weight = 0.7, --Weights <1 do NOT work without this mod's extra changes to serverdefs.chooseSituation
 	},
-	
+
 	mole_insertion =
 	{
         ui = {
@@ -76,7 +76,7 @@ local SITUATIONS =
 			objectives = createGeneralMissionObj( STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE ),
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.MOLE_INSERTION.MOLE_OBJECTIVE_SECONDARY),
 		},
-	},	
+	},
 
 	ai_terminal = -- ported from Worldgen Extended by wodzu! with some extra features
 	{
@@ -87,7 +87,7 @@ local SITUATIONS =
 			secondary_objectives = createGeneralSecondaryMissionObj(STRINGS.MOREMISSIONS.MISSIONS.AI_TERMINAL.AI_OBJECTIVE_SECONDARY),
 		},
 		weight = 0.8, -- 80% as common as default
-	},			
+	},
 }
 
 --Clustering for the missions. Run the extend in lateLoad in case any other mod adds custom missions as well.

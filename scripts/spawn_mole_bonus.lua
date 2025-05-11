@@ -24,7 +24,7 @@ local function isTurretGenerator( sim, u )
 			end
 		end
 	end
-	
+
 	return false
 end
 
@@ -34,7 +34,7 @@ local revealMoleBonus = function(sim, bonusType) --need to call on this from mod
 	local x0, y0 = randomAgent:getLocation()
 	local currentPlayer = sim:getPC()
 	local script = sim:getLevelScript()
-	
+
 	if bonusType == "patrols" then
 		local total_guards = 0
 		for _, unit in pairs(sim:getAllUnits() ) do
@@ -44,10 +44,10 @@ local revealMoleBonus = function(sim, bonusType) --need to call on this from mod
 		end
 		local to_tag = math.floor(PATROLS_REVEALED * total_guards)
 		local tagged_guards = 0
-		for _, unit in pairs( sim:getAllUnits() ) do 
+		for _, unit in pairs( sim:getAllUnits() ) do
 			-- if sim:nextRand() <= (PATROLS_REVEALED or 0.75) then --don't tag all the guards, just most of them
 			if tagged_guards < to_tag then
-				if unit:getPlayerOwner() ~= currentPlayer and unit:getTraits().isGuard and not unit:getTraits().tagged then 										
+				if unit:getPlayerOwner() ~= currentPlayer and unit:getTraits().isGuard and not unit:getTraits().tagged then
 					unit:setTagged() -- need to consider PE's hostile AI interaction..
 					sim:dispatchEvent( simdefs.EV_UNIT_TAGGED, {unit = unit} )
 					sim:getPC():glimpseUnit(sim, unit:getID())
@@ -81,14 +81,14 @@ local revealMoleBonus = function(sim, bonusType) --need to call on this from mod
 		sim:forEachUnit(
 			function ( u )
 				if u:getTraits().mainframe_program ~= nil then
-					u:getTraits().daemon_sniffed = true 
+					u:getTraits().daemon_sniffed = true
 				end
 			end )
 		sim._showOutline = true
 		sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
 		if x0 and y0 then
 			local color = {r=1,g=1,b=41/255,a=1}
-			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.UI.FLY_TXT.FACILITY_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
+			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.UI.FLY_TXT.FACILITY_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )
 		end
 	elseif bonusType == "doors" then
 		sim:forEachCell(
@@ -101,7 +101,7 @@ local revealMoleBonus = function(sim, bonusType) --need to call on this from mod
 			end )
 		if x0 and y0 then
 			local color = {r=1,g=1,b=41/255,a=1}
-			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.MOREMISSIONS.UI.DOORS_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )		
+			sim:dispatchEvent( simdefs.EV_UNIT_FLOAT_TXT, {txt=STRINGS.MOREMISSIONS.UI.DOORS_REVEALED,x=x0,y=y0,color=color,alwaysShow=true} )
 		end
 		sim:dispatchEvent( simdefs.EV_WALL_REFRESH )
 	elseif bonusType == "armor" then
@@ -132,15 +132,15 @@ local function spawnBonusFromSelection(sim, possible_bonuses, agency_bonus)
 	local mole_title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.MOLE_DAEMON_TITLE
 	local mole_text = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.MOLE_DAEMON_TXT .. STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.INTEL_TYPES[bonus_type]
 	local mole_icon_path = "gui/icons/UI_icons/icon_moleBonus.png"
-	
+
 	if bonus_type == "armor" then
 		mole_head = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.ARMOR_DAEMON_HEAD
 		mole_title = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.ARMOR_DAEMON_TITLE
 		mole_text = STRINGS.MOREMISSIONS.DAEMONS.MOLE_DAEMON_EVENT.ARMOR_DAEMON_TXT
 		mole_icon_path = "gui/icons/UI_icons/icon_armorDebuff_v2.png"
 	end
-	
-	local dialogParams = 
+
+	local dialogParams =
 	{
 		mole_head,
 		mole_title,
@@ -148,7 +148,7 @@ local function spawnBonusFromSelection(sim, possible_bonuses, agency_bonus)
 		mole_icon_path,
 		color = {r=0,g=0,b=1,a=1}
 	}
-	
+
 	sim:dispatchEvent( simdefs.EV_SHOW_DIALOG, { dialog = "programDialog", dialogParams = dialogParams } )
 	sim:getNPC():addMainframeAbility( sim, "MM_informant_intel", nil, 0 )
 	-- now modify the newly-spawned daemon with customised text info

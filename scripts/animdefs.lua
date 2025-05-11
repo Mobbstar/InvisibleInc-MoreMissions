@@ -28,7 +28,7 @@ local anims_sysadmin_panic = util.tconcat( {
         "data/anims/characters/anims_male/unarmed_basic_a_03.adef",
         "data/anims/characters/anims_male/unarmed_basic_a_04.adef",
     },
-    
+
     commonanims.male.anims,
     commonanims.male.anims_panic
 )
@@ -44,13 +44,13 @@ local animdefs =
 		{
 			"data/anims/characters/agents/executive.abld", --"data/anims/characters/corp_FTM/ftm_med_overlay.abld",
 		},
-		build = 
-		{ 
+		build =
+		{
 			"data/anims/characters/corp_neutral/mm_ceotarget.abld",
-			"data/anims/characters/anims_male/shared_hits_01.abld",	
-			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+			"data/anims/characters/anims_male/shared_hits_01.abld",
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/corp_neutral/grp_mm_ceotarget.abld",
 		},
@@ -71,28 +71,28 @@ local animdefs =
 		scale = 0.25,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
-		},		
+		},
 	},
-	
+
 	kanim_mm_bodyguard =
 	{
 		wireframe =
 		{
 			"data/anims/characters/corp_FTM/ftm_med_overlay.abld",--"data/anims/characters/corp_neutral/enforcer.abld",
 		},
-		build = 
-		{ 
+		build =
+		{
 			"data/anims/characters/corp_neutral/mm_bodyguard.abld",
-			"data/anims/characters/anims_male/shared_hits_01.abld",	
-			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+			"data/anims/characters/anims_male/shared_hits_01.abld",
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/corp_neutral/grp_mm_bodyguard.abld",
-		},		
+		},
 		grp_anims = commonanims.male.grp_anims,
 
 		anims = commonanims.male.default_anims_2h,
@@ -110,11 +110,11 @@ local animdefs =
 		scale = 0.25,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
-		},		
-	},	
+		},
+	},
 
 	-- TECH EXPO kanims
 	MM_gun_tester =
@@ -133,7 +133,7 @@ local animdefs =
 		anim = "idle",
 		scale = 0.25,
 		boundType = BoundType.bound_2x1_med_med,
-	},	
+	},
 
 	kanim_MM_portal_turret =
 	{
@@ -145,81 +145,81 @@ local animdefs =
 		layer = Layer.Object,
 		boundType = BoundType.bound_1x1_tall_med,
 		filterSymbols = {{symbol="fire",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},
-	},	
-	
-	
+	},
+
+
 	kanim_MM_gunsafe_1 =
 	{
 		build = "data/anims/props/MM_gunsafe1.abld",
 		anims = { "data/anims/Unique_Vault/vault_1x1_podium1.adef" },
-		symbol = "character",		
+		symbol = "character",
 		scale = 0.25,
 		layer = Layer.Decor,
 		boundType = BoundType.bound_1x1_tall_med,
-		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},
 	},
 	kanim_MM_gunsafe_2 =
 	{
 		build = "data/anims/props/MM_gunsafe2.abld",
 		anims = { "data/anims/Unique_Vault/vault_1x1_podium1.adef" },
-		symbol = "character",		
+		symbol = "character",
 		scale = 0.25,
 		layer = Layer.Decor,
 		boundType = BoundType.bound_1x1_tall_med,
-		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},
 	},
 	kanim_MM_gunsafe_3 =
 	{
 		build = "data/anims/props/MM_gunsafe3.abld",
 		anims = { "data/anims/Unique_Vault/vault_1x1_podium1.adef" },
-		symbol = "character",		
+		symbol = "character",
 		scale = 0.25,
 		layer = Layer.Decor,
 		boundType = BoundType.bound_1x1_tall_med,
-		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
-	},	
-	
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},
+	},
+
 	kanim_MM_techsafe_1 =
 	{
 		build = "data/anims/props/MM_techsafe1.abld",
 		anims = { "data/anims/Unique_Vault/vault_1x1_podium1.adef" },
-		symbol = "character",		
+		symbol = "character",
 		scale = 0.25,
 		layer = Layer.Decor,
 		boundType = BoundType.bound_1x1_tall_med,
-		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
-	},	
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},
+	},
 
 	kanim_MM_techsafe_2 =
 	{
 		build = "data/anims/props/MM_techsafe2.abld",
 		anims = { "data/anims/Unique_Vault/vault_1x1_podium1.adef" },
-		symbol = "character",		
+		symbol = "character",
 		scale = 0.25,
 		layer = Layer.Decor,
 		boundType = BoundType.bound_1x1_tall_med,
-		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},
 	},
 
 	kanim_MM_techsafe_3 =
 	{
 		build = "data/anims/props/MM_techsafe3.abld",
 		anims = { "data/anims/Unique_Vault/vault_1x1_podium1.adef" },
-		symbol = "character",		
+		symbol = "character",
 		scale = 0.25,
 		layer = Layer.Decor,
 		boundType = BoundType.bound_1x1_tall_med,
-		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
-	},	
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},
+	},
 
 	kanim_MM_prototype_drone =
 	{
-		build = 
-		{ 
-			"data/anims/props/prototype_drone.abld",	 
+		build =
+		{
+			"data/anims/props/prototype_drone.abld",
 		},
 		anims =
-		{		
+		{
 			"data/anims/characters/corp_SK/sankaku_droid.adef",
 		},
 		anims_1h =
@@ -227,7 +227,7 @@ local animdefs =
 			"data/anims/characters/corp_SK/sankaku_droid.adef",
 		},
 		anims_2h =
-		{	
+		{
 			"data/anims/characters/corp_SK/sankaku_droid.adef",
 		},
 
@@ -238,12 +238,12 @@ local animdefs =
 		scale = 0.25,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_closed" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
-		},		
+		},
 		animMap = DRONE_ANIMS,
-	},	
+	},
 
 	kanim_MM_prototype_turret =
 	{
@@ -255,7 +255,7 @@ local animdefs =
 		layer = Layer.Object,
 		boundType = BoundType.bound_1x1_tall_med,
 		filterSymbols = {{symbol="fire",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},
-	},	
+	},
 
 	kanim_MM_prototype_turret_alpha =
 	{
@@ -267,26 +267,26 @@ local animdefs =
 		layer = Layer.Object,
 		boundType = BoundType.bound_1x1_tall_med,
 		filterSymbols = {{symbol="fire",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},
-	},		
+	},
 
-	kanim_MM_android = 
+	kanim_MM_android =
 	{
 		wireframe =
 		{
 			"data/anims/characters/corp_FTM/ftm_med_overlay.abld",--"data/anims/characters/corp_neutral/bot_male.abld",
 		},
-		build = 
-		{ 
+		build =
+		{
 			"data/anims/characters/corp_neutral/MM_bot_male_pink.abld",
-			"data/anims/characters/anims_male/shared_male_robot_hits_01.abld",	
-			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+			"data/anims/characters/anims_male/shared_male_robot_hits_01.abld",
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/corp_neutral/grp_MM_bot_male_pink.abld",
-		},		
+		},
 		grp_anims = commonanims.male.grp_anims,
-		
+
 		anims = commonanims.male.default_anims_unarmed,
 		-- anims = commonanims.male.default_anims_1h,
 		anims_1h = commonanims.male.default_anims_1h,
@@ -303,30 +303,30 @@ local animdefs =
 		scale = 0.25,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
-		},		
-	},	
+		},
+	},
 
-	kanim_MM_android_elite = 
+	kanim_MM_android_elite =
 	{
 		wireframe =
 		{
 			"data/anims/characters/corp_FTM/ftm_med_overlay.abld",--"data/anims/characters/corp_neutral/bot_male.abld",
 		},
-		build = 
-		{ 
+		build =
+		{
 			"data/anims/characters/corp_neutral/MM_bot_male_purple_v4.abld",
-			"data/anims/characters/anims_male/shared_male_robot_hits_01.abld",	
-			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+			"data/anims/characters/anims_male/shared_male_robot_hits_01.abld",
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/corp_neutral/grp_MM_bot_male_purple_v4.abld",
-		},		
+		},
 		grp_anims = commonanims.male.grp_anims,
-		
+
 		anims = commonanims.male.default_anims_1h,
 		anims_1h = commonanims.male.default_anims_1h,
 		anims_2h = commonanims.male.default_anims_2h,
@@ -342,30 +342,30 @@ local animdefs =
 		scale = 0.25,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
-		},		
-	},	
-	
-	kanim_MM_android_decoy = 
+		},
+	},
+
+	kanim_MM_android_decoy =
 	{
 		wireframe =
 		{
 			"data/anims/characters/corp_FTM/ftm_med_overlay.abld",--"data/anims/characters/corp_neutral/bot_male.abld",
 		},
-		build = 
-		{ 
+		build =
+		{
 			"data/anims/characters/corp_neutral/MM_bot_male_pink_decoy.abld",
-			"data/anims/characters/anims_male/shared_male_robot_hits_01.abld",	
-			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+			"data/anims/characters/anims_male/shared_male_robot_hits_01.abld",
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/corp_neutral/grp_MM_bot_male_pink_decoy.abld",
-		},		
+		},
 		grp_anims = commonanims.male.grp_anims,
-		
+
 		anims = commonanims.male.default_anims_unarmed,
 		-- anims = commonanims.male.default_anims_1h,
 		anims_1h = commonanims.male.default_anims_1h,
@@ -382,28 +382,28 @@ local animdefs =
 		scale = 0.25,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
-		},		
-	},	
-	
+		},
+	},
+
 	kanim_MM_spec_goose =
 	{
 		wireframe =
 		{
 			"data/anims/characters/agents/agent_male_empty.abld",
 		},
-		build = 
-		{ 
-			"data/anims/characters/anims_male/shared_hits_01.abld",	
-			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	
-			"data/anims/characters/corp_neutral/MM_spec_goose.abld",		
+		build =
+		{
+			"data/anims/characters/anims_male/shared_hits_01.abld",
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",
+			"data/anims/characters/corp_neutral/MM_spec_goose.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/corp_neutral/grp_MM_spec_goose.abld",
-		},		
+		},
 
 		grp_anims = commonanims.male.grp_anims,
 
@@ -427,13 +427,13 @@ local animdefs =
 		scale = 0.13,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
 		},
 		peekBranchSet = 1,
-	},	
-	
+	},
+
 	--these two are used for the two droid variant PROPS, not guards
 	mm_kanim_guard_male_dummy1 =
 	{
@@ -441,18 +441,18 @@ local animdefs =
 		{
 			"data/anims/characters/corp_FTM/ftm_med_overlay.abld",--"data/anims/characters/corp_neutral/bot_male.abld",
 		},
-		build = 
-		{ 
+		build =
+		{
 			"data/anims/characters/corp_neutral/MM_bot_male_pink.abld",
-			"data/anims/characters/anims_male/shared_hits_01.abld",	
-			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+			"data/anims/characters/anims_male/shared_hits_01.abld",
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/corp_neutral/grp_MM_bot_male_pink.abld",
-		},		
+		},
 		grp_anims = commonanims.male.grp_anims,
-		
+
 		anims = commonanims.male.default_anims_2h,
 		anims_1h = commonanims.male.default_anims_1h,
 		anims_2h = commonanims.male.default_anims_2h,
@@ -463,27 +463,27 @@ local animdefs =
 		shouldFlip = true,
 		scale = 0.25,
 		layer = Layer.Unit,
-		boundType = BoundType.Character,		
-	},	
-	
+		boundType = BoundType.Character,
+	},
+
 	mm_kanim_guard_male_dummy2 =
 	{
 		wireframe =
 		{
 			"data/anims/characters/corp_FTM/ftm_med_overlay.abld",--"data/anims/characters/corp_neutral/bot_male.abld",
 		},
-		build = 
-		{ 
+		build =
+		{
 			"data/anims/characters/corp_neutral/MM_bot_male_purple_v2.abld",
-			"data/anims/characters/anims_male/shared_hits_01.abld",	
-			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+			"data/anims/characters/anims_male/shared_hits_01.abld",
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/corp_neutral/grp_MM_bot_male_purple_v2.abld",
-		},		
+		},
 		grp_anims = commonanims.male.grp_anims,
-		
+
 		anims = commonanims.male.default_anims_2h,
 		anims_1h = commonanims.male.default_anims_1h,
 		anims_2h = commonanims.male.default_anims_2h,
@@ -494,25 +494,25 @@ local animdefs =
 		shouldFlip = true,
 		scale = 0.25,
 		layer = Layer.Unit,
-		boundType = BoundType.Character,		
-	},	
-	
+		boundType = BoundType.Character,
+	},
+
 	kanim_MM_spec_goose_dummy =
 	{
 		wireframe =
 		{
 			"data/anims/characters/agents/agent_male_empty.abld",
 		},
-		build = 
-		{ 
-			"data/anims/characters/anims_male/shared_hits_01.abld",	
-			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	
-			"data/anims/characters/corp_neutral/MM_spec_goose.abld",		
+		build =
+		{
+			"data/anims/characters/anims_male/shared_hits_01.abld",
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",
+			"data/anims/characters/corp_neutral/MM_spec_goose.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/corp_neutral/grp_MM_spec_goose.abld",
-		},		
+		},
 
 		grp_anims = commonanims.male.grp_anims,
 
@@ -535,18 +535,18 @@ local animdefs =
 		anim = "overwatch_melee",
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
 		},
 		peekBranchSet = 1,
-	},	
-	
+	},
+
 	-- kanim_switch =
-	-- {              
+	-- {
 		-- build = "data/anims/props/access_switch.abld",
 		-- anims = { "data/anims/props/access_switch.adef" },
-		-- symbol = "character",		
+		-- symbol = "character",
 		-- scale = 0.25,
 		-- layer = Layer.Decor,
 		-- boundType = BoundType.bound_1x1_med_big,
@@ -562,21 +562,21 @@ local animdefs =
 		-- scale = 0.25,
 		-- layer = Layer.Unit,
 		-- boundType = BoundType.Character, -- this doesn't really apply to HUD stuff...
-	-- },	
-	
+	-- },
+
 	kanim_MM_agent009 =
 	{
 		wireframe =
 		{
 			"data/anims/characters/agents/agent_male_empty.abld",
 		},
-		build = 
-		{ 
+		build =
+		{
 			"data/anims/characters/agents/MM_agent009.abld",
-			"data/anims/characters/anims_male/shared_hits_01.abld",	
-			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+			"data/anims/characters/anims_male/shared_hits_01.abld",
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/agents/grp_MM_agent009.abld",
 		},
@@ -593,26 +593,26 @@ local animdefs =
 		scale = 0.25,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
-		},		
-		peekBranchSet = 1,	
-	},	
-	
+		},
+		peekBranchSet = 1,
+	},
+
 	kanim_MM_mole_light =
 	{
 		wireframe =
 		{
 			"data/anims/characters/agents/agent_male_empty.abld",
 		},
-		build = 
-		{ 			
-			"data/anims/characters/anims_female/shared_female_hits_01.abld",		 
-			"data/anims/characters/anims_female/shared_female_attacks_a_01.abld",	
+		build =
+		{
+			"data/anims/characters/anims_female/shared_female_hits_01.abld",
+			"data/anims/characters/anims_female/shared_female_attacks_a_01.abld",
 			"data/anims/characters/agents/lady_mole_light.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/agents/grp_lady_mole_light.abld",
 		},
@@ -630,26 +630,26 @@ local animdefs =
 		scale = 0.25,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
-		},		
+		},
 		peekBranchSet =  2,
-	},	
-	
+	},
+
 	kanim_MM_mole_dark =
 	{
 		wireframe =
 		{
 			"data/anims/characters/agents/agent_male_empty.abld",
 		},
-		build = 
-		{ 			
-			"data/anims/characters/anims_female/shared_female_hits_01.abld",		 
-			"data/anims/characters/anims_female/shared_female_attacks_a_01.abld",	
+		build =
+		{
+			"data/anims/characters/anims_female/shared_female_hits_01.abld",
+			"data/anims/characters/anims_female/shared_female_attacks_a_01.abld",
 			"data/anims/characters/agents/lady_mole_dark.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/agents/grp_lady_mole_dark.abld",
 		},
@@ -667,12 +667,12 @@ local animdefs =
 		scale = 0.25,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
-		},		
+		},
 		peekBranchSet =  2,
-	},	
+	},
 
 	kanim_transparent =
 	{
@@ -680,13 +680,13 @@ local animdefs =
 		{
 			"data/anims/characters/agents/agent_male_empty.abld",
 		},
-		build = 
-		{ 
+		build =
+		{
 			"data/anims/characters/agents/agent_male_empty.abld",
-			"data/anims/characters/anims_male/shared_hits_01.abld",	
-			"data/anims/characters/anims_male/shared_attacks_a_01.abld",	 	 
+			"data/anims/characters/anims_male/shared_hits_01.abld",
+			"data/anims/characters/anims_male/shared_attacks_a_01.abld",
 		},
-		grp_build = 
+		grp_build =
 		{
 			"data/anims/characters/agents/grp_MM_agent009.abld",
 		},
@@ -703,13 +703,13 @@ local animdefs =
 		scale = 0.25,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_ko" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
-		},		
-		peekBranchSet = 1,	
+		},
+		peekBranchSet = 1,
 	},
-		
+
 	kanim_MM_hologrenade_tall =
 	{
 		build = "data/anims/fx/MM_hologrenade_tall.abld",
@@ -720,17 +720,17 @@ local animdefs =
 		layer = Layer.Object,
 		boundType = BoundType.bound_1x1_med_med,
 		filterSymbols = {{symbol="outline",filter="default"},{symbol="tile_outline",filter="default"},{symbol="teal",filter="default"},{symbol="red",filter="default"},{symbol="Highlight",filter="default"}},
-	},	
+	},
 
 	kanim_MM_drone_refit =
 	{
-		build = 
-		{ 
-			-- "data/anims/characters/enemy/sankaku_droid_proto.abld",	
-			"data/anims/characters/agents/MM_refit_drone_friend.abld",	 			
+		build =
+		{
+			-- "data/anims/characters/enemy/sankaku_droid_proto.abld",
+			"data/anims/characters/agents/MM_refit_drone_friend.abld",
 		},
 		anims =
-		{		
+		{
 			"data/anims/characters/corp_SK/sankaku_droid_camera.adef",
 		},
 		anims_1h =
@@ -738,7 +738,7 @@ local animdefs =
 			"data/anims/characters/corp_SK/sankaku_droid_camera.adef",
 		},
 		anims_2h =
-		{	
+		{
 			"data/anims/characters/corp_SK/sankaku_droid_camera.adef",
 		},
 		symbol = "character",
@@ -747,10 +747,10 @@ local animdefs =
 		scale = 0.20,
 		layer = Layer.Unit,
 		boundType = BoundType.Character,
-		boundTypeOverrides = {			
+		boundTypeOverrides = {
 			{anim="idle_closed" ,boundType= BoundType.CharacterFloor},
 			{anim="dead" ,boundType= BoundType.CharacterFloor},
-		},		
+		},
 		-- animMap = FLOAT_DRONE_ANIMS,
 		filterSymbols = {{symbol="scan",filter="default"},{symbol="camera_ol_line",filter="default"}},
 		animMap = util.extend( FLOAT_DRONE_ANIMS )
@@ -848,17 +848,17 @@ local animdefs =
 		},
 
 	},
-	
+
 	kanim_MM_workshop_grafter =
 	{
 		build = "data/anims/props/MM_workshop_augmenter.abld",
 		anims = { "data/anims/Unique_cybernetics/cybernetics_1x1_augmenter.adef" },
-		symbol = "character",		
+		symbol = "character",
 		scale = 0.25,
 		layer = Layer.Decor,
 		boundType = BoundType.bound_1x1_med_big,
-		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},		
-	},	
+		filterSymbols = {{symbol="glow",filter="default"},{symbol="Highlight",filter="default"},{symbol="red",filter="default"},{symbol="teal",filter="default"}},
+	},
 }
 
 return animdefs

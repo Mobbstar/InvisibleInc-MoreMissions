@@ -133,7 +133,7 @@ local function make_gear( sim, newUnit, agentTemplate )
 					if items[i] then
 						if newUnit:getTraits().MM_captureTime then
 							-- log:write("[MM] MM_captureTime")
-							if items[i]:getTraits().equipped then 
+							if items[i]:getTraits().equipped then
 								items[i]:getTraits().equipped = false
 							end
 							table.insert(captured_items, items[i])
@@ -161,7 +161,7 @@ local function make_gear( sim, newUnit, agentTemplate )
 	end
 
 	items_output = {}
-	
+
 	if newUnit:getTraits().MM_captureTime then
 		for k, item in pairs(captured_items) do
 			table.insert(items_output, item) --these already existed in the inventory and don't need to be spawned in
@@ -235,8 +235,8 @@ local function startAgentEscape( script, sim, mission )
     -- If there aren't any lost agents, pick one of the remaining potentials at random.
 	if agentDef == nil and #agency.unitDefsPotential > 0 then
 
-        if (sim:nextRand() < CHANCE_OF_AGENT_IN_DETENTION or sim:getParams().foundPrisoner == true ) or 
-           (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY and sim:getParams().agentsFound == 0) then		
+        if (sim:nextRand() < CHANCE_OF_AGENT_IN_DETENTION or sim:getParams().foundPrisoner == true ) or
+           (sim:getParams().campaignDifficulty == simdefs.NORMAL_DIFFICULTY and sim:getParams().agentsFound == 0) then
     		local wt = util.weighted_list()
             for i, agentDef in ipairs(agency.unitDefsPotential) do
                 wt:addChoice( agentDef, 1 )
@@ -265,7 +265,7 @@ local function startAgentEscape( script, sim, mission )
 		newUnit:setFacing( unit:getFacing() )
 		newUnit:getTraits().rescued = true
         newUnit:getTraits().detention = true
-		
+
 		local cell = sim:getCell( unit:getLocation() )
         assert( cell )
 		sim:spawnUnit( newUnit )
@@ -304,9 +304,9 @@ local function startAgentEscape( script, sim, mission )
 		newOperative = newUnit
 
 	end
-	
+
 	if newOperative then
-			
+
 		local x0,y0 = newOperative:getLocation()
 		local unit_cell = sim:getCell(x0, y0)
 		local guardTemplate = unitdefs.lookupTemplate( "important_guard" )
@@ -379,7 +379,7 @@ local function startAgentEscape( script, sim, mission )
 		if (sim:getParams().difficultyOptions.MM_difficulty == nil ) or sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
 			makeGuardInvestigate(script, sim)
 		end
-		
+
 		local scripts = SCRIPTS.INGAME.DISTRESS_CALL.SAW_AGENT
 		if not newOperative:getUnitData().agentID then
 			scripts = SCRIPTS.INGAME.DISTRESS_CALL.SAW_OTHER
@@ -389,10 +389,10 @@ local function startAgentEscape( script, sim, mission )
 			script:queue( { script=v, type="newOperatorMessage" } )
 			script:queue(0.5*cdefs.SECONDS)
 		end
-		
+
 		-- make objectives
-		sim:addObjective( util.sformat(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY,newOperative:getUnitData().name), "find_agent_gear" )	--get gear	
-				
+		sim:addObjective( util.sformat(STRINGS.MOREMISSIONS.UI.DISTRESS_OBJECTIVE_SECONDARY,newOperative:getUnitData().name), "find_agent_gear" )	--get gear
+
 		local agent_id
 		if newOperative:getUnitData().agentID then
 			agent_id = newOperative:getUnitData().agentID
@@ -402,7 +402,7 @@ local function startAgentEscape( script, sim, mission )
 			agent_id = "agent009"
 			sim:addObjective( string.format(STRINGS.MISSIONS.ESCAPE.OBJ_RESCUE_AGENT,newOperative:getUnitData().name), "rescue_agent" )
 		end
-		
+
 		-- custom oneliner from operative -----
 		if STRINGS.MOREMISSIONS.AGENT_LINES.DISTRESS_CALL[agent_id] ~= nil then
 			local anim = newOperative:getUnitData().profile_anim
@@ -470,8 +470,8 @@ local function activateCam( sim )
 			unit:getTraits().mainframe_status = "active"
 			unit:getTraits().hasSight = true
 			sim:refreshUnitLOS( unit )
-			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = unit } )	
-			sim:addTrigger( simdefs.TRG_OVERWATCH, unit )	
+			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = unit } )
+			sim:addTrigger( simdefs.TRG_OVERWATCH, unit )
 		end
 	end
 
@@ -523,7 +523,7 @@ function mission:init( scriptMgr, sim )
     end
 
     scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))
-	
+
     sim:getTags().cbfCouldHaveAgent = true
 
 end

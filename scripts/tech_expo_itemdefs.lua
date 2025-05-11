@@ -17,8 +17,8 @@ function generateTechExpoGear()
 
 	for i,itemdef in pairs(tech_expo_templates) do --upgrade traits
 		local traits = itemdef.traits
-		
-		traits.usesLeft = 3--5		
+
+		traits.usesLeft = 3--5
 		if traits.damage and (traits.damage > 0) and not traits.lethalMelee then --NIAA compatibility --if a trait is present, but 0, there's probably a good reason for it, keep it
 			traits.damage = traits.damage + 1
 		end
@@ -74,7 +74,7 @@ function generateTechExpoGear()
 				return old_params
 			end
 		end
-		
+
 		traits.MM_tech_expo_item = true
 		traits.MM_tech_expo_weapon = true
 
@@ -88,7 +88,7 @@ function generateTechExpoGear()
 		itemdef.name = "Experimental " .. itemdef.name
 		itemdef.flavor = itemdef.flavor .. STRINGS.MOREMISSIONS.ITEMS.TECHEXPO_FLAVOR
 	end
-		
+
 	-- simlog("[MM] tech expo templates")
 	-- simlog(util.stringize(tech_expo_templates,3))
 

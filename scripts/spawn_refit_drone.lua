@@ -85,7 +85,7 @@ local function spawnDroneFriend( script, sim )
 	if sim:getParams().situationName == "mole_insertion" then
 		script:waitFor( MOLE_SPAWNED )
 	end
-	
+
 	--spawn new drone
 	if sim:getParams().agency.MM_rescuedRefitDrone then
 		local droneFriend = sim:getParams().agency.MM_rescuedRefitDrone[1]
@@ -105,7 +105,7 @@ local function spawnDroneFriend( script, sim )
 			script:addHook( hideDrone )
 		end
 	end
-	
+
 	-- remove old drone
 	script:waitFor ( PC_WON )
 	local agency = sim:getParams().agency

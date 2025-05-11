@@ -52,11 +52,11 @@ local prop_templates =
 	-- Level Props
 
 	--custom one so no overlap
-	MM_hostage_capture_ea = 
-	{ 
-		type = "simunit", 
+	MM_hostage_capture_ea =
+	{
+		type = "simunit",
 		name = STRINGS.PROPS.HOSTAGE,
-		rig = "hostagerig",	
+		rig = "hostagerig",
 		onWorldTooltip = function( tooltip, unit )
 			tooltip:addLine( unit:getName() )
 			tooltip:addAbility( STRINGS.ABILITIES.RESCUE, STRINGS.ABILITIES.RESCUE_HOSTAGE_DESC, "gui/items/icon-action_open-safe.png",nil,true )
@@ -64,50 +64,50 @@ local prop_templates =
 		tags = { "MM_hostage" },
 		kanim = "kanim_hostage", --this will be custom
 
-		traits = { impass = {0,0}, rescue_incident = "hostage_rescued", template="MM_hostage",  mp=5, mpMax =5, sightable = true, MM_hostage = true, untie_anim = true,  vitalSigns = 2, agent_filter= true }, 
+		traits = { impass = {0,0}, rescue_incident = "hostage_rescued", template="MM_hostage",  mp=5, mpMax =5, sightable = true, MM_hostage = true, untie_anim = true,  vitalSigns = 2, agent_filter= true },
 		abilities = { "hostage_rescuable" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", }
-	},	
-	
+	},
+
 	-- WEAPONS EXPO
 
 	-- in mission script, pick kanim at random from the 3 available on spawn
-	MM_prototype_droid_prop = 
-	{ 
-		type = "simunit", 
+	MM_prototype_droid_prop =
+	{
+		type = "simunit",
 		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_DROID, --"Android Prototype"
 		rig = "unitrig",
 		tooltip = nil,
 		tags = {"MM_droid_dummy"},
-		kanim = "mm_kanim_guard_male_dummy1", 
+		kanim = "mm_kanim_guard_male_dummy1",
 		traits = { impass = {0,0}, sightable = true, cover = true, staticAnim  = true, MM_droid_dummy = true},
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", },
 	},
-	
-	MM_prototype_specdroid_prop = 
-	{ 
-		type = "simunit", 
+
+	MM_prototype_specdroid_prop =
+	{
+		type = "simunit",
 		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_DROID, --"Android Prototype"
 		rig = "unitrig",
 		tooltip = nil,
 		tags = {"MM_droid_dummy"},
-		kanim = "mm_kanim_guard_male_dummy2", 
+		kanim = "mm_kanim_guard_male_dummy2",
 		traits = { impass = {0,0}, sightable = true, cover = true, staticAnim  = true, MM_droid_dummy = true, spec_droid = true},
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", },
 	},
-	
-	MM_prototype_specgoose_prop = 
-	{ 
-		type = "simunit", 
+
+	MM_prototype_specgoose_prop =
+	{
+		type = "simunit",
 		name = STRINGS.MOREMISSIONS.GUARDS.PROTOTYPE_DROID, --"Android Prototype"
 		rig = "unitrig",
 		tooltip = nil,
 		tags = {"MM_droid_dummy"},
-		kanim = "kanim_MM_spec_goose_dummy", 
+		kanim = "kanim_MM_spec_goose_dummy",
 		traits = { impass = {0,0}, sightable = true, cover = true, staticAnim  = true, MM_droid_dummy = true, spec_droid = true, spec_goose = true, },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", },
-	},	
-	
+	},
+
 	MM_portal_turret =
 	{
 		type = "simunit",
@@ -117,12 +117,12 @@ local prop_templates =
 		profile_anim = "portraits/turret_portrait",
 		kanim = "kanim_MM_portal_turret", --give custom, pick random in mission
 		rig = "turretrig",
-		-- facing = simdefs.DIR_E,		
+		-- facing = simdefs.DIR_E,
 		traits = {sightable = true, impass = {0,0}, cover = true,},
 		abilities = {},
 		children = { },
 	},
-	
+
 	--this looks like a custom turret but can't be activated
 	MM_turret_prop =
 	{
@@ -133,110 +133,96 @@ local prop_templates =
 		profile_anim = "portraits/turret_portrait",
 		kanim = "kanim_MM_prototype_turret", --give custom, pick random in mission
 		rig = "turretrig",
-		-- facing = simdefs.DIR_E,		
+		-- facing = simdefs.DIR_E,
 		traits = {sightable = true, impass = {0,0}, cover = true,},
 		abilities = {},
 		children = { },
 	},
 
-	MM_drone_prop = 
-	{ 
-		type = "simunit", 
+	MM_drone_prop =
+	{
+		type = "simunit",
 		name = STRINGS.PROPS.CAPTURED_AGENT, --"Drone"
 		rig = "unitrig",
 		tooltip = nil,
 		kanim = "kanim_MM_prototype_drone", --give custom!
 		traits = { impass = {0,0}, sightable = true, cover = true,},
 	},
-	
+
 	--need custom one that looks distinct from side mission switch
-	MM_lock_switch = 
+	MM_lock_switch =
 	{
-		type = "simunit", 
+		type = "simunit",
 		name = STRINGS.DLC1.PROPS.LOCK_SWITCH,
 		rig ="corerig",
 		onWorldTooltip = onDeviceTooltip,
-		kanim = "kanim_switch", 
-		abilities = { "multiUnlock"  }, 
-		traits = util.extend( MAINFRAME_TRAITS ){ 
-			moveToDevice=true, 
-			cover = true, 
-			impass = {0,0}, 
+		kanim = "kanim_switch",
+		abilities = { "multiUnlock"  },
+		traits = util.extend( MAINFRAME_TRAITS ){
+			moveToDevice=true,
+			cover = true,
+			impass = {0,0},
 			sightable=true,
-			multiLockSwitch = true, 
+			multiLockSwitch = true,
 			MM_texpo_switch = true,
 			recap_icon = "access_switch",
 			mainframe_no_daemon_spawn = false,
-			mainframe_always_daemon_spawn = true, --we don't want it to be too easy :^)	
+			mainframe_always_daemon_spawn = true, --we don't want it to be too easy :^)
 			},
 			--multilockswitch is used in unitrig for FX
 			--MM_multilock trait is used in script and set in prefab file, NOT here in propdef
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator", switch_reset="SpySociety_DLC001/Actions/DLCswitch_reset", computer_reset="SpySociety_DLC001/Actions/DLCswitch_computerreset" }
-	},	
+	},
 
 
-	MM_vault_safe_1 = 
-	{ 
-		type = "simunit", 
+	MM_vault_safe_1 =
+	{
+		type = "simunit",
 		name = STRINGS.MOREMISSIONS.PROPS.WEAPONSLOCKER,
 		onWorldTooltip = onSafeTooltip,
-		kanim = "kanim_MM_gunsafe_1", 
+		kanim = "kanim_MM_gunsafe_1",
 		rig ="corerig",
 		tags = {"MM_topGear"},
 		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2, MM_loot = "weapon"},
 		abilities = { "stealCredits" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
 		-- children = {"item_valuable_tech"},
-	},	
+	},
 
-	MM_vault_safe_2 = 
-	{ 
-		type = "simunit", 
+	MM_vault_safe_2 =
+	{
+		type = "simunit",
 		name = STRINGS.MOREMISSIONS.PROPS.WEAPONSLOCKER,
 		onWorldTooltip = onSafeTooltip,
-		kanim = "kanim_MM_gunsafe_2", 
+		kanim = "kanim_MM_gunsafe_2",
 		rig ="corerig",
 		tags = {"MM_topGear"},
 		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2, MM_loot = "weapon"},
 		abilities = { "stealCredits" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
 		-- children = {"item_valuable_tech"},
-	},		
-	
-	MM_vault_safe_3 = 
-	{ 
-		type = "simunit", 
+	},
+
+	MM_vault_safe_3 =
+	{
+		type = "simunit",
 		name = STRINGS.MOREMISSIONS.PROPS.WEAPONSLOCKER,
 		onWorldTooltip = onSafeTooltip,
-		kanim = "kanim_MM_gunsafe_3", 
+		kanim = "kanim_MM_gunsafe_3",
 		rig ="corerig",
 		tags = {"MM_topGear"},
 		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2,  MM_loot = "weapon"},
 		abilities = { "stealCredits" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
 		-- children = {"item_valuable_tech"},
-	},	
+	},
 
-	MM_vault_safe_nonweapon_1 = 
-	{ 
-		type = "simunit", 
+	MM_vault_safe_nonweapon_1 =
+	{
+		type = "simunit",
 		name = STRINGS.MOREMISSIONS.PROPS.ITEMLOCKER,
 		onWorldTooltip = onSafeTooltip,
-		kanim = "kanim_MM_techsafe_1", 
-		rig ="corerig",
-		tags = {"MM_topGear"},
-		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2, MM_loot = "item"},
-		abilities = { "stealCredits" },
-		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
-		-- children = {"item_valuable_tech"},
-	},	
-
-	MM_vault_safe_nonweapon_2 = 
-	{ 
-		type = "simunit", 
-		name = STRINGS.MOREMISSIONS.PROPS.ITEMLOCKER,
-		onWorldTooltip = onSafeTooltip,
-		kanim = "kanim_MM_techsafe_2", 
+		kanim = "kanim_MM_techsafe_1",
 		rig ="corerig",
 		tags = {"MM_topGear"},
 		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2, MM_loot = "item"},
@@ -245,46 +231,60 @@ local prop_templates =
 		-- children = {"item_valuable_tech"},
 	},
 
-	MM_vault_safe_nonweapon_3 = 
-	{ 
-		type = "simunit", 
+	MM_vault_safe_nonweapon_2 =
+	{
+		type = "simunit",
 		name = STRINGS.MOREMISSIONS.PROPS.ITEMLOCKER,
 		onWorldTooltip = onSafeTooltip,
-		kanim = "kanim_MM_techsafe_3", 
+		kanim = "kanim_MM_techsafe_2",
 		rig ="corerig",
 		tags = {"MM_topGear"},
 		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2, MM_loot = "item"},
 		abilities = { "stealCredits" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
 		-- children = {"item_valuable_tech"},
-	},	
-	
-	MM_cell_door = 
+	},
+
+	MM_vault_safe_nonweapon_3 =
 	{
-		type = "simunit", 
+		type = "simunit",
+		name = STRINGS.MOREMISSIONS.PROPS.ITEMLOCKER,
+		onWorldTooltip = onSafeTooltip,
+		kanim = "kanim_MM_techsafe_3",
+		rig ="corerig",
+		tags = {"MM_topGear"},
+		traits = util.extend( SAFE_TRAITS, MAINFRAME_TRAITS ) {moveToDevice=true, MM_emp_safe = true, mainframe_ice = 2, mainframe_iceMax = 2, MM_loot = "item"},
+		abilities = { "stealCredits" },
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive",reboot_start="SpySociety/Actions/reboot_initiated_safe",reboot_end="SpySociety/Actions/reboot_complete_safe" },
+		-- children = {"item_valuable_tech"},
+	},
+
+	MM_cell_door =
+	{
+		type = "simunit",
 		name =  "Exhibit Case",--STRINGS.PROPS.CELL_DOOR,
 		rig ="corerig",
 		-- onWorldTooltip = function( tooltip, unit )
 			-- tooltip:addLine( unit:getName() )
 		-- end,
-		kanim = "kanim_celldoor1", 
+		kanim = "kanim_celldoor1",
 		traits = {  impass = {0,0}, sightable=true, cell_door=true },
 		sounds = { }
-	},			
-	
+	},
+
 	-- for Informant mission
-	MM_personneldb = 
+	MM_personneldb =
 	{
-		type = "simunit", 
+		type = "simunit",
 		name = STRINGS.MOREMISSIONS.PROPS.PERSONNEL_DB,
 		rig ="corerig",
 		onWorldTooltip = onDeviceTooltip,
-		kanim = "kanim_serverTerminal", 
+		kanim = "kanim_serverTerminal",
 		abilities = { "MM_hack_personneldb" },
 		traits = util.extend( MAINFRAME_TRAITS )
 			{ moveToDevice=true, cover = true, impass = {0,0}, sightable=true, MM_personneldb = true, MMprogressMax = 5, MMprogress = 0, mainframe_no_recapture = true },
 		tags = { "personneldb" },
-		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator", stageAdvance="SpySociety_DLC001/Actions/DLCswitch_ready" }		
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator", stageAdvance="SpySociety_DLC001/Actions/DLCswitch_ready" }
 		-- sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator" }
 	},
 
@@ -295,29 +295,29 @@ local prop_templates =
 		flavor = STRINGS.MOREMISSIONS.ITEMS.MOLE_CLOAK_FLAVOR,
 		icon = "itemrigs/FloorProp_InvisiCloakTimed.png",
 		--profile_icon = "gui/items/icon-cloak.png",
-		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",			
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_invisicloak_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_invisi_cloak.png",
 		traits = { cantdrop = true, pickupOnly="INFORMANT", disposable = false, duration = 1,cooldown = 0, cooldownMax = 6,  cloakDistanceMax=5, cloakInVision = true, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}},
 		abilities = { "carryable","recharge","useInvisiCloak" },
 		value = 1,
 		floorWeight = 1,
 		soldAfter = NEVER_SOLD,
-	},	
-	
+	},
+
 	MM_mole_disguise = util.extend(commondefs.item_template)
 	{
 		type = "item_disguise",
 		name = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE,
 		desc = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE_TIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.MOLE_DISGUISE_FLAVOR,
-		icon = "itemrigs/disk.png",		
+		icon = "itemrigs/disk.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_holomesh_Prism.png",
-    	profile_icon_100 = "gui/icons/item_icons/icon-item_holomesh_Prism.png",		
+    	profile_icon_100 = "gui/icons/item_icons/icon-item_holomesh_Prism.png",
     	abilities = { "carryable" , "disguise" },
     	value = 500,
-    	traits = {  cantdrop = true, pickupOnly="INFORMANT", scan_vulnerable=true, cooldown = 0, cooldownMax = 5, disguise_duration = 1, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}, drop_dropdisguise=true },	
+    	traits = {  cantdrop = true, pickupOnly="INFORMANT", scan_vulnerable=true, cooldown = 0, cooldownMax = 5, disguise_duration = 1, restrictedUse={{agentID="MM_mole",name=STRINGS.MOREMISSIONS.AGENTS.MOLE.NAME}}, drop_dropdisguise=true },
 	},
-	
+
 	-- AI TERMINAL
 	MM_W93_incogRoom_terminal =
 	{
@@ -374,23 +374,23 @@ local prop_templates =
 		type = "simunit",
 		name = STRINGS.MOREMISSIONS.PROPS.AI_CARD,
 		desc = STRINGS.MOREMISSIONS.PROPS.AI_CARD_DESC,
-		flavor = STRINGS.MOREMISSIONS.PROPS.AI_CARD_FLAVOR,			
-		icon = "itemrigs/FloorProp_KeyCard.png",		
+		flavor = STRINGS.MOREMISSIONS.PROPS.AI_CARD_FLAVOR,
+		icon = "itemrigs/FloorProp_KeyCard.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_exit_key_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_exit_key.png",
     		onWorldTooltip = commondefs.onItemWorldTooltip,
-    		onTooltip = commondefs.onItemTooltip,		
+    		onTooltip = commondefs.onItemTooltip,
 		abilities = { "carryable" },
-		traits = { keybits = simdefs.DOOR_KEYS.VAULT, noDestroy = true }, 
-	},	
-	
+		traits = { keybits = simdefs.DOOR_KEYS.VAULT, noDestroy = true },
+	},
+
 	MM_gas_cloud =
     {
         type = "MM_simKOcloud",
         name = STRINGS.PROPS.SMOKE,
         rig = "smokerig",
 		kanim = "kanim_smoke_plume",
-		traits = { radius = 4, lifetime = 8, noghost = true, 
+		traits = { radius = 4, lifetime = 8, noghost = true,
 			stages = { -- these get applied by MM_simKOcloud.lua
 				[8] = {
 					gasColor = {r=197/255,g=227/255,b=107/255, a = 0.15}, --cosmetic: warning
@@ -417,21 +417,21 @@ local prop_templates =
         name = STRINGS.PROPS.SMOKE,
         rig = "smokerig",
 		kanim = "kanim_smoke_plume",
-        traits = { radius = 6, lifetime = 4, noghost = true, 
-		-- gasColor = {r=85/255,g=41/255,b=38/255}, 
+        traits = { radius = 6, lifetime = 4, noghost = true,
+		-- gasColor = {r=85/255,g=41/255,b=38/255},
 		}
-    },	
-	
-	MM_smoke_cloud_frag = 
+    },
+
+	MM_smoke_cloud_frag =
    {
         type = "smoke_cloud",
         name = STRINGS.PROPS.SMOKE,
         rig = "smokerig",
 		kanim = "kanim_smoke_plume",
-        traits = { radius = 2, lifetime = 2, noghost = true, 
-		-- gasColor = {r=85/255,g=41/255,b=38/255}, 
+        traits = { radius = 2, lifetime = 2, noghost = true,
+		-- gasColor = {r=85/255,g=41/255,b=38/255},
 		}
-    },		
+    },
 
 	-- Distress Call
 	MM_item_corpIntel =
@@ -449,18 +449,18 @@ local prop_templates =
 		traits = { selectpriority = 0, cashInReward = 300, showOnce = "corp_intel" },
 		abilities = { "carryable" },
 	},
-	
+
 	--------- ASSASSINATION ----------
 	MM_door_decoder_prop =
 	{
-		type = "simunit", 
+		type = "simunit",
 		name = STRINGS.MOREMISSIONS.PROPS.DOOR_DEVICE,
 		desc = STRINGS.MOREMISSIONS.PROPS.DOOR_DEVICE_DESC,
-		kanim = "kanim_lock_decoder", 
+		kanim = "kanim_lock_decoder",
 		rig ="traprig",
 		traits = { noMainframe = true },
 		abilities = {},
-	},		
+	},
 
 	--------------- SIDE MISSIONS ---------------------
 	MM_W93_crate = --24 BRIEFCASES
@@ -468,9 +468,9 @@ local prop_templates =
 		type = "simunit",
 		name = STRINGS.MOREMISSIONS.PROPS.CRATE,
         	onWorldTooltip = commondefs.onItemWorldTooltip,
-        	onTooltip = commondefs.onItemTooltip,	
+        	onTooltip = commondefs.onItemTooltip,
 		desc = STRINGS.MOREMISSIONS.PROPS.CRATE_DESC,
-		icon = "itemrigs/floor_prop_tech_loot.png",		
+		icon = "itemrigs/floor_prop_tech_loot.png",
 		profile_icon = "gui/icons/skills_icons/skills_icon_small/icon-item_inventory_small.png",
 		profile_icon_100 = "gui/icons/skills_icons/icon-skill_inventory.png",
 		kanim = "kanim_laptop",
@@ -478,14 +478,14 @@ local prop_templates =
 		abilities = { "carryable", "deployable", "MM_W93_escape" },
 		rig = "consolerig",
 		locator=true,
-	},	
+	},
 
-	MM_luxury_store = 
-	{ 
-		type = "store", 
-		name =  STRINGS.MOREMISSIONS.PROPS.STORE_LARGE, 
+	MM_luxury_store =
+	{
+		type = "store",
+		name =  STRINGS.MOREMISSIONS.PROPS.STORE_LARGE,
 		onWorldTooltip = onStoreTooltip,
-		kanim = "kanim_printer", 
+		kanim = "kanim_printer",
 		rig ="corerig",
 		traits = util.extend( MAINFRAME_TRAITS ) {
 			moveToDevice=true,
@@ -503,49 +503,49 @@ local prop_templates =
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", }
 	},
 
-	MM_luxury_store_console = 
+	MM_luxury_store_console =
 	{
-		type = "simunit", 
+		type = "simunit",
 		name = STRINGS.MOREMISSIONS.PROPS.NANOFAB_PROCESSOR,
 		rig ="corerig",
 		onWorldTooltip = onDeviceTooltip,
-		kanim = "kanim_serverTerminal", 
+		kanim = "kanim_serverTerminal",
 		abilities = { "MM_summonGuard" },
 		traits = util.extend( MAINFRAME_TRAITS )
 			{ moveToDevice=true, cover = true, impass = {0,0}, sightable=true, luxuryNanofab_console = true, },
 		tags = { "MM_luxuryNanofab_console" },
-		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator", stageAdvance="SpySociety_DLC001/Actions/DLCswitch_ready" }		
+		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator", stageAdvance="SpySociety_DLC001/Actions/DLCswitch_ready" }
 		-- sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", reboot_start="SpySociety/Actions/reboot_initiated_generator",reboot_end="SpySociety/Actions/reboot_complete_generator" }
 	},
-	
+
 	MM_luxuryNanofab_key = util.extend(commondefs.item_template)
 	{
 		name = STRINGS.MOREMISSIONS.PROPS.NANOFAB_KEY,
 		desc = STRINGS.MOREMISSIONS.PROPS.NANOFAB_KEY_DESC,
 		flavor = STRINGS.MOREMISSIONS.PROPS.NANOFAB_KEY_FLAVOR,
-		icon = "itemrigs/disk.png",		
+		icon = "itemrigs/disk.png",
 		onWorldTooltip = onItemWorldTooltip,
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_compile_key_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_compile_key.png",
 		abilities = { "carryable","MM_activateLuxuryNanofab" },
-		traits = {disposable=true, luxuryNanofabKey = true}, 
+		traits = {disposable=true, luxuryNanofabKey = true},
 		value = 300, --keep?
 	},
-	
-	MM_workshop_grafter = 
-	{ 
-		type = "simunit", 
+
+	MM_workshop_grafter =
+	{
+		type = "simunit",
 		name =  STRINGS.MOREMISSIONS.PROPS.WORKSHOP_GRAFTER,
 		onWorldTooltip = onDeviceTooltip,
-		kanim = "kanim_MM_workshop_grafter", 
+		kanim = "kanim_MM_workshop_grafter",
 		rig ="corerig",
 
 		traits = util.extend( MAINFRAME_TRAITS ) { moveToDevice=true, cover = true, impass = {0,0}, sightable = true, MM_modifyItem=true, stashable=true },
 
 		abilities = { "MM_modify_item", "MM_workshop_place_item" },
 		sounds = {appeared="SpySociety/HUD/gameplay/peek_positive", }
-	},	
-	
+	},
+
 }
 
 

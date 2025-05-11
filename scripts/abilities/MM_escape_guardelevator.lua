@@ -27,7 +27,7 @@ local MM_escape_guardelevator =
 		onTooltip = function( self, hud, sim, abilityOwner, abilityUser )
 			return abilityutil.hotkey_tooltip( self, sim, abilityOwner, STRINGS.MOREMISSIONS.ABILITIES.ESCAPE_GUARD_DESC )
 		end,
-		
+
 		profile_icon = "gui/actions/escape1.png",
         canUseWhileDragging = false,
 
@@ -36,8 +36,8 @@ local MM_escape_guardelevator =
 		end,
 
 		alwaysShow = true,
-		
-		acquireTargets = function( self, targets, game, sim, abilityOwner, unit )		
+
+		acquireTargets = function( self, targets, game, sim, abilityOwner, unit )
 
 			local cell = sim:getCell( abilityOwner:getLocation() )
 			local units = {}
@@ -48,7 +48,7 @@ local MM_escape_guardelevator =
 				end
 			end
 			if guarddoor == true then
-				table.insert( units, abilityOwner )	
+				table.insert( units, abilityOwner )
 			end
 
 			return targets.unitTarget( game, units, self, abilityOwner, unit )
@@ -61,7 +61,7 @@ local MM_escape_guardelevator =
             -- -- A partial escape means someone alive is left on the field.
             -- local isPartialEscape = array.findIf( fieldUnits, isNotKO ) ~= nil
 			-- if isPartialEscape then
-				-- return STRINGS.UI.HUD_CONFIRM_PARTIAL_ESCAPE			
+				-- return STRINGS.UI.HUD_CONFIRM_PARTIAL_ESCAPE
 			-- end
 
             -- -- Show what is being abandoned, if anything.
@@ -69,12 +69,12 @@ local MM_escape_guardelevator =
             -- local itemsInField = simquery.countDeployedUnits( sim )
 			-- local txt = ""
 			-- if abandonedUnit then
-				-- txt =  string.format( STRINGS.UI.HUD_CONFIRM_ESCAPE, ownerUnit:getName(), abandonedUnit:getName() )			
+				-- txt =  string.format( STRINGS.UI.HUD_CONFIRM_ESCAPE, ownerUnit:getName(), abandonedUnit:getName() )
 			-- end
 			-- if #itemsInField >0 then
 				-- if abandonedUnit then
 					-- txt = txt .."\n\n"
-				-- end				
+				-- end
 				-- txt = txt ..  STRINGS.UI.HUD_ITEMS_LEFT .. "\n"
 
 				-- for i,item in ipairs(itemsInField) do
@@ -89,9 +89,9 @@ local MM_escape_guardelevator =
 			-- if type(sim.exit_warning) == "function" then
 				-- return sim.exit_warning()
 			-- end
-				
+
 			-- if type(sim.exit_warning) == "string" then
-				-- return sim.exit_warning 
+				-- return sim.exit_warning
 			-- end
 		-- end,
 
@@ -103,30 +103,30 @@ local MM_escape_guardelevator =
 					guard_spawn_cell = exit.cell
 				end
 			end
-			
-			if guard_spawn_cell == nil then 
+
+			if guard_spawn_cell == nil then
 				return false
 			end
 			if guard_spawn_cell.impass > 0 or sim:getQuery().checkDynamicImpass(sim, guard_spawn_cell) then
 				return false, "Elevator occupied"
 			end
-		
+
 			if not sim:hasTag( "MM_DBhack_finished" ) then
 				return false, STRINGS.UI.REASON.CANT_ESCAPE --"Hack Personnel Database first"
 			end
 
-			if unit:getTraits().MM_mole ~= true then 
+			if unit:getTraits().MM_mole ~= true then
 				return false, STRINGS.ABILITIES.HACK_ONLY_MOLE --only mole
-			end 	
+			end
 
 			if not sim:getTags().MM_DBhack_finished then
 				return false, STRINGS.MOREMISSIONS.UI.NO_GUARD_ESCAPE
 			end
-			
+
 			if simquery.isUnitUnderOverwatch(unit) then
 				return false, STRINGS.MOREMISSIONS.UI.NO_ESCAPE_OVERWATCHED
 			end
-			
+
 			if sim:getTags().exit_reqiuired_item then --drop power cell before leaving...
 				local hasItem = false
 				for i,item in ipairs(unit:getChildren()) do
@@ -154,9 +154,9 @@ local MM_escape_guardelevator =
 					break
 				end
 			end
-				
+
 			local facing = simquery.getDirectionFromDelta( end_cell.x - start_cell.x, end_cell.y - start_cell.y )
-			
+
 			for dir,exit in pairs(start_cell.exits) do
 				if exit.cell == end_cell then
 					if exit.door and exit.closed and (exit.keybits == simdefs.DOOR_KEYS.GUARD) then
@@ -167,23 +167,23 @@ local MM_escape_guardelevator =
 					end
 					break
 				end
-			end			
-			
+			end
+
 			if unit and unit:isValid() and unit:getLocation() and not unit:isDown() then
 				if simquery.isUnitUnderOverwatch(unit) then
 					return --interrupt action if overwatched by whoever's inside the elevator
 				end
-				
+
 				local reverse = math.abs(facing - unit:getFacing()) == 4
 				sim:dispatchEvent( simdefs.EV_UNIT_START_WALKING, { unit = unit, reverse = reverse } )
-				
-				sim:warpUnit( unit, end_cell, unit:getFacing(), reverse ) 
+
+				sim:warpUnit( unit, end_cell, unit:getFacing(), reverse )
 				sim:dispatchEvent( simdefs.EV_UNIT_STOP_WALKING, { unit = unit  } )
 				sim:processReactions(unit) -- this check is probably unnecessary, return line when overwatched prevents you from etting this far...
 				if unit:isValid() then
-					sim:dispatchEvent( simdefs.EV_TELEPORT, { units={unit}, warpOut =true } )	
+					sim:dispatchEvent( simdefs.EV_TELEPORT, { units={unit}, warpOut =true } )
 					sim:warpUnit( unit, nil)
-					sim:despawnUnit(unit)			
+					sim:despawnUnit(unit)
 					sim:triggerEvent( "mole_final_escape" )
 					for dir, exit in pairs( start_cell.exits ) do
 						if exit.door and (exit.keybits == simdefs.DOOR_KEYS.GUARD) then
@@ -195,5 +195,5 @@ local MM_escape_guardelevator =
 			end
 		end,
 	}
-	
+
 return MM_escape_guardelevator

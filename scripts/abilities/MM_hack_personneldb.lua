@@ -33,21 +33,21 @@ local MM_hack_personneldb = --tweaked version of monster root hub hack
 
 			return true
 		end,
-		
+
         acquireTargets = function( self, targets, game, sim, abilityOwner, unit )
             local units = {}
 
 			if sim:getTags().finished_DB_hack then
 				return targets.unitTarget( game, units, self, abilityOwner, unit )
 			end
-			
+
             local x1, y1 = abilityOwner:getLocation()
             if x1 and abilityOwner:getTraits().mainframe_status == "active" and simquery.canUnitReach( sim, unit, x1, y1 ) then
                 table.insert( units, abilityOwner )
             end
 
             return targets.unitTarget( game, units, self, abilityOwner, unit )
-        end,		
+        end,
 
 		canUseAbility = function( self, sim, abilityOwner, unit, targetUnitID )
 
@@ -66,7 +66,7 @@ local MM_hack_personneldb = --tweaked version of monster root hub hack
 				return false, STRINGS.ABILITIES.HACK_ONLY_MOLE --only mole
 			end
 
-			if (abilityOwner:getTraits().mainframe_status == "active") and not (unit:getPlayerOwner() == abilityOwner:getPlayerOwner() ) then 
+			if (abilityOwner:getTraits().mainframe_status == "active") and not (unit:getPlayerOwner() == abilityOwner:getPlayerOwner() ) then
 				return false, STRINGS.ABILITIES.TOOLTIPS.UNLOCK_WITH_INCOGNITA
 			end
 

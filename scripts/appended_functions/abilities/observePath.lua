@@ -19,4 +19,3 @@ observePath.executeAbility = function( self, sim, unit, userUnit, target, ... )
 		targetUnit:createTab( STRINGS.GUARD_STATUS.STATUS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.STATUS_SURVEYING)
 	end
 end
-	

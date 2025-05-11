@@ -81,10 +81,10 @@ return {
 
 		NEWDAY = "NEW DAY MISSIONS",
 		NEWDAY_DESC = "<c:FF8411>NEW DAY MISSIONS</c>\nNumber of missions that appear when there's a new day. \nOverrides Generation Options+ mod settings. Set to 4 (vanilla value) by default.",
-		
+
 		EXEC_TERMINALS = "MORE EXEC TERMINAL OPTIONS",
 		EXEC_TERMINALS_DESC = "<c:FF8411>MORE EXEC TERMINAL OPTIONS</c>\nExecutive Terminals will allow you to choose from a pool of six missions, instead of four.",
-		
+
 		SPAWNTABLE_DROIDS = "ADD NEW ENEMIES (EARLIEST DIFFICULTY)",
 		SPAWNTABLE_DROIDS_DESC = "<c:FF8411>ADD NEW ENEMIES (EARLIEST DIFFICULTY)</c>\nUnique Tech Expo-only enemies may appear in other missions starting with this mission difficulty.",
 		SPAWNTABLE_DROIDS_VALUES = {"1","2","3","4","5","6","7","8","9","10","NEVER",},
@@ -92,7 +92,7 @@ return {
 		HARD_MODE = "HARD MODE",
 		HARD_MODE_TIP = "<c:FF8411>HARD MODE</c>\nCustom missions' security measures are more challenging. Intended for veteran players comfortable with Expert Plus.",
 	},
-	
+
 	LOADING_TIPS = {
 		"MORE MISSIONS: Distress Call missions only appear briefly on the map. The CFO works late every night, but an agent is only on the run right now.",
 		"MORE MISSIONS: Read the tooltips carefully for any enemies and devices relevant to the new objectives.",
@@ -106,7 +106,7 @@ return {
 		"MORE MISSIONS: The Relay Switches at a Tech Expo will disable the exhibit cases boosting each other's firewalls when broken. Even more, they will keep the firewalls from increasing for any reason. Skip this if you only plan to steal one or two items.",
 		"MORE MISSIONS: Unlike a Security Dispatch, a Tech Expo will have up to five items, most of them weapons. They are powerful but won't last long.",
 		"MORE MISSIONS: The AI Terminal lets you increase Incognita's slot number, or upgrade a program you own.",
-		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt the Counterintelligence AI.",		
+		"MORE MISSIONS: If playing with Programs Extended, the AI Terminal will let you permanently disrupt the Counterintelligence AI.",
 		"MORE MISSIONS: It's a good idea to have leftover AP on your agents when you complete an objective. You may want to move them after the security measures kick in.",
 		"MORE MISSIONS: You can enable the mod's HARD MODE to experience the full challenge of the security measures.",
 		"MORE MISSIONS: Executive Terminal missions now let you select from a pool of six possible locations.",
@@ -169,12 +169,12 @@ return {
 				},
 			},
 		},
-		
+
 		REFIT_DRONE =
 		{
 			NAME = "REFIT DRONE",
 			TOOLTIP = "REFIT DRONE",
-			BANTER = 
+			BANTER =
 			{
 				START = {
 					"",
@@ -243,16 +243,16 @@ return {
 
 		MOLE_CLOAK = "Custom Cloaking Rig I",
 		MOLE_CLOAK_FLAVOR = "Some cloaking rig models have increased efficiency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",
-		
+
 		MOLE_DISGUISE = "Custom Holo Projection Mesh",
 		MOLE_DISGUISE_TIP = "Generates a disguise for 1 turn.\nSprinting and attacking disables the effect.\nDisguise will fail if an enemy observes from 1 tile away.",
-		MOLE_DISGUISE_FLAVOR = "Some holorig models have dispensed with PWR dependency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",		
+		MOLE_DISGUISE_FLAVOR = "Some holorig models have dispensed with PWR dependency, but are custom-fitted to the recipient's profile during manufacture and are virtually useless for anyone else. Don't bother trying to steal this off the Informant, she's quite attached to it - literally.",
 
 		-- TECH EXPO CUSTOM ITEMS
 		SMOKE_GRENADE_CLASSIC = "Experimental Smoke Grenade",
 		SMOKE_GRENADE_CLASSIC_TOOLTIP = "Throw to create a cloud of smoke that occludes vision in an area. Persists for 2 turns. Limited uses.",
 		SMOKE_GRENADE_CLASSIC_FLAVOR = "An alternate aerosol mix that disperses over a larger area, and stays suspended in the air for longer than standard smoke grenades. Try not to breathe it in.",
-		
+
 		GRENADE_FRAG = "Frag Grenade",
 		GRENADE_FRAG_TOOLTIP = "Detonates in an area. Lethal damage to humans and fragile mainframe devices. Friendly damage.",
 		GRENADE_FRAG_FLAVOR = "Practically a living fossil of military technology. Dating back to the early 20th century, this concussive IED causes extreme property damage and was outlawed by the Physplant Integrity Act of 2058.",
@@ -268,7 +268,7 @@ return {
 		CLOAK_2 = "Extended Cloaking Rig",
 		CLOAK_2_TOOLTIP = "Renders the user invisible for 3 turns, or until they attack.\n\nCannot use while sighted. Limited uses.",
 		CLOAK_2_FLAVOR = "This cloaking rig benefits from cutting edge efficiency and ease of use, but requires a hefty initial surge of PWR to activate.",
-		
+
 		CLOAK_3 = "Fortified Cloaking Rig",
 		CLOAK_3_TOOLTIP = "Renders the user invisible for 1 turn. Is not disrupted by attacking. Limited uses.",
 		CLOAK_3_FLAVOR = "This fortified cloaking rig model can withstand energetic fluctuations that would collapse a regular cloak, even from firearms or neural disrupters.",
@@ -320,10 +320,10 @@ return {
 		FLASH_PACK_USE_TIP = "KO guards in a 5 tile radius for 4 turns.",
 
 		TECHEXPO_FLAVOR = "\n\nThis model is an experimental prototype.",
-		
+
 		USB_DRIVE = "FLASH DRIVE",
 		USB_DRIVE_TOOLTIP = "Stores a mainframe program. Install the program or sell the drive for profit.",
-		USB_DRIVE_FLAVOR = "These humble-looking flash drives are used extensively to traffic black market software, while non-fungible tokenization ensures the same program can't be sold twice.",		
+		USB_DRIVE_FLAVOR = "These humble-looking flash drives are used extensively to traffic black market software, while non-fungible tokenization ensures the same program can't be sold twice.",
 
 		AUGMENTS = {
 
@@ -379,19 +379,19 @@ return {
 		INCOGROOM_UPGRADE_DESC = "Use this terminal to add 1 program slot or upgrade a program.",
 
 		DEACTIVATE_LOCKS = "DEACTIVATE LOCKS",
-		
+
 		-- side missions
 		W93_ESCAPE = "DELIVER",
 		W93_ESCAPE_DESC = "Teleport all Storage Containers inside the elevator to the jet.",
-		
+
 		COMPILE_ROOM_USB = "EXTRACT PROGRAM",
 		COMPILE_ROOM_USB_DESC = "Move program to flash drive",
 		COMPILE_ROOM_USB_UNCOMPILED = "Program not yet compiled",
-		
+
 		USB_PROGRAM_INSTALL = "INSTALL PROGRAM",
 		USB_PROGRAM_INSTALL_SHORT = "INSTALL ",
 		USB_PROGRAM_INSTALL_DESC = "Install {1} program from drive",
-		
+
 		RENAME = "RENAME ",
 		RENAME_DRONE = "RENAME DRONE",
 		RENAME_DRONE_DESC = "Rename refit drone",
@@ -399,23 +399,23 @@ return {
 
 		PET = "PET ",
 		PET_DRONE = "PET DRONE",
-		PET_DRONE_DESC = "Pet the drone on its smooth little head",		
-		
+		PET_DRONE_DESC = "Pet the drone on its smooth little head",
+
 		ACTIVATE_NANOFAB_CONSOLE = "CALL SUPPORT",
 		ACTIVATE_NANOFAB_CONSOLE_DESC = "Summon the guard entrusted with the Nanofab Key.",
-		
+
 		UNLOCK_LUXURY_NANOFAB = "UNLOCK NANOFAB",
-		
+
 		REROUTE_PWR = "Reroute PWR ({1} PWR)",
 		REROUTE_PWR_DESC = "Reroutes the PWR to the workshop instead of adding it to Incognita.",
-		
+
 		MODIFY_ITEM = "Modify Item",
 		MODIFY_ITEM_DESC = "Upgrade the item stashed in the workshop.",
 		MOD_ITEM_DIALOG_TITLE = "Item Workshop",
 		MOD_ITEM_DIALOG_TXT = "Upgrade an property of the following item: {1}",
 		MOD_ITEM_DIALOG_UNMODABLE = "\n\nCan't modify this item.",
 		MOD_ITEM_DIALOG_PWR = "\n\nNot enough PWR in the workshop to modify this item. {1} PWR is needed.",
-		
+
 		UPGRADE_OPTIONS =
 		{
 			CANCEL = "Cancel",
@@ -428,7 +428,7 @@ return {
 			DAMAGE = "+1 Damage",
 			USES = "More Uses",
 		},
-		
+
 		CAPACITOR_CLOAK_INACTIVATE = "DEACTIVATE CLOAK",
 	},
 
@@ -444,7 +444,7 @@ return {
 			SHORT_DESC = "",
 			ACTIVE_DESC = "INTEL PROVIDED BY INFORMANT",
 		},
-		
+
 		DISTRESS_CALL_INFO = {
 			NAME = "FACILITY ALERT",
 			DESC = "Prisoner escape detected. Alarm advances at 2x rate every turn.",
@@ -465,7 +465,7 @@ return {
 			MOLE_DAEMON_HEAD = "E S P I O N A G E   B O N U S",
 			MOLE_DAEMON_TITLE = "INFORMANT INTEL",
 			MOLE_DAEMON_TXT = "Your informant has provided you with the following intel on this facility:\n\n",
-			
+
 			ARMOR_DAEMON_HEAD = "I N T E R R O G A T I O N  B O N U S",
 			ARMOR_DAEMON_TITLE = "INTERROGATION INTEL",
 			ARMOR_DAEMON_TXT = "Your guard interrogation has revealed armor weaknesses for this facility.\n\n-1 to enemy armor",
@@ -618,20 +618,20 @@ return {
 				PROGRAM_UPGRADE_FAIL_TITLE = "INVALID UPGRADE",
 
 				START_OVER = "Start over",
-				
+
 				NO_PROGRAMS = "NO PROGRAMS",
 				NO_PROGRAMS_DESC = "No programs found. Returning to root.",
 
 
 			},
 		},
-		
+
 		SIDEMISSIONS = {
 			STEAL_STORAGE =
 			{
 				OBJECTIVE1 = "Find all storage rooms",
 				OBJECTIVE2 = "Steal as many containers as possible",
-				TEXT1 = "VALUABLE CONTENTS DETECTED",		
+				TEXT1 = "VALUABLE CONTENTS DETECTED",
 			},
 			PERSONNEL_HIJACK = -- I can finally fix this typo!!!!
 			{
@@ -731,7 +731,7 @@ return {
 	},
 
 	UI = {
-	
+
 		MAP_SCREEN = {
 			MOLE_NAME = "INFORMANT",
 			MOLE_DESC = "Informant intel available for this mission.",
@@ -739,7 +739,7 @@ return {
 			HOSTILE_AI_TEXT = "<c:f5ff78>COUNTERINTELLIGENCE AI</c>\nTHREAT LEVEL: {1}\nAI TERMINAL SABOTAGE: -{2}",
 			HOSTILE_AI_NAME = "HOSTILE AI",
 		},
-		
+
 		HUD_WARN_EXIT_MISSION_HOLOSTUDIO = "Are you sure you want to leave? You don't have the holographic tool yet.",
 		HUD_WARN_EXIT_MISSION_ASSASSINATION = "Are you sure you want to leave? You haven't killed the target.",
 		DISTRESS_OBJECTIVE = "Rescue the Operative",
@@ -776,13 +776,13 @@ return {
 			NO_PATROL_CHANGE_DESC = "This unit will not respond to patrol changes.",
 			NO_ALERT = "NO ALERT ON WAKE-UP",
 			NO_ALERT_DESC = "This unit will not become alerted when they wake up.",
-			
+
 			-- Courier Rescue
 			EA_HOSTAGE_FRAIL = "FRAIL",
 			EA_HOSTAGE_FRAIL_DESC = "KO damage is lethal.",
 			EA_HOSTAGE_VITAL_STATUS = "VITAL STATUS",
 			EA_HOSTAGE_VITAL_STATUS_DESC = "Will expire if not extracted in {1} {1:turn|turns}.",
-			
+
 			-- Informant Rendezvous
 			PARALYZE_AMNESIAC = "Amnesiac dose",
 			PARALYZE_AMNESIAC_DESC = "Inject pinned victim with amnesiac. Removes WITNESS status. Reduces vision range by {1}. Guard wakes up without being alerted.",
@@ -790,26 +790,26 @@ return {
 			WITNESS_DESC_HUMAN = "Kill this unit or KO and apply Amnesiac.",
 			WITNESS_DESC_MAINFRAME = "Destroy this unit, EMP or scrub Camera Database.",
 			-- WITNESS_DESC_DRONE = "Destroy or EMP this unit.",
-			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",	
+			NO_CAMERADB_WITNESSES = "No camera or drone witnesses",
 			MOLE_CIVILIAN = "FRAGILE",--"CIVILIAN",
 			MOLE_CIVILIAN_DESC = "Cannot be revived if shot.", --"Cannot use weapons or be revived.",
 			MOLE_JET_ESCAPE = "FLEXIBLE EXTRACTION",
-			MOLE_JET_ESCAPE_DESC = "Escaping with this unit to the jet will fail the objective but add another Informant Rendezvous mission.",						
+			MOLE_JET_ESCAPE_DESC = "Escaping with this unit to the jet will fail the objective but add another Informant Rendezvous mission.",
 
 			-- tech expo
 			WEAPONS_EXPO_RESALE = "HARD TO FENCE",
 			WEAPONS_EXPO_RESALE_DESC = "This prototype is not market-ready and can only be sold at half price.",
-			
+
 			WEAPONS_EXPO_LOOT_CONTENT = "DISPLAY PLAQUE",
 			WEAPONS_EXPO_FAILSAFE = "FAILSAFE",
 			WEAPONS_EXPO_FAILSAFE_DESC = "When captured, boosts firewalls of remaining Secure Cases.",
-			
+
 			WEAPONS_EXPO_FAILSAFE_OFF = "FAILSAFE DISABLED",
 			WEAPONS_EXPO_FAILSAFE_OFF_DESC = "Failsafe disabled. Not affected by any firewall boosts.",
-			
+
 			WEAPONS_EXPO_SWITCH = "FAILSAFE CONTROL",
 			WEAPONS_EXPO_SWITCH_DESC = "Activating this switch pair will prevent any further firewall boosts to the exhibit cases.",
-			
+
 			--assassination
 			TARGET_ALERT = "VIP LINK",
 			TARGET_ALERT_DESC = "The first time this unit is alerted or attacked, the Bodyguard or nearest conscious guard becomes alerted.",
@@ -835,7 +835,7 @@ return {
 			DOOR_LOCK_ACCESS = "DOOR LOCK ACCESS",
 			LOCK_ACCESS_CONSOLE_DESC = "Hijacking this Console will unlock one of the AI Terminal doors.",
 			LOCK_ACCESS_SAFE_DESC = "This safe contains the Access Card to one of the AI Terminal doors.",
-			
+
 			PROGRAM_UPGRADE = {
 				UPGRADED = "UPGRADED",
 				UPGRADED_LONG = "AI TERMINAL UPGRADE",
@@ -849,58 +849,58 @@ return {
 
 			HOSTILE_AI_WEAKEN = "AI TERMINAL SABOTAGE",
 			HOSTILE_AI_WEAKEN_DESC = "This AI has been disrupted and has {1} fewer subroutines than normal.",
-			
+
 			-- misc + side missions
-			
+
 			BOSSUNIT = "Opportunity Target",
-			BOSSUNIT_DESC = "Bring this unit to the jet for interrogation. Reduces guard armor for the next 2 missions.",				
-			
+			BOSSUNIT_DESC = "Bring this unit to the jet for interrogation. Reduces guard armor for the next 2 missions.",
+
 			NOT_CARRYABLE = "NOT CARRYABLE",
 			NOT_CARRYABLE_DESC = "This item is broken and can't be picked up again.",
-			
+
 			NO_HIDING = "DOESN'T HIDE IN COVER",
 			NO_HIDING_DESC = "Not protected by cover.",
-			
+
 			USB_PROGRAM_STORED = "PROGRAM STORED: {1}",
-			
+
 			REPROGRAMMED = "REPROGRAMMED",
 			REPROGRAMMED_DESC = "This Refit Drone is under Agency control.",
-			
+
 			LEAVES_AT_END = "FRAGILE CASING",
 			LEAVES_AT_END_DESC = "Will be retired to the jet after this mission.",
-			
+
 			OPPORTUNITY_ALLY = "OPPORTUNITY ALLY",
 			OPPORTUNITY_ALLY_DESC = "Bring this drone to the jet for a cash reward and to reprogram it for your own temporary use.",
 
 			CAN_JACKIN = "BLUETOOTH SIPHON",
 			CAN_JACKIN_DESC = "Can hijack Consoles for PWR.",
-			
+
 			FANCYFAB_WARNING = "RECALIBRATION PROTOCOL",
 			FANCYFAB_WARNING_DESC = "Will shut down after printing one (1) item.",
-			
+
 			NANOFAB_TYPE = "WIDE ITEM SELECTION",
 			NANOFAB_TYPE_DESC = "Stock type:",
-			
+
 			NANOFAB_CONSOLE = "TECH SUPPORT LINE",
 			NANOFAB_CONSOLE_DESC = "Summons personnel with Nanofab Key on activation.",
 
 			IDLE_SCAN = "IDLE SCANNING",
 			IDLE_SCAN_DESC = "Scans surroundings at start of enemy turn, if idle.",
-			
+
 			STATUS_SURVEYING = "SURVEYING",
 			SURVEYOR = "SURVEYOR",
 			SURVEYOR_DESC = "Rotates 90 degrees counter-clockwise at end of enemy turn, if idle.",
-			
+
 			ZAP_ATTACK = "TAZER GUN",
 			ZAP_ATTACK_DESC = "KOs targets with a nonlethal stun gun.",
 
 			INFRARED_SENSORS = "INFRARED SENSORS",
 			INFRARED_SENSORS_DESC = "Notices agent movement, even behind cover.",
-			
+
 			ITEM_MODDED = "Modified",
 			ITEM_MODDED_DESC = "This item has been modified: {1}",
 		},
-		
+
 		REFIT_DRONE_NAMES = {
 			"Cyberbot3000",
 			"Floaty1337",
@@ -925,7 +925,7 @@ return {
 			"Plinky",
 			"Greywind",
 			"Datapincher",
-		},		
+		},
 
 	},
 
@@ -952,7 +952,7 @@ return {
 		MOLE_INSERTION = {
 			MOLE_MISSION_START = "I'm in. Two things to remember: Nobody sees me, and don't get me killed. Stick to that, and we'll be the best of friends.",
 		},
-		
+
 		SIDE_MISSIONS = {
 			REFIT_DRONE = {
 				"Bzzzzt.",
@@ -1002,7 +1002,7 @@ return {
 						"Central"}},
 				},
 				DECOY_REVEALED = { --discovered decoy the hard way
-					{{"Damn it! We've been duped, Operator. The holo tech on that decoy is advanced enough to fool even Incognita's scans. The real target must be secured somewhere nearby.", 
+					{{"Damn it! We've been duped, Operator. The holo tech on that decoy is advanced enough to fool even Incognita's scans. The real target must be secured somewhere nearby.",
 						"moremissions/VoiceOver/Central/assassination/decoy_1p",
 						"Central"},
 					{"See if you can track him down, or we'll have to pull the plug on this mess.",
@@ -1012,16 +1012,16 @@ return {
 				FOUND_REAL_TARGET_LATE = { --found real target after bumping into decoy
 					{{"There's our real target, finally. Get to it, Operator, this job is already messier than I'd like.",
 						"moremissions/VoiceOver/Central/assassination/sighted/postdecoy",
-						"Central"}},	
+						"Central"}},
 				},
 				FOUND_REAL_TARGET = { --found real target before decoy was busted
-					{{"Would you look at that, Operator? That looks to be our real target, holed up in his saferoom already.", 
+					{{"Would you look at that, Operator? That looks to be our real target, holed up in his saferoom already.",
 						"moremissions/VoiceOver/Central/assassination/sighted/predecoy_1p",
 						"Central"},
 					{"A pity we need him dead; I would almost admire this level of paranoia, if it didn't stand in our way.",
 						"moremissions/VoiceOver/Central/assassination/sighted/predecoy_2p",
-						"Central"}},			
-				},				
+						"Central"}},
+				},
 				AFTERMATH = {
 					{{"So far, so good. Get our agents out of there and we can collect from the client.",
 						"moremissions/VoiceOver/Central/assassination/killed1",
@@ -1467,7 +1467,7 @@ return {
 						{"This must be one of Omni Corp's covert research sites - only they have tech quite this advanced. The decor is a bit of a giveaway, too.",
 							"moremissions/VoiceOver/Monster/aiterminal/sighted/main_2p_postomni",
 							"Monster"},
-						{"There must be hundreds of such facilities scattered around the globe. How on Earth did we not run into one of these before?",					
+						{"There must be hundreds of such facilities scattered around the globe. How on Earth did we not run into one of these before?",
 							"moremissions/VoiceOver/Central/aiterminal/sighted/main_2p_postomni",
 							"Central"},
 						{"I confess I have my suspicions, although you may not like hearing them...",
@@ -1479,18 +1479,18 @@ return {
 				INCOGNITA_DATA_ACQUIRED = {
 					{{"Acquired new data. High probability of increasing efficiency in coroutine execution. Processing... Estimated finish time is 1 hour, 21 minutes and 48 seconds.", nil, "Incognita"}},
 					{{"Integrating novel input matrix. Estimated process time is 78 minutes. Try not to die until then.", nil, "Incognita"}},
-					{{"Additional computation processing venues unlocked. Likelihood of agency survival increased by two percent. Please stand by for full data integration.", nil, "Incognita"}},					
+					{{"Additional computation processing venues unlocked. Likelihood of agency survival increased by two percent. Please stand by for full data integration.", nil, "Incognita"}},
 					-- {{"Excelent job, Operator. Incognita will be able to install one additional program after we're finished here.",nil,"Central"}},
 				},
 
 				INCOGNITA_PROG_UPGRADED = {
 					{{"Computational upgrade acquired. Allotting increased processing power to upgraded coroutine. Processing... Integration complete.", nil, "Incognita"}},
-					{{"Multi-threading protocols unlocked. Executable parameters enhanced. Your success will serve us both well, Operator.", nil, "Incognita"}},					
+					{{"Multi-threading protocols unlocked. Executable parameters enhanced. Your success will serve us both well, Operator.", nil, "Incognita"}},
 				},
 				INCOGNITA_HOSTILE_AI_WEAKENED = {
 					{{"Initiating sabotage routines. Anticipating significant lag phase before meaningful interference thresholds can be reached.", nil, "Incognita"}},
-					{{"Running analysis of counterintelligence data matrix. Inserting self-sustaining data corruption worm. Waiting phase active. The seeds must grow.", nil, "Incognita"}},					
-				},				
+					{{"Running analysis of counterintelligence data matrix. Inserting self-sustaining data corruption worm. Waiting phase active. The seeds must grow.", nil, "Incognita"}},
+				},
 
 				INCOGNITA_TECH_ACQUIRED = { --unused?
 					{{"Excelent job, Operator. Monst3r will certainly be interested in selling this data. Get it back to the jet.", nil, "Central"}},
@@ -1529,7 +1529,7 @@ return {
 					},
 					GOT_NOTHING = {
 						{{"I should have left you at the orphanage.",
-							"moremissions/VoiceOver/Central/aiterminal/judge/fail3", 
+							"moremissions/VoiceOver/Central/aiterminal/judge/fail3",
 							"Central"}},
 						{{"We had a rare opportunity to enhance Incognita here, and you've squandered it. How disappointing.",
 							"moremissions/VoiceOver/Central/aiterminal/judge/fail1",
@@ -1552,7 +1552,7 @@ return {
 					},
 				},
 			},
-			
+
 			MM_SIDEMISSIONS = {
 				STEAL_STORAGE = {
 					STORAGE_SPOTTED_1 = {
@@ -1589,7 +1589,7 @@ return {
 						{"Be careful, Operator. The locker's internal sensors triggered a daemon the moment you took that gear. Perhaps their security is not as shoddy as we thought.",nil,"Central"},
 					},
 				},
-					
+
 				PERSONNEL_HIJACK = {
 					SPOTTED_BOSS = {
 						{"Curious. The facial ID on that guard... Monst3r, do you recognise him?",
@@ -1610,9 +1610,9 @@ return {
 					},
 					BOSS_TAKEN = {
 					{"Good work, Operator. I'll see if we can get some intel out of him, ask him how the old firm has been.",nil,"Central"},
-					},					
+					},
 				},
-				
+
 				LUXURY_NANOFAB = {
 					LOOTED_KEY = {
 						{"Operator, your agent just procured some kind of special access key. Keep an eye out for the matching Nanofab - we may have ourselves an opportunity here.",nil,"Central"},
@@ -1645,13 +1645,13 @@ return {
 					},
 					SAW_CONSOLE_HAVE_KEY = {
 						{"Operator, look: that console is designated as nanofab tech support. We've already got the key, but in a pinch, this could still prove a useful distraction.",nil,"Central"},
-					},	
+					},
 					SUMMONED_GUARD = {
-						{"That did the trick. Keep an eye out for any guard making a beeline to this room, and we will soon have our key.",nil,"Central"},					
+						{"That did the trick. Keep an eye out for any guard making a beeline to this room, and we will soon have our key.",nil,"Central"},
 					},
 					SUMMONED_GUARD_KO = {
-						{"No response from IT. We know they're on shift today - perhaps you should double check the pockets of any guards you've already taken out.",nil,"Central"},					
-					},		
+						{"No response from IT. We know they're on shift today - perhaps you should double check the pockets of any guards you've already taken out.",nil,"Central"},
+					},
 					UNLOCKED_NANOFAB = {
 						{"Good job, you've unlocked the nanofab. This model shuts down for recalibration after printing a single item, so choose wisely, Operator.",
 							nil,
@@ -1664,7 +1664,7 @@ return {
 						{"A spot of precision shopping can go a long way. Let's hope this little detour will prove itself worth the hassle.",nil,"Central"},
 					},
 				},
-				
+
 				WORKSHOP = {
 					SEE_CONSOLE =
 					{
@@ -1675,7 +1675,7 @@ return {
 							"moremissions/VoiceOver/Monster/workshop/console_2p",
 							"Monster"},
 					},
-					
+
 					SEE_WORKSHOP =
 					{
 						{"There's the Workshop! A thing of beauty, is it not? Now, it's going to take more juice to power the upgrade the more complex your tech is, so don't expect any miracles if you were stingy with those consoles. Hmpf, I suppose I ought to step back and leave you to get acquainted. Enjoy...",
@@ -1688,7 +1688,7 @@ return {
 							"moremissions/VoiceOver/Monster/workshop/workshop_unpowered",
 							"Monster"}, -- long line EXTREMELY cut off. Last word "didn't reroute"
 					},
-					
+
 					ITEM_MODIFIED =
 					{
 						{"Placeholder text for Workshop 3", nil, "Central"},
@@ -1697,15 +1697,15 @@ return {
 			},
 		},
 	},
-	
+
 	LOGS = {
 		-- Informant datalog: doubles as acknowledgemt for VA contributors
 		log_informant_filename = "INFORMANT INTEL", --author: Hek
 		log_informant_title = "UNDERCOVER AGENT REPORT",
 		log_informant = [[INFORMANT COMMUNIQUÉ - NATALIE FORMAUNT
-			
+
 			[decryption complete]
-			
+
 			<c:9d7faa>Operator. I recall how much you prefer business before pleasure, so I'll get straight to it. I've identified the key funding sources for Project MesMerize (see attachment). Some are names, others are aliases. Once we figure out what connects these people, we'll have more data on the scope of the project.
 
 			I have a hunch you were right. These contacts are from all over the globe, with deep roots in every corp. The digging I've done so far seems to match up with your conglomerate theory, but full details will have to wait until my next report. If this checks out, it could change everything we thought we knew about how the corps operate.
@@ -1713,11 +1713,11 @@ return {
 			I should be able to squeeze at least two more days out of this identity before I get burned. As per the usual: If you don't hear from me again, it's been nice working with you.
 
 			xoxo,
-			
+
 			"Natalie"</>
 
 			[attachment]
-			
+
 			--------------------
 			<c:62B3B3>Cyberboy2000
 			jlaub
@@ -1744,12 +1744,12 @@ return {
 			--------------------
 
 			(A huge thank you to everyone who donated to fund voice acting for the More Missions mod, and an equally huge thanks to Veena Sood and Benjamin Hawkins for their work in voicing the lines!
-			
+
 			- The More Missions dev team)
 		]],
 		log_techexpo_filename = "LETTER OF INVITATION", --author: jlaub
 		log_techexpo_title = "MWC LETTER OF INVITATION",
-		log_techexpo = 
+		log_techexpo =
 		[[INVITATION, 2074 MEGACORP WARE CONGRESS (MWC)
 
 		<c:62B3B3>Dear Mr. Richardson,
@@ -1764,19 +1764,19 @@ return {
 		<c:db65ba>Location & Venue</>
 
 		<c:62B3B3>The host of the expo rotates between the corps as a matter of tradition. Due to security breaches in 2073, the location of the 2074 MWC is a closely guarded secret available only to the event's VIP invitees. We will provide transport beam coordinates shortly before the exhibit hall opens. We remind you that by applying to be a guest, you have accepted the standard nondisclosure agreement regarding corporate facility locations.</>
-		
-		
-		
+
+
+
 		<c:db65ba>Agenda Highlights</>
 
 		<c:eca35b>SAT, 8:00 AM:</> Exhibit Hall Opens
 		<c:eca35b>SAT, 9:00 AM:</> Keynote, “Scaling the Firewall: The Future of Quantum Network Security”
 		<c:eca35b>SAT, 12:00 PM:</> Lunch Reception at the Koi Pond
-		<c:eca35b>SAT, 1:00 PM to 5:30 PM:</> Product Demonstrations 
+		<c:eca35b>SAT, 1:00 PM to 5:30 PM:</> Product Demonstrations
 		<c:eca35b>SAT, 5:30 PM:</> Exhibit Hall Closes, Networking Receptions Begin
 		<c:eca35b>SAT, 7:00 PM:</> Holovid Screening, “The Istanbul Four (Abridged Cut)”
 		<c:eca35b>SAT, 9:00 PM:</> Speed Dating Session, “Vali-Dates: Time Attack Edition”
-		<c:eca35b>SUN, 9:00 AM:</> Q&A Session, “A Conversation with Sophie Woodbridge” 
+		<c:eca35b>SUN, 9:00 AM:</> Q&A Session, “A Conversation with Sophie Woodbridge”
 		<c:eca35b>SUN, 12:00 PM:</> Lunch Reception at Facility Restaurant “The Ramen Database”
 		<c:eca35b>SUN, 3:00 PM:</> Panel Discussion, “Why So Secure? Countering The Anti-Corp Menace”
 		<c:eca35b>SUN, 5:30 PM:</> Closing Ceremonies
@@ -1790,115 +1790,115 @@ return {
 
 		P.S.: Please be aware that your presence after the closing of the expo will trigger an alarm response. We thank you in advance for your cooperation with security enforcement personnel.</>
 		]],
-		
+
 		log_assassination_filename = "CORPORATE CHATLOG", --author: jlaub
 		log_assassination_title = "DECRYPTED CHATLOG",
 		log_assassination = [[>>> CHAT INITIATED
-		
+
 		>>> ENCRYPTION PROTOCOL CONFIRMED
-		
+
 		>>> Participants joined: Steve Hall, Chief Operating Officer, Special Projects; Sayid Madani, Regional Security Chief
-		
+
 		>>> Your friendly executive chat-bot is here to assist you. Just type <c:6bf7ff>"Hey Weebo..."</c> and your request. For instance, say <c:6bf7ff>"Hey Weebo, what were the division's quarterly earnings in Q2 2073."</c> Have a fantastic day!
 
 		<c:63ffca>STEVE:</c> <c:62B3B3>You there Sayid?</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Steve my man, how's the executive life treating you?</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>I've been better. Did you get my request?</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>It's important.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Do you mean that upgraded security request?</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>What about it?</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>....</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>Is it approved?</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Well, you know it's not that simple. You haven't conclusively shown that there is increased risk to your person and from whom. Standard stuff.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>I've gotten reports of chatter on the Subnet from *your* team.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Chatter is chatter, it could be nothing. Terrorists playing mindgames, trying to get us to stretch ourselves thin. Like, say, spending a small fortune on security based on the Subnet rumor mill.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>I don't know about that. You heard about that high-clearance terminal hit recently? All of Gavin's location data, stolen. Something's going on.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Of course I heard about it.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>And?</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>And what?</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>Do I really have to spell it out? There could be a bullet out there right now with my  name on it.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>We don't know that for sure.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>"For sure"? Geez. It's almost like you're *trying* to get me killed.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Of course not! I'm just trying to do my job. This isn't personal.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>Yeah right. You've had it out for me ever since I got promoted and you didn't. Now you're gonna hang me out to dry??? I could have you reported.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>You're being paranoid - I would never do that. Not lastly because keeping you safe is my goddamn job. But I have to answer for *every* expenditure, same as you. Finance is not gonna be happy with me if we install all that extra tech and nothing happens.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>Isn't nothing happening the point???</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>You know what I mean.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>I don't feel safe here.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Nobody does. But trust me, installing turrets in the corner of every room helps a lot less than you might think.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>Can we do that???</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>No.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>We don't even have the finalized SecNet assessment yet.  It could be nothing. Could be a disgruntled janitor, or some idiot temp forgetting to lock the screen. You want to turn your C-suite into Fort Knox over *that*?</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>A couple of security upgrades isn't exactly Fort Knox, and most of it is standard countermeasures we already use. I just want more of it. In my office.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Have you even read your own list? "Two Akuma drones with Seeker ammo"? Laser-grid guarded saferoom? Pressure plates? Tripwires? Half of that is experimental tech, and it'll endanger you and your colleagues more than Subnet "chatter" ever could. Not to mention put a serious dent in your leather couches.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>Ha ha. So funny.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Look. I get that you're worried, but you've gotta admit it's probably just the stress of the new job. You're not the first exec to discover he's got a fear of heights. Book your PTO, spend a day on a yacht, and try to relax. And lay off the spy novels while you're at it. Alright?</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>I don't have a fear of heights. I go wingsuit flying every year.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>I was being metaphorical. </c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>Sayid. Dude. We go way back, right? Just do this for me, and I'll owe you big. That's a huge chance for you, and you know it. A guy in your position can't be picky about opportunities like that.</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Right...</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Well. Let me remind you that I take my job very seriously, and I would never engage in a quid-pro-quo scheme involving the misuse of corporate funding, especially not on a corp-owned messaging system.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>I'll make it worth your while. We can worry about explaining it to management later, when I'm still alive</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>I really can't</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>Look... If you're that worried... I'll see if I can get you a side-arm, okay? But anything more, you're going to have to pay for it out of your own pocket. Could try pitching it to the higher-ups as a facility upgrade, maybe they'll reimburse you for part of it. I'm sure you'll figure out a way - guy in your position and all.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>I didn't mean it like that</c>
-		
+
 		<c:ff9677>SAYID:</c> <c:62B3B3>I gotta go, alright? Ttyl, catch you on the flipside, be sure to give my regards to Katie</c>
 
 		>>> Sayid Madani has left the chat.
-		
+
 		<c:63ffca>STEVE:</c> <c:62B3B3>Screw you too *amigo*.</c>
-		
+
 		<c:63ffca>STEVE:</c> <c:6bf7ff>Hey Weebo</c>, <c:62B3B3>please order items outlined in attached document "Security Upgrades" minus Sankaku imports and charge to my personal account as a rush order</c>
-		
+
 		<c:6bf7ff>WEEBO:</c> <c:62B3B3>Ordering...</c>
-		
+
 		<c:6bf7ff>WEEBO:</c> <c:62B3B3>Completed. Installation details have been forwarded to your wallet and calendar. Thank you for shopping with Weebo!</c>
-		
+
 		>>> Steve Hall has left the chat.
-		
+
 		>>> CHAT COMPLETE AND ARCHIVED
-		
+
 		]],
 	},
 }

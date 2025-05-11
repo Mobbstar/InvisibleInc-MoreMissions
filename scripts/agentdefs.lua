@@ -11,23 +11,23 @@ local INTERNATIONALE_SOUNDS =
 {
     bio = "SpySociety/VoiceOver/Missions/Bios/Internationale",
     escapeVo = "SpySociety/VoiceOver/Missions/Escape/Operator_Escape_Agent_Internationale",
-	speech="SpySociety/Agents/dialogue_player",  
-	step = simdefs.SOUNDPATH_FOOTSTEP_FEMALE_HARDWOOD_NORMAL, 
+	speech="SpySociety/Agents/dialogue_player",
+	step = simdefs.SOUNDPATH_FOOTSTEP_FEMALE_HARDWOOD_NORMAL,
 	stealthStep = simdefs.SOUNDPATH_FOOTSTEP_FEMALE_HARDWOOD_SOFT,
 
-	wallcover = "SpySociety/Movement/foley_suit/wallcover", 
+	wallcover = "SpySociety/Movement/foley_suit/wallcover",
 	crouchcover = "SpySociety/Movement/foley_suit/crouchcover",
 	fall = "SpySociety/Movement/foley_suit/fall",
 	land = "SpySociety/Movement/deathfall_agent_hardwood",
-	land_frame = 16,						
+	land_frame = 16,
 	getup = "SpySociety/Movement/foley_suit/getup",
 	grab = "SpySociety/Movement/foley_suit/grab_guard",
 	pin = "SpySociety/Movement/foley_suit/pin_guard",
 	pinned = "SpySociety/Movement/foley_suit/pinned",
-	peek_fwd = "SpySociety/Movement/foley_suit/peek_forward",	
+	peek_fwd = "SpySociety/Movement/foley_suit/peek_forward",
 	peek_bwd = "SpySociety/Movement/foley_suit/peek_back",
-	move = "SpySociety/Movement/foley_suit/move",		
-	hit = "SpySociety/HitResponse/hitby_ballistic_flesh",		
+	move = "SpySociety/Movement/foley_suit/move",
+	hit = "SpySociety/HitResponse/hitby_ballistic_flesh",
 }
 
 -- local INFORMANT_ABILITIES = --OLD: no attack abilities
@@ -60,36 +60,36 @@ local agent_templates =
 		profile_icon_36x36= "gui/icons/agent_icons/MM_agent009_36.png",
 		splash_image = "gui/agents/agentDeckard_768.png",
 		profile_anim = "portraits/portrait_animation_template",
-		profile_build = "portraits/MM_agent009_face", --PLACEHOLDER		
+		profile_build = "portraits/MM_agent009_face", --PLACEHOLDER
 		kanim = "kanim_MM_agent009",
 		gender = "male",
-		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { cant_abandon = true, mp=9, mpMax=9, rescued=true, leavesAtEndOfMission= true},	
+		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { cant_abandon = true, mp=9, mpMax=9, rescued=true, leavesAtEndOfMission= true},
 		children = {}, -- Dont add items here, add them to the upgrades table in createDefaultAgency()
 		abilities = util.tconcat( {  "sprint",  }, commondefs.DEFAULT_AGENT_ABILITIES ),-- "stealth"
-		skills = util.extend( commondefs.DEFAULT_AGENT_SKILLS ) {}, 
+		skills = util.extend( commondefs.DEFAULT_AGENT_SKILLS ) {},
 		startingSkills = { stealth = 2 },
-		sounds = { 	
-					speech="SpySociety/Agents/dialogue_player",  
-					step = simdefs.SOUNDPATH_FOOTSTEP_MALE_HARDWOOD_NORMAL, 
+		sounds = {
+					speech="SpySociety/Agents/dialogue_player",
+					step = simdefs.SOUNDPATH_FOOTSTEP_MALE_HARDWOOD_NORMAL,
 					stealthStep = simdefs.SOUNDPATH_FOOTSTEP_MALE_HARDWOOD_SOFT,
-					
+
 					wallcover = "SpySociety/Movement/foley_suit/wallcover",
 					crouchcover = "SpySociety/Movement/foley_suit/crouchcover",
-					fall = "SpySociety/Movement/foley_suit/fall",	
+					fall = "SpySociety/Movement/foley_suit/fall",
 					land = "SpySociety/Movement/deathfall_agent_hardwood",
-					land_frame = 35,						
+					land_frame = 35,
 					getup = "SpySociety/Movement/foley_suit/getup",
 					grab = "SpySociety/Movement/foley_suit/grab_guard",
 					pin = "SpySociety/Movement/foley_suit/pin_guard",
-					pinned = "SpySociety/Movement/foley_suit/pinned",	
-					peek_fwd = "SpySociety/Movement/foley_suit/peek_forward",	
-					peek_bwd = "SpySociety/Movement/foley_suit/peek_back",				
+					pinned = "SpySociety/Movement/foley_suit/pinned",
+					peek_fwd = "SpySociety/Movement/foley_suit/peek_forward",
+					peek_bwd = "SpySociety/Movement/foley_suit/peek_back",
 					move = "SpySociety/Movement/foley_suit/move",
 				},--
 		speech = STRINGS.MOREMISSIONS.AGENTS.AGENT_009.BANTER,
 		blurb = "",
 	},
-	
+
 	MM_hostage =
 	{
 		type = "simunit",
@@ -106,33 +106,33 @@ local agent_templates =
 		kanim = "kanim_courier_male",
 		gender = "male",
 		tags = {"MM_hostage"},
-		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { inventoryMaxSize = 1, mp=5, mpMax =5, noUpgrade = true, MM_hostage = true, kill_trigger = "hostage_dead", vitalSigns=10, rescued=true, canBeCritical=false,leavesAtEndOfMission=true },	
+		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { inventoryMaxSize = 1, mp=5, mpMax =5, noUpgrade = true, MM_hostage = true, kill_trigger = "hostage_dead", vitalSigns=10, rescued=true, canBeCritical=false,leavesAtEndOfMission=true },
 		children = {}, -- Dont add items here, add them to the upgrades table in createDefaultAgency()
 		abilities =  commondefs.DEFAULT_AGENT_ABILITIES ,
-		sounds = { 
-					speech="SpySociety/Agents/dialogue_player",  
-					step = simdefs.SOUNDPATH_FOOTSTEP_MALE_HARDWOOD_NORMAL, 
+		sounds = {
+					speech="SpySociety/Agents/dialogue_player",
+					step = simdefs.SOUNDPATH_FOOTSTEP_MALE_HARDWOOD_NORMAL,
 					stealthStep = simdefs.SOUNDPATH_FOOTSTEP_MALE_HARDWOOD_SOFT,
-					
+
 					wallcover = "SpySociety/Movement/foley_suit/wallcover",
 					crouchcover = "SpySociety/Movement/foleyfoley_suit_trench/crouchcover",
-					fall = "SpySociety/Movement/foley_suit/fall",	
+					fall = "SpySociety/Movement/foley_suit/fall",
 					land = "SpySociety/Movement/deathfall_agent_hardwood",
-					land_frame = 35,						
+					land_frame = 35,
 					getup = "SpySociety/Movement/foley_suit/getup",
 					grab = "SpySociety/Movement/foley_suit/grab_guard",
 					pin = "SpySociety/Movement/foley_suit/pin_guard",
-					pinned = "SpySociety/Movement/foley_suit/pinned",	
-					peek_fwd = "SpySociety/Movement/foley_suit/peek_forward",	
-					peek_bwd = "SpySociety/Movement/foley_suit/peek_back",				
+					pinned = "SpySociety/Movement/foley_suit/pinned",
+					peek_fwd = "SpySociety/Movement/foley_suit/peek_forward",
+					peek_bwd = "SpySociety/Movement/foley_suit/peek_back",
 					move = "SpySociety/Movement/foley_suit/move",
 				},--
 		speech = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE.BANTER,
 		blurb = "",
-	},	
+	},
 
 	--NPCs
-	MM_mole =		
+	MM_mole =
 	{
 		type = "simunit",
 		agentID = "MM_mole", --for item's restrictedUse
@@ -153,7 +153,7 @@ local agent_templates =
 			"gui/agents/team_select_1_central.png",
 		},
 		kanim = "kanim_MM_mole_dark",
-		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=8,  mpMax = 8, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false, inventoryMaxSize = 2, },	
+		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=8,  mpMax = 8, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false, inventoryMaxSize = 2, },
 		tags = {"MM_mole","Informant"},
 		children = { "MM_mole_cloak", "MM_paralyzer_amnesiac"},
 		startingSkills = {},
@@ -162,7 +162,7 @@ local agent_templates =
 		speech = STRINGS.MOREMISSIONS.AGENTS.MOLE.BANTER,
 		blurb = "",
 		upgrades = { },
-	},	
+	},
 
 	MM_mole2 =		-- different kanim/portrait
 	{
@@ -185,7 +185,7 @@ local agent_templates =
 			"gui/agents/team_select_1_central.png",
 		},
 		kanim = "kanim_MM_mole_light",
-		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=8,  mpMax = 8, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false, inventoryMaxSize = 2, },	
+		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS ) { MM_mole = true, cant_abandon = true, mp=8,  mpMax = 8, leavesAtEndOfMission= true, augmentMaxSize = 0, canBeCritical = false, inventoryMaxSize = 2, },
 		tags = {"MM_mole","Informant"},
 		children = { "MM_mole_disguise", "MM_paralyzer_amnesiac"},
 		startingSkills = {},
@@ -194,19 +194,19 @@ local agent_templates =
 		speech = STRINGS.MOREMISSIONS.AGENTS.MOLE.BANTER,
 		blurb = "",
 		upgrades = { },
-	},		
+	},
 
 	MM_refit_drone_friend =
 	{
 		type = "simunit",
 		name = STRINGS.DLC1.GUARDS.REFIT_DRONE,
 		kanim = "kanim_MM_drone_refit",
-		sounds = SOUNDS.DRONE_HOVER, 
+		sounds = SOUNDS.DRONE_HOVER,
 		agentID = "MM_refitDroneFriend",
 		toolTip = STRINGS.DLC1.GUARDS.REFIT_DRONE,
 		profile_anim = "portraits/sankaku_drone_camera_new",
 		profile_build = "portraits/sankaku_proto_drone",
-		profile_image = "sankaku_drone_camera.png",		
+		profile_image = "sankaku_drone_camera.png",
 		children = { },
 		abilities = { "observePath","peek","escape","MM_renameDrone","jackin","lastWords", "MM_petDrone" },
 		traits = util.extend( commondefs.DEFAULT_AGENT_TRAITS )
@@ -250,7 +250,7 @@ local agent_templates =
 		profile_icon_36x36= "gui/icons/agent_icons/MM_refitdrone_36.png",
 		splash_image = "gui/agents/agentDeckard_768.png",
 		speech = STRINGS.MOREMISSIONS.AGENTS.REFIT_DRONE.BANTER,
-		blurb = "",		
+		blurb = "",
 	},
 
 }

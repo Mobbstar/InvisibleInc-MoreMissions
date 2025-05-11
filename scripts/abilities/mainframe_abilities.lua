@@ -50,13 +50,13 @@ for i, program in pairs(mainframe_abilities) do
 							self.GOLEMCOST = self.GOLEMCOST + upgrades[abilityID].cpu_cost
 						end
 						if upgrades[abilityID].base_cpu_cost then
-							self.base_cpu_cost = self.base_cpu_cost + upgrades[abilityID].base_cpu_cost 
+							self.base_cpu_cost = self.base_cpu_cost + upgrades[abilityID].base_cpu_cost
 						end
 					end
 					if upgrades[abilityID].maxCooldown then
 						self.maxCooldown = self.maxCooldown + upgrades[abilityID].maxCooldown
 						self.MM_upgrade = {"cooldown", upgrades[abilityID].maxCooldown }
-					end		
+					end
 					if upgrades[abilityID].range then
 						self.range = self.range + upgrades[abilityID].range
 						self.MM_upgrade = {"range", upgrades[abilityID].range}
@@ -67,7 +67,7 @@ for i, program in pairs(mainframe_abilities) do
 				end
 			end
 		end
-		
+
 		local onTooltip_old = program.onTooltip
 		program.onTooltip = function( self, hud, sim, player, ... )
 			local tooltip = onTooltip_old( self, hud, sim, player, ... )
@@ -91,7 +91,7 @@ for i, program in pairs(mainframe_abilities) do
 			if self.MM_upgrade then --FOR UI ONLY!
 				local desc = ""
 				local path = STRINGS.MOREMISSIONS.UI.TOOLTIPS.PROGRAM_UPGRADE
-				local upgradeStrength = self.MM_upgrade[2] 
+				local upgradeStrength = self.MM_upgrade[2]
 				if self.MM_upgrade[2] == 1 then
 					upgradeStrength = "+1"
 				end
@@ -100,25 +100,25 @@ for i, program in pairs(mainframe_abilities) do
 				elseif self.MM_upgrade[1] == "firewalls" then
 					desc = util.sformat( path.FIREWALLS, upgradeStrength )
 				elseif self.MM_upgrade[1] == "PWRcost" then
-					desc = util.sformat( path.PWRCOST, upgradeStrength )	
+					desc = util.sformat( path.PWRCOST, upgradeStrength )
 				elseif self.MM_upgrade[1] == "cooldown" then
 					desc = util.sformat( path.COOLDOWN, upgradeStrength )
 				elseif self.MM_upgrade[1] == "range" then
 					desc = util.sformat( path.RANGE, upgradeStrength )
 				end
-				
+
 				-- special tooltip for rapier
 				if (i == "rapier") and (self.MM_upgrade[1] == "PWRcost")and (self.MM_upgrade[2] == -1) then
 					desc = util.sformat( path.PWRCOST_Rapier, upgradeStrength )
 				end
-				
+
 				local section = tooltip:addSection()
 				section:addLine( path.UPGRADED_LONG )
 				section:addAbility( path.UPGRADED, desc, "gui/icons/item_icons/items_icon_small/icon-item_chargeweapon_small.png" )
 			end
 			return tooltip
 		end
-		
+
 		--add in a special block to make Rapier PWR upgrades functional
 		if i == "rapier" then
 			local rapier_getCost_old = program.getCpuCost
@@ -128,7 +128,7 @@ for i, program in pairs(mainframe_abilities) do
 					local change = self.MM_upgrade[2]
 					if oldcost + change > 0 then
 						oldcost = oldcost + change
-					end	
+					end
 				end
 				return oldcost
 			end

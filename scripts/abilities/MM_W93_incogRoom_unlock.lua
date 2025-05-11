@@ -32,7 +32,7 @@ local MM_W93_incogRoom_unlock =
 		onTooltip = function( self, hud, sim, abilityOwner, abilityUser, targetUnitID )
 			local tooltip = util.tooltip( hud._screen )
 			local section = tooltip:addSection()
-			local canUse, reason = abilityUser:canUseAbility( sim, self, abilityOwner, targetUnitID )		
+			local canUse, reason = abilityUser:canUseAbility( sim, self, abilityOwner, targetUnitID )
 			local targetUnit = sim:getUnit( targetUnitID )
 	        	section:addLine( abilityOwner:getName( self, sim, abilityOwner ) )
 			section:addAbility( self.name, STRINGS.MOREMISSIONS.ABILITIES.INCOGROOM_UNLOCK_DESC, "gui/items/icon-action_hack-console.png" )
@@ -47,11 +47,11 @@ local MM_W93_incogRoom_unlock =
 				return false
 			end
 
-			if unit:getPlayerOwner() ~= userUnit:getPlayerOwner() and unit:getTraits().mainframe_status == "active" then 
+			if unit:getPlayerOwner() ~= userUnit:getPlayerOwner() and unit:getTraits().mainframe_status == "active" then
 				return false, STRINGS.ABILITIES.TOOLTIPS.UNLOCK_WITH_INCOGNITA
 			end
 
-			if unit:getTraits().mainframe_status ~= "active" then 
+			if unit:getTraits().mainframe_status ~= "active" then
 				return false, STRINGS.UI.REASON.ALREADY_USED
 			end
 
@@ -60,7 +60,7 @@ local MM_W93_incogRoom_unlock =
 
 		executeAbility = function ( self, sim, unit, userUnit)
 			local x0,y0 = userUnit:getLocation()
-			local x1,y1 = unit:getLocation()	
+			local x1,y1 = unit:getLocation()
 			local facing = simquery.getDirectionFromDelta(x1-x0,y1-y0)
 			sim:emitSpeech( userUnit, speechdefs.EVENT_HIJACK )
 			sim:dispatchEvent( simdefs.EV_UNIT_USECOMP, { unitID = userUnit:getID(), targetID=unit:getID(), facing = facing, sound=simdefs.SOUNDPATH_USE_CONSOLE, soundFrame=10 } )

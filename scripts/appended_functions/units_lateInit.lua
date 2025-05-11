@@ -34,7 +34,7 @@ end
 -- for clearing mainframe witnesses
 local processEMP_old = simunit.processEMP
 simunit.processEMP = function( self, bootTime, noEmpFX, ... )
-	processEMP_old( self, bootTime, noEmpFX, ... ) 
+	processEMP_old( self, bootTime, noEmpFX, ... )
 	if self:getTraits().witness and self:getTraits().mainframe_item and (self:getTraits().isDrone or self:getTraits().mainframe_camera) then
 		self:getTraits().witness = nil
 		self:getSim():triggerEvent("MM_processed_EMP_on_witness")
@@ -50,7 +50,7 @@ simunit.processEMP = function( self, bootTime, noEmpFX, ... )
 		else
 			return
 		end
-	end		
+	end
 end
 
 -- update stopHacking to refresh database hacking state

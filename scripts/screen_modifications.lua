@@ -35,7 +35,7 @@ local modifications = {
 				y = 44,
 				x = -85, --PATCH! -6
 			},
-			[6] = 
+			[6] =
 			{
 				y = 44,
 				x = 247,--PATCH! -2
@@ -53,15 +53,15 @@ local modifications = {
 			[9] = --target title
 			{
 				y = 119,
-			},	
+			},
 		}
 	},
-	
+
 	{
 		"modal-execterminals.lua",
 		{ "widgets", 2, "children", 1, "images" },
 		{
-			[1] = 
+			[1] =
 			{
 				file = [[gui/menu pages/shop/execterminals_MM.png]]
 			}

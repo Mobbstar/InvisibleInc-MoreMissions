@@ -23,8 +23,8 @@ local inserts_exec = {
 					ctrlProperties = { id = [[location5]] },
 				}
 			},
-			skin = [[Group]],				
-		},	
+			skin = [[Group]],
+		},
 	},
 	{
 		"modal-execterminals.lua",
@@ -49,9 +49,9 @@ local inserts_exec = {
 					ctrlProperties = { id = [[location6]] },
 				}
 			},
-			skin = [[Group]],				
-		},	
-	},	
+			skin = [[Group]],
+		},
+	},
 }
 if SCRIPT_PATHS.qedctrl then -- Controller Bindings mod support.
 	local sutil = include(SCRIPT_PATHS.qedctrl.."/screen_util")
@@ -134,7 +134,7 @@ local inserts_ai_term = {
 					},
 				},
 			},
-		},	
+		},
 	},
 	{
 		"modal-event.lua",
@@ -339,7 +339,7 @@ local inserts_ai_term = {
 						0.498039215803146,
 						0.498039215803146,
 						0.7843137383461,
-					},					
+					},
 					images =
 					{
 						{
@@ -347,9 +347,9 @@ local inserts_ai_term = {
 							name = [[]],
 						},
 					},
-				},					
+				},
 			},
-		},		
+		},
 	},
 	{
 		"mission_preview_dialog.lua",
@@ -418,8 +418,8 @@ local inserts_ai_term = {
 						0.498039215803146,
 						0.498039215803146,
 						1, --0.7843137383461,
-					},				
-				},				
+					},
+				},
 			},
 		},
 	},
@@ -498,7 +498,7 @@ local inserts_ai_term = {
 						0.498039215803146,
 						0.498039215803146,
 						0.7843137383461,
-					},					
+					},
 					images =
 					{
 						{
@@ -538,9 +538,9 @@ local inserts_ai_term = {
                                 name = [[]],
                             },
                         },
-                    },				
+                    },
 			},
-		},		
+		},
 	},
 	{
 		"mission_preview_dialog.lua",
@@ -588,15 +588,15 @@ local inserts_ai_term = {
 						1,
 						0.470588237047195,
 						1,
-					},					
+					},
 					-- color =
 					-- { --orange
 						-- 244/255,
 						-- 129/255,
 						-- 52/255,
 						-- 1, --0.7843137383461,
-					-- },				
-				},	
+					-- },
+				},
 				{
                         name = [[hostileAIface]],
                         isVisible = false, --WIP
@@ -667,7 +667,7 @@ local inserts_ai_term = {
                                     -- -200,
                                     -- -200,
                                     -- 202,
-                                    -- 300,									
+                                    -- 300,
                                 -- },
                                 ctor = [[anim]],
                                 -- animfile = [[portraits/sankaku_ai]],
@@ -683,14 +683,14 @@ local inserts_ai_term = {
                                 },
                             },
                         },
-                    },				
+                    },
 			},
 		},
-	},	
+	},
 }
 
-return 
-{ 
+return
+{
 inserts_exec = inserts_exec,
 inserts_ai_term = inserts_ai_term
 }

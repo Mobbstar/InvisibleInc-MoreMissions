@@ -5,14 +5,14 @@ local simdefs = include("sim/simdefs")
 local simquery = include("sim/simquery")
 local abilityutil = include( "sim/abilities/abilityutil" )
 
-local 	MM_summonGuard = 
+local 	MM_summonGuard =
 	{
 		name = STRINGS.MOREMISSIONS.ABILITIES.ACTIVATE_NANOFAB_CONSOLE,
 
 		-- onTooltip = function( self, hud, sim, abilityOwner, abilityUser, targetUnitID )
 			-- local tooltip = util.tooltip( hud._screen )
 			-- local section = tooltip:addSection()
-			-- local canUse, reason = abilityUser:canUseAbility( sim, self, abilityOwner, targetUnitID )		
+			-- local canUse, reason = abilityUser:canUseAbility( sim, self, abilityOwner, targetUnitID )
 			-- local targetUnit = sim:getUnit( targetUnitID )
 	        -- section:addLine( targetUnit:getName() )
 			-- if targetUnit:getTraits().luxuryNanofab_console then
@@ -23,7 +23,7 @@ local 	MM_summonGuard =
 			-- end
 			-- return tooltip
 		-- end,
-		
+
 		createToolTip = function( self, sim, unit )
 			return abilityutil.formatToolTip(STRINGS.MOREMISSIONS.ABILITIES.ACTIVATE_NANOFAB_CONSOLE, STRINGS.MOREMISSIONS.ABILITIES.ACTIVATE_NANOFAB_CONSOLE_DESC )
 		end,
@@ -33,11 +33,11 @@ local 	MM_summonGuard =
 		getName = function( self, sim, abilityOwner, abilityUser, targetUnitID )
 			return self.name
 		end,
-		
+
 		profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png",
 
 		isTarget = function( self, abilityOwner, unit, targetUnit )
-		
+
 			if targetUnit:getTraits().mainframe_status ~= "active" then
 				return false
 			end
@@ -63,9 +63,9 @@ local 	MM_summonGuard =
 
 			if abilityOwner:getTraits().cooldown and abilityOwner:getTraits().cooldown > 0 then
 				return false, util.sformat(STRINGS.UI.REASON.COOLDOWN,unit:getTraits().cooldown)
-			end	
+			end
 
-			if abilityOwner:getPlayerOwner() ~= unit:getPlayerOwner() then 
+			if abilityOwner:getPlayerOwner() ~= unit:getPlayerOwner() then
 				return false,  STRINGS.ABILITIES.TOOLTIPS.UNLOCK_WITH_INCOGNITA
 			end
 
@@ -75,16 +75,16 @@ local 	MM_summonGuard =
 		-- Mainframe system.
 
 		executeAbility = function( self, sim, abilityOwner, unit, targetUnitID )
-		
-			local targetUnit = sim:getUnit( targetUnitID )			
+
+			local targetUnit = sim:getUnit( targetUnitID )
 			local x0,y0 = unit:getLocation()
 			local x1, y1 = targetUnit:getLocation()
 
 			local facing = simquery.getDirectionFromDelta( x1 - x0, y1 - y0 )
 
-			sim:dispatchEvent( simdefs.EV_UNIT_USECOMP, { unitID = unit:getID(), targetID= targetUnitID, facing = facing, sound=simdefs.SOUNDPATH_USE_CONSOLE, soundFrame=10 } )			
+			sim:dispatchEvent( simdefs.EV_UNIT_USECOMP, { unitID = unit:getID(), targetID= targetUnitID, facing = facing, sound=simdefs.SOUNDPATH_USE_CONSOLE, soundFrame=10 } )
 			-- sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/HUD/mainframe/node_capture" )
-			
+
 			sim:triggerEvent( "MM_nanofab_summonedGuard", { unit = targetUnit, consoleUnit = abilityOwner } )
 
 			abilityOwner:getTraits().mainframe_status =  "inactive"

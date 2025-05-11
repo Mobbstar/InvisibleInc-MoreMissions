@@ -53,7 +53,7 @@ local MM_scrubcameradb = --tweaked version of monster root hub hack
 		name = STRINGS.MOREMISSIONS.ABILITIES.SCRUB_CAMERADB,
 
 		createToolTip = function( self, sim, unit )
-			return abilityutil.formatToolTip(STRINGS.MOREMISSIONS.ABILITIES.SCRUB_CAMERADB,STRINGS.MOREMISSIONS.ABILITIES.SCRUB_CAMERADB_DESC) 
+			return abilityutil.formatToolTip(STRINGS.MOREMISSIONS.ABILITIES.SCRUB_CAMERADB,STRINGS.MOREMISSIONS.ABILITIES.SCRUB_CAMERADB_DESC)
 		end,
 
 		proxy = true,
@@ -61,23 +61,23 @@ local MM_scrubcameradb = --tweaked version of monster root hub hack
 		getName = function( self, sim, abilityOwner, abilityUser, targetUnitID )
 			return self.name
 		end,
-		
+
 		alwaysShow = true,
-		
+
 		profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png",
 
 		isTarget = function( self, abilityOwner, unit, targetUnit )
-		
+
 			if targetUnit:getTraits().mainframe_status ~= "active" then
 				return false
 			end
-			
+
 			return true
 		end,
 
         acquireTargets = function( self, targets, game, sim, abilityOwner, unit )
             local units = {}
-            
+
             local x1, y1 = abilityOwner:getLocation()
             if x1 and abilityOwner:getTraits().mainframe_status == "active" and simquery.canUnitReach( sim, unit, x1, y1 ) then
                 table.insert( units, abilityOwner )
@@ -101,9 +101,9 @@ local MM_scrubcameradb = --tweaked version of monster root hub hack
 				return false, STRINGS.UI.REASON.ALREADY_HACKING
 			end
 
-			-- if unit:getTraits().MM_mole ~= true then 
+			-- if unit:getTraits().MM_mole ~= true then
 				-- return false, STRINGS.ABILITIES.HACK_ONLY_MOLE --only mole
-			-- end 
+			-- end
 
 			if abilityOwner:getPlayerOwner() ~= sim:getPC() then
 				return false, STRINGS.ABILITIES.TOOLTIPS.UNLOCK_WITH_INCOGNITA
@@ -164,5 +164,5 @@ local MM_scrubcameradb = --tweaked version of monster root hub hack
 		end,
 
 	}
-	
+
 return MM_scrubcameradb

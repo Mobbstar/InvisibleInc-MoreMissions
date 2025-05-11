@@ -14,7 +14,7 @@ local simengine = include("sim/engine")
 local simengine_tryShootAt_old = simengine.tryShootAt
 simengine.tryShootAt = function( self, sourceUnit, targetUnit, dmgt, equipped, ... )
 	if targetUnit:getTraits().MM_decoy
-	and not equipped:getTraits().noTargetAlert and not equipped:getTraits().targetNotAlerted 
+	and not equipped:getTraits().noTargetAlert and not equipped:getTraits().targetNotAlerted
 	then
 		local newTarget = assassination_mission.revealDecoy( sourceUnit:getSim(), targetUnit )
 		if newTarget and newTarget:isValid() then
@@ -30,7 +30,7 @@ simengine.tryShootAt = function( self, sourceUnit, targetUnit, dmgt, equipped, .
 	simengine_tryShootAt_old( self, sourceUnit, targetUnit, dmgt, equipped, ... )
 	if targetUnit and targetUnit:isValid() and not targetUnit:isKO() and targetUnit:getTraits().MM_bodyguard then
 		self:triggerEvent("MM_shotAtBodyguard", {sourceUnit = sourceUnit, targetUnit = targetUnit, dmgt = dmgt, equipped = equipped })
-	end		
+	end
 end
 
 local simengine_hitUnit_old = simengine.hitUnit
@@ -50,7 +50,7 @@ end
 local sim_damageUnit_old = simengine.damageUnit
 simengine.damageUnit = function( self,  targetUnit, srcDamage, kodamage, fx, sourceUnit, ... )
 	local x1,y1 = targetUnit:getLocation()
-	local damage = srcDamage	
+	local damage = srcDamage
 	if targetUnit:getTraits().MM_decoy then
 		local newTarget = assassination_mission.revealDecoy( self, targetUnit )
 		if newTarget and newTarget:isValid() then

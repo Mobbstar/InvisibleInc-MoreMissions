@@ -32,7 +32,7 @@ local ice_boost = 2 --variable for firewall-boosting security measure
 local CHANCE_OF_GOOSE = 0.2
 
 local PC_WON =
-{		
+{
 	priority = 10,
 
 	trigger = simdefs.TRG_GAME_OVER,
@@ -49,7 +49,7 @@ local function queueCentral(script, scripts) --really informative huh
 	for k, v in pairs(scripts) do
 		script:queue( { script=v, type="newOperatorMessage" } )
 		script:queue(0.5*cdefs.SECONDS)
-	end	
+	end
 end
 
 -- DISABLING SECURITY MEASURE
@@ -57,11 +57,11 @@ local SWITCH_RESET =
     {
         trigger = simdefs.TRG_MAP_EVENT,
         fn = function( sim, eventData )
-            if eventData.event == simdefs.MAP_EVENTS.RESET_SWITCH then 
+            if eventData.event == simdefs.MAP_EVENTS.RESET_SWITCH then
 				-- log:write("[MM] map event")
 				-- log:write(util.stringize(eventData,3))
                 return true
-            end 
+            end
         end
     }
 
@@ -70,29 +70,29 @@ local MULTISWITCHES_USED =
     {
         trigger = simdefs.TRG_MAP_EVENT,
         fn = function( sim, eventData )
-            if eventData.event == simdefs.MAP_EVENTS.SWITCH then 
+            if eventData.event == simdefs.MAP_EVENTS.SWITCH then
 				-- log:write("[MM] map event2")
-				-- log:write(util.stringize(eventData,3))		
+				-- log:write(util.stringize(eventData,3))
 				if eventData.data == "MM_multilock" then --need to test how this interacts with vanilla switches. IIRC the power relay switch trigger doesn't check for eventData.data. So you could get erroneous triggering in one direction but not the other
 					-- log:write("[MM] multiswitches used")
 					return true
 				end
-            end 
+            end
         end
     }
 
-	
+
 local function androidFX(script,sim)
 
-	local android_number = 2 --1,2 or 3 based on difficulty, TO DO 
-	
+	local android_number = 2 --1,2 or 3 based on difficulty, TO DO
+
 	local droid_props = {}
 	for i,unit in pairs(sim:getAllUnits()) do
 		if unit:hasTag("MM_droid_dummy") then
 			table.insert(droid_props,unit)
 		end
 	end
-	
+
 	local spawnedpool = {}
 	while #spawnedpool < android_number do
 		local i = sim:nextRand(1,#droid_props)
@@ -106,24 +106,24 @@ local function androidFX(script,sim)
 		script:queue( {type="finalHallLight",cell=cell,console=unit} ) --I LIKE MY FX OKAY
 	end
 	sim.androidSpawnedPool = spawnedpool
-	
+
 	for i,simunit in pairs (sim:getAllUnits()) do
 		if simunit:getTraits().cell_door then
-			sim:dispatchEvent( simdefs.EV_UNIT_PLAY_ANIM, {unit= simunit, anim="open", sound="SpySociety/Objects/detention_door_shutdown" } )			
+			sim:dispatchEvent( simdefs.EV_UNIT_PLAY_ANIM, {unit= simunit, anim="open", sound="SpySociety/Objects/detention_door_shutdown" } )
 			sim:warpUnit( simunit, nil )
 			sim:despawnUnit( simunit )
 		end
-	end	
-	
-end	
-	
+	end
+
+end
+
 local function spawnAndroids(script,sim)
-	local enemy = mission_util.findUnitByTag( sim, "spawningDroid" ) 
+	local enemy = mission_util.findUnitByTag( sim, "spawningDroid" )
 	local enemies = {}
 	for i,unit in pairs(sim:getAllUnits()) do
 		if unit:hasTag("spawningDroid") then
 			table.insert(enemies, unit)
-			unit:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB) 
+			unit:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB)
 		end
 	end
 	assert (#enemies > 0)
@@ -135,7 +135,7 @@ local function spawnAndroids(script,sim)
 	local x1,y1 = enemy:getLocation()
 	script:queue( {type = "pan", x=x1, y=y1 } )
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/reboot_initiated_scanner" )
-	script:queue(1*cdefs.SECONDS )  
+	script:queue(1*cdefs.SECONDS )
 	local scripts = SCRIPTS.INGAME.WEAPONS_EXPO.LOOTED_CASE_DROIDS_BOOTING
 	queueCentral(script, scripts)
 
@@ -143,15 +143,15 @@ local function spawnAndroids(script,sim)
 	for i, unit in pairs(enemies) do
 		unit:destroyTab()
 	end
-	
-	script:waitFor( mission_util.PC_START_TURN )	
+
+	script:waitFor( mission_util.PC_START_TURN )
 
 	local droid_props = sim.androidSpawnedPool
 	sim:dispatchEvent( simdefs.EV_PLAY_SOUND, "SpySociety/Actions/reboot_complete_scanner" )
 	for i=#droid_props, 1, -1 do
 		local unit = droid_props[i]
 		local facing = unit:getFacing()
-		local template = unitdefs.lookupTemplate("MM_prototype_droid") 
+		local template = unitdefs.lookupTemplate("MM_prototype_droid")
 		if unit:getTraits().spec_droid then
 			template = unitdefs.lookupTemplate("MM_prototype_droid_spec")
 			if unit:getTraits().spec_goose then
@@ -163,9 +163,9 @@ local function spawnAndroids(script,sim)
 		sim:warpUnit( unit, nil )
 		sim:despawnUnit( unit )
 
-		newUnit:setPlayerOwner(sim:getNPC())		
+		newUnit:setPlayerOwner(sim:getNPC())
 		sim:spawnUnit( newUnit )
-		newUnit:setFacing(facing)			
+		newUnit:setFacing(facing)
 		sim:warpUnit( newUnit, cell )
 		sim:dispatchEvent( simdefs.EV_UNIT_OVERWATCH_MELEE, { unit = newUnit, cancel=true})
 		newUnit:setPather(sim:getNPC().pather)
@@ -184,48 +184,48 @@ local function spawnAndroids(script,sim)
 		end
 		sim:getPC():glimpseCell(sim, cell)
 		sim:processReactions( newUnit )
-		
+
 		local x0, y0 = newUnit:getLocation()
 		newUnit:getBrain():spawnInterest(x0,y0, sim:getDefs().SENSE_DEBUG, sim:getDefs().REASON_NOTICED) --lazy way of making it investigate its own tile first
 		-- if newUnit:getBrain() then
 			-- newUnit:getBrain():getSenses():addInterest( x0, y0, simdefs.REASON_KO, newUnit )
 		-- end
-		sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newUnit } )	
-		sim.exit_warning = nil	
+		sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = newUnit } )
+		sim.exit_warning = nil
 	end
-	
+
 end
 
 -- TRANSFORMER SUB GOAL
-local function MM_transformer_seeswitch( script, sim ) 
-    local _, switch1 = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "MM_switch_subgoal_seen", STRINGS.DLC1.MISSIONS.SIDEMISSIONS.TRANSFORMER_RELAY_SWITCH,"" ) )   
+local function MM_transformer_seeswitch( script, sim )
+    local _, switch1 = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "MM_switch_subgoal_seen", STRINGS.DLC1.MISSIONS.SIDEMISSIONS.TRANSFORMER_RELAY_SWITCH,"" ) )
     if not sim:hasTag("MM_transformer_start") then
         sim:getTags().MM_transformer_start = true
         switch1:removeTag("MM_switch_subgoal_seen")
         local x1, y1 = switch1:getLocation()
         script:queue( { type="pan", x=x1, y=y1 } )
-        script:queue(1*cdefs.SECONDS )  
-		
+        script:queue(1*cdefs.SECONDS )
+
 		local scripts = SCRIPTS.INGAME.WEAPONS_EXPO.SAW_SWITCH
 		queueCentral(script, scripts)
 		sim:removeObjective("find_switches")
         sim:addObjective( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_SWITCHES_OBJECTIVE, "MM_transformer_switches" )
     end
 
-    local _, switch2 = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "MM_switch_subgoal_seen", STRINGS.DLC1.MISSIONS.SIDEMISSIONS.TRANSFORMER_RELAY_SWITCH,"" ) ) 
+    local _, switch2 = script:waitFor( mission_util.SAW_SPECIAL_TAG(script, "MM_switch_subgoal_seen", STRINGS.DLC1.MISSIONS.SIDEMISSIONS.TRANSFORMER_RELAY_SWITCH,"" ) )
     script:waitFor( MULTISWITCHES_USED )
     switch1:destroyTab()
     switch2:destroyTab()
 end
 
 local function MM_transformer_switchReset( script, sim )
-    script:waitFor( SWITCH_RESET )    
+    script:waitFor( SWITCH_RESET )
     script:queue( 1*cdefs.SECONDS )
     script:queue( { script=SCRIPTS.INGAME.SIDEMISSIONS.CENTRAL_SWITCH_RESET, type="newOperatorMessage" } ) --can keep vanilla for this I guess
     script:addHook( MM_transformer_switchReset )
 end
 
-local function MM_transformer( script, sim ) 
+local function MM_transformer( script, sim )
 
     for i,unit in pairs(sim:getAllUnits())do
         if unit:hasTag("MM_switch_subgoal") then
@@ -239,7 +239,7 @@ local function MM_transformer( script, sim )
     sim:removeObjective( "MM_transformer_switches" )
 	sim.MM_security_disabled = true
 	-- log:write("[MM] disable security")
-    script:queue( 1*cdefs.SECONDS )     
+    script:queue( 1*cdefs.SECONDS )
 	local scripts = SCRIPTS.INGAME.WEAPONS_EXPO.DISABLED_SWITCH
 	queueCentral(script, scripts)
 end
@@ -288,13 +288,13 @@ local function MM_checkTopGearSafes( sim )
 	local techList = {}
 	for k,v in pairs(itemdefs) do
 		if v.traits and v.traits.MM_tech_expo_weapon then
-			table.insert(itemList,v)				
+			table.insert(itemList,v)
 		end
 		if v.traits and v.traits.MM_tech_expo_nonweapon then
 			table.insert(techList, v)
 		end
 	end
-	
+
 	-- log:write(util.stringize(itemList,2))
 	local safes = {}
 	for i,unit in pairs(sim:getAllUnits()) do
@@ -319,17 +319,17 @@ local function MM_checkTopGearSafes( sim )
 			table.remove(techList, pos)
 		end
 		if item then
-			local newItem = simfactory.createUnit( item, sim )						
+			local newItem = simfactory.createUnit( item, sim )
 			sim:spawnUnit( newItem )
 			-- log:write("[MM] newItem")
 			-- log:write(util.stringize(newItem:getUnitData().name,2))
 			newItem:getTraits().artifact = true --for safe to display the loot symbol
-			unit:addChild( newItem )	
+			unit:addChild( newItem )
 			local itemName = newItem:getUnitData().name
 			unit:getTraits().MM_tech_expo_contents = itemName
-			newItem:addTag("MM_topGearItem") -- For the UI loot hook	
-			sim.totalTopGear = sim.totalTopGear or 0 
-			sim.totalTopGear = sim.totalTopGear + 1 
+			newItem:addTag("MM_topGearItem") -- For the UI loot hook
+			sim.totalTopGear = sim.totalTopGear or 0
+			sim.totalTopGear = sim.totalTopGear + 1
 		end
 		-- log:write(util.stringize(newItem._tags,3))
 	end
@@ -341,9 +341,9 @@ local function updateAgency( sim, agency )
 	agency.MM_techexpo_done = agency.MM_techexpo_done + 1
 end
 
-local function MM_checkTopGearItem( script, sim )	
+local function MM_checkTopGearItem( script, sim )
 	local _, topGearSafe = script:waitFor( mission_util.PC_SAW_UNIT("MM_topGear") )
-	-- topGearSafe:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB) 
+	-- topGearSafe:createTab( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING,STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_DROIDS_WARNING_SUB)
 	local scripts = SCRIPTS.INGAME.WEAPONS_EXPO.FOUND_EXPO_DISABLED_SEC
 	if not sim.MM_security_disabled then
 		scripts = SCRIPTS.INGAME.WEAPONS_EXPO.FOUND_EXPO
@@ -354,29 +354,29 @@ local function MM_checkTopGearItem( script, sim )
 	script:queue(1*cdefs.SECONDS )
 	queueCentral(script, scripts)
 	topGearSafe:destroyTab()
-	
+
 	local _, item, agent = script:waitFor( mission_util.PC_TOOK_UNIT_WITH_TAG( "MM_topGearItem" ))
-    
+
 	sim:setClimax(true)
     script:waitFor( mission_util.UI_LOOT_CLOSED )
     sim:triggerEvent( "TRG_OBJ_COMPLETE", { missionType = "weapons_expo" } )
     sim:removeObjective( OBJECTIVE_ID )
-	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then	
+	if sim:getParams().difficultyOptions.MM_difficulty and (sim:getParams().difficultyOptions.MM_difficulty == "hard") then
 		sim:getNPC():addMainframeAbility( sim, "authority", nil, 0 ) --add Authority daemon (with no reversal) after first one looted
 	end
     script:waitFrames( .5*cdefs.SECONDS )
 	sim.exit_warning = nil
 	androidFX(script,sim)
 	script:addHook(spawnAndroids)
-	
+
 	script:waitFrames( 1.5*cdefs.SECONDS )
-	
+
 	scripts = SCRIPTS.INGAME.WEAPONS_EXPO.LOOTED_CASE_DROIDS_BOOTING
-	
+
 	-- script:waitFor( PC_WON ) --moved agency changes to DoFinishMission
-	
+
 	sim.MM_agencyUpdates = sim.MM_agencyUpdates or {}
-	table.insert( sim.MM_agencyUpdates, updateAgency )	
+	table.insert( sim.MM_agencyUpdates, updateAgency )
 end
 
 local UNIT_ESCAPE =
@@ -432,7 +432,7 @@ local function countUnstolenTech(script,sim)
 					table.insert(not_stolen, unit )
 				end
 			end
-		end				
+		end
 		local stolen = sim.totalTopGear -(#not_stolen)  --sim.totalTopGear should always be 5 with these prefabs
 		log:write("[MM] stolen " .. tostring(stolen))
 		if (stolen > 0) and (stolen < sim.totalTopGear) then
@@ -448,7 +448,7 @@ local function countUnstolenTech(script,sim)
 	end
 
 end
-		
+
 local function specGooseEasterEgg( sim )
 	-- if sim:getParams().agency.MM_techexpo_done_savefile then
 		-- log:write("[MM] PLAYER DID TEXPO")
@@ -457,7 +457,7 @@ local function specGooseEasterEgg( sim )
 	-- if not sim:getParams().agency.MM_techexpo_done or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance on first tech expo per campaign
 	if not sim:getParams().agency.MM_techexpo_done_savefile or not (sim:nextRand() <= CHANCE_OF_GOOSE) then --suppress goose chance if player has not yet done texpo mission across all saves
 		-- log:write("[MM] suppressing tech expo easter egg")
-		return	
+		return
 	end
 	log:write("[MM] tech expo easter egg")
 	for i, unit in pairs(sim:getAllUnits()) do
@@ -466,15 +466,15 @@ local function specGooseEasterEgg( sim )
 			local cell = sim:getCell(unit:getLocation())
 			sim:warpUnit( unit, nil )
 			sim:despawnUnit( unit )
-			local template = unitdefs.lookupTemplate("MM_prototype_specgoose_prop") 
+			local template = unitdefs.lookupTemplate("MM_prototype_specgoose_prop")
 			local newUnit = simfactory.createUnit(template,sim)
 			sim:spawnUnit(newUnit)
 			newUnit:setFacing(facing)
 			sim:warpUnit( newUnit, cell )
 			break
 		end
-	end	
-end		
+	end
+end
 ---------------------------------------------------------------------------------------------
 -- Mission
 
@@ -498,9 +498,9 @@ function mission:init( scriptMgr, sim )
 		end
 	end
     escape_mission.init( self, scriptMgr, sim )
-	
+
     -- local isEndless = sim:getParams().difficultyOptions.maxHours == math.huge
-  
+
 	MM_checkTopGearSafes( sim )
 
 	sim.exit_warning = STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_WARN_EXIT
@@ -508,16 +508,16 @@ function mission:init( scriptMgr, sim )
 	scriptMgr:addHook( "TECH_EXPO_BOOST_FIREWALLS", boost_firewalls )
 	scriptMgr:addHook( "TECH_EXPO_COUNT_UNSTOLEN_TECH", countUnstolenTech )
 	scriptMgr:addHook( "MM_TRANSFORMER", MM_transformer )
-    sim:addObjective( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_OBJECTIVE, OBJECTIVE_ID )			
-			
+    sim:addObjective( STRINGS.MOREMISSIONS.UI.WEAPONS_EXPO_OBJECTIVE, OBJECTIVE_ID )
+
     --This picks a reaction rant from Central on exit based upon whether or not an agent has escaped with the loot yet.
     local scriptfn = function()
 		local scripts = (sim.MM_got_all_tech and SCRIPTS.INGAME.WEAPONS_EXPO.CENTRAL_JUDGEMENT.GOT_FULL) or (sim.MM_got_partial_tech and SCRIPTS.INGAME.WEAPONS_EXPO.CENTRAL_JUDGEMENT.GOT_PARTIAL) or SCRIPTS.INGAME.WEAPONS_EXPO.CENTRAL_JUDGEMENT.NO_LOOT
         local scr = scripts[sim:nextRand(1, #scripts)]
         return scr
     end
-    scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))	
-		
+    scriptMgr:addHook( "FINAL", mission_util.CreateCentralReaction(scriptfn))
+
 end
 
 
@@ -536,7 +536,7 @@ function mission.pregeneratePrefabs( cxt, tagSet )
 end
 
 function mission.generatePrefabs( cxt, candidates )
-    local prefabs = include( "sim/prefabs" )   
+    local prefabs = include( "sim/prefabs" )
 	if cxt.params.side_mission and (cxt.params.side_mission == "transformer") then
 		-- log:write("[MM] params transformer2")
 		cxt.params.side_mission = "data scrub"--nil

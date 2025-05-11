@@ -32,15 +32,15 @@ local function onMainframeTooltip( tooltip, unit )
 		elseif	unit:getTraits().luxuryNanofab == "WEAPONS" then
 			itemType_icon = "gui/icons/item_icons/items_icon_small/icon-item_gun_dart_small.png"
 		end
-		
+
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_TYPE, (STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_TYPE_DESC .. " " .. unit:getTraits().luxuryNanofab), itemType_icon)
 	end
 	if unit:getTraits().luxuryNanofab_console then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_CONSOLE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NANOFAB_CONSOLE_DESC, "gui/icons/arrow_small.png" )
 	end
 	if unit:getTraits().MM_hasAICard then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.DOOR_LOCK_ACCESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LOCK_ACCESS_SAFE_DESC, "gui/icons/mission_icons/mission_ai_terminal_small.png" )		
-	end	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.DOOR_LOCK_ACCESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LOCK_ACCESS_SAFE_DESC, "gui/icons/mission_icons/mission_ai_terminal_small.png" )
+	end
 end
 
 -- this is necessary to add a custom tooltip to a Console.
@@ -49,9 +49,9 @@ local console_tooltip_old = propdefs.console.onWorldTooltip
 propdefs.console.onWorldTooltip = function( tooltip, unit, hud )
 	console_tooltip_old( tooltip, unit, hud )
 	if unit:getTraits().MM_AIconsole then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.DOOR_LOCK_ACCESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LOCK_ACCESS_CONSOLE_DESC, "gui/icons/mission_icons/mission_ai_terminal_small.png" )	
-	end	
-end		
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.DOOR_LOCK_ACCESS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LOCK_ACCESS_CONSOLE_DESC, "gui/icons/mission_icons/mission_ai_terminal_small.png" )
+	end
+end
 
 local function onItemTooltip(tooltip, unit)
 	if unit:getTraits().MM_tech_expo_item then
@@ -96,7 +96,7 @@ local function onAgentTooltip(tooltip, unit)
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED, STRINGS.MOREMISSIONS.UI.TOOLTIPS.REPROGRAMMED_DESC, "gui/icons/arrow_small.png" )
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END, STRINGS.MOREMISSIONS.UI.TOOLTIPS.LEAVES_AT_END_DESC, "gui/icons/arrow_small.png" )
 		tooltip:addAbility(STRINGS.MOREMISSIONS.UI.TOOLTIPS.CAN_JACKIN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.CAN_JACKIN_DESC, "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small.png")
-	end	
+	end
 end
 
 local function onGuardTooltip(tooltip, unit)
@@ -111,11 +111,11 @@ local function onGuardTooltip(tooltip, unit)
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_PATROL_CHANGE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_PATROL_CHANGE_DESC, "gui/icons/arrow_small.png" )
 	end
 	if unit:getTraits().MM_amnesiac then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT_DESC, "gui/icons/arrow_small.png" )	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NO_ALERT_DESC, "gui/icons/arrow_small.png" )
 	end
 	if unit:getTraits().MM_bodyguard and not unit:getTraits().MM_alertlink then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BODYGUARD_KEEPCLOSE_DESC, "gui/icons/skills_icons/skills_icon_small/icon-item_reflex_small.png" )
-	end	
+	end
 	if unit:getTraits().MM_bounty_target and not unit:getTraits().MM_ceo_armed then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_PARANOID, STRINGS.MOREMISSIONS.UI.TOOLTIPS.TARGET_PARANOID_DESC, "gui/icons/action_icons/Action_icon_Small/icon-item_hide_small.png" )
 	end
@@ -143,32 +143,32 @@ local function onGuardTooltip(tooltip, unit)
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.BOSSUNIT, STRINGS.MOREMISSIONS.UI.TOOLTIPS.BOSSUNIT_DESC,  "gui/icons/skills_icons/skills_icon_small/icon-item_accuracy_small.png" )
 	end
 	if unit:getTraits().MM_refitDroneRescue then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.OPPORTUNITY_ALLY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.OPPORTUNITY_ALLY_DESC,  "gui/icons/item_icons/items_icon_small/icon-item_heart.png" )	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.OPPORTUNITY_ALLY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.OPPORTUNITY_ALLY_DESC,  "gui/icons/item_icons/items_icon_small/icon-item_heart.png" )
 	end
 	if unit:getTraits().MM_noticesHidden then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.INFRARED_SENSORS, STRINGS.MOREMISSIONS.UI.TOOLTIPS.INFRARED_SENSORS_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action_infrared.png" )
 	end
 	if unit:getTraits().idle_scanning then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.IDLE_SCAN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.IDLE_SCAN_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action-idle_scan.png" )	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.IDLE_SCAN, STRINGS.MOREMISSIONS.UI.TOOLTIPS.IDLE_SCAN_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action-idle_scan.png" )
 	end
 	if unit:getTraits().stationaryRotating then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.SURVEYOR, STRINGS.MOREMISSIONS.UI.TOOLTIPS.SURVEYOR_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action_surveyor.png" )
 	end
 	if unit:getTraits().zap_attack then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.ZAP_ATTACK, STRINGS.MOREMISSIONS.UI.TOOLTIPS.ZAP_ATTACK_DESC, "gui/icons/item_icons/items_icon_small/icon-item_chargeweapon_small.png" )
-	end	
+	end
 	if unit:getTraits().decoyTooltip then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.DECOY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.DECOY_DESC, "gui/icons/item_icons/items_icon_small/icon-item_holomesh_Prism.png" )	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.DECOY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.DECOY_DESC, "gui/icons/item_icons/items_icon_small/icon-item_holomesh_Prism.png" )
 	end
 end
 
 local function onItemWorldTooltip( tooltip, unit )
 	if unit:getTraits().MM_destroyedNotCarryable then
-		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NOT_CARRYABLE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NOT_CARRYABLE_DESC, "gui/icons/arrow_small.png" )	
+		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.NOT_CARRYABLE, STRINGS.MOREMISSIONS.UI.TOOLTIPS.NOT_CARRYABLE_DESC, "gui/icons/arrow_small.png" )
 	end
 end
 
-return 
+return
 {
 	onMainframeTooltip = onMainframeTooltip,
 	onItemTooltip = onItemTooltip,

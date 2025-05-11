@@ -11,7 +11,7 @@ function talkinghead_ingame:ShowLine(idx)
     if not self.script[#self.script].placeHolder then
         table.insert( self.script, { placeHolder = true } )
     end
-    
+
     if self.ismainframefn() then
         -- You can add additional delay or wait conditions here
         while self.ismainframefn() do
@@ -20,14 +20,14 @@ function talkinghead_ingame:ShowLine(idx)
 
         rig_util.wait( (self.script[idx].timing or 5) * cdefs.SECONDS)
     end
-    
+
     if self.script[idx].placeHolder then
         -- This runs after the final line has been played
         table.remove(self.script)
-        
+
         self:Halt()
         return
     end
-    
+
     oldShowLine(self, idx)
 end

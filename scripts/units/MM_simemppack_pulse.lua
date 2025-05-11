@@ -24,8 +24,8 @@ function emp:detonate( sim )
 	if self:getTraits().flash_pack then
 		local sim, player = self:getSim(), self:getPlayerOwner()
 
-		sim:startTrackerQueue(true)				
-		sim:startDaemonQueue()			
+		sim:startTrackerQueue(true)
+		sim:startDaemonQueue()
 	    sim:dispatchEvent( simdefs.EV_KO_GROUP, true )
 	    local cells = self:getExplodeCells()
 
@@ -38,7 +38,7 @@ function emp:detonate( sim )
 
 						local damage = self:getTraits().baseDamage
 						damage = cellUnit:processKOresist( damage )
-				   			
+
 						cellUnit:setKO(sim, damage)
 					else
 						sim:damageUnit(cellUnit, self:getTraits().baseDamage)
@@ -48,13 +48,13 @@ function emp:detonate( sim )
 		end
 
 	    sim:dispatchEvent( simdefs.EV_KO_GROUP, false )
-		sim:startTrackerQueue(false)				
-		sim:processDaemonQueue()	
+		sim:startTrackerQueue(false)
+		sim:processDaemonQueue()
 	else
-		
+
 	    local units = self:getTargets( x0, y0 )
 
-		-- CHANGES FROM VANILLA HERE	
+		-- CHANGES FROM VANILLA HERE
 		for i = self:getTraits().multiPulse, 1, -1 do
 			-- sim:dispatchEvent( simdefs.EV_OVERLOAD_VIZ, {x = x0, y = y0, units = units, range = self:getTraits().range } )
 			sim:emitSound( simdefs.SOUND_SMALL, x0, y0, nil )
@@ -64,12 +64,12 @@ function emp:detonate( sim )
 				if unit and unit:isValid() and unit:getLocation() then
 					unit:processEMP( self:getTraits().emp_duration, true )
 				end
-			end		
+			end
 		end
 
 	end
 
-	-- Destroy the DEVICE.			
+	-- Destroy the DEVICE.
 	sim:processReactions(self)
 
 	sim:warpUnit( self, nil )
@@ -81,18 +81,18 @@ function emp:onWarp(sim)
 		if self:getLocation() then
 			sim:addTrigger( simdefs.TRG_END_TURN, self )
 		else
-			sim:removeTrigger( simdefs.TRG_END_TURN, self )		
+			sim:removeTrigger( simdefs.TRG_END_TURN, self )
 		end
 	end
-end 
+end
 
 function emp:onTrigger( sim, evType, evData )
 	if evType == simdefs.TRG_END_TURN then
 		if self:getTraits().primed then
-			self:detonate( sim )	
-			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = self} ) 		
+			self:detonate( sim )
+			sim:dispatchEvent( simdefs.EV_UNIT_REFRESH, { unit = self} )
 		end
-		
+
 	end
 end
 
@@ -114,7 +114,7 @@ function emp:getTargets( x0, y0 )
 					end
 				end
 			end
-		end	   
+		end
 	else
 		cells = simquery.rasterCircle( self._sim, x0, y0, self:getTraits().range )
 	end
@@ -152,10 +152,10 @@ function emp:getExplodeCells(x0,y0)
 		for i=1,#coords-1,2 do
 			local cell = self._sim:getCell(coords[i],coords[i+1])
 			if cell then
-			local raycastX, raycastY = self._sim:getLOS():raycast(x0, y0, cell.x, cell.y)			
+			local raycastX, raycastY = self._sim:getLOS():raycast(x0, y0, cell.x, cell.y)
 				if raycastX == cell.x and raycastY == cell.y then
 					table.insert(cells, cell)
-				end			
+				end
 			end
 		end
 	end

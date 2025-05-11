@@ -53,7 +53,7 @@ local MM_modify_item =
 	ghostable = true,
 
 	canUseAbility = function( self, sim, unit, userUnit )
-			   
+
 		if not simquery.canUnitReach( sim, userUnit, unit:getLocation() ) then
 			return false
 		end
@@ -72,11 +72,11 @@ local MM_modify_item =
 
 		end
 
-		if unit:getPlayerOwner() ~= userUnit:getPlayerOwner() and unit:getTraits().mainframe_status == "active" then 
+		if unit:getPlayerOwner() ~= userUnit:getPlayerOwner() and unit:getTraits().mainframe_status == "active" then
 			return false, STRINGS.ABILITIES.TOOLTIPS.UNLOCK_WITH_INCOGNITA
 		end
 
-		if unit:getTraits().used then 
+		if unit:getTraits().used then
 			return false, STRINGS.UI.REASON.MACHINE_USED
 		end
 
@@ -89,7 +89,7 @@ local MM_modify_item =
 			local upgrade_option = {}
 			table.insert(upgrade_option, UPGRADE_OPTIONS.CANCEL)
 			local dialog_txt = util.sformat( STRINGS.MOREMISSIONS.ABILITIES.MOD_ITEM_DIALOG_TXT, itemUnit:getName() )
-			
+
 			local itemValue = itemUnit:getUnitData().value
 			if not itemValue or itemUnit:getTraits().is_modified then
 				--item not modifiable
@@ -126,7 +126,7 @@ local MM_modify_item =
 					table.insert(upgrade_option, UPGRADE_OPTIONS.USES)
 				end
 			end
-			
+
 			if #upgrade_option > 0 then
 				local option = showDialog( sim, STRINGS.MOREMISSIONS.ABILITIES.MOD_ITEM_DIALOG_TITLE, dialog_txt, upgrade_option )
 				local modification_done = false
@@ -150,7 +150,7 @@ local MM_modify_item =
 					itemUnit:getTraits().ammo = (itemUnit:getTraits().ammo or 0) + 1
 					if itemUnit:getTraits().ammo_clip then
 						itemUnit:getTraits().ammo_clip = (itemUnit:getTraits().ammo_clip or 0) + 1
-					end					
+					end
 					itemUnit:getTraits().MM_modded_item_trait = UPGRADE_OPTIONS.AMMO
 					itemUnit:getTraits().is_modified = true
 					modification_done = true
@@ -193,7 +193,7 @@ local MM_modify_item =
 					itemUnit:getTraits().is_modified = true
 					modification_done = true
 				end
-				
+
 				if modification_done then
 					unit:getTraits().used = true
 					sim:triggerEvent( "MM_workshop_used", {unit=unit, userUnit=userUnit} )

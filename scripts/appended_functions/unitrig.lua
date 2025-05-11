@@ -23,7 +23,7 @@ unitrig.rig.refreshProp = function( self, refreshLoc )
 	if unit:getTraits().staticAnim then
 		self:setPlayMode( KLEIAnim.STOP )
 	end
-	
+
 	if not self._droidFX then
 		self._droidFX = self:createHUDProp("kanim_null_fx", "effect", "idle", self._boardRig:getLayer("floor"), self._prop )
 		self._droidFX:setSymbolModulate("innercicrle",1,1,1,0.75)
@@ -35,13 +35,13 @@ unitrig.rig.refreshProp = function( self, refreshLoc )
 	else
 		self._droidFX:setVisible(false)
 	end
-	
+
 	return ret
 end
 
 unitrig.rig.destroy = function( self )
 	olddestroy( self )
 	if self._droidFX then
-		self._boardRig:getLayer("floor"):removeProp( self._droidFX  )			
+		self._boardRig:getLayer("floor"):removeProp( self._droidFX  )
 	end
 end

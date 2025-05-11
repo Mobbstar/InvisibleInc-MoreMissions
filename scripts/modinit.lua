@@ -12,7 +12,7 @@ local function earlyInit( modApi )
 
 	local scriptPath = modApi:getScriptPath()
 	rawset(_G,"SCRIPT_PATHS",rawget(_G,"SCRIPT_PATHS") or {})
-	SCRIPT_PATHS.more_missions = scriptPath	
+	SCRIPT_PATHS.more_missions = scriptPath
 	SCRIPT_PATHS.name_dialog = include( scriptPath .. "/hud/name_dialog" )
 	include( scriptPath .. "/hud/hud_name_dialog" )
 
@@ -66,17 +66,17 @@ local function init( modApi )
 		value=4,
 		noUpdate = true,
 	})
-	
-	modApi:addGenerationOption("MM_exec_terminals", STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS, STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS_DESC,
-	{ noUpdate = true,})	
 
-	modApi:addGenerationOption("MM_spawnTable_droids" , STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS, STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_DESC, {values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99999}, value=5, strings = STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_VALUES, noUpdate = true} )		
-	
+	modApi:addGenerationOption("MM_exec_terminals", STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS, STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS_DESC,
+	{ noUpdate = true,})
+
+	modApi:addGenerationOption("MM_spawnTable_droids" , STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS, STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_DESC, {values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99999}, value=5, strings = STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_VALUES, noUpdate = true} )
+
 	modApi:addGenerationOption("MM_hard_mode",  STRINGS.MOREMISSIONS.OPTIONS.HARD_MODE , STRINGS.MOREMISSIONS.OPTIONS.HARD_MODE_TIP, {enabled = false, noUpdate=true } )
 
 	-- patch automatic tracker
 	include( scriptPath .. "/appended_functions/simplayer" )
-	
+
 	--cannot set display string... local variable only -M
 	table.insert(modApi.mod_manager.credit_sources, "assassinationreward")
 
@@ -106,23 +106,23 @@ local function init( modApi )
 	local modifyPrograms = include( scriptPath .. "/abilities/mainframe_abilities" )
 	modifyPrograms()
 	-- double-included here in init and in lateLoad to catch both vanilla overrides and mod additions. Upgraded programs with abilityOverride such as Fusion DO NOT WORK without this line!
-	
+
 	util.tmerge( STRINGS.LOADING_TIPS, STRINGS.MOREMISSIONS.LOADING_TIPS  ) --add new loading screen tooltips
-	
+
 	-- adding datalogs
 	local logs = include( scriptPath .. "/logs" )
 	for i,log in ipairs(logs) do
 		modApi:addLog(log)
 	end
-	
+
 end
 
 local function lateInit( modApi )
 	local dataPath = modApi:getDataPath()
 	local scriptPath = modApi:getScriptPath()
-	
+
 	-- include( scriptPath .. "/appended_functions/talkingheadfix") -- prevent Operator messages during mainframe mode, if we want this
-	
+
 	-- MOLE_INSERTION
 	-- custom intelligence benefit
 	-- DoFinishMission: tick and despawn existing intel bonuses if needed
@@ -134,23 +134,23 @@ local function lateInit( modApi )
 	local mission_util_lateInit = include( scriptPath .. "/appended_functions/mission_util_lateInit")
 	-- Similar edit is done in Load to mid_1!
 	mission_util_lateInit.runAppend( modApi )
-	
+
 	-- includes simunit as well as simdrone appends
 	include( scriptPath .. "/appended_functions/units_lateInit")
-	
+
 	include( scriptPath .. "/appended_functions/abilities/paralyze") -- Amnesiac functionality
 	include( scriptPath .. "/appended_functions/abilities/icebreak")
 	include( scriptPath .. "/appended_functions/abilities/useInvisiCloak")
-	include( scriptPath .. "/appended_functions/abilities/use_stim")	
+	include( scriptPath .. "/appended_functions/abilities/use_stim")
 	include( scriptPath .. "/appended_functions/abilities/observePath")
-	
+
 	include( scriptPath .. "/appended_functions/engine_lateInit")
 	local worldgen_append = include( scriptPath .. "/appended_functions/worldgen")
 	worldgen_append.runAppend()
-	
+
 	include( scriptPath .. "/appended_functions/state-map-screen") --for Informant map screen UI
 	include( scriptPath .. "/appended_functions/state-postgame") -- for Texpo easter egg
-	
+
 end
 
 --The implementation of array.removeAllElements is not optimal for our purposes, and we also need something to remove dupes, so might as well combine it all. -M
@@ -191,7 +191,7 @@ local function unloadCommon( modApi, options )
 		if not array.find(simdefs.DEFAULT_MISSION_TAGS, tag) then
 			table.insert(simdefs.DEFAULT_MISSION_TAGS, tag)
 		end
-	end	
+	end
 
 end
 
@@ -205,7 +205,7 @@ end
 local function load( modApi, options, params )
 	--before doing anything, clean up
 	unloadCommon( modApi, options )
-	
+
 	local serverdefs = include( "modules/serverdefs" )
 	local scriptPath = modApi:getScriptPath()
 
@@ -214,7 +214,7 @@ local function load( modApi, options, params )
 		params.MM_difficulty = generationOptionEnabled(options, "MM_hard_mode", true) and "hard" or "easy"
 		if generationOptionEnabled(options, "MM_exec_terminals") then
 			params.MM_exec_terminals = true
-		end	
+		end
 		if generationOptionEnabled(options, "MM_sidemission_rebalance") then
 			params.MM_sidemission_rebalance = true
 		end
@@ -453,7 +453,7 @@ local function load( modApi, options, params )
 	reinclude = include --necessary for tweaking mid_1
 	local mid_1_append = include( scriptPath .. "/missions/mid_1" )
 	mid_1_append.runAppend(  modApi )
-	
+
 	--Add the clusters to serverdefs
 	serverdefs.CLUSTERS = serverdefs_mod.CLUSTERS
 end
@@ -468,28 +468,28 @@ local function lateLoad( modApi, options, params, mod_options )
 	-- AI TERMINAL
 	local modifyPrograms = include( scriptPath .. "/abilities/mainframe_abilities" )
 	modifyPrograms()
-	
+
 	----- Distress Call mission hackz - Hek. They need to be in Load too. make that lateLoad because of Additional Banter
-	include( scriptPath .. "/appended_functions/mission_util_lateLoad" )	
-	
+	include( scriptPath .. "/appended_functions/mission_util_lateLoad" )
+
 	--ASSASSINATION, COURIER RESCUE
 	-- SimConstructor resets serverdefs with every load, hence this function wrap only applies once despite being in mod-load. If SimConstructor ever changes, this must too.
 	local serverdefs_appends = include( scriptPath .. "/appended_functions/serverdefs" )
 	serverdefs_appends.lateLoad( mod_options ) --RaXaH: I don't really see a reason to do these in lateLoad > load.
-	
+
 	--Add cluster to SITUATIONS
 	local serverdefs_mod = include( scriptPath .. "/serverdefs" )
 	local serverdefs = include( "modules/serverdefs" )
 	for name, situation in pairs( serverdefs.SITUATIONS ) do
 		util.extend( serverdefs_mod.SITUATION_CLUSTERING[name] or serverdefs_mod.SITUATION_CLUSTERING.default ) ( situation )
 	end
-	
+
 	--Make workshop upgrades persist
 	local itemdefs = include( "sim/unitdefs/itemdefs" )
 	for _, item in pairs( itemdefs ) do
 		if not item.MM_append then
 			local baseCreateUpgradeParams = item.createUpgradeParams
-			
+
 			item.createUpgradeParams = function( self, unit )
 				local params = { traits = {} }
 				if baseCreateUpgradeParams then

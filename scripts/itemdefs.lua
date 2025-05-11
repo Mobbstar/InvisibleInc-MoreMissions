@@ -31,10 +31,10 @@ local tool_templates =
 		name = STRINGS.ITEMS.SMG,
 		desc = STRINGS.ITEMS.SMG_TOOLTIP,
 		flavor = STRINGS.ITEMS.SMG_FLAVOR,
-		icon = "itemrigs/FloorProp_SMG.png",		
+		icon = "itemrigs/FloorProp_SMG.png",
 		--profile_icon = "gui/items/item_smg-56.png",
-		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_gun_SMG_small.png",	
-		profile_icon_100 = "gui/icons/item_icons/icon-item_gun_SMG.png",	
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_gun_SMG_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_gun_SMG.png",
 		equipped_icon = "gui/items/equipped_smg.png",
 		traits = { weaponType="smg", baseDamage = 4,  armorPiercing = 2},
 		sounds = { reload="SpySociety/Weapons/LowBore/reload_smg", use="SpySociety/Actions/item_pickup", shoot="SpySociety/Weapons/LowBore/shoot_handgun"},
@@ -121,15 +121,15 @@ local tool_templates =
 		name = STRINGS.MOREMISSIONS.ITEMS.USB_DRIVE,
 		desc = STRINGS.MOREMISSIONS.ITEMS.USB_DRIVE_TOOLTIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.USB_DRIVE_FLAVOR,
-		icon = "itemrigs/FloorProp_DataDisc.png",		
+		icon = "itemrigs/FloorProp_DataDisc.png",
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_compile_key_USB_small.png",
 		profile_icon_100 = "gui/icons/item_icons/icon-item_compile_key_USB.png",
 		abilities = { "carryable","MM_installprogram" },
-		traits = {MM_installedProgram = "lockpick_1", disposable = true,}, 
+		traits = {MM_installedProgram = "lockpick_1", disposable = true,},
 		value = 500,
        createUpgradeParams = function( self, unit )
             return { traits = { MM_installedProgram = unit:getTraits().MM_installedProgram } }
-        end,		
+        end,
 	},
 
 	-- TECH EXPO NON-WEAPONS: manually-created rather than procedurally
@@ -150,7 +150,7 @@ local tool_templates =
 		traits = { baseDamage = 2, range=2, explodes = 0, MM_tech_expo_nonweapon = true, friendlyDamage = true, destroysDevices = true, MM_tech_expo_item = true, disposable = true,}, --lethal damage
 		abilities = { "carryable", "throw", },
 		value = 600,
-		locator=true,	
+		locator=true,
 	},
 
 	MM_techexpo_frag_smoke_grenade = util.extend( commondefs.grenade_template)
@@ -186,7 +186,7 @@ local tool_templates =
 		abilities = { "carryable", "throw","recharge" },
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
 
 	MM_techexpo_cloakingrig = util.extend(commondefs.item_template)
@@ -206,7 +206,7 @@ local tool_templates =
 		value = 400,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
 
 	MM_techexpo_cloakingrig2 = util.extend(commondefs.item_template)
@@ -224,9 +224,9 @@ local tool_templates =
 		value = 400,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
-	
+
 	MM_techexpo_cloakingrig3 = util.extend(commondefs.item_template)
 	{ --"Fortified Cloaking Rig"
 		name = STRINGS.MOREMISSIONS.ITEMS.CLOAK_3,
@@ -242,8 +242,8 @@ local tool_templates =
 		value = 400,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
-	},	
+		end
+	},
 
 	MM_techexpo_icebreaker = util.extend(commondefs.item_template)
 	{
@@ -260,7 +260,7 @@ local tool_templates =
 		value = 600,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
 
 	MM_techexpo_econchip = util.extend(commondefs.item_template)
@@ -278,7 +278,7 @@ local tool_templates =
 		value = 800,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
 
 	MM_techexpo_stim = util.extend(commondefs.item_template)
@@ -296,7 +296,7 @@ local tool_templates =
 		value = 1000,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
 
 	MM_techexpo_shocktrap = util.extend(commondefs.item_template)
@@ -314,7 +314,7 @@ local tool_templates =
 		value = 1000,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
 
 	MM_techexpo_shocktrap2 = util.extend(commondefs.item_template)
@@ -332,7 +332,7 @@ local tool_templates =
 		value = 1000,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
 
 	MM_techexpo_emp_pack = util.extend(commondefs.item_template)
@@ -351,7 +351,7 @@ local tool_templates =
 		value = 1200,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
 
 	MM_techexpo_emp_pack2 = util.extend(commondefs.item_template)
@@ -370,7 +370,7 @@ local tool_templates =
 		value = 1200,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
 
 	MM_techexpo_crybaby = util.extend( commondefs.grenade_template)
@@ -389,7 +389,7 @@ local tool_templates =
 		locator=true,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
 
 	MM_techexpo_crybaby_throwUnit = util.extend( commondefs.grenade_template)
@@ -449,9 +449,9 @@ local tool_templates =
 		value = 900,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
-	
+
 	MM_techexpo_hologrenadeHD = util.extend( commondefs.grenade_template )
 	{
 		type = "MM_simfraggrenade", --this works, but need some kind of proximity disruption mechanic by guards who run up to it but can't pick it up because an agent is inside
@@ -459,19 +459,19 @@ local tool_templates =
 		desc = STRINGS.MOREMISSIONS.ITEMS.HOLOGRENADE_HD_TIP,
 		flavor = STRINGS.MOREMISSIONS.ITEMS.HOLOGRENADE_HD_FLAVOR,
 		--icon = "itemrigs/FloorProp_Bandages.png",
-		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_holo_grenade_HD_small.png",	
-		profile_icon_100 = "gui/icons/item_icons/icon-item_holo_grenade_HD.png",	
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_holo_grenade_HD_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_holo_grenade_HD.png",
 		kanim = "kanim_MM_hologrenade_tall",
 		sounds = {activate="SpySociety/Actions/holocover_activate", deactivate="SpySociety/Actions/holocover_deactivate", activeSpot="SpySociety/Actions/holocover_run_LP", bounce="SpySociety/Grenades/bounce"},
-		traits = { cooldown = 0, cooldownMax = 2, cover=false, holoProjector=true, disposable = false, agent_filter=true, deploy_cover=true, deploySightblock = true, MM_tech_expo_item = true, MM_tech_expo_nonweapon = true, usesLeft = 5,},	
+		traits = { cooldown = 0, cooldownMax = 2, cover=false, holoProjector=true, disposable = false, agent_filter=true, deploy_cover=true, deploySightblock = true, MM_tech_expo_item = true, MM_tech_expo_nonweapon = true, usesLeft = 5,},
 		abilities = { "recharge","carryable", "throw" },
-		value = 600,	
+		value = 600,
 		locator=true,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }
-		end		
+		end
 	},
-	
+
 	-- special scientist loot
 	MM_augment_skill_chip_speed = util.extend( commondefs.augment_template )
 	{
@@ -584,17 +584,17 @@ local tool_templates =
 		name = STRINGS.ITEMS.DRONE_TURRET,
 		desc = STRINGS.ITEMS.DRONE_TURRET_TOOLTIP,
 		flavor = STRINGS.ITEMS.DRONE_TURRET_FLAVOR,
-		icon = "itemrigs/FloorProp_Pistol.png",		
+		icon = "itemrigs/FloorProp_Pistol.png",
 		--profile_icon = "gui/items/item_pistol_56.png",
-		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_gun_pistol_small.png",	
-		profile_icon_100 = "gui/icons/item_icons/icon-item_gun_pistol.png",	
+		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_gun_pistol_small.png",
+		profile_icon_100 = "gui/icons/item_icons/icon-item_gun_pistol.png",
 		equipped_icon = "gui/items/equipped_pistol.png",
 		traits = { weaponType="pistol", baseDamage = 2, canSleep = true, },
 		-- sounds = {shoot="SpySociety/Weapons/LowBore/shoot_handgun", reload="SpySociety/Weapons/LowBore/reload_handgun", use="SpySociety/Actions/item_pickup"},
 		sounds = {shoot="SpySociety/HitResponse/hitby_tazer_flesh", reload="SpySociety/Weapons/LowBore/reload_handgun", use="SpySociety/Actions/item_pickup"},
 		weapon_anim = "kanim_light_revolver",
 		agent_anim = "anims_1h",
-	},	
+	},
 }
 
 return tool_templates

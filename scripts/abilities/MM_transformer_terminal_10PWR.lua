@@ -5,7 +5,7 @@ local simdefs = include("sim/simdefs")
 local simquery = include("sim/simquery")
 local abilityutil = include( "sim/abilities/abilityutil" )
 
-local MM_transformer_terminal_sell_PWR_10 = 
+local MM_transformer_terminal_sell_PWR_10 =
 	{
 		name = STRINGS.DLC1.TRANSFORMER_TERMINAL_SELL_PWR,
 		COST =  300,
@@ -18,12 +18,12 @@ local MM_transformer_terminal_sell_PWR_10 =
 		end,
 
 		proxy = true,
-		
+
 
 		getName = function( self, sim, abilityOwner, abilityUser, targetUnitID )
 			return self.name
 		end,
-		
+
 		profile_icon = "gui/icons/action_icons/Action_icon_Small/icon-item_hijack_small_10PWR.png",
 
 		canUseAbility = function( self, sim, abilityOwner, unit, targetUnitID )
@@ -38,7 +38,7 @@ local MM_transformer_terminal_sell_PWR_10 =
 
             if not simquery.canUnitReach( sim, unit, abilityOwner:getLocation() ) then
 			    return false
-            end			
+            end
 
             if abilityOwner:getTraits().power_transfered then
             	return false
@@ -49,7 +49,7 @@ local MM_transformer_terminal_sell_PWR_10 =
 				return false, util.sformat( STRINGS.DLC1.TRANSFORMER_TERMINAL_SELL_PWR_ERROR )
 			end
 
-            return true	
+            return true
 		end,
 
 		executeAbility = function( self, sim, abilityOwner, unit, targetUnitID )
@@ -59,7 +59,7 @@ local MM_transformer_terminal_sell_PWR_10 =
 
 			abilityOwner:getTraits().power_transfered = true
 			local credits =  simquery.scaleCredits( sim, self.COST )
-		
+
 
 			sim._resultTable.credits_gained.selling = sim._resultTable.credits_gained.selling and sim._resultTable.credits_gained.selling + credits or credits
 
