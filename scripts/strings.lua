@@ -215,15 +215,11 @@ return {
 
 	ITEMS =
 	{
-		-- KEYCARD_BLUE = "Blue Keycard",
-		-- KEYCARD_BLUE_TIP = "Unlocks blue doors.",
-		-- KEYCARD_BLUE_FLAVOR = "Created using only state-of-the-art technology, this piece of plastic has a deep marine hue.",
-
 		HOLOGRENADE_HD = "HD Holoprojector",
 		-- HOLOGRENADE_HD_TIP = "Throw to place a tall fake cover item. Activate in mainframe. Uses charge every turn. Can be recovered.",
 		-- HOLOGRENADE_HD_FLAVOR = "Circus acts and theatre make up for the lack of postproduction by using convincing High-Density Holograms.",
 		HOLOGRENADE_HD_TIP = "Throw to place a tall fake cover item. Blocks sight. Can be recovered. Can be heard 1 tile away.",
-		HOLOGRENADE_HD_FLAVOR = "This Inconspicuous Ficus holo projector presents a lightweight alternative to carrying around your own theater background decor.",		
+		HOLOGRENADE_HD_FLAVOR = "This Inconspicuous Ficus holo projector presents a lightweight alternative to carrying around your own theater background decor.",
 
 		LAPTOP_HOLO = "VFX Laptop",
 		LAPTOP_HOLO_TIP = "Deploy to place a fake cover item. Generates 1 PWR per turn while deployed. The projector can be heard 1 tile away.",
@@ -436,12 +432,6 @@ return {
 		CAPACITOR_CLOAK_INACTIVATE = "DEACTIVATE CLOAK",
 	},
 
-	-- ACTIONS =
-	-- {
-		-- UNLOCK_BLUE = "Hyper-Unlock",
-		-- UNLOCK_BLUE_TIP = "Unlock this door so hard, it stays open forever.",
-	-- },
-
 	DAEMONS =
 	{
 		MOLE_DAEMON = {
@@ -499,28 +489,6 @@ return {
 
 		},
 	},
-
-	-- PROGRAMS =
-	-- {
-		-- MANHACK =
-		-- {
-			-- NAME = "MANHACK",
-			-- DESC = "Breaks X FIREWALL for 2 PWR. X is how many consoles are currently being used.",
-			-- SHORT_DESC = "Uses consoles to break Firewalls",
-			-- HUD_DESC = "BREAKS ONE FIREWALL FOR EVERY CONSOLE USED",
-			-- TIP_DESC = "BREAKS <c:FF8411>{1} FIREWALLS</c>, COSTS 2 PWR",
-		-- },
-		-- CYCLE =
-		-- {
-			-- NAME = "CYCLE",
-			-- DESC = "All PWR is cleared at the beginning of each turn, then Gain 3 PWR.\nPASSIVE",
-			-- SHORT_DESC = "All PWR is cleared each turn. Auto generate large PWR.",
-			-- HUD_DESC = "ALL PWR IS CLEARED AT THE BEGINNING OF EACH TURN.\nTHEN GAIN 3 PWR PER TURN.",
-			-- TIP_DESC = "All PWR is cleared at the beginning of each turn, then gain 3 PWR.",
-			-- WARNING = "POWER CYCLED\n3 PWR",
-		-- },
-	-- },
-
 
 	MISSIONS = {
 		ASSASSINATION = {
@@ -687,42 +655,22 @@ return {
 
 	LOCATIONS = {
 		--used by serverdefs.lua
-		HOLOSTUDIO = {
-			NAME= "Holostudio",
-			MORE_INFO = "This site features its own dedicated holographic design laboratory. Our agents can steal and use some of the advanced tech here to deceive and evade.\n\nSome of these items are not available at any nanofabs.", --This can be quite lengthy.
-			INSET_TITLE = "MARKETING AGENCY", --unused
-			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
-			INSET_VO = {"moremissions/VoiceOver/Central/holostudio/mapscreen"},
-			DESCRIPTION = "Locate and acquire state-of-the-art hologram technology.",
-			REWARD = "A powerful disguise or stealth tool.",
-			-- LOADING_TIP = "",
-		},
 		ASSASSINATION = {
 			NAME= "Assassination",
 			MORE_INFO = "A high-ranked executive at this location has an impressive bounty on their head, but such a high-profile hit will not go unanswered by the corp.\n\nBe wary - the target is reportedly paranoid, with personal security on-site. If you're short on firepower, some of it may potentially be used against him.", --This can be quite lengthy.
 			INSET_TITLE = "MARKED FOR DEATH", --unused
 			INSET_TXT = "I wouldn't normally stoop to assassination contracts, but the payday on this one is too tempting to ignore. The target is highly placed, so we can expect heightened security at this corporation if you complete the job. Ready to get your hands dirty, Operator?", --unused
-			INSET_VO = {"moremissions/VoiceOver/Central/assassination/mapscreen"},
+			INSET_VO = {"moremissions/VoiceOver/Central/assassination/mapscreen", "moremissions/VoiceOver/Central/assassination/mapscreen_2"},
 			DESCRIPTION = "Eliminate the VIP.",
 			REWARD = "A hefty cash reward, at the cost of a permanent security increase at this corporation.",
 		},
-		LANDFILL = {
-			--This one is supposed to hold only items the operator doesn't normally have, but there's no way to lore-ify that information, is there? -M
-			NAME= "Salvaging plant",
-			MORE_INFO = "Tons of various objects get dumped on this landfill and ground up for whatever materials can be recovered. Some of the items can probably be repaired inexpensively.\n\nDon't expect the goods to be very likable, many of them have been here for weeks without getting any love.", --This can be quite lengthy.
-			INSET_TITLE = "LANDFILL", --unused
-			INSET_TXT = "I'm not going to lie, operator. There's an awful lot of unused flavour text in these files.", --unused
-			INSET_VO = {"moremissions/VoiceOver/Central/assassination/mapscreen"},
-			DESCRIPTION = "Find and access the repair workstation.",
-			REWARD = "A range of heavily discounted items.",
-		},
-		-- EA_HOSTAGE = STRINGS.MOREMISSIONS_HOSTAGE.EA_HOSTAGE,
+
 		EA_HOSTAGE = {
 			NAME= "Courier Rescue",
 			MORE_INFO = "Data couriers traffic valuable information for their clients, but are easy targets for the corps if they get caught. This courier has detailed knowledge of the corp's facilities and can provide us with more targets nearby.",
 			INSET_TITLE = "CODE NAME: INSOMNIAC", --unused
 			INSET_TXT = "This corp has intercepted a data courier of one of our former clients. He has important site intel stored in a cerebral implant, intel we can persuade his employer to share with us. Your task is to break in and recover the courier, safe and sound. One last thing, Operator - the implant is set to explode if the courier loses consciousness, so time is of the essence.", --unused
-			INSET_VO = {"moremissions/VoiceOver/Central/courierrescue/mapscreen"},
+			INSET_VO = {"moremissions/VoiceOver/Central/courierrescue/mapscreen", "moremissions/VoiceOver/Central/courierrescue/mapscreen_2", "moremissions/VoiceOver/Central/courierrescue/mapscreen_3"},
 			DESCRIPTION = "Rescue missing courier and escape with him in time limited from the moment you free him.",
 			REWARD = "Three new infiltration targets at the same corporation as this facility, and close nearby.",
 			BANTER = {
@@ -743,7 +691,7 @@ return {
 			MORE_INFO = "We've intercepted a signal from an operative in need of extraction. It may be one of our missing agents, and if not, we can still negotiate a suitable compensation from them once we get them out safely. \n\nBe careful, Operator - our telemetry suggests the facility is already alerted, and the alarm level will advance more quickly as a result.", --This can be quite lengthy.
 			INSET_TITLE = "OPERATIVE EXTRACTION", --unused
 			INSET_TXT = "We've detected an urgent distress call at this facility. It may be one of our agents attempting an escape, or some other operative who's stumbled onto our signal network. There's no time to waste, Operator. If you mean to extract them, do it now. We will not get a second chance if we delay.", --unused
-			INSET_VO = {"moremissions/VoiceOver/Central/distresscall/mapscreen"}, --{"SpySociety_DLC001/VoiceOver/Central/DLC_Central_6_midmission_briefing_imnotgoing"},
+			INSET_VO = {"moremissions/VoiceOver/Central/distresscall/mapscreen", "moremissions/VoiceOver/Central/distresscall/mapscreen_2"},
 			DESCRIPTION = "Get the escaped operative safely to extraction and grab their confiscated gear on the way out. Alarm level will increase more quickly here.",
 			REWARD = "Agent or prisoner rescue with equipment.\n<c:FC5603>URGENT: This mission will disappear unless visited immediately.</c>",
 		},
@@ -752,8 +700,8 @@ return {
 			NAME= "Tech Expo",
 			MORE_INFO = "A prestigious tech exhibition offers the chance to steal some powerful prototypes before they reach the wider market. \n\nYou will find advanced weapons as well as powerful limited-use items here, but the security system should not be taken lightly - the more you steal, the greater the risk.", --This can be quite lengthy.
 			INSET_TITLE = "TECH EXPO", --unused
-			INSET_TXT = "This facility is hosting a world class tech exposition. The corporations and the industry's finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours. But keep your guard up - rumour has it their security system is every bit as experimental as the tech they're showcasing.", --unused unless we actually get these voiced somehow --CRAZY, RIGHT?
-			INSET_VO = {"moremissions/VoiceOver/Central/techexpo/mapscreen"},
+			INSET_TXT = "This facility is hosting a world class tech exposition. The corporations and the industry's finest will be showing off their newest prototypes. We should be able to nab us some prize gear, provided we visit after hours. But keep your guard up - rumour has it their security system is every bit as experimental as the tech they're showcasing.", --unused unless we actually get these voiced somehow --CRAZY, RIGHT? --Utterly nuts! :D
+			INSET_VO = {"moremissions/VoiceOver/Central/techexpo/mapscreen", "moremissions/VoiceOver/Central/techexpo/mapscreen_2"},
 			DESCRIPTION = "Locate the main exhibition center and steal at least one prototype.",
 			REWARD = "Advanced weapons and powerful limited-use items you can sell or use as equipment.",
 		},
@@ -763,7 +711,7 @@ return {
 			MORE_INFO = "We have an opportunity to plant an informant at this facility who will feed us intel from the inside. This mission grants no immediate reward, but you will start future missions with advance knowledge of the infiltration target. \n\nMake sure the mole remains unseen to maximise the duration of this reward.",
 			INSET_TITLE = "",
 			INSET_TXT = "We've been flying blind for too long. Our old network is gone, but Monst3r has put us in touch with a reliable freelancer who can help us build it back up again. First, we'll need to get them on site and secure their cover. Make sure the enemy doesn't spot them, or the job will get complicated.",
-			INSET_VO = {"moremissions/VoiceOver/Central/informant/mapscreen"},
+			INSET_VO = {"moremissions/VoiceOver/Central/informant/mapscreen", "moremissions/VoiceOver/Central/informant/mapscreen_2", "moremissions/VoiceOver/Central/informant/mapscreen_3"},
 			DESCRIPTION = "Plant an informant and secure their cover identity. For best results, informant must remain unseen.",
 			REWARD = "Gain intel bonuses for the next few missions, such as facility layout, guard TAGs or camera locations.",
 
@@ -774,9 +722,8 @@ return {
 			MORE_INFO = "We've located an AI Development Terminal with unusually high security clearance. We should be able to integrate some of this research to increase Incognita's processing efficiency.\n\nThe terminal has multiple redundant locks, so be prepared to be thorough.",
 			INSET_TITLE = "",
 			INSET_TXT = "We've unearthed an off-the-books AI research facility. We may be able to use it to upgrade Incognita, but tread lightly, Operator. We can only assume there's a good reason they've kept this place so well-hidden.",
-			INSET_VO = {"moremissions/VoiceOver/Central/aiterminal/mapscreen"},
+			INSET_VO = {"moremissions/VoiceOver/Central/aiterminal/mapscreen", "moremissions/VoiceOver/Central/aiterminal/mapscreen_2"},
 			DESCRIPTION = "Unlock and access the AI Development Terminal using keycards and devices found on-site.",
-			-- REWARD = "An additional program slot for Incognita, or valuable tech if at upgrade cap (2 additional slots).",
 			REWARD = "An additional program slot for Incognita, or an upgrade to an existing program.",
 
 		},
@@ -795,9 +742,6 @@ return {
 		
 		HUD_WARN_EXIT_MISSION_HOLOSTUDIO = "Are you sure you want to leave? You don't have the holographic tool yet.",
 		HUD_WARN_EXIT_MISSION_ASSASSINATION = "Are you sure you want to leave? You haven't killed the target.",
-		-- REASON = {
-			-- HYPERUNLOCKED = "Busted open by a blue keycard",
-		-- },
 		DISTRESS_OBJECTIVE = "Rescue the Operative",
 		DISTRESS_OBJECTIVE_SECONDARY = "Find {1}'s equipment",
 		DISTRESS_OBJECTIVE_SECONDARY_OPERATIVE = "the Operative",
@@ -1094,7 +1038,7 @@ return {
 						{{"This will cost us a small fortune in cleanup, but our client should be pleased to pay for the privilege. Consider the catharsis an extra bonus, Operator.",
 							"moremissions/VoiceOver/Central/assassination/judge/kill1",
 							"Central"}},
-						{{"A little messier than I would’ve liked, but we can’t be picky, not with such a substantial bounty at stake. Well done.",
+						{{"A little messier than I would've liked, but we can't be picky, not with such a substantial bounty at stake. Well done.",
 							"moremissions/VoiceOver/Central/assassination/judge/kill2",
 							"Central"}},
 					},
@@ -1106,7 +1050,7 @@ return {
 						{{"You didn't eliminate the target. I hope you weren't being squeamish, Operator. Our circumstances don't allow us the luxury of keeping our hands clean.",
 							"moremissions/VoiceOver/Central/assassination/judge/nokill2",
 							"Central"}},
-						{{"I didn’t think I’d need to remind you of your objectives. Anything you managed to pilfer from this facility is a pittance compared to the money we just lost. I hope you had a good reason to slack off.",
+						{{"I didn't think I'd need to remind you of your objectives. Anything you managed to pilfer from this facility is a pittance compared to the money we just lost. I hope you had a good reason to slack off.",
 							"moremissions/VoiceOver/Central/assassination/judge/nokill3",
 							"Central"}},
 					},
@@ -1612,22 +1556,25 @@ return {
 			MM_SIDEMISSIONS = {
 				STEAL_STORAGE = {
 					STORAGE_SPOTTED_1 = {
-						{"Operator, our telemetry data suggests there are two more rooms like this somewhere in the facility. If we can spare the time, it would be a shame to leave these valuables without stopping by.",
-							nil,
-							"Central"}, -- TODO: long line cut off. Missing "stopping by"
+						{"Interesting, our telemetry data suggests there are two more rooms like this somewhere in the facility.",
+							"moremissions/VoiceOver/Central/briefcases/sighted1_1p",
+							"Central"},
+						{"If we can spare the time, it would be a shame to leave these valuables without stopping by.",
+							"moremissions/VoiceOver/Central/briefcases/sighted1_2p",
+							"Central"},
 						{"Do try not to break them. My clients are incredibly particular about the number of pieces they prefer their merchandise to be in.",
 							"moremissions/VoiceOver/Monster/briefcases/sighted1_p2",
 							"Monster"},
 					},
 					STORAGE_SPOTTED_2 = {
 						{"You've found the second storage room. Get to work.",
-							nil,
+							"moremissions/VoiceOver/Central/briefcases/sighted2_1p",
 							"Central"},
 						{"Remember: the more you steal, the more I'll make it worth your while.",
 							"moremissions/VoiceOver/Monster/briefcases/sighted2_p2",
 							"Monster"},
 						{"We are not your delivery service. Operator, take only what our team can safely carry out.",
-							nil,
+							"moremissions/VoiceOver/Central/briefcases/sighted2_3p",
 							"Central"}
 					},
 					STORAGE_SPOTTED_3 = {
@@ -1635,7 +1582,7 @@ return {
 							"moremissions/VoiceOver/Monster/briefcases/sighted3_p1",
 							"Monster"},
 						{"That is quite enough. It is your choice, Operator. Make sure it's not one we come to regret.",
-							nil,
+							"moremissions/VoiceOver/Central/briefcases/sighted3_2p",
 							"Central"},
 					},
 					CENTRAL_LOCKER_ROBBED = {
@@ -1646,13 +1593,13 @@ return {
 				PERSONNEL_HIJACK = {
 					SPOTTED_BOSS = {
 						{"Curious. The facial ID on that guard... Monst3r, do you recognise him?",
-							nil,
+							"moremissions/VoiceOver/Central/personnel/sighted_1p",
 							"Central"},
 						{"Goodness me. A little reminder of the bad old days, isn't it?",
 							"moremissions/VoiceOver/Monster/personnel/sighted_p2",
 							"Monster"},
 						{"It has been a while. Operator, I would very much like to have a chat with him on the jet. See to it.",
-							nil,
+							"moremissions/VoiceOver/Central/personnel/sighted_3p",
 							"Central"},
 					},
 					KO_BOSS = {
@@ -1674,8 +1621,8 @@ return {
 						{"That card you just stole must be the one we've been looking for. Get back to that nanofab and see what's for sale.",nil,"Central"},
 					},
 					SAW_NANOFAB = {
---						{"Operator, we've found ourselves a rare Nanofab model. It should hold a wide selection of a single item type, but it's locked down.",nil,"Central"},
---						{"There must be an activation key somewhere. See if you can find anything in the back room.",nil,"Central"},
+						-- {"Operator, we've found ourselves a rare Nanofab model. It should hold a wide selection of a single item type, but it's locked down.",nil,"Central"},
+						-- {"There must be an activation key somewhere. See if you can find anything in the back room.",nil,"Central"},
 						{"Ahh, now that is interesting. This model of Nanofab is specialised in precisely one type of gear, but undergoes a lengthy recalibration process after each job. You'd best make your choice carefully.",
 							"moremissions/VoiceOver/Monster/luxury_nanofab/sighted_1p",
 							"Monster"}, -- TODO: long line cut off. Missing "choice carefully"
@@ -1684,8 +1631,8 @@ return {
 							"Monster"},
 					},
 					SAW_NANOFAB_HAVE_KEY = {
---						{"Operator, we've found ourselves a rare Nanofab model. It should hold a wide selection of a single item type, but it's locked down.",nil,"Central"},
---						{"The key you looted off that guard should come in handy now. Time to see what the nanofab has in store for us.",nil,"Central"},
+						-- {"Operator, we've found ourselves a rare Nanofab model. It should hold a wide selection of a single item type, but it's locked down.",nil,"Central"},
+						-- {"The key you looted off that guard should come in handy now. Time to see what the nanofab has in store for us.",nil,"Central"},
 						{"Ahh, now that is interesting. This model of Nanofab is specialised in precisely one type of gear, but undergoes a lengthy recalibration process after each job. You'd best make your choice carefully.",
 							"moremissions/VoiceOver/Monster/luxury_nanofab/sighted_1p",
 							"Monster"}, -- TODO: long line cut off. Missing "choice carefully"
@@ -1716,12 +1663,9 @@ return {
 					BOUGHT_ITEM = {
 						{"A spot of precision shopping can go a long way. Let's hope this little detour will prove itself worth the hassle.",nil,"Central"},
 					},
-					TODO_1 = { -- TODO: associate/move these lines
-					}
 				},
 				
-				WORKSHOP =
-				{
+				WORKSHOP = {
 					SEE_CONSOLE =
 					{
 						{"Ahh, now that's interesting. A little bird told me there might be a Gear Enhancement Workshop here... and look at that console, wired up via heavy-duty circuit. There must be an awfully power-hungry device somewhere on this level.",
@@ -1752,10 +1696,6 @@ return {
 				},
 			},
 		},
-		-- CAMPAIGN_MAP = {
-			-- MISSIONS = {
-			-- },
-		-- },
 	},
 	
 	LOGS = {
@@ -1819,11 +1759,11 @@ return {
 		<c:db65ba>About MWC</> - <c:eca35b>“NEXT YEAR'S TECHNOLOGY, TODAY!”</>
 
 		<c:62B3B3>For two days in late September, a group of trailblazing scientists, senior executives, key shareholders, top developers, downstream vendors and trusted market consultants (such as yourself) will come together from around the globe to catch a glimpse of the future. In an exhibit hall nestled within a corporate R&D facility, the corporations' greatest minds will share their state-of-the-art work in lethal and non-lethal weaponry, network interface systems, and human augmentation and enhancement technologies. Prototypes of all kinds will be available for close inspection, scheduled demonstrations and region-specific pre-orders, in accordance with current treaties.
-		Spearheaded in 2061 by FTM’s then-Chief Product Officer, now Chief Executive Officer, Sophie Woodbridge, the first Megacorp Ware Congress in San Francisco featured little more than a barely working experimental accelerator chip, the first gunpowder-free sidearm and a low-friction gel with vague augmentation applications. As you no doubt know, the expo soon gained notoriety within the upper echelons of intercorp society when the first functional scanning amp was unveiled to stunned attendees in 2065. Since then, it has expanded beyond FTM’s product line to encompass groundbreaking applied science and industrial design by all megacorps and their subsidiaries, as well as thought leadership and exclusive networking events. Today, the MWC stands unrivalled as *the* annual global technology exposition.</>
+		Spearheaded in 2061 by FTM's then-Chief Product Officer, now Chief Executive Officer, Sophie Woodbridge, the first Megacorp Ware Congress in San Francisco featured little more than a barely working experimental accelerator chip, the first gunpowder-free sidearm and a low-friction gel with vague augmentation applications. As you no doubt know, the expo soon gained notoriety within the upper echelons of intercorp society when the first functional scanning amp was unveiled to stunned attendees in 2065. Since then, it has expanded beyond FTM's product line to encompass groundbreaking applied science and industrial design by all megacorps and their subsidiaries, as well as thought leadership and exclusive networking events. Today, the MWC stands unrivalled as *the* annual global technology exposition.</>
 
 		<c:db65ba>Location & Venue</>
 
-		<c:62B3B3>The host of the expo rotates between the corps as a matter of tradition. Due to security breaches in 2073, the location of the 2074 MWC is a closely guarded secret available only to the event’s VIP invitees. We will provide transport beam coordinates shortly before the exhibit hall opens. We remind you that by applying to be a guest, you have accepted the standard nondisclosure agreement regarding corporate facility locations.</>
+		<c:62B3B3>The host of the expo rotates between the corps as a matter of tradition. Due to security breaches in 2073, the location of the 2074 MWC is a closely guarded secret available only to the event's VIP invitees. We will provide transport beam coordinates shortly before the exhibit hall opens. We remind you that by applying to be a guest, you have accepted the standard nondisclosure agreement regarding corporate facility locations.</>
 		
 		
 		
