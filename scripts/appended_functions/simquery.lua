@@ -47,3 +47,12 @@ if not oldCanUseLockedExit then
 		return oldCanModifyExit( unit, exitOp, cell, dir, ... )
 	end
 end
+
+-- getMaxPrograms is defined by Sim Constructor
+-- append it to account for AI Terminal programs
+local oldGetMaxPrograms = simquery.getMaxPrograms
+function simquery.getMaxPrograms( sim, ... )
+	-- W93_aiTerminals tracks how many program slots we got in the campaign
+	-- W93_incognitaUpgraded tracks if we've upgraded Incognita *this mission* (so inside the AI Terminal itself)
+	return oldGetMaxPrograms( sim, ... ) + (sim:getParams().agency.W93_aiTerminals or 0) + (sim:getPC():getTraits():W93_incognitaUpgraded or 0)
+end
