@@ -50,7 +50,8 @@ local MM_petDrone =
 			-- Use a settings 'seenOnce', to store if the user has ever pet a drone before.
 			-- The AP Bonus UI preview is suppressed until the ability's effect has been seen.
 			local settings = savefiles.getSettings( "settings" )
-			self._shouldShowAPBonus = settings.data.seenOnce[ "MM-petDrone-AP" ]
+			local seenOnce = settings.data.seenOnce or {}
+			self._shouldShowAPBonus = seenOnce[ "MM-petDrone-AP" ]
 		end,
 
 		-- Note that abilityOwner is the drone, unit is the agent!
@@ -98,8 +99,9 @@ local MM_petDrone =
 			if not self._shouldShowAPBonus then
 				-- Player has seen the AP boost. The UI may now show it on other agents or in future games.
 				local settings = savefiles.getSettings( "settings" )
-				self._shouldShowAPBonus = true
+				settings.data.seenOnce = settings.data.seenOnce or {}
 				settings.data.seenOnce[ "MM-petDrone-AP" ] = true
+				self._shouldShowAPBonus = true
 				settings:save()
 			end
 		end,
