@@ -445,7 +445,7 @@ local tool_templates =
 				end
 			}
 		},
-		traits = { range = 5, attackNeedsLOS=true, canSleep = true, baseDamage = 4, flash_pack = true, trigger_mainframe=true, MM_tech_expo_nonweapon = true, usesLeft = 5, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 8,},
+		traits = { range = 5, attackNeedsLOS=true, canSleep = true, baseDamage = 4, flash_pack = true, trigger_mainframe=true, MM_tech_expo_nonweapon = true, usesLeft = 5, MM_tech_expo_item = true, cooldown = 0, cooldownMax = 8, PWRuse = 3},
 		value = 900,
 		createUpgradeParams = function( self, unit )
 			return { traits = { usesLeft = unit:getTraits().usesLeft } }

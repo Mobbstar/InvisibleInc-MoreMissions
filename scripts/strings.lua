@@ -318,10 +318,10 @@ return {
 		GRENADE_CRY_BABY_DEAD_TOOLTIP = "Cannot be picked up again, only activated.",
 
 		FLASH_PACK = "Experimental Flash Pack",
-		FLASH_PACK_TOOLTIP = "Place on the ground. Detonate it using the mainframe. Requires 3 PWR to activate. KO all guards for 4 turns in a radius of 5 tiles. Limited uses.",
+		FLASH_PACK_TOOLTIP = "Place on the ground. Detonate it using the mainframe. Uses 3 PWR to detonate. KO all guards for 4 turns in a radius of 5 tiles. Limited uses.",
 		FLASH_PACK_FLAVOR = "The power of a flash bomb married to the wireless magic of mainframe technology.",
 		FLASH_PACK_USE = "Detonate Flash Pack",
-		FLASH_PACK_USE_TIP = "KO guards in a 5 tile radius for 4 turns.",
+		FLASH_PACK_USE_TIP = "KO guards in a 5 tile radius for 4 turns. Uses 3 PWR.",
 
 		TECHEXPO_FLAVOR = "\n\nThis model is an experimental prototype.",
 		
