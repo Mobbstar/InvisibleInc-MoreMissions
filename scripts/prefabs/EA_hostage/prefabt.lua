@@ -11,6 +11,7 @@ local PREFABT0 =
         {
             "hostage",
             "contained",
+			"objective",
         },
         match_elements =
         {
@@ -680,6 +681,7 @@ local PREFABT0 =
         {
             "hostage",
             "contained",
+			"objective",
         },
         match_elements =
         {
@@ -1349,6 +1351,7 @@ local PREFABT0 =
         {
             "hostage",
             "contained",
+			"objective",
         },
         match_elements =
         {
@@ -2018,6 +2021,7 @@ local PREFABT0 =
         {
             "hostage",
             "contained",
+			"objective",
         },
         match_elements =
         {
