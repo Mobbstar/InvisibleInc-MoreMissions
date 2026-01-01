@@ -1,14 +1,27 @@
 local util = include( "modules/util" )
-local simdefs = include( "sim/simdefs" )
 local array = include( "modules/array" )
-local cdefs = include( "client_defs" )
-local simdefs = include( "sim/simdefs" )
 
 --for unloading
 local default_missiontags
 
+local function findModByName(name)
+    for i, modData in ipairs(mod_manager.mods) do
+        if name and modData.name == name then
+            return modData
+        end
+    end
+end
+
+local fnlib = findModByName("Function Library")
+
 local function earlyInit( modApi )
-	modApi.requirements = { "Contingency Plan", "Sim Constructor", "Function Library", "Advanced Guard Protocol", "Items Evacuation", "New Items And Augments","Advanced Cyberwarfare","Programs Extended","Offbrand Programs","Switch Content Mod", "Interactive Events","Generation Options+", "Additional Banter", "Controller Bindings" }
+	local strictRequirements = {"Function Library", "Community Bug Fixes"} -- could instead test SCRIPT_PATHS, but that is only ready during lateInit (and we use names for load order anyways)
+	for i = 1, #strictRequirements do
+		assert(findModByName(strictRequirements[i]), "ERROR - DEPENDENCY MISSING: More Missions requires ".. strictRequirements[i])
+	end
+
+	-- "requirements" as in "if installed, has to load first"
+	modApi.requirements = {"Contingency Plan", "Sim Constructor", "Function Library", "Advanced Guard Protocol", "Items Evacuation", "New Items And Augments","Advanced Cyberwarfare","Programs Extended","Offbrand Programs","Switch Content Mod", "Interactive Events","Generation Options+", "Additional Banter", "Controller Bindings" }
 
 	local scriptPath = modApi:getScriptPath()
 	rawset(_G,"SCRIPT_PATHS",rawget(_G,"SCRIPT_PATHS") or {})
@@ -21,6 +34,8 @@ local function earlyInit( modApi )
 end
 
 local function init( modApi )
+	-- assert(modApi.mod_manager.lib_sequentialModLoader, "ERROR - DEPENDENCY MISSING: More Missions requires Sim Constructor by Cyberboy2000") -- can't check this dependency in earlyInit because sim constructor implements earlyInit, and can't assert because the game doesn't handle errors gracefully without sim constructor
+
 	-- Path for custom prefabs
 	local scriptPath = modApi:getScriptPath()
 	local dataPath = modApi:getDataPath()
@@ -178,6 +193,7 @@ end
 local function unloadCommon( modApi, options )
 	local scriptPath = modApi:getScriptPath()
 
+	local simdefs = include( "sim/simdefs" )
 	local serverdefs = include( "modules/serverdefs" )
 	local serverdefs_mod = include( scriptPath .. "/serverdefs" )
 	removeAllElementsAndDupes(serverdefs.ESCAPE_MISSION_TAGS, serverdefs_mod.ESCAPE_MISSION_TAGS)
@@ -206,7 +222,7 @@ local function load( modApi, options, params )
 	--before doing anything, clean up
 	unloadCommon( modApi, options )
 	
-	local serverdefs = include( "modules/serverdefs" )
+	local simdefs = include( "sim/simdefs" )
 	local scriptPath = modApi:getScriptPath()
 
 	if params then
