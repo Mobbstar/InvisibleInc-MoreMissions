@@ -91,7 +91,7 @@ local MM_modify_item =
 			local dialog_txt = util.sformat( STRINGS.MOREMISSIONS.ABILITIES.MOD_ITEM_DIALOG_TXT, itemUnit:getName() )
 			
 			local itemValue = itemUnit:getUnitData().value
-			if not itemValue or itemUnit:getTraits().is_modified then
+			if not itemValue or itemUnit:getTraits().is_modified or itemUnit:getTraits().unupgradeable then
 				--item not modifiable
 				dialog_txt = dialog_txt .. STRINGS.MOREMISSIONS.ABILITIES.MOD_ITEM_DIALOG_UNMODABLE
 			elseif math.floor(itemValue / 100) > (sim.MM_workshop_pwr or 0) then
@@ -116,7 +116,7 @@ local MM_modify_item =
 						break
 					end
 				end
-				if itemUnit:getTraits().armorPiercing or (itemUnit:getTraits().damage and itemUnit:getTraits().damage > 0) or (itemUnit:getTraits().baseDamage and itemUnit:getTraits().baseDamage > 0) then
+				if itemUnit:getTraits().armorPiercing or ((itemUnit:getTraits().melee or itemUnit:getTraits().slot == "gun") and not itemUnit:getTraits().ignoreArmor) then
 					table.insert(upgrade_option, UPGRADE_OPTIONS.ARMOR_PIERCE)
 				end
 				if (itemUnit:getTraits().damage and itemUnit:getTraits().damage > 0) or (itemUnit:getTraits().baseDamage and itemUnit:getTraits().baseDamage > 0) then
