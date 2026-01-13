@@ -1,23 +1,50 @@
 local util = include( "modules/util" )
 local array = include( "modules/array" )
 
---for unloading
-local default_missiontags
+local default_missiontags --for unloading
 
-local function findModByName(name)
-    for i, modData in ipairs(mod_manager.mods) do
-        if name and modData.name == name then
-            return modData
-        end
-    end
+local strictRequirements = {"Sim Constructor", "Function Library", "Community Bug Fixes"}
+local popupShown = false
+local function dependenciesInstalled()
+	if popupShown then
+		return false
+	elseif #strictRequirements == 0 then
+		return true
+	end
+
+	for _, modData in ipairs(mod_manager.mods) do
+		if modData.installed then
+			array.removeElement(strictRequirements, modData.name)
+		end
+	end
+	if #strictRequirements == 0 then
+		return true
+	end
+
+	popupShown = true
+	local nameList = table.concat(strictRequirements, ", ")
+	local modal_dialog = include("states/state-modal-dialog")
+	MOAICoroutine.new():run(function()
+		repeat
+			coroutine.yield()
+		until #statemgr.getStates() > 0
+
+		modal_dialog.show(
+			string.format("More Missions requires these currently missing mods:\n%s\n\nPlease install them and restart the game.", nameList),
+			"Mod dependencies for More Missions"
+		)
+	end)
+	if not array.find(strictRequirements, "Sim Constructor") then
+		-- sim constructor just unloads instead of crashing on error
+		error(string.format("[More Missions] missing dependency: %s", nameList))
+	end
+	return false
 end
 
-local fnlib = findModByName("Function Library")
 
 local function earlyInit( modApi )
-	local strictRequirements = {"Function Library", "Community Bug Fixes"} -- could instead test SCRIPT_PATHS, but that is only ready during lateInit (and we use names for load order anyways)
-	for i = 1, #strictRequirements do
-		assert(findModByName(strictRequirements[i]), "ERROR - DEPENDENCY MISSING: More Missions requires ".. strictRequirements[i])
+	if not dependenciesInstalled() then
+		return
 	end
 
 	-- "requirements" as in "if installed, has to load first"
@@ -34,7 +61,9 @@ local function earlyInit( modApi )
 end
 
 local function init( modApi )
-	-- assert(modApi.mod_manager.lib_sequentialModLoader, "ERROR - DEPENDENCY MISSING: More Missions requires Sim Constructor by Cyberboy2000") -- can't check this dependency in earlyInit because sim constructor implements earlyInit, and can't assert because the game doesn't handle errors gracefully without sim constructor
+	if not dependenciesInstalled() then
+		return
+	end
 
 	-- Path for custom prefabs
 	local scriptPath = modApi:getScriptPath()
@@ -57,11 +86,7 @@ local function init( modApi )
 	modApi:addGenerationOption("server_farm",  STRINGS.MOREMISSIONS.OPTIONS.SERVER_FARM , STRINGS.MOREMISSIONS.OPTIONS.SERVER_FARM_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("vault",  STRINGS.MOREMISSIONS.OPTIONS.VAULT , STRINGS.MOREMISSIONS.OPTIONS.VAULT_TIP, {noUpdate=true} )
 
-	--I really wish there were some kind of splitter right about now -M
-	--Shirsh set those that not works to "false" until they'll be ready to not bug test playthroughs
-	-- modApi:addGenerationOption("holostudio",  STRINGS.MOREMISSIONS.OPTIONS.HOLOSTUDIO , STRINGS.MOREMISSIONS.OPTIONS.HOLOSTUDIO_TIP, {noUpdate=true, enabled = false} )
 	modApi:addGenerationOption("assassination",  STRINGS.MOREMISSIONS.OPTIONS.ASSASSINATION , STRINGS.MOREMISSIONS.OPTIONS.ASSASSINATION_TIP, {noUpdate=true} )
-	-- modApi:addGenerationOption("landfill",  STRINGS.MOREMISSIONS.OPTIONS.LANDFILL , STRINGS.MOREMISSIONS.OPTIONS.LANDFILL_TIP, {noUpdate=true, enabled = false} )
 	modApi:addGenerationOption("ea_hostage",  STRINGS.MOREMISSIONS.OPTIONS.EA_HOSTAGE , STRINGS.MOREMISSIONS.OPTIONS.EA_HOSTAGE_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("distress_call",  STRINGS.MOREMISSIONS.OPTIONS.DISTRESSCALL, STRINGS.MOREMISSIONS.OPTIONS.DISTRESSCALL_TIP, {noUpdate=true} )
 	modApi:addGenerationOption("weapons_expo",  STRINGS.MOREMISSIONS.OPTIONS.WEAPONSEXPO, STRINGS.MOREMISSIONS.OPTIONS.WEAPONSEXPO_TIP, {noUpdate=true} )
@@ -78,15 +103,11 @@ local function init( modApi )
 	modApi:addGenerationOption("MM_newday", STRINGS.MOREMISSIONS.OPTIONS.NEWDAY, STRINGS.MOREMISSIONS.OPTIONS.NEWDAY_DESC,
 	{
 		values = {0,1,2,3,4,5,6,7,8,9,10},
-		value=4,
+		value = 4,
 		noUpdate = true,
 	})
-	
-	modApi:addGenerationOption("MM_exec_terminals", STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS, STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS_DESC,
-	{ noUpdate = true,})	
-
+	modApi:addGenerationOption("MM_exec_terminals", STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS, STRINGS.MOREMISSIONS.OPTIONS.EXEC_TERMINALS_DESC, { noUpdate = true,})	
 	modApi:addGenerationOption("MM_spawnTable_droids" , STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS, STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_DESC, {values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99999}, value=5, strings = STRINGS.MOREMISSIONS.OPTIONS.SPAWNTABLE_DROIDS_VALUES, noUpdate = true} )		
-	
 	modApi:addGenerationOption("MM_hard_mode",  STRINGS.MOREMISSIONS.OPTIONS.HARD_MODE , STRINGS.MOREMISSIONS.OPTIONS.HARD_MODE_TIP, {enabled = false, noUpdate=true } )
 
 	-- patch automatic tracker
@@ -219,6 +240,10 @@ local function earlyLoad( modApi, options, params )
 end
 
 local function load( modApi, options, params )
+	if not dependenciesInstalled() then
+		return
+	end
+
 	--before doing anything, clean up
 	unloadCommon( modApi, options )
 	
@@ -532,6 +557,10 @@ local function lateLoad( modApi, options, params, mod_options )
 end
 
 local function unload( modApi, options )
+	if not dependenciesInstalled() then
+		return
+	end
+
 	unloadCommon( modApi, options )
 end
 
