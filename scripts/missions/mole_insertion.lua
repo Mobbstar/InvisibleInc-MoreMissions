@@ -780,6 +780,7 @@ local function spawnEliteGuard( sim ) --spawns a high-tier stationary guard at t
 		sim:spawnUnit( newGuard )
 		newGuard:setPlayerOwner( sim:getNPC() )
 		newGuard:setPather(sim:getNPC().pather)
+		newGuard:getBrain():setSituation(sim:getNPC():getIdleSituation())
 		newGuard:getTraits().nopatrol = true
 		newGuard:getTraits().patrolPath = { { x = door_cell.x, y = door_cell.y } }
 		newGuard:getTraits().mm_nopatrolchange = true
