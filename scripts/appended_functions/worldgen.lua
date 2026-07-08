@@ -24,38 +24,40 @@ worldgen.generateThreats = function( cxt, spawnTable, spawnList, ... )
     local unitdefs = include("sim/unitdefs")
     
     if params.difficulty >= (params.difficultyOptions.MM_spawnTable_droids or 99999) then
-        local rand = rand_module.createGenerator( params.seed )
- 
-		if rand:nextInt(1,100) < 70 then
-		
-			if unitdefs.lookupTemplate("MM_prototype_droid") and unitdefs.lookupTemplate("MM_prototype_droid_spec") 
-			and not ((params.world == "omni") or (params.world == "omni2")) then
-				if rand:nextInt(1,100) < 70 then
-					-- log:write("[MM] spawning droid")
-					local listIndex = array.find( spawnList, "COMMON" )
-					
-					if listIndex then
-						cxt.units[unitCount + listIndex].template = "MM_prototype_droid"
-					end
+		if cxt.rnd:nextInt(1, 100) <= 40 then
+			if
+				unitdefs.lookupTemplate("MM_spider_drone")
+				and params.world == "sankaku"
+				and array.find(spawnList, "ELITE")
+			then
+				local listIndex = array.find(spawnList, "ELITE")
+
+				if listIndex then
+					cxt.units[unitCount + listIndex].template = "MM_spider_drone"
+				end
+			elseif
+				unitdefs.lookupTemplate("MM_prototype_droid")
+				and unitdefs.lookupTemplate("MM_prototype_droid_spec")
+				and not ((params.world == "omni") or (params.world == "omni2"))
+			then
+				local eliteIndex = array.find(spawnList, "ELITE")
+				local lv2Index = array.find(spawnList, "OMNI")
+
+				local listIndex
+				if eliteIndex and lv2Index then
+					listIndex = cxt.rnd:nextInt(1, 100) <= 50 and eliteIndex or lv2Index
 				else
-					-- log:write("[MM] spawning elite droid")
-					local listIndex = array.find( spawnList, "ELITE" )
-					
-					if listIndex then
+					listIndex = eliteIndex or lv2Index
+				end
+
+				if listIndex then
+					if listIndex == eliteIndex then
+						cxt.units[unitCount + listIndex].template = "MM_prototype_droid"
+					else
 						cxt.units[unitCount + listIndex].template = "MM_prototype_droid_spec"
 					end
 				end
 			end
-			if unitdefs.lookupTemplate("MM_spider_drone") and params.world == "sankaku" then
-				if rand:nextInt(1,100) < 70 then
-					-- log:write("[MM] spawning drone")
-					local listIndex = array.find( spawnList, "ELITE" )
-					
-					if listIndex then
-						cxt.units[unitCount + listIndex].template = "MM_spider_drone"
-					end
-				end
-			end		
 		end
     end
 end
