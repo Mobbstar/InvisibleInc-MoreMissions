@@ -158,14 +158,12 @@ serverdefs.createNewSituation = function( campaign, gen, tags, difficulty )
 
 	if not newSituation and array.find(tags, "close_by") then
 		-- Secure Holding Facility/Courier Rescue: if there was no viable location, lift the requirement for proximity.
-		if not array.find(tags, "close_by_nevermind") then
-			table.insert(tags, "close_by_nevermind")
-			newSituation = serverdefs_createNewSituation_old( campaign, gen, tags, difficulty )
-		end
-		if not newSituation and not array.find(tags, "corp_nevermind") then
-			-- Still no viable location. Allow any corp.
+		log:write("[MM] new situation cannot find nearby location, trying any location within corp")
+		array.removeElement(tags, "close_by")
+		newSituation = serverdefs_createNewSituation_old( campaign, gen, tags, difficulty )
+		if not newSituation then
+			log:write("[MM] new situation cannot find any location within corp, trying any location")
 			-- (Presence of corp in the tags list is sufficient, no need to remove any existing corp tag)
-			table.insert(tags, "corp_nevermind")
 			array.concat(tags, serverdefs.CORP_NAMES)
 			newSituation = serverdefs_createNewSituation_old( campaign, gen, tags, difficulty )
 		end
@@ -199,17 +197,15 @@ end
 --SECURE HOLDING FACILITY/COURIER RESCUE
 local serverdefs_defaultMapSelector_old = serverdefs.defaultMapSelector
 serverdefs.defaultMapSelector = function( campaign, tags, tempLocation )
-	if array.find(tags, "close_by") and not array.find(tags, "close_by_nevermind") then
-		local MAX_DIST = 6 -- 6 hour distance
+	if array.find(tags, "close_by") then
+		local MAX_DIST = 6 -- distance in hours
 		local dist = serverdefs.trueCalculateTravelTime( serverdefs.MAP_LOCATIONS[ campaign.location ], tempLocation, campaign )
-		-- log:write(tostring(dist))
+		-- log:write("[MM] testing max-dist against location " .. tempLocation.name .. " - " .. tostring(dist))
 		if dist > MAX_DIST then
 			return false
 		end
 	end
-
 	return serverdefs_defaultMapSelector_old( campaign, tags, tempLocation)
-
 end
 
 end

@@ -49,10 +49,6 @@ return {
 
 		ASSASSINATION = "ASSASSINATION",
 		ASSASSINATION_TIP = "<c:FF8411>ASSASSINATION</c>\nProvides credits at the cost of a corp-wide security increase. And your conscience.",
-		HOLOSTUDIO = "HOLOSTUDIO",
-		HOLOSTUDIO_TIP = "<c:FF8411>HOLOSTUDIO</c>\nProvides advanced Holo-Projectors. Similiar to Security Dispatch.",
-		LANDFILL = "SALVAGING PLANT",
-		LANDFILL_TIP = "<c:FF8411>SALVAGING PLANT</c>\nProvides disliked items at heavy discounts. Similiar to Nanofab Vestibule.",
 		DISTRESSCALL = "DISTRESS CALL",
 		DISTRESSCALL_TIP = "<c:FF8411>DISTRESS CALL</c>\nProvides a chance at an agent and their gear, but the alarm rises quickly.",
 		WEAPONSEXPO = "TECH EXPO",
