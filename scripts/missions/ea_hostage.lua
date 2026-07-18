@@ -674,23 +674,17 @@ local function startPhase( script, sim )
 	script:waitFor( HOSTAGE_ESCAPED )
 	sim.TA_mission_success = true -- flag for Talkative Agents
 	sim:getTags().EA_hostage_rescued = true
-	--sim:setMissionReward( MISSION_REWARD )
-	-- sim:setMissionReward ( simquery.scaleCredits( sim, MISSION_REWARD ))		--removed for now as we want the two new sites to be the only reward from this.
+	-- sim:setMissionReward( simquery.scaleCredits( sim, MISSION_REWARD )) --removed for now as we want the new sites to be the only reward from this.
 	sim:removeObjective( "hostage_3" )
 
-	-- Spawn two new missions in the same corp but otherwise unspecified
+	-- Spawn new missions in the same corp but otherwise unspecified
 	local serverdefs = include( "modules/serverdefs" )
 	local tags = util.tmerge( { sim:getParams().world, "2max", "close_by", }, serverdefs.ESCAPE_MISSION_TAGS )
-	if array.find( tags, "executive_terminals" ) then
-		array.removeIf( tags, function(v) return v == "executive_terminals" end )
-	end
-	if array.find( tags, "ea_hostage" ) then
-		array.removeIf( tags, function(v) return v == "ea_hostage" end )
-	end
+	array.removeIf(tags, function(v) return v == "executive_terminals" or v == "ea_hostage" end) -- These are not satisfying rewards to the player.
 
-	sim:addNewLocation( tags )
-	sim:addNewLocation( tags )
-	sim:addNewLocation( tags )
+	for i = 1, 3 do
+		sim:addNewLocation(util.tdupe(tags))
+	end
 
 	-- sim:getTags().delayPostGame = true
 	script:waitFrames( 0.5*cdefs.SECONDS )
