@@ -831,7 +831,11 @@ local function addKeys( sim )
 	local consoleCandidates = {}
 	
 	for i, unit in pairs(sim:getAllUnits()) do
-		if unit:getTraits().safeUnit and not (unit:getUnitData().id == "guard_locker") then
+		if
+			unit:getTraits().safeUnit
+			and (unit:getUnitData().id == "lab_safe" or unit:getUnitData().id == "lab_safe_tier2")
+			and not unit:getTraits().special_safe
+		then
 			table.insert(safeCandidates, unit)
 		end
 	end
@@ -842,11 +846,11 @@ local function addKeys( sim )
 		sim:spawnUnit(item)
 		unit:addChild(item)
 		unit:getTraits().MM_hasAICard = true
-		log:write("[MM] safe added!")
+		log:write("[MM] AI safe card added!")
 	end
 	
 	for i, unit in pairs(sim:getAllUnits()) do
-		if unit:getTraits().mainframe_console then
+		if unit:getTraits().mainframe_console and not unit:getTraits().special_console then
 			table.insert(consoleCandidates, unit)
 		end
 	end
@@ -863,7 +867,7 @@ local function addKeys( sim )
 			unit:getTraits().hijacked = nil
 			unit:getTraits().cpus = 2 --sorry, AndrewKay, I cannot be bothered to look up the console PWR determining thing for this
 		end
-		log:write("[MM] console added!")
+		log:write("[MM] AI console found!")
 	end
 end
 
