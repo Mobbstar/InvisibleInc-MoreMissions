@@ -396,6 +396,7 @@ local tool_templates =
 	{
 		name = STRINGS.MOREMISSIONS.ITEMS.GRENADE_CRY_BABY_DEAD,
 		desc = STRINGS.MOREMISSIONS.ITEMS.GRENADE_CRY_BABY_DEAD_TOOLTIP,
+		type = "crybaby_grenade",
 		flavor = "",
 
 		profile_icon = "gui/icons/item_icons/items_icon_small/icon-item_crybaby_pwr_small.png",
@@ -412,7 +413,7 @@ local tool_templates =
 		},
 		abilities = {"throw"},
 		sounds = {activate="SpySociety/Grenades/stickycam_deploy", bounce="SpySociety/Grenades/bounce", cry_baby="SpySociety_DLC001/Actions/crybaby_activate"},
-		traits = { cryBaby=true, range=15, agent_filter=true, targeting_ignoreLOS = true, removeAfter=true},
+		traits = { cryBaby=true, range=15, agent_filter=true, targeting_ignoreLOS = true, removeAfter=true, ignoreSight = true},
 		value = 300,
 		locator=true,
 	},
