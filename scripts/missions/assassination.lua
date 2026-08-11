@@ -15,13 +15,6 @@ local SCRIPTS = include("client/story_scripts")
 
 local CHANCE_OF_DECOY = 0.3
 
-local function queueCentral(script, scripts)
-	for k, v in pairs(scripts) do
-		script:queue( { script=v, type="newOperatorMessage" } )
-		script:queue(0.5*cdefs.SECONDS)
-	end	
-end
-
 ----
 -- Trigger Definitions
 
