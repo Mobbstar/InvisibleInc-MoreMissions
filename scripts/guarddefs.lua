@@ -91,6 +91,10 @@ local ANDROID_TRAITS = util.extend( commondefs.basic_agent_traits )
 	lookaroundRange = 5,
 }
 
+-- drones (basic_robot_traits) don't have this so the inventory doesn't show when hacked
+-- (this could make goose ops able to throw buster chips with EAA)
+ANDROID_TRAITS.inventoryMaxSize = nil
+
 local SPECDROID_TRAITS = util.extend( ANDROID_TRAITS )
 {
 	-- walk=true,
