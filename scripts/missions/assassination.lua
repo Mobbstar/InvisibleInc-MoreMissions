@@ -1,4 +1,3 @@
-local array = include( "modules/array" )
 local binops = include( "modules/binary_ops" )
 local util = include( "modules/util" )
 local cdefs = include( "client_defs" )
@@ -10,21 +9,11 @@ local simquery = include( "sim/simquery" )
 local mission_util = include( "sim/missions/mission_util" )
 local escape_mission = include( "sim/missions/escape_mission" )
 local SCRIPTS = include("client/story_scripts")
-local mathutil = include( "modules/mathutil" )
 
 ---------------------------------------------------------------------------------------------
 -- Local helpers
 
 local CHANCE_OF_DECOY = 0.3
-local bodyguard_unit --file-wide variable for ease of checking
-local bounty_target_unit
-
-local function queueCentral(script, scripts)
-	for k, v in pairs(scripts) do
-		script:queue( { script=v, type="newOperatorMessage" } )
-		script:queue(0.5*cdefs.SECONDS)
-	end	
-end
 
 ----
 -- Trigger Definitions
@@ -47,29 +36,15 @@ local DECOY_REVEALED =
 	end,
 }
 
-local NEW_INTEREST = 
-{
-	trigger = simdefs.TRG_NEW_INTEREST,
-	fn = function( sim, evData )
-		if evData.interest.sourceUnit and evData.interest.sourceUnit:getTraits().MM_bounty_target and not evData.interest.sourceUnit:getTraits().MM_realtarget then
-			if evData.interest.reason == nil or (evData.interest.reason and not (evData.interest.reason == "REASON_MM_ASSASSINATION") ) then
-				return evData.interest
-			end
-		end
-	end,
-}
-
-local NEW_UNIT_INTEREST = 
-{
+local NEW_VIP_INTEREST = {
 	trigger = simdefs.TRG_UNIT_NEWINTEREST,
-	fn = function( sim, evData )
-		if evData.unit and evData.unit:getTraits().MM_bounty_target and not evData.unit:getTraits().MM_realtarget then
-			if evData.interest.reason == nil or (evData.interest.reason and not (evData.interest.reason == "REASON_MM_ASSASSINATION")) then
-				local interest = { sourceUnit = evData.unit, x = evData.interest.x, y = evData.interest.y }
-				-- log:write("[MM] interest")
-				-- log:write(util.stringize(evData.unit:getUnitData().name,2))
-				return interest
-			end
+	fn = function(sim, evData)
+		if
+			evData.unit:getTraits().MM_bounty_target
+			and not evData.unit:getTraits().MM_realtarget
+			and evData.interest.reason ~= "REASON_MM_ASSASSINATION"
+		then
+			return evData.unit, evData.interest
 		end
 	end,
 }
@@ -163,129 +138,53 @@ local BODYGUARD_KO =
 	end,
 }
 
-local BODYGUARD_SHOT_AT =
-{
-	trigger = "MM_shotAtBodyguard",
-	fn = function( sim, evData )
-		if evData.targetUnit:getTraits().MM_bodyguard then
-			local equipped = evData.equipped
-			if equipped and not (equipped:getTraits().canSleep or equipped:getTraits().targetNotAlerted or equipped:getTraits().noTargetAlert) then
-				-- log:write("[MM] trigger MM_shotAtBodyguard")
-				return evData.targetUnit, evData.sourceUnit
-			end
-		end
-	end,
-}
-
-local UNIT_WARP = 
-{
-	trigger = simdefs.TRG_UNIT_WARP,
-	fn = function( sim, evData )
-		return evData.unit
-	end
-}
-
-local UNIT_USE_DOOR = 
-{
-	trigger = simdefs.TRG_UNIT_USEDOOR,
-	fn = function( sim, evData )
-		return evData.unit
-	end
-}
-
--- this is a mishmash of PC_SAW_UNIT and PC_SAW_CELL_WITH_TAG, as the former doesn't work when a player-captured camera spots the VIP.
-PC_SAW_UNIT_FIXED = function( tag )
-	return
-	{
-		trigger = simdefs.TRG_LOS_REFRESH,
-		fn = function( sim, evData )
-			local seer =  evData.seer 
+local PC_SAW_UNIT_FIXED = function(tag)
+	return {
+		trigger = simdefs.TRG_UNIT_APPEARED,
+		fn = function(sim, evData)
+			local seer = sim:getPlayerByID(evData.seerID)
 			if not seer or not seer:isPC() then
 				return false
 			end
-			
-			for i = 1, #evData.cells, 2 do
-				local cell = sim:getCell(evData.cells[i],evData.cells[i+1])		
-				if cell.units then
-					for i, seenUnit in pairs(cell.units) do
-						if seenUnit:hasTag(tag) then
-							return seenUnit, seer
+
+			if not tag or evData.unit:hasTag(tag) then
+				local x, y = evData.unit:getLocation()
+				if x then
+					for _, seerUnit in ipairs(seer:getUnits()) do
+						-- don't use sim:canUnitSeeUnit or unit:getSeenUnits
+						-- sim:notifySeers updates units after players so they are not updated yet
+						-- (sim:refreshUnitLOS does it in reverse order...)
+						if sim:canUnitSee(seerUnit, x, y) and simquery.couldUnitSee(sim, seerUnit, evData.unit) then
+							return evData.unit, seerUnit
 						end
 					end
-				end		
+				end
 			end
-
 			return false
 		end,
 	}
 end
 
--- bodyguard behaviour: keeping within vision range of VIP, investigating in his stead
-local function keepClose( script, sim )
+-- when VIP is distracted, bodyguard investigates distraction instead if in sight, while VIP investigates on the spot
+local function waitForUnitInterest(script, sim)
 	while true do
+		local _, vip, interest = script:waitFor(NEW_VIP_INTEREST)
 		local bodyguard = nil
-		local vip = nil
-		script:waitFor( mission_util.PC_START_TURN )
 		for i, unit in pairs(sim:getNPC():getUnits()) do
-			if unit:getTraits().MM_bodyguard then
+			if unit:getTraits().MM_bodyguard and unit:getBrain() and not unit:isKO() then
 				bodyguard = unit
 			end
-			if sim.MM_bounty_disguise_active then
-				if unit:getTraits().MM_decoy then
-					vip = unit
-				end
-			else
-				if unit:getTraits().MM_bounty_target then
-					vip = unit
-				end
+		end
+		if bodyguard then
+			local x0, y0 = vip:getLocation()
+			if not vip:getTraits().MM_ceo_armed and simquery.couldUnitSeeCell(sim, bodyguard, sim:getCell(x0, y0)) then
+				vip:getBrain():getSenses():addInterest(x0, y0, interest.sense, "REASON_MM_ASSASSINATION") --vip stays put and investigates in place
+				bodyguard
+					:getBrain()
+					:getSenses()
+					:addInterest(interest.x, interest.y, simdefs.SENSE_RADIO, interest.reason, interest.sourceUnit) --bodyguard investigates distraction
 			end
 		end
-		if bodyguard and vip and bodyguard:getBrain() and not bodyguard:isKO() then
-			if not simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) and not (bodyguard:getTraits().lostVIP or bodyguard:getTraits().previouslyLostVIP) then
-				bodyguard:getTraits().previouslyLostVIP = nil
-				local x1,y1 = vip:getLocation()
-				bodyguard:getBrain():spawnInterest(x1, y1, simdefs.SENSE_RADIO, simdefs.REASON_NOTICED, vip) -- give persistent interest point to VIP's location
-				bodyguard:getTraits().lostVIP = true
-			elseif simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) and bodyguard:getTraits().lostVIP then
-				bodyguard:getTraits().lostVIP = nil
-				bodyguard:getTraits().previouslyLostVIP = true
-				local x1,y1 = vip:getLocation()
-				bodyguard:getBrain():spawnInterest(x1, y1, simdefs.SENSE_RADIO, simdefs.REASON_NOTICED, vip) 		
-			end
-		end
-	end
-end
-
--- when VIP is distracted, bodyguard investigates distraction instead if in sight, while VIP investigates on the spot
-local function transferInterest( sim, interest )
-	local bodyguard = nil
-	local vip = interest.sourceUnit
-	for i, unit in pairs(sim:getNPC():getUnits()) do
-		if unit:getTraits().MM_bodyguard and unit:getBrain() and not unit:isKO() then
-			bodyguard = unit
-		end
-	end
-	if bodyguard and vip and not vip:getTraits().MM_ceo_armed and (simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) or sim.MM_bounty_disguise_active ) then
-		local x0, y0 = vip:getLocation()
-		local x1, y1 = interest.x, interest.y
-		vip:getBrain():spawnInterest(x0,y0, sim:getDefs().SENSE_DEBUG, "REASON_MM_ASSASSINATION") --vip stays put and investigates in place	
-		if simquery.couldUnitSeeCell( sim, bodyguard, sim:getCell(vip:getLocation()) ) then
-			bodyguard:getBrain():spawnInterest(x1,y1, simdefs.SENSE_RADIO, "REASON_MM_ASSASSINATION") --bodyguard investigates distraction
-		end
-	end
-end
-
-local function waitForInterest( script, sim )
-	while true do
-		local _, interest = script:waitFor( NEW_INTEREST )
-		transferInterest( sim, interest)	
-	end
-end
-
-local function waitForUnitInterest( script, sim )
-	while true do
-		local _, interest = script:waitFor( NEW_UNIT_INTEREST )
-		transferInterest( sim, interest)		
 	end
 end
 
@@ -328,20 +227,6 @@ local PC_UNLOCK_SAFEROOM_START_TURN =
 	trigger = simdefs.TRG_START_TURN,
 	fn = function( sim, evData )
 		return evData:isPC() and playerCanUnlockSaferoom( sim )
-	end,
-}
-local ESCAPE_WITH_BODY =
-{
-	trigger = simdefs.TRG_UNIT_ESCAPED,
-	fn = function( sim, triggerData )
-		for unitID, unit in pairs(sim:getAllUnits()) do
-			if unit:hasTag("assassination") then
-				local cell = sim:getCell( unit:getLocation() )
-				if cell and cell.exitID == simdefs.DEFAULT_EXITID then
-					return unit
-				end
-			end
-		end
 	end,
 }
 ----
@@ -768,8 +653,6 @@ local function ceoAlerted(script, sim, mission)
 	ceo:getTraits().MM_alertlink = nil
 
 	-- remove these hooks, as we don't want the bodyguard trying to do these things while the CEO is in the panic room
-	script:removeHook(keepClose)
-	script:removeHook(waitForInterest)
 	script:removeHook(waitForUnitInterest)
 	
 	-- Alert the bodyguard, unless we have already sent an alert
@@ -834,43 +717,6 @@ local function despawnRedundantCameraDB(sim)
 	end
 end
 
--- Like turnToFace, but without processReactions
-local function turnBodyguardToFace(self, x, y)
-	if self:getTraits().refreshingLOS then
-		return
-	end
-	
-	local x1, y1 = self:getLocation()
-	local facing = simquery.getDirectionFromDelta(x - x1, y - y1)
-
-	if facing >= 0 and facing < simdefs.DIR_MAX and self._facing ~= facing then
-		--self:resetAllAiming()
-		self:getTraits().turning = true
-		self._facing = facing
-		self._sim:dispatchEvent( simdefs.EV_UNIT_TURN, { unit = self, facing = facing } )
-
-		if self:isValid() and self:hasTrait("hasSight") then
-			self._sim:refreshUnitLOS( self )
-		end
-		--if self:getPlayerOwner():isNPC() then
-		--	self._sim:processReactions(self)
-		--end
-		self:getTraits().turning = nil
-	end
-end
-
-local function bodyguardShotAt( script, sim )
-	local _, guard, agent = script:waitFor( BODYGUARD_SHOT_AT )
-	if guard:isValid() and guard:getLocation() and not guard:isKO() then
-		if simquery.couldUnitSee( sim, guard, agent, true, nil ) then
-			--guard:turnToFace( agent:getLocation() )
-			turnBodyguardToFace( guard, agent:getLocation() )
-		end
-	end
-
-	script:addHook( bodyguardShotAt )
-end
-
 local function waitForSteal( script, sim, mission )
 	local _, decoy = script:waitFor( TRIED_TO_STEAL_FROM_DECOY )
 	mission.revealDecoy( sim, decoy )
@@ -885,7 +731,7 @@ local function despawnDecoy( script, sim )
 	end
 	
 	script:queue( { type="hideHUDInstruction" } ) 
-	script:waitFor( mission_util.PC_ANY, PC_AFTER_ANY )
+	script:waitFor( mission_util.PC_ANY, PC_AFTER_ANY, mission_util.PC_START_TURN )
 	sim:warpUnit( decoyUnit, nil ) -- remove the original
 	sim:despawnUnit( decoyUnit ) 
 	
@@ -899,19 +745,18 @@ local function despawnDecoy( script, sim )
 	end
 end
 
-local 	PC_WON =
-	{		
-        priority = 10,
+--[[ local PC_WON = {
+	priority = 10,
 
-        trigger = simdefs.TRG_GAME_OVER,
-        fn = function( sim, evData )
-            if sim:getWinner() then
-                return sim:getPlayers()[sim:getWinner()]:isPC()
-            else
-                return false
-            end
-        end,
-	}
+	trigger = simdefs.TRG_GAME_OVER,
+	fn = function(sim, evData)
+		if sim:getWinner() then
+			return sim:getPlayers()[sim:getWinner()]:isPC()
+		else
+			return false
+		end
+	end,
+} ]]
 
 -- local function updateAgency( script, sim, mission ) --UNUSED
 	-- script:waitFor( PC_WON )
@@ -1015,7 +860,6 @@ end
 local function tryDecoy( sim )
 	-- log:write("[MM] trying decoy")
 	local vip = nil -- resetting for save file edge cases
-	local no_decoy = nil
 	-- if sim:getParams().agency.MM_assassinations == nil then
 		-- no_decoy = true -- guarantee no decoy on first campaign assassination
 	-- end
@@ -1086,10 +930,7 @@ function mission:init( scriptMgr, sim )
 	scriptMgr:addHook( "UNLOCK", playerUnlocksSaferoom, nil, self )
 	scriptMgr:addHook( "BODYGUARD", bodyguardAlertsCeo, nil, self )
 	scriptMgr:addHook( "CEO", ceoAlerted, nil, self )
-	scriptMgr:addHook( "bodyguardShotAt", bodyguardShotAt )
-	scriptMgr:addHook( "waitForInterest", waitForInterest )
 	scriptMgr:addHook( "waitForUnitInterest", waitForUnitInterest )
-	scriptMgr:addHook( "keepClose", keepClose )
 	scriptMgr:addHook( "SEE_REAL", playerSeesRealCEO, nil, self )
 	scriptMgr:addHook( "waitForSteal", waitForSteal, nil, self )
 	scriptMgr:addHook( "despawnDecoy", despawnDecoy )
