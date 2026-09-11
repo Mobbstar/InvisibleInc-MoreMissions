@@ -911,6 +911,7 @@ local function spawnDaemons( sim )
 			for i, unit in pairs(locks) do
 				if not ice_boosted then
 					unit:getTraits().mainframe_ice = unit:getTraits().mainframe_ice + 2
+					unit:getTraits().mainframe_iceMax = unit:getTraits().mainframe_iceMax + 2
 					ice_boosted = true
 				end
 				local daemon = PROGRAM_LIST:getChoice( sim:nextRand( 1, PROGRAM_LIST:getTotalWeight() ))
