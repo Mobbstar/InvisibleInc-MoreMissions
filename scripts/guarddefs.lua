@@ -206,7 +206,6 @@ local npc_templates =
 			kill_trigger = "guard_dead",
 			vip = true, --This flag is important for the panic behaviour
 			pacifist = true,
-			recap_icon = "executive",
 			MM_bounty_target = true,
 			MM_alertlink = true,
 			mm_fixnopatrolfacing = true,
@@ -223,7 +222,7 @@ local npc_templates =
 		abilities = {"shootOverwatch", "overwatch", "MM_fakesteal"},
 		children = {},
 		idles = DEFAULT_IDLES,
-		sounds = DROID_SOUNDS,
+		sounds = SOUNDS.GUARD,
 		brain = "mmBountyFakeBrain",
 	},
 
@@ -305,6 +304,7 @@ local npc_templates =
 			dashSoundRange = 8,
 			sightable = true,
 			woundsMax = 2,
+			always_patrol = true,
 			MM_bodyguard = true,
 			MM_alertlink = true,
 			recap_icon = "executive",

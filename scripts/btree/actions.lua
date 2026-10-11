@@ -24,7 +24,10 @@ function Actions.mmArmVip( sim, unit )
 	local currentInterest = unit:getBrain():getInterest()
 	if currentInterest and interestOutsideOfSaferoom( sim, currentInterest ) then
 		sim:dispatchEvent( simdefs.EV_UNIT_DEL_INTEREST, {unit = unit, interest = currentInterest} )
-		sim:triggerEvent( simdefs.TRG_DEL_INTEREST, {unit = unit, interest = currentInterest} )
+		-- this can actually delete other unit's interests that they were about to investigate
+		-- only do this for interests that have actually been investigated (interest1.investigated ~= interest2.investigated)
+		-- sim:triggerEvent( simdefs.TRG_DEL_INTEREST, {unit = unit, interest = currentInterest} )
+		unit:getBrain():getSenses():removeInterest(currentInterest)
 	end
 	-- Remove other interests outside the saferoom
 	array.removeIf( unit:getBrain():getSenses().interests, function( interest ) return interestOutsideOfSaferoom( sim, interest ) end )

@@ -152,7 +152,7 @@ local function PC_SAW_UNIT_WITH_MARKER2( script, tag, marker )
 	{
 		trigger = simdefs.TRG_UNIT_APPEARED,
 		fn = function( sim, evData )
-			local seer = sim:getUnit( evData.seerID )
+			local seer = sim:getPlayerByID(evData.seerID)
 			if not seer or not seer:isPC() then
 				return false
 			end
