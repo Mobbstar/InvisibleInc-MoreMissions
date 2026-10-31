@@ -174,6 +174,9 @@ local function onGuardTooltip(tooltip, unit)
 	if unit:getTraits().decoyTooltip then
 		tooltip:addAbility( STRINGS.MOREMISSIONS.UI.TOOLTIPS.DECOY, STRINGS.MOREMISSIONS.UI.TOOLTIPS.DECOY_DESC, "gui/icons/item_icons/items_icon_small/icon-item_holomesh_Prism.png" )	
 	end
+	if unit:getTraits().MM_huntsPrisoners then
+		tooltip:addAbility( STRINGS.MOREMISSIONS.MISSIONS.VANILLA_HARDMODE.DETENTION_CAPTAIN_ABILITY_TITLE, STRINGS.MOREMISSIONS.MISSIONS.VANILLA_HARDMODE.DETENTION_CAPTAIN_ABILITY_DESC, "gui/icons/action_icons/Action_icon_Small/icon-action_exit_small.png" )	
+	end
 end
 
 local function onItemWorldTooltip( tooltip, unit )

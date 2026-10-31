@@ -154,6 +154,14 @@ local function init( modApi )
 	for i,log in ipairs(logs) do
 		modApi:addLog(log)
 	end
+
+	-- vanilla hard mode (+ executive terminal in load)
+	include(scriptPath .. "/missions/mission_server_farm")
+	include(scriptPath .. "/missions/mission_ceo_office")
+	include(scriptPath .. "/missions/mission_security")
+	include(scriptPath .. "/missions/mission_cyberlab")
+	include(scriptPath .. "/missions/mission_detention_centre")
+	include(scriptPath .. "/missions/mission_vault")
 end
 
 local function lateInit( modApi )

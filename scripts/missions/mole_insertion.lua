@@ -14,6 +14,7 @@ local itemdefs = include("sim/unitdefs/itemdefs")
 local escape_mission = include( "sim/missions/escape_mission" )
 local mazegen = include("sim/mazegen")
 local worldgen = include( "sim/worldgen" )
+local prefabs = include("sim/prefabs")
 --------------------------------------------------------------------------------
 -- Mole Insertion
 --
@@ -932,16 +933,9 @@ function mission.pregeneratePrefabs( cxt, tagSet )
 end
 
 function mission.generatePrefabs( cxt, candidates )
-	local prefabs = include( "sim/prefabs" )
-	cxt.defaultFitnessFn = cxt.defaultFitnessFn or {}
-	cxt.defaultFitnessSelect = cxt.defaultFitnessSelect or {}
-	cxt.maxCountOverride = cxt.maxCountOverride or {}
-	cxt.defaultFitnessFn["entry_guard"] = getMoleExitFitnessFn(cxt)
-	cxt.defaultFitnessSelect["entry_guard"] = prefabs.SELECT_WEIGHTED
-	cxt.maxCountOverride["entry_guard"] = 1
+	cxt.MM_spawnedGuardEntries = (cxt.MM_spawnedGuardEntries or 1) + prefabs.generatePrefabs(cxt, candidates, "entry_guard", 1, getMoleExitFitnessFn(cxt))
 	escape_mission.generatePrefabs( cxt, candidates )
 	prefabs.generatePrefabs( cxt, candidates, "MM_cameradb", 1 ) --force-spawn a camera db, then later despawn any redundant one
-	-- log:write("[MM] spawning cameradb")
 end
 
 return mission

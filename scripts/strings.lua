@@ -653,6 +653,13 @@ return {
 
 			},
 		},
+
+		VANILLA_HARDMODE = {
+			DETENTION_CAPTAIN_ALARMED_FLYTXT = "CAPTAIN DETECTED ESCAPE",
+			DETENTION_CAPTAIN_ABILITY_TITLE = "ESCAPE PREVENTION",
+			DETENTION_CAPTAIN_ABILITY_DESC = "Detects the prisoner at the start of each agency's turn. Notices when cell doors get opened.",
+			SECURITY_PRESSURE_PLATE = "PRESSURE PLATE",
+		},
 		
 		SIDEMISSIONS = {
 			STEAL_STORAGE =
